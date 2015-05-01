@@ -2,6 +2,7 @@
 title: Test Highlights
 date: 2015-05-01
 tags: syntax, highlighter, tools
+commit: f36c96bd3b07d63053b40c1e34e59159d4a5f851
 ---
 
 Compared to other languages, Ruby does not have very good tool support for development. This might not be a problem for many of us, in the end, humans create the code, and not tools.

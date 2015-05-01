@@ -20,7 +20,7 @@
         <div class="footer-right">
           By <a href="http://janlelis.com">Jan Lelis</a>
         </div>
-        <a href="https://github.com/janlelis/idiosyncratic-ruby.com/blob/master/source/<%= current_article.path %>.md">Comments on GitHub</a> |
+        <a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/<%= current_article.data.commit %>#all_commit_comments">Comments on GitHub</a> |
         Created: <%= current_article.date.strftime("%Y-%m-%d") %> |
         Last Update: <%= ( Date.parse(`git log -1 --format=%cd`) rescue current_article.date ).strftime("%Y-%m-%d") %>
       </footer>
