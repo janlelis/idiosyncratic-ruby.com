@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - Test Highlights</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="A 31 Parts Story about Ruby Specialities. A New Post Every Day in May 2015!"/>
+<meta name="keywords" content="ruby, syntax, highlighter, tools"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section>
+        <a href="/index/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 id="top"><a href="#top">Test Highlights</a></h1>
+      </section>
+
+      <article class="post">
+        <p>Compared to other languages, Ruby does not have very good tool support for development. This might not be a problem for many of us, in the end, humans create the code, and not tools.</p>
+
+<p>Nevertheless, it would be better to have better tools. Or at least valid syntax highlighting. The following table shows popular options for code highlighting, but none of them can manage to properly highlight more advanced Ruby features. Here is the:</p>
+
+<h2 id="syntax-highlighter-comparison">Syntax Highlighter Comparison</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Editors or Syntax Highlighter</th>
+      <th>Version</th>
+      <th>Highlights Ruby Correctly?¹</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://github.com/rubychan/coderay">coderay</a></td>
+      <td>1.1.0</td>
+      <td>no. score: 4/5</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.jetbrains.com/ruby/">ruby mine</a></td>
+      <td>7.1 RM-141.664</td>
+      <td>no. score: 4/5</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/jneen/rouge">rouge</a></td>
+      <td>1.8.0</td>
+      <td>no. score: 3/5</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.gnu.org/software/emacs/">emacs</a></td>
+      <td>24.3.1</td>
+      <td>no. score: 2/5</td>
+    </tr>
+    <tr>
+      <td><a href="http://pygments.org/">pygments</a></td>
+      <td>1.6</td>
+      <td>no. score: 2/5</td>
+    </tr>
+    <tr>
+      <td><a href="https://wiki.gnome.org/Apps/Gedit">gedit</a></td>
+      <td>3.10.4</td>
+      <td>no. score: 1/5</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/PrismJS/prism">prism.js</a></td>
+      <td>0.0.1</td>
+      <td>no. score: 1/5</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/ccampbell/rainbow">rainbow.js</a></td>
+      <td>1.1.9</td>
+      <td>no. score: 1/5</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.gnu.org/software/src-highlite/">src-highlight</a></td>
+      <td>3.1.6 (library: 4:0:0)</td>
+      <td>no. score: 1/5</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/syntaxhighlighter/syntaxhighlighter">syntaxhighlighter.js</a></td>
+      <td>3.0.83</td>
+      <td>no. score: 1/5</td>
+    </tr>
+    <tr>
+      <td><a href="http://www.vim.org/">vim</a></td>
+      <td>7.4.52</td>
+      <td>no. score: 1/5</td>
+    </tr>
+    <tr>
+      <td><a href="https://atom.io/">atom</a></td>
+      <td>0.192.0</td>
+      <td>no. score: 0/5</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/isagalaev/highlight.js">highlight.js</a></td>
+      <td>8.5</td>
+      <td>no. score: 0/5</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.sublimetext.com/">sublime text</a></td>
+      <td>3 Build 3083</td>
+      <td>no. score: 0/5</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>¹ Obviously, passing the test does not necessarily mean that a tool highlights Ruby correctly - but it is an indication.</p>
+
+<h2 id="the-idiosyncratic-ruby-syntax-highlight-test">The Idiosyncratic Ruby Syntax Highlight Test</h2>
+
+<pre><code># # #
+# For Reference
+42
+"String with #{ :interpolation }"
+/regex$/
+$/
+
+# # #
+# TEST CASE 1: Question Marks
+# SHOULD BE HIGHLIGHTED AS: Array of Strings - Operator - String - Operator - String
+
+[?', ?(] ?'a':'b'
+
+# # #
+# TEST CASE 2: Percent Format
+# SHOULD BE HIGHLIGHTED AS: String - Operator - Array of Numbers
+
+"%d %d %d"%[1,2,3]
+
+# # #
+# TEST CASE 3: Space-delimited String
+# SHOULD BE HIGHLIGHTED AS: String Delimiter - String
+
+% 5 #
+
+# # #
+# TEST CASE 4: Multi-line Regex with Global Variable Interpolation
+# SHOULD BE HIGHLIGHTED AS: Regex Delimiter - Regex -
+#                           Interpolation Character (Optional) -
+#                           Global Variable -
+#                           Regex Delimiter - Regex Options
+
+/
+$$#$/
+/omix
+
+# # #
+# TEST CASE 5: Nested Heredoc
+# SHOULD BE HIGHLIGHTED AS: Method - String Delimiter - Operator -
+#                           String Delimiter - String - String Delimiter
+#                           String - String Delimiter
+
+puts &lt;&lt;HERE&lt;&lt;&lt;&lt;THERE
+foo 42
+HERE
+bla 43
+THERE
+</code></pre>
+
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          By <a href="http://janlelis.com">Jan Lelis</a>
+        </div>
+        <a href="https://github.com/janlelis/idiosyncratic-ruby.com/blob/master/source/posts/1-test-highlights.html.md">Comments on GitHub</a> |
+        Created: 2015-05-01 |
+        Last Update: 2015-05-01
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>
