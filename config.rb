@@ -5,7 +5,7 @@
 # Time.zone = "UTC"
 
 activate :blog do |blog|
-  blog.permalink = "{no}-{title}"
+  blog.permalink = "{no}-{title}.html"
   blog.sources = "posts/{no}-{title}.html"
   blog.layout = "layouts/post.html"
   # blog.summary_separator = /(READMORE)/
