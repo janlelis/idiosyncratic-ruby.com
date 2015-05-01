@@ -1,4 +1,4 @@
 Idiosyncratic Ruby
 ==================
 
-http://example.com
+http://idiosyncratic-ruby.com
