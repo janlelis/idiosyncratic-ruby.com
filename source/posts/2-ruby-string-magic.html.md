@@ -2,6 +2,7 @@
 title: Ruby String Magic
 date: 2015-05-02
 tags: strings, regex, syntax, stdlib
+commit: cee4bd8f81fa108aecc5b01734572fd3e69dcff4
 meta:
 - name: "twitter:dnt"
   content: "on"
