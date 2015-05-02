@@ -9,6 +9,8 @@ Compared to other languages, Ruby does not have very good tool support for devel
 
 Nevertheless, it would be better to have better tools. Or at least valid syntax highlighting. The following table shows popular options for code highlighting, but none of them can manage to properly highlight more advanced Ruby features. Here is the:
 
+ARTICLE
+
 ## Syntax Highlighter Comparison
 
 Editors or Syntax Highlighter                      | Version        | Highlights Ruby Correctly?¹

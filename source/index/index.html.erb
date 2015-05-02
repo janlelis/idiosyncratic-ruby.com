@@ -2,32 +2,28 @@
 title: Idiosyncratic Ruby - All Posts
 ---
 
-<div class="hero hero-small">
-  <div class="hero-inner">
-    <a href="/index/" class="hero-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
-    <div class="hero-copy">
-      <h1>Idiosyncratic Ruby</h1>
-      <p>A 31 Parts Story about Ruby Specialities.<br/>A New Post Every Day in May 2015!</p>
-    </div>
-  </div>
-</div>
-
 <div class="world">
-  <ul class="article-links">
-    <% page_articles.sort_by{ |a| a.path.to_i }.reverse_each do |article| %>
-      <li>
-      <!-- #{article.date.strftime('%e')}:  -->
-        <%= link_to "#{article.title}", article %>
-      </li>
-    <% end %>
-  </ul>
+  <section class="post-header">
+    <a href="/index/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+    <h1 class="post-heading" id="top"><a href="/index/">Idiosyncratic Ruby</a></h1>
+  </section>
 
-<!--   <aside>
-    <h2>Tags</h2>
-    <ol>
-      <% blog.tags.each do |tag, articles| %>
-        <li><%= link_to "#{tag} (#{articles.size})", tag_path(tag) %></li>
-      <% end %>
-    </ol>
-  </aside> -->
+  <section class="index-articles">
+    <% page_articles.sort_by{ |a| a.path.to_i }.reverse_each.with_index do |article, index| %>
+      <article>
+        <h2><%= index + 1 %> | <%= article.title %></h2>
+        <%= article.summary %>
+        <%= link_to "READ", article %>
+      </article>
+    <% end %>
+  </section>
+
+  <footer>
+    <div class="footer-right">
+      By <a href="http://janlelis.com">Jan Lelis</a>
+    </div>
+    <a href="https://twitter.com/idiosyncraticrb">Twitter</a> |
+    <a href="https://github.com/janlelis/idiosyncratic-ruby.com">GitHub</a> |
+    Last Update: <%= ( Date.parse(`git log -1 --format=%cd`) ).strftime("%Y-%m-%d") %>
+  </footer>
 </div>

@@ -9,6 +9,7 @@
 $action-color: rgba(119, 0, 0, 0.7);
 $base-link-color: $action-color;
 $large-screen: em(860) !default;
+$medium-screen: em(600) !default;
 $base-border-radius: 3px !default;
 
 $link-color: rgba(119, 0, 0, 0.7);
@@ -17,7 +18,7 @@ $link-color-active: rgba(119, 0, 0, 0.85);
 .hero {
   $hero-color: black;
 
-  padding-bottom: 3em;
+  padding-bottom: 1em;
 
   .hero-logo img {
     margin-bottom: 1em;
@@ -92,6 +93,10 @@ $link-color-active: rgba(119, 0, 0, 0.85);
     &:last-child {
       margin-bottom: $base-spacing;
     }
+
+    &:first-child {
+      padding-top: 0;
+    }
   }
 
   article {
@@ -123,24 +128,36 @@ body {
   @include outer-container;
 }
 
+code {
+  font-size: $base-font-size;
+}
+
 .world {
-  margin-top: 3em;
+  margin-top: 2em;
   margin-bottom: 2em;
   @include span-columns(10);
   @include shift(1);
 }
 
 h1 {
-  font-size: 48pt;
+  font-size: 30pt;
+
   a {
     color: #222;
+  }
+
+  @include media($medium-screen) {
+    font-size: 48pt;
   }
 }
 
 h2 {
-  font-size: 19pt;
+  font-size: 16pt;
   margin-top: 1.2em;
-  margin-bottom: 0;
+  code {
+    font-size: 16pt;
+    font-weight: normal;
+  }
 }
 
 
@@ -156,6 +173,10 @@ article, footer {
   }
 }
 
+section {
+  clear: both;
+}
+
 a {
   color: $link-color;
   text-decoration: none;
@@ -166,13 +187,46 @@ a {
 
 .post {
   clear: both;
+
+  h2 {
+    margin-bottom: 0;
+  }
 }
 
-.post-logo img {
-  height: 10em;
-  float: left;
-  margin-right: 3em;
-  margin-bottom: 3em;
+.post-header {
+  @include media($medium-screen) {
+    margin-top: 1em;
+  }
+}
+
+.post-logo {
+  img {
+    height: 7em;
+    margin-bottom: 1em;
+    @include media($medium-screen) {
+      width: auto;
+      float: left;
+      height: 10em;
+      margin-right: 3em;
+      margin-bottom: 3em;
+    }
+  }
+}
+
+.post-heading {
+  position: relative;
+  @include media($medium-screen) {
+    height: 160px;
+    margin-left: 180px;
+    a {
+      position: absolute;
+      bottom: -4px;
+    }
+  }
+}
+
+.index-articles {
+  margin-bottom: 2em;
 }
 
 .article-links {

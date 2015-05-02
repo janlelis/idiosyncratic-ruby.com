@@ -8,11 +8,10 @@ activate :blog do |blog|
   blog.permalink = "{no}-{title}.html"
   blog.sources = "posts/{no}-{title}.html"
   blog.layout = "layouts/post.html"
-  # blog.summary_separator = /(READMORE)/
-  # blog.summary_length = 250
+  blog.summary_separator = /ARTICLE/
   blog.default_extension = ".md"
-  # blog.taglink = "tags/{tag}.html"
   blog.tag_template = "tag.html"
+  # blog.taglink = "tags/{tag}.html"
 end
 
 page "/feed.xml", layout: false
