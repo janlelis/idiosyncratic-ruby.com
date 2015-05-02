@@ -19,6 +19,7 @@ GEM
     bourbon (4.2.2)
       sass (~> 3.4)
       thor
+    builder (3.2.2)
     cd (1.0.0)
     celluloid (0.16.0)
       timers (~> 4.0.0)
@@ -203,6 +204,7 @@ PLATFORMS
 DEPENDENCIES
   bitters
   bourbon
+  builder
   irbtools-more
   middleman (~> 3.3.10)
   middleman-blog
