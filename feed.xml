@@ -4,11 +4,77 @@
   <subtitle>A 31 Parts Story about Ruby Specialities. A New Post Every Day in May 2015!</subtitle>
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
-  <link href="http://idiosyncratic-ruby.com/feed.xml" rel="self"/>
-  <updated>2015-05-01T02:00:00+02:00</updated>
+  <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
+  <updated>2015-05-02T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Ruby String Magic</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/2-ruby-string-magic.html"/>
+    <id>http://idiosyncratic-ruby.com/2-ruby-string-magic.html</id>
+    <published>2015-05-02T02:00:00+02:00</published>
+    <updated>2015-05-02T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Ruby strings are powerful. You could say, Ruby is build around manipulating strings. There are tons of ways how to work with strings and as of Ruby 2.2.2, &lt;code&gt;String&lt;/code&gt; offers 116 instance methods. Knowing them well can save you a lot of time.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;What follows is a list of 10 lesser known things about strings: Some of them useful, some of them idiosyncratic, some both.&lt;/p&gt;
+
+&lt;h2 id="named-format-strings"&gt;Named Format Strings&lt;/h2&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Btw, Ruby&amp;#39;s format strings can be used with hashes:&amp;#10;&amp;quot;%&amp;lt;language&amp;gt;s: %&amp;lt;author&amp;gt;s&amp;quot; % { language: &amp;quot;Ruby&amp;quot;, author: &amp;quot;matz&amp;quot; } #=&amp;gt; &amp;quot;Ruby: matz&amp;quot;&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/527152031782674432"&gt;October 28, 2014&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h2 id="string-concatenation"&gt;String Concatenation&lt;/h2&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;There is a lesser-known syntax for concatenating string literals: &amp;quot;just&amp;quot; &amp;quot;put&amp;quot; &amp;quot;them&amp;quot; &amp;quot;directly&amp;quot;&amp;quot;after&amp;quot; &amp;quot;each&amp;quot; &amp;quot;other&amp;quot;&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/510013718076600320"&gt;September 11, 2014&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h2 id="strings--empty-ranges"&gt;Strings + Empty Ranges&lt;/h2&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Ruby is strange. How can an *empty* range have an effect when applied to a string?&amp;#10;r = 0..-3&amp;#10;r.to_a.empty? #=&amp;gt; true&amp;#10;&amp;quot;Ruby&amp;quot;[r] #=&amp;gt; &amp;quot;Ru&amp;quot;&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/519066888014659584"&gt;October 6, 2014&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h2 id="whitespace-matching"&gt;Whitespace Matching&lt;/h2&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Unicode is full of whitespaces. This is how you match them:&amp;#10;a=&amp;quot;    　&amp;quot; #=&amp;gt; &amp;quot;    　&amp;quot;&amp;#10;a.scan(/\s/).size #=&amp;gt; 1&amp;#10;a.scan(/[[:space:]]/).size #=&amp;gt; 5&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/539440415498579969"&gt;December 1, 2014&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h2 id="stringsucc"&gt;&lt;code&gt;String#succ&lt;/code&gt;&lt;/h2&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Ruby&amp;#39;s weird calculation of string successors:&amp;#10;&amp;quot;9z&amp;quot;.succ #=&amp;gt; &amp;quot;10a&amp;quot;&amp;#10;&amp;quot;z9&amp;quot;.succ #=&amp;gt; &amp;quot;aa0&amp;quot;&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/520230545465548801"&gt;October 9, 2014&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h2 id="stdlib-string-compression"&gt;Stdlib String Compression&lt;/h2&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Simple stdlib string compression:&amp;#10;require &amp;#39;zlib&amp;#39;&amp;#10;s = &amp;quot;Ruby&amp;quot;*99&amp;#10;s.size #=&amp;gt; 396&amp;#10;c = Zlib.deflate(s)&amp;#10;c.size #=&amp;gt; 17&amp;#10;Zlib.inflate(c) == s #=&amp;gt;true&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/511902948805599233"&gt;September 16, 2014&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h2 id="using-regex-groups-in-string"&gt;Using Regex Groups in &lt;code&gt;String#[]&lt;/code&gt;&lt;/h2&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;You can use regex incl. captured groups when accessing substrings via the [] method: &amp;quot;#42&amp;quot;[/.(\d+)/, 1] #=&amp;gt; &amp;quot;42&amp;quot;&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/508605294059192320"&gt;September 7, 2014&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h2 id="rexepunion"&gt;&lt;code&gt;Rexep.union&lt;/code&gt;&lt;/h2&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;If you have an array of strings, you can automatically generate a regex that matches any the strings: regex = Regexp.union(array_of_strings)&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/510441137254195200"&gt;September 12, 2014&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h2 id="convert-a-string-from-snakecase-to-camelcase"&gt;Convert a String from &lt;em&gt;snake_case&lt;/em&gt; to &lt;em&gt;CamelCase&lt;/em&gt;&lt;/h2&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;You can camelize a string (some_string =&amp;gt; SomeString) with:&amp;#10;&amp;quot;some_string&amp;quot;.gsub(/(?:^|_)([a-z])/) do $1.upcase end&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/509330964246720512"&gt;September 9, 2014&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h2 id="convert-a-string-from-camelcase-to-snakecase"&gt;Convert a String from &lt;em&gt;CamelCase&lt;/em&gt; to &lt;em&gt;snake_case&lt;/em&gt;&lt;/h2&gt;
+
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;You can snakify a string (SomeString =&amp;gt; some_string) with: &amp;#10;&amp;quot;SomeString&amp;quot;.gsub(/(?&amp;lt;!^)[A-Z]/) do &amp;quot;_#$&amp;amp;&amp;quot; end.downcase&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/508995693277904896"&gt;September 8, 2014&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="http://www.ruby-doc.org/core-2.2.2/String.html"&gt;RDoc: String&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/ruby/ruby/blob/trunk/string.c"&gt;Source: String&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/rubinius/rubinius/blob/master/kernel/common/string.rb"&gt;Rubinus Source: String&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Test Highlights</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/1-test-highlights.html"/>
