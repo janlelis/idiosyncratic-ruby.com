@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Idiosyncratic Ruby</title>
+  <subtitle>A 31 Parts Story about Ruby Specialities. A New Post Every Day in May 2015!</subtitle>
+  <id>http://idiosyncratic-ruby.com/index/</id>
+  <link href="http://idiosyncratic-ruby.com/index/"/>
+  <link href="http://idiosyncratic-ruby.com/feed.xml" rel="self"/>
+  <updated>2015-05-01T02:00:00+02:00</updated>
+  <author>
+    <name>Jan Lelis</name>
+  </author>
+  <entry>
+    <title>Test Highlights</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/1-test-highlights.html"/>
+    <id>http://idiosyncratic-ruby.com/1-test-highlights.html</id>
+    <published>2015-05-01T02:00:00+02:00</published>
+    <updated>2015-05-01T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Compared to other languages, Ruby does not have very good tool support for development. This might not be a problem for many of us, in the end, humans create the code, and not tools.&lt;/p&gt;
+
+&lt;p&gt;Nevertheless, it would be better to have better tools. Or at least valid syntax highlighting. The following table shows popular options for code highlighting, but none of them can manage to properly highlight more advanced Ruby features. Here is the:&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id="syntax-highlighter-comparison"&gt;Syntax Highlighter Comparison&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Editors or Syntax Highlighter&lt;/th&gt;
+      &lt;th&gt;Version&lt;/th&gt;
+      &lt;th&gt;Highlights Ruby Correctly?¹&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://github.com/rubychan/coderay"&gt;coderay&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;1.1.0&lt;/td&gt;
+      &lt;td&gt;no. score: 4/5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://www.jetbrains.com/ruby/"&gt;ruby mine&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;7.1 RM-141.664&lt;/td&gt;
+      &lt;td&gt;no. score: 4/5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://github.com/jneen/rouge"&gt;rouge&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;1.8.0&lt;/td&gt;
+      &lt;td&gt;no. score: 3/5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://www.gnu.org/software/emacs/"&gt;emacs&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;24.3.1&lt;/td&gt;
+      &lt;td&gt;no. score: 2/5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="http://pygments.org/"&gt;pygments&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;1.6&lt;/td&gt;
+      &lt;td&gt;no. score: 2/5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://wiki.gnome.org/Apps/Gedit"&gt;gedit&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;3.10.4&lt;/td&gt;
+      &lt;td&gt;no. score: 1/5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://github.com/PrismJS/prism"&gt;prism.js&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;0.0.1&lt;/td&gt;
+      &lt;td&gt;no. score: 1/5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://github.com/ccampbell/rainbow"&gt;rainbow.js&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;1.1.9&lt;/td&gt;
+      &lt;td&gt;no. score: 1/5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://www.gnu.org/software/src-highlite/"&gt;src-highlight&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;3.1.6 (library: 4:0:0)&lt;/td&gt;
+      &lt;td&gt;no. score: 1/5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://github.com/syntaxhighlighter/syntaxhighlighter"&gt;syntaxhighlighter.js&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;3.0.83&lt;/td&gt;
+      &lt;td&gt;no. score: 1/5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="http://www.vim.org/"&gt;vim&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;7.4.52&lt;/td&gt;
+      &lt;td&gt;no. score: 1/5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://atom.io/"&gt;atom&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;0.192.0&lt;/td&gt;
+      &lt;td&gt;no. score: 0/5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://github.com/isagalaev/highlight.js"&gt;highlight.js&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;8.5&lt;/td&gt;
+      &lt;td&gt;no. score: 0/5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://www.sublimetext.com/"&gt;sublime text&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;3 Build 3083&lt;/td&gt;
+      &lt;td&gt;no. score: 0/5&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;¹ Obviously, passing the test does not necessarily mean that a tool highlights Ruby correctly - but it is an indication.&lt;/p&gt;
+
+&lt;h2 id="the-idiosyncratic-ruby-syntax-highlight-test"&gt;The Idiosyncratic Ruby Syntax Highlight Test&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;# # #
+# For Reference
+42
+"String with #{ :interpolation }"
+/regex$/
+$/
+
+# # #
+# TEST CASE 1: Question Marks
+# SHOULD BE HIGHLIGHTED AS: Array of Strings - Operator - String - Operator - String
+
+[?', ?(] ?'a':'b'
+
+# # #
+# TEST CASE 2: Percent Format
+# SHOULD BE HIGHLIGHTED AS: String - Operator - Array of Numbers
+
+"%d %d %d"%[1,2,3]
+
+# # #
+# TEST CASE 3: Space-delimited String
+# SHOULD BE HIGHLIGHTED AS: String Delimiter - String
+
+% 5 #
+
+# # #
+# TEST CASE 4: Multi-line Regex with Global Variable Interpolation
+# SHOULD BE HIGHLIGHTED AS: Regex Delimiter - Regex -
+#                           Interpolation Character (Optional) -
+#                           Global Variable -
+#                           Regex Delimiter - Regex Options
+
+/
+$$#$/
+/omix
+
+# # #
+# TEST CASE 5: Nested Heredoc
+# SHOULD BE HIGHLIGHTED AS: Method - String Delimiter - Operator -
+#                           String Delimiter - String - String Delimiter
+#                           String - String Delimiter
+
+puts &amp;lt;&amp;lt;HERE&amp;lt;&amp;lt;&amp;lt;&amp;lt;THERE
+foo 42
+HERE
+bla 43
+THERE
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+  </entry>
+</feed>
