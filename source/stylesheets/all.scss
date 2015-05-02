@@ -132,6 +132,10 @@ code {
   font-size: $base-font-size;
 }
 
+blockquote{
+  margin-left: 0;
+}
+
 .world {
   margin-top: 2em;
   margin-bottom: 2em;
@@ -167,9 +171,12 @@ footer {
 
 article, footer {
   ul {
-    list-style-type: square;
-    padding-left: 1em;
+    padding-left: 22px;
     margin-bottom: 2em;
+    margin-top: 0.3em;
+
+    li:before{ content: "-"; position:relative; left: -10px; }
+    li{ text-indent: -10px; }
   }
 }
 
