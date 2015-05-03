@@ -5,10 +5,197 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2015-05-02T02:00:00+02:00</updated>
+  <updated>2015-05-03T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Ruby, Can You Speak Louder?</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/3-ruby-can-you-speak-louder.html"/>
+    <id>http://idiosyncratic-ruby.com/3-ruby-can-you-speak-louder.html</id>
+    <published>2015-05-03T02:00:00+02:00</published>
+    <updated>2015-05-03T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Ruby has some ways to turn on &lt;em&gt;debug mode&lt;/em&gt;, which library authors can use to print out extra information for interested users. But unfortunately, there are multiple &lt;em&gt;debug modes&lt;/em&gt; in Ruby. When should you use which one?&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Consider you have this code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def production_method
+  puts "I am doing the right thing part 1"
+  # @a is really intereting here
+  puts "I am doing the right thing part 2"
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We could query the global &lt;code&gt;$DEBUG&lt;/code&gt; variable, which can be toggled when starting the Ruby interpreter:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def production_method
+  puts "I am doing the right thing part 1"
+  $stderr.puts "@a is now: #{@a}" if $DEBUG
+  puts "I am doing the right thing part 2"
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But is this the best way? It also could have been:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$stderr.puts "@a is now: #{@a}" if $VERBOSE
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$stderr.puts "@a is now: #{@a}" if Library.debug_mode?
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And what about:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;warn "@a is now: #{@a}"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ruby is a little idiosyncratic here. There is no standard way to signalize "I want to have more information". Ruby has two global debug modes: "Debug mode" and "Verbosity mode" and both behave differently. Within Ruby, the current debug mode state can be queried from two globals:&lt;/p&gt;
+
+&lt;h2 id="global-debug-state"&gt;Global Debug State&lt;/h2&gt;
+
+&lt;p&gt;This table shows the different modes both of thems can have:&lt;/p&gt;
+
+&lt;table class="table-15-15-30-X"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Variable&lt;/th&gt;
+      &lt;th&gt;Value&lt;/th&gt;
+      &lt;th&gt;CLI-Variable Mirrors¹&lt;/th&gt;
+      &lt;th&gt;Meaning&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;$DEBUG&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;true&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;$-d == true&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Debug mode active&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;$DEBUG&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;false&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;$-d == false&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Debug mode inactive&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;$VERBOSE&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;true&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;$-v == true&lt;/code&gt;&lt;br /&gt;&lt;code&gt;$-w == true&lt;/code&gt;&lt;br /&gt;&lt;code&gt;$-W == 2&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Verbosity mode active&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;$VERBOSE&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;false&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;$-v == false&lt;/code&gt;&lt;br /&gt;&lt;code&gt;$-w == false&lt;/code&gt;&lt;br /&gt;&lt;code&gt;$-W == 1&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Medium verbosity mode&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;$VERBOSE&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;nil&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;$-v == nil&lt;/code&gt;&lt;br /&gt;&lt;code&gt;$-w == nil&lt;/code&gt;&lt;br /&gt;&lt;code&gt;$-W == 0&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Silent verbosity mode&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;¹ Will be set automatically&lt;br /&gt;
+² Default&lt;/p&gt;
+
+&lt;p&gt;Note that the Verbosity mode is different for &lt;code&gt;$VERBOSE == false&lt;/code&gt; and &lt;code&gt;$VERBOSE == nil&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Another side note: While it is possible to change &lt;code&gt;$DEBUG&lt;/code&gt; to an arbitrary value, this is not true for &lt;code&gt;$VERBOSE&lt;/code&gt; - If you assign in a truish value, it will just be set to &lt;code&gt;true&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;What follows is a list of command line options that have an effects on the debug modes:&lt;/p&gt;
+
+&lt;h2 id="command-line-options"&gt;Command Line Options&lt;/h2&gt;
+
+&lt;table class="table-20-20-X"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Option&lt;/th&gt;
+      &lt;th&gt;Alias&lt;/th&gt;
+      &lt;th&gt;Effects&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;-W2&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;-W&lt;/code&gt;, &lt;code&gt;-w&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Sets &lt;code&gt;$VERBOSE&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;-W1&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;Nothing (&lt;code&gt;$VERBOSE&lt;/code&gt; remains &lt;code&gt;false&lt;/code&gt;)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;-W0&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;Sets &lt;code&gt;$VERBOSE&lt;/code&gt; to &lt;code&gt;nil&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;--verbose&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;Sets &lt;code&gt;$VERBOSE&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;&lt;br /&gt;Also quits Ruby if no arguments given&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;-v&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;Sets &lt;code&gt;$VERBOSE&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;&lt;br /&gt;Also Prints Ruby version&lt;br /&gt;Also quits Ruby if no arguments given&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;--debug&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;-d&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Sets &lt;code&gt;$DEBUG&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;&lt;br /&gt;Sets &lt;code&gt;$VERBOSE&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;A funny thing to note is that &lt;code&gt;-v&lt;/code&gt; is a shortcut for &lt;code&gt;--version&lt;/code&gt; as well as it is one for &lt;code&gt;--verbose&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id="verbosity"&gt;Verbosity&lt;/h2&gt;
+
+&lt;p&gt;The only thing that actually changes the behavior of the interpreter is the value of &lt;code&gt;VERBOSE&lt;/code&gt;:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;&lt;code&gt;$VERBOSE&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;Effect&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;Kernel#warn&lt;/code&gt; will output to &lt;code&gt;STDERR&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;true&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Interpreter warnings will be printed&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id="what-to-use"&gt;What to Use?&lt;/h2&gt;
+
+&lt;p&gt;Use neither &lt;code&gt;$VERBOSE&lt;/code&gt;, nor &lt;code&gt;$DEBUG&lt;/code&gt;, but to use an instance variable in your library. Or use standard library's logger or some other logging gem. It is easier to understand than relying on the global debug modes.&lt;/p&gt;
+
+&lt;p&gt;Use &lt;code&gt;$VERBOSE = true&lt;/code&gt; if you are interested in interpreter warnings.&lt;/p&gt;
+
+&lt;h2 id="further-reading"&gt;Further Reading&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="http://mislav.uniqpath.com/2011/06/ruby-verbose-mode/"&gt;Verbose mode and warnings&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://api.rubyonrails.org/classes/Kernel.html#method-i-silence_warnings"&gt;Rails' verbosity silencer&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://www.ruby-toolbox.com/categories/Logging"&gt;Ruby Loggers&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Ruby String Magic</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/2-ruby-string-magic.html"/>

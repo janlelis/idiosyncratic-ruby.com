@@ -1,0 +1,217 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - Ruby, Can You Speak Louder?</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="A 31 Parts Story about Ruby Specialities. A New Post Every Day in May 2015!"/>
+<meta name="keywords" content="ruby, debug, globals, cli-options"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/index/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/3-ruby-can-you-speak-louder.html">Ruby, Can You Speak Louder?</a></h1>
+      </section>
+
+      <article class="post">
+        <p>Ruby has some ways to turn on <em>debug mode</em>, which library authors can use to print out extra information for interested users. But unfortunately, there are multiple <em>debug modes</em> in Ruby. When should you use which one?</p>
+
+<p></p>
+
+<p>Consider you have this code:</p>
+
+<pre><code>def production_method
+  puts "I am doing the right thing part 1"
+  # @a is really intereting here
+  puts "I am doing the right thing part 2"
+end
+</code></pre>
+
+<p>We could query the global <code>$DEBUG</code> variable, which can be toggled when starting the Ruby interpreter:</p>
+
+<pre><code>def production_method
+  puts "I am doing the right thing part 1"
+  $stderr.puts "@a is now: #{@a}" if $DEBUG
+  puts "I am doing the right thing part 2"
+end
+</code></pre>
+
+<p>But is this the best way? It also could have been:</p>
+
+<pre><code>$stderr.puts "@a is now: #{@a}" if $VERBOSE
+</code></pre>
+
+<p>Or:</p>
+
+<pre><code>$stderr.puts "@a is now: #{@a}" if Library.debug_mode?
+</code></pre>
+
+<p>And what about:</p>
+
+<pre><code>warn "@a is now: #{@a}"
+</code></pre>
+
+<p>Ruby is a little idiosyncratic here. There is no standard way to signalize "I want to have more information". Ruby has two global debug modes: "Debug mode" and "Verbosity mode" and both behave differently. Within Ruby, the current debug mode state can be queried from two globals:</p>
+
+<h2 id="global-debug-state">Global Debug State</h2>
+
+<p>This table shows the different modes both of thems can have:</p>
+
+<table class="table-15-15-30-X">
+  <thead>
+    <tr>
+      <th>Variable</th>
+      <th>Value</th>
+      <th>CLI-Variable Mirrors¹</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>$DEBUG</code></td>
+      <td><code>true</code></td>
+      <td><code>$-d == true</code></td>
+      <td>Debug mode active</td>
+    </tr>
+    <tr>
+      <td><code>$DEBUG</code></td>
+      <td><code>false</code></td>
+      <td><code>$-d == false</code></td>
+      <td>Debug mode inactive</td>
+    </tr>
+    <tr>
+      <td><code>$VERBOSE</code></td>
+      <td><code>true</code></td>
+      <td><code>$-v == true</code><br /><code>$-w == true</code><br /><code>$-W == 2</code></td>
+      <td>Verbosity mode active</td>
+    </tr>
+    <tr>
+      <td><code>$VERBOSE</code></td>
+      <td><code>false</code></td>
+      <td><code>$-v == false</code><br /><code>$-w == false</code><br /><code>$-W == 1</code></td>
+      <td>Medium verbosity mode</td>
+    </tr>
+    <tr>
+      <td><code>$VERBOSE</code></td>
+      <td><code>nil</code></td>
+      <td><code>$-v == nil</code><br /><code>$-w == nil</code><br /><code>$-W == 0</code></td>
+      <td>Silent verbosity mode</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>¹ Will be set automatically<br />
+² Default</p>
+
+<p>Note that the Verbosity mode is different for <code>$VERBOSE == false</code> and <code>$VERBOSE == nil</code>.</p>
+
+<p>Another side note: While it is possible to change <code>$DEBUG</code> to an arbitrary value, this is not true for <code>$VERBOSE</code> - If you assign in a truish value, it will just be set to <code>true</code>.</p>
+
+<p>What follows is a list of command line options that have an effects on the debug modes:</p>
+
+<h2 id="command-line-options">Command Line Options</h2>
+
+<table class="table-20-20-X">
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Alias</th>
+      <th>Effects</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>-W2</code></td>
+      <td><code>-W</code>, <code>-w</code></td>
+      <td>Sets <code>$VERBOSE</code> to <code>true</code></td>
+    </tr>
+    <tr>
+      <td><code>-W1</code></td>
+      <td> </td>
+      <td>Nothing (<code>$VERBOSE</code> remains <code>false</code>)</td>
+    </tr>
+    <tr>
+      <td><code>-W0</code></td>
+      <td> </td>
+      <td>Sets <code>$VERBOSE</code> to <code>nil</code></td>
+    </tr>
+    <tr>
+      <td><code>--verbose</code></td>
+      <td> </td>
+      <td>Sets <code>$VERBOSE</code> to <code>true</code><br />Also quits Ruby if no arguments given</td>
+    </tr>
+    <tr>
+      <td><code>-v</code></td>
+      <td> </td>
+      <td>Sets <code>$VERBOSE</code> to <code>true</code><br />Also Prints Ruby version<br />Also quits Ruby if no arguments given</td>
+    </tr>
+    <tr>
+      <td><code>--debug</code></td>
+      <td><code>-d</code></td>
+      <td>Sets <code>$DEBUG</code> to <code>true</code><br />Sets <code>$VERBOSE</code> to <code>true</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A funny thing to note is that <code>-v</code> is a shortcut for <code>--version</code> as well as it is one for <code>--verbose</code>.</p>
+
+<h2 id="verbosity">Verbosity</h2>
+
+<p>The only thing that actually changes the behavior of the interpreter is the value of <code>VERBOSE</code>:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><code>$VERBOSE</code></th>
+      <th>Effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>true</code> or <code>false</code></td>
+      <td><code>Kernel#warn</code> will output to <code>STDERR</code></td>
+    </tr>
+    <tr>
+      <td><code>true</code></td>
+      <td>Interpreter warnings will be printed</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="what-to-use">What to Use?</h2>
+
+<p>Use neither <code>$VERBOSE</code>, nor <code>$DEBUG</code>, but to use an instance variable in your library. Or use standard library's logger or some other logging gem. It is easier to understand than relying on the global debug modes.</p>
+
+<p>Use <code>$VERBOSE = true</code> if you are interested in interpreter warnings.</p>
+
+<h2 id="further-reading">Further Reading</h2>
+<ul>
+  <li><a href="http://mislav.uniqpath.com/2011/06/ruby-verbose-mode/">Verbose mode and warnings</a></li>
+  <li><a href="http://api.rubyonrails.org/classes/Kernel.html#method-i-silence_warnings">Rails' verbosity silencer</a></li>
+  <li><a href="https://www.ruby-toolbox.com/categories/Logging">Ruby Loggers</a></li>
+</ul>
+
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          By <a href="http://janlelis.com">Jan Lelis</a>
+        </div>
+        <a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/#all_commit_comments">Comments on GitHub</a> |
+        Created: 2015-05-03 |
+        Last Update: 2015-05-03
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>
