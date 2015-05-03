@@ -131,8 +131,11 @@ body {
   @include outer-container;
 }
 
-code {
-  font-size: $base-font-size;
+pre {
+  code {
+    font-size: $base-font-size;
+  }
+  overflow: auto;
 }
 
 blockquote{
@@ -210,6 +213,10 @@ a {
   h2 {
     margin-bottom: 0;
   }
+
+  @include media($large-screen) {
+    margin-left: 214px;
+  }
 }
 
 .post-header {
@@ -246,6 +253,9 @@ a {
 
 .index-articles {
   margin-bottom: 2em;
+  @include media($large-screen) {
+    margin-left: 214px;
+  }
   article {
     margin-bottom: 3em;
   }
