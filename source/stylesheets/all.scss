@@ -5,6 +5,7 @@
 @import "neat";
 
 @import "rainbow-github";
+@import "table-width";
 
 $action-color: rgba(119, 0, 0, 0.7);
 $base-link-color: $action-color;
@@ -131,10 +132,18 @@ body {
   @include outer-container;
 }
 
-pre {
-  code {
-    font-size: $base-font-size;
+code {
+  font-size: $base-font-size * 0.8;
+}
+
+td {
+  vertical-align: top;
+  code{
+    font-size: $base-font-size * 0.8;
   }
+}
+
+pre {
   overflow: auto;
 }
 

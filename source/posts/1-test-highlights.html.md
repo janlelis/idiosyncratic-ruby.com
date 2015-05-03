@@ -13,7 +13,7 @@ ARTICLE
 
 ## Syntax Highlighter Comparison
 
-Editors or Syntax Highlighter                      | Version        | Highlights Ruby Correctly?¹
+Editor or Syntax Highlighter                       | Version        | Highlights Ruby Correctly?¹
 ---------------------------------------------------| ---------------|---------------
 [coderay](https://github.com/rubychan/coderay)     | 1.1.0          | no. score: 4/5
 [ruby mine](https://www.jetbrains.com/ruby/)       | 7.1 RM-141.664 | no. score: 4/5
@@ -29,6 +29,7 @@ Editors or Syntax Highlighter                      | Version        | Highlights
 [atom](https://atom.io/)                           | 0.192.0        | no. score: 0/5
 [highlight.js](https://github.com/isagalaev/highlight.js) | 8.5     | no. score: 0/5
 [sublime text](https://www.sublimetext.com/)       | 3 Build 3083   | no. score: 0/5
+{:.table-45-30-X}
 
 ¹ Obviously, passing the test does not necessarily mean that a tool highlights Ruby correctly - but it is an indication.
 
