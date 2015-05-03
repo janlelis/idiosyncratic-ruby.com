@@ -2,9 +2,10 @@
 title: Ruby, Can You Speak Louder?
 date: 2015-05-03
 tags: debug, globals, cli-options
+commit: ca8d24c77bdd8b8f5ca242c2c749bdb2a57ad04e
 ---
 
-Ruby has some ways to turn on *debug mode*, which library authors can use to print out extra information for interested users. But unfortunately, there are multiple *debug modes* in Ruby. When should you use which one?
+Ruby has some ways to turn on *debug mode*, which library authors can use to print out extra information for interested users. But unfortunately, there are multiple *debug modes* in Ruby. When to use which one?
 
 ARTICLE
 
@@ -36,19 +37,19 @@ And what about:
 
     warn "@a is now: #{@a}"
 
-Ruby is a little idiosyncratic here. There is no standard way to signalize "I want to have more information". Ruby has two global debug modes: "Debug mode" and "Verbosity mode" and both behave differently. Within Ruby, the current debug mode state can be queried from two globals:
+Ruby is a little idiosyncratic here. There is no standard way to signalize "I want to have more information". Ruby has two global debug modes: *debug mode* and *verbosity mode* and both behave differently. Within Ruby, the current debug mode state can be queried from two global variables:
 
 ## Global Debug State
 
-This table shows the different modes both of thems can have:
+This table shows the different modes both of them can have:
 
-Variable   | Value   | CLI-Variable Mirrors¹ | Meaning
------------|---------------------------------|---------------------
-`$DEBUG`   | `true`  | `$-d == true`         | Debug mode active
-`$DEBUG`   | `false` | `$-d == false`        | Debug mode inactive
-`$VERBOSE` | `true`  | `$-v == true`<br>`$-w == true`<br>`$-W == 2`   | Verbosity mode active
-`$VERBOSE` | `false` | `$-v == false`<br>`$-w == false`<br>`$-W == 1` | Medium verbosity mode
-`$VERBOSE` | `nil`   | `$-v == nil`<br>`$-w == nil`<br>`$-W == 0`     | Silent verbosity mode
+Variable   | Value    | CLI-Variable Mirrors¹                          | Meaning
+-----------|----------|------------------------------------------------|---------------------
+`$DEBUG`   | `true`   | `$-d == true`                                  | Debug mode active
+`$DEBUG`   | `false`² | `$-d == false`                                 | Debug mode inactive
+`$VERBOSE` | `true`   | `$-v == true`<br>`$-w == true`<br>`$-W == 2`   | Verbosity mode active
+`$VERBOSE` | `false`² | `$-v == false`<br>`$-w == false`<br>`$-W == 1` | Medium verbosity mode
+`$VERBOSE` | `nil`    | `$-v == nil`<br>`$-w == nil`<br>`$-W == 0`     | Silent verbosity mode
 {:.table-15-15-30-X}
 
 ¹ Will be set automatically<br>
@@ -56,11 +57,11 @@ Variable   | Value   | CLI-Variable Mirrors¹ | Meaning
 
 Note that the Verbosity mode is different for `$VERBOSE == false` and `$VERBOSE == nil`.
 
-Another side note: While it is possible to change `$DEBUG` to an arbitrary value, this is not true for `$VERBOSE` - If you assign in a truish value, it will just be set to `true`.
+Another side note: While it is possible to change `$DEBUG` to an arbitrary value, this is not true for `$VERBOSE` - If you assign it a truish value, it will just be set to `true`.
 
 What follows is a list of command line options that have an effects on the debug modes:
 
-## Command Line Options
+## Command Line Options for Debug Modes
 
 Option      | Alias      | Effects
 ------------|------------|--------
