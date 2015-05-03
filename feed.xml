@@ -18,7 +18,7 @@
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;Ruby has some ways to turn on &lt;em&gt;debug mode&lt;/em&gt;, which library authors can use to print out extra information for interested users. But unfortunately, there are multiple &lt;em&gt;debug modes&lt;/em&gt; in Ruby. When should you use which one?&lt;/p&gt;
+    <content type="html">&lt;p&gt;Ruby has some ways to turn on &lt;em&gt;debug mode&lt;/em&gt;, which library authors can use to print out extra information for interested users. But unfortunately, there are multiple &lt;em&gt;debug modes&lt;/em&gt; in Ruby. When to use which one?&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
@@ -55,11 +55,11 @@ end
 &lt;pre&gt;&lt;code&gt;warn "@a is now: #{@a}"
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Ruby is a little idiosyncratic here. There is no standard way to signalize "I want to have more information". Ruby has two global debug modes: "Debug mode" and "Verbosity mode" and both behave differently. Within Ruby, the current debug mode state can be queried from two globals:&lt;/p&gt;
+&lt;p&gt;Ruby is a little idiosyncratic here. There is no standard way to signalize "I want to have more information". Ruby has two global debug modes: &lt;em&gt;debug mode&lt;/em&gt; and &lt;em&gt;verbosity mode&lt;/em&gt; and both behave differently. Within Ruby, the current debug mode state can be queried from two global variables:&lt;/p&gt;
 
 &lt;h2 id="global-debug-state"&gt;Global Debug State&lt;/h2&gt;
 
-&lt;p&gt;This table shows the different modes both of thems can have:&lt;/p&gt;
+&lt;p&gt;This table shows the different modes both of them can have:&lt;/p&gt;
 
 &lt;table class="table-15-15-30-X"&gt;
   &lt;thead&gt;
@@ -79,7 +79,7 @@ end
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;code&gt;$DEBUG&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;code&gt;false&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;false&lt;/code&gt;²&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;$-d == false&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;Debug mode inactive&lt;/td&gt;
     &lt;/tr&gt;
@@ -91,7 +91,7 @@ end
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;code&gt;$VERBOSE&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;code&gt;false&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;false&lt;/code&gt;²&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;$-v == false&lt;/code&gt;&lt;br /&gt;&lt;code&gt;$-w == false&lt;/code&gt;&lt;br /&gt;&lt;code&gt;$-W == 1&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;Medium verbosity mode&lt;/td&gt;
     &lt;/tr&gt;
@@ -109,11 +109,11 @@ end
 
 &lt;p&gt;Note that the Verbosity mode is different for &lt;code&gt;$VERBOSE == false&lt;/code&gt; and &lt;code&gt;$VERBOSE == nil&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;Another side note: While it is possible to change &lt;code&gt;$DEBUG&lt;/code&gt; to an arbitrary value, this is not true for &lt;code&gt;$VERBOSE&lt;/code&gt; - If you assign in a truish value, it will just be set to &lt;code&gt;true&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Another side note: While it is possible to change &lt;code&gt;$DEBUG&lt;/code&gt; to an arbitrary value, this is not true for &lt;code&gt;$VERBOSE&lt;/code&gt; - If you assign it a truish value, it will just be set to &lt;code&gt;true&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;What follows is a list of command line options that have an effects on the debug modes:&lt;/p&gt;
 
-&lt;h2 id="command-line-options"&gt;Command Line Options&lt;/h2&gt;
+&lt;h2 id="command-line-options-for-debug-modes"&gt;Command Line Options for Debug Modes&lt;/h2&gt;
 
 &lt;table class="table-20-20-X"&gt;
   &lt;thead&gt;

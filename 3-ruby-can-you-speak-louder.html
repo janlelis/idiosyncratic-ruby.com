@@ -24,7 +24,7 @@
       </section>
 
       <article class="post">
-        <p>Ruby has some ways to turn on <em>debug mode</em>, which library authors can use to print out extra information for interested users. But unfortunately, there are multiple <em>debug modes</em> in Ruby. When should you use which one?</p>
+        <p>Ruby has some ways to turn on <em>debug mode</em>, which library authors can use to print out extra information for interested users. But unfortunately, there are multiple <em>debug modes</em> in Ruby. When to use which one?</p>
 
 <p></p>
 
@@ -61,11 +61,11 @@ end
 <pre><code>warn "@a is now: #{@a}"
 </code></pre>
 
-<p>Ruby is a little idiosyncratic here. There is no standard way to signalize "I want to have more information". Ruby has two global debug modes: "Debug mode" and "Verbosity mode" and both behave differently. Within Ruby, the current debug mode state can be queried from two globals:</p>
+<p>Ruby is a little idiosyncratic here. There is no standard way to signalize "I want to have more information". Ruby has two global debug modes: <em>debug mode</em> and <em>verbosity mode</em> and both behave differently. Within Ruby, the current debug mode state can be queried from two global variables:</p>
 
 <h2 id="global-debug-state">Global Debug State</h2>
 
-<p>This table shows the different modes both of thems can have:</p>
+<p>This table shows the different modes both of them can have:</p>
 
 <table class="table-15-15-30-X">
   <thead>
@@ -85,7 +85,7 @@ end
     </tr>
     <tr>
       <td><code>$DEBUG</code></td>
-      <td><code>false</code></td>
+      <td><code>false</code>²</td>
       <td><code>$-d == false</code></td>
       <td>Debug mode inactive</td>
     </tr>
@@ -97,7 +97,7 @@ end
     </tr>
     <tr>
       <td><code>$VERBOSE</code></td>
-      <td><code>false</code></td>
+      <td><code>false</code>²</td>
       <td><code>$-v == false</code><br /><code>$-w == false</code><br /><code>$-W == 1</code></td>
       <td>Medium verbosity mode</td>
     </tr>
@@ -115,11 +115,11 @@ end
 
 <p>Note that the Verbosity mode is different for <code>$VERBOSE == false</code> and <code>$VERBOSE == nil</code>.</p>
 
-<p>Another side note: While it is possible to change <code>$DEBUG</code> to an arbitrary value, this is not true for <code>$VERBOSE</code> - If you assign in a truish value, it will just be set to <code>true</code>.</p>
+<p>Another side note: While it is possible to change <code>$DEBUG</code> to an arbitrary value, this is not true for <code>$VERBOSE</code> - If you assign it a truish value, it will just be set to <code>true</code>.</p>
 
 <p>What follows is a list of command line options that have an effects on the debug modes:</p>
 
-<h2 id="command-line-options">Command Line Options</h2>
+<h2 id="command-line-options-for-debug-modes">Command Line Options for Debug Modes</h2>
 
 <table class="table-20-20-X">
   <thead>
@@ -207,7 +207,7 @@ end
         <div class="footer-right">
           By <a href="http://janlelis.com">Jan Lelis</a>
         </div>
-        <a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/#all_commit_comments">Comments on GitHub</a> |
+        <a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/ca8d24c77bdd8b8f5ca242c2c749bdb2a57ad04e#all_commit_comments">Comments on GitHub</a> |
         Created: 2015-05-03 |
         Last Update: 2015-05-03
       </footer>
