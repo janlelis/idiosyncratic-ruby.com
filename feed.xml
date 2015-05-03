@@ -92,10 +92,10 @@
 
 &lt;h2 id="syntax-highlighter-comparison"&gt;Syntax Highlighter Comparison&lt;/h2&gt;
 
-&lt;table&gt;
+&lt;table class="table-45-30-X"&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th&gt;Editors or Syntax Highlighter&lt;/th&gt;
+      &lt;th&gt;Editor or Syntax Highlighter&lt;/th&gt;
       &lt;th&gt;Version&lt;/th&gt;
       &lt;th&gt;Highlights Ruby Correctly?¹&lt;/th&gt;
     &lt;/tr&gt;
