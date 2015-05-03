@@ -18,10 +18,9 @@ title: Idiosyncratic Ruby
 <div class="world">
   <div class="scroll-on-page">
     <aside id="scroll-on-page-top">
-      <a class="scroll-on-page-link" href="#about">About Idiosyncratic Ruby</a>
-      <a class="scroll-on-page-link" href="#what-you-will-get">What You Will Get</a>
-      <a class="scroll-on-page-link" href="#living-content">Living Content</a>
-      <a class="scroll-on-page-link" href="#about-the-author">About the Author</a>
+      <% page_articles.sort_by{ |a| a.path.to_i }.each do |article| %>
+        <a class="scroll-on-page-link" href="/<%= article.path[/\d/].to_i %>-<%= article.slug %>.html"><%= article.title %> | <%= article.path[/\d/].to_i %></a>
+      <% end %>
     </aside>
 
     <article>
