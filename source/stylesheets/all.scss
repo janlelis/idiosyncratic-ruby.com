@@ -148,6 +148,9 @@ h1 {
 
   a {
     color: #222;
+    &:hover, &:active, &:focus {
+      color: #222;
+    }
   }
 
   @include media($medium-screen) {
@@ -161,6 +164,12 @@ h2 {
   code {
     font-size: 16pt;
     font-weight: normal;
+  }
+  a {
+    color: #333;
+    &:hover, &:active, &:focus {
+      color: #333;
+    }
   }
 }
 
@@ -234,6 +243,9 @@ a {
 
 .index-articles {
   margin-bottom: 2em;
+  article {
+    margin-bottom: 3em;
+  }
 }
 
 .article-links {

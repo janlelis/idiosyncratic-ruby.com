@@ -9,9 +9,9 @@ title: Idiosyncratic Ruby - All Posts
   </section>
 
   <section class="index-articles">
-    <% page_articles.sort_by{ |a| a.path.to_i }.reverse_each.with_index do |article, index| %>
+    <% page_articles.sort_by{ |a| a.path.to_i }.each do |article| %>
       <article>
-        <h2><%= index + 1 %> | <%= article.title %></h2>
+        <h2><a href="/<%= article.path[/\d/].to_i %>-<%= article.slug %>.html"><%= article.path[/\d/].to_i %> | <%= article.title %></a></h2>
         <%= article.summary %>
         <%= link_to "READ", article %>
       </article>
@@ -25,7 +25,8 @@ title: Idiosyncratic Ruby - All Posts
 
     <a href="https://feeds.feedburner.com/IdiosyncraticRuby">Feed</a> |
     <a href="https://twitter.com/idiosyncraticrb">Twitter</a> |
-    <a href="https://github.com/janlelis/idiosyncratic-ruby.com">GitHub</a> |
+    <a hre
+    f="https://github.com/janlelis/idiosyncratic-ruby.com">GitHub</a> |
     Last Update: <%= ( Date.parse(`git log -1 --format=%cd`) ).strftime("%Y-%m-%d") %>
   </footer>
 </div>
