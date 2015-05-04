@@ -13,3 +13,19 @@
   th:nth-child(2) { width: 15%; }
   th:nth-child(3) { width: 30%; }
 }
+
+.table-20-X {
+  th:nth-child(1) { width: 20%; }
+}
+
+.table-15-20-40-15-X {
+  th:nth-child(1) { width: 15%; }
+  th:nth-child(2) { width: 20%; }
+  th:nth-child(3) { width: 40%; }
+  th:nth-child(4) { width: 15%; }
+}
+
+.table-15-50-X {
+  th:nth-child(1) { width: 15%; }
+  th:nth-child(2) { width: 50%; }
+}

@@ -136,7 +136,7 @@ code {
   font-size: $base-font-size * 0.8;
 }
 
-td {
+td, th {
   vertical-align: top;
   code{
     font-size: $base-font-size * 0.8;
@@ -175,7 +175,7 @@ h1 {
 
 h2 {
   font-size: 16pt;
-  margin-top: 1.2em;
+  margin-top: 1.4em;
   code {
     font-size: 16pt;
     font-weight: normal;
@@ -185,6 +185,15 @@ h2 {
     &:hover, &:active, &:focus {
       color: #333;
     }
+  }
+}
+
+h3 {
+  font-size: 13pt;
+  margin-top: 1.2em;
+  code {
+    font-size: 13pt;
+    font-weight: normal;
   }
 }
 
@@ -220,7 +229,7 @@ a {
   clear: both;
 
   h2 {
-    margin-bottom: 0;
+    margin-bottom: 0.3em;
   }
 
   @include media($large-screen) {
