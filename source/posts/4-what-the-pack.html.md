@@ -2,6 +2,7 @@
 title: What the Pack?
 date: 2015-05-04
 tags: core, strings, encoding
+commit: fea958eff6b85935ea3a8a4974c2548e08abca2e
 ---
 
 Ruby comes equipped with a powerful option for low level string manipulation: `String#unpack` and its counter part `Array#pack`. Today's episode takes a closer look.
