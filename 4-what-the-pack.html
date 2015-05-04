@@ -1,0 +1,549 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - What the Pack?</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="A 31 Parts Story about Ruby Specialities. A New Post Every Day in May 2015!"/>
+<meta name="keywords" content="ruby, core, strings, encoding"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/index/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/4-what-the-pack.html">What the Pack?</a></h1>
+      </section>
+
+      <article class="post">
+        <p>Ruby comes equipped with a powerful option for low level string manipulation: <code>String#unpack</code> and its counter part <code>Array#pack</code>. Today's episode takes a closer look.</p>
+
+<p></p>
+
+<p>The general way how <code>String#unpack</code> is used is this:</p>
+
+<pre><code>"a string".unpack("pack template with directives")
+# =&gt; [...]
+</code></pre>
+
+<p>The string contains some data in a specific format, which you "unpack" using a format specification. The format specification is defined in the pack template. The result is an array that contains the same data (or parts of it), but in a different representation. Take a look at this very simple example, which converts a four-letter ASCII string into its integer based byte representation:</p>
+
+<pre><code>"Ruby".unpack("C C C C")
+# =&gt; [82, 117, 98, 121]
+</code></pre>
+
+<p><code>Array#pack</code> works the other way around, so if you have the integer byte representation, it will convert it to real bytes in a string:</p>
+
+<pre><code>[82, 117, 98, 121].pack("C C C C")
+# =&gt; "Ruby"
+</code></pre>
+
+<h2 id="pack-template-format">Pack Template Format</h2>
+
+<p>The format of the pack template (<code>"C C C C"</code> in the example above) might be unfamiliar, but it is not too complicated. It is a series of letters that describe how to interpret the next bytes in the string you are operating on. A letter is called "directive". Each directive has a different meaning, see below for a complete list of available directives. <code>C</code> essentially means: One integer byte value.</p>
+
+<p>A directive can be followed by a number, how often it should be applied. So you could rewrite the above code to:</p>
+
+<pre><code>"Ruby".unpack("C4")
+# =&gt; [82, 117, 98, 121]
+</code></pre>
+
+<p>You don't need to read the complete string:</p>
+
+<pre><code>"Ruby".unpack("C2")
+# =&gt; [82, 117]
+</code></pre>
+
+<p>Instead of using a number, it is possible to use <code>*</code>, which denotes that the directive should be applied as often as possible:</p>
+
+<pre><code>"Ruby".unpack("C*")
+# =&gt; [82, 117, 98, 121]
+</code></pre>
+
+<p>Every character that is not a directive, a digit or <code>*</code> will be ignored. This is useful to make a pack template more readable, by separating directives with spaces.</p>
+
+<p>What follows is a list of all directives and how to use them.</p>
+
+<h2 id="integer-directives">Integer Directives</h2>
+
+<p>These will all unpack the bytes of a string to an array of integers. One of these integers represents one or more bytes. You have different modes that differ in the number of bytes each integer represents:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Directive</th>
+      <th>Size</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>C</code></td>
+      <td>char</td>
+    </tr>
+    <tr>
+      <td><code>I!</code> or <code>I_</code></td>
+      <td>int</td>
+    </tr>
+    <tr>
+      <td><code>S!</code> or <code>S_</code></td>
+      <td>short</td>
+    </tr>
+    <tr>
+      <td><code>L!</code> or <code>L_</code></td>
+      <td>long</td>
+    </tr>
+    <tr>
+      <td><code>Q!</code> or <code>Q_</code></td>
+      <td>long long</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Except for <em>char</em> (which is always one byte), it depends on your operating system, how many bytes each of this modes actually reads. So if your operating system defines <em>short</em> as 2 bytes, you will get an array that represents every group of two bytes as an integer value:</p>
+
+<pre><code>"\x01\x00\x02\x00".unpack("S!*") #=&gt; [1, 2]
+</code></pre>
+
+<p>Or the other way around:</p>
+
+<pre><code>[1, 2].pack("S!*") # =&gt; "\x01\x00\x02\x00"
+</code></pre>
+
+<p>If you do not want to depend on what byte sizes you operating system defines, you can omit the <code>!</code> and it will use a fixed byte size (the exception is <em>int</em>, which will always use its native size).</p>
+
+<h3 id="c--an-unsigned-integer-per-byte">C | An Unsigned <code>Integer</code> per Byte</h3>
+
+<p>Range: 0 to 255</p>
+
+<pre><code>"Idiosyncrätic".unpack("C*")
+# =&gt; [73, 100, 105, 111, 115, 121, 110, 99, 114, 195, 164, 116, 105, 99]
+
+[73, 100, 105, 111, 115, 121, 110, 99, 114, 195, 164, 116, 105, 99].pack("C*")
+# =&gt; "Idiosyncr\xC3\xA4tic"
+</code></pre>
+
+<p>Note that <code>Array#pack</code> will not set the string's encoding for you, because it has no way to know.</p>
+
+<h3 id="c--a-signed-integer-per-byte">c | A Signed <code>Integer</code> per Byte</h3>
+
+<p>Range: -128 to 127</p>
+
+<pre><code>"Idiosyncrätic".unpack("c*")
+# =&gt; [73, 100, 105, 111, 115, 121, 110, 99, 114, -61, -92, 116, 105, 99]
+
+[73, 100, 105, 111, 115, 121, 110, 99, 114, -61, -92, 116, 105, 99].pack('c*')
+# =&gt; "Idiosyncr\xC3\xA4tic"
+</code></pre>
+
+<h3 id="s--an-unsigned-integer-per-2-bytes">S | An Unsigned <code>Integer</code> per 2 Bytes</h3>
+
+<p>Range: 0 to 65535</p>
+
+<pre><code>"Idiosyncrätic".unpack("S*")
+# =&gt; [25673, 28521, 31091, 25454, 50034, 29860, 25449]
+
+[25673, 28521, 31091, 25454, 50034, 29860, 25449].pack("S*")
+# =&gt; "Idiosyncr\xC3\xA4tic"
+</code></pre>
+
+<h3 id="s--a-signed-integer-per-2-bytes">s | A Signed <code>Integer</code> per 2 Bytes</h3>
+
+<p>Range: -32768 to 32767</p>
+
+<pre><code>"Idiosyncrätic".unpack("s*")
+# =&gt; [73, 100, 105, 111, 115, 121, 110, 99, 114, -61, -92, 116, 105, 99]
+
+[25673, 28521, 31091, 25454, -15502, 29860, 25449].pack("s*")
+# =&gt; "Idiosyncr\xC3\xA4tic"
+</code></pre>
+
+<h3 id="l--an-unsigned-integer-per-4-bytes">L | An Unsigned <code>Integer</code> per 4 Bytes</h3>
+
+<p>Range: 0 to 4294967296</p>
+
+<pre><code>"Idiosyncrätic".unpack("L*")
+# =&gt; [1869177929, 1668184435, 1956954994]
+
+[1869177929, 1668184435, 1956954994].pack("L*")
+# =&gt; "Idiosyncr\xC3\xA4t"
+</code></pre>
+
+<p>Note: The byte size in this example is 14, which is not dividable by 4, so it will ignore the last 2 bytes. If you need them, you could use a different template like: <code>"L* C*"</code></p>
+
+<h3 id="l--a-signed-integer-per-4-bytes">l | A Signed <code>Integer</code> per 4 Bytes</h3>
+
+<p>Range: -2147483648 to 2147483647</p>
+
+<pre><code>"Idiosyncrätic".unpack("l*")
+# =&gt; [1869177929, 1668184435, 1956954994]
+
+[1869177929, 1668184435, 1956954994].pack("l*")
+# =&gt; "Idiosyncr\xC3\xA4t"
+</code></pre>
+
+<h3 id="q--an-unsigned-integer-per-8-bytes">Q | An Unsigned <code>Integer</code> per 8 Bytes</h3>
+
+<p>Range: 0 to 18446744073709551616</p>
+
+<pre><code>"Idiosyncrätic".unpack("Q*")
+# =&gt; [7164797593890415689]
+
+[7164797593890415689].pack("Q*")
+# =&gt; "Idiosync"
+</code></pre>
+
+<h3 id="q--a-signed-integer-per-8-bytes">q | A Signed <code>Integer</code> per 8 Bytes</h3>
+
+<p>Range: -9223372036854775808 to 9223372036854775807</p>
+
+<pre><code>"Idiosyncrätic".unpack("q*")
+# =&gt; [7164797593890415689]
+
+[7164797593890415689].pack("q*")
+# =&gt; "Idiosync"
+</code></pre>
+
+<h3 id="a-note-on-byte-order-big-endian-vs-little-endian">A Note on Byte Order (Big-Endian vs. Little-Endian)</h3>
+
+<p>All the previous examples used the native byte order, which means, that the operating system defines, if the more significant bytes come first (little-endian) or last (big-endian). You will find more information about <a href="http://en.wikipedia.org/wiki/Endianness">"endianess" on wikipedia</a>.</p>
+
+<p>If you don't want to rely on your operating system to define byte order, you can add <code>&lt;</code> for big-endianess or <code>&gt;</code> for little-endianess to your template's directives:</p>
+
+<pre><code>"\x01\x00\x02\x00".unpack("S&lt;*") #=&gt; [1, 2]
+"\x01\x00\x02\x00".unpack("S&gt;*") #=&gt; [256, 512]
+</code></pre>
+
+<h2 id="integer-shortcut-directives">Integer Shortcut Directives</h2>
+
+<h3 id="n--an-unsigned-integer-per-2-bytes-big-endian-similar-to-s">n | An Unsigned <code>Integer</code> per 2 Bytes, Big-Endian (Similar to <code>S&gt;</code>)</h3>
+
+<pre><code>"Idiosyncrätic".unpack("n*")
+# =&gt; [18788, 26991, 29561, 28259, 29379, 42100, 26979]
+
+[18788, 26991, 29561, 28259, 29379, 42100, 26979].pack("n*")
+# =&gt; "Idiosyncr\xC3\xA4tic"
+</code></pre>
+
+<h3 id="n--a-signed-integer-per-4-bytes-big-endian-similar-to-l">N | A Signed <code>Integer</code> per 4 Bytes, Big-Endian (Similar to <code>L&gt;</code>)</h3>
+
+<pre><code>"Idiosyncrätic".unpack("N*")
+# =&gt; [1231317359, 1937337955, 1925424244]
+
+[1231317359, 1937337955, 1925424244].pack("N*")
+# =&gt; "Idiosyncr\xC3\xA4t"
+</code></pre>
+
+<h3 id="v--an-unsigned-integer-per-2-bytes-little-endian-similar-to-s">v | An Unsigned <code>Integer</code> per 2 Bytes, Little-Endian (Similar to <code>S&lt;</code>)</h3>
+
+<pre><code>"Idiosyncrätic".unpack("v*")
+# =&gt; [25673, 28521, 31091, 25454, 50034, 29860, 25449]
+
+[25673, 28521, 31091, 25454, 50034, 29860, 25449].pack("v*")
+# =&gt; "Idiosyncr\xC3\xA4tic"
+</code></pre>
+
+<h3 id="v--a-signed-integer-per-4-bytes-little-endian-similar-to-l">V | A Signed <code>Integer</code> per 4 Bytes, Little-Endian (Similar to <code>L&lt;</code>)</h3>
+
+<pre><code>"Idiosyncrätic".unpack("V*")
+# =&gt; [1869177929, 1668184435, 1956954994]
+
+[1869177929, 1668184435, 1956954994].pack("V*")
+# =&gt; "Idiosyncr\xC3\xA4t"
+</code></pre>
+
+<h2 id="integer-encoding-directives">Integer Encoding Directives</h2>
+
+<h3 id="u--utf-8-characters">U | UTF-8 Characters</h3>
+
+<p>This will convert the string to <a href="http://en.wikipedia.org/wiki/Code_point">unicode code points.</a></p>
+
+<pre><code>"ɔıʇɐɹɔuʎsoıpı".unpack("U*")
+# =&gt; [596, 305, 647, 592, 633, 596, 117, 654, 115, 111, 305, 112, 305]
+
+[596, 305, 647, 592, 633, 596, 117, 654, 115, 111, 305, 112, 305].pack("U*")
+# =&gt; "ɔıʇɐɹɔuʎsoıpı"
+</code></pre>
+
+<h3 id="w--ber-compression">w | BER Compression</h3>
+
+<p>See <a href="http://en.wikipedia.org/wiki/X.690#BER_encoding">wikipedia on X.690</a> for an explanation.</p>
+
+<pre><code>"Idiosyncrätic".unpack("w*")
+# =&gt; [73, 100, 105, 111, 115, 121, 110, 99, 114, 1102452, 105, 99]
+
+[73, 100, 105, 111, 115, 121, 110, 99, 114, 1102452, 105, 99].pack("w*")
+# =&gt; "Idiosyncr\xC3\xA4tic"
+</code></pre>
+
+<h2 id="float-directives">Float Directives</h2>
+
+<p>The following directives will interpret bytes as <a href="http://en.wikipedia.org/wiki/IEEE_floating_point">Floats.</a></p>
+
+<h3 id="d-d--a-float-double-precision-native-endian">D, d | A <code>Float</code> (Double Precision, Native-Endian)</h3>
+
+<pre><code>[1.2, 3.4].pack("D*")
+# =&gt; "333333\xF3?333333\v@"
+
+"333333\xF3?333333\v@".unpack("D*")
+#=&gt; [1.2, 3.4]
+</code></pre>
+
+<h3 id="f--a-float-single-precision-native-endian">F | A <code>Float</code> (Single Precision, Native-Endian)</h3>
+
+<pre><code>[1.2, 3.4].pack("F*")
+# =&gt; "\x9A\x99\x99?\x9A\x99Y@"
+
+"\x9A\x99\x99?\x9A\x99Y@".unpack("F*")
+# =&gt; [1.2000000476837158, 3.4000000953674316]
+</code></pre>
+
+<h3 id="e--a-float-double-precision-little-endian">E | A <code>Float</code> (Double Precision, Little-Endian)</h3>
+
+<pre><code>[1.2, 3.4].pack("E*")
+# =&gt; "333333\xF3?333333\v@"
+
+"333333\xF3?333333\v@".unpack("E*")
+#=&gt; [1.2, 3.4]
+</code></pre>
+
+<h3 id="e--a-float-single-precision-little-endian">e | A <code>Float</code> (Single Precision, Little-Endian)</h3>
+
+<pre><code>[1.2, 3.4].pack("e*")
+# =&gt; "\x9A\x99\x99?\x9A\x99Y@"
+
+"\x9A\x99\x99?\x9A\x99Y@".unpack("e*")
+# =&gt; [1.2000000476837158, 3.4000000953674316]
+</code></pre>
+
+<h3 id="g--a-float-double-precision-big-endian">G | A <code>Float</code> (Double Precision, Big-Endian)</h3>
+
+<pre><code>[1.2, 3.4].pack("G*")
+# =&gt; "?\xF3333333@\v333333"
+
+"?\xF3333333@\v333333".unpack("G*")
+#=&gt; [1.2, 3.4]
+</code></pre>
+
+<h3 id="g--a-float-single-precision-big-endian">g | A <code>Float</code> (Single Precision, Big-Endian)</h3>
+
+<pre><code>[1.2, 3.4].pack("g*")
+# =&gt; "?\x99\x99\x9A@Y\x99\x9A"
+
+"\x9A\x99\x99?\x9A\x99Y@".unpack("g*")
+# =&gt; [1.2000000476837158, 3.4000000953674316]
+</code></pre>
+
+<h2 id="string-directives">String Directives</h2>
+
+<p>String directives are more confusing in the regard that input and output of a <code>pack</code> or <code>unpack</code> operation are both strings, one of them being wrapped as a single argument in an array. The rule to remember here is that the string representation is something encoded (which might be saved or sent over the way), while the string-in-an-array format represents the data in a readable format.</p>
+
+<h3 id="a--arbitrary-string">a | Arbitrary String</h3>
+
+<pre><code>"Idiosyncrätic".unpack("a20")
+# =&gt; ["Idiosyncr\xC3\xA4tic"]
+</code></pre>
+
+<p>Fills with null bytes when packing:</p>
+
+<pre><code>["Idiosyncrätic"].pack("a20")
+# =&gt; "Idiosyncr\xC3\xA4tic\x00\x00\x00\x00\x00\x00"
+</code></pre>
+
+<h3 id="a--arbitrary-string-clean-null-bytes">A | Arbitrary String (Clean Null Bytes)</h3>
+
+<p>Like <strong>a</strong>, but removes spaces and null bytes when unpacking:</p>
+
+<pre><code>"Idiosyncrätic    \0 ".unpack("A20")
+# =&gt; ["Idiosyncr\xC3\xA4tic"]
+</code></pre>
+
+<p>Like <strong>a</strong>, but replaces null bytes with spaces when packing:</p>
+
+<pre><code>["Idiosyncrätic"].pack("A20")
+# =&gt; "Idiosyncr\xC3\xA4tic      "
+</code></pre>
+
+<h3 id="z--null-terminated-string">Z | Null-Terminated String</h3>
+
+<p>Like <strong>a</strong>, but unpacking will not read further than null bytes:</p>
+
+<pre><code>"Idiosyncrätic\0R".unpack("Z20")
+# =&gt; ["Idiosyncr\xC3\xA4tic"]
+</code></pre>
+
+<p>Like <strong>a</strong>, but packing will add a null byte to the end, if used with <code>*</code>:</p>
+
+<pre><code>["Idiosyncrätic"].pack("Z*")
+# =&gt; "Idiosyncr\xC3\xA4tic\x00"
+</code></pre>
+
+<h2 id="string-base-conversion-directives">String Base Conversion Directives</h2>
+
+<h3 id="b--bit-string-big-endian">B | Bit String (Big-Endian)</h3>
+
+<pre><code>"abc".unpack("B*")
+# =&gt; ["011000010110001001100011"]
+
+["011000010110001001100011"].pack("B*")
+# =&gt; "abc"
+</code></pre>
+
+<h3 id="b--bit-string-little-endian">b | Bit String (Little-Endian)</h3>
+
+<pre><code>"abc".unpack("b*")
+# =&gt; ["100001100100011011000110"]
+
+["100001100100011011000110"].pack("b*")
+# =&gt; "abc"
+</code></pre>
+
+<h3 id="h--hex-string-big-endian">H | Hex String (Big-Endian)</h3>
+
+<pre><code>"xyz".unpack("H*")
+# =&gt; ["78797a"]
+
+["78797a"].pack("H*")
+# =&gt; "xyz"
+</code></pre>
+
+<h3 id="h--hex-string-little-endian">h | Hex String (Little-Endian)</h3>
+
+<pre><code>"xyz".unpack("h*")
+# =&gt; ["8797a7"]
+
+["8797a7"].pack("h*")
+# =&gt; "xyz"
+</code></pre>
+
+<h2 id="string-encoding-directives">String Encoding Directives</h2>
+
+<p>Pack supports a few encoding conversion directives. Note that they are idiosyncratic, since they don't take a count option.</p>
+
+<h3 id="u--uu-encoding">u | UU-Encoding</h3>
+
+<p><a href="http://en.wikipedia.org/wiki/Uuencoding">Unix-to-Unix Encoding.</a></p>
+
+<pre><code>["Idiosyncrätic"].pack("u")
+# =&gt; ".261I;W-Y;F-RPZ1T:6,`\n"
+
+".261I;W-Y;F-RPZ1T:6,`\n".unpack("u")
+# =&gt; ["Idiosyncr\xC3\xA4tic"]
+</code></pre>
+
+<h3 id="m--quoted-printable--mime-encoding-rfc2045">M | Quoted-Printable / MIME Encoding (RFC2045)</h3>
+
+<p><a href="http://en.wikipedia.org/wiki/Quoted-printable">Quoted-Printable.</a></p>
+
+<pre><code>["Idiosyncrätic"].pack("M")
+# =&gt; "Idiosyncr=C3=A4tic=\n"
+
+"Idiosyncr=C3=A4tic=\n".unpack("M")
+# =&gt; ["Idiosyncr\xC3\xA4tic"]
+</code></pre>
+
+<h3 id="m--base64-encoding-rfc-2045">m | Base64 Encoding (RFC 2045)</h3>
+
+<p><a href="http://en.wikipedia.org/wiki/Base64">Base64.</a> Ruby's standard library also contains a <a href="https://github.com/ruby/ruby/blob/trunk/lib/base64.rb#L23">Base64 wrapper.</a></p>
+
+<pre><code>["Idiosyncrätic"].pack("m")
+# =&gt; "SWRpb3N5bmNyw6R0aWM=\n"
+
+"SWRpb3N5bmNyw6R0aWM=\n".unpack("m")
+# =&gt; ["Idiosyncr\xC3\xA4tic"]
+</code></pre>
+
+<h3 id="m0--base64-encoding-rfc-4648">m0 | Base64 Encoding (RFC 4648)</h3>
+
+<p><a href="http://en.wikipedia.org/wiki/Base64#RFC_4648">Base64.</a> This will not add a new-line at the end.</p>
+
+<pre><code>["Idiosyncrätic"].pack("m0")
+# =&gt; "SWRpb3N5bmNyw6R0aWM="
+
+"SWRpb3N5bmNyw6R0aWM=".unpack("m0")
+# =&gt; ["Idiosyncr\xC3\xA4tic"]
+</code></pre>
+
+<h2 id="pointer-directives">Pointer Directives</h2>
+
+<p><a href="http://en.wikipedia.org/wiki/Pointer_%28computer_programming%29">Pointer</a> inspection. If you want to understand how to use these, you should read <a href="https://github.com/ruby/ruby/blob/trunk/pack.c">pack's source.</a></p>
+
+<h3 id="p--pointer-to-fixed-length-string">P | Pointer to Fixed-Length String</h3>
+
+<pre><code>["Idiosyncrätic"].pack('P*')
+# =&gt; "\xC0\xDA\x04,.\x7F\x00\x00"
+
+["Idiosyncrätic"].pack('P*').unpack("P*")
+# =&gt; ["Idiosync"]
+</code></pre>
+
+<h3 id="p--pointer-to-null-terminated-string">p | Pointer to Null-Terminated String</h3>
+
+<pre><code>["Idiosyncrätic"].pack('p*')
+# =&gt; "\xB8\xF8\x03\x1C.\x7F\x00\x00"
+
+["Idiosyncrätic"].pack('p*').unpack("p*")
+# =&gt; ["Idiosyncrätic"]
+</code></pre>
+
+<h2 id="positional-directives">Positional Directives</h2>
+
+<p>You can jump around the current byte position while processing the data. This enables you to read data twice or ignore some data in the middle.</p>
+
+<h3 id="go-to-position">@ | Go to Position</h3>
+
+<pre><code>"abc".unpack("H* @0B*")
+#=&gt; ["616263", "011000010110001001100011"]
+
+["ffffff", "011000010110001001100011"].pack("H* @0B*")
+# =&gt; "abc"
+</code></pre>
+
+<h3 id="x--move-a-byte-back">X | Move a Byte Back</h3>
+
+<pre><code>"Idiosyncrä".unpack("C* X c*")
+# =&gt; [73, 100, 105, 111, 115, 121, 110, 99, 114, 195, 164, -92]
+
+[73, 100, 105, 111, 115, 121, 110, 99, 114, 195, 164, -92].pack("C* X c*")
+# =&gt; "Idiosyncr\xC3\xA4"
+</code></pre>
+
+<h3 id="x--skip-byte-fill-with-null-byte-when-packing">x | Skip Byte (Fill with Null Byte when Packing)</h3>
+
+<pre><code>"abc".unpack("C x C")
+# =&gt; [97, 99]
+
+[97, 99].pack("C x C")
+# =&gt; "a\x00c"
+</code></pre>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li><a href="http://ruby-doc.org/core-2.2.2/String.html#method-i-unpack">RDoc: String#unpack</a></li>
+  <li><a href="http://ruby-doc.org/core-2.2.2/Array.html#method-i-pack">RDoc: Array#pack</a></li>
+  <li><a href="https://github.com/ruby/ruby/blob/trunk/pack.c">Source: pack.c</a></li>
+  <li><a href="http://www.perlmonks.org/?node_id=224666">unpack in Perl</a></li>
+</ul>
+
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          By <a href="http://janlelis.com">Jan Lelis</a>
+        </div>
+        <a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/fea958eff6b85935ea3a8a4974c2548e08abca2e#all_commit_comments">Comments on GitHub</a> |
+        Created: 2015-05-04 |
+        Last Update: 2015-05-04
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>
