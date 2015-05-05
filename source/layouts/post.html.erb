@@ -21,8 +21,9 @@
           By <a href="http://janlelis.com">Jan Lelis</a>
         </div>
         <a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/<%= current_article.data.commit %>#all_commit_comments">Comments on GitHub</a> |
+        <%= current_article.tags.map{ |e| e.capitalize }.join(", ") %> |
         Created: <%= current_article.date.strftime("%Y-%m-%d") %> |
-        Last Update: <%= ( Date.parse(`git log -1 --format=%cd -- #{__dir__ + "/../#{current_article.path}"}`) rescue current_article.date ).strftime("%Y-%m-%d") %>
+        Updated: <%= ( Date.parse(`git log -1 --format=%cd -- #{__dir__ + "/../#{current_article.path}"}`) rescue current_article.date ).strftime("%Y-%m-%d") %>
       </footer>
     </div>
     <%= javascript_include_tag "rainbow-custom.min" %>
