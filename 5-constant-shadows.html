@@ -1,0 +1,304 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - Constant Shadows</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="A 31 Parts Story about Ruby Specialities. A New Post Every Day in May 2015!"/>
+<meta name="keywords" content="ruby, core, debug, surprise, stdlib"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/index/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/5-constant-shadows.html">Constant Shadows</a></h1>
+      </section>
+
+      <article class="post">
+        <p>The <strong>script lines</strong> feature is probably the most famous example for idiosyncratic naming in Ruby!</p>
+
+<p></p>
+
+<p>Ruby can save all source files you <code>load</code> or <code>require</code> as strings. This is useful for debugging utilities, for example, standard library's <a href="https://github.com/ruby/ruby/tree/trunk/lib/debug.rb">debug</a> and <a href="https://github.com/ruby/ruby/tree/trunk/lib/tracer.rb">tracer</a> both use these capabilities.</p>
+
+<p>This is possible with the <strong>script lines</strong> object: It is a Ruby hash that stores all script filenames as keys and the whole file contents as values. It is not activated by default, you have to globally opt-in for it, which is done by <em>initializing it with an empty hash</em>!</p>
+
+<h3 id="quiz-how-to-access-this-magical-script-lines-hash">Quiz: How to Access this Magical Script Lines Hash:</h3>
+
+<p>A) <code>script_lines</code><br />
+B) <code>SCRIPT_LINES</code><br />
+C) <code>__SCRIPT_LINES</code><br />
+D) <code>__script_lines__</code><br />
+E) <code>SCRIPT_LINES__</code><br />
+F) <code>Ruby::DebugInfo::SCRIPT_LINES</code><br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+The answer is E: <code>SCRIPT_LINES__</code></p>
+
+<blockquote>
+<p><em>WEIRD. What gives with the trailing underscores? It’s such a big constant that it leaves a two-character shadow!!</em></p>
+<a href="http://viewsourcecode.org/why/redhanded/inspect/whoaScript_lines__.html">&mdash; why</a>
+</blockquote>
+
+<h2 id="usage-example">Usage Example</h2>
+
+<p>It is a best practice to check if it already is defined, because someone else might have already activated it:</p>
+
+<pre><code>SCRIPT_LINES__ = {} unless defined? SCRIPT_LINES__
+require 'abbrev'
+SCRIPT_LINES__.size
+# =&gt; 1
+SCRIPT_LINES__.keys.first
+# =&gt; "/home/user/.rvm/rubies/ruby-2.2.2/lib/ruby/2.2.0/abbrev.rb"
+SCRIPT_LINES__.values.first.is_a? Array
+# =&gt; true
+SCRIPT_LINES__.values.first.size
+# =&gt; 131
+</code></pre>
+
+<p>Running <code>puts SCRIPT_LINES__.values.first</code> will output every line of the file:</p>
+
+<pre><code>#--
+# Copyright (c) 2001,2003 Akinori MUSHA &lt;knu@iDaemons.org&gt;
+#
+# All rights reserved.  You can redistribute and/or modify it under
+# the same terms as Ruby.
+#
+# $Idaemons: /home/cvs/rb/abbrev.rb,v 1.2 2001/05/30 09:37:45 knu Exp $
+# $RoughId: abbrev.rb,v 1.4 2003/10/14 19:45:42 knu Exp $
+# $Id: abbrev.rb 46784 2014-07-11 08:16:05Z hsbt $
+#++
+
+##
+# Calculates the set of unambiguous abbreviations for a given set of strings.
+#
+#   require 'abbrev'
+#   require 'pp'
+#
+#   pp Abbrev.abbrev(['ruby'])
+#   #=&gt;  {"ruby"=&gt;"ruby", "rub"=&gt;"ruby", "ru"=&gt;"ruby", "r"=&gt;"ruby"}
+#
+#   pp Abbrev.abbrev(%w{ ruby rules })
+#
+# _Generates:_
+#   { "ruby"  =&gt;  "ruby",
+#     "rub"   =&gt;  "ruby",
+#     "rules" =&gt;  "rules",
+#     "rule"  =&gt;  "rules",
+#     "rul"   =&gt;  "rules" }
+#
+# It also provides an array core extension, Array#abbrev.
+#
+#   pp %w{ summer winter }.abbrev
+#
+# _Generates:_
+#   { "summer"  =&gt; "summer",
+#     "summe"   =&gt; "summer",
+#     "summ"    =&gt; "summer",
+#     "sum"     =&gt; "summer",
+#     "su"      =&gt; "summer",
+#     "s"       =&gt; "summer",
+#     "winter"  =&gt; "winter",
+#     "winte"   =&gt; "winter",
+#     "wint"    =&gt; "winter",
+#     "win"     =&gt; "winter",
+#     "wi"      =&gt; "winter",
+#     "w"       =&gt; "winter" }
+
+module Abbrev
+
+  # Given a set of strings, calculate the set of unambiguous abbreviations for
+  # those strings, and return a hash where the keys are all the possible
+  # abbreviations and the values are the full strings.
+  #
+  # Thus, given +words+ is "car" and "cone", the keys pointing to "car" would
+  # be "ca" and "car", while those pointing to "cone" would be "co", "con", and
+  # "cone".
+  #
+  #   require 'abbrev'
+  #
+  #   Abbrev.abbrev(%w{ car cone })
+  #   #=&gt; {"ca"=&gt;"car", "con"=&gt;"cone", "co"=&gt;"cone", "car"=&gt;"car", "cone"=&gt;"cone"}
+  #
+  # The optional +pattern+ parameter is a pattern or a string. Only input
+  # strings that match the pattern or start with the string are included in the
+  # output hash.
+  #
+  #   Abbrev.abbrev(%w{car box cone crab}, /b/)
+  #   #=&gt; {"box"=&gt;"box", "bo"=&gt;"box", "b"=&gt;"box", "crab" =&gt; "crab"}
+  #
+  #   Abbrev.abbrev(%w{car box cone}, 'ca')
+  #   #=&gt; {"car"=&gt;"car", "ca"=&gt;"car"}
+  def abbrev(words, pattern = nil)
+    table = {}
+    seen = Hash.new(0)
+
+    if pattern.is_a?(String)
+      pattern = /\A#{Regexp.quote(pattern)}/  # regard as a prefix
+    end
+
+    words.each do |word|
+      next if word.empty?
+      word.size.downto(1) { |len|
+        abbrev = word[0...len]
+
+        next if pattern &amp;&amp; pattern !~ abbrev
+
+        case seen[abbrev] += 1
+        when 1
+          table[abbrev] = word
+        when 2
+          table.delete(abbrev)
+        else
+          break
+        end
+      }
+    end
+
+    words.each do |word|
+      next if pattern &amp;&amp; pattern !~ word
+
+      table[word] = word
+    end
+
+    table
+  end
+
+  module_function :abbrev
+end
+
+class Array
+  # Calculates the set of unambiguous abbreviations for the strings in +self+.
+  #
+  #   require 'abbrev'
+  #   %w{ car cone }.abbrev
+  #   #=&gt; {"car"=&gt;"car", "ca"=&gt;"car", "cone"=&gt;"cone", "con"=&gt;"cone", "co"=&gt;"cone"}
+  #
+  # The optional +pattern+ parameter is a pattern or a string. Only input
+  # strings that match the pattern or start with the string are included in the
+  # output hash.
+  #
+  #   %w{ fast boat day }.abbrev(/^.a/)
+  #   #=&gt; {"fast"=&gt;"fast", "fas"=&gt;"fast", "fa"=&gt;"fast", "day"=&gt;"day", "da"=&gt;"day"}
+  #
+  #   Abbrev.abbrev(%w{car box cone}, "ca")
+  #   #=&gt; {"car"=&gt;"car", "ca"=&gt;"car"}
+  #
+  # See also Abbrev.abbrev
+  def abbrev(pattern = nil)
+    Abbrev::abbrev(self, pattern)
+  end
+end
+</code></pre>
+
+<h2 id="memory-impact">Memory Impact</h2>
+
+<p>Only use this for debugging purpose, since a lot of strings get loaded into your memory. This is a comparison loading ActiveSupport with and without script lines:</p>
+
+<pre><code>require 'active_support/all'
+puts "#{`ps -o rss -p #{Process.pid}`.strip.split.last.to_i / 1024.0} MB"
+</code></pre>
+
+<p>Result: 16.421875 MB</p>
+
+<pre><code>SCRIPT_LINES__ = {}
+require 'active_support/all'
+puts "#{`ps -o rss -p #{Process.pid}`.strip.split.last.to_i / 1024.0} MB"
+</code></pre>
+
+<p>Result: 19.85546875 MB</p>
+
+<h4 id="resources">Resources</h4>
+
+<ul>
+  <li><a href="https://github.com/ruby/ruby/blob/ruby_2_2/parse.y#L5446-L5460">Source: SCRIPT_LINES__</a></li>
+  <li><a href="https://github.com/jruby/jruby/blob/9.0.0.0.pre2/core/src/main/java/org/jruby/parser/Parser.java#L176-L189">JRuby Source: SCRIPT_LINES__</a></li>
+  <li><a href="http://stackoverflow.com/questions/7220896/get-current-ruby-process-memory-usage">The memory profiling one-liner</a></li>
+</ul>
+
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          By <a href="http://janlelis.com">Jan Lelis</a>
+        </div>
+        <a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/25aaf2fa717185ef0e3a29be76c7b90069908b9e#all_commit_comments">Comments on GitHub</a> |
+        Core, Debug, Surprise, Stdlib |
+        Created: 2015-05-05 |
+        Updated: 2015-05-05
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>
