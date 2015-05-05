@@ -204,6 +204,10 @@ h3 {
 
 footer {
   border-top: 1px solid #ddd;
+  .twitter-tweet-button {
+    position: relative !important;
+    top: 4px !important;
+  }
 }
 
 article, footer {

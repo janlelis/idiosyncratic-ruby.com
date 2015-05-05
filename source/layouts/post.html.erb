@@ -20,10 +20,15 @@
         <div class="footer-right">
           By <a href="http://janlelis.com">Jan Lelis</a>
         </div>
+        <a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script> |
         <a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/<%= current_article.data.commit %>#all_commit_comments">Comments on GitHub</a> |
-        <%= current_article.tags.map{ |e| e.capitalize }.join(", ") %> |
-        Created: <%= current_article.date.strftime("%Y-%m-%d") %> |
-        Updated: <%= ( Date.parse(`git log -1 --format=%cd -- #{__dir__ + "/../#{current_article.path}"}`) rescue current_article.date ).strftime("%Y-%m-%d") %>
+        <%= current_article.tags.map{ |e| e.capitalize }.join(", ") %><br>
+        Last Update: <%= ( Date.parse(`git log -1 --format=%cd -- #{__dir__ + "/../#{current_article.path}"}`) rescue current_article.date ).strftime("%Y-%m-%d") %>
       </footer>
     </div>
     <%= javascript_include_tag "rainbow-custom.min" %>
