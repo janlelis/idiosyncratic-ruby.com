@@ -1,6 +1,6 @@
 ---
 title: Constant Shadows
-date: 2015-05-06
+date: 2015-05-05
 tags: core, debug, surprise, stdlib
 commit: 25aaf2fa717185ef0e3a29be76c7b90069908b9e
 ---
