@@ -2,6 +2,7 @@
 title: Constant Shadows
 date: 2015-05-06
 tags: core, debug, surprise, stdlib
+commit: 25aaf2fa717185ef0e3a29be76c7b90069908b9e
 ---
 
 The **script lines** feature is probably the most famous example for idiosyncratic naming in Ruby!
