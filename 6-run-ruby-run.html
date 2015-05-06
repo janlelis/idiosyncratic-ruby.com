@@ -1,0 +1,685 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - Run Ruby, Run!</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="A 31 Parts Story about Ruby Specialities. A New Post Every Day in May 2015!"/>
+<meta name="keywords" content="ruby, stdlib, http, unix, golf"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/index/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/6-run-ruby-run.html">Run Ruby, Run!</a></h1>
+      </section>
+
+      <article class="post">
+        <p>There is a one-liner on the internet that starts a local web server, for serving all the static files in your current directory:</p>
+
+<pre><code>$ python -m SimpleHTTPServer 8080
+</code></pre>
+
+<p></p>
+
+<p>Or with Python 3:</p>
+
+<pre><code>$ python3 -m http.server
+</code></pre>
+
+<p>Rubyists generally do not want to rely on Python, so there is a Ruby equivalent:</p>
+
+<pre><code>$ ruby -run -e httpd . -p 8080
+</code></pre>
+
+<p>This will fire up a very simple server, written in Ruby, using <a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/webrick/rdoc/WEBrick.html">WEBrick</a> under the hood!</p>
+
+<p>It also takes some more options, see at bottom of this post for a listing of available ones.</p>
+
+<p>How does this work and what does it do exactly? First of all, what does <code>ruby -run</code> mean? The answer might be surprising: It could be rewritten as:</p>
+
+<pre><code>$ ruby -require "un" -e "httpd" . -p 8080
+</code></pre>
+
+<p>The <code>-e</code> option directly executes the ruby code given, and <code>-r</code> is the short version of <code>--require</code>. So it requires "un", which happens to be included in Ruby's standard library¹. It was written by Hirofumi WATANABE (eban), a long-time Ruby contributer and code golf star. <code>un.rb</code>s goal is to
+provide:</p>
+
+<pre><code># Utilities to replace common UNIX commands in Makefiles etc
+</code></pre>
+
+<p>¹ The same is possible for <a href="https://github.com/ruby/ruby/blob/trunk/lib/ubygems.rb">requiring rubygems</a></p>
+
+<p>Let's see, what else is included:</p>
+
+<pre><code>#   ruby -run -e cp             -- [OPTION] SOURCE DEST
+#   ruby -run -e ln             -- [OPTION] TARGET LINK_NAME
+#   ruby -run -e mv             -- [OPTION] SOURCE DEST
+#   ruby -run -e rm             -- [OPTION] FILE
+#   ruby -run -e mkdir          -- [OPTION] DIRS
+#   ruby -run -e rmdir          -- [OPTION] DIRS
+#   ruby -run -e install        -- [OPTION] SOURCE DEST
+#   ruby -run -e chmod          -- [OPTION] OCTAL-MODE FILE
+#   ruby -run -e touch          -- [OPTION] FILE
+#   ruby -run -e wait_writable  -- [OPTION] FILE
+#   ruby -run -e mkmf           -- [OPTION] EXTNAME [OPTION]
+#   ruby -run -e httpd          -- [OPTION] DocumentRoot
+#   ruby -run -e help [COMMAND]
+</code></pre>
+
+<p>Besides <strong>httpd</strong>, you mostly get <code>FileUtils</code> based implementations of common unix tools,: <code>cp</code>, <code>ln</code>, <code>mv</code>, <code>rm</code>, <code>mkdir</code>, <code>rmdir</code>, <code>install</code>, <code>chmod</code>, and <code>touch</code>.</p>
+
+<p>There are two more commands included, which don't fit into this unix category: <a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/mkmf/rdoc/MakeMakefile.html">mkmf</a>, which you can use to create the Makefile for a Ruby C extension and <a href="https://github.com/ruby/ruby/blob/ruby_2_2/lib/un.rb#L233-L264">wait_writable</a>, which allows you to continuously try to open a file in writable mode.</p>
+
+<h2 id="run-reference"><code>-run</code> Reference</h2>
+
+<p>What follows is a reference of all <strong>un</strong> commands. Also checkout the integrated help with:</p>
+
+<pre><code>$ ruby -run -e help COMMAND
+</code></pre>
+
+<h3 id="copy-files">Copy Files</h3>
+
+<pre><code>$ ruby -run -e cp SOURCE DEST [OPTIONS]
+</code></pre>
+
+<table>
+  <thead>
+    <tr>
+      <th>Argument</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SOURCE</td>
+      <td>File to copy</td>
+    </tr>
+    <tr>
+      <td>DEST</td>
+      <td>Where to copy the file</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>-p</td>
+      <td>Preserve file attributes if possible</td>
+    </tr>
+    <tr>
+      <td>-r</td>
+      <td>Copy directories recursively</td>
+    </tr>
+    <tr>
+      <td>-v</td>
+      <td>Verbose mode (print executed shell command)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="create-symlink">Create Symlink</h3>
+
+<pre><code>$ ruby -run -e ln TARGET LINK_NAME [OPTIONS]
+</code></pre>
+
+<table>
+  <thead>
+    <tr>
+      <th>Argument</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TARGET</td>
+      <td>File to create symlink from</td>
+    </tr>
+    <tr>
+      <td>LINK_NAME</td>
+      <td>Where to create the symlink</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>-s</td>
+      <td>Make symbolic links instead of hard links</td>
+    </tr>
+    <tr>
+      <td>-f</td>
+      <td>Overwrite files, which already exists at destination</td>
+    </tr>
+    <tr>
+      <td>-v</td>
+      <td>Verbose mode (print executed shell command)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="move-file">Move File</h3>
+
+<pre><code>$ ruby -run -e mv SOURCE DEST [OPTIONS]
+</code></pre>
+
+<table>
+  <thead>
+    <tr>
+      <th>Argument</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SOURCE</td>
+      <td>File to move</td>
+    </tr>
+    <tr>
+      <td>DEST</td>
+      <td>Where to move the file</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>-v</td>
+      <td>Verbose mode (print executed shell command)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="remove-file">Remove File</h3>
+
+<pre><code>$ ruby -run -e rm FILE [OPTIONS]
+</code></pre>
+
+<table>
+  <thead>
+    <tr>
+      <th>Argument</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>FILE</td>
+      <td>File(s) to remove</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>-f</td>
+      <td>Do nothing if file does not exist</td>
+    </tr>
+    <tr>
+      <td>-r</td>
+      <td>Remove the contents of directories recursively</td>
+    </tr>
+    <tr>
+      <td>-v</td>
+      <td>Verbose mode (print executed shell command)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="create-directory">Create Directory</h3>
+
+<pre><code>$ ruby -run -e mkdir DIRS [OPTIONS]
+</code></pre>
+
+<table>
+  <thead>
+    <tr>
+      <th>Argument</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>DIRS</td>
+      <td>Director(y/ies) to create</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>-p</td>
+      <td>Don't fail if directory already exists<br />Create all directories necessary</td>
+    </tr>
+    <tr>
+      <td>-v</td>
+      <td>Verbose mode (print executed shell command)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="remove-directory">Remove Directory</h3>
+
+<pre><code>$ ruby -run -e rmdir DIRS [OPTIONS]
+</code></pre>
+
+<table>
+  <thead>
+    <tr>
+      <th>Argument</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>DIRS</td>
+      <td>Director(y/ies) to remove</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>-p</td>
+      <td>Also remove directory's ancestors</td>
+    </tr>
+    <tr>
+      <td>-v</td>
+      <td>Verbose mode (print executed shell command)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="copy-files-and-set-attributes">Copy Files and Set Attributes</h3>
+
+<pre><code>$ ruby -run -e install SOURCE DEST [OPTIONS]
+</code></pre>
+
+<table>
+  <thead>
+    <tr>
+      <th>Argument</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SOURCE</td>
+      <td>File to copy</td>
+    </tr>
+    <tr>
+      <td>DEST</td>
+      <td>Where to copy the file</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>-p</td>
+      <td>Apply access/modification times of SOURCE files to</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>corresponding destination files</td>
+    </tr>
+    <tr>
+      <td>-m</td>
+      <td>Set permission mode (as in chmod), instead of 0755</td>
+    </tr>
+    <tr>
+      <td>-v</td>
+      <td>Verbose mode (print executed shell command)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="change-file-mode">Change File Mode</h3>
+
+<pre><code>$ ruby -run -e chmod OCTAL-MODE FILE [OPTIONS]
+</code></pre>
+
+<table>
+  <thead>
+    <tr>
+      <th>Argument</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>OCTAL-MODE</td>
+      <td>File mode to set as octal number</td>
+    </tr>
+    <tr>
+      <td>FILE</td>
+      <td>File(s) to operate on</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>-v</td>
+      <td>Verbose mode (print executed shell command)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="update-file-timestamp-or-create-empty-file">Update File Timestamp or Create Empty File</h3>
+
+<pre><code>$ ruby -run -e touch FILE [OPTIONS]
+</code></pre>
+
+<table>
+  <thead>
+    <tr>
+      <th>Argument</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>FILE</td>
+      <td>File(s) to touch</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>-v</td>
+      <td>Verbose mode (print executed shell command)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="wait-until-file-gets-writable">Wait until File gets Writable</h3>
+
+<pre><code>$ ruby -run -e wait_writable FILE [OPTIONS]
+</code></pre>
+
+<table>
+  <thead>
+    <tr>
+      <th>Argument</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>FILE</td>
+      <td>File(s) to wait for</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>-n RETRY</td>
+      <td>Count how often to retry</td>
+    </tr>
+    <tr>
+      <td>-w SEC</td>
+      <td>Time to wait between retries (in seconds)</td>
+    </tr>
+    <tr>
+      <td>-v</td>
+      <td>Verbose mode (print access errors)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="make-makefile">Make Makefile</h3>
+
+<pre><code>$ ruby -run -e mkmf EXTNAME [OPTIONS]
+</code></pre>
+
+<table>
+  <thead>
+    <tr>
+      <th>Argument</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>EXTNAME</td>
+      <td>Extension name</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>-d ARGS</td>
+      <td>Run dir_config</td>
+    </tr>
+    <tr>
+      <td>-h ARGS</td>
+      <td>Run have_header</td>
+    </tr>
+    <tr>
+      <td>-l ARGS</td>
+      <td>Run have_library</td>
+    </tr>
+    <tr>
+      <td>-f ARGS</td>
+      <td>Run have_func</td>
+    </tr>
+    <tr>
+      <td>-v ARGS</td>
+      <td>Run have_var</td>
+    </tr>
+    <tr>
+      <td>-t ARGS</td>
+      <td>Run have_type</td>
+    </tr>
+    <tr>
+      <td>-m ARGS</td>
+      <td>Run have_macro</td>
+    </tr>
+    <tr>
+      <td>-c ARGS</td>
+      <td>Run have_const</td>
+    </tr>
+    <tr>
+      <td>–vendor</td>
+      <td>Install to vendor_ruby</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="serve-static-files-via-http">Serve Static Files via HTTP</h3>
+
+<pre><code>$ ruby -run -e httpd DOCUMENT_ROOT [OPTIONS]
+</code></pre>
+
+<table>
+  <thead>
+    <tr>
+      <th>Argument</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>DOCUMENT_ROOT</td>
+      <td>Directory to serve</td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table-30-10-35-X">
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Short</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>–bind-adress=ADDR</td>
+      <td>-b</td>
+      <td>IP address to bind to</td>
+      <td><code>-b 127.0.0.1</code></td>
+    </tr>
+    <tr>
+      <td>–port=NUM</td>
+      <td>-p</td>
+      <td>Port number to listen on</td>
+      <td><code>-p 8080</code></td>
+    </tr>
+    <tr>
+      <td>–max-clients=MAX</td>
+      <td>-m</td>
+      <td>Max number of simultaneous clients</td>
+      <td><code>-m 2</code></td>
+    </tr>
+    <tr>
+      <td>–temp-dir=DIR</td>
+      <td>-t</td>
+      <td>Temporary directory to use</td>
+      <td><code>-t /tmp</code></td>
+    </tr>
+    <tr>
+      <td>–do-not-reverse-lookup</td>
+      <td>-d</td>
+      <td>Disable reverse lookup</td>
+      <td><code>-d</code></td>
+    </tr>
+    <tr>
+      <td>–request-timeout=SECOND</td>
+      <td>-r</td>
+      <td>Request timeout (in seconds)</td>
+      <td><code>-r 2</code></td>
+    </tr>
+    <tr>
+      <td>–http-version=VERSION</td>
+      <td> </td>
+      <td>HTTP version</td>
+      <td><code>--http-version=1.0</code></td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>-v</td>
+      <td>Start WEBrick in verbose mode</td>
+      <td><code>-v</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="further-reading">Further Reading</h2>
+
+<ul>
+  <li><a href="https://github.com/ruby/ruby/blob/trunk/lib/un.rb">un.rb</a></li>
+  <li><a href="https://gist.github.com/willurd/5720255">Collection of one-liners that start a static server</a></li>
+</ul>
+
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          By <a href="http://janlelis.com">Jan Lelis</a>
+        </div>
+        <a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script> |
+        <a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/7a392db0fe66509c07200f9cb74888c250a87bfb#all_commit_comments">Comments on GitHub</a> |
+        Stdlib, Http, Unix, Golf<br>
+        Last Update: 2015-05-06
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>

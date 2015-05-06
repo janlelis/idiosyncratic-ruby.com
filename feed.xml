@@ -5,10 +5,659 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2015-05-05T02:00:00+02:00</updated>
+  <updated>2015-05-06T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Run Ruby, Run!</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/6-run-ruby-run.html"/>
+    <id>http://idiosyncratic-ruby.com/6-run-ruby-run.html</id>
+    <published>2015-05-06T02:00:00+02:00</published>
+    <updated>2015-05-06T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;There is a one-liner on the internet that starts a local web server, for serving all the static files in your current directory:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python -m SimpleHTTPServer 8080
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Or with Python 3:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python3 -m http.server
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Rubyists generally do not want to rely on Python, so there is a Ruby equivalent:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -run -e httpd . -p 8080
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will fire up a very simple server, written in Ruby, using &lt;a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/webrick/rdoc/WEBrick.html"&gt;WEBrick&lt;/a&gt; under the hood!&lt;/p&gt;
+
+&lt;p&gt;It also takes some more options, see at bottom of this post for a listing of available ones.&lt;/p&gt;
+
+&lt;p&gt;How does this work and what does it do exactly? First of all, what does &lt;code&gt;ruby -run&lt;/code&gt; mean? The answer might be surprising: It could be rewritten as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -require "un" -e "httpd" . -p 8080
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;-e&lt;/code&gt; option directly executes the ruby code given, and &lt;code&gt;-r&lt;/code&gt; is the short version of &lt;code&gt;--require&lt;/code&gt;. So it requires "un", which happens to be included in Ruby's standard library¹. It was written by Hirofumi WATANABE (eban), a long-time Ruby contributer and code golf star. &lt;code&gt;un.rb&lt;/code&gt;s goal is to
+provide:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Utilities to replace common UNIX commands in Makefiles etc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;¹ The same is possible for &lt;a href="https://github.com/ruby/ruby/blob/trunk/lib/ubygems.rb"&gt;requiring rubygems&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Let's see, what else is included:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#   ruby -run -e cp             -- [OPTION] SOURCE DEST
+#   ruby -run -e ln             -- [OPTION] TARGET LINK_NAME
+#   ruby -run -e mv             -- [OPTION] SOURCE DEST
+#   ruby -run -e rm             -- [OPTION] FILE
+#   ruby -run -e mkdir          -- [OPTION] DIRS
+#   ruby -run -e rmdir          -- [OPTION] DIRS
+#   ruby -run -e install        -- [OPTION] SOURCE DEST
+#   ruby -run -e chmod          -- [OPTION] OCTAL-MODE FILE
+#   ruby -run -e touch          -- [OPTION] FILE
+#   ruby -run -e wait_writable  -- [OPTION] FILE
+#   ruby -run -e mkmf           -- [OPTION] EXTNAME [OPTION]
+#   ruby -run -e httpd          -- [OPTION] DocumentRoot
+#   ruby -run -e help [COMMAND]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Besides &lt;strong&gt;httpd&lt;/strong&gt;, you mostly get &lt;code&gt;FileUtils&lt;/code&gt; based implementations of common unix tools,: &lt;code&gt;cp&lt;/code&gt;, &lt;code&gt;ln&lt;/code&gt;, &lt;code&gt;mv&lt;/code&gt;, &lt;code&gt;rm&lt;/code&gt;, &lt;code&gt;mkdir&lt;/code&gt;, &lt;code&gt;rmdir&lt;/code&gt;, &lt;code&gt;install&lt;/code&gt;, &lt;code&gt;chmod&lt;/code&gt;, and &lt;code&gt;touch&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;There are two more commands included, which don't fit into this unix category: &lt;a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/mkmf/rdoc/MakeMakefile.html"&gt;mkmf&lt;/a&gt;, which you can use to create the Makefile for a Ruby C extension and &lt;a href="https://github.com/ruby/ruby/blob/ruby_2_2/lib/un.rb#L233-L264"&gt;wait_writable&lt;/a&gt;, which allows you to continuously try to open a file in writable mode.&lt;/p&gt;
+
+&lt;h2 id="run-reference"&gt;&lt;code&gt;-run&lt;/code&gt; Reference&lt;/h2&gt;
+
+&lt;p&gt;What follows is a reference of all &lt;strong&gt;un&lt;/strong&gt; commands. Also checkout the integrated help with:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -run -e help COMMAND
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="copy-files"&gt;Copy Files&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -run -e cp SOURCE DEST [OPTIONS]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Argument&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;SOURCE&lt;/td&gt;
+      &lt;td&gt;File to copy&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;DEST&lt;/td&gt;
+      &lt;td&gt;Where to copy the file&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Option&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-p&lt;/td&gt;
+      &lt;td&gt;Preserve file attributes if possible&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-r&lt;/td&gt;
+      &lt;td&gt;Copy directories recursively&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-v&lt;/td&gt;
+      &lt;td&gt;Verbose mode (print executed shell command)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id="create-symlink"&gt;Create Symlink&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -run -e ln TARGET LINK_NAME [OPTIONS]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Argument&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;TARGET&lt;/td&gt;
+      &lt;td&gt;File to create symlink from&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;LINK_NAME&lt;/td&gt;
+      &lt;td&gt;Where to create the symlink&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Option&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-s&lt;/td&gt;
+      &lt;td&gt;Make symbolic links instead of hard links&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-f&lt;/td&gt;
+      &lt;td&gt;Overwrite files, which already exists at destination&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-v&lt;/td&gt;
+      &lt;td&gt;Verbose mode (print executed shell command)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id="move-file"&gt;Move File&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -run -e mv SOURCE DEST [OPTIONS]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Argument&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;SOURCE&lt;/td&gt;
+      &lt;td&gt;File to move&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;DEST&lt;/td&gt;
+      &lt;td&gt;Where to move the file&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Option&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-v&lt;/td&gt;
+      &lt;td&gt;Verbose mode (print executed shell command)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id="remove-file"&gt;Remove File&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -run -e rm FILE [OPTIONS]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Argument&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;FILE&lt;/td&gt;
+      &lt;td&gt;File(s) to remove&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Option&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-f&lt;/td&gt;
+      &lt;td&gt;Do nothing if file does not exist&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-r&lt;/td&gt;
+      &lt;td&gt;Remove the contents of directories recursively&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-v&lt;/td&gt;
+      &lt;td&gt;Verbose mode (print executed shell command)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id="create-directory"&gt;Create Directory&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -run -e mkdir DIRS [OPTIONS]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Argument&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;DIRS&lt;/td&gt;
+      &lt;td&gt;Director(y/ies) to create&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Option&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-p&lt;/td&gt;
+      &lt;td&gt;Don't fail if directory already exists&lt;br /&gt;Create all directories necessary&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-v&lt;/td&gt;
+      &lt;td&gt;Verbose mode (print executed shell command)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id="remove-directory"&gt;Remove Directory&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -run -e rmdir DIRS [OPTIONS]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Argument&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;DIRS&lt;/td&gt;
+      &lt;td&gt;Director(y/ies) to remove&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Option&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-p&lt;/td&gt;
+      &lt;td&gt;Also remove directory's ancestors&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-v&lt;/td&gt;
+      &lt;td&gt;Verbose mode (print executed shell command)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id="copy-files-and-set-attributes"&gt;Copy Files and Set Attributes&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -run -e install SOURCE DEST [OPTIONS]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Argument&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;SOURCE&lt;/td&gt;
+      &lt;td&gt;File to copy&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;DEST&lt;/td&gt;
+      &lt;td&gt;Where to copy the file&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Option&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-p&lt;/td&gt;
+      &lt;td&gt;Apply access/modification times of SOURCE files to&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;corresponding destination files&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-m&lt;/td&gt;
+      &lt;td&gt;Set permission mode (as in chmod), instead of 0755&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-v&lt;/td&gt;
+      &lt;td&gt;Verbose mode (print executed shell command)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id="change-file-mode"&gt;Change File Mode&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -run -e chmod OCTAL-MODE FILE [OPTIONS]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Argument&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;OCTAL-MODE&lt;/td&gt;
+      &lt;td&gt;File mode to set as octal number&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;FILE&lt;/td&gt;
+      &lt;td&gt;File(s) to operate on&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Option&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-v&lt;/td&gt;
+      &lt;td&gt;Verbose mode (print executed shell command)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id="update-file-timestamp-or-create-empty-file"&gt;Update File Timestamp or Create Empty File&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -run -e touch FILE [OPTIONS]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Argument&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;FILE&lt;/td&gt;
+      &lt;td&gt;File(s) to touch&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Option&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-v&lt;/td&gt;
+      &lt;td&gt;Verbose mode (print executed shell command)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id="wait-until-file-gets-writable"&gt;Wait until File gets Writable&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -run -e wait_writable FILE [OPTIONS]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Argument&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;FILE&lt;/td&gt;
+      &lt;td&gt;File(s) to wait for&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Option&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-n RETRY&lt;/td&gt;
+      &lt;td&gt;Count how often to retry&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-w SEC&lt;/td&gt;
+      &lt;td&gt;Time to wait between retries (in seconds)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-v&lt;/td&gt;
+      &lt;td&gt;Verbose mode (print access errors)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id="make-makefile"&gt;Make Makefile&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -run -e mkmf EXTNAME [OPTIONS]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Argument&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;EXTNAME&lt;/td&gt;
+      &lt;td&gt;Extension name&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Option&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-d ARGS&lt;/td&gt;
+      &lt;td&gt;Run dir_config&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-h ARGS&lt;/td&gt;
+      &lt;td&gt;Run have_header&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-l ARGS&lt;/td&gt;
+      &lt;td&gt;Run have_library&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-f ARGS&lt;/td&gt;
+      &lt;td&gt;Run have_func&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-v ARGS&lt;/td&gt;
+      &lt;td&gt;Run have_var&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-t ARGS&lt;/td&gt;
+      &lt;td&gt;Run have_type&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-m ARGS&lt;/td&gt;
+      &lt;td&gt;Run have_macro&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;-c ARGS&lt;/td&gt;
+      &lt;td&gt;Run have_const&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;–vendor&lt;/td&gt;
+      &lt;td&gt;Install to vendor_ruby&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id="serve-static-files-via-http"&gt;Serve Static Files via HTTP&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -run -e httpd DOCUMENT_ROOT [OPTIONS]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Argument&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;DOCUMENT_ROOT&lt;/td&gt;
+      &lt;td&gt;Directory to serve&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table class="table-30-10-35-X"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Option&lt;/th&gt;
+      &lt;th&gt;Short&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+      &lt;th&gt;Example&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;–bind-adress=ADDR&lt;/td&gt;
+      &lt;td&gt;-b&lt;/td&gt;
+      &lt;td&gt;IP address to bind to&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;-b 127.0.0.1&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;–port=NUM&lt;/td&gt;
+      &lt;td&gt;-p&lt;/td&gt;
+      &lt;td&gt;Port number to listen on&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;-p 8080&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;–max-clients=MAX&lt;/td&gt;
+      &lt;td&gt;-m&lt;/td&gt;
+      &lt;td&gt;Max number of simultaneous clients&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;-m 2&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;–temp-dir=DIR&lt;/td&gt;
+      &lt;td&gt;-t&lt;/td&gt;
+      &lt;td&gt;Temporary directory to use&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;-t /tmp&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;–do-not-reverse-lookup&lt;/td&gt;
+      &lt;td&gt;-d&lt;/td&gt;
+      &lt;td&gt;Disable reverse lookup&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;-d&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;–request-timeout=SECOND&lt;/td&gt;
+      &lt;td&gt;-r&lt;/td&gt;
+      &lt;td&gt;Request timeout (in seconds)&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;-r 2&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;–http-version=VERSION&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;HTTP version&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;--http-version=1.0&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;-v&lt;/td&gt;
+      &lt;td&gt;Start WEBrick in verbose mode&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;-v&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id="further-reading"&gt;Further Reading&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://github.com/ruby/ruby/blob/trunk/lib/un.rb"&gt;un.rb&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://gist.github.com/willurd/5720255"&gt;Collection of one-liners that start a static server&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Constant Shadows</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/5-constant-shadows.html"/>
@@ -26,7 +675,7 @@
 
 &lt;p&gt;This is possible with the &lt;strong&gt;script lines&lt;/strong&gt; object: It is a Ruby hash that stores all script filenames as keys and the whole file contents as values. It is not activated by default, you have to globally opt-in for it, which is done by &lt;em&gt;initializing it with an empty hash&lt;/em&gt;!&lt;/p&gt;
 
-&lt;h3 id="quiz-how-to-access-this-magical-script-lines-hash"&gt;Quiz: How to Access this Magical Script Lines Hash:&lt;/h3&gt;
+&lt;h2 id="quiz-how-to-access-this-magical-script-lines-hash"&gt;Quiz: How to Access this Magical Script Lines Hash?&lt;/h2&gt;
 
 &lt;p&gt;A) &lt;code&gt;script_lines&lt;/code&gt;&lt;br /&gt;
 B) &lt;code&gt;SCRIPT_LINES&lt;/code&gt;&lt;br /&gt;
@@ -273,7 +922,7 @@ puts "#{`ps -o rss -p #{Process.pid}`.strip.split.last.to_i / 1024.0} MB"
 
 &lt;p&gt;Result: 19.85546875 MB&lt;/p&gt;
 
-&lt;h4 id="resources"&gt;Resources&lt;/h4&gt;
+&lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href="https://github.com/ruby/ruby/blob/ruby_2_2/parse.y#L5446-L5460"&gt;Source: SCRIPT_LINES__&lt;/a&gt;&lt;/li&gt;
@@ -1071,7 +1720,7 @@ end
 
 &lt;h2 id="syntax-highlighter-comparison"&gt;Syntax Highlighter Comparison&lt;/h2&gt;
 
-&lt;table class="table-45-30-X"&gt;
+&lt;table class="table-35-30-X"&gt;
   &lt;thead&gt;
     &lt;tr&gt;
       &lt;th&gt;Editor or Syntax Highlighter&lt;/th&gt;
