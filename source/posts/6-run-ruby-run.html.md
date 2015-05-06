@@ -2,6 +2,7 @@
 title: Run Ruby, Run!
 date: 2015-05-06
 tags: stdlib, http, unix, golf
+commit: 7a392db0fe66509c07200f9cb74888c250a87bfb
 ---
 
 There is a one-liner on the internet that starts a local web server, for serving all the static files in your current directory:
