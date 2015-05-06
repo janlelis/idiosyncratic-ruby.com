@@ -226,12 +226,12 @@ footer {
 
 article, footer {
   ul {
-    padding-left: 22px;
+    padding-left: 18px;
     margin-bottom: 2em;
-    margin-top: 0.3em;
 
-    li:before{ content: "-"; position:relative; left: -10px; }
-    li{ text-indent: -10px; }
+    li {
+      list-style-type: circle;
+    }
   }
 }
 
