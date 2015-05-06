@@ -190,8 +190,9 @@ h1 {
 }
 
 h2 {
-  font-size: 16pt;
-  margin-top: 1.4em;
+  font-size: 18pt;
+  margin-top: 2em;
+  margin-bottom: 0.4em;
   code {
     font-size: 16pt;
     font-weight: normal;
@@ -205,10 +206,11 @@ h2 {
 }
 
 h3 {
-  font-size: 13pt;
-  margin-top: 1.2em;
+  font-size: 14pt;
+  margin-top: 2em;
+  margin-bottom: 0.4em;
   code {
-    font-size: 13pt;
+    font-size: 15pt;
     font-weight: normal;
   }
 }
@@ -247,10 +249,6 @@ a {
 
 .post {
   clear: both;
-
-  h2 {
-    margin-bottom: 0.3em;
-  }
 
   @include media($large-screen) {
     margin-left: 214px;

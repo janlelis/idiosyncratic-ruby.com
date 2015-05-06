@@ -13,7 +13,7 @@ Ruby can save all source files you `load` or `require` as strings. This is usefu
 
 This is possible with the **script lines** object: It is a Ruby hash that stores all script filenames as keys and the whole file contents as values. It is not activated by default, you have to globally opt-in for it, which is done by *initializing it with an empty hash*!
 
-### Quiz: How to Access this Magical Script Lines Hash:
+## Quiz: How to Access this Magical Script Lines Hash?
 
 A) `script_lines`<br>
 B) `SCRIPT_LINES`<br>
@@ -258,7 +258,7 @@ Result: 16.421875 MB
 
 Result: 19.85546875 MB
 
-#### Resources
+## Resources
 
 - [Source: SCRIPT_LINES__](https://github.com/ruby/ruby/blob/ruby_2_2/parse.y#L5446-L5460)
 - [JRuby Source: SCRIPT_LINES__](https://github.com/jruby/jruby/blob/9.0.0.0.pre2/core/src/main/java/org/jruby/parser/Parser.java#L176-L189)
