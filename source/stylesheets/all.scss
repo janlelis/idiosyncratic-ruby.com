@@ -137,11 +137,23 @@ code {
 }
 
 td, th {
+  font-size: $base-font-size * 0.83;
   vertical-align: top;
+  padding: 0.5em 2px;
   code{
     font-size: $base-font-size * 0.8;
   }
 }
+
+th {
+  font-size: $base-font-size;
+  font-weight: normal;
+}
+
+table {
+  margin-top: -0.25em;
+}
+
 
 pre {
   overflow: auto;

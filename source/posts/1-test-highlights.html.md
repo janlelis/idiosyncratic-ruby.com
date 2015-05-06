@@ -29,7 +29,7 @@ Editor or Syntax Highlighter                       | Version        | Highlights
 [atom](https://atom.io/)                           | 0.192.0        | no. score: 0/5
 [highlight.js](https://github.com/isagalaev/highlight.js) | 8.5     | no. score: 0/5
 [sublime text](https://www.sublimetext.com/)       | 3 Build 3083   | no. score: 0/5
-{:.table-45-30-X}
+{:.table-35-30-X}
 
 ¹ Obviously, passing the test does not necessarily mean that a tool highlights Ruby correctly - but it is an indication.
 
