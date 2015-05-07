@@ -2,6 +2,7 @@
 title: Easier Switching
 date: 2015-05-07
 tags: cli-options, globals
+commit: a911aa14618828c656916c15711428364a6ece7e
 ---
 
 There is a command-line switch to enable command-line switches:
