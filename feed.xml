@@ -5,10 +5,77 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2015-05-06T02:00:00+02:00</updated>
+  <updated>2015-05-07T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Easier Switching</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/7-easier-switching.html"/>
+    <id>http://idiosyncratic-ruby.com/7-easier-switching.html</id>
+    <published>2015-05-07T02:00:00+02:00</published>
+    <updated>2015-05-07T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;There is a command-line switch to enable command-line switches:&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id="s"&gt;&lt;code&gt;-s&lt;/code&gt;&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;Enables some switch parsing for switches after script name but before
+any file name arguments (or before a --).  Any switches found there
+are removed from ARGV and set the corresponding variable in the script.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this context "corresponding variable" means &lt;em&gt;global variable&lt;/em&gt;. Let's see this in action (the &lt;code&gt;-e&lt;/code&gt; option is for executing the Ruby code that follows in a string):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -se 'p $option'
+# nil
+
+$ ruby -se 'p $option' -- -option
+# true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="switching-files"&gt;Switching Files&lt;/h2&gt;
+
+&lt;p&gt;You can add command-line options to the &lt;a href="http://en.wikipedia.org/wiki/Shebang_%28Unix%29"&gt;Ruby shebang line&lt;/a&gt;, which makes using the switch feature from the command-line more readable. Create a Ruby file (&lt;code&gt;switch.rb&lt;/code&gt;) and add:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!ruby -s
+p $option
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;No you can call it like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby switch.rb -option
+# true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="caveats"&gt;Caveats!&lt;/h2&gt;
+
+&lt;p&gt;You should be careful, not to trigger the wrong switches:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby switch.rb -LOAD_PATH
+switch.rb: $LOAD_PATH is a read-only variable (NameError)
+
+$ ruby switch.rb -0
+switch.rb: no implicit conversion of true into String (TypeError)
+
+$ ruby switch.rb -stdout
+switch.rb: $stdout must have write method, TrueClass given (TypeError)
+
+$ ruby switch.rb -SAFE
+switch.rb: no implicit conversion of true into Integer (TypeError)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;man ruby&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Run Ruby, Run!</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/6-run-ruby-run.html"/>
