@@ -2,10 +2,12 @@
 title: Self Improvement
 date: 2015-05-08
 tags: core, inheritance
-commit: 7923275d6bfce595c3f0a0f1d9eceaa6dae43800
+commit: 7923275d6bfce595c3f0a0f1d9eceaa6dae43800vi
 ---
 
 One of the never-ending style battles in Ruby land is `module_function` vs `extend self`.
+
+ARTICLE
 
 Both enable you to define module methods, which can be called not only from instance level, but also from class level. This enables you to make modules that can optionally be `include`'d into your current scope, which makes sense if the module contains non-state changing methods ("functions"). Not having to prepend the module name every time you use the functions saves time and looks good:
 
