@@ -20,6 +20,8 @@
     </author>
     <content type="html">&lt;p&gt;One of the never-ending style battles in Ruby land is &lt;code&gt;module_function&lt;/code&gt; vs &lt;code&gt;extend self&lt;/code&gt;.&lt;/p&gt;
 
+&lt;p&gt;&lt;/p&gt;
+
 &lt;p&gt;Both enable you to define module methods, which can be called not only from instance level, but also from class level. This enables you to make modules that can optionally be &lt;code&gt;include&lt;/code&gt;'d into your current scope, which makes sense if the module contains non-state changing methods ("functions"). Not having to prepend the module name every time you use the functions saves time and looks good:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;# class level
