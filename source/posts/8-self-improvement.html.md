@@ -2,6 +2,7 @@
 title: Self Improvement
 date: 2015-05-08
 tags: core, inheritance
+commit: 7923275d6bfce595c3f0a0f1d9eceaa6dae43800
 ---
 
 One of the never-ending style battles in Ruby land is `module_function` vs `extend self`.
