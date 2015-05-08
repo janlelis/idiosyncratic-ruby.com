@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - Self Improvement</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="A 31 Parts Story about Ruby Specialities. A New Post Every Day in May 2015!"/>
+<meta name="keywords" content="ruby, core, inheritance"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/index/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/8-self-improvement.html">Self Improvement</a></h1>
+      </section>
+
+      <article class="post">
+        <p>One of the never-ending style battles in Ruby land is <code>module_function</code> vs <code>extend self</code>.</p>
+
+<p>Both enable you to define module methods, which can be called not only from instance level, but also from class level. This enables you to make modules that can optionally be <code>include</code>'d into your current scope, which makes sense if the module contains non-state changing methods ("functions"). Not having to prepend the module name every time you use the functions saves time and looks good:</p>
+
+<pre><code># class level
+Mathematics.calc # =&gt; 42
+
+# instance level
+include Mathematics
+calc # =&gt; 42
+</code></pre>
+
+<h2 id="modulefunction"><code>module_function</code></h2>
+
+<p>You can achieve this kind of functionality using:</p>
+
+<pre><code>module Mathematics
+  module_function
+
+  def calc
+    42
+  end
+end
+</code></pre>
+
+<p>Which is very similar to writing this:</p>
+
+<pre><code>module Mathematics
+  def self.calc
+    42
+  end
+
+  private
+
+  def calc
+    42
+  end
+end
+</code></pre>
+
+<h3 id="reflection-observations">Reflection Observations</h3>
+
+<pre><code>Mathematics.instance_method(:calc).owner #=&gt; Mathematics
+Mathematics.public_method_defined?(:calc) #=&gt; false
+Mathematics.private_method_defined?(:calc) #=&gt; true
+
+Mathematics.method(:calc).owner #=&gt; #&lt;Class:Mathematics&gt;
+Mathematics.method(:calc).owner.singleton_class? #=&gt; true
+</code></pre>
+
+<p>Two things to take away from this:</p>
+
+<ul>
+  <li>The method will be copied to class' singleton class</li>
+  <li>The instance method's visibility will become private</li>
+</ul>
+
+<h2 id="extend-self"><code>extend self</code></h2>
+
+<p>There is another way to get something very similar:</p>
+
+<pre><code>module Mathematics
+  extend self
+
+  def calc
+    42
+  end
+end
+</code></pre>
+
+<p>Using <a href="http://ruby-doc.org/core-2.2.2/Object.html#method-i-extend">extend</a>, the module will add its instance methods to the module's very own inheritance chain.</p>
+
+<h3 id="reflection-observations-1">Reflection Observations</h3>
+
+<pre><code>Mathematics.instance_method(:calc).owner #=&gt; Mathematics
+Mathematics.public_method_defined?(:calc) #=&gt; true
+Mathematics.private_method_defined?(:calc) #=&gt; false
+
+Mathematics.method(:calc).owner #=&gt; Mathematics
+Mathematics.method(:calc).owner.singleton_class? #=&gt; false
+</code></pre>
+
+<p>The differences to <code>module_function</code> are:</p>
+
+<ul>
+  <li>No method copying involved</li>
+  <li>No changes to method visibility</li>
+</ul>
+
+<h2 id="which-one-to-use">Which One to Use?</h2>
+
+<h3 id="advantages-of-extend-self">Advantages of <code>extend self</code></h3>
+
+<ul>
+  <li>No method copying: If you want to modify a method's behavior via meta-programming, you only need to do this in one place</li>
+  <li>No side effects, like changing the method's visibility</li>
+  <li>It is no extra language feature</li>
+</ul>
+
+<h3 id="adavantages-of-modulefunction">Adavantages of <code>module_function</code></h3>
+
+<ul>
+  <li>The method name "module_function" describes what it does, so it might be better readable</li>
+</ul>
+
+<h4 id="resources">Resources</h4>
+
+<ul>
+  <li><a href="http://blog.rubybestpractices.com/posts/gregory/040-issue-10-uses-for-modules.html">Blog post on Ruby Best Practices about extend self</a></li>
+  <li><a href="http://blog.rubybestpractices.com/posts/gregory/041-issue-10.5-uses-for-modules.html">Blog post on Ruby Best Practices about module_function</a></li>
+</ul>
+
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="http://janlelis.com">Jan Lelis</a><br>
+        </div>
+        <a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script> |
+        <a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/7923275d6bfce595c3f0a0f1d9eceaa6dae43800#all_commit_comments">Comments on GitHub</a> |
+        Core, Inheritance<br>
+        Last Update: 2015-05-08
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>

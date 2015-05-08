@@ -5,10 +5,132 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2015-05-07T02:00:00+02:00</updated>
+  <updated>2015-05-08T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Self Improvement</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/8-self-improvement.html"/>
+    <id>http://idiosyncratic-ruby.com/8-self-improvement.html</id>
+    <published>2015-05-08T02:00:00+02:00</published>
+    <updated>2015-05-08T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;One of the never-ending style battles in Ruby land is &lt;code&gt;module_function&lt;/code&gt; vs &lt;code&gt;extend self&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Both enable you to define module methods, which can be called not only from instance level, but also from class level. This enables you to make modules that can optionally be &lt;code&gt;include&lt;/code&gt;'d into your current scope, which makes sense if the module contains non-state changing methods ("functions"). Not having to prepend the module name every time you use the functions saves time and looks good:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# class level
+Mathematics.calc # =&amp;gt; 42
+
+# instance level
+include Mathematics
+calc # =&amp;gt; 42
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="modulefunction"&gt;&lt;code&gt;module_function&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;You can achieve this kind of functionality using:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;module Mathematics
+  module_function
+
+  def calc
+    42
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Which is very similar to writing this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;module Mathematics
+  def self.calc
+    42
+  end
+
+  private
+
+  def calc
+    42
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="reflection-observations"&gt;Reflection Observations&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;Mathematics.instance_method(:calc).owner #=&amp;gt; Mathematics
+Mathematics.public_method_defined?(:calc) #=&amp;gt; false
+Mathematics.private_method_defined?(:calc) #=&amp;gt; true
+
+Mathematics.method(:calc).owner #=&amp;gt; #&amp;lt;Class:Mathematics&amp;gt;
+Mathematics.method(:calc).owner.singleton_class? #=&amp;gt; true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Two things to take away from this:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The method will be copied to class' singleton class&lt;/li&gt;
+  &lt;li&gt;The instance method's visibility will become private&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="extend-self"&gt;&lt;code&gt;extend self&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;There is another way to get something very similar:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;module Mathematics
+  extend self
+
+  def calc
+    42
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Using &lt;a href="http://ruby-doc.org/core-2.2.2/Object.html#method-i-extend"&gt;extend&lt;/a&gt;, the module will add its instance methods to the module's very own inheritance chain.&lt;/p&gt;
+
+&lt;h3 id="reflection-observations-1"&gt;Reflection Observations&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;Mathematics.instance_method(:calc).owner #=&amp;gt; Mathematics
+Mathematics.public_method_defined?(:calc) #=&amp;gt; true
+Mathematics.private_method_defined?(:calc) #=&amp;gt; false
+
+Mathematics.method(:calc).owner #=&amp;gt; Mathematics
+Mathematics.method(:calc).owner.singleton_class? #=&amp;gt; false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The differences to &lt;code&gt;module_function&lt;/code&gt; are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;No method copying involved&lt;/li&gt;
+  &lt;li&gt;No changes to method visibility&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="which-one-to-use"&gt;Which One to Use?&lt;/h2&gt;
+
+&lt;h3 id="advantages-of-extend-self"&gt;Advantages of &lt;code&gt;extend self&lt;/code&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;No method copying: If you want to modify a method's behavior via meta-programming, you only need to do this in one place&lt;/li&gt;
+  &lt;li&gt;No side effects, like changing the method's visibility&lt;/li&gt;
+  &lt;li&gt;It is no extra language feature&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id="adavantages-of-modulefunction"&gt;Adavantages of &lt;code&gt;module_function&lt;/code&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The method name "module_function" describes what it does, so it might be better readable&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id="resources"&gt;Resources&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="http://blog.rubybestpractices.com/posts/gregory/040-issue-10-uses-for-modules.html"&gt;Blog post on Ruby Best Practices about extend self&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://blog.rubybestpractices.com/posts/gregory/041-issue-10.5-uses-for-modules.html"&gt;Blog post on Ruby Best Practices about module_function&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Easier Switching</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/7-easier-switching.html"/>
