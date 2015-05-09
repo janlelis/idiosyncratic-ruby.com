@@ -2,6 +2,7 @@
 title: Globalization
 date: 2015-05-09
 tags: core, globals, stdlib
+commit: b2bd19014880f6a065962abb63300bf5cabea233
 ---
 
 This is an overview of all the special, two-letter global variables in Ruby, which Ruby [inherited from Perl](http://www.perlmonks.org/?node_id=353259). For the purpose of improving code readability, Ruby comes with [English.rb](https://github.com/ruby/ruby/blob/trunk/lib/English.rb) in its standard library, which provides non-cryptic aliases and explainations.
