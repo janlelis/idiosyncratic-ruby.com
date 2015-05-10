@@ -218,10 +218,23 @@ h3 {
 
 footer {
   border-top: 1px solid #ddd;
-  .twitter-tweet-button {
-    position: relative !important;
-    top: 4px !important;
-  }
+}
+
+.feed-icon {
+  height: 18px;
+  position: relative;
+  top: 3px;
+  margin-right: 0.5em;
+}
+.twitter-tweet-button {
+  position: relative !important;
+  top: 4px !important;
+  margin-right: 0.5em;
+}
+.github-star-button {
+  display: inline-block;
+  position: relative;
+  top: 4px;
 }
 
 article, footer {
