@@ -11,7 +11,7 @@ title: Idiosyncratic Ruby - All Posts
   <section class="index-articles">
     <% page_articles.sort_by{ |a| a.path.to_i }.each do |article| %>
       <article>
-        <h2><a href="/<%= article.path[/\d/].to_i %>-<%= article.slug %>.html"><%= article.path[/\d/].to_i %> | <%= article.title %></a></h2>
+        <h2><a href="/<%= article.path[/\d+/].to_i %>-<%= article.slug %>.html"><%= article.path[/\d+/].to_i %> | <%= article.title %></a></h2>
         <%= article.summary %>
         <%= link_to "READ", article %>
       </article>

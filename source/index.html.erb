@@ -19,7 +19,7 @@ title: Idiosyncratic Ruby
   <div class="scroll-on-page">
     <aside id="scroll-on-page-top">
       <% page_articles.sort_by{ |a| a.path.to_i }.each do |article| %>
-        <a class="scroll-on-page-link" href="/<%= article.path[/\d/].to_i %>-<%= article.slug %>.html"><%= article.title %> | <%= article.path[/\d/].to_i %></a>
+        <a class="scroll-on-page-link" href="/<%= article.path[/\d+/].to_i %>-<%= article.slug %>.html"><%= article.title %> | <%= article.path[/\d+/].to_i %></a>
       <% end %>
     </aside>
 
