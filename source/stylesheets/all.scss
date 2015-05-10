@@ -213,6 +213,12 @@ h3 {
     font-size: 15pt;
     font-weight: normal;
   }
+  a {
+    color: #333;
+    &:hover, &:active, &:focus {
+      color: #333;
+    }
+  }
 }
 
 
@@ -229,8 +235,13 @@ footer {
 .twitter-tweet-button {
   position: relative !important;
   top: 4px !important;
+}
+
+.start-page .twitter-tweet-button,
+.index-articles .twitter-tweet-button {
   margin-right: 0.5em;
 }
+
 .github-star-button {
   display: inline-block;
   position: relative;

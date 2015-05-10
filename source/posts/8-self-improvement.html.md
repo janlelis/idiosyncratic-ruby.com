@@ -100,7 +100,7 @@ The differences to `module_function` are:
 
 - The method name "module_function" describes what it does, so it might be better readable
 
-#### Resources
+## Resources
 
 - [Blog post on Ruby Best Practices about extend self](http://blog.rubybestpractices.com/posts/gregory/040-issue-10-uses-for-modules.html)
 - [Blog post on Ruby Best Practices about module_function](http://blog.rubybestpractices.com/posts/gregory/041-issue-10.5-uses-for-modules.html)
