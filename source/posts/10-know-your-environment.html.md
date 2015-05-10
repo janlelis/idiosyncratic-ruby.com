@@ -2,6 +2,7 @@
 title: Know your Environment
 date: 2015-05-10
 tags: core
+commit: 5d787c8cb128aec700f2872e9611b4ab9b01f892
 ---
 
 Ruby's [ENV object](http://ruby-doc.org/core-2.2.2/ENV.html) gives you accss to [enviroment variables](http://en.wikipedia.org/wiki/Environment_variable). It looks like normal [Ruby hash](http://ruby-doc.org/core-2.2.2/Hash.html):
