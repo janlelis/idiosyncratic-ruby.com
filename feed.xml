@@ -5,10 +5,57 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2015-05-09T02:00:00+02:00</updated>
+  <updated>2015-05-10T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Know your Environment</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/10-know-your-environment.html"/>
+    <id>http://idiosyncratic-ruby.com/10-know-your-environment.html</id>
+    <published>2015-05-10T02:00:00+02:00</published>
+    <updated>2015-05-10T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Ruby's &lt;a href="http://ruby-doc.org/core-2.2.2/ENV.html"&gt;ENV object&lt;/a&gt; gives you accss to &lt;a href="http://en.wikipedia.org/wiki/Environment_variable"&gt;enviroment variables&lt;/a&gt;. It looks like normal &lt;a href="http://ruby-doc.org/core-2.2.2/Hash.html"&gt;Ruby hash&lt;/a&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ENV["TERM"] #=&amp;gt; "xterm"
+ENV["SOMETHING"] = "NEW" #=&amp;gt; "NEW"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But this is only the surface. Turns out &lt;code&gt;ENV&lt;/code&gt; is a &lt;em&gt;special object&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ENV.class #=&amp;gt; Object
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It is hash-like, but lacks some functionality:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ENV.flatten # NoMethodError
+ENV.default = "MyNullObject" # NoMethodError
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Besides this, it behaves like an ordinary hash:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ENV["my_value"] = "something"
+ENV[42] = "oops" # not quite: TypeError
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Another thing that is missing: Merging the &lt;code&gt;ENV&lt;/code&gt; hash with another hash:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ENV.merge(Idiosyncratic: "YES") # NoMethodError
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://github.com/ruby/ruby/blob/trunk/hash.c"&gt;Source: ENV&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/rubinius/rubinius/blob/master/kernel/common/env.rb"&gt;Rubinius Source: ENV&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Globalization</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/9-globalization.html"/>
@@ -494,7 +541,7 @@ Mathematics.method(:calc).owner.singleton_class? #=&amp;gt; false
   &lt;li&gt;The method name "module_function" describes what it does, so it might be better readable&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id="resources"&gt;Resources&lt;/h4&gt;
+&lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href="http://blog.rubybestpractices.com/posts/gregory/040-issue-10-uses-for-modules.html"&gt;Blog post on Ruby Best Practices about extend self&lt;/a&gt;&lt;/li&gt;

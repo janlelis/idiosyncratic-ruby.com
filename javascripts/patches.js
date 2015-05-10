@@ -1,1 +1,1 @@
-$(function(){$("code").attr("data-language","ruby"),console.log("bla")});
+$(function(){$("code").attr("data-language","ruby")}),$(function(){$("h2").each(function(h,a){$(a).find("a").length||$(a).replaceWith($('<h2 id="'+a.id+'"><a href="#'+a.id+'">'+$(a).html()+"</a></h2>"))}),$("h3").each(function(h,a){$(a).find("a").length||$(a).replaceWith($('<h3 id="'+a.id+'"><a href="#'+a.id+'">'+$(a).html()+"</a></h3>"))})});
