@@ -5,10 +5,158 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2015-05-10T02:00:00+02:00</updated>
+  <updated>2015-05-11T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Regular Extremism</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/11-regular-extremism.html"/>
+    <id>http://idiosyncratic-ruby.com/11-regular-extremism.html</id>
+    <published>2015-05-11T02:00:00+02:00</published>
+    <updated>2015-05-11T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;You are here for a collection of 10 advanced features of regular expressions in Ruby!&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id="regex-conditionals"&gt;Regex Conditionals&lt;/h2&gt;
+
+&lt;p&gt;Regular expressions can have embedded conditionals (&lt;em&gt;if-then-else&lt;/em&gt;) with &lt;code&gt;(?ref)then|else&lt;/code&gt;. "ref" stands for a group reference (number or name of a capture group):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# will match everything if string contains "ä", or only match first two chars
+regex = /(?=(.*ä))?(?(1).*|..)/
+
+"Ruby"[regex] #=&amp;gt; "Ru"
+"Idiosyncrätic"[regex] #=&amp;gt; "Idiosyncrätic"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="keep-expressions"&gt;Keep Expressions&lt;/h2&gt;
+
+&lt;p&gt;The possible ways to &lt;a href="http://www.regular-expressions.info/lookaround.html"&gt;look around&lt;/a&gt; within a regex are:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Syntax&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+      &lt;th&gt;Example&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;(?=X)&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Positive lookahead&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;"Ruby"[/.(?=b)/]    #=&amp;gt; "u"&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;(?!X)&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Negative lookahead&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;"Ruby"[/.(?!u)/]    #=&amp;gt; "u"&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;(?&amp;lt;=X)&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Positive lookbehind&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;"Ruby"[/(?&amp;lt;=u)./]   #=&amp;gt; "b"&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;(?!X)&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Negative lookbehind&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;"Ruby"[/(?&amp;lt;!R|^)./] #=&amp;gt; "b"&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;But Ruby also has an additional shortcut syntax to do &lt;em&gt;positive lookbehinds&lt;/em&gt; via &lt;code&gt;\K&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"Ruby"[/Ru\Kby/] #=&amp;gt; "by"
+"Ruby"[/ru\Kby/] #=&amp;gt; nil
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="character-class-intersections"&gt;Character Class Intersections&lt;/h2&gt;
+
+&lt;p&gt;You can nest character classes and AND-connect them with &lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt;. Matching all non-vowels here:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"Idiosyncratic".scan /[[a-z]&amp;amp;&amp;amp;[^aeiou]]+/
+# =&amp;gt; ["d", "syncr", "t", "c"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="regex-sub-expressions"&gt;Regex Sub-Expressions&lt;/h2&gt;
+
+&lt;p&gt;You can recursively apply regex groups again with &lt;code&gt;\g&amp;lt;ref&amp;gt;&lt;/code&gt;. "ref" stands for a group reference (number or name of a capture group). This is different from back-references (&lt;code&gt;\1&lt;/code&gt; .. &lt;code&gt;\9&lt;/code&gt;), which will re-match the already matched string, instead of executing the regex again:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# match any number of sequences of 3 identical chars
+regex = /((.)\2{2})\g&amp;lt;1&amp;gt;*/
+"aaa"[regex] #=&amp;gt; "aaa"
+"abc"[regex] #=&amp;gt; nil
+"aaab"[regex] #=&amp;gt; "aaa"
+"aaabbb"[regex] #=&amp;gt; "aaabbb"
+"aaabbbc"[regex] #=&amp;gt; "aaabbb"
+"aaabbbccc"[regex] #=&amp;gt; "aaabbbccc"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="match-characters-that-belong-together"&gt;Match Characters that Belong Together&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;\X&lt;/code&gt; treats combined characters as a single character. See &lt;a href="http://unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries"&gt;grapheme clusters&lt;/a&gt; for more information.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;string = "R\u{030A}uby"
+string[/./] #=&amp;gt; "R"
+string[/.../] #=&amp;gt; "R̊u"
+string[/\X\X/] #=&amp;gt; "R̊u"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="relative-back-references"&gt;Relative Back-References&lt;/h2&gt;
+
+&lt;p&gt;Back-refs can be relatively referenced from the current position via &lt;code&gt;\k&amp;lt;-n&amp;gt;&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"Ruby by"[/(R)(u)(by) \k&amp;lt;-1&amp;gt;/] #=&amp;gt; "Ruby by"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="deactivate-backtracking"&gt;Deactivate Backtracking&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="http://www.regular-expressions.info/atomic.html"&gt;Atomic groups&lt;/a&gt;, defined via &lt;code&gt;(?&amp;gt;X)&lt;/code&gt;, will always try to match the first of all alternatives:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"Rüby"[/R(u*|ü)by/]   #=&amp;gt; "Rüby"
+"Rüby"[/R(?&amp;gt;u*|ü)by/] #=&amp;gt; nil
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="turn-on-unicode-matching-for-w-d-s-and-b"&gt;Turn On Unicode-Matching for &lt;code&gt;\w&lt;/code&gt;, &lt;code&gt;\d&lt;/code&gt;, &lt;code&gt;\s&lt;/code&gt;, and &lt;code&gt;\b&lt;/code&gt;&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;"Rüby"[/\w*/] #=&amp;gt; "R"
+"Rüby"[/(?u)\w*/] #=&amp;gt; "Rüby"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="continue-matching-at-last-match-position"&gt;Continue Matching at Last Match Position&lt;/h2&gt;
+
+&lt;p&gt;When using a method that matches a regex multiple times against a string (like &lt;code&gt;String#gsub&lt;/code&gt; or &lt;code&gt;String#scan&lt;/code&gt;), you can reference the position of the last match via &lt;code&gt;\G&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"923823723".scan(/\G(.)23/) #=&amp;gt; [["9"], ["8"], ["7"]]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="stringsplit-with-capture-groups"&gt;&lt;code&gt;String#split&lt;/code&gt; with Capture Groups&lt;/h2&gt;
+
+&lt;p&gt;The normal way of using &lt;code&gt;String#split&lt;/code&gt; is this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"0-0".split(/-/) #=&amp;gt; ["0", "0"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But if you want to make your code as hard to read as possible, remember that captured groups will be added to the resulting array:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"0-0".split(/(-)/) #=&amp;gt; ["0", "-", "0"]
+"0-0".split(/-(?=(.))/) #=&amp;gt; ["0", "0", "0"]
+"0-0".split(/(((-)))/) #=&amp;gt; ["0", "-", "-", "-", "0"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.2.2/Regexp.html"&gt;RDoc: Regexp&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/k-takata/Onigmo/blob/master/doc/RE"&gt;Onigmo Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Know your Environment</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/10-know-your-environment.html"/>
