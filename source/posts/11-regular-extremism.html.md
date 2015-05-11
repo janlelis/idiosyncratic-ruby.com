@@ -2,6 +2,7 @@
 title: Regular Extremism
 date: 2015-05-11
 tags: strings, rexex
+commit: 2ac97dd2eac279a8c4fc2355004e141cb15406a9
 ---
 
 You are here for a collection of 10 advanced features of regular expressions in Ruby!
