@@ -28,7 +28,7 @@ The possible ways to [look around](http://www.regular-expressions.info/lookaroun
 `(?=X)`  | Positive lookahead  | `"Ruby"[/.(?=b)/]    #=> "u"`
 `(?!X)`  | Negative lookahead  | `"Ruby"[/.(?!u)/]    #=> "u"`
 `(?<=X)` | Positive lookbehind | `"Ruby"[/(?<=u)./]   #=> "b"`
-`(?!X)`  | Negative lookbehind | `"Ruby"[/(?<!R|^)./] #=> "b"`
+`(?<!X)` | Negative lookbehind | `"Ruby"[/(?<!R|^)./] #=> "b"`
 
 But Ruby also has an additional shortcut syntax to do *positive lookbehinds* via `\K`:
 
