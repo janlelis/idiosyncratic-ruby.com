@@ -30,7 +30,7 @@ The possible ways to [look around](http://www.regular-expressions.info/lookaroun
 `(?<=X)` | Positive lookbehind | `"Ruby"[/(?<=u)./]   #=> "b"`
 `(?<!X)` | Negative lookbehind | `"Ruby"[/(?<!R|^)./] #=> "b"`
 
-But Ruby also has an additional shortcut syntax to do *positive lookbehinds* via `\K`:
+But Ruby also has "Keep Expressions", an additional shortcut syntax to do *positive lookbehinds* using `\K`:
 
     "Ruby"[/Ru\Kby/] #=> "by"
     "Ruby"[/ru\Kby/] #=> nil
@@ -87,7 +87,7 @@ Back-refs can be relatively referenced from the current position via `\k<-n>`:
 
 When using a method that matches a regex multiple times against a string (like `String#gsub` or `String#scan`), you can reference the position of the last match via `\G`:
 
-    "923823723".scan(/\G(.)23/) #=> [["9"], ["8"], ["7"]]
+    "abc1abc22abc333".scan /\Gabc./ # => ["abc1", "abc2"]
 
 ## `String#split` with Capture Groups
 
