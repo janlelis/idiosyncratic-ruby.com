@@ -7,6 +7,8 @@ commit: a1ca4750de9d1170719c67a34d0bc44e149c3429
 
 Some of IRB's command-line options can be called idiosyncratic as well. Take *math mode* as an example: It will require the infamous [mathn](https://github.com/ruby/ruby/blob/trunk/lib/mathn.rb) library on start up:
 
+ARTICLE
+
     $ irb -m
     >> Math #=> CMath
     >> 3/2 #=> (3/2)
