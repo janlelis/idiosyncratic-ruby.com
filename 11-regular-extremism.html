@@ -68,14 +68,14 @@ regex = /(?=(.*ä))?(?(1).*|..)/
       <td><code>"Ruby"[/(?&lt;=u)./]   #=&gt; "b"</code></td>
     </tr>
     <tr>
-      <td><code>(?!X)</code></td>
+      <td><code>(?&lt;!X)</code></td>
       <td>Negative lookbehind</td>
       <td><code>"Ruby"[/(?&lt;!R|^)./] #=&gt; "b"</code></td>
     </tr>
   </tbody>
 </table>
 
-<p>But Ruby also has an additional shortcut syntax to do <em>positive lookbehinds</em> via <code>\K</code>:</p>
+<p>But Ruby also has "Keep Expressions", an additional shortcut syntax to do <em>positive lookbehinds</em> using <code>\K</code>:</p>
 
 <pre><code>"Ruby"[/Ru\Kby/] #=&gt; "by"
 "Ruby"[/ru\Kby/] #=&gt; nil
@@ -138,7 +138,7 @@ string[/\X\X/] #=&gt; "R̊u"
 
 <p>When using a method that matches a regex multiple times against a string (like <code>String#gsub</code> or <code>String#scan</code>), you can reference the position of the last match via <code>\G</code>:</p>
 
-<pre><code>"923823723".scan(/\G(.)23/) #=&gt; [["9"], ["8"], ["7"]]
+<pre><code>"abc1abc22abc333".scan /\Gabc./ # =&gt; ["abc1", "abc2"]
 </code></pre>
 
 <h2 id="stringsplit-with-capture-groups"><code>String#split</code> with Capture Groups</h2>

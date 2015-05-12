@@ -5,10 +5,64 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2015-05-11T02:00:00+02:00</updated>
+  <updated>2015-05-12T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>More Inspections</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/12-more-inspections.html"/>
+    <id>http://idiosyncratic-ruby.com/12-more-inspections.html</id>
+    <published>2015-05-12T02:00:00+02:00</published>
+    <updated>2015-05-12T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Some of IRB's command-line options can be called idiosyncratic as well. Take &lt;em&gt;math mode&lt;/em&gt; as an example: It will require the infamous &lt;a href="https://github.com/ruby/ruby/blob/trunk/lib/mathn.rb"&gt;mathn&lt;/a&gt; library on start up:&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ irb -m
+&amp;gt;&amp;gt; Math #=&amp;gt; CMath
+&amp;gt;&amp;gt; 3/2 #=&amp;gt; (3/2)
+&amp;gt;&amp;gt; !!defined?(Vector) #=&amp;gt; true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And another one surprised me: You can pass custom &lt;a href="https://github.com/ruby/ruby/blob/trunk/lib/irb/inspector.rb"&gt;inspectors&lt;/a&gt; to IRB, for example, &lt;em&gt;yaml&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ irb -f --inspect yaml
+&amp;gt;&amp;gt; [1,2,3]
+=&amp;gt; ---
+- 1
+- 2
+- 3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or &lt;em&gt;marshal&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ irb -f --inspect marshal
+&amp;gt;&amp;gt; 42
+=&amp;gt; i/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But you can also define &lt;em&gt;your own inspectors on the fly&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ irb -f --inspect "{ |r| r.to_s.reverse }"
+&amp;gt;&amp;gt; [1,2,3]
+=&amp;gt; ]3 ,2 ,1[
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It will be eval'd (!) as the block part of a new &lt;code&gt;proc&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;man irb&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/ruby/ruby/blame/trunk/lib/irb/context.rb"&gt;Source: irb/context&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/ruby/ruby/blob/trunk/lib/irb/inspector.rb"&gt;Source: irb/inspectors&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Regular Extremism</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/11-regular-extremism.html"/>
@@ -62,14 +116,14 @@ regex = /(?=(.*ä))?(?(1).*|..)/
       &lt;td&gt;&lt;code&gt;"Ruby"[/(?&amp;lt;=u)./]   #=&amp;gt; "b"&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;code&gt;(?!X)&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;(?&amp;lt;!X)&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;Negative lookbehind&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;"Ruby"[/(?&amp;lt;!R|^)./] #=&amp;gt; "b"&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;But Ruby also has an additional shortcut syntax to do &lt;em&gt;positive lookbehinds&lt;/em&gt; via &lt;code&gt;\K&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;But Ruby also has "Keep Expressions", an additional shortcut syntax to do &lt;em&gt;positive lookbehinds&lt;/em&gt; using &lt;code&gt;\K&lt;/code&gt;:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;"Ruby"[/Ru\Kby/] #=&amp;gt; "by"
 "Ruby"[/ru\Kby/] #=&amp;gt; nil
@@ -132,7 +186,7 @@ string[/\X\X/] #=&amp;gt; "R̊u"
 
 &lt;p&gt;When using a method that matches a regex multiple times against a string (like &lt;code&gt;String#gsub&lt;/code&gt; or &lt;code&gt;String#scan&lt;/code&gt;), you can reference the position of the last match via &lt;code&gt;\G&lt;/code&gt;:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;"923823723".scan(/\G(.)23/) #=&amp;gt; [["9"], ["8"], ["7"]]
+&lt;pre&gt;&lt;code&gt;"abc1abc22abc333".scan /\Gabc./ # =&amp;gt; ["abc1", "abc2"]
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id="stringsplit-with-capture-groups"&gt;&lt;code&gt;String#split&lt;/code&gt; with Capture Groups&lt;/h2&gt;
