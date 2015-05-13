@@ -7,6 +7,8 @@ commit: ecd7d03bab149ac62fb5028b83fde82ebd13dc2c
 
 Ruby puts a lot of effort into its [Enumerable](http://ruby-doc.org/core-2.2.2/Enumerable) module, offering a lot of different ways of iterating through collections. It is one of the reasons for Ruby's success, but you can also call it idiosyncratic, sometimes. This episode potraits enumerables' three handy `slice_*` methods.
 
+ARTICLE
+
 ## Slicing Enumerbales
 
 Slicing lets you devide a collection into sub-collections. Take this array:

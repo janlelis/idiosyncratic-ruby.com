@@ -5,11 +5,13 @@ tags: syntax, highlighter, tools
 commit: f36c96bd3b07d63053b40c1e34e59159d4a5f851
 ---
 
-Compared to other languages, Ruby does not have very good tool support for development. This might not be a problem for many of us, in the end, humans create the code, and not tools.
+Compared to other languages, Ruby does not have very good tool support for development. This might not be a problem for many of us: In the end, humans create the code, and not the tools.
 
-Nevertheless, it would be better to have better tools. Or at least valid syntax highlighting. The following table shows popular options for code highlighting, but none of them can manage to properly highlight more advanced Ruby features. Here is the:
+Nevertheless, it would be great to have better tools. Or at least valid syntax highlighting!
 
 ARTICLE
+
+The following table shows popular options for code highlighting, but none of them can manage to properly highlight more advanced Ruby features. Here is the:
 
 ## Syntax Highlighter Comparison
 
