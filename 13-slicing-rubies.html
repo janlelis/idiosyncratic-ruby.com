@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - Slicing Rubies</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="A 31 Parts Story about Ruby Specialities. A New Post Every Day in May 2015!"/>
+<meta name="keywords" content="ruby, core, enumerable"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/index/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/13-slicing-rubies.html">Slicing Rubies</a></h1>
+      </section>
+
+      <article class="post">
+        <p>Ruby puts a lot of effort into its <a href="http://ruby-doc.org/core-2.2.2/Enumerable">Enumerable</a> module, offering a lot of different ways of iterating through collections. It is one of the reasons for Ruby's success, but you can also call it idiosyncratic, sometimes. This episode potraits enumerables' three handy <code>slice_*</code> methods.</p>
+
+<p></p>
+
+<h2 id="slicing-enumerbales">Slicing Enumerbales</h2>
+
+<p>Slicing lets you devide a collection into sub-collections. Take this array:</p>
+
+<pre><code>a = %w[Ruby in the back-end, AngularJS in the front-end]
+</code></pre>
+
+<p>Let's say you want to devide it into smaller arrays. The simplest option would be passing a regex to <code>slice_before</code> describing where to slice:</p>
+
+<pre><code>a.slice_before(/,/).to_a
+# =&gt; [["Ruby", "in", "the"], ["back-end,", "AngularJS", "in", "the", "front-end"]]
+</code></pre>
+
+<p>A variation of this is method is <code>slice_after</code>, which puts the separating element into the earlier sub-collection, which makes more sense in this case:</p>
+
+<pre><code>a.slice_after(/,/).to_a
+# =&gt; [["Ruby", "in", "the", "back-end,"], ["AngularJS", "in", "the", "front-end"]]
+</code></pre>
+
+<p>Slicing uses <a href="http://ruby-doc.org/core-2.2.2/Object.html#method-i-3D-3D-3D">===</a> to compare each element with the given separator, so you can pass in a class as well:</p>
+
+<pre><code>["A", "B", 1, "C", "D", 2].slice_after(Integer).to_a
+# =&gt; [["A", "B", 1], ["C", "D", 2]]
+</code></pre>
+
+<p>For more complex, and more real-world problems, you will need to pass in a block, like for separating ascending numerical sequences:</p>
+
+<pre><code>previous = Float::NAN
+[0, 2, 3, 4, 6, 7, 9].slice_before{ |current|
+  previous, slice = current, current != previous + 1
+  slice # is false if previous + 1 is not current -&gt; start new slice
+}.to_a
+# =&gt; [0], [2, 3, 4], [6, 7], [9]
+</code></pre>
+
+<p>Keeping around additional variables is a little annoying, but fortunately, we can rewrite the previous example using the newer <code>slice_when</code> method:</p>
+
+<pre><code>[0, 2, 3, 4, 6, 7, 9].slice_when{ |previous, current|
+  current != previous + 1
+}.to_a
+# =&gt; [0], [2, 3, 4], [6, 7], [9]
+</code></pre>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li><a href="http://ruby-doc.org/core-2.2.2/Enumerable.html#method-i-slice_after">RDoc: Enumerable#slice_*</a></li>
+  <li><a href="https://bugs.ruby-lang.org/issues/9826">#slice_when discussion</a></li>
+</ul>
+
+
+        <h2>More Idiosyncratic Ruby</h2>
+        <ul>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/ecd7d03bab149ac62fb5028b83fde82ebd13dc2c#all_commit_comments">Comments on GitHub</a></li>
+          <li><a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet this Episode
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
+            <li>Previous Article: <a href="/12-more-inspections.html">More Inspections</a></li>
+        </ul>
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="http://janlelis.com">Jan Lelis</a><br>
+        </div>
+        About Core, Enumerable |
+        Last Update: 2015-05-13
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>

@@ -5,10 +5,74 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2015-05-12T02:00:00+02:00</updated>
+  <updated>2015-05-13T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Slicing Rubies</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/13-slicing-rubies.html"/>
+    <id>http://idiosyncratic-ruby.com/13-slicing-rubies.html</id>
+    <published>2015-05-13T02:00:00+02:00</published>
+    <updated>2015-05-13T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Ruby puts a lot of effort into its &lt;a href="http://ruby-doc.org/core-2.2.2/Enumerable"&gt;Enumerable&lt;/a&gt; module, offering a lot of different ways of iterating through collections. It is one of the reasons for Ruby's success, but you can also call it idiosyncratic, sometimes. This episode potraits enumerables' three handy &lt;code&gt;slice_*&lt;/code&gt; methods.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id="slicing-enumerbales"&gt;Slicing Enumerbales&lt;/h2&gt;
+
+&lt;p&gt;Slicing lets you devide a collection into sub-collections. Take this array:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;a = %w[Ruby in the back-end, AngularJS in the front-end]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let's say you want to devide it into smaller arrays. The simplest option would be passing a regex to &lt;code&gt;slice_before&lt;/code&gt; describing where to slice:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;a.slice_before(/,/).to_a
+# =&amp;gt; [["Ruby", "in", "the"], ["back-end,", "AngularJS", "in", "the", "front-end"]]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A variation of this is method is &lt;code&gt;slice_after&lt;/code&gt;, which puts the separating element into the earlier sub-collection, which makes more sense in this case:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;a.slice_after(/,/).to_a
+# =&amp;gt; [["Ruby", "in", "the", "back-end,"], ["AngularJS", "in", "the", "front-end"]]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Slicing uses &lt;a href="http://ruby-doc.org/core-2.2.2/Object.html#method-i-3D-3D-3D"&gt;===&lt;/a&gt; to compare each element with the given separator, so you can pass in a class as well:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;["A", "B", 1, "C", "D", 2].slice_after(Integer).to_a
+# =&amp;gt; [["A", "B", 1], ["C", "D", 2]]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For more complex, and more real-world problems, you will need to pass in a block, like for separating ascending numerical sequences:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;previous = Float::NAN
+[0, 2, 3, 4, 6, 7, 9].slice_before{ |current|
+  previous, slice = current, current != previous + 1
+  slice # is false if previous + 1 is not current -&amp;gt; start new slice
+}.to_a
+# =&amp;gt; [0], [2, 3, 4], [6, 7], [9]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Keeping around additional variables is a little annoying, but fortunately, we can rewrite the previous example using the newer &lt;code&gt;slice_when&lt;/code&gt; method:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[0, 2, 3, 4, 6, 7, 9].slice_when{ |previous, current|
+  current != previous + 1
+}.to_a
+# =&amp;gt; [0], [2, 3, 4], [6, 7], [9]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.2.2/Enumerable.html#method-i-slice_after"&gt;RDoc: Enumerable#slice_*&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://bugs.ruby-lang.org/issues/9826"&gt;#slice_when discussion&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>More Inspections</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/12-more-inspections.html"/>
@@ -827,12 +891,12 @@ switch.rb: no implicit conversion of true into Integer (TypeError)
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;There is a one-liner on the internet that starts a local web server, for serving all the static files in your current directory:&lt;/p&gt;
+    <content type="html">&lt;p&gt;There is a one-liner on the internet that will start a local web server, for serving all the static files in your current directory:&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ python -m SimpleHTTPServer 8080
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;Or with Python 3:&lt;/p&gt;
 
@@ -2521,11 +2585,13 @@ end
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;Compared to other languages, Ruby does not have very good tool support for development. This might not be a problem for many of us, in the end, humans create the code, and not tools.&lt;/p&gt;
+    <content type="html">&lt;p&gt;Compared to other languages, Ruby does not have very good tool support for development. This might not be a problem for many of us: In the end, humans create the code, and not the tools.&lt;/p&gt;
 
-&lt;p&gt;Nevertheless, it would be better to have better tools. Or at least valid syntax highlighting. The following table shows popular options for code highlighting, but none of them can manage to properly highlight more advanced Ruby features. Here is the:&lt;/p&gt;
+&lt;p&gt;Nevertheless, it would be great to have better tools. Or at least valid syntax highlighting!&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;The following table shows popular options for code highlighting, but none of them can manage to properly highlight more advanced Ruby features. Here is the:&lt;/p&gt;
 
 &lt;h2 id="syntax-highlighter-comparison"&gt;Syntax Highlighter Comparison&lt;/h2&gt;
 
