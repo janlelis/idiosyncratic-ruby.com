@@ -7,6 +7,8 @@ commit: 35cc9cf6601b47edca82e29ad6b8f6f8f7b0fe4d
 
 There are two very different ways to create local variables in Ruby. You are probably familiar with the classical way:
 
+ARTICLE
+
     a, b = "$", "€"
     a # => "$"
     b # => "€"
