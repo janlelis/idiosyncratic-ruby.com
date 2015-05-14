@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - Meeting some Locals</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="A 31 Parts Story about Ruby Specialities. A New Post Every Day in May 2015!"/>
+<meta name="keywords" content="ruby, syntax, regex"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/index/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/14-meeting-some-locals.html">Meeting some Locals</a></h1>
+      </section>
+
+      <article class="post">
+        <p>There are two very different ways to create local variables in Ruby. You are probably familiar with the classical way:</p>
+
+<p></p>
+
+<pre><code>a, b = "$", "€"
+a # =&gt; "$"
+b # =&gt; "€"
+</code></pre>
+
+<p>It is simple to understand and looks good. But Ruby would not be Ruby, if there weren"t for more obscure ways to assign variables: You could rewrite the previous example to create local variables in a more subtle way:</p>
+
+<pre><code>%r&lt;(?'a'.)(?'b'.)&gt;=~"$" "€"
+a # =&gt; "$"
+b # =&gt; "€"
+</code></pre>
+
+<p>This implicit creation of local variables is not recommended, because obviously, it violates <strong>PrOWCoFoHuNoMa</strong> (Principle of writing code for humans, not machines).</p>
+
+<p>By the way, this will not work, when you swap operands:</p>
+
+<pre><code>"$" "€"=~%r&lt;(?&lt;a&gt;.)(?&lt;b&gt;.)&gt;
+a # NameError: ...
+</code></pre>
+
+<h2 id="one-more-option">One More Option</h2>
+
+<p>There is also a third way to set local variables: binding's <code>local_variable_set</code>, but it does not really count, since you cannot introduce new variables this way:</p>
+
+<pre><code>a = nil
+binding.local_variable_set :a, "$"
+binding.local_variable_set :b, "€"
+a # =&gt; "$"
+b # NameError: ...
+</code></pre>
+
+<h2 id="resources">Resources</h2>
+<ul>
+  <li><a href="http://ruby-doc.org/core-2.2.2/Regexp.html#method-i-3D-7E">RDoc: Regexp#=~</a></li>
+  <li><a href="http://ruby-doc.org/core-2.2.2/Binding.html#method-i-local_variable_set">RDoc: Binding#local_variable_set</a></li>
+</ul>
+
+
+        <h2>More Idiosyncratic Ruby</h2>
+        <ul>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/35cc9cf6601b47edca82e29ad6b8f6f8f7b0fe4d#all_commit_comments">Comments on GitHub</a></li>
+          <li><a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet this Episode
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
+            <li>Previous Article: <a href="/13-slicing-rubies.html">Slicing Rubies</a></li>
+        </ul>
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="http://janlelis.com">Jan Lelis</a><br>
+        </div>
+        About Syntax, Regex |
+        Last Update: 2015-05-14
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>

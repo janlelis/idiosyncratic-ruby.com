@@ -5,10 +5,61 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2015-05-13T02:00:00+02:00</updated>
+  <updated>2015-05-14T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Meeting some Locals</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/14-meeting-some-locals.html"/>
+    <id>http://idiosyncratic-ruby.com/14-meeting-some-locals.html</id>
+    <published>2015-05-14T02:00:00+02:00</published>
+    <updated>2015-05-14T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;There are two very different ways to create local variables in Ruby. You are probably familiar with the classical way:&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;a, b = "$", "€"
+a # =&amp;gt; "$"
+b # =&amp;gt; "€"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It is simple to understand and looks good. But Ruby would not be Ruby, if there weren"t for more obscure ways to assign variables: You could rewrite the previous example to create local variables in a more subtle way:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;%r&amp;lt;(?'a'.)(?'b'.)&amp;gt;=~"$" "€"
+a # =&amp;gt; "$"
+b # =&amp;gt; "€"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This implicit creation of local variables is not recommended, because obviously, it violates &lt;strong&gt;PrOWCoFoHuNoMa&lt;/strong&gt; (Principle of writing code for humans, not machines).&lt;/p&gt;
+
+&lt;p&gt;By the way, this will not work, when you swap operands:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"$" "€"=~%r&amp;lt;(?&amp;lt;a&amp;gt;.)(?&amp;lt;b&amp;gt;.)&amp;gt;
+a # NameError: ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="one-more-option"&gt;One More Option&lt;/h2&gt;
+
+&lt;p&gt;There is also a third way to set local variables: binding's &lt;code&gt;local_variable_set&lt;/code&gt;, but it does not really count, since you cannot introduce new variables this way:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;a = nil
+binding.local_variable_set :a, "$"
+binding.local_variable_set :b, "€"
+a # =&amp;gt; "$"
+b # NameError: ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.2.2/Regexp.html#method-i-3D-7E"&gt;RDoc: Regexp#=~&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.2.2/Binding.html#method-i-local_variable_set"&gt;RDoc: Binding#local_variable_set&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Slicing Rubies</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/13-slicing-rubies.html"/>
