@@ -1,0 +1,310 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - 207 Ways To Rome</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="A 31 Parts Story about Ruby Specialities. A New Post Every Day in May 2015!"/>
+<meta name="keywords" content="ruby, syntax, strings"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/index/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/15-207-ways-to-rome.html">207 Ways To Rome</a></h1>
+      </section>
+
+      <article class="post">
+        <p>All Ruby syntaxes¹ that represent the <strong>R</strong> string literal:</p>
+
+<p></p>
+
+<h2 id="double-quoted-literal">(1) Double Quoted Literal</h2>
+
+<p><code>"R"</code></p>
+
+<h2 id="single-quoted-literal">(1) Single Quoted Literal</h2>
+
+<p><code>'R'</code></p>
+
+<h2 id="single-char-literals">(1) Single Char Literals</h2>
+
+<p><code>?R</code></p>
+
+<h2 id="heredocs">(6) Heredocs</h2>
+
+<pre><code>&lt;&lt;"STRING"
+R
+STRING</code></pre>
+
+<pre><code>&lt;&lt;'STRING'
+R
+STRING</code></pre>
+
+<pre><code>&lt;&lt;STRING
+R
+STRING</code></pre>
+
+<pre><code>&lt;&lt;-"STRING"
+R
+STRING</code></pre>
+
+<pre><code>&lt;&lt;-'STRING'
+R
+STRING</code></pre>
+
+<pre><code>&lt;&lt;-STRING
+R
+STRING</code></pre>
+
+<h2 id="percent-syntax--q">(66) Percent Syntax / Q</h2>
+
+<p><code>%Q\0R\0</code>
+<code>%Q\x01R\x01</code>
+<code>%Q\x02R\x02</code>
+<code>%Q\x03R\x03</code>
+<code>%Q\x04R\x04</code>
+<code>%Q\x05R\x05</code>
+<code>%Q\x06R\x06</code>
+<code>%Q\aR\a</code>
+<code>%Q\bR\b</code>
+<code>%Q\tR\t</code>
+<code>%Q\nR\n</code>
+<code>%Q\vR\v</code>
+<code>%Q\fR\f</code>
+<code>%Q\rR\r</code>
+<code>%Q\x0ER\x0E</code>
+<code>%Q\x0FR\x0F</code>
+<code>%Q\x10R\x10</code>
+<code>%Q\x11R\x11</code>
+<code>%Q\x12R\x12</code>
+<code>%Q\x13R\x13</code>
+<code>%Q\x14R\x14</code>
+<code>%Q\x15R\x15</code>
+<code>%Q\x16R\x16</code>
+<code>%Q\x17R\x17</code>
+<code>%Q\x18R\x18</code>
+<code>%Q\x19R\x19</code>
+<code>%Q\x1AR\x1A</code>
+<code>%Q\eR\e</code>
+<code>%Q\x1CR\x1C</code>
+<code>%Q\x1DR\x1D</code>
+<code>%Q\x1ER\x1E</code>
+<code>%Q\x1FR\x1F</code>
+<code>%Q R</code>
+<code>%Q!R!</code>
+<code>%Q"R"</code>
+<code>%Q#R#</code>
+<code>%Q$R$</code>
+<code>%Q%R%</code>
+<code>%Q&amp;R&amp;</code>
+<code>%Q'R'</code>
+<code>%Q(R)</code>
+<code>%Q)R)</code>
+<code>%Q*R*</code>
+<code>%Q+R+</code>
+<code>%Q,R,</code>
+<code>%Q-R-</code>
+<code>%Q.R.</code>
+<code>%Q/R/</code>
+<code>%Q:R:</code>
+<code>%Q;R;</code>
+<code>%Q&lt;R&gt;</code>
+<code>%Q=R=</code>
+<code>%Q&gt;R&gt;</code>
+<code>%Q?R?</code>
+<code>%Q@R@</code>
+<code>%Q[R]</code>
+<code>%Q\\R\\</code>
+<code>%Q]R]</code>
+<code>%Q^R^</code>
+<code>%Q_R_</code>
+<code>%Q`R`</code>
+<code>%Q{R}</code>
+<code>%Q|R|</code>
+<code>%Q}R}</code>
+<code>%Q~R~</code>
+<code>%Q\x7FR\x7F</code></p>
+
+<h2 id="percent-syntax--q-1">(66) Percent Syntax / q</h2>
+
+<p><code>%q\0R\0</code>
+<code>%q\x01R\x01</code>
+<code>%q\x02R\x02</code>
+<code>%q\x03R\x03</code>
+<code>%q\x04R\x04</code>
+<code>%q\x05R\x05</code>
+<code>%q\x06R\x06</code>
+<code>%q\aR\a</code>
+<code>%q\bR\b</code>
+<code>%q\tR\t</code>
+<code>%q\nR\n</code>
+<code>%q\vR\v</code>
+<code>%q\fR\f</code>
+<code>%q\rR\r</code>
+<code>%q\x0ER\x0E</code>
+<code>%q\x0FR\x0F</code>
+<code>%q\x10R\x10</code>
+<code>%q\x11R\x11</code>
+<code>%q\x12R\x12</code>
+<code>%q\x13R\x13</code>
+<code>%q\x14R\x14</code>
+<code>%q\x15R\x15</code>
+<code>%q\x16R\x16</code>
+<code>%q\x17R\x17</code>
+<code>%q\x18R\x18</code>
+<code>%q\x19R\x19</code>
+<code>%q\x1AR\x1A</code>
+<code>%q\eR\e</code>
+<code>%q\x1CR\x1C</code>
+<code>%q\x1DR\x1D</code>
+<code>%q\x1ER\x1E</code>
+<code>%q\x1FR\x1F</code>
+<code>%q R</code>
+<code>%q!R!</code>
+<code>%q"R"</code>
+<code>%q#R#</code>
+<code>%q$R$</code>
+<code>%q%R%</code>
+<code>%q&amp;R&amp;</code>
+<code>%q'R'</code>
+<code>%q(R)</code>
+<code>%q)R)</code>
+<code>%q*R*</code>
+<code>%q+R+</code>
+<code>%q,R,</code>
+<code>%q-R-</code>
+<code>%q.R.</code>
+<code>%q/R/</code>
+<code>%q:R:</code>
+<code>%q;R;</code>
+<code>%q&lt;R&gt;</code>
+<code>%q=R=</code>
+<code>%q&gt;R&gt;</code>
+<code>%q?R?</code>
+<code>%q@R@</code>
+<code>%q[R]</code>
+<code>%q\\R\\</code>
+<code>%q]R]</code>
+<code>%q^R^</code>
+<code>%q_R_</code>
+<code>%q`R`</code>
+<code>%q{R}</code>
+<code>%q|R|</code>
+<code>%q}R}</code>
+<code>%q~R~</code>
+<code>%q\x7FR\x7F</code></p>
+
+<h2 id="percent-syntax--none">(66) Percent Syntax / None</h2>
+
+<p><code>%\0R\0</code>
+<code>%\x01R\x01</code>
+<code>%\x02R\x02</code>
+<code>%\x03R\x03</code>
+<code>%\x04R\x04</code>
+<code>%\x05R\x05</code>
+<code>%\x06R\x06</code>
+<code>%\aR\a</code>
+<code>%\bR\b</code>
+<code>%\tR\t</code>
+<code>%\nR\n</code>
+<code>%\vR\v</code>
+<code>%\fR\f</code>
+<code>%\rR\r</code>
+<code>%\x0ER\x0E</code>
+<code>%\x0FR\x0F</code>
+<code>%\x10R\x10</code>
+<code>%\x11R\x11</code>
+<code>%\x12R\x12</code>
+<code>%\x13R\x13</code>
+<code>%\x14R\x14</code>
+<code>%\x15R\x15</code>
+<code>%\x16R\x16</code>
+<code>%\x17R\x17</code>
+<code>%\x18R\x18</code>
+<code>%\x19R\x19</code>
+<code>%\x1AR\x1A</code>
+<code>%\eR\e</code>
+<code>%\x1CR\x1C</code>
+<code>%\x1DR\x1D</code>
+<code>%\x1ER\x1E</code>
+<code>%\x1FR\x1F</code>
+<code>% R</code>
+<code>%!R!</code>
+<code>%"R"</code>
+<code>%#R#</code>
+<code>%$R$</code>
+<code>%%R%</code>
+<code>%&amp;R&amp;</code>
+<code>%'R'</code>
+<code>%(R)</code>
+<code>%)R)</code>
+<code>%*R*</code>
+<code>%+R+</code>
+<code>%,R,</code>
+<code>%-R-</code>
+<code>%.R.</code>
+<code>%/R/</code>
+<code>%:R:</code>
+<code>%;R;</code>
+<code>%&lt;R&gt;</code>
+<code>%=R=</code>
+<code>%&gt;R&gt;</code>
+<code>%?R?</code>
+<code>%@R@</code>
+<code>%[R]</code>
+<code>%\\R\\</code>
+<code>%]R]</code>
+<code>%^R^</code>
+<code>%_R_</code>
+<code>%`R`</code>
+<code>%{R}</code>
+<code>%|R|</code>
+<code>%}R}</code>
+<code>%~R~</code>
+<code>%\x7FR\x7F</code></p>
+
+<p><br /></p>
+
+<p>¹ You might need a <a href="https://en.wikipedia.org/wiki/Hex_editor">hex editor</a>, or <a href="http://ruby-doc.org/core-2.2.2/Kernel.html#method-i-eval"><code>eval</code></a>, to be able to use non-printable string delimiters.</p>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li><a href="http://en.wikibooks.org/wiki/Ruby_Programming/Syntax/Literals#Strings">String Literals</a></li>
+</ul>
+
+
+        <h2>More Idiosyncratic Ruby</h2>
+        <ul>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/dbb043e5ff98ddb776048d6f8c41aa1afc84422b#all_commit_comments">Comments on GitHub</a></li>
+          <li><a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet this Episode
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
+            <li>Previous Article: <a href="/14-meeting-some-locals.html">Meeting some Locals</a></li>
+        </ul>
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="http://janlelis.com">Jan Lelis</a><br>
+        </div>
+        About Syntax, Strings |
+        Last Update: 2015-05-15
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>

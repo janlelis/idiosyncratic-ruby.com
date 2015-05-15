@@ -5,10 +5,279 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2015-05-14T02:00:00+02:00</updated>
+  <updated>2015-05-15T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>207 Ways To Rome</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/15-207-ways-to-rome.html"/>
+    <id>http://idiosyncratic-ruby.com/15-207-ways-to-rome.html</id>
+    <published>2015-05-15T02:00:00+02:00</published>
+    <updated>2015-05-15T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;All Ruby syntaxes¹ that represent the &lt;strong&gt;R&lt;/strong&gt; string literal:&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id="double-quoted-literal"&gt;(1) Double Quoted Literal&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;"R"&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id="single-quoted-literal"&gt;(1) Single Quoted Literal&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;'R'&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id="single-char-literals"&gt;(1) Single Char Literals&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;?R&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id="heredocs"&gt;(6) Heredocs&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;&amp;lt;"STRING"
+R
+STRING&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;&amp;lt;'STRING'
+R
+STRING&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;&amp;lt;STRING
+R
+STRING&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;&amp;lt;-"STRING"
+R
+STRING&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;&amp;lt;-'STRING'
+R
+STRING&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;&amp;lt;-STRING
+R
+STRING&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="percent-syntax--q"&gt;(66) Percent Syntax / Q&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;%Q\0R\0&lt;/code&gt;
+&lt;code&gt;%Q\x01R\x01&lt;/code&gt;
+&lt;code&gt;%Q\x02R\x02&lt;/code&gt;
+&lt;code&gt;%Q\x03R\x03&lt;/code&gt;
+&lt;code&gt;%Q\x04R\x04&lt;/code&gt;
+&lt;code&gt;%Q\x05R\x05&lt;/code&gt;
+&lt;code&gt;%Q\x06R\x06&lt;/code&gt;
+&lt;code&gt;%Q\aR\a&lt;/code&gt;
+&lt;code&gt;%Q\bR\b&lt;/code&gt;
+&lt;code&gt;%Q\tR\t&lt;/code&gt;
+&lt;code&gt;%Q\nR\n&lt;/code&gt;
+&lt;code&gt;%Q\vR\v&lt;/code&gt;
+&lt;code&gt;%Q\fR\f&lt;/code&gt;
+&lt;code&gt;%Q\rR\r&lt;/code&gt;
+&lt;code&gt;%Q\x0ER\x0E&lt;/code&gt;
+&lt;code&gt;%Q\x0FR\x0F&lt;/code&gt;
+&lt;code&gt;%Q\x10R\x10&lt;/code&gt;
+&lt;code&gt;%Q\x11R\x11&lt;/code&gt;
+&lt;code&gt;%Q\x12R\x12&lt;/code&gt;
+&lt;code&gt;%Q\x13R\x13&lt;/code&gt;
+&lt;code&gt;%Q\x14R\x14&lt;/code&gt;
+&lt;code&gt;%Q\x15R\x15&lt;/code&gt;
+&lt;code&gt;%Q\x16R\x16&lt;/code&gt;
+&lt;code&gt;%Q\x17R\x17&lt;/code&gt;
+&lt;code&gt;%Q\x18R\x18&lt;/code&gt;
+&lt;code&gt;%Q\x19R\x19&lt;/code&gt;
+&lt;code&gt;%Q\x1AR\x1A&lt;/code&gt;
+&lt;code&gt;%Q\eR\e&lt;/code&gt;
+&lt;code&gt;%Q\x1CR\x1C&lt;/code&gt;
+&lt;code&gt;%Q\x1DR\x1D&lt;/code&gt;
+&lt;code&gt;%Q\x1ER\x1E&lt;/code&gt;
+&lt;code&gt;%Q\x1FR\x1F&lt;/code&gt;
+&lt;code&gt;%Q R&lt;/code&gt;
+&lt;code&gt;%Q!R!&lt;/code&gt;
+&lt;code&gt;%Q"R"&lt;/code&gt;
+&lt;code&gt;%Q#R#&lt;/code&gt;
+&lt;code&gt;%Q$R$&lt;/code&gt;
+&lt;code&gt;%Q%R%&lt;/code&gt;
+&lt;code&gt;%Q&amp;amp;R&amp;amp;&lt;/code&gt;
+&lt;code&gt;%Q'R'&lt;/code&gt;
+&lt;code&gt;%Q(R)&lt;/code&gt;
+&lt;code&gt;%Q)R)&lt;/code&gt;
+&lt;code&gt;%Q*R*&lt;/code&gt;
+&lt;code&gt;%Q+R+&lt;/code&gt;
+&lt;code&gt;%Q,R,&lt;/code&gt;
+&lt;code&gt;%Q-R-&lt;/code&gt;
+&lt;code&gt;%Q.R.&lt;/code&gt;
+&lt;code&gt;%Q/R/&lt;/code&gt;
+&lt;code&gt;%Q:R:&lt;/code&gt;
+&lt;code&gt;%Q;R;&lt;/code&gt;
+&lt;code&gt;%Q&amp;lt;R&amp;gt;&lt;/code&gt;
+&lt;code&gt;%Q=R=&lt;/code&gt;
+&lt;code&gt;%Q&amp;gt;R&amp;gt;&lt;/code&gt;
+&lt;code&gt;%Q?R?&lt;/code&gt;
+&lt;code&gt;%Q@R@&lt;/code&gt;
+&lt;code&gt;%Q[R]&lt;/code&gt;
+&lt;code&gt;%Q\\R\\&lt;/code&gt;
+&lt;code&gt;%Q]R]&lt;/code&gt;
+&lt;code&gt;%Q^R^&lt;/code&gt;
+&lt;code&gt;%Q_R_&lt;/code&gt;
+&lt;code&gt;%Q`R`&lt;/code&gt;
+&lt;code&gt;%Q{R}&lt;/code&gt;
+&lt;code&gt;%Q|R|&lt;/code&gt;
+&lt;code&gt;%Q}R}&lt;/code&gt;
+&lt;code&gt;%Q~R~&lt;/code&gt;
+&lt;code&gt;%Q\x7FR\x7F&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id="percent-syntax--q-1"&gt;(66) Percent Syntax / q&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;%q\0R\0&lt;/code&gt;
+&lt;code&gt;%q\x01R\x01&lt;/code&gt;
+&lt;code&gt;%q\x02R\x02&lt;/code&gt;
+&lt;code&gt;%q\x03R\x03&lt;/code&gt;
+&lt;code&gt;%q\x04R\x04&lt;/code&gt;
+&lt;code&gt;%q\x05R\x05&lt;/code&gt;
+&lt;code&gt;%q\x06R\x06&lt;/code&gt;
+&lt;code&gt;%q\aR\a&lt;/code&gt;
+&lt;code&gt;%q\bR\b&lt;/code&gt;
+&lt;code&gt;%q\tR\t&lt;/code&gt;
+&lt;code&gt;%q\nR\n&lt;/code&gt;
+&lt;code&gt;%q\vR\v&lt;/code&gt;
+&lt;code&gt;%q\fR\f&lt;/code&gt;
+&lt;code&gt;%q\rR\r&lt;/code&gt;
+&lt;code&gt;%q\x0ER\x0E&lt;/code&gt;
+&lt;code&gt;%q\x0FR\x0F&lt;/code&gt;
+&lt;code&gt;%q\x10R\x10&lt;/code&gt;
+&lt;code&gt;%q\x11R\x11&lt;/code&gt;
+&lt;code&gt;%q\x12R\x12&lt;/code&gt;
+&lt;code&gt;%q\x13R\x13&lt;/code&gt;
+&lt;code&gt;%q\x14R\x14&lt;/code&gt;
+&lt;code&gt;%q\x15R\x15&lt;/code&gt;
+&lt;code&gt;%q\x16R\x16&lt;/code&gt;
+&lt;code&gt;%q\x17R\x17&lt;/code&gt;
+&lt;code&gt;%q\x18R\x18&lt;/code&gt;
+&lt;code&gt;%q\x19R\x19&lt;/code&gt;
+&lt;code&gt;%q\x1AR\x1A&lt;/code&gt;
+&lt;code&gt;%q\eR\e&lt;/code&gt;
+&lt;code&gt;%q\x1CR\x1C&lt;/code&gt;
+&lt;code&gt;%q\x1DR\x1D&lt;/code&gt;
+&lt;code&gt;%q\x1ER\x1E&lt;/code&gt;
+&lt;code&gt;%q\x1FR\x1F&lt;/code&gt;
+&lt;code&gt;%q R&lt;/code&gt;
+&lt;code&gt;%q!R!&lt;/code&gt;
+&lt;code&gt;%q"R"&lt;/code&gt;
+&lt;code&gt;%q#R#&lt;/code&gt;
+&lt;code&gt;%q$R$&lt;/code&gt;
+&lt;code&gt;%q%R%&lt;/code&gt;
+&lt;code&gt;%q&amp;amp;R&amp;amp;&lt;/code&gt;
+&lt;code&gt;%q'R'&lt;/code&gt;
+&lt;code&gt;%q(R)&lt;/code&gt;
+&lt;code&gt;%q)R)&lt;/code&gt;
+&lt;code&gt;%q*R*&lt;/code&gt;
+&lt;code&gt;%q+R+&lt;/code&gt;
+&lt;code&gt;%q,R,&lt;/code&gt;
+&lt;code&gt;%q-R-&lt;/code&gt;
+&lt;code&gt;%q.R.&lt;/code&gt;
+&lt;code&gt;%q/R/&lt;/code&gt;
+&lt;code&gt;%q:R:&lt;/code&gt;
+&lt;code&gt;%q;R;&lt;/code&gt;
+&lt;code&gt;%q&amp;lt;R&amp;gt;&lt;/code&gt;
+&lt;code&gt;%q=R=&lt;/code&gt;
+&lt;code&gt;%q&amp;gt;R&amp;gt;&lt;/code&gt;
+&lt;code&gt;%q?R?&lt;/code&gt;
+&lt;code&gt;%q@R@&lt;/code&gt;
+&lt;code&gt;%q[R]&lt;/code&gt;
+&lt;code&gt;%q\\R\\&lt;/code&gt;
+&lt;code&gt;%q]R]&lt;/code&gt;
+&lt;code&gt;%q^R^&lt;/code&gt;
+&lt;code&gt;%q_R_&lt;/code&gt;
+&lt;code&gt;%q`R`&lt;/code&gt;
+&lt;code&gt;%q{R}&lt;/code&gt;
+&lt;code&gt;%q|R|&lt;/code&gt;
+&lt;code&gt;%q}R}&lt;/code&gt;
+&lt;code&gt;%q~R~&lt;/code&gt;
+&lt;code&gt;%q\x7FR\x7F&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id="percent-syntax--none"&gt;(66) Percent Syntax / None&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;%\0R\0&lt;/code&gt;
+&lt;code&gt;%\x01R\x01&lt;/code&gt;
+&lt;code&gt;%\x02R\x02&lt;/code&gt;
+&lt;code&gt;%\x03R\x03&lt;/code&gt;
+&lt;code&gt;%\x04R\x04&lt;/code&gt;
+&lt;code&gt;%\x05R\x05&lt;/code&gt;
+&lt;code&gt;%\x06R\x06&lt;/code&gt;
+&lt;code&gt;%\aR\a&lt;/code&gt;
+&lt;code&gt;%\bR\b&lt;/code&gt;
+&lt;code&gt;%\tR\t&lt;/code&gt;
+&lt;code&gt;%\nR\n&lt;/code&gt;
+&lt;code&gt;%\vR\v&lt;/code&gt;
+&lt;code&gt;%\fR\f&lt;/code&gt;
+&lt;code&gt;%\rR\r&lt;/code&gt;
+&lt;code&gt;%\x0ER\x0E&lt;/code&gt;
+&lt;code&gt;%\x0FR\x0F&lt;/code&gt;
+&lt;code&gt;%\x10R\x10&lt;/code&gt;
+&lt;code&gt;%\x11R\x11&lt;/code&gt;
+&lt;code&gt;%\x12R\x12&lt;/code&gt;
+&lt;code&gt;%\x13R\x13&lt;/code&gt;
+&lt;code&gt;%\x14R\x14&lt;/code&gt;
+&lt;code&gt;%\x15R\x15&lt;/code&gt;
+&lt;code&gt;%\x16R\x16&lt;/code&gt;
+&lt;code&gt;%\x17R\x17&lt;/code&gt;
+&lt;code&gt;%\x18R\x18&lt;/code&gt;
+&lt;code&gt;%\x19R\x19&lt;/code&gt;
+&lt;code&gt;%\x1AR\x1A&lt;/code&gt;
+&lt;code&gt;%\eR\e&lt;/code&gt;
+&lt;code&gt;%\x1CR\x1C&lt;/code&gt;
+&lt;code&gt;%\x1DR\x1D&lt;/code&gt;
+&lt;code&gt;%\x1ER\x1E&lt;/code&gt;
+&lt;code&gt;%\x1FR\x1F&lt;/code&gt;
+&lt;code&gt;% R&lt;/code&gt;
+&lt;code&gt;%!R!&lt;/code&gt;
+&lt;code&gt;%"R"&lt;/code&gt;
+&lt;code&gt;%#R#&lt;/code&gt;
+&lt;code&gt;%$R$&lt;/code&gt;
+&lt;code&gt;%%R%&lt;/code&gt;
+&lt;code&gt;%&amp;amp;R&amp;amp;&lt;/code&gt;
+&lt;code&gt;%'R'&lt;/code&gt;
+&lt;code&gt;%(R)&lt;/code&gt;
+&lt;code&gt;%)R)&lt;/code&gt;
+&lt;code&gt;%*R*&lt;/code&gt;
+&lt;code&gt;%+R+&lt;/code&gt;
+&lt;code&gt;%,R,&lt;/code&gt;
+&lt;code&gt;%-R-&lt;/code&gt;
+&lt;code&gt;%.R.&lt;/code&gt;
+&lt;code&gt;%/R/&lt;/code&gt;
+&lt;code&gt;%:R:&lt;/code&gt;
+&lt;code&gt;%;R;&lt;/code&gt;
+&lt;code&gt;%&amp;lt;R&amp;gt;&lt;/code&gt;
+&lt;code&gt;%=R=&lt;/code&gt;
+&lt;code&gt;%&amp;gt;R&amp;gt;&lt;/code&gt;
+&lt;code&gt;%?R?&lt;/code&gt;
+&lt;code&gt;%@R@&lt;/code&gt;
+&lt;code&gt;%[R]&lt;/code&gt;
+&lt;code&gt;%\\R\\&lt;/code&gt;
+&lt;code&gt;%]R]&lt;/code&gt;
+&lt;code&gt;%^R^&lt;/code&gt;
+&lt;code&gt;%_R_&lt;/code&gt;
+&lt;code&gt;%`R`&lt;/code&gt;
+&lt;code&gt;%{R}&lt;/code&gt;
+&lt;code&gt;%|R|&lt;/code&gt;
+&lt;code&gt;%}R}&lt;/code&gt;
+&lt;code&gt;%~R~&lt;/code&gt;
+&lt;code&gt;%\x7FR\x7F&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;¹ You might need a &lt;a href="https://en.wikipedia.org/wiki/Hex_editor"&gt;hex editor&lt;/a&gt;, or &lt;a href="http://ruby-doc.org/core-2.2.2/Kernel.html#method-i-eval"&gt;&lt;code&gt;eval&lt;/code&gt;&lt;/a&gt;, to be able to use non-printable string delimiters.&lt;/p&gt;
+
+&lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="http://en.wikibooks.org/wiki/Ruby_Programming/Syntax/Literals#Strings"&gt;String Literals&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Meeting some Locals</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/14-meeting-some-locals.html"/>
