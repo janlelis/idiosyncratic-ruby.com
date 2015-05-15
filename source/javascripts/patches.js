@@ -1,5 +1,7 @@
 $(function(){
-  $('code').attr("data-language", "ruby");
+  if(!$('#percent-syntax--q').length){
+    $('code').attr("data-language", "ruby");
+  }
 });
 
 $(function(){
