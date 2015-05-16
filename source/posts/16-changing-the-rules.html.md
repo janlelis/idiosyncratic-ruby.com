@@ -2,6 +2,7 @@
 title: Changing the Rules
 date: 2015-05-16
 tags: core, globals, golf
+commit: b9c9f434713b5fda5169a46f4bb982c29bd8dab3
 ---
 
 Ruby allows you to change key functionality of the language. This means, it is also possible to break key functionality! Six examples of Ruby code you should never use:
