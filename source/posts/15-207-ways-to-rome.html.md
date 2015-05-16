@@ -1,5 +1,5 @@
 ---
-title: 207 Ways To Rome
+title: 207 Ways to Rome
 date: 2015-05-15
 tags: syntax, strings
 commit: dbb043e5ff98ddb776048d6f8c41aa1afc84422b
