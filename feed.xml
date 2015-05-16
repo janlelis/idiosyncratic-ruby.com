@@ -5,10 +5,139 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2015-05-15T02:00:00+02:00</updated>
+  <updated>2015-05-16T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Changing the Rules</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/16-changing-the-rules.html"/>
+    <id>http://idiosyncratic-ruby.com/16-changing-the-rules.html</id>
+    <published>2015-05-16T02:00:00+02:00</published>
+    <updated>2015-05-16T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Ruby allows you to change key functionality of the language. This means, it is also possible to break key functionality! Six examples of Ruby code you should never use:&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id="undefining-core-methods"&gt;Undefining Core Methods&lt;/h2&gt;
+
+&lt;p&gt;The simplest way to change Ruby's global behavior is monkey patching: Nothing stops you from altering important core methods:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class Module; undef append_features; end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This line will break the ability to mix-in modules:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Math.sin 42 # =&amp;gt; -0.9165215479156338
+include Math
+# NoMethodError: undefined method `append_features' for Math:Module
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="everything-nil"&gt;Everything &lt;code&gt;nil&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;No more &lt;code&gt;NoMethodError: undefined method&lt;/code&gt; or &lt;code&gt;NameError: uninitialized constant&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class BasicObject
+  def self.const_missing(*)
+  end
+
+  def method_missing(*)
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Nothing will fail, anymore. Not a good idea. Also see: &lt;a href="https://github.com/raganwald-deprecated/homoiconic/blob/master/2009-02-02/hopeless_egocentricity.md"&gt;Hopless Egocentricity&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;IDio.synCRATIC # =&amp;gt; nil
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="alternative-hash-access-semantics"&gt;Alternative Hash Access Semantics&lt;/h2&gt;
+
+&lt;p&gt;You can redefine hash semantics, to raise an error, if a key was not found:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class Hash
+  alias [] fetch
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now you will always get &lt;code&gt;KeyError&lt;/code&gt; instead of &lt;code&gt;nil&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{ "Idiosyncratic": "Ruby" }["Sane"]
+# `fetch': key not found: "Sane" (KeyError)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You could argue that this is much cleaner than the normal semantics, but you won't be compatible with the rest of the world.&lt;/p&gt;
+
+&lt;h2 id="manipulate-global-randomness"&gt;Manipulate Global Randomness&lt;/h2&gt;
+
+&lt;p&gt;Don't use &lt;code&gt;Kernel#rand&lt;/code&gt;, &lt;code&gt;Array#shuffle&lt;/code&gt; or &lt;code&gt;Array#sample&lt;/code&gt;. &lt;a href="https://coderwall.com/p/oijyja/array-sample-and-array-shuffle-using-securerandom"&gt;Always use&lt;/a&gt; &lt;a href="http://ruby.janlelis.de/67-ruby-and-random"&gt;SecureRandom!&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;srand 84 # =&amp;gt; (something)
+rand 100 # =&amp;gt; 42
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="change-a-global-default-separator"&gt;Change a Global Default Separator&lt;/h2&gt;
+
+&lt;p&gt;Four of &lt;a href="http://idiosyncratic-ruby.com/9-globalization.html"&gt;Ruby's special two-letter globals&lt;/a&gt; are called &lt;em&gt;record separators&lt;/em&gt; and they affect the behaviour of various methods in Ruby:&lt;/p&gt;
+
+&lt;table class="table-15-30-15-X"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Variable&lt;/th&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+      &lt;th&gt;Default&lt;/th&gt;
+      &lt;th&gt;Examples for Methods Affected&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;$;&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;(Input) Field Separator&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;nil&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;String#split&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;$,&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Output Field Separator&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;nil&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;Array#join&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;$/&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Input Record Separator&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;"\n"&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;Kernel#gets&lt;/code&gt;, &lt;code&gt;IO#readlines&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;$\&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Output Record Separator&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;nil&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;Kernel#print&lt;/code&gt;, &lt;code&gt;IO#write&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Not only your own code is affected, but also core functionality. For example, changing the default output separators also changes Ruby's error messages:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt; $, = "YIKES"
+&amp;gt;&amp;gt; 123abc
+SyntaxErrorYIKES: YIKES(irb):2: syntax error, unexpected tIDENTIFIER, \
+expecting end-of-inputYIKES
+  from /home/user/.rvm/rubies/ruby-2.2.2/bin/irb:11:in `&amp;lt;main&amp;gt;'YIKES
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="disabling-garbage-collection"&gt;Disabling Garbage Collection&lt;/h2&gt;
+
+&lt;p&gt;Be careful! This might cause your machine to freeze or even worse!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;GC.disable
+100_000_000.times.each{ |i| "#{i}" }
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+  </entry>
   <entry>
     <title>207 Ways To Rome</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/15-207-ways-to-rome.html"/>

@@ -1,0 +1,170 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - Changing the Rules</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="A 31 Parts Story about Ruby Specialities. A New Post Every Day in May 2015!"/>
+<meta name="keywords" content="ruby, core, globals, golf"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/index/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/16-changing-the-rules.html">Changing the Rules</a></h1>
+      </section>
+
+      <article class="post">
+        <p>Ruby allows you to change key functionality of the language. This means, it is also possible to break key functionality! Six examples of Ruby code you should never use:</p>
+
+<p></p>
+
+<h2 id="undefining-core-methods">Undefining Core Methods</h2>
+
+<p>The simplest way to change Ruby's global behavior is monkey patching: Nothing stops you from altering important core methods:</p>
+
+<pre><code>class Module; undef append_features; end
+</code></pre>
+
+<p>This line will break the ability to mix-in modules:</p>
+
+<pre><code>Math.sin 42 # =&gt; -0.9165215479156338
+include Math
+# NoMethodError: undefined method `append_features' for Math:Module
+</code></pre>
+
+<h2 id="everything-nil">Everything <code>nil</code></h2>
+
+<p>No more <code>NoMethodError: undefined method</code> or <code>NameError: uninitialized constant</code>:</p>
+
+<pre><code>class BasicObject
+  def self.const_missing(*)
+  end
+
+  def method_missing(*)
+  end
+end
+</code></pre>
+
+<p>Nothing will fail, anymore. Not a good idea. Also see: <a href="https://github.com/raganwald-deprecated/homoiconic/blob/master/2009-02-02/hopeless_egocentricity.md">Hopless Egocentricity</a></p>
+
+<pre><code>IDio.synCRATIC # =&gt; nil
+</code></pre>
+
+<h2 id="alternative-hash-access-semantics">Alternative Hash Access Semantics</h2>
+
+<p>You can redefine hash semantics, to raise an error, if a key was not found:</p>
+
+<pre><code>class Hash
+  alias [] fetch
+end
+</code></pre>
+
+<p>Now you will always get <code>KeyError</code> instead of <code>nil</code>:</p>
+
+<pre><code>{ "Idiosyncratic": "Ruby" }["Sane"]
+# `fetch': key not found: "Sane" (KeyError)
+</code></pre>
+
+<p>You could argue that this is much cleaner than the normal semantics, but you won't be compatible with the rest of the world.</p>
+
+<h2 id="manipulate-global-randomness">Manipulate Global Randomness</h2>
+
+<p>Don't use <code>Kernel#rand</code>, <code>Array#shuffle</code> or <code>Array#sample</code>. <a href="https://coderwall.com/p/oijyja/array-sample-and-array-shuffle-using-securerandom">Always use</a> <a href="http://ruby.janlelis.de/67-ruby-and-random">SecureRandom!</a></p>
+
+<pre><code>srand 84 # =&gt; (something)
+rand 100 # =&gt; 42
+</code></pre>
+
+<h2 id="change-a-global-default-separator">Change a Global Default Separator</h2>
+
+<p>Four of <a href="http://idiosyncratic-ruby.com/9-globalization.html">Ruby's special two-letter globals</a> are called <em>record separators</em> and they affect the behaviour of various methods in Ruby:</p>
+
+<table class="table-15-30-15-X">
+  <thead>
+    <tr>
+      <th>Variable</th>
+      <th>Name</th>
+      <th>Default</th>
+      <th>Examples for Methods Affected</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>$;</code></td>
+      <td>(Input) Field Separator</td>
+      <td><code>nil</code></td>
+      <td><code>String#split</code></td>
+    </tr>
+    <tr>
+      <td><code>$,</code></td>
+      <td>Output Field Separator</td>
+      <td><code>nil</code></td>
+      <td><code>Array#join</code></td>
+    </tr>
+    <tr>
+      <td><code>$/</code></td>
+      <td>Input Record Separator</td>
+      <td><code>"\n"</code></td>
+      <td><code>Kernel#gets</code>, <code>IO#readlines</code></td>
+    </tr>
+    <tr>
+      <td><code>$\</code></td>
+      <td>Output Record Separator</td>
+      <td><code>nil</code></td>
+      <td><code>Kernel#print</code>, <code>IO#write</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Not only your own code is affected, but also core functionality. For example, changing the default output separators also changes Ruby's error messages:</p>
+
+<pre><code>&gt;&gt; $, = "YIKES"
+&gt;&gt; 123abc
+SyntaxErrorYIKES: YIKES(irb):2: syntax error, unexpected tIDENTIFIER, \
+expecting end-of-inputYIKES
+  from /home/user/.rvm/rubies/ruby-2.2.2/bin/irb:11:in `&lt;main&gt;'YIKES
+</code></pre>
+
+<h2 id="disabling-garbage-collection">Disabling Garbage Collection</h2>
+
+<p>Be careful! This might cause your machine to freeze or even worse!</p>
+
+<pre><code>GC.disable
+100_000_000.times.each{ |i| "#{i}" }
+</code></pre>
+
+
+        <h2>More Idiosyncratic Ruby</h2>
+        <ul>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/b9c9f434713b5fda5169a46f4bb982c29bd8dab3#all_commit_comments">Comments on GitHub</a></li>
+          <li><a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet this Episode
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
+            <li>Previous Article: <a href="/15-207-ways-to-rome.html">207 Ways To Rome</a></li>
+        </ul>
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="http://janlelis.com">Jan Lelis</a><br>
+        </div>
+        About Core, Globals, Golf |
+        Last Update: 2015-05-16
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>
