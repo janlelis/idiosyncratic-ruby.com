@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - Stream Editing</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="A 31 Parts Story about Ruby Specialities. A New Post Every Day in May 2015!"/>
+<meta name="keywords" content="ruby, cli-options, golf, globals, one-liner"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/index/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/17-stream-editing.html">Stream Editing</a></h1>
+      </section>
+
+      <article class="post">
+        <p>One of Ruby's goals was to replace popular unix <em>stream editors</em> like <code>awk</code> or <code>sed</code>, which both have the concept of manipulating files in a line-based manner. Ruby has the <code>-n</code> option for this:</p>
+
+<pre><code>Causes Ruby to assume the following loop around your script, which makes it
+iterate over file name arguments somewhat like sed -n or awk.
+
+      while gets
+        ...
+      end
+</code></pre>
+
+<p>And its sibling <code>-p</code>:</p>
+
+<pre><code>Acts mostly same as -n switch, but print the value of variable $_ at the each
+end of the loop.
+For example:
+
+      % echo matz | ruby -p -e '$_.tr! "a-z", "A-Z"'
+      MATZ
+</code></pre>
+
+<p>What you need to know is that the <a href="http://idiosyncratic-ruby.com/9-globalization.html">special global variable</a> <code>$_</code> contains the last read input. When using <code>-n</code> or <code>-p</code>, this usualy means the current line. Another thing to keep in mind: <code>gets</code> reads from <a href="http://readruby.io/io#argf"><code>ARGF</code></a>, not from <code>STDIN</code>, so you can pass arguments that will be interpreted as filenames of the files that should be processed. Equipped with this knowlegde, you can build a very basic example, which just prints out the given file:</p>
+
+<pre><code>$ ruby -ne 'print $_' filename
+</code></pre>
+
+<p>Since print without arguments implicitely prints out <code>$_</code>, this can be shortened to:</p>
+
+<pre><code>$ ruby -ne 'print' filename
+</code></pre>
+
+<p>If one uses <code>-p</code>, instead of <code>-n</code>, no code is required, because <code>-p</code> will call <code>print</code> implicitely:</p>
+
+<pre><code>$ ruby -pe '' filename
+</code></pre>
+
+<p>Now let's modify each line:</p>
+
+<pre><code>$ ruby -pe '$_.reverse!' filename
+</code></pre>
+
+<p>This will print out the file with all its lines reversed.</p>
+
+<p>Here is another example, which will print every line in a random ANSI color:</p>
+
+<pre><code>$ ruby -ne 'print "\e[3#{rand(8)}m#$_"' filename
+</code></pre>
+
+<p>There is more to assist you in writing these short line manipulation scripts:</p>
+
+<h2 id="the-ruby-one-liner-toolbox">The Ruby One-Liner Toolbox</h2>
+
+<ul>
+  <li>CLI Options: <code>-n</code> <code>-p</code> <code>-0</code> <code>-F</code> <code>-a</code> <code>-i</code> <code>-l</code></li>
+  <li>Global Variables: <code>$_</code> <code>$/</code> <code>$\</code> <code>$;</code> <code>$F</code> <code>$.</code></li>
+  <li>Methods that operate on <code>$_</code>, implicetly: <code>print</code> <code>~</code></li>
+  <li>The special <code>BEGIN{}</code> and <code>END{}</code> blocks</li>
+</ul>
+
+<h2 id="running-code-before-or-after-processing-the-input">Running Code Before or After Processing the Input</h2>
+
+<p>You can run code before the loop starts with <code>BEFORE</code> and after the loop with <code>END</code>. For example, this will count characters:</p>
+
+<pre><code>$ ruby -ne 'BEGIN{ count = 0 }; count += $_.size; END{ print count }' filename
+</code></pre>
+
+<h2 id="using-line-numbers">Using Line Numbers</h2>
+
+<p><code>$.</code> contains the current line number. A use-case would be counting the lines of a file:</p>
+
+<pre><code>$ ruby -ne 'END{p$.}' filename
+</code></pre>
+
+<h2 id="string-matching">String Matching</h2>
+
+<p>Now let's do some conditional processing: Only print a line if it contains a digit:</p>
+
+<pre><code>$ ruby -ne 'print if ~/\d/' filename
+</code></pre>
+
+<p>The message to take away: The <code>~</code> method implicitely matches the regex against <code>$_</code>.</p>
+
+<p>But it gets even better:</p>
+
+<pre><code>$ ruby -ne 'print if /\d/' filename
+</code></pre>
+
+<p>You thought conditions with a truthy value will always execute the <code>if</code>-branch of a conditions? They will not, if the truthy value is a non-matching regex literal!</p>
+
+<p>This also works when using the ternary operator for conditions:</p>
+
+<pre><code>$ ruby -ne 'puts "#$.: #{ /\d/ ? "first digit: #$&amp;" : "no digit" }"' filename
+</code></pre>
+
+<h2 id="inplace-editing-files">Inplace-Editing files</h2>
+
+<p>Using the <code>-i</code> option, you can modify files directy (just like <code>sed</code>'s <code>-i</code> mode). For example, removing all trailing spaces:</p>
+
+<pre><code>$ ruby -ne 'puts $_.rstrip!' -i filename
+</code></pre>
+
+<p>Like in <code>sed</code>, you can provide a file extension to the <code>-i</code> option which will be used to create a backup file before processing:</p>
+
+<pre><code>$ ruby -pe '$_.upcase!' -i.original filename
+</code></pre>
+
+<h2 id="auto-splitting-lines">Auto-splitting Lines</h2>
+
+<p>The <code>-a</code> option will run <code>$F = $_.split</code> for every line:</p>
+
+<pre><code>$ ruby -nae 'puts $F.reverse.join(" ")' filename
+</code></pre>
+
+<h2 id="specify-line-format">Specify Line Format</h2>
+
+<p>You might not always want to use <code>\n</code> as the character that separates lines. Fortunately, Ruby has <a href="http://idiosyncratic-ruby.com/16-changing-the-rules.html#change-a-global-default-separator">record separators</a>, and you can set some of them via command-line options:</p>
+
+<table class="table-10-10-X">
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Variable</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>-0</code></td>
+      <td><code>$/</code></td>
+      <td>Sets the <em>input record separator</em>, which is used by <code>Kernel#gets</code>. Character to use must be given as <a href="http://en.wikipedia.org/wiki/Octal">octal number</a>. If no number is given (<code>-0</code>), it will use null bytes as separator. Using <code>-0777</code> will read in the whole file at once. Another special value is <code>-00</code>, which will set <code>$_</code> to <code>"\n\n"</code> (paragraph mode).</td>
+    </tr>
+    <tr>
+      <td><code>-F</code></td>
+      <td><code>$;</code></td>
+      <td>Sets the <em>input field separator</em>, which is used by <code>Array#split</code>. Useful in combination with the <code>-a</code> option.</td>
+    </tr>
+    <tr>
+      <td><code>-l</code></td>
+      <td><code>$\</code></td>
+      <td>Sets the <em>output record separator</em> to the value of the <em>input record separator</em> (<code>$/</code>). Also runs <a href="http://ruby-doc.org/core-2.2.2/String.html#method-i-chop-21">String#chop!</a> on every line!</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="further-reading">Further Reading</h2>
+
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Sed">sed</a></li>
+  <li><a href="http://idiosyncratic-ruby.com/6-run-ruby-run.html">un</a></li>
+  <li><a href="https://github.com/grosser/pru">pru</a></li>
+</ul>
+
+
+        <h2>More Idiosyncratic Ruby</h2>
+        <ul>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/#all_commit_comments">Comments on GitHub</a></li>
+          <li><a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet this Episode
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
+            <li>Previous Article: <a href="/16-changing-the-rules.html">Changing the Rules</a></li>
+        </ul>
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="http://janlelis.com">Jan Lelis</a><br>
+        </div>
+        About Cli-options, Golf, Globals, One-liner |
+        Last Update: 2015-05-17
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>

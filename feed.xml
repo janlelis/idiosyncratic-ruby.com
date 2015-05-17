@@ -5,10 +5,171 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2015-05-16T02:00:00+02:00</updated>
+  <updated>2015-05-17T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Stream Editing</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/17-stream-editing.html"/>
+    <id>http://idiosyncratic-ruby.com/17-stream-editing.html</id>
+    <published>2015-05-17T02:00:00+02:00</published>
+    <updated>2015-05-17T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;One of Ruby's goals was to replace popular unix &lt;em&gt;stream editors&lt;/em&gt; like &lt;code&gt;awk&lt;/code&gt; or &lt;code&gt;sed&lt;/code&gt;, which both have the concept of manipulating files in a line-based manner. Ruby has the &lt;code&gt;-n&lt;/code&gt; option for this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Causes Ruby to assume the following loop around your script, which makes it
+iterate over file name arguments somewhat like sed -n or awk.
+
+      while gets
+        ...
+      end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And its sibling &lt;code&gt;-p&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Acts mostly same as -n switch, but print the value of variable $_ at the each
+end of the loop.
+For example:
+
+      % echo matz | ruby -p -e '$_.tr! "a-z", "A-Z"'
+      MATZ
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;What you need to know is that the &lt;a href="http://idiosyncratic-ruby.com/9-globalization.html"&gt;special global variable&lt;/a&gt; &lt;code&gt;$_&lt;/code&gt; contains the last read input. When using &lt;code&gt;-n&lt;/code&gt; or &lt;code&gt;-p&lt;/code&gt;, this usualy means the current line. Another thing to keep in mind: &lt;code&gt;gets&lt;/code&gt; reads from &lt;a href="http://readruby.io/io#argf"&gt;&lt;code&gt;ARGF&lt;/code&gt;&lt;/a&gt;, not from &lt;code&gt;STDIN&lt;/code&gt;, so you can pass arguments that will be interpreted as filenames of the files that should be processed. Equipped with this knowlegde, you can build a very basic example, which just prints out the given file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -ne 'print $_' filename
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Since print without arguments implicitely prints out &lt;code&gt;$_&lt;/code&gt;, this can be shortened to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -ne 'print' filename
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If one uses &lt;code&gt;-p&lt;/code&gt;, instead of &lt;code&gt;-n&lt;/code&gt;, no code is required, because &lt;code&gt;-p&lt;/code&gt; will call &lt;code&gt;print&lt;/code&gt; implicitely:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -pe '' filename
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now let's modify each line:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -pe '$_.reverse!' filename
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will print out the file with all its lines reversed.&lt;/p&gt;
+
+&lt;p&gt;Here is another example, which will print every line in a random ANSI color:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -ne 'print "\e[3#{rand(8)}m#$_"' filename
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is more to assist you in writing these short line manipulation scripts:&lt;/p&gt;
+
+&lt;h2 id="the-ruby-one-liner-toolbox"&gt;The Ruby One-Liner Toolbox&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;CLI Options: &lt;code&gt;-n&lt;/code&gt; &lt;code&gt;-p&lt;/code&gt; &lt;code&gt;-0&lt;/code&gt; &lt;code&gt;-F&lt;/code&gt; &lt;code&gt;-a&lt;/code&gt; &lt;code&gt;-i&lt;/code&gt; &lt;code&gt;-l&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Global Variables: &lt;code&gt;$_&lt;/code&gt; &lt;code&gt;$/&lt;/code&gt; &lt;code&gt;$\&lt;/code&gt; &lt;code&gt;$;&lt;/code&gt; &lt;code&gt;$F&lt;/code&gt; &lt;code&gt;$.&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Methods that operate on &lt;code&gt;$_&lt;/code&gt;, implicetly: &lt;code&gt;print&lt;/code&gt; &lt;code&gt;~&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;The special &lt;code&gt;BEGIN{}&lt;/code&gt; and &lt;code&gt;END{}&lt;/code&gt; blocks&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="running-code-before-or-after-processing-the-input"&gt;Running Code Before or After Processing the Input&lt;/h2&gt;
+
+&lt;p&gt;You can run code before the loop starts with &lt;code&gt;BEFORE&lt;/code&gt; and after the loop with &lt;code&gt;END&lt;/code&gt;. For example, this will count characters:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -ne 'BEGIN{ count = 0 }; count += $_.size; END{ print count }' filename
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="using-line-numbers"&gt;Using Line Numbers&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;$.&lt;/code&gt; contains the current line number. A use-case would be counting the lines of a file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -ne 'END{p$.}' filename
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="string-matching"&gt;String Matching&lt;/h2&gt;
+
+&lt;p&gt;Now let's do some conditional processing: Only print a line if it contains a digit:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -ne 'print if ~/\d/' filename
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The message to take away: The &lt;code&gt;~&lt;/code&gt; method implicitely matches the regex against &lt;code&gt;$_&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;But it gets even better:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -ne 'print if /\d/' filename
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You thought conditions with a truthy value will always execute the &lt;code&gt;if&lt;/code&gt;-branch of a conditions? They will not, if the truthy value is a non-matching regex literal!&lt;/p&gt;
+
+&lt;p&gt;This also works when using the ternary operator for conditions:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -ne 'puts "#$.: #{ /\d/ ? "first digit: #$&amp;amp;" : "no digit" }"' filename
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="inplace-editing-files"&gt;Inplace-Editing files&lt;/h2&gt;
+
+&lt;p&gt;Using the &lt;code&gt;-i&lt;/code&gt; option, you can modify files directy (just like &lt;code&gt;sed&lt;/code&gt;'s &lt;code&gt;-i&lt;/code&gt; mode). For example, removing all trailing spaces:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -ne 'puts $_.rstrip!' -i filename
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Like in &lt;code&gt;sed&lt;/code&gt;, you can provide a file extension to the &lt;code&gt;-i&lt;/code&gt; option which will be used to create a backup file before processing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -pe '$_.upcase!' -i.original filename
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="auto-splitting-lines"&gt;Auto-splitting Lines&lt;/h2&gt;
+
+&lt;p&gt;The &lt;code&gt;-a&lt;/code&gt; option will run &lt;code&gt;$F = $_.split&lt;/code&gt; for every line:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -nae 'puts $F.reverse.join(" ")' filename
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="specify-line-format"&gt;Specify Line Format&lt;/h2&gt;
+
+&lt;p&gt;You might not always want to use &lt;code&gt;\n&lt;/code&gt; as the character that separates lines. Fortunately, Ruby has &lt;a href="http://idiosyncratic-ruby.com/16-changing-the-rules.html#change-a-global-default-separator"&gt;record separators&lt;/a&gt;, and you can set some of them via command-line options:&lt;/p&gt;
+
+&lt;table class="table-10-10-X"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Option&lt;/th&gt;
+      &lt;th&gt;Variable&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;-0&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;$/&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Sets the &lt;em&gt;input record separator&lt;/em&gt;, which is used by &lt;code&gt;Kernel#gets&lt;/code&gt;. Character to use must be given as &lt;a href="http://en.wikipedia.org/wiki/Octal"&gt;octal number&lt;/a&gt;. If no number is given (&lt;code&gt;-0&lt;/code&gt;), it will use null bytes as separator. Using &lt;code&gt;-0777&lt;/code&gt; will read in the whole file at once. Another special value is &lt;code&gt;-00&lt;/code&gt;, which will set &lt;code&gt;$_&lt;/code&gt; to &lt;code&gt;"\n\n"&lt;/code&gt; (paragraph mode).&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;-F&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;$;&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Sets the &lt;em&gt;input field separator&lt;/em&gt;, which is used by &lt;code&gt;Array#split&lt;/code&gt;. Useful in combination with the &lt;code&gt;-a&lt;/code&gt; option.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;-l&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;$\&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Sets the &lt;em&gt;output record separator&lt;/em&gt; to the value of the &lt;em&gt;input record separator&lt;/em&gt; (&lt;code&gt;$/&lt;/code&gt;). Also runs &lt;a href="http://ruby-doc.org/core-2.2.2/String.html#method-i-chop-21"&gt;String#chop!&lt;/a&gt; on every line!&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id="further-reading"&gt;Further Reading&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Sed"&gt;sed&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://idiosyncratic-ruby.com/6-run-ruby-run.html"&gt;un&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/grosser/pru"&gt;pru&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Changing the Rules</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/16-changing-the-rules.html"/>
@@ -139,7 +300,7 @@ expecting end-of-inputYIKES
 </content>
   </entry>
   <entry>
-    <title>207 Ways To Rome</title>
+    <title>207 Ways to Rome</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/15-207-ways-to-rome.html"/>
     <id>http://idiosyncratic-ruby.com/15-207-ways-to-rome.html</id>
     <published>2015-05-15T02:00:00+02:00</published>
