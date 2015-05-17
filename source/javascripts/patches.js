@@ -1,5 +1,5 @@
 $(function(){
-  if(!$('#percent-syntax--q').length){
+  if(!$('#percent-syntax--q').length && !$('#the-ruby-one-liner-toolbox')){
     $('code').attr("data-language", "ruby");
   }
 });
