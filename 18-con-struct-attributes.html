@@ -1,0 +1,318 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - Con-Struct Attributes</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="A 31 Parts Story about Ruby Specialities. A New Post Every Day in May 2015!"/>
+<meta name="keywords" content="ruby, core"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/index/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/18-con-struct-attributes.html">Con-Struct Attributes</a></h1>
+      </section>
+
+      <article class="post">
+        <p>Ruby's <a href="http://ruby-doc.org/core-2.2.2/Struct.html">Struct</a> class is a convenient way to create Ruby classes, which already have some attriutes defined. If you are not familiar with structs, you should watch <a href="http://www.rubytapas.com/episodes/20-Struct">Avdi Grimm's introduction to structs</a>!</p>
+
+<p>But there is something better than structs:</p>
+
+<p></p>
+
+<h2 id="gems-that-define-attributes-for-plain-old-ruby-objects">Gems that Define Attributes for "Plain Old Ruby Objects"</h2>
+
+<h3 id="virtus">Virtus</h3>
+
+<p><a href="https://github.com/solnic/virtus">virtus</a>: <em>Attributes on Steroids for Plain Old Ruby Objects</em></p>
+
+<pre><code>require 'virtus'
+
+class Person
+  include Virtus.model
+
+  attribute :name
+  attribute :age
+end
+
+Person.new(name: "Jan", age: 26)
+# =&gt; #&lt;Person:0x00000001ad85a8 @name="Jan", @age=26&gt;
+</code></pre>
+
+<h3 id="active-attr">Active Attr</h3>
+
+<p><a href="https://github.com/cgriego/active_attr">active_attr</a>: <em>What ActiveModel left out</em></p>
+
+<pre><code>require 'active_attr'
+
+class Person
+  include ActiveAttr::MassAssignment
+  attr_accessor :name, :age
+end
+
+Person.new(name: "Jan", age: 26)
+# =&gt; #&lt;Person:0x00000002464f18 @name="Jan", @age=26&gt;
+</code></pre>
+
+<h3 id="fast-attributes">Fast Attributes</h3>
+
+<p><a href="https://github.com/applift/fast_attributes">fast_attributes</a>: <em>FastAttributes adds attributes with their types to the class</em></p>
+
+<pre><code>require 'fast_attributes'
+
+class Person
+  extend FastAttributes
+
+  define_attributes initialize: true do
+    attribute :name, Object
+    attribute :age, Object
+  end
+end
+
+Person.new(name: "Jan", age: 26)
+# =&gt; #&lt;Person @name="Jan", @age=26&gt;
+</code></pre>
+
+<h3 id="attrio">Attrio</h3>
+
+<p><a href="https://github.com/jetrockets/attrio">attrio</a>: <em>Attributes for plain old Ruby objects. No dependencies, only simplicity and clearness.</em></p>
+
+<pre><code>require 'attrio'
+
+class Person
+  include Attrio
+
+  define_attributes do
+    attr :name
+    attr :age
+  end
+
+  def initialize(attributes = {})
+    self.attributes = attributes
+  end
+
+
+  def attributes=(attributes = {})
+    attributes.each do |attr,value|
+      self.send("#{attr}=", value) if self.respond_to?("#{attr}=")
+    end
+  end
+end
+
+Person.new(name: "Jan", age: 26)
+# =&gt; &lt;Person name: "Jan", age: 26&gt;
+</code></pre>
+
+<h3 id="attrextras">attr_extras</h3>
+
+<p><a href="https://github.com/barsoom/attr_extras">attr_extras</a>: <em>Takes some boilerplate out of Ruby with methods like attr_initialize.</em></p>
+
+<pre><code>require 'attr_extras'
+
+class Person
+  attr_initialize :name, :age
+  attr_reader :name, :age
+end
+
+Person.new("Jan", 26)
+# =&gt; #&lt;Person:0x0000000216ed40 @name="Jan", @age=26&gt;
+</code></pre>
+
+<h3 id="concord">Concord</h3>
+
+<p><a href="https://github.com/mbj/concord">concord</a>: <em>Mixin to ease compositions under ruby</em></p>
+
+<pre><code>require 'concord'
+
+class Person
+  include Concord.new(:name, :age)
+end
+
+Person.new("Jan", 26)
+# =&gt; #&lt;Person name="Jan" age=26&gt;
+</code></pre>
+
+<h3 id="fatter-attr">Fatter Attr</h3>
+
+<p><a href="https://github.com/ahoward/fattr">fattr</a>: <em>fattr.rb is a "fatter attr" for ruby and borrows heavily from the metakoans.rb ruby quiz</em></p>
+
+<pre><code>require 'fattr'
+
+class Person
+  fattrs :name, :age
+end
+
+person = Person.new
+person.name = "Jan"
+person.age  = 26
+person
+# =&gt; #&lt;Person:0x0000000147d7a8 @name="Jan", @age=26&gt;
+</code></pre>
+
+<h3 id="anima">Anima</h3>
+
+<p><a href="https://github.com/mbj/anima">anima</a>: <em>Object initializer from attributes hash</em></p>
+
+<pre><code>require 'anima'
+
+class Person
+  include Anima.new(:name, :age)
+end
+
+Person.new(name: "Jan", age: 26)
+# =&gt; #&lt;Person name="Jan" age=26&gt;
+</code></pre>
+
+<h3 id="kwattr">KWAttr</h3>
+
+<p><a href="https://github.com/etiennebarrie/kwattr">kwattr</a>: <em>attr_reader + initialize with keyword arguments</em></p>
+
+<pre><code>require 'kwattr'
+
+class Person
+  kwattr :name, :age
+end
+
+Person.new(name: "Jan", age: 26)
+# =&gt; #&lt;Person:0x00000002602988 @name="Jan", @age=26&gt;
+</code></pre>
+
+<h2 id="structs-are-still-useful-as-value-objects">Structs are Still Useful… as Value Objects</h2>
+
+<p>Structs are different from normal Ruby classes, but they are still very useful for creating <a href="http://en.wikipedia.org/wiki/Value_object">value objects</a>. Value objects should be immutable and the following gems assist you in creating read-only objects with a Struct-like API:</p>
+
+<h3 id="values">Values</h3>
+
+<p><a href="https://github.com/tcrayford/values">values</a>: <em>Simple immutable value objects for ruby (the readme is longer than the code)</em></p>
+
+<pre><code>require 'values'
+
+Person = Value.new(:name, :age)
+Person.new("Jan", 26) # =&gt; &lt;Person name="Jan", age=26&gt;
+</code></pre>
+
+<h3 id="immutable-struct">Immutable Struct</h3>
+
+<p><a href="https://github.com/iconara/immutable_struct">immutable_struct</a>: <em>An immutable version of Ruby's Struct class</em></p>
+
+<pre><code>require 'immutable_struct'
+
+Person = ImmutableStruct.new(:name, :age)
+Person.new("Jan", 26) # =&gt; #&lt;struct Person name="Jan", age=26&gt;
+</code></pre>
+
+<h3 id="value-struct">Value Struct</h3>
+
+<p><a href="https://github.com/janlelis/value_struct">value_struct</a>: <em>Read-only structs in Ruby</em></p>
+
+<pre><code>require 'value_struct'
+
+Person = ValueStruct.new(:name, :age)
+Person.new("Jan", 26) # =&gt; #&lt;ValueStruct Person name="Jan", age=26&gt;
+</code></pre>
+
+<h2 id="why-not-structs-everywhere">Why Not Structs Everywhere?</h2>
+
+<ul>
+  <li>You cannot access its instance variables directly</li>
+  <li>Structs have <a href="http://ruby-doc.org/core-2.2.2/Struct.html#public-instance-method-details">their own methods</a> (like <code>[]</code>, a getter for variables), which might not always be useful</li>
+  <li>Pitfalls when creating structs with custom behavior (see below)</li>
+</ul>
+
+<p>The different ways to initiaize a Struct:</p>
+
+<h3 id="inherit">Inherit</h3>
+
+<p>One way to add custom methods to a struct is to directley sub-class it:</p>
+
+<pre><code>class Person &lt; Struct.new(:name, :age)
+  def name_and_age
+    "#{name}, #{age}"
+  end
+end
+</code></pre>
+
+<p>The bad thing about this is that it will add an aditionial entry to your ancestor chain:</p>
+
+<pre><code>Person.ancestors # =&gt; [Person, #&lt;Class:0x00000001612140&gt;, Struct, ...]
+</code></pre>
+
+<h3 id="block">Block</h3>
+
+<p>This can be avoided by passing a block to the initializer:</p>
+
+<pre><code>Person = Struct.new(:name, :age) do
+  def name_and_age
+    "#{name}, #{age}"
+  end
+end
+</code></pre>
+
+<p>However, you got a new problem with this approach: You are not in the <em>define a class</em> scope. This can be confusing when working with constants:</p>
+
+<pre><code>Person = Struct.new(:name, :age) do
+  MAXIMUM_AGE = 120
+end
+</code></pre>
+
+<p>This will create a top-level constant <code>MAXIMUM_AGE</code> instead of a namespaced <code>Person::MAXIMUM_AGE</code> one.</p>
+
+<h3 id="reopen">Reopen</h3>
+
+<p>The approach that avoids both problems, is a little bit more verbose, but well readable:</p>
+
+<pre><code>Person = Struct.new(:name, :age)
+
+class Person
+  def name_and_age
+    "#{name}, #{age}"
+  end
+end
+</code></pre>
+
+<p>It also seems to <a href="https://gist.github.com/janlelis/02b75baac8521d311bf2">perfom slightly better</a> than the other options.</p>
+
+<h3 id="further-reading">Further Reading</h3>
+
+<ul>
+  <li><a href="http://en.wikipedia.org/wiki/Plain_old_data_structure">Wikipedia: Plain old data structure</a></li>
+  <li><a href="http://rubyquiz.com/quiz67.html">Ruby Quiz: Implementing #attribute</a></li>
+  <li><a href="http://blog.rubybestpractices.com/posts/rklemme/017-Struct.html">Article: Structs inside out</a></li>
+  <li><a href="http://thepugautomatic.com/2013/08/struct-inheritance-is-overused/">Article: Struct inheritance is overused</a></li>
+</ul>
+
+
+        <h2>More Idiosyncratic Ruby</h2>
+        <ul>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/#all_commit_comments">Comments on GitHub</a></li>
+          <li><a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet this Episode
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
+            <li>Previous Article: <a href="/17-stream-editing.html">Stream Editing</a></li>
+        </ul>
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="http://janlelis.com">Jan Lelis</a><br>
+        </div>
+        About Core |
+        Last Update: 2015-05-18
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>
