@@ -6,6 +6,8 @@ tags: cli-options, golf, globals, one-liner
 
 One of Ruby's goals was to replace popular unix *stream editors* like `awk` or `sed`, which both have the concept of manipulating files in a line-based manner. Ruby has the `-n` option for this:
 
+ARTICLE
+
     Causes Ruby to assume the following loop around your script, which makes it
     iterate over file name arguments somewhat like sed -n or awk.
 
