@@ -4,7 +4,7 @@ date: 2015-05-18
 tags: core
 ---
 
-Ruby's [Struct](http://ruby-doc.org/core-2.2.2/Struct.html) class is a convenient way to create Ruby classes, which already have some attriutes defined. If you are not familiar with structs, you should watch [Avdi Grimm's introduction to structs](http://www.rubytapas.com/episodes/20-Struct)!
+Ruby's [Struct](http://ruby-doc.org/core-2.2.2/Struct.html) class is a convenient way to create Ruby classes, which already have some attributes defined. If you are not familiar with structs, you should watch [Avdi Grimm's introduction to structs](http://www.rubytapas.com/episodes/20-Struct)!
 
 But there is something better than structs:
 
