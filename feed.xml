@@ -5,10 +5,114 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2015-05-18T02:00:00+02:00</updated>
+  <updated>2015-05-19T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Symbolic Reservations</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/19-semantic-symbols.html"/>
+    <id>http://idiosyncratic-ruby.com/19-semantic-symbols.html</id>
+    <published>2015-05-19T02:00:00+02:00</published>
+    <updated>2015-05-19T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;This episode takes a look at the unusual use of symbols in one of Ruby's core APIs:&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id="enumerablechunk"&gt;&lt;code&gt;Enumerable#chunk&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;The &lt;code&gt;chunk&lt;/code&gt; method splits the receiver object into multiple enumerators, using the rule defined in the block. It keeps together the parts that match in series. It then passes the result of this rule and an enumerator of the successive elements to the given block:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(1..42).chunk{ |n| n % 11 == 0 }.each{ |result, elements|
+  puts "#{result}: #{elements * ' - '}"
+}
+# false: 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10
+# true: 11
+# false: 12 - 13 - 14 - 15 - 16 - 17 - 18 - 19 - 20 - 21
+# true: 22
+# false: 23 - 24 - 25 - 26 - 27 - 28 - 29 - 30 - 31 - 32
+# true: 33
+# false: 34 - 35 - 36 - 37 - 38 - 39 - 40 - 41 - 42
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can use this to order numbers in &lt;a href="http://en.wikipedia.org/wiki/Quotient_ring"&gt;quotient rings&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;a = (0..4).map{ [] }
+(1..42).chunk{ |n| n % 5 }.each{ |remainder, elements|
+  a[remainder] += elements
+}
+puts a.map(&amp;amp;:inspect)
+# [5, 10, 15, 20, 25, 30, 35, 40],    # every number where n % 5 == 0
+# [1, 6, 11, 16, 21, 26, 31, 36, 41], # every number where n % 5 == 1
+# [2, 7, 12, 17, 22, 27, 32, 37, 42], # every number where n % 5 == 2
+# [3, 8, 13, 18, 23, 28, 33, 38],     # every number where n % 5 == 3
+# [4, 9, 14, 19, 24, 29, 34, 39]      # every number where n % 5 == 4
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The reason I am bringing it up as &lt;em&gt;idiosyncratic&lt;/em&gt; is: You can use &lt;strong&gt;special symbols&lt;/strong&gt; to influence the behavior of the chunk method, when used as the block return value. Anyone has seen something like this anywhere else in Ruby?&lt;/p&gt;
+
+&lt;p&gt;Let's revisit a shortened version of the example at the top:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(1..42).chunk{ |n| n % 11 == 0 }.to_a
+# =&amp;gt; [
+#   [false, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]], [true, [11]],
+#   [false, [12, 13, 14, 15, 16, 17, 18, 19, 20, 21]], [true, [22]],
+#   [false, [23, 24, 25, 26, 27, 28, 29, 30, 31, 32]], [true, [33]],
+#   [false, [34, 35, 36, 37, 38, 39, 40, 41, 42]]
+# ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It does nothing, when you pass in an arbitrary symbol as filter rule:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(1..42).chunk{ :symbol }.to_a
+# =&amp;gt; [
+#   [:symbol, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+#   18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
+#   36, 37, 38, 39, 40, 41, 42]]
+# ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;However, when passing the special symbol &lt;code&gt;:_alone&lt;/code&gt;, every element will be separated:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(1..42).chunk{ :_alone }.to_a
+# =&amp;gt; [
+#   [:_alone, [1]], [:_alone, [2]], [:_alone, [3]], [:_alone, [4]], [:_alone, [5]],
+#   [:_alone, [6]], [:_alone, [7]], [:_alone, [8]], [:_alone, [9]], [:_alone, [10]],
+#   [:_alone, [11]], [:_alone, [12]], [:_alone, [13]], [:_alone, [14]],
+#   [:_alone, [15]], [:_alone, [16]], [:_alone, [17]], [:_alone, [18]],
+#   [:_alone, [19]], [:_alone, [20]], [:_alone, [21]], [:_alone, [22]],
+#   [:_alone, [23]], [:_alone, [24]], [:_alone, [25]], [:_alone, [26]],
+#   [:_alone, [27]], [:_alone, [28]], [:_alone, [29]], [:_alone, [30]],
+#   [:_alone, [31]], [:_alone, [32]], [:_alone, [33]], [:_alone, [34]],
+#   [:_alone, [35]], [:_alone, [36]], [:_alone, [37]], [:_alone, [38]],
+#   [:_alone, [39]], [:_alone, [40]], [:_alone, [41]], [:_alone, [42]]
+# ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is also the special symbol &lt;code&gt;:_separator&lt;/code&gt;, which drops every element:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(1..42).chunk{ :_separator }.to_a
+# =&amp;gt; []
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Normally you don't want to return &lt;code&gt;:_alone&lt;/code&gt; or &lt;code&gt;:_separator&lt;/code&gt; for every element, but in specific instances of your filter rule, which is legit. The question remains, is this a good API for the future of Ruby?&lt;/p&gt;
+
+&lt;p&gt;One more thing: Unknown &lt;strong&gt;special symbols&lt;/strong&gt; (those that start with &lt;code&gt;_&lt;/code&gt;) will raise a &lt;code&gt;RuntimeError&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(1..42).chunk{ :_future }.to_a
+# RuntimeError: symbols beginning with an underscore are reserved
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.2.2/Enumerable.html#method-i-chunk"&gt;RDoc Enumerable#chunk&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Con-Struct Attributes</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/18-con-struct-attributes.html"/>
@@ -18,7 +122,7 @@
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;Ruby's &lt;a href="http://ruby-doc.org/core-2.2.2/Struct.html"&gt;Struct&lt;/a&gt; class is a convenient way to create Ruby classes, which already have some attriutes defined. If you are not familiar with structs, you should watch &lt;a href="http://www.rubytapas.com/episodes/20-Struct"&gt;Avdi Grimm's introduction to structs&lt;/a&gt;!&lt;/p&gt;
+    <content type="html">&lt;p&gt;Ruby's &lt;a href="http://ruby-doc.org/core-2.2.2/Struct.html"&gt;Struct&lt;/a&gt; class is a convenient way to create Ruby classes, which already have some attributes defined. If you are not familiar with structs, you should watch &lt;a href="http://www.rubytapas.com/episodes/20-Struct"&gt;Avdi Grimm's introduction to structs&lt;/a&gt;!&lt;/p&gt;
 
 &lt;p&gt;But there is something better than structs:&lt;/p&gt;
 
@@ -1448,7 +1552,7 @@ ENV[42] = "oops" # not quite: TypeError
 &lt;/table&gt;
 
 &lt;p&gt;¹ Available without requiring English.rb&lt;br /&gt;
-² No "T"&lt;br /&gt;
+² No &lt;em&gt;T&lt;/em&gt;, because it stands for &lt;em&gt;PARENTHESES&lt;/em&gt;, not &lt;em&gt;PARENT&lt;/em&gt;&lt;br /&gt;
 ³ With command-line option &lt;code&gt;-a&lt;/code&gt;&lt;/p&gt;
 
 &lt;h2 id="translations"&gt;Translations&lt;/h2&gt;
