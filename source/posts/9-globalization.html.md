@@ -55,7 +55,7 @@ $F³| global      | -                        | -        | [Manpage](http://manpa
 {:.table-15-20-40-15-X}
 
 ¹ Available without requiring English.rb<br/>
-² No "T"<br>
+² No *T*, because it stands for *PARENTHESES*, not *PARENT*<br>
 ³ With command-line option `-a`
 
 ## Translations
