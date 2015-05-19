@@ -2,6 +2,7 @@
 title: Symbolic Reservations
 date: 2015-05-19
 tags: core, enumerable, symbols
+commit: 3960df1d8d02e577221088f0f8d87a0345ad0390
 ---
 
 This episode takes a look at the unusual use of symbols in one of Ruby's core APIs:
