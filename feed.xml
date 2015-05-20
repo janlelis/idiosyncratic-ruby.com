@@ -220,7 +220,7 @@
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/ipaddr/rdoc/IPAddr.html"&gt;ipaddr&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/getoptlong.rb"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/rubysl/rubysl-getoptlong"&gt;rubysl&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/blob/trunk/lib/ipaddr.rb"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/rubysl/rubysl-ipaddr"&gt;rubysl&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;IP address manipulation&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/bluemonk/ipaddress"&gt;ipaddress&lt;/a&gt;, &lt;a href="https://github.com/deploy2/ruby-ip"&gt;ruby-ip&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
@@ -456,7 +456,7 @@
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/ripper/rdoc/Ripper.html"&gt;ripper&lt;/a&gt; &lt;strong&gt;c&lt;/strong&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/ext/ripper"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/rubysl/rubysl-ripper"&gt;rubysl&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Ruby parser that creates a &lt;a href="http://en.wikipedia.org/wiki/S-expression"&gt;symbolic expression tree&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/seattlerb/ruby_parser"&gt;ruby_parser&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/seattlerb/ruby_parser"&gt;ruby_parser&lt;/a&gt;, &lt;a href="https://github.com/whitequark/parser"&gt;parser&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/rss/rdoc/RSS.html"&gt;rss&lt;/a&gt;&lt;/td&gt;
