@@ -2,6 +2,7 @@
 title: Better Standards
 date: 2015-05-20
 tags: stdlib
+commit: b5489240ebc0e4a48de502eaca40e86087858afe
 ---
 
 A guide to Ruby's standard library and available alternatives.
