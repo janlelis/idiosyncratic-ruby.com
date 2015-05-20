@@ -2,6 +2,7 @@
 title: Stream Editing
 date: 2015-05-17
 tags: cli-options, golf, globals, one-liner
+commit: a9bb48a0cd603d93ee663e08063ad8724349ee65
 ---
 
 One of Ruby's goals was to replace popular unix *stream editors* like `awk` or `sed`, which both have the concept of manipulating files in a line-based manner. Ruby has the `-n` option for this:

@@ -2,6 +2,7 @@
 title: Con-Struct Attributes
 date: 2015-05-18
 tags: core
+commit: 8c3a41f41422042fb36a66a7d157b5e0cc02ae00
 ---
 
 Ruby's [Struct](http://ruby-doc.org/core-2.2.2/Struct.html) class is a convenient way to create Ruby classes, which already have some attributes defined. If you are not familiar with structs, you should watch [Avdi Grimm's introduction to structs](http://www.rubytapas.com/episodes/20-Struct)!
