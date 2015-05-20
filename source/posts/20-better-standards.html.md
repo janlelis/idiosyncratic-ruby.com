@@ -7,6 +7,8 @@ commit: b5489240ebc0e4a48de502eaca40e86087858afe
 
 A guide to Ruby's standard library and available alternatives.
 
+ARTICLE
+
 Library | Sources | Description | Alternatives
 --------|---------|-------------|-------------
 [abbrev](http://ruby-doc.org/stdlib-2.2.2/libdoc/abbrev/rdoc/Abbrev.html) | [mri](https://github.com/ruby/ruby/blob/trunk/lib/abbrev.rb)<br>[rubysl](https://github.com/rubysl/rubysl-abbrev) | Small library that finds the shortest abbreviation to identify one string amongst many | -
