@@ -13,7 +13,7 @@ ARTICLE
     "obscure parts of Ruby"[URI.regexp]
     # => "http://idiosyncratic-ruby.com"
 
-The regex is built in [uri/rfc2396_parser.rb](https://github.com/ruby/ruby/blob/trunk/lib/uri/rfc2396_parser.rb) and looks like this:
+This regex is built in [uri/rfc2396_parser.rb](https://github.com/ruby/ruby/blob/trunk/lib/uri/rfc2396_parser.rb) and looks like this:
 
     $ ruby -v
     ruby 2.2.2p95 (2015-04-13 revision 50295) [x86_64-linux]
@@ -40,6 +40,6 @@ The regex is built in [uri/rfc2396_parser.rb](https://github.com/ruby/ruby/blob/
 
 ## Further Reading
 
-- [Simpler regex to match a lot of URI's (you should increase the maximum length of TLDs, though)](http://www.regular-expressions.info/email.html)
+- [Simpler regex to match a lot of URIs (you should increase the maximum length of TLDs, though)](http://www.regular-expressions.info/email.html)
 - [RFC 2396](https://www.ietf.org/rfc/rfc2396.txt)
 - [RFC 3986](https://tools.ietf.org/rfc/rfc3986.txt)
