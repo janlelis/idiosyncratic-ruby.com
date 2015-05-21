@@ -20,6 +20,8 @@
     </author>
     <content type="html">&lt;p&gt;Ruby's &lt;a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/uri/rdoc/URI.html"&gt;URI standard library&lt;/a&gt; contains a very sophisticated regex for matching URLs:&lt;/p&gt;
 
+&lt;p&gt;&lt;/p&gt;
+
 &lt;pre&gt;&lt;code&gt;"At http://idiosyncratic-ruby.com you can learn about the " \
 "obscure parts of Ruby"[URI.regexp]
 # =&amp;gt; "http://idiosyncratic-ruby.com"
