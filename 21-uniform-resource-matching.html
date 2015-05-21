@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - Uniform Resource Matching</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="A 31 Parts Story about Ruby Specialities. A New Post Every Day in May 2015!"/>
+<meta name="keywords" content="ruby, stdlib, regex"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/index/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/21-uniform-resource-matching.html">Uniform Resource Matching</a></h1>
+      </section>
+
+      <article class="post">
+        <p>Ruby's <a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/uri/rdoc/URI.html">URI standard library</a> contains a very sophisticated regex for matching URLs:</p>
+
+<pre><code>"At http://idiosyncratic-ruby.com you can learn about the " \
+"obscure parts of Ruby"[URI.regexp]
+# =&gt; "http://idiosyncratic-ruby.com"
+</code></pre>
+
+<p>The regex is built in <a href="https://github.com/ruby/ruby/blob/trunk/lib/uri/rfc2396_parser.rb">uri/rfc2396_parser.rb</a> and looks like this:</p>
+
+<pre><code>$ ruby -v
+ruby 2.2.2p95 (2015-04-13 revision 50295) [x86_64-linux]
+$ ruby -r uri -e 'p URI.regexp'
+/
+        ([a-zA-Z][\-+.a-zA-Z\d]*):                           (?# 1: scheme)
+        (?:
+           ((?:[\-_.!~*'()a-zA-Z\d;?:@&amp;=+$,]|%[a-fA-F\d]{2})(?:[\-_.!~*'()a-zA-Z\d;\/?:@&amp;=+$,\[\]]|%[a-fA-F\d]{2})*)                    (?# 2: opaque)
+        |
+           (?:(?:
+             \/\/(?:
+                 (?:(?:((?:[\-_.!~*'()a-zA-Z\d;:&amp;=+$,]|%[a-fA-F\d]{2})*)@)?        (?# 3: userinfo)
+                   (?:((?:(?:[a-zA-Z0-9\-.]|%\h\h)+|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|\[(?:(?:[a-fA-F\d]{1,4}:)*(?:[a-fA-F\d]{1,4}|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|(?:(?:[a-fA-F\d]{1,4}:)*[a-fA-F\d]{1,4})?::(?:(?:[a-fA-F\d]{1,4}:)*(?:[a-fA-F\d]{1,4}|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}))?)\]))(?::(\d*))?))? (?# 4: host, 5: port)
+               |
+                 ((?:[\-_.!~*'()a-zA-Z\d$,;:@&amp;=+]|%[a-fA-F\d]{2})+)                 (?# 6: registry)
+               )
+             |
+             (?!\/\/))                           (?# XXX: '\/\/' is the mark for hostport)
+             (\/(?:[\-_.!~*'()a-zA-Z\d:@&amp;=+$,]|%[a-fA-F\d]{2})*(?:;(?:[\-_.!~*'()a-zA-Z\d:@&amp;=+$,]|%[a-fA-F\d]{2})*)*(?:\/(?:[\-_.!~*'()a-zA-Z\d:@&amp;=+$,]|%[a-fA-F\d]{2})*(?:;(?:[\-_.!~*'()a-zA-Z\d:@&amp;=+$,]|%[a-fA-F\d]{2})*)*)*)?                    (?# 7: path)
+           )(?:\?((?:[\-_.!~*'()a-zA-Z\d;\/?:@&amp;=+$,\[\]]|%[a-fA-F\d]{2})*))?                 (?# 8: query)
+        )
+        (?:\#((?:[\-_.!~*'()a-zA-Z\d;\/?:@&amp;=+$,\[\]]|%[a-fA-F\d]{2})*))?                  (?# 9: fragment)
+      /x
+</code></pre>
+
+<h2 id="further-reading">Further Reading</h2>
+
+<ul>
+  <li><a href="http://www.regular-expressions.info/email.html">Simpler regex to match a lot of URI's (you should increase the maximum length of TLDs, though)</a></li>
+  <li><a href="https://www.ietf.org/rfc/rfc2396.txt">RFC 2396</a></li>
+  <li><a href="https://tools.ietf.org/rfc/rfc3986.txt">RFC 3986</a></li>
+</ul>
+
+
+        <h2>More Idiosyncratic Ruby</h2>
+        <ul>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/cb3a4428bb004ee39a8ab5edc834c00b9db2b157#all_commit_comments">Comments on GitHub</a></li>
+          <li><a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet this Episode
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
+            <li>Previous Article: <a href="/20-better-standards.html">Better Standards</a></li>
+        </ul>
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="http://janlelis.com">Jan Lelis</a><br>
+        </div>
+        About Stdlib, Regex |
+        Last Update: 2015-05-21
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>

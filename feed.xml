@@ -5,10 +5,61 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2015-05-20T02:00:00+02:00</updated>
+  <updated>2015-05-21T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Uniform Resource Matching</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/21-uniform-resource-matching.html"/>
+    <id>http://idiosyncratic-ruby.com/21-uniform-resource-matching.html</id>
+    <published>2015-05-21T02:00:00+02:00</published>
+    <updated>2015-05-21T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Ruby's &lt;a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/uri/rdoc/URI.html"&gt;URI standard library&lt;/a&gt; contains a very sophisticated regex for matching URLs:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"At http://idiosyncratic-ruby.com you can learn about the " \
+"obscure parts of Ruby"[URI.regexp]
+# =&amp;gt; "http://idiosyncratic-ruby.com"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The regex is built in &lt;a href="https://github.com/ruby/ruby/blob/trunk/lib/uri/rfc2396_parser.rb"&gt;uri/rfc2396_parser.rb&lt;/a&gt; and looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -v
+ruby 2.2.2p95 (2015-04-13 revision 50295) [x86_64-linux]
+$ ruby -r uri -e 'p URI.regexp'
+/
+        ([a-zA-Z][\-+.a-zA-Z\d]*):                           (?# 1: scheme)
+        (?:
+           ((?:[\-_.!~*'()a-zA-Z\d;?:@&amp;amp;=+$,]|%[a-fA-F\d]{2})(?:[\-_.!~*'()a-zA-Z\d;\/?:@&amp;amp;=+$,\[\]]|%[a-fA-F\d]{2})*)                    (?# 2: opaque)
+        |
+           (?:(?:
+             \/\/(?:
+                 (?:(?:((?:[\-_.!~*'()a-zA-Z\d;:&amp;amp;=+$,]|%[a-fA-F\d]{2})*)@)?        (?# 3: userinfo)
+                   (?:((?:(?:[a-zA-Z0-9\-.]|%\h\h)+|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|\[(?:(?:[a-fA-F\d]{1,4}:)*(?:[a-fA-F\d]{1,4}|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|(?:(?:[a-fA-F\d]{1,4}:)*[a-fA-F\d]{1,4})?::(?:(?:[a-fA-F\d]{1,4}:)*(?:[a-fA-F\d]{1,4}|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}))?)\]))(?::(\d*))?))? (?# 4: host, 5: port)
+               |
+                 ((?:[\-_.!~*'()a-zA-Z\d$,;:@&amp;amp;=+]|%[a-fA-F\d]{2})+)                 (?# 6: registry)
+               )
+             |
+             (?!\/\/))                           (?# XXX: '\/\/' is the mark for hostport)
+             (\/(?:[\-_.!~*'()a-zA-Z\d:@&amp;amp;=+$,]|%[a-fA-F\d]{2})*(?:;(?:[\-_.!~*'()a-zA-Z\d:@&amp;amp;=+$,]|%[a-fA-F\d]{2})*)*(?:\/(?:[\-_.!~*'()a-zA-Z\d:@&amp;amp;=+$,]|%[a-fA-F\d]{2})*(?:;(?:[\-_.!~*'()a-zA-Z\d:@&amp;amp;=+$,]|%[a-fA-F\d]{2})*)*)*)?                    (?# 7: path)
+           )(?:\?((?:[\-_.!~*'()a-zA-Z\d;\/?:@&amp;amp;=+$,\[\]]|%[a-fA-F\d]{2})*))?                 (?# 8: query)
+        )
+        (?:\#((?:[\-_.!~*'()a-zA-Z\d;\/?:@&amp;amp;=+$,\[\]]|%[a-fA-F\d]{2})*))?                  (?# 9: fragment)
+      /x
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="further-reading"&gt;Further Reading&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="http://www.regular-expressions.info/email.html"&gt;Simpler regex to match a lot of URI's (you should increase the maximum length of TLDs, though)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://www.ietf.org/rfc/rfc2396.txt"&gt;RFC 2396&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://tools.ietf.org/rfc/rfc3986.txt"&gt;RFC 3986&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Better Standards</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/20-better-standards.html"/>

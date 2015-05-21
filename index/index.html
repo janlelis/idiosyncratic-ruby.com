@@ -25,6 +25,18 @@
 
   <section class="index-articles">
       <article>
+        <h2><a href="/21-uniform-resource-matching.html">21 | Uniform Resource Matching</a></h2>
+        <p>Ruby's <a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/uri/rdoc/URI.html">URI standard library</a> contains a very sophisticated regex for matching URLs:</p>
+
+<pre><code>"At http://idiosyncratic-ruby.com you can learn about the " \
+"obscure parts of Ruby"[URI.regexp]
+# =&gt; "http://idiosyncratic-ruby.com"
+</code></pre>
+
+<p>The regex is built in <a href="https://github.com/ruby/ruby/blob/trunk/lib/uri/rfc2396_parser.rb">uri/rfc2396_parser...</a></p>
+        <a href="/21-uniform-resource-matching.html">READ</a>
+      </article>
+      <article>
         <h2><a href="/20-better-standards.html">20 | Better Standards</a></h2>
         <p>A guide to Ruby's standard library and available alternatives.</p>
 
