@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - Literate Ruby</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="A 31 Parts Story about Ruby Specialities. A New Post Every Day in May 2015!"/>
+<meta name="keywords" content="ruby, cli-options"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/index/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/22-literate-ruby.html">Literate Ruby</a></h1>
+      </section>
+
+      <article class="post">
+        <p>Ruby has a built-in feature that is much like <a href="http://coffeescript.org/#literate">Literate CoffeeScript</a>. In contrast to it, this Ruby option will not ignore literature, but garbage:</p>
+
+<p></p>
+
+<h2 id="xdirectory"><code>-x[directory]</code></h2>
+
+<pre><code>Tells Ruby that the script is embedded in a message.
+Leading garbage will be discarded until the  first line
+that starts with “#!” and contains the string, “ruby”.
+Any meaningful switches on that line will be applied.
+The end of the script must be specified with either EOF,
+^D (control-D), ^Z (control-Z), or the reserved word
+__END__.  If the directory name is specified, Ruby will
+switch to that directory before executing script.
+</code></pre>
+
+<p>Awesome!</p>
+
+<pre>
+#! Let's see this in action, using this blog post about ruby
+puts "Idiosyncratic Ruby"
+__END__
+</pre>
+<p>Paste the whole content of this article into a file and execute it with:</p>
+
+<pre><code>$ ruby -x FILENAME
+</code></pre>
+
+<h2 id="further-reading">Further Reading</h2>
+
+<ul>
+  <li><code>man ruby</code></li>
+</ul>
+
+
+        <h2>More Idiosyncratic Ruby</h2>
+        <ul>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/751cdf3016fe52c0647e2b5798eb1732c2d9c74a#all_commit_comments">Comments on GitHub</a></li>
+          <li><a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet this Episode
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
+            <li>Previous Article: <a href="/21-uniform-resource-matching.html">Uniform Resource Matching</a></li>
+        </ul>
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="http://janlelis.com">Jan Lelis</a><br>
+        </div>
+        About Cli-options |
+        Last Update: 2015-05-22
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>

@@ -5,10 +5,54 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2015-05-21T02:00:00+02:00</updated>
+  <updated>2015-05-22T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Literate Ruby</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/22-literate-ruby.html"/>
+    <id>http://idiosyncratic-ruby.com/22-literate-ruby.html</id>
+    <published>2015-05-22T02:00:00+02:00</published>
+    <updated>2015-05-22T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Ruby has a built-in feature that is much like &lt;a href="http://coffeescript.org/#literate"&gt;Literate CoffeeScript&lt;/a&gt;. In contrast to it, this Ruby option will not ignore literature, but garbage:&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id="xdirectory"&gt;&lt;code&gt;-x[directory]&lt;/code&gt;&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;Tells Ruby that the script is embedded in a message.
+Leading garbage will be discarded until the  first line
+that starts with “#!” and contains the string, “ruby”.
+Any meaningful switches on that line will be applied.
+The end of the script must be specified with either EOF,
+^D (control-D), ^Z (control-Z), or the reserved word
+__END__.  If the directory name is specified, Ruby will
+switch to that directory before executing script.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Awesome!&lt;/p&gt;
+
+&lt;pre&gt;
+#! Let's see this in action, using this blog post about ruby
+puts "Idiosyncratic Ruby"
+__END__
+&lt;/pre&gt;
+&lt;p&gt;Paste the whole content of this article into a file and execute it with:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -x FILENAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="further-reading"&gt;Further Reading&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;man ruby&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Uniform Resource Matching</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/21-uniform-resource-matching.html"/>
@@ -27,7 +71,7 @@
 # =&amp;gt; "http://idiosyncratic-ruby.com"
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;The regex is built in &lt;a href="https://github.com/ruby/ruby/blob/trunk/lib/uri/rfc2396_parser.rb"&gt;uri/rfc2396_parser.rb&lt;/a&gt; and looks like this:&lt;/p&gt;
+&lt;p&gt;This regex is built in &lt;a href="https://github.com/ruby/ruby/blob/trunk/lib/uri/rfc2396_parser.rb"&gt;uri/rfc2396_parser.rb&lt;/a&gt; and looks like this:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ ruby -v
 ruby 2.2.2p95 (2015-04-13 revision 50295) [x86_64-linux]
@@ -56,7 +100,7 @@ $ ruby -r uri -e 'p URI.regexp'
 &lt;h2 id="further-reading"&gt;Further Reading&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href="http://www.regular-expressions.info/email.html"&gt;Simpler regex to match a lot of URI's (you should increase the maximum length of TLDs, though)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://www.regular-expressions.info/email.html"&gt;Simpler regex to match a lot of URIs (you should increase the maximum length of TLDs, though)&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="https://www.ietf.org/rfc/rfc2396.txt"&gt;RFC 2396&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="https://tools.ietf.org/rfc/rfc3986.txt"&gt;RFC 3986&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
