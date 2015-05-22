@@ -2,6 +2,7 @@
 title: Literate Ruby
 date: 2015-05-22
 tags: cli-options
+commit: 751cdf3016fe52c0647e2b5798eb1732c2d9c74a
 ---
 
 Ruby has a built-in feature that is much like [Literate CoffeeScript](http://coffeescript.org/#literate). In contrast to it, this Ruby option will not ignore literature, but garbage:
