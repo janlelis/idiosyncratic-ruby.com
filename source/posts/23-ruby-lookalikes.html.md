@@ -1,7 +1,8 @@
 ---
 title: Ruby Lookalikes
-date: 2015-05-24
+date: 2015-05-23
 tags: language
+commit: f89a2fc1c07d0731839983ec56947c61b23d926f
 ---
 
 Tired of good old, but slow Ruby? Try one of Ruby's successors:
