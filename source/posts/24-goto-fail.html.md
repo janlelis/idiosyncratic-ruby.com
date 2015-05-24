@@ -2,6 +2,7 @@
 title: Goto Fail
 date: 2015-05-24
 tags: syntax, core, easter-egg
+commit: ccb9a26940badccbdda3a8b5dc61f28b2b8a614f
 ---
 
 If you change one line in Ruby's source, it will support **goto** statements!
