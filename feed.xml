@@ -5,10 +5,63 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2015-05-23T02:00:00+02:00</updated>
+  <updated>2015-05-24T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Goto Fail</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/24-goto-fail.html"/>
+    <id>http://idiosyncratic-ruby.com/24-goto-fail.html</id>
+    <published>2015-05-24T02:00:00+02:00</published>
+    <updated>2015-05-24T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;If you change one line in Ruby's source, it will support &lt;strong&gt;goto&lt;/strong&gt; statements!&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;You can install a patched version via &lt;strong&gt;RVM&lt;/strong&gt;'s patch feature:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rvm install 2.2.2 -n goto --patch http://git.io/vfxF2
+$ rvm use 2.2.2-goto
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;What to do to play around with this new feature? Let's reimplement &lt;a href="https://nakedsecurity.sophos.com/2014/02/24/anatomy-of-a-goto-fail-apples-ssl-bug-explained-plus-an-unofficial-patch/"&gt;this famous bug&lt;/a&gt; in Ruby:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# prepare some dummy data
+hashCtx = hashOut = clientRandom = serverRandom = signedRandom = Object.new
+SSLHashSHA1 = Class.new do def update(*) end; alias final update end.new
+
+# how the goto fail bug would look like if it was implemented in ruby
+__goto__(:fail) if ((err = SSLHashSHA1.update(hashCtx, clientRandom)) != 0);
+__goto__(:fail) if ((err = SSLHashSHA1.update(hashCtx, serverRandom)) != 0);
+__goto__(:fail) if ((err = SSLHashSHA1.update(hashCtx, signedParams)) != 0);
+__goto__(:fail);
+__goto__(:fail) if ((err = SSLHashSHA1.final(hashCtx, hashOut)) != 0);
+
+puts "Verified" # never reached
+# ...
+
+__label__(:fail);
+puts "Failed";
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Executing this with gotoruby:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rvm use 2.2.2-goto
+$ ruby gotofail.rb
+Failed
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="further-reading"&gt;Further Reading&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="http://patshaughnessy.net/2012/2/29/the-joke-is-on-us-how-ruby-1-9-supports-the-goto-statement"&gt;Article: The Joke Is On Us: How Ruby 1.9 Supports the Goto Statement&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Ruby's other goto: &lt;a href="http://gnuu.org/2009/03/21/demystifying-continuations-in-ruby/"&gt;Article: Demystifying Continuations in Ruby&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Ruby Lookalikes</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/23-ruby-lookalikes.html"/>
