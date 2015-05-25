@@ -2,6 +2,7 @@
 title: Meta Methodology
 date: 2015-05-25
 tags: core, meta
+commit: d40b224596fdefcc1a380bf980ea4e1b92f82083
 ---
 
 Ruby **clutters** its objects a lot with methods for metaprogramming other methods:
