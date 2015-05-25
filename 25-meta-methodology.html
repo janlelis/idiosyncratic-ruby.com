@@ -1,0 +1,434 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - Meta Methodology</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="A 31 Parts Story about Ruby Specialities. A New Post Every Day in May 2015!"/>
+<meta name="keywords" content="ruby, core, meta"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/index/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/25-meta-methodology.html">Meta Methodology</a></h1>
+      </section>
+
+      <article class="post">
+        <p>Ruby <strong>clutters</strong> its objects a lot with methods for metaprogramming other methods:</p>
+
+<p></p>
+
+<pre><code>Class.instance_methods.grep /method/
+=&gt; [:instance_methods, :public_instance_methods,
+:protected_instance_methods, :private_instance_methods,
+:method_defined?, :public_method_defined?,
+:private_method_defined?, :protected_method_defined?,
+:public_class_method, :private_class_method, :instance_method,
+:public_instance_method, :methods, :singleton_methods,
+:protected_methods, :private_methods, :public_methods,
+:method, :public_method, :singleton_method,
+:define_singleton_method]
+
+Class.private_instance_methods.grep /method/
+=&gt; [:method_added, :method_removed, :method_undefined,
+:remove_method, :undef_method, :alias_method, :define_method,
+:instance_methods_for, :__method__, :singleton_method_added,
+:singleton_method_removed, :singleton_method_undefined,
+:method_missing]
+</code></pre>
+
+<p>It's so many methods, because working with methods is a multi-dimensional problem:</p>
+
+<ul>
+  <li>Where are the modules, in the current instance or if a class/module, in its instances?</li>
+  <li>Or in its <a href="http://www.devalot.com/articles/2008/09/ruby-singleton">singleton class</a>?</li>
+  <li>What about the method visibility?</li>
+  <li>Should the inheritance chain be considered?</li>
+</ul>
+
+<p>Let's put everything in some order:</p>
+
+<h2 id="method-lists">Method Lists</h2>
+
+<p>Methods returning method lists always take a boolean argument, which will prevent inheritance if set to <code>false</code></p>
+
+<table class="table-38-15-20-X">
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>From</th>
+      <th>Target</th>
+      <th>Visibility</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Object.html#method-i-singleton_methods">Object#singleton_methods</a></td>
+      <td>instance</td>
+      <td>singleton</td>
+      <td>public + protected</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Object.html#method-i-methods">Object#methods</a></td>
+      <td>instance</td>
+      <td>instance + singleton</td>
+      <td>public + protected</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Object.html#method-i-public_methods">Object#public_methods</a></td>
+      <td>instance</td>
+      <td>instance + singleton</td>
+      <td>public</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Object.html#method-i-protected_methods">Object#protected_methods</a></td>
+      <td>instance</td>
+      <td>instance + singleton</td>
+      <td>protected</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Object.html#method-i-private_methods">Object#private_methods</a></td>
+      <td>instance</td>
+      <td>instance + singleton</td>
+      <td>private</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Module.html#method-i-instance_methods">Module#instance_methods</a></td>
+      <td>class</td>
+      <td>instance</td>
+      <td>public + protected</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Module.html#method-i-public_instance_methods">Module#public_instance_methods</a></td>
+      <td>class</td>
+      <td>instance</td>
+      <td>public</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Module.html#method-i-proected_instance_methods">Module#proected_instance_methods</a></td>
+      <td>class</td>
+      <td>instance</td>
+      <td>proected</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Module.html#method-i-private_instance_methods">Module#private_instance_methods</a></td>
+      <td>class</td>
+      <td>instance</td>
+      <td>private</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>There is no API for getting a list of private singleton methods</li>
+</ul>
+
+<h2 id="method-defined-checks">Method Defined? Checks</h2>
+
+<p>Instead of listing all methods and checking if the resulting array contains a specific method, you can also directly check if a method is defined:</p>
+
+<table class="table-38-15-20-X">
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>From</th>
+      <th>Target</th>
+      <th>Visibilitiy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Module.html#method-i-method_defined-3F">Module#method_defined?</a></td>
+      <td>class</td>
+      <td>instance</td>
+      <td>all</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Module.html#method-i-public_method_defined-3F">Module#public_method_defined?</a></td>
+      <td>class</td>
+      <td>instance</td>
+      <td>public</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Module.html#method-i-protected_method_defined-3F">Module#protected_method_defined?</a></td>
+      <td>class</td>
+      <td>instance</td>
+      <td>protected</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Module.html#method-i-private_method_defined-3F">Module#private_method_defined?</a></td>
+      <td>class</td>
+      <td>instance</td>
+      <td>private</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>This is also the best way to get the visibility of a method</li>
+  <li>There is no direct way to check for singleton methods</li>
+</ul>
+
+<h2 id="method-getters">Method Getters</h2>
+
+<p>These methods will return method objects for further metaprogramming action:</p>
+
+<table class="table-34-15-20-14-X">
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>From</th>
+      <th>Target</th>
+      <th>Visibility</th>
+      <th>Returns</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Object.html#method-i-singleton_method">Object#singleton_method</a></td>
+      <td>instance</td>
+      <td>singleton</td>
+      <td>all</td>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Method.html">Method</a></td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Object.html#method-i-method">Object#method</a></td>
+      <td>instance</td>
+      <td>instance + singleton</td>
+      <td>all</td>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Method.html">Method</a></td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Object.html#method-i-public_method">Object#public_method</a></td>
+      <td>instance</td>
+      <td>instance + singleton</td>
+      <td>public</td>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Method.html">Method</a></td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Module.html#method-i-instance_method">Module#instance_method</a></td>
+      <td>class</td>
+      <td>instance</td>
+      <td>all</td>
+      <td><a href="http://ruby-doc.org/core-2.2.2/UnboundMethod.html">UnboundMethod</a></td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Module.html#method-i-public_instance_method">Module#public_instance_method</a></td>
+      <td>class</td>
+      <td>instance</td>
+      <td>public</td>
+      <td><a href="http://ruby-doc.org/core-2.2.2/UnboundMethod.html">UnboundMethod</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>There are no methods to explicitely get private methods</li>
+</ul>
+
+<h2 id="method-manipulation">Method Manipulation</h2>
+
+<p>These methods will actually modify your objects:</p>
+
+<table class="table-38-15-20-X">
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>From</th>
+      <th>Target</th>
+      <th>Visibility</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Object.html#method-i-define_singleton_method">Object#define_singleton_method</a></td>
+      <td>instance</td>
+      <td>singleton</td>
+      <td>public</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Module.html#method-i-define_method">Module#define_method</a> (private)</td>
+      <td>class</td>
+      <td>instance</td>
+      <td>public (see notes)</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Module.html#method-i-remove_method">Module#remove_method</a> (private)</td>
+      <td>class</td>
+      <td>instance</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Module.html#method-i-undef_method">Module#undef_method</a> (private)</td>
+      <td>class</td>
+      <td>instance</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Module.html#method-i-alias_method">Module#alias_method</a> (private)</td>
+      <td>class</td>
+      <td>instance</td>
+      <td>same</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>No direct way to define a non-public method, but <code>define_method</code> respects visibility modifiers</li>
+  <li>No direct way to define a non-public singleton method</li>
+  <li><code>remove_method</code> only deletes the method from the current module, while <code>undef_method</code> also deletes it from all ancestors</li>
+</ul>
+
+<h2 id="method-hooks">Method Hooks</h2>
+
+<p>Hook methods can be defined and will be called by the Ruby interpreter when the respective event happens:</p>
+
+<table class="table-38-15-20-X">
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>From</th>
+      <th>Target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/BasicObject.html#method-i-singleton_method_added">BasicObject#singleton_method_added</a></td>
+      <td>instance</td>
+      <td>singleton</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/BasicObject.html#method-i-singleton_method_undefined">BasicObject#singleton_method_undefined</a></td>
+      <td>instance</td>
+      <td>singleton</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/BasicObject.html#method-i-singleton_method_removed">BasicObject#singleton_method_removed</a></td>
+      <td>instance</td>
+      <td>singleton</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Module.html#method-i-method_added">Module#method_added</a></td>
+      <td>class</td>
+      <td>instance</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Module.html#method-i-method_undefined">Module#method_undefined</a></td>
+      <td>class</td>
+      <td>instance</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Module.html#method-i-method_removed">Module#method_removed</a></td>
+      <td>class</td>
+      <td>instance</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/BasicObject.html#method-i-method_missing">BasicObject#method_missing</a></td>
+      <td>class</td>
+      <td>instance</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>As long as you haven't defined a hook, Ruby considers it as an empty private method</li>
+</ul>
+
+<h2 id="method-visibility-modifiers">Method Visibility Modifiers</h2>
+
+<p>Besides <code>public</code>, <code>protected</code>, and <code>private</code>, there are two additional methods with the sole purpose of changing a method's visibility:</p>
+
+<table class="table-34-12-12-X">
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>From</th>
+      <th>Target</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Module.html#method-i-public_class_method">Module#public_class_method</a></td>
+      <td>class</td>
+      <td>singleton</td>
+      <td>Makes a class's singleton method public</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Module.html#method-i-private_class_method">Module#private_class_method</a></td>
+      <td>class</td>
+      <td>singleton</td>
+      <td>Makes a class's singleton method private</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="current-method-name">Current Method Name</h2>
+
+<p>There are two underscore-wrapped methods that return the current method's name:</p>
+
+<table class="table-35-20-X">
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>From</th>
+      <th>Returns</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Kernel.html#method-i-__method__">Kernel#__method__</a> (private)</td>
+      <td>anywhere</td>
+      <td>Original method name</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.2.2/Kernel.html#method-i-__callee__">Kernel#__callee__</a> (private)</td>
+      <td>anywhere</td>
+      <td>Aliased method name</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>Also see <a href="http://ruby-doc.org/core-2.2.2/Kernel.html#method-i-caller">Kernel#caller</a> and <a href="http://ruby-doc.org/core-2.2.2/Kernel.html#method-i-caller_locations">Kernel#caller_locations</a></li>
+</ul>
+
+<h2 id="a-better-api-for-metaprogramming-methods">A Better API for Metaprogramming Methods?</h2>
+
+<p>Metaprogramming in Ruby has evolved over time, but it might be a good idea to clean it up a little - A good example of how to clean up one of Ruby's other metaprogramming APIs is the <a href="https://github.com/rubyworks/instance/">instance gem</a>. It gives you a neat API for working with an object's state, like setting instance variables. Someone feels like building a similar gem for Ruby's Method APIs?</p>
+
+
+        <h2>More Idiosyncratic Ruby</h2>
+        <ul>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/d40b224596fdefcc1a380bf980ea4e1b92f82083#all_commit_comments">Comments on GitHub</a></li>
+          <li><a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet this Episode
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
+            <li>Previous Article: <a href="/24-goto-fail.html">Goto Fail</a></li>
+        </ul>
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="http://janlelis.com">Jan Lelis</a><br>
+        </div>
+        About Core, Meta |
+        Last Update: 2015-05-25
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>
