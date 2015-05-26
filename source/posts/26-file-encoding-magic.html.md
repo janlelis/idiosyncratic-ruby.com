@@ -2,6 +2,7 @@
 title: File Encoding Magic
 date: 2015-05-26
 tags: core, encoding, stdlib
+commit: 855245940464e89b610e6d6cc2bb9644a8406b2b
 ---
 
 Ruby has [three default encodings](http://graysoftinc.com/character-encodings/ruby-19s-three-default-encodings). One of them is the default [source encoding](http://ruby-doc.org/core-2.2.2/Encoding.html#class-Encoding-label-Script+encoding), which can be set using a **magic comment** in the file's first line, or in the second line if the first line is taken by a [shebang](https://en.wikipedia.org/wiki/Shebang_%28Unix%29).
