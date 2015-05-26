@@ -5,10 +5,56 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2015-05-25T02:00:00+02:00</updated>
+  <updated>2015-05-26T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>File Encoding Magic</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/26-file-encoding-magic.html"/>
+    <id>http://idiosyncratic-ruby.com/26-file-encoding-magic.html</id>
+    <published>2015-05-26T02:00:00+02:00</published>
+    <updated>2015-05-26T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Ruby has &lt;a href="http://graysoftinc.com/character-encodings/ruby-19s-three-default-encodings"&gt;three default encodings&lt;/a&gt;. One of them is the default &lt;a href="http://ruby-doc.org/core-2.2.2/Encoding.html#class-Encoding-label-Script+encoding"&gt;source encoding&lt;/a&gt;, which can be set using a &lt;strong&gt;magic comment&lt;/strong&gt; in the file's first line, or in the second line if the first line is taken by a &lt;a href="https://en.wikipedia.org/wiki/Shebang_%28Unix%29"&gt;shebang&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Default source encoding (UTF-8):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;p "".encoding #=&amp;gt; #&amp;lt;Encoding:UTF-8&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;With encoding comment (&lt;code&gt;file_with_magic_comment.rb&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# coding: cp1252
+p "".encoding #=&amp;gt; #&amp;lt;Encoding:Windows-1252&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="respecting-the-encoding-comment-when-reading-a-file"&gt;Respecting the Encoding Comment when Reading a File&lt;/h2&gt;
+
+&lt;p&gt;You might come across a situation, where you want to read in a source file using Ruby's &lt;a href="http://ruby-doc.org/core-2.2.2/File.html"&gt;File&lt;/a&gt; class, but also want to set the proper encoding from the magic comment. Fortunately, Ruby's standard library supports this. Unfortunately, it is not a stand-alone module, but a part of IRB:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt; require 'irb/magic-file'
+# =&amp;gt; false
+&amp;gt;&amp;gt; IRB::MagicFile
+# =&amp;gt; #&amp;lt;Object:0x00000001a6bb10&amp;gt;
+&amp;gt;&amp;gt; File.open('file_with_magic_comment.rb').read.encoding
+# =&amp;gt; #&amp;lt;Encoding:UTF-8&amp;gt;
+&amp;gt;&amp;gt; IRB::MagicFile.open('file_with_magic_comment.rb').read.encoding
+# =&amp;gt; #&amp;lt;Encoding:Windows-1252&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://github.com/ruby/ruby/blob/trunk/lib/irb/magic-file.rb"&gt;Source: irb/magic-file&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/ruby/ruby/blob/ruby_2_2/parse.y#L6980"&gt;Grammar: parser_magic_comment&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Meta Methodology</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/25-meta-methodology.html"/>

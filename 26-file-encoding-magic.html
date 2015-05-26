@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - File Encoding Magic</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="A 31 Parts Story about Ruby Specialities. A New Post Every Day in May 2015!"/>
+<meta name="keywords" content="ruby, core, encoding, stdlib"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/index/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/26-file-encoding-magic.html">File Encoding Magic</a></h1>
+      </section>
+
+      <article class="post">
+        <p>Ruby has <a href="http://graysoftinc.com/character-encodings/ruby-19s-three-default-encodings">three default encodings</a>. One of them is the default <a href="http://ruby-doc.org/core-2.2.2/Encoding.html#class-Encoding-label-Script+encoding">source encoding</a>, which can be set using a <strong>magic comment</strong> in the file's first line, or in the second line if the first line is taken by a <a href="https://en.wikipedia.org/wiki/Shebang_%28Unix%29">shebang</a>.</p>
+
+<p></p>
+
+<p>Default source encoding (UTF-8):</p>
+
+<pre><code>p "".encoding #=&gt; #&lt;Encoding:UTF-8&gt;
+</code></pre>
+
+<p>With encoding comment (<code>file_with_magic_comment.rb</code>):</p>
+
+<pre><code># coding: cp1252
+p "".encoding #=&gt; #&lt;Encoding:Windows-1252&gt;
+</code></pre>
+
+<h2 id="respecting-the-encoding-comment-when-reading-a-file">Respecting the Encoding Comment when Reading a File</h2>
+
+<p>You might come across a situation, where you want to read in a source file using Ruby's <a href="http://ruby-doc.org/core-2.2.2/File.html">File</a> class, but also want to set the proper encoding from the magic comment. Fortunately, Ruby's standard library supports this. Unfortunately, it is not a stand-alone module, but a part of IRB:</p>
+
+<pre><code>&gt;&gt; require 'irb/magic-file'
+# =&gt; false
+&gt;&gt; IRB::MagicFile
+# =&gt; #&lt;Object:0x00000001a6bb10&gt;
+&gt;&gt; File.open('file_with_magic_comment.rb').read.encoding
+# =&gt; #&lt;Encoding:UTF-8&gt;
+&gt;&gt; IRB::MagicFile.open('file_with_magic_comment.rb').read.encoding
+# =&gt; #&lt;Encoding:Windows-1252&gt;
+</code></pre>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li><a href="https://github.com/ruby/ruby/blob/trunk/lib/irb/magic-file.rb">Source: irb/magic-file</a></li>
+  <li><a href="https://github.com/ruby/ruby/blob/ruby_2_2/parse.y#L6980">Grammar: parser_magic_comment</a></li>
+</ul>
+
+
+        <h2>More Idiosyncratic Ruby</h2>
+        <ul>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/855245940464e89b610e6d6cc2bb9644a8406b2b#all_commit_comments">Comments on GitHub</a></li>
+          <li><a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet this Episode
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
+            <li>Previous Article: <a href="/25-meta-methodology.html">Meta Methodology</a></li>
+        </ul>
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="http://janlelis.com">Jan Lelis</a><br>
+        </div>
+        About Core, Encoding, Stdlib |
+        Last Update: 2015-05-26
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>
