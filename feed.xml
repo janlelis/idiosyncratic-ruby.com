@@ -126,6 +126,8 @@ p JSON,YAML
 
 &lt;pre&gt;&lt;code&gt;1/0
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Although this is longer than &lt;code&gt;z&lt;/code&gt; (calling an undefined method), it's often easier to trigger programmatically.&lt;/p&gt;
 </content>
   </entry>
   <entry>
