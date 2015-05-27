@@ -2,6 +2,7 @@
 title: Golfing Basics
 date: 2015-05-27
 tags: syntax, golf, strings
+commit: 23e16d087f6c9718a977efa41b6651a684c403e6
 ---
 
 **Code Golf** is the art of writing the shortest program possible. The less bytes the better. And the competition is just ridiculously strong! Head over to [Anarchy Golf](http://golf.shinh.org/) if you want to see more!
