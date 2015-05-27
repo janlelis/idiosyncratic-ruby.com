@@ -5,10 +5,129 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2015-05-26T02:00:00+02:00</updated>
+  <updated>2015-05-27T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Golfing Basics</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/27-golfing-basics.html"/>
+    <id>http://idiosyncratic-ruby.com/27-golfing-basics.html</id>
+    <published>2015-05-27T02:00:00+02:00</published>
+    <updated>2015-05-27T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;strong&gt;Code Golf&lt;/strong&gt; is the art of writing the shortest program possible. The less bytes the better. And the competition is just ridiculously strong! Head over to &lt;a href="http://golf.shinh.org/"&gt;Anarchy Golf&lt;/a&gt; if you want to see more!&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;A good beginner's problem is printing out &lt;a href="http://golf.shinh.org/p.rb?pascal+triangle"&gt;Pascal's Triangle&lt;/a&gt;: Spend a few days to get to &lt;strong&gt;45&lt;/strong&gt; bytes. Spend a few &lt;em&gt;months&lt;/em&gt; to get to &lt;strong&gt;43&lt;/strong&gt; bytes!&lt;/p&gt;
+
+&lt;h2 id="ruby-tricks-youll-learn-by-playing-code-golf"&gt;10 Ruby Tricks You'll Learn by Playing Code Golf&lt;/h2&gt;
+
+&lt;p&gt;While code golfing does not necessarily make you a better programmer, you can learn a lot about the programming language you are using. Here are some things that were new to me:&lt;/p&gt;
+
+&lt;h2 id="dirty-interpolation"&gt;Dirty Interpolation&lt;/h2&gt;
+
+&lt;p&gt;String interpolation (&lt;code&gt;#{}&lt;/code&gt;) is sometimes possible without using curlies:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"You can directly interpolate #@instance variables, " \
+"#@@class variables, and #$global variables!"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I must admit, this can confuse newcomers, but it looks fantastic!&lt;/p&gt;
+
+&lt;h2 id="constant-assignment-in-modifiers"&gt;Constant Assignment in Modifiers&lt;/h2&gt;
+
+&lt;p&gt;It is perfectly legit to use assignments in conditions:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if a = 42
+  p a
+end
+# =&amp;gt; 42
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;However, this won't work with the shorter &lt;em&gt;modifier&lt;/em&gt; syntax:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;p b if b = 42
+# NameError: undefined local variable or method `b'...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Unless… you use constants:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;p C if C = 42
+# =&amp;gt; 42
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="shebang-require"&gt;Shebang &lt;code&gt;require&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;What could possibly be shorter than:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;require'json'; require 'yaml'
+p JSON,YAML
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It's inlined command-line options:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!ruby -rjson -ryaml
+p JSON,YAML
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="iterating-input-lines"&gt;Iterating Input Lines&lt;/h2&gt;
+
+&lt;p&gt;Finding the shortest way to read user input is a common problem for golfers and solutions vary, depending on how to process the input. My favorite one is to iterate over the input's lines:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$&amp;lt;.each{|e|p e}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="appending-output"&gt;Appending Output&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;puts&lt;/code&gt; and &lt;code&gt;p&lt;/code&gt; are already good candidates to output content. However, sometimes, using &lt;code&gt;&amp;lt;&amp;lt;&lt;/code&gt; on &lt;code&gt;STDOUT&lt;/code&gt; is a tiny bit (or byte) more efficent:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;?a.upto(?z){|o|$&amp;gt;&amp;lt;&amp;lt;o}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="regex-always-wins"&gt;Regex Always Wins&lt;/h2&gt;
+
+&lt;p&gt;This is one of the golden rules of golfing. Especially, combining the &lt;a href="http://ruby-doc.org/core-2.2.2/String.html#method-i-gsub"&gt;block syntax of &lt;code&gt;gsub&lt;/code&gt;&lt;/a&gt; with the &lt;a href="http://idiosyncratic-ruby.com/9-globalization.html"&gt;perlish regex variables&lt;/a&gt; can be very expressive!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"some_string".gsub(/(^|_)(\w)/){$2.upcase}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="stringtr"&gt;&lt;code&gt;String#tr&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;However, it's not true - regexes do not always win. If you need to perform some simple character substitutions, &lt;a href="https://en.wikipedia.org/wiki/Tr_%28Unix%29"&gt;tr&lt;/a&gt; is an extremly short (and also clean) way to do so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# ROT13 Cipher
+"Vqvbflapengvp Ehol".tr'a-zA-Z','n-za-mN-ZA-M'
+# =&amp;gt; "Idiosyncratic Ruby"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="one-more-or-less"&gt;One More or Less&lt;/h2&gt;
+
+&lt;p&gt;In some instances, you cannot use &lt;code&gt;i+1&lt;/code&gt; or &lt;code&gt;i-1&lt;/code&gt; without wrapping them in parenthesis. No problem, &lt;a href="http://ruby-doc.org/core-2.2.2/Fixnum.html#method-i-7E"&gt;unary complement&lt;/a&gt; to the rescue:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-~42 # =&amp;gt; 43
+~-42 # =&amp;gt; 41
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="flexible-precedence"&gt;Flexible Precedence&lt;/h2&gt;
+
+&lt;p&gt;This is one of my favorites: Explicitely call (&lt;code&gt;.&lt;/code&gt;) operators for alternative precedence semantics:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;3*(2+1) #=&amp;gt; 9
+3.*2+1 #=&amp;gt; 9
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="quick-quit"&gt;Quick Quit&lt;/h2&gt;
+
+&lt;p&gt;What's a shorter way to quit a Ruby script than the 4 bytes long &lt;code&gt;exit&lt;/code&gt; method?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;1/0
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+  </entry>
   <entry>
     <title>File Encoding Magic</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/26-file-encoding-magic.html"/>
