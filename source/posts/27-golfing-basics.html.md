@@ -100,3 +100,5 @@ This is one of my favorites: Explicitely call (`.`) operators for alternative pr
 What's a shorter way to quit a Ruby script than the 4 bytes long `exit` method?
 
     1/0
+
+Although this is longer than `z` (calling an undefined method), it's often easier to trigger programmatically.
