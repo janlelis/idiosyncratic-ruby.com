@@ -5,10 +5,167 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2015-05-27T02:00:00+02:00</updated>
+  <updated>2015-05-28T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Operating Nothing</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/28-operating-nothing.html"/>
+    <id>http://idiosyncratic-ruby.com/28-operating-nothing.html</id>
+    <published>2015-05-28T02:00:00+02:00</published>
+    <updated>2015-05-28T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;There is an operator in Ruby, that does nothing: The &lt;a href="https://github.com/ruby/ruby/blob/v2_2_2/numeric.c#L367-L371"&gt;unary plus operator&lt;/a&gt;. It is part of the language for &lt;a href="http://stackoverflow.com/questions/5680587/whats-the-point-of-unary-plus-operator-in-ruby"&gt;keeping symmetry with the unary minus operator&lt;/a&gt;!&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;This is awesome, an operator for free! What can be done with it?&lt;/p&gt;
+
+&lt;h2 id="logging"&gt;1 | Logging&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;require 'logger'
+
+# Definition
+$logger = Logger.new(STDOUT)
+
+class Object
+  def +@
+    $logger.warn(self.inspect)
+  end
+end
+
+# Usage
++/Ruby/
+# =&amp;gt; W, [2015-05-28T10:52:51.115334 #16630]  WARN -- : /Ruby/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We could use it for logging. But this is more of the category &lt;em&gt;nice, but feels like there is no real reason for the syntactic sugar&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id="null-objects"&gt;2 | Null Objects&lt;/h2&gt;
+
+&lt;p&gt;A more useful case would be to simplify often done object conversions, for example, converting &lt;a href="http://devblog.avdi.org/2011/05/30/null-objects-and-falsiness/"&gt;null objects&lt;/a&gt; to actual &lt;code&gt;nil&lt;/code&gt; for comparsions:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Definition
+class Object
+  def +@
+    null? ? nil : self
+  end
+
+  def null?
+    false
+  end
+end
+
+class NilClass
+  def null?
+    true
+  end
+end
+
+# Usage
+class CustomNullObject
+  def null?
+    true
+  end
+end
+
+null = CustomNullObject.new
+
++nil #=&amp;gt; nil
++null #=&amp;gt; nil
++"Ruby" #=&amp;gt; "Ruby"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;See &lt;a href="https://github.com/janlelis/null_question"&gt;null_question&lt;/a&gt; and &lt;a href="https://github.com/janlelis/null_plus"&gt;null_plus&lt;/a&gt; for a gemified version of the code above.&lt;/p&gt;
+
+&lt;h2 id="symbol-conversion"&gt;3 | Symbol Conversion&lt;/h2&gt;
+
+&lt;p&gt;Another conversion related use of &lt;code&gt;+@&lt;/code&gt; is the following snippet, which also defines &lt;code&gt;-@&lt;/code&gt;. It will convert &lt;code&gt;String&lt;/code&gt; and &lt;code&gt;Symbol&lt;/code&gt; into each other's representation. It can be used as some kind of alternative to libraries that provide &lt;a href="http://api.rubyonrails.org/classes/ActiveSupport/HashWithIndifferentAccess.html"&gt;HashWithIndifferentAccess&lt;/a&gt;-kind functionality, by always explicitely converting the key:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Definition
+class String
+  def +@
+    self
+  end
+
+  def -@
+    to_sym
+  end
+end
+
+class Symbol
+  def +@
+    to_s
+  end
+
+  def -@
+    self
+  end
+end
+
+# Usage
+hash   = { key: "value" }
+symbol = :key
+string = "key"
+
+hash[-symbol] # =&amp;gt; "value"
+hash[-string] # =&amp;gt; "value"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;By the way, this would not be needed, if we &lt;a href="https://speakerdeck.com/sferik/symbols"&gt;make symbols frozen strings&lt;/a&gt;!&lt;/p&gt;
+
+&lt;h2 id="test-rocket"&gt;4 | Test Rocket!&lt;/h2&gt;
+
+&lt;p&gt;Thinking further: How to get most of out operators? How about a testing framework:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;require 'testrocket'
+
+# BASIC USAGE
+# +-&amp;gt; { block that should succeed }
+# --&amp;gt; { block that should fail }
+
++-&amp;gt; { Die.new(2) }
+--&amp;gt; { raise }
++-&amp;gt; { 2 + 2 == 4 }
+
+# These two tests will deliberately fail
++-&amp;gt; { raise }
+--&amp;gt; { true }
+
+# A 'pending' test
+~-&amp;gt; { "this is a pending test" }
+
+# A description
+!-&amp;gt; { "use this for descriptive output and to separate your test parts" }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;See &lt;a href="https://github.com/peterc/testrocket"&gt;peterc/testrocket&lt;/a&gt; for further info!&lt;/p&gt;
+
+&lt;h2 id="superators"&gt;5 | Superators!&lt;/h2&gt;
+
+&lt;p&gt;There was a library that carried operator magic to the extremes: It let you define &lt;em&gt;superators&lt;/em&gt;, which are new binary operators that use a chain of unary operators as their name! This is what it looked like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Definition
+class Array
+  superator "&amp;lt;---" do |operand|
+    if operand.kind_of? Array
+      self + operand.map { |x| x.inspect }
+    else
+      operand.inspect
+    end
+  end
+end
+
+# Usage
+[1,2,3] &amp;lt;--- [4,5,6]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The library is not maintained, anymore, but it is the craziest leveraging of Ruby's capabalities I've ever seen! The repo is at &lt;a href="https://github.com/jicksta/superators"&gt;jicksta/superators&lt;/a&gt;.&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Golfing Basics</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/27-golfing-basics.html"/>
