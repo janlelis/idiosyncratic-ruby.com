@@ -5,10 +5,112 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2015-05-28T02:00:00+02:00</updated>
+  <updated>2015-05-29T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Limitations of Language</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/29-limitations-of-language.html"/>
+    <id>http://idiosyncratic-ruby.com/29-limitations-of-language.html</id>
+    <published>2015-05-29T02:00:00+02:00</published>
+    <updated>2015-05-29T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;If you take a closer look, you'll notice that Ruby's grammar has quite a few edge-case where its syntax is inconsistent or ambigious:&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id="binary-minus-vs-minus-taken-as-unary-method-argument"&gt;Binary Minus vs Minus taken as Unary Method Argument&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt; [1,3,4,5].size - 1
+# =&amp;gt; 3
+
+&amp;gt;&amp;gt; [1,3,4,5].size -1
+# wrong number of arguments(1 for 0)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="no-simple-rule-if-a-symbol-can-be-displayed-without-the-explicit--syntax"&gt;No Simple Rule, if a Symbol can be Displayed Without the Explicit &lt;code&gt;:""&lt;/code&gt; Syntax&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt; {:&amp;lt; =&amp;gt; 0}
+# =&amp;gt; {:&amp;lt;=&amp;gt;0}
+
+&amp;gt;&amp;gt; {:&amp;lt;=&amp;gt;0}
+# syntax error, unexpected tINTEGER,
+# expecting tASSOC
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="different-rules-for-modules-and-classes"&gt;Different Rules for Modules and Classes&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt; module Eurucamp end
+# =&amp;gt; nil
+
+&amp;gt;&amp;gt; class Eurucamp end
+# syntax error, unexpected $end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="ambiguous-if-to-parse--unary-or-as-part-of-binary-match-operator"&gt;Ambiguous if to Parse &lt;code&gt;~&lt;/code&gt; Unary or as Part of Binary Match Operator&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt; $_="Eurucamp X"
+&amp;gt;&amp;gt; ~/X/ # =&amp;gt; 9
+
+&amp;gt;&amp;gt; a=~/X/ # undefined local variable or method `a'
+&amp;gt;&amp;gt; a= ~/X/ # =&amp;gt; 9
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="global-variables-can-break-string-and-regex-syntax"&gt;Global Variables can "Break" String and Regex Syntax&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt; a = "Eurucamp #\n"
+&amp;gt;&amp;gt; a.gsub /#$/, ''
+# =&amp;gt; ?
+
+&amp;gt;&amp;gt; a = "Eurucamp #\n"
+&amp;gt;&amp;gt; a.gsub /#$/, ''
+# unterminated regexp meets end of file
+
+&amp;gt;&amp;gt; a = "Eurucamp #\n"
+&amp;gt;&amp;gt; a.gsub /#$//, ''
+# =&amp;gt; "Eurucamp #"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="unary-or-binary-plus-part-2"&gt;Unary or Binary Plus, Part 2&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt; p = 21
+&amp;gt;&amp;gt; p 21
+# =&amp;gt; 21
+
+&amp;gt;&amp;gt; p = 21
+&amp;gt;&amp;gt; p +21
+# =&amp;gt; 42
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="string-creation-vs-format-method"&gt;String Creation vs Format Method&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt; puts%[1]
+# undefined method `%' for nil:NilClass
+
+&amp;gt;&amp;gt; puts %[1]
+# =&amp;gt; 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="regex-vs-division"&gt;Regex vs Division&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt; puts /4/i
+# =&amp;gt; (?i-mx:4)
+
+&amp;gt;&amp;gt; puts, i = 42, 2
+&amp;gt;&amp;gt; puts /4/i
+# =&amp;gt; 5
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="further-reading"&gt;Further Reading&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://github.com/ruby/ruby/blob/trunk/parse.y"&gt;Ruby's grammar definition&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Operating Nothing</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/28-operating-nothing.html"/>
