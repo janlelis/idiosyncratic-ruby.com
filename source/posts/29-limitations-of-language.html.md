@@ -83,6 +83,21 @@ ARTICLE
     >> puts /4/i
     # => 5
 
+## Hash vs. Block
+
+Ruby uses curly braces for both blocks as well as hashes. Sometimes this leads to confusing cases, like this one:
+
+    def identity(a)
+      a
+    end
+    
+    p identity(1) #=> 1
+    p identity 1 #=> 1
+    p identity({}) #=> {}
+    p identity {} #=> wrong number of arguments (0 for 1) (ArgumentError)
+
+We want to provide a single argument to our method. In the case of a hash, we need to use parentheses around the argument as Ruby will parse it as a block otherwise.
+
 ## Further Reading
 
 - [Ruby's grammar definition](https://github.com/ruby/ruby/blob/trunk/parse.y)
