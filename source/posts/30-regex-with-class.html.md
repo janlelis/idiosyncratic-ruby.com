@@ -2,6 +2,7 @@
 title: Regex with Class
 date: 2015-05-30
 tags: regex, strings, encoding
+commit: 09d6cbfd1ca438d9999a6587d8c36b7fc3a120dc
 ---
 
 Ruby's regex engine defines a lot of shortcut character classes. Besides the common meta characters (`\w`, etc.), there is also the [POSIX style expressions](http://www.regular-expressions.info/posix.html) and the [unicode property](https://en.wikipedia.org/wiki/Unicode_character_property) syntax.
