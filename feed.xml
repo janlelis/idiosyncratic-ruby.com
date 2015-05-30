@@ -5,10 +5,91 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2015-05-29T02:00:00+02:00</updated>
+  <updated>2015-05-30T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Regex with Class</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/30-regex-with-class.html"/>
+    <id>http://idiosyncratic-ruby.com/30-regex-with-class.html</id>
+    <published>2015-05-30T02:00:00+02:00</published>
+    <updated>2015-05-30T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Ruby's regex engine defines a lot of shortcut character classes. Besides the common meta characters (&lt;code&gt;\w&lt;/code&gt;, etc.), there is also the &lt;a href="http://www.regular-expressions.info/posix.html"&gt;POSIX style expressions&lt;/a&gt; and the &lt;a href="https://en.wikipedia.org/wiki/Unicode_character_property"&gt;unicode property&lt;/a&gt; syntax.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;This is the first part of an overview:&lt;/p&gt;
+
+&lt;h2 id="meta-chars"&gt;Meta Chars&lt;/h2&gt;
+
+&lt;table class="table-15-15-30-X"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Char&lt;/th&gt;
+      &lt;th&gt;Negation&lt;/th&gt;
+      &lt;th&gt;ASCII Matches&lt;/th&gt;
+      &lt;th&gt;Unicode Matches&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;.&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;¹ Any&lt;/td&gt;
+      &lt;td&gt;¹ Any&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;\d&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\D&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;[0-9]&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;² Also: &lt;code&gt;０&lt;/code&gt;..&lt;code&gt;９&lt;/code&gt; &lt;code&gt;𝟎&lt;/code&gt;..&lt;code&gt;𝟗&lt;/code&gt; &lt;code&gt;𝟘&lt;/code&gt;.. &lt;code&gt;𝟡&lt;/code&gt; &lt;code&gt;𝟢&lt;/code&gt;..&lt;code&gt;𝟫&lt;/code&gt; &lt;code&gt;𝟬&lt;/code&gt;..&lt;code&gt;𝟵&lt;/code&gt; &lt;code&gt;𝟶&lt;/code&gt;..&lt;code&gt;𝟿&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;\h&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\H&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;[0-9a-fA-F]&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Same&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;\w&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\W&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;[0-9a-zA-Z_]&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;² Letters, Marks, and Numbers&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;\s&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\S&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;[ \t\r\v\n\f]&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;² Also: &lt;code&gt;\u1680&lt;/code&gt; &lt;code&gt;\u2000&lt;/code&gt;..&lt;code&gt;\u200A&lt;/code&gt; &lt;code&gt;\u2028&lt;/code&gt; &lt;code&gt;\u2029&lt;/code&gt; &lt;code&gt;\u202F&lt;/code&gt; &lt;code&gt;\u205F&lt;/code&gt; &lt;code&gt;\u3000&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;\R&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\r\n&lt;/code&gt; or &lt;code&gt;[\n\v\f\r]&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Also : &lt;code&gt;\u0085&lt;/code&gt; &lt;code&gt;\u2028&lt;/code&gt; &lt;code&gt;\u2029&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;\X&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;Any&lt;/td&gt;
+      &lt;td&gt;³ &lt;code&gt;\P{M}\p{M}*&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;¹ Will only match linebreaks with &lt;code&gt;/m&lt;/code&gt; flag&lt;br /&gt;
+² You need to &lt;a href="http://idiosyncratic-ruby.com/11-regular-extremism.html#turn-on-unicode-matching-for-w-d-s-and-b"&gt;manually turn on unicode matching&lt;/a&gt; for these to work&lt;br /&gt;
+³ See &lt;a href="http://unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries"&gt;grapheme clusters&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id="posix--unicode-property-style"&gt;POSIX / Unicode Property Style&lt;/h2&gt;
+
+&lt;p&gt;There are a lot of more possibilities to match for specific characters. See &lt;a href="http://ruby-doc.org/core-2.2.2/Regexp.html#class-Regexp-label-Character+Properties"&gt;the Regexp documentation&lt;/a&gt; for more details! (or come back soon)&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Limitations of Language</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/29-limitations-of-language.html"/>
