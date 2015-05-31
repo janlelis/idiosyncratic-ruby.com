@@ -5,10 +5,32 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2015-05-30T02:00:00+02:00</updated>
+  <updated>2015-05-31T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Roots of Rubyism</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/31-roots-of-rubyism.html"/>
+    <id>http://idiosyncratic-ruby.com/31-roots-of-rubyism.html</id>
+    <published>2015-05-31T02:00:00+02:00</published>
+    <updated>2015-05-31T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Why I — still — often use Ruby: It is a language with a &lt;strong&gt;terrific community&lt;/strong&gt; (welcoming and always questioning itself) and &lt;strong&gt;ecosystem&lt;/strong&gt; (a lot of problems &lt;a href="https://rubygems.org/"&gt;already&lt;/a&gt; &lt;a href="https://www.ruby-toolbox.com/"&gt;solved&lt;/a&gt;), which is &lt;strong&gt;beautiful&lt;/strong&gt; (focus on productivity), a little &lt;strong&gt;conservative&lt;/strong&gt; (easy to work with), and &lt;strong&gt;general purpose&lt;/strong&gt; (a good choice in most cases).&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id="understanding-matz"&gt;Understanding Matz&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://www.safaribooksonline.com/library/view/beautiful-code/9780596510046/ch29.html"&gt;Essay: Treating Code As an Essay (excerpt)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://www.artima.com/intv/ruby.html"&gt;Interview: The Philosophy of Ruby&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://confreaks.tv/videos/rubyconf2009-keynote-address"&gt;Talk: The 0.8 True Language&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Regex with Class</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/30-regex-with-class.html"/>
