@@ -5,29 +5,68 @@ tags: regex, strings, encoding
 commit: 09d6cbfd1ca438d9999a6587d8c36b7fc3a120dc
 ---
 
-Ruby's regex engine defines a lot of shortcut character classes. Besides the common meta characters (`\w`, etc.), there is also the [POSIX style expressions](http://www.regular-expressions.info/posix.html) and the [unicode property](https://en.wikipedia.org/wiki/Unicode_character_property) syntax.
+Ruby's regex engine defines a lot of shortcut character classes. Besides the common meta characters (`\w`, etc.), there is also the [POSIX style expressions](http://www.regular-expressions.info/posix.html) and the [unicode property](https://en.wikipedia.org/wiki/Unicode_character_property) syntax. This is an overview of all character classes:
 
 ARTICLE
 
-This is the first part of an overview:
-
 ## Meta Chars
 
-Char           | Negation       | ASCII Matches   | Unicode Matches
+Char           | Negation       | ASCII           | Unicode
 ---------------|----------------|-----------------|---------------------
 `.`            | -              | ¹ Any           | ¹ Any
-`\d`           | `\D`           | `[0-9]`         | ² Also: `０`..`９` `𝟎`..`𝟗` `𝟘`.. `𝟡` `𝟢`..`𝟫` `𝟬`..`𝟵` `𝟶`..`𝟿`
-`\h`           | `\H`           | `[0-9a-fA-F]`   | Same
-`\w`           | `\W`           | `[0-9a-zA-Z_]`  | ² Letters, Marks, and Numbers
-`\s`           | `\S`           | `[ \t\r\v\n\f]` | ² Also: `\u1680` `\u2000`..`\u200A` `\u2028` `\u2029` `\u202F` `\u205F` `\u3000`
-`\R`           | -              | `\r\n` or `[\n\v\f\r]` | Also : `\u0085` `\u2028` `\u2029`
-`\X`           | -              | Any             | ³ `\P{M}\p{M}*`
-{:.table-15-15-30-X}
+`\X`           | -              | Any             | [Grapheme clusters](http://unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries) (`\P{M}\p{M}*`)
+`\d`           | `\D`           | `[0-9]`         | ² ASCII plus **Decimal\_Number** ([Nd](http://www.fileformat.info/info/unicode/category/Nd/list.htm))
+`\h`           | `\H`           | `[0-9a-fA-F]`   | Like ASCII
+`\w`           | `\W`           | `[0-9a-zA-Z_]`  | ² ASCII plus **Letter** ([LC](http://www.fileformat.info/info/unicode/category/LC/list.htm) / [Ll](http://www.fileformat.info/info/unicode/category/Ll/list.htm) / [Lm](http://www.fileformat.info/info/unicode/category/Lm/list.htm) / [Lo](http://www.fileformat.info/info/unicode/category/Lo/list.htm) / [Lt](http://www.fileformat.info/info/unicode/category/Lt/list.htm) / [Lu](http://www.fileformat.info/info/unicode/category/Lu/list.htm)), **Mark** ([Mc](http://www.fileformat.info/info/unicode/category/Mc/list.htm) / [Me](http://www.fileformat.info/info/unicode/category/Me/list.htm) / [Mn](http://www.fileformat.info/info/unicode/category/Mn/list.htm)), **Number** ([Nd](http://www.fileformat.info/info/unicode/category/Nd/list.htm) / [Nl](http://www.fileformat.info/info/unicode/category/Nl/list.htm) / [No](http://www.fileformat.info/info/unicode/category/No/list.htm)), **Connector\_Punctuation** ([Pc](http://www.fileformat.info/info/unicode/category/Pc/list.htm))
+`\s`           | `\S`           | `[ \t\r\v\n\f]` | ² ASCII plus **Separator** ([Zl](http://www.fileformat.info/info/unicode/category/Zl/list.htm)), **Paragraph_Separator** ([Zp](http://www.fileformat.info/info/unicode/category/Zp/list.htm), [Zs](http://www.fileformat.info/info/unicode/category/Zs/list.htm)))
+`\R`           | -              | `[\n\v\f\r]`,`\r\n` | ASCII plus ``, **Line_Separator** ([Zl](http://www.fileformat.info/info/unicode/category/Zl/list.htm)), **Paragraph_Separator** ([Zp](http://www.fileformat.info/info/unicode/category/Zp/list.htm))
+{:.table-11-11-20-X}
 
 ¹ Will only match linebreaks with `/m` flag<br>
-² You need to [manually turn on unicode matching](http://idiosyncratic-ruby.com/11-regular-extremism.html#turn-on-unicode-matching-for-w-d-s-and-b) for these to work<br>
-³ See [grapheme clusters](http://unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries)
+² You'll need to [manually turn on unicode matching](http://idiosyncratic-ruby.com/11-regular-extremism.html#turn-on-unicode-matching-for-w-d-s-and-b) for these to work
 
-## POSIX / Unicode Property Style
+### Unicode Separators
 
-There are a lot of more possibilities to match for specific characters. See [the Regexp documentation](http://ruby-doc.org/core-2.2.2/Regexp.html#class-Regexp-label-Character+Properties) for more details! (or come back soon)
+Property | Characters
+---------|-----------
+**Line_Separator** ([Zl](http://www.fileformat.info/info/unicode/category/Zl/list.htm))      | ` ` 2028
+**Paragraph_Separator** ([Zp](http://www.fileformat.info/info/unicode/category/Zp/list.htm)) | ` ` 2029
+**Space_Separator** ([Zs](http://www.fileformat.info/info/unicode/category/Zs/list.htm))       | ` ` 00A0, ` ` 1680, ` ` 2000, ` ` 2001 , ` ` 2002, ` ` 2003, ` ` 2004, ` ` 2005, ` ` 2006, ` ` 2007, ` ` 2008, ` ` 2009, ` ` 200A, ` ` 202F, ` ` 205F, `　` 3000
+{:.table-20-X}
+
+
+## POSIX and  Unicode Property Style
+
+POSIX        | Negation     | Property     | Negation³    | ASCII | Unicode
+-------------|--------------|--------------|--------------|-------|--------
+`[:alnum:]`  | `[:^alnum:]` | `\p{Alnum}`  | `\p{^Alnum}` | `[0-9a-zA-Z]`  | **Letter** ([LC](http://www.fileformat.info/info/unicode/category/LC/list.htm) / [Ll](http://www.fileformat.info/info/unicode/category/Ll/list.htm) / [Lm](http://www.fileformat.info/info/unicode/category/Lm/list.htm) / [Lo](http://www.fileformat.info/info/unicode/category/Lo/list.htm) / [Lt](http://www.fileformat.info/info/unicode/category/Lt/list.htm) / [Lu](http://www.fileformat.info/info/unicode/category/Lu/list.htm)), **Mark** ([Mc](http://www.fileformat.info/info/unicode/category/Mc/list.htm) / [Me](http://www.fileformat.info/info/unicode/category/Me/list.htm) / [Mn](http://www.fileformat.info/info/unicode/category/Mn/list.htm)), **Decimal\_Number** ([Nd](http://www.fileformat.info/info/unicode/category/Nd/list.htm))
+`[:alpha:]`  | `[:^alpha:]` | `\p{Alpha}`  | `\p{^Alpha}` | `[a-zA-Z]`     | **Letter** ([LC](http://www.fileformat.info/info/unicode/category/LC/list.htm) / [Ll](http://www.fileformat.info/info/unicode/category/Ll/list.htm) / [Lm](http://www.fileformat.info/info/unicode/category/Lm/list.htm) / [Lo](http://www.fileformat.info/info/unicode/category/Lo/list.htm) / [Lt](http://www.fileformat.info/info/unicode/category/Lt/list.htm) / [Lu](http://www.fileformat.info/info/unicode/category/Lu/list.htm)), **Mark** ([Mc](http://www.fileformat.info/info/unicode/category/Mc/list.htm) / [Me](http://www.fileformat.info/info/unicode/category/Me/list.htm) / [Mn](http://www.fileformat.info/info/unicode/category/Mn/list.htm))
+`[:ascii:]`  | `[:^ascii:]` | `\p{ASCII}`  | `\p{^ASCII}` | `[\x00-\x7F]`  | Like ASCII
+`[:blank:]`  | `[:^blank:]` | `\p{Blank}`  | `\p{^Blank}` | `[ \t]`        | `\t`, **Space\_Separator** ([Zs](http://www.fileformat.info/info/unicode/category/Zs/list.htm))
+`[:cntrl`]   | `[:^cntrl:]` | `\p{Cntrl}`  | `\p{^Cntrl}` | `[\x00-\x1F]`, `\x7F` | **Other** ([Cc](http://www.fileformat.info/info/unicode/category/Cc/list.htm) / [Cf](http://www.fileformat.info/info/unicode/category/Cf/list.htm) / [Cn](http://www.fileformat.info/info/unicode/category/Cn/list.htm) / [Co](http://www.fileformat.info/info/unicode/category/Co/list.htm) / [Cs](http://www.fileformat.info/info/unicode/category/Cs/list.htm))
+`[:digit:]`  | `[:^digit:]` | `\p{Digit}`  | `\p{^Digit}` | `[0-9]`        | See `\d` above
+`[:graph:]`  | `[:^graph:]` | `\p{Graph}`  | `\p{^Graph}` | `[\x21-\x7E]`  | *NONE OF:* `\s`, **Control** ([Cc](http://www.fileformat.info/info/unicode/category/Cc/list.htm)), **Unassigned** ([Cn](http://www.fileformat.info/info/unicode/category/Cn/list.htm)), **Surrogate** ([Cs](http://www.fileformat.info/info/unicode/category/Cs/list.htm))
+`[:lower:]`  | `[:^lower:]` | `\p{Lower}`  | `\p{^Lower}` | `[a-z]`        | **Lowercase\_Letter** ([Ll](http://www.fileformat.info/info/unicode/category/Ll/list.htm))
+`[:print:]`  | `[:^print:]` | `\p{Print}`  | `\p{^Print}` | `[\x20-\x7E]`  | **Space\_Separator** ([Zs](http://www.fileformat.info/info/unicode/category/Zs/list.htm)), *NONE OF:* `\s`, **Control** ([Cc](http://www.fileformat.info/info/unicode/category/Cc/list.htm)), **Unassigned** ([Cn](http://www.fileformat.info/info/unicode/category/Cn/list.htm)), **Surrogate** ([Cs](http://www.fileformat.info/info/unicode/category/Cs/list.htm))
+`[:punct:]`  | `[:^punct:]` | `\p{Punct}`  | `\p{^Punct}` | <code>[!-/:-@\[-`{-~]</code> | **Punctuation** ([Pc](http://www.fileformat.info/info/unicode/category/Pc/list.htm) / [Pd](http://www.fileformat.info/info/unicode/category/Pd/list.htm) / [Pe](http://www.fileformat.info/info/unicode/category/Pe/list.htm) / [Pf](http://www.fileformat.info/info/unicode/category/Pf/list.htm) / [Pi](http://www.fileformat.info/info/unicode/category/Pi/list.htm) / [Po](http://www.fileformat.info/info/unicode/category/Po/list.htm) / [Ps](http://www.fileformat.info/info/unicode/category/Ps/list.htm))
+`[:space:]`  | `[:^space:]` | `\p{Space}`  | `\p{^Space}` | `[ \t\r\v\n\f]`| See `\s` above
+`[:upper:]`  | `[:^upper:]` | `\p{Upper}`  | `\p{^Upper}` | `[A-Z]`        | **Uppercase_Letter** ([Lu](http://www.fileformat.info/info/unicode/category/Lu/list.htm))
+`[:xdigit:]` | `[:^xdigit:]`| `\p{XDigit}` | `\p{^XDigit}`| `[0-9a-fA-F]`  | Like ASCII
+`[:word:]`   | `[:^word:]`  | `\p{Word}`   | `\p{^Word}`  | `[0-9a-zA-Z_]` | See `\w` above
+{:.table-13-13-13-13-20-X}
+
+³ An alternative way of negating unicode properties is `\P{Property}`
+
+### More Properties
+
+The above groups are only the tip of the iceberg. Using the `\p{}` syntax, you can match for a lot more unicode properties, see the links below for the complete list!
+
+## Further Reading
+
+- [Onigmo Documentation](https://github.com/k-takata/Onigmo/blob/master/doc/RE)
+- [Unicode Character Property Model](http://unicode.org/reports/tr23/)
+- [RDoc: Regexp (Character Properties)](http://ruby-doc.org/core-2.2.2/Regexp.html#class-Regexp-label-Character+Properties)
+- [Unicode Data](http://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt)
+- [Unicode Property List](http://www.unicode.org/Public/UCD/latest/ucd/PropList.txt)
+- [Unicode Property Aliases](http://www.unicode.org/Public/UCD/latest/ucd/PropertyAliases.txt)
+- [Unicode Property Values Aliases](http://www.unicode.org/Public/UCD/latest/ucd/PropertyValueAliases.txt)
