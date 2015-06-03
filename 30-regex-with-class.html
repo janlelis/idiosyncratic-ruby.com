@@ -24,21 +24,19 @@
       </section>
 
       <article class="post">
-        <p>Ruby's regex engine defines a lot of shortcut character classes. Besides the common meta characters (<code>\w</code>, etc.), there is also the <a href="http://www.regular-expressions.info/posix.html">POSIX style expressions</a> and the <a href="https://en.wikipedia.org/wiki/Unicode_character_property">unicode property</a> syntax.</p>
+        <p>Ruby's regex engine defines a lot of shortcut character classes. Besides the common meta characters (<code>\w</code>, etc.), there is also the <a href="http://www.regular-expressions.info/posix.html">POSIX style expressions</a> and the <a href="https://en.wikipedia.org/wiki/Unicode_character_property">unicode property</a> syntax. This is an overview of all character classes:</p>
 
 <p></p>
 
-<p>This is the first part of an overview:</p>
-
 <h2 id="meta-chars">Meta Chars</h2>
 
-<table class="table-15-15-30-X">
+<table class="table-11-11-20-X">
   <thead>
     <tr>
       <th>Char</th>
       <th>Negation</th>
-      <th>ASCII Matches</th>
-      <th>Unicode Matches</th>
+      <th>ASCII</th>
+      <th>Unicode</th>
     </tr>
   </thead>
   <tbody>
@@ -49,51 +47,218 @@
       <td>¹ Any</td>
     </tr>
     <tr>
+      <td><code>\X</code></td>
+      <td>-</td>
+      <td>Any</td>
+      <td><a href="http://unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries">Grapheme clusters</a> (<code>\P{M}\p{M}*</code>)</td>
+    </tr>
+    <tr>
       <td><code>\d</code></td>
       <td><code>\D</code></td>
       <td><code>[0-9]</code></td>
-      <td>² Also: <code>０</code>..<code>９</code> <code>𝟎</code>..<code>𝟗</code> <code>𝟘</code>.. <code>𝟡</code> <code>𝟢</code>..<code>𝟫</code> <code>𝟬</code>..<code>𝟵</code> <code>𝟶</code>..<code>𝟿</code></td>
+      <td>² ASCII plus <strong>Decimal_Number</strong> (<a href="http://www.fileformat.info/info/unicode/category/Nd/list.htm">Nd</a>)</td>
     </tr>
     <tr>
       <td><code>\h</code></td>
       <td><code>\H</code></td>
       <td><code>[0-9a-fA-F]</code></td>
-      <td>Same</td>
+      <td>Like ASCII</td>
     </tr>
     <tr>
       <td><code>\w</code></td>
       <td><code>\W</code></td>
       <td><code>[0-9a-zA-Z_]</code></td>
-      <td>² Letters, Marks, and Numbers</td>
+      <td>² ASCII plus <strong>Letter</strong> (<a href="http://www.fileformat.info/info/unicode/category/LC/list.htm">LC</a> / <a href="http://www.fileformat.info/info/unicode/category/Ll/list.htm">Ll</a> / <a href="http://www.fileformat.info/info/unicode/category/Lm/list.htm">Lm</a> / <a href="http://www.fileformat.info/info/unicode/category/Lo/list.htm">Lo</a> / <a href="http://www.fileformat.info/info/unicode/category/Lt/list.htm">Lt</a> / <a href="http://www.fileformat.info/info/unicode/category/Lu/list.htm">Lu</a>), <strong>Mark</strong> (<a href="http://www.fileformat.info/info/unicode/category/Mc/list.htm">Mc</a> / <a href="http://www.fileformat.info/info/unicode/category/Me/list.htm">Me</a> / <a href="http://www.fileformat.info/info/unicode/category/Mn/list.htm">Mn</a>), <strong>Number</strong> (<a href="http://www.fileformat.info/info/unicode/category/Nd/list.htm">Nd</a> / <a href="http://www.fileformat.info/info/unicode/category/Nl/list.htm">Nl</a> / <a href="http://www.fileformat.info/info/unicode/category/No/list.htm">No</a>), <strong>Connector_Punctuation</strong> (<a href="http://www.fileformat.info/info/unicode/category/Pc/list.htm">Pc</a>)</td>
     </tr>
     <tr>
       <td><code>\s</code></td>
       <td><code>\S</code></td>
       <td><code>[ \t\r\v\n\f]</code></td>
-      <td>² Also: <code>\u1680</code> <code>\u2000</code>..<code>\u200A</code> <code>\u2028</code> <code>\u2029</code> <code>\u202F</code> <code>\u205F</code> <code>\u3000</code></td>
+      <td>² ASCII plus <strong>Separator</strong> (<a href="http://www.fileformat.info/info/unicode/category/Zl/list.htm">Zl</a>), <strong>Paragraph_Separator</strong> (<a href="http://www.fileformat.info/info/unicode/category/Zp/list.htm">Zp</a>, <a href="http://www.fileformat.info/info/unicode/category/Zs/list.htm">Zs</a>))</td>
     </tr>
     <tr>
       <td><code>\R</code></td>
       <td>-</td>
-      <td><code>\r\n</code> or <code>[\n\v\f\r]</code></td>
-      <td>Also : <code>\u0085</code> <code>\u2028</code> <code>\u2029</code></td>
-    </tr>
-    <tr>
-      <td><code>\X</code></td>
-      <td>-</td>
-      <td>Any</td>
-      <td>³ <code>\P{M}\p{M}*</code></td>
+      <td><code>[\n\v\f\r]</code>,<code>\r\n</code></td>
+      <td>ASCII plus <code></code>, <strong>Line_Separator</strong> (<a href="http://www.fileformat.info/info/unicode/category/Zl/list.htm">Zl</a>), <strong>Paragraph_Separator</strong> (<a href="http://www.fileformat.info/info/unicode/category/Zp/list.htm">Zp</a>)</td>
     </tr>
   </tbody>
 </table>
 
 <p>¹ Will only match linebreaks with <code>/m</code> flag<br />
-² You need to <a href="http://idiosyncratic-ruby.com/11-regular-extremism.html#turn-on-unicode-matching-for-w-d-s-and-b">manually turn on unicode matching</a> for these to work<br />
-³ See <a href="http://unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries">grapheme clusters</a></p>
+² You'll need to <a href="http://idiosyncratic-ruby.com/11-regular-extremism.html#turn-on-unicode-matching-for-w-d-s-and-b">manually turn on unicode matching</a> for these to work</p>
 
-<h2 id="posix--unicode-property-style">POSIX / Unicode Property Style</h2>
+<h3 id="unicode-separators">Unicode Separators</h3>
 
-<p>There are a lot of more possibilities to match for specific characters. See <a href="http://ruby-doc.org/core-2.2.2/Regexp.html#class-Regexp-label-Character+Properties">the Regexp documentation</a> for more details! (or come back soon)</p>
+<table class="table-20-X">
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Characters</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Line_Separator</strong> (<a href="http://www.fileformat.info/info/unicode/category/Zl/list.htm">Zl</a>)</td>
+      <td><code> </code> 2028</td>
+    </tr>
+    <tr>
+      <td><strong>Paragraph_Separator</strong> (<a href="http://www.fileformat.info/info/unicode/category/Zp/list.htm">Zp</a>)</td>
+      <td><code> </code> 2029</td>
+    </tr>
+    <tr>
+      <td><strong>Space_Separator</strong> (<a href="http://www.fileformat.info/info/unicode/category/Zs/list.htm">Zs</a>)</td>
+      <td><code> </code> 00A0, <code> </code> 1680, <code> </code> 2000, <code> </code> 2001 , <code> </code> 2002, <code> </code> 2003, <code> </code> 2004, <code> </code> 2005, <code> </code> 2006, <code> </code> 2007, <code> </code> 2008, <code> </code> 2009, <code> </code> 200A, <code> </code> 202F, <code> </code> 205F, <code>　</code> 3000</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="posix-and--unicode-property-style">POSIX and  Unicode Property Style</h2>
+
+<table class="table-13-13-13-13-20-X">
+  <thead>
+    <tr>
+      <th>POSIX</th>
+      <th>Negation</th>
+      <th>Property</th>
+      <th>Negation³</th>
+      <th>ASCII</th>
+      <th>Unicode</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>[:alnum:]</code></td>
+      <td><code>[:^alnum:]</code></td>
+      <td><code>\p{Alnum}</code></td>
+      <td><code>\p{^Alnum}</code></td>
+      <td><code>[0-9a-zA-Z]</code></td>
+      <td><strong>Letter</strong> (<a href="http://www.fileformat.info/info/unicode/category/LC/list.htm">LC</a> / <a href="http://www.fileformat.info/info/unicode/category/Ll/list.htm">Ll</a> / <a href="http://www.fileformat.info/info/unicode/category/Lm/list.htm">Lm</a> / <a href="http://www.fileformat.info/info/unicode/category/Lo/list.htm">Lo</a> / <a href="http://www.fileformat.info/info/unicode/category/Lt/list.htm">Lt</a> / <a href="http://www.fileformat.info/info/unicode/category/Lu/list.htm">Lu</a>), <strong>Mark</strong> (<a href="http://www.fileformat.info/info/unicode/category/Mc/list.htm">Mc</a> / <a href="http://www.fileformat.info/info/unicode/category/Me/list.htm">Me</a> / <a href="http://www.fileformat.info/info/unicode/category/Mn/list.htm">Mn</a>), <strong>Decimal_Number</strong> (<a href="http://www.fileformat.info/info/unicode/category/Nd/list.htm">Nd</a>)</td>
+    </tr>
+    <tr>
+      <td><code>[:alpha:]</code></td>
+      <td><code>[:^alpha:]</code></td>
+      <td><code>\p{Alpha}</code></td>
+      <td><code>\p{^Alpha}</code></td>
+      <td><code>[a-zA-Z]</code></td>
+      <td><strong>Letter</strong> (<a href="http://www.fileformat.info/info/unicode/category/LC/list.htm">LC</a> / <a href="http://www.fileformat.info/info/unicode/category/Ll/list.htm">Ll</a> / <a href="http://www.fileformat.info/info/unicode/category/Lm/list.htm">Lm</a> / <a href="http://www.fileformat.info/info/unicode/category/Lo/list.htm">Lo</a> / <a href="http://www.fileformat.info/info/unicode/category/Lt/list.htm">Lt</a> / <a href="http://www.fileformat.info/info/unicode/category/Lu/list.htm">Lu</a>), <strong>Mark</strong> (<a href="http://www.fileformat.info/info/unicode/category/Mc/list.htm">Mc</a> / <a href="http://www.fileformat.info/info/unicode/category/Me/list.htm">Me</a> / <a href="http://www.fileformat.info/info/unicode/category/Mn/list.htm">Mn</a>)</td>
+    </tr>
+    <tr>
+      <td><code>[:ascii:]</code></td>
+      <td><code>[:^ascii:]</code></td>
+      <td><code>\p{ASCII}</code></td>
+      <td><code>\p{^ASCII}</code></td>
+      <td><code>[\x00-\x7F]</code></td>
+      <td>Like ASCII</td>
+    </tr>
+    <tr>
+      <td><code>[:blank:]</code></td>
+      <td><code>[:^blank:]</code></td>
+      <td><code>\p{Blank}</code></td>
+      <td><code>\p{^Blank}</code></td>
+      <td><code>[ \t]</code></td>
+      <td><code>\t</code>, <strong>Space_Separator</strong> (<a href="http://www.fileformat.info/info/unicode/category/Zs/list.htm">Zs</a>)</td>
+    </tr>
+    <tr>
+      <td><code>[:cntrl</code>]</td>
+      <td><code>[:^cntrl:]</code></td>
+      <td><code>\p{Cntrl}</code></td>
+      <td><code>\p{^Cntrl}</code></td>
+      <td><code>[\x00-\x1F]</code>, <code>\x7F</code></td>
+      <td><strong>Other</strong> (<a href="http://www.fileformat.info/info/unicode/category/Cc/list.htm">Cc</a> / <a href="http://www.fileformat.info/info/unicode/category/Cf/list.htm">Cf</a> / <a href="http://www.fileformat.info/info/unicode/category/Cn/list.htm">Cn</a> / <a href="http://www.fileformat.info/info/unicode/category/Co/list.htm">Co</a> / <a href="http://www.fileformat.info/info/unicode/category/Cs/list.htm">Cs</a>)</td>
+    </tr>
+    <tr>
+      <td><code>[:digit:]</code></td>
+      <td><code>[:^digit:]</code></td>
+      <td><code>\p{Digit}</code></td>
+      <td><code>\p{^Digit}</code></td>
+      <td><code>[0-9]</code></td>
+      <td>See <code>\d</code> above</td>
+    </tr>
+    <tr>
+      <td><code>[:graph:]</code></td>
+      <td><code>[:^graph:]</code></td>
+      <td><code>\p{Graph}</code></td>
+      <td><code>\p{^Graph}</code></td>
+      <td><code>[\x21-\x7E]</code></td>
+      <td><em>NONE OF:</em> <code>\s</code>, <strong>Control</strong> (<a href="http://www.fileformat.info/info/unicode/category/Cc/list.htm">Cc</a>), <strong>Unassigned</strong> (<a href="http://www.fileformat.info/info/unicode/category/Cn/list.htm">Cn</a>), <strong>Surrogate</strong> (<a href="http://www.fileformat.info/info/unicode/category/Cs/list.htm">Cs</a>)</td>
+    </tr>
+    <tr>
+      <td><code>[:lower:]</code></td>
+      <td><code>[:^lower:]</code></td>
+      <td><code>\p{Lower}</code></td>
+      <td><code>\p{^Lower}</code></td>
+      <td><code>[a-z]</code></td>
+      <td><strong>Lowercase_Letter</strong> (<a href="http://www.fileformat.info/info/unicode/category/Ll/list.htm">Ll</a>)</td>
+    </tr>
+    <tr>
+      <td><code>[:print:]</code></td>
+      <td><code>[:^print:]</code></td>
+      <td><code>\p{Print}</code></td>
+      <td><code>\p{^Print}</code></td>
+      <td><code>[\x20-\x7E]</code></td>
+      <td><strong>Space_Separator</strong> (<a href="http://www.fileformat.info/info/unicode/category/Zs/list.htm">Zs</a>), <em>NONE OF:</em> <code>\s</code>, <strong>Control</strong> (<a href="http://www.fileformat.info/info/unicode/category/Cc/list.htm">Cc</a>), <strong>Unassigned</strong> (<a href="http://www.fileformat.info/info/unicode/category/Cn/list.htm">Cn</a>), <strong>Surrogate</strong> (<a href="http://www.fileformat.info/info/unicode/category/Cs/list.htm">Cs</a>)</td>
+    </tr>
+    <tr>
+      <td><code>[:punct:]</code></td>
+      <td><code>[:^punct:]</code></td>
+      <td><code>\p{Punct}</code></td>
+      <td><code>\p{^Punct}</code></td>
+      <td><code>[!-/:-@\[-`{-~]</code></td>
+      <td><strong>Punctuation</strong> (<a href="http://www.fileformat.info/info/unicode/category/Pc/list.htm">Pc</a> / <a href="http://www.fileformat.info/info/unicode/category/Pd/list.htm">Pd</a> / <a href="http://www.fileformat.info/info/unicode/category/Pe/list.htm">Pe</a> / <a href="http://www.fileformat.info/info/unicode/category/Pf/list.htm">Pf</a> / <a href="http://www.fileformat.info/info/unicode/category/Pi/list.htm">Pi</a> / <a href="http://www.fileformat.info/info/unicode/category/Po/list.htm">Po</a> / <a href="http://www.fileformat.info/info/unicode/category/Ps/list.htm">Ps</a>)</td>
+    </tr>
+    <tr>
+      <td><code>[:space:]</code></td>
+      <td><code>[:^space:]</code></td>
+      <td><code>\p{Space}</code></td>
+      <td><code>\p{^Space}</code></td>
+      <td><code>[ \t\r\v\n\f]</code></td>
+      <td>See <code>\s</code> above</td>
+    </tr>
+    <tr>
+      <td><code>[:upper:]</code></td>
+      <td><code>[:^upper:]</code></td>
+      <td><code>\p{Upper}</code></td>
+      <td><code>\p{^Upper}</code></td>
+      <td><code>[A-Z]</code></td>
+      <td><strong>Uppercase_Letter</strong> (<a href="http://www.fileformat.info/info/unicode/category/Lu/list.htm">Lu</a>)</td>
+    </tr>
+    <tr>
+      <td><code>[:xdigit:]</code></td>
+      <td><code>[:^xdigit:]</code></td>
+      <td><code>\p{XDigit}</code></td>
+      <td><code>\p{^XDigit}</code></td>
+      <td><code>[0-9a-fA-F]</code></td>
+      <td>Like ASCII</td>
+    </tr>
+    <tr>
+      <td><code>[:word:]</code></td>
+      <td><code>[:^word:]</code></td>
+      <td><code>\p{Word}</code></td>
+      <td><code>\p{^Word}</code></td>
+      <td><code>[0-9a-zA-Z_]</code></td>
+      <td>See <code>\w</code> above</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>³ An alternative way of negating unicode properties is <code>\P{Property}</code></p>
+
+<h3 id="more-properties">More Properties</h3>
+
+<p>The above groups are only the tip of the iceberg. Using the <code>\p{}</code> syntax, you can match for a lot more unicode properties, see the links below for the complete list!</p>
+
+<h2 id="further-reading">Further Reading</h2>
+
+<ul>
+  <li><a href="https://github.com/k-takata/Onigmo/blob/master/doc/RE">Onigmo Documentation</a></li>
+  <li><a href="http://unicode.org/reports/tr23/">Unicode Character Property Model</a></li>
+  <li><a href="http://ruby-doc.org/core-2.2.2/Regexp.html#class-Regexp-label-Character+Properties">RDoc: Regexp (Character Properties)</a></li>
+  <li><a href="http://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt">Unicode Data</a></li>
+  <li><a href="http://www.unicode.org/Public/UCD/latest/ucd/PropList.txt">Unicode Property List</a></li>
+  <li><a href="http://www.unicode.org/Public/UCD/latest/ucd/PropertyAliases.txt">Unicode Property Aliases</a></li>
+  <li><a href="http://www.unicode.org/Public/UCD/latest/ucd/PropertyValueAliases.txt">Unicode Property Values Aliases</a></li>
+</ul>
 
 
         <h2>More Idiosyncratic Ruby</h2>
@@ -115,7 +280,7 @@
           On <a href="/">Idiosyncratic Ruby</a> by <a href="http://janlelis.com">Jan Lelis</a><br>
         </div>
         About Regex, Strings, Encoding |
-        Last Update: 2015-05-30
+        Last Update: 2015-06-03
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
