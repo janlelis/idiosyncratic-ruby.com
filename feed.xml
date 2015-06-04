@@ -362,6 +362,22 @@
 # =&amp;gt; 1
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;h2 id="hash-vs-block"&gt;Hash vs Block&lt;/h2&gt;
+
+&lt;p&gt;Ruby uses curly braces for both, blocks as well as hashes. Sometimes, this leads to confusing cases:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt; def identity(a) a end
+
+&amp;gt;&amp;gt; identity(1)
+#=&amp;gt; 1
+&amp;gt;&amp;gt; identity 1
+#=&amp;gt; 1
+&amp;gt;&amp;gt; identity({})
+#=&amp;gt; {}
+&amp;gt;&amp;gt; identity {}
+#=&amp;gt; wrong number of arguments (0 for 1) (ArgumentError)
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;h2 id="regex-vs-division"&gt;Regex vs Division&lt;/h2&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt; puts /4/i
