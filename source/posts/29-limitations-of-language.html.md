@@ -74,6 +74,21 @@ ARTICLE
     >> puts %[1]
     # => 1
 
+## Hash vs Block
+
+Ruby uses curly braces for both, blocks as well as hashes. Sometimes, this leads to confusing cases:
+
+    >> def identity(a) a end
+
+    >> identity(1)
+    #=> 1
+    >> identity 1
+    #=> 1
+    >> identity({})
+    #=> {}
+    >> identity {}
+    #=> wrong number of arguments (0 for 1) (ArgumentError)
+
 ## Regex vs Division
 
     >> puts /4/i
