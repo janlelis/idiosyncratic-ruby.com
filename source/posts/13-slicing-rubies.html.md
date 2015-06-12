@@ -9,7 +9,7 @@ Ruby puts a lot of effort into its [Enumerable](http://ruby-doc.org/core-2.2.2/E
 
 ARTICLE
 
-## Slicing Enumerbales
+## Slicing Enumerables
 
 Slicing lets you devide a collection into sub-collections. Take this array:
 
