@@ -90,7 +90,7 @@
       &lt;td&gt;&lt;code&gt;\s&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;\S&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;[ \t\r\v\n\f]&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;² ASCII plus &lt;strong&gt;Separator&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Zl/list.htm"&gt;Zl&lt;/a&gt;), &lt;strong&gt;Paragraph_Separator&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Zp/list.htm"&gt;Zp&lt;/a&gt;, &lt;a href="http://www.fileformat.info/info/unicode/category/Zs/list.htm"&gt;Zs&lt;/a&gt;))&lt;/td&gt;
+      &lt;td&gt;² ASCII plus &lt;strong&gt;Separator&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Zl/list.htm"&gt;Zl&lt;/a&gt; / &lt;a href="http://www.fileformat.info/info/unicode/category/Zp/list.htm"&gt;Zp&lt;/a&gt; / &lt;a href="http://www.fileformat.info/info/unicode/category/Zs/list.htm"&gt;Zs&lt;/a&gt;)&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;code&gt;\R&lt;/code&gt;&lt;/td&gt;
@@ -2988,7 +2988,7 @@ b # NameError: ...
 
 &lt;p&gt;&lt;/p&gt;
 
-&lt;h2 id="slicing-enumerbales"&gt;Slicing Enumerbales&lt;/h2&gt;
+&lt;h2 id="slicing-enumerables"&gt;Slicing Enumerables&lt;/h2&gt;
 
 &lt;p&gt;Slicing lets you devide a collection into sub-collections. Take this array:&lt;/p&gt;
 
