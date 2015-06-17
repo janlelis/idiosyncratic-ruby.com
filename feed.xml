@@ -1382,7 +1382,7 @@ $ ruby -r uri -e 'p URI.regexp'
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.2.2/Continuation.html"&gt;continuation&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/ext/continuation"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/rubysl/rubysl-continuation"&gt;rubysl&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Deprecated library that adds the goto-like &lt;a href="http://ruby-doc.org/core-2.2.2/Kernel.html#method-i-callcc"&gt;Kernel#callcc&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Deprecated library that adds the &lt;a href="http://idiosyncratic-ruby.com/24-goto-fail.html"&gt;goto&lt;/a&gt;-like &lt;a href="http://ruby-doc.org/core-2.2.2/Kernel.html#method-i-callcc"&gt;Kernel#callcc&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.2.2/Fiber.html"&gt;Fiber&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -1449,7 +1449,7 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/erb/rdoc/index.html"&gt;erb&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/erb.rb"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/rubysl/rubysl-erb"&gt;rubysl&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Templating engine for Ruby&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://www.kuwata-lab.com/erubis/"&gt;erubis&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://www.kuwata-lab.com/erubis/"&gt;erubis&lt;/a&gt;, &lt;a href="https://github.com/apotonick/erbse"&gt;erbse&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/etc/rdoc/Etc.html"&gt;etc&lt;/a&gt; &lt;strong&gt;c&lt;/strong&gt;&lt;/td&gt;
@@ -1509,7 +1509,7 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/getoptlong/rdoc/GetoptLong.html"&gt;getoptlong&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/getoptlong.rb"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/rubysl/rubysl-getoptlong"&gt;rubysl&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="http://linux.die.net/man/3/getopt_long"&gt;GNU getopt_long()&lt;/a&gt; style command-line option parsing&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/leejarvis/slop"&gt;slop&lt;/a&gt;, &lt;a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/optparse/rdoc/OptParse.html"&gt;optparse&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/optparse/rdoc/OptParse.html"&gt;OptParse&lt;/a&gt;, &lt;a href="https://github.com/leejarvis/slop"&gt;slop&lt;/a&gt;, &lt;a href="https://github.com/ManageIq/trollop"&gt;trollop&lt;/a&gt;, &lt;a href="https://github.com/soveran/clap"&gt;clap&lt;/a&gt;, &lt;a href="https://github.com/janlelis/rationalist"&gt;rationalist&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/io/console/rdoc/IO.html"&gt;io/console&lt;/a&gt; &lt;strong&gt;c&lt;/strong&gt;&lt;br /&gt;(gem)&lt;/td&gt;
@@ -1641,7 +1641,7 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/observer/rdoc/Observable.html"&gt;observer&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/observer.rb"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/rubysl/rubysl-observer"&gt;rubysl&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Implementation of the &lt;a href="http://en.wikipedia.org/wiki/Observer_pattern"&gt;observer pattern&lt;/a&gt;, a way to let interested other objects know o an objetc's updates&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/janlelis/microevent.rb"&gt;microevent&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/janlelis/microevent.rb"&gt;microevent&lt;/a&gt;, &lt;a href="https://github.com/JEG2/signal_lamp/"&gt;signal_lamp&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/open-uri/rdoc/OpenURI.html"&gt;open-uri&lt;/a&gt;&lt;/td&gt;
@@ -1665,7 +1665,7 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/optparse/rdoc/OptParse.html"&gt;optparse&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/optparse.rb"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/rubysl/rubysl-optparse"&gt;rubysl&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Command-line option parser&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/leejarvis/slop"&gt;slop&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/leejarvis/slop"&gt;slop&lt;/a&gt;, &lt;a href="https://github.com/ManageIq/trollop"&gt;trollop&lt;/a&gt;, &lt;a href="https://github.com/soveran/clap"&gt;clap&lt;/a&gt;, &lt;a href="https://github.com/janlelis/rationalist"&gt;rationalist&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/ostruct/rdoc/OpenStruct.html"&gt;ostruct&lt;/a&gt;&lt;/td&gt;
@@ -1862,7 +1862,7 @@ $ ruby -r uri -e 'p URI.regexp'
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.0/libdoc/thread/rdoc/"&gt;thread&lt;/a&gt; &lt;strong&gt;c&lt;/strong&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/ext/thread"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/rubysl/rubysl-thread"&gt;rubysl&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Functionality for Threas in Ruby, like a &lt;code&gt;SizedQueue&lt;/code&gt; class&lt;/td&gt;
+      &lt;td&gt;Functionality for Threads in Ruby, like a &lt;code&gt;SizedQueue&lt;/code&gt; class&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;

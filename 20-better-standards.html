@@ -77,7 +77,7 @@
     <tr>
       <td><a href="http://ruby-doc.org/core-2.2.2/Continuation.html">continuation</a></td>
       <td><a href="https://github.com/ruby/ruby/tree/trunk/ext/continuation">mri</a><br /><a href="https://github.com/rubysl/rubysl-continuation">rubysl</a></td>
-      <td>Deprecated library that adds the goto-like <a href="http://ruby-doc.org/core-2.2.2/Kernel.html#method-i-callcc">Kernel#callcc</a></td>
+      <td>Deprecated library that adds the <a href="http://idiosyncratic-ruby.com/24-goto-fail.html">goto</a>-like <a href="http://ruby-doc.org/core-2.2.2/Kernel.html#method-i-callcc">Kernel#callcc</a></td>
       <td><a href="http://ruby-doc.org/core-2.2.2/Fiber.html">Fiber</a></td>
     </tr>
     <tr>
@@ -144,7 +144,7 @@
       <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/erb/rdoc/index.html">erb</a></td>
       <td><a href="https://github.com/ruby/ruby/tree/trunk/lib/erb.rb">mri</a><br /><a href="https://github.com/rubysl/rubysl-erb">rubysl</a></td>
       <td>Templating engine for Ruby</td>
-      <td><a href="http://www.kuwata-lab.com/erubis/">erubis</a></td>
+      <td><a href="http://www.kuwata-lab.com/erubis/">erubis</a>, <a href="https://github.com/apotonick/erbse">erbse</a></td>
     </tr>
     <tr>
       <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/etc/rdoc/Etc.html">etc</a> <strong>c</strong></td>
@@ -204,7 +204,7 @@
       <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/getoptlong/rdoc/GetoptLong.html">getoptlong</a></td>
       <td><a href="https://github.com/ruby/ruby/tree/trunk/lib/getoptlong.rb">mri</a><br /><a href="https://github.com/rubysl/rubysl-getoptlong">rubysl</a></td>
       <td><a href="http://linux.die.net/man/3/getopt_long">GNU getopt_long()</a> style command-line option parsing</td>
-      <td><a href="https://github.com/leejarvis/slop">slop</a>, <a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/optparse/rdoc/OptParse.html">optparse</a></td>
+      <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/optparse/rdoc/OptParse.html">OptParse</a>, <a href="https://github.com/leejarvis/slop">slop</a>, <a href="https://github.com/ManageIq/trollop">trollop</a>, <a href="https://github.com/soveran/clap">clap</a>, <a href="https://github.com/janlelis/rationalist">rationalist</a></td>
     </tr>
     <tr>
       <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/io/console/rdoc/IO.html">io/console</a> <strong>c</strong><br />(gem)</td>
@@ -336,7 +336,7 @@
       <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/observer/rdoc/Observable.html">observer</a></td>
       <td><a href="https://github.com/ruby/ruby/tree/trunk/lib/observer.rb">mri</a><br /><a href="https://github.com/rubysl/rubysl-observer">rubysl</a></td>
       <td>Implementation of the <a href="http://en.wikipedia.org/wiki/Observer_pattern">observer pattern</a>, a way to let interested other objects know o an objetc's updates</td>
-      <td><a href="https://github.com/janlelis/microevent.rb">microevent</a></td>
+      <td><a href="https://github.com/janlelis/microevent.rb">microevent</a>, <a href="https://github.com/JEG2/signal_lamp/">signal_lamp</a></td>
     </tr>
     <tr>
       <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/open-uri/rdoc/OpenURI.html">open-uri</a></td>
@@ -360,7 +360,7 @@
       <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/optparse/rdoc/OptParse.html">optparse</a></td>
       <td><a href="https://github.com/ruby/ruby/tree/trunk/lib/optparse.rb">mri</a><br /><a href="https://github.com/rubysl/rubysl-optparse">rubysl</a></td>
       <td>Command-line option parser</td>
-      <td><a href="https://github.com/leejarvis/slop">slop</a></td>
+      <td><a href="https://github.com/leejarvis/slop">slop</a>, <a href="https://github.com/ManageIq/trollop">trollop</a>, <a href="https://github.com/soveran/clap">clap</a>, <a href="https://github.com/janlelis/rationalist">rationalist</a></td>
     </tr>
     <tr>
       <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/ostruct/rdoc/OpenStruct.html">ostruct</a></td>
@@ -557,7 +557,7 @@
     <tr>
       <td><a href="http://ruby-doc.org/stdlib-2.0/libdoc/thread/rdoc/">thread</a> <strong>c</strong></td>
       <td><a href="https://github.com/ruby/ruby/tree/trunk/ext/thread">mri</a><br /><a href="https://github.com/rubysl/rubysl-thread">rubysl</a></td>
-      <td>Functionality for Threas in Ruby, like a <code>SizedQueue</code> class</td>
+      <td>Functionality for Threads in Ruby, like a <code>SizedQueue</code> class</td>
       <td>-</td>
     </tr>
     <tr>
@@ -696,7 +696,7 @@
           On <a href="/">Idiosyncratic Ruby</a> by <a href="https://github.com/janlelis">Jan Lelis</a><br>
         </div>
         About Stdlib |
-        Last Update: 2015-05-21
+        Last Update: 2015-06-17
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
