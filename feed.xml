@@ -1923,7 +1923,7 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/uri/rdoc/URI.html"&gt;uri&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/uri.rb"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/rubysl/rubysl-uri"&gt;rubysl&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="http://en.wikipedia.org/wiki/Uniform_resource_identifier"&gt;URI&lt;/a&gt;/URL manipulation&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/sporkmonger/addressable"&gt;adressable&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/sporkmonger/addressable"&gt;adressable&lt;/a&gt;,&lt;a href="https://github.com/tlewin/ruby-uriparser"&gt;ruby-uriparser&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/weakref/rdoc/WeakRef.html"&gt;weakref&lt;/a&gt;&lt;/td&gt;
