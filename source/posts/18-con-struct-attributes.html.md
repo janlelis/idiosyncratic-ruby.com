@@ -197,7 +197,7 @@ Structs are different from normal Ruby classes, but they are still very useful f
 * Structs have [their own methods](http://ruby-doc.org/core-2.2.2/Struct.html#public-instance-method-details) (like `[]`, a getter for variables), which might not always be useful
 * Pitfalls when creating structs with custom behavior (see below)
 
-The different ways to initiaize a Struct:
+The different ways to initialize a Struct:
 
 ### Inherit
 
