@@ -2300,7 +2300,7 @@ Person.new("Jan", 26) # =&amp;gt; #&amp;lt;ValueStruct Person name="Jan", age=26
   &lt;li&gt;Pitfalls when creating structs with custom behavior (see below)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;The different ways to initiaize a Struct:&lt;/p&gt;
+&lt;p&gt;The different ways to initialize a Struct:&lt;/p&gt;
 
 &lt;h3 id="inherit"&gt;Inherit&lt;/h3&gt;
 
