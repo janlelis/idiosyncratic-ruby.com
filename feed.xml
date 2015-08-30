@@ -3771,6 +3771,7 @@ Mathematics.method(:calc).owner.singleton_class? #=&amp;gt; false
 
 &lt;ul&gt;
   &lt;li&gt;The method name "module_function" describes what it does, so it might be better readable&lt;/li&gt;
+  &lt;li&gt;Making included methods private &lt;a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/7923275d6bfce595c3f0a0f1d9eceaa6dae43800#commitcomment-11553416"&gt;might be desired&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
