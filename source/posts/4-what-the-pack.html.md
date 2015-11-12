@@ -58,6 +58,7 @@ Directive    | Size
 `S!` or `S_` | short
 `L!` or `L_` | long
 `Q!` or `Q_` | long long
+`J!` or `J_` | pointer width
 
 Except for *char* (which is always one byte), it depends on your operating system, how many bytes each of this modes actually reads. So if your operating system defines *short* as 2 bytes, you will get an array that represents every group of two bytes as an integer value:
 
@@ -67,7 +68,7 @@ Or the other way around:
 
     [1, 2].pack("S!*") # => "\x01\x00\x02\x00"
 
-If you do not want to depend on what byte sizes you operating system defines, you can omit the `!` and it will use a fixed byte size (the exception is *int*, which will always use its native size).
+If you do not want to depend on what byte sizes you operating system defines, you can omit the `!` and it will use a fixed byte size (the exceptions being *int* and *pointer width*, which will always use their native size).
 
 ### C | An Unsigned `Integer` per Byte
 
