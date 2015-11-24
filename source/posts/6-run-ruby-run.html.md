@@ -19,7 +19,7 @@ Rubyists generally do not want to rely on Python, so there is a Ruby equivalent:
 
     $ ruby -run -e httpd . -p 8080
 
-This will fire up a very simple server, written in Ruby, using [WEBrick](http://ruby-doc.org/stdlib-2.2.2/libdoc/webrick/rdoc/WEBrick.html) under the hood!
+This will fire up a very simple server, written in Ruby, using [WEBrick](http://ruby-doc.org/stdlib-2.3.0/libdoc/webrick/rdoc/WEBrick.html) under the hood!
 
 It also takes some more options, see at bottom of this post for a listing of available ones.
 
@@ -52,7 +52,7 @@ Let's see, what else is included:
 
 Besides **httpd**, you mostly get `FileUtils` based implementations of common unix tools,: `cp`, `ln`, `mv`, `rm`, `mkdir`, `rmdir`, `install`, `chmod`, and `touch`.
 
-There are two more commands included, which don't fit into this unix category: [mkmf](http://ruby-doc.org/stdlib-2.2.2/libdoc/mkmf/rdoc/MakeMakefile.html), which you can use to create the Makefile for a Ruby C extension and [wait_writable](https://github.com/ruby/ruby/blob/ruby_2_2/lib/un.rb#L233-L264), which allows you to continuously try to open a file in writable mode.
+There are two more commands included, which don't fit into this unix category: [mkmf](http://ruby-doc.org/stdlib-2.3.0/libdoc/mkmf/rdoc/MakeMakefile.html), which you can use to create the Makefile for a Ruby C extension and [wait_writable](https://github.com/ruby/ruby/blob/ruby_2_2/lib/un.rb#L233-L264), which allows you to continuously try to open a file in writable mode.
 
 ## `-run` Reference
 

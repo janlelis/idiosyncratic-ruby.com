@@ -88,4 +88,4 @@ One more thing: Unknown **special symbols** (those that start with `_`) will rai
 
 ## Resources
 
-- [RDoc Enumerable#chunk](http://ruby-doc.org/core-2.2.2/Enumerable.html#method-i-chunk)
+- [RDoc Enumerable#chunk](http://ruby-doc.org/core-2.3.0/Enumerable.html#method-i-chunk)

@@ -439,7 +439,7 @@ You can jump around the current byte position while processing the data. This en
 
 ## Resources
 
-- [RDoc: String#unpack](http://ruby-doc.org/core-2.2.2/String.html#method-i-unpack)
-- [RDoc: Array#pack](http://ruby-doc.org/core-2.2.2/Array.html#method-i-pack)
+- [RDoc: String#unpack](http://ruby-doc.org/core-2.3.0/String.html#method-i-unpack)
+- [RDoc: Array#pack](http://ruby-doc.org/core-2.3.0/Array.html#method-i-pack)
 - [Source: pack.c](https://github.com/ruby/ruby/blob/trunk/pack.c)
 - [unpack in Perl](http://www.perlmonks.org/?node_id=224666)

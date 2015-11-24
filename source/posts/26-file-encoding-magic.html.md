@@ -5,7 +5,7 @@ tags: core, encoding, stdlib
 commit: 855245940464e89b610e6d6cc2bb9644a8406b2b
 ---
 
-Ruby has [three default encodings](http://graysoftinc.com/character-encodings/ruby-19s-three-default-encodings). One of them is the default [source encoding](http://ruby-doc.org/core-2.2.2/Encoding.html#class-Encoding-label-Script+encoding), which can be set using a **magic comment** in the file's first line, or in the second line if the first line is taken by a [shebang](https://en.wikipedia.org/wiki/Shebang_%28Unix%29).
+Ruby has [three default encodings](http://graysoftinc.com/character-encodings/ruby-19s-three-default-encodings). One of them is the default [source encoding](http://ruby-doc.org/core-2.3.0/Encoding.html#class-Encoding-label-Script+encoding), which can be set using a **magic comment** in the file's first line, or in the second line if the first line is taken by a [shebang](https://en.wikipedia.org/wiki/Shebang_%28Unix%29).
 
 ARTICLE
 
@@ -20,7 +20,7 @@ With encoding comment (`file_with_magic_comment.rb`):
 
 ## Respecting the Encoding Comment when Reading a File
 
-You might come across a situation, where you want to read in a source file using Ruby's [File](http://ruby-doc.org/core-2.2.2/File.html) class, but also want to set the proper encoding from the magic comment. Fortunately, Ruby's standard library supports this. Unfortunately, it is not a stand-alone module, but a part of IRB:
+You might come across a situation, where you want to read in a source file using Ruby's [File](http://ruby-doc.org/core-2.3.0/File.html) class, but also want to set the proper encoding from the magic comment. Fortunately, Ruby's standard library supports this. Unfortunately, it is not a stand-alone module, but a part of IRB:
 
     >> require 'irb/magic-file'
     # => false

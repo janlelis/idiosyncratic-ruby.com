@@ -38,5 +38,5 @@ There is also a third way to set local variables: binding's `local_variable_set`
     b # NameError: ...
 
 ## Resources
-- [RDoc: Regexp#=~](http://ruby-doc.org/core-2.2.2/Regexp.html#method-i-3D-7E)
-- [RDoc: Binding#local_variable_set](http://ruby-doc.org/core-2.2.2/Binding.html#method-i-local_variable_set)
+- [RDoc: Regexp#=~](http://ruby-doc.org/core-2.3.0/Regexp.html#method-i-3D-7E)
+- [RDoc: Binding#local_variable_set](http://ruby-doc.org/core-2.3.0/Binding.html#method-i-local_variable_set)

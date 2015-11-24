@@ -60,6 +60,6 @@ What follows is a list of 10 lesser known things about strings: Some of them use
 
 ## Resources
 
-- [RDoc: String](http://www.ruby-doc.org/core-2.2.2/String.html)
+- [RDoc: String](http://www.ruby-doc.org/core-2.3.0/String.html)
 - [Source: String](https://github.com/ruby/ruby/blob/trunk/string.c)
 - [Rubinus Source: String](https://github.com/rubinius/rubinius/blob/master/kernel/common/string.rb)

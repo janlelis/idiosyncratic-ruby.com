@@ -42,15 +42,15 @@ Methods returning method lists always take a boolean argument, which will preven
 
 Method                                                                                                            | From      | Target               | Visibility
 ------------------------------------------------------------------------------------------------------------------|-----------|----------------------|-------------------
-[Object#singleton_methods](http://ruby-doc.org/core-2.2.2/Object.html#method-i-singleton_methods)                 | instance  | singleton            | public + protected
-[Object#methods](http://ruby-doc.org/core-2.2.2/Object.html#method-i-methods)                                     | instance  | instance + singleton | public + protected
-[Object#public_methods](http://ruby-doc.org/core-2.2.2/Object.html#method-i-public_methods)                       | instance  | instance + singleton | public
-[Object#protected_methods](http://ruby-doc.org/core-2.2.2/Object.html#method-i-protected_methods)                 | instance  | instance + singleton | protected
-[Object#private_methods](http://ruby-doc.org/core-2.2.2/Object.html#method-i-private_methods)                     | instance  | instance + singleton | private
-[Module#instance_methods](http://ruby-doc.org/core-2.2.2/Module.html#method-i-instance_methods)                   | class     | instance             | public + protected
-[Module#public_instance_methods](http://ruby-doc.org/core-2.2.2/Module.html#method-i-public_instance_methods)     | class     | instance             | public
-[Module#proected_instance_methods](http://ruby-doc.org/core-2.2.2/Module.html#method-i-proected_instance_methods) | class     | instance             | proected
-[Module#private_instance_methods](http://ruby-doc.org/core-2.2.2/Module.html#method-i-private_instance_methods)   | class     | instance             | private
+[Object#singleton_methods](http://ruby-doc.org/core-2.3.0/Object.html#method-i-singleton_methods)                 | instance  | singleton            | public + protected
+[Object#methods](http://ruby-doc.org/core-2.3.0/Object.html#method-i-methods)                                     | instance  | instance + singleton | public + protected
+[Object#public_methods](http://ruby-doc.org/core-2.3.0/Object.html#method-i-public_methods)                       | instance  | instance + singleton | public
+[Object#protected_methods](http://ruby-doc.org/core-2.3.0/Object.html#method-i-protected_methods)                 | instance  | instance + singleton | protected
+[Object#private_methods](http://ruby-doc.org/core-2.3.0/Object.html#method-i-private_methods)                     | instance  | instance + singleton | private
+[Module#instance_methods](http://ruby-doc.org/core-2.3.0/Module.html#method-i-instance_methods)                   | class     | instance             | public + protected
+[Module#public_instance_methods](http://ruby-doc.org/core-2.3.0/Module.html#method-i-public_instance_methods)     | class     | instance             | public
+[Module#proected_instance_methods](http://ruby-doc.org/core-2.3.0/Module.html#method-i-proected_instance_methods) | class     | instance             | proected
+[Module#private_instance_methods](http://ruby-doc.org/core-2.3.0/Module.html#method-i-private_instance_methods)   | class     | instance             | private
 {:.table-38-15-20-X}
 
 - There is no API for getting a list of private singleton methods
@@ -61,10 +61,10 @@ Instead of listing all methods and checking if the resulting array contains a sp
 
 Method                                                                                                              | From  | Target   | Visibilitiy
 --------------------------------------------------------------------------------------------------------------------|-------|----------|------------
-[Module#method_defined?](http://ruby-doc.org/core-2.2.2/Module.html#method-i-method_defined-3F)                     | class | instance | all
-[Module#public_method_defined?](http://ruby-doc.org/core-2.2.2/Module.html#method-i-public_method_defined-3F)       | class | instance | public
-[Module#protected_method_defined?](http://ruby-doc.org/core-2.2.2/Module.html#method-i-protected_method_defined-3F) | class | instance | protected
-[Module#private_method_defined?](http://ruby-doc.org/core-2.2.2/Module.html#method-i-private_method_defined-3F)     | class | instance | private
+[Module#method_defined?](http://ruby-doc.org/core-2.3.0/Module.html#method-i-method_defined-3F)                     | class | instance | all
+[Module#public_method_defined?](http://ruby-doc.org/core-2.3.0/Module.html#method-i-public_method_defined-3F)       | class | instance | public
+[Module#protected_method_defined?](http://ruby-doc.org/core-2.3.0/Module.html#method-i-protected_method_defined-3F) | class | instance | protected
+[Module#private_method_defined?](http://ruby-doc.org/core-2.3.0/Module.html#method-i-private_method_defined-3F)     | class | instance | private
 {:.table-38-15-20-X}
 
 - This is also the best way to get the visibility of a method
@@ -76,11 +76,11 @@ These methods will return method objects for further metaprogramming action:
 
 Method                                                                                                      | From      | Target               | Visibility | Returns
 ------------------------------------------------------------------------------------------------------------|-----------|----------------------|------------|--------
-[Object#singleton_method](http://ruby-doc.org/core-2.2.2/Object.html#method-i-singleton_method)             | instance  | singleton            | all        | [Method](http://ruby-doc.org/core-2.2.2/Method.html)
-[Object#method](http://ruby-doc.org/core-2.2.2/Object.html#method-i-method)                                 | instance  | instance + singleton | all        | [Method](http://ruby-doc.org/core-2.2.2/Method.html)
-[Object#public_method](http://ruby-doc.org/core-2.2.2/Object.html#method-i-public_method)                   | instance  | instance + singleton | public     | [Method](http://ruby-doc.org/core-2.2.2/Method.html)
-[Module#instance_method](http://ruby-doc.org/core-2.2.2/Module.html#method-i-instance_method)               | class     | instance             | all        | [UnboundMethod](http://ruby-doc.org/core-2.2.2/UnboundMethod.html)
-[Module#public_instance_method](http://ruby-doc.org/core-2.2.2/Module.html#method-i-public_instance_method) | class     | instance             | public     | [UnboundMethod](http://ruby-doc.org/core-2.2.2/UnboundMethod.html)
+[Object#singleton_method](http://ruby-doc.org/core-2.3.0/Object.html#method-i-singleton_method)             | instance  | singleton            | all        | [Method](http://ruby-doc.org/core-2.3.0/Method.html)
+[Object#method](http://ruby-doc.org/core-2.3.0/Object.html#method-i-method)                                 | instance  | instance + singleton | all        | [Method](http://ruby-doc.org/core-2.3.0/Method.html)
+[Object#public_method](http://ruby-doc.org/core-2.3.0/Object.html#method-i-public_method)                   | instance  | instance + singleton | public     | [Method](http://ruby-doc.org/core-2.3.0/Method.html)
+[Module#instance_method](http://ruby-doc.org/core-2.3.0/Module.html#method-i-instance_method)               | class     | instance             | all        | [UnboundMethod](http://ruby-doc.org/core-2.3.0/UnboundMethod.html)
+[Module#public_instance_method](http://ruby-doc.org/core-2.3.0/Module.html#method-i-public_instance_method) | class     | instance             | public     | [UnboundMethod](http://ruby-doc.org/core-2.3.0/UnboundMethod.html)
 {:.table-34-15-20-14-X}
 
 - There are no methods to explicitely get private methods
@@ -91,11 +91,11 @@ These methods will actually modify your objects:
 
 Method                                                                                                        | From      | Target    | Visibility
 --------------------------------------------------------------------------------------------------------------|-----------|-----------|-----------
-[Object#define_singleton_method](http://ruby-doc.org/core-2.2.2/Object.html#method-i-define_singleton_method) | instance  | singleton | public
-[Module#define_method](http://ruby-doc.org/core-2.2.2/Module.html#method-i-define_method) (private)           | class     | instance  | public (see notes)
-[Module#remove_method](http://ruby-doc.org/core-2.2.2/Module.html#method-i-remove_method) (private)           | class     | instance  | -
-[Module#undef_method](http://ruby-doc.org/core-2.2.2/Module.html#method-i-undef_method) (private)             | class     | instance  | -
-[Module#alias_method](http://ruby-doc.org/core-2.2.2/Module.html#method-i-alias_method) (private)             | class     | instance  | same
+[Object#define_singleton_method](http://ruby-doc.org/core-2.3.0/Object.html#method-i-define_singleton_method) | instance  | singleton | public
+[Module#define_method](http://ruby-doc.org/core-2.3.0/Module.html#method-i-define_method) (private)           | class     | instance  | public (see notes)
+[Module#remove_method](http://ruby-doc.org/core-2.3.0/Module.html#method-i-remove_method) (private)           | class     | instance  | -
+[Module#undef_method](http://ruby-doc.org/core-2.3.0/Module.html#method-i-undef_method) (private)             | class     | instance  | -
+[Module#alias_method](http://ruby-doc.org/core-2.3.0/Module.html#method-i-alias_method) (private)             | class     | instance  | same
 {:.table-38-15-20-X}
 
 - No direct way to define a non-public method, but `define_method` respects visibility modifiers
@@ -108,13 +108,13 @@ Hook methods can be defined and will be called by the Ruby interpreter when the 
 
 Method                                                                                                                        | From     | Target
 ------------------------------------------------------------------------------------------------------------------------------|----------|-------
-[BasicObject#singleton_method_added](http://ruby-doc.org/core-2.2.2/BasicObject.html#method-i-singleton_method_added)         | instance | singleton
-[BasicObject#singleton_method_undefined](http://ruby-doc.org/core-2.2.2/BasicObject.html#method-i-singleton_method_undefined) | instance | singleton
-[BasicObject#singleton_method_removed](http://ruby-doc.org/core-2.2.2/BasicObject.html#method-i-singleton_method_removed)     | instance | singleton
-[Module#method_added](http://ruby-doc.org/core-2.2.2/Module.html#method-i-method_added)                                       | class    | instance
-[Module#method_undefined](http://ruby-doc.org/core-2.2.2/Module.html#method-i-method_undefined)                               | class    | instance
-[Module#method_removed](http://ruby-doc.org/core-2.2.2/Module.html#method-i-method_removed)                                   | class    | instance
-[BasicObject#method_missing](http://ruby-doc.org/core-2.2.2/BasicObject.html#method-i-method_missing)                         | class    | instance
+[BasicObject#singleton_method_added](http://ruby-doc.org/core-2.3.0/BasicObject.html#method-i-singleton_method_added)         | instance | singleton
+[BasicObject#singleton_method_undefined](http://ruby-doc.org/core-2.3.0/BasicObject.html#method-i-singleton_method_undefined) | instance | singleton
+[BasicObject#singleton_method_removed](http://ruby-doc.org/core-2.3.0/BasicObject.html#method-i-singleton_method_removed)     | instance | singleton
+[Module#method_added](http://ruby-doc.org/core-2.3.0/Module.html#method-i-method_added)                                       | class    | instance
+[Module#method_undefined](http://ruby-doc.org/core-2.3.0/Module.html#method-i-method_undefined)                               | class    | instance
+[Module#method_removed](http://ruby-doc.org/core-2.3.0/Module.html#method-i-method_removed)                                   | class    | instance
+[BasicObject#method_missing](http://ruby-doc.org/core-2.3.0/BasicObject.html#method-i-method_missing)                         | class    | instance
 {:.table-38-15-20-X}
 
 - As long as you haven't defined a hook, Ruby considers it as an empty private method
@@ -125,8 +125,8 @@ Besides `public`, `protected`, and `private`, there are two additional methods w
 
 Method                                                                                                  | From  | Target    | Description
 --------------------------------------------------------------------------------------------------------|-------|-----------|------------
-[Module#public_class_method](http://ruby-doc.org/core-2.2.2/Module.html#method-i-public_class_method)   | class | singleton | Makes a class's singleton method public
-[Module#private_class_method](http://ruby-doc.org/core-2.2.2/Module.html#method-i-private_class_method) | class | singleton | Makes a class's singleton method private
+[Module#public_class_method](http://ruby-doc.org/core-2.3.0/Module.html#method-i-public_class_method)   | class | singleton | Makes a class's singleton method public
+[Module#private_class_method](http://ruby-doc.org/core-2.3.0/Module.html#method-i-private_class_method) | class | singleton | Makes a class's singleton method private
 {:.table-34-12-12-X}
 
 ## Current Method Name
@@ -135,11 +135,11 @@ There are two underscore-wrapped methods that return the current method's name:
 
 Method                                                                                            | From     | Returns
 --------------------------------------------------------------------------------------------------|----------|--------
-[Kernel#\_\_method\_\_](http://ruby-doc.org/core-2.2.2/Kernel.html#method-i-__method__) (private) | anywhere | Original method name
-[Kernel#\_\_callee\_\_](http://ruby-doc.org/core-2.2.2/Kernel.html#method-i-__callee__) (private) | anywhere | Aliased method name
+[Kernel#\_\_method\_\_](http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-__method__) (private) | anywhere | Original method name
+[Kernel#\_\_callee\_\_](http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-__callee__) (private) | anywhere | Aliased method name
 {:.table-35-20-X}
 
-- Also see [Kernel#caller](http://ruby-doc.org/core-2.2.2/Kernel.html#method-i-caller) and [Kernel#caller_locations](http://ruby-doc.org/core-2.2.2/Kernel.html#method-i-caller_locations)
+- Also see [Kernel#caller](http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-caller) and [Kernel#caller_locations](http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-caller_locations)
 
 ## A Better API for Metaprogramming Methods?
 
