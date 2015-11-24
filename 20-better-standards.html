@@ -24,7 +24,9 @@
       </section>
 
       <article class="post">
-        <p>A guide to Ruby's standard library and available alternatives.</p>
+        <p>A guide to Ruby's stdlib and available alternatives.</p>
+
+<h2 id="standard-library-overview">Standard Library Overview</h2>
 
 <p></p>
 
@@ -55,12 +57,6 @@
       <td><a href="https://github.com/ruby/ruby/blob/trunk/lib/benchmark.rb">mri</a><br /><a href="https://github.com/rubysl/rubysl-benchmark">rubysl</a></td>
       <td>Benchmarking library</td>
       <td><a href="https://github.com/evanphx/benchmark-ips">benchmark-ips</a></td>
-    </tr>
-    <tr>
-      <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/bigdecimal/rdoc/BigDecimal.html">bigdecimal</a> <strong>c</strong><br />(gem)</td>
-      <td><a href="https://github.com/ruby/ruby/tree/trunk/ext/bigdecimal">mri</a><br /><a href="https://github.com/rubysl/rubysl-bigdecimal">rubysl</a></td>
-      <td>Support for arbitrary-precision floating point decimal arithmetic</td>
-      <td>-</td>
     </tr>
     <tr>
       <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/cgi/rdoc/CGI.html">cgi</a></td>
@@ -207,12 +203,6 @@
       <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/optparse/rdoc/OptParse.html">OptParse</a>, <a href="https://github.com/leejarvis/slop">slop</a>, <a href="https://github.com/ManageIq/trollop">trollop</a>, <a href="https://github.com/soveran/clap">clap</a>, <a href="https://github.com/janlelis/rationalist">rationalist</a></td>
     </tr>
     <tr>
-      <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/io/console/rdoc/IO.html">io/console</a> <strong>c</strong><br />(gem)</td>
-      <td><a href="https://github.com/ruby/ruby/tree/trunk/ext/io/console">mri</a><br /><a href="https://github.com/rubysl/rubysl-io-console">rubysl</a><br /><a href="https://github.com/nobu/io-console">gem</a></td>
-      <td>Patches <code>IO</code> for simple and portable access to the console</td>
-      <td>-</td>
-    </tr>
-    <tr>
       <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/io/nonblock/rdoc/IO.html">io/nonblock</a> <strong>c</strong></td>
       <td><a href="https://github.com/ruby/ruby/tree/trunk/ext/io/nonblock">mri</a><br /><a href="https://github.com/rubysl/rubysl-io-nonblock">rubysl</a></td>
       <td>Allows to work with <code>IO</code> streams in a non-blocking way</td>
@@ -237,12 +227,6 @@
       <td><a href="https://github.com/cldwalker/ripl">ripl</a>, <a href="http://pryrepl.org/">pry</a>, <a href="https://github.com/godfat/rib">rib</a></td>
     </tr>
     <tr>
-      <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/json/rdoc/JSON.html">json</a> <strong>c</strong></td>
-      <td><a href="https://github.com/ruby/ruby/tree/trunk/ext/json">mri</a><br /><a href="https://github.com/flori/json">gem</a></td>
-      <td>Support for JSON (<a href="http://en.wikipedia.org/wiki/JSON">JavaScript Object Notation</a>)</td>
-      <td><a href="https://github.com/ohler55/oj">oj</a>, <a href="https://github.com/brianmario/yajl-ruby">yajl-ruby</a></td>
-    </tr>
-    <tr>
       <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/logger/rdoc/Logger.html">logger</a></td>
       <td><a href="https://github.com/ruby/ruby/tree/trunk/lib/logger.rb">mri</a><br /><a href="https://github.com/rubysl/rubysl-logger">rubysl</a></td>
       <td><a href="http://ruby.janlelis.de/50-exploring-the-stdlib-logger">Logging utility</a></td>
@@ -259,12 +243,6 @@
       <td><a href="https://github.com/ruby/ruby/tree/trunk/lib/matrix.rb">mri</a><br /><a href="https://github.com/rubysl/rubysl-matrix">rubysl</a></td>
       <td>Support for <a href="https://en.wikipedia.org/wiki/Matrix_%28mathematics%29">matrices</a></td>
       <td><a href="https://github.com/SciRuby/nmatrix">nmatrix</a></td>
-    </tr>
-    <tr>
-      <td><a href="https://github.com/ruby/ruby/tree/trunk/test/lib/minitest">minitest</a></td>
-      <td><a href="https://github.com/ruby/ruby/tree/trunk/test/lib/minitest">mri</a><br /><a href="https://github.com/seattlerb/minitest">gem</a></td>
-      <td>Test/spec framework, comes with mocking and benchmark capabilities</td>
-      <td><a href="https://github.com/rspec/rspec">rspec</a></td>
     </tr>
     <tr>
       <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/mkmf/rdoc/MakeMakefile.html">mkmf</a></td>
@@ -399,12 +377,6 @@
       <td>-</td>
     </tr>
     <tr>
-      <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/psych/rdoc/Psych.html">psych</a> <strong>c</strong><br />(gem)</td>
-      <td><a href="https://github.com/ruby/ruby/tree/trunk/ext/psych">mri</a><br /><a href="https://github.com/tenderlove/psych">gem</a></td>
-      <td>Support for YAML (<a href="http://en.wikipedia.org/wiki/YAML">YAML Ain't Markup Language</a>)</td>
-      <td>-</td>
-    </tr>
-    <tr>
       <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/pty/rdoc/PTY.html">pty</a> <strong>c</strong></td>
       <td><a href="https://github.com/ruby/ruby/tree/trunk/ext/pty">mri</a><br /><a href="https://github.com/rubysl/rubysl-pty">rubysl</a></td>
       <td>Manages <a href="http://en.wikipedia.org/wiki/Pseudo_terminal">pseudo terminals</a></td>
@@ -417,22 +389,10 @@
       <td><a href="https://github.com/kschiess/parslet/">parslet</a>, <a href="https://github.com/mjackson/citrus">citrus</a>, <a href="https://github.com/nathansobo/treetop">treetop</a></td>
     </tr>
     <tr>
-      <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/rake/rdoc/index.html">rake</a></td>
-      <td><a href="https://github.com/ruby/ruby/tree/trunk/lib/rake.rb">mri</a><br /><a href="https://github.com/ruby/rake">gem</a></td>
-      <td>A Ruby task runner, inspired by <a href="http://en.wikipedia.org/wiki/Make_%28software%29">make</a></td>
-      <td><a href="http://whatisthor.com/">thor</a>, <a href="https://github.com/cldwalker/boson">boson</a></td>
-    </tr>
-    <tr>
       <td><a href="http://technicalpickles.com/posts/spelunking-your-ruby-installs-configuration-with-rbconfig/">rbconfig</a></td>
       <td>-</td>
       <td><code>RbConfig</code> is a Ruby constant that contains compile time information</td>
       <td>-</td>
-    </tr>
-    <tr>
-      <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/rdoc/rdoc/RDoc.html">rdoc</a></td>
-      <td><a href="https://github.com/ruby/ruby/blob/trunk/lib/rdoc.rb">mri</a><br /><a href="https://github.com/rdoc/rdoc">gem</a></td>
-      <td>Ruby documentation generator</td>
-      <td><a href="http://yardoc.org/">yard</a></td>
     </tr>
     <tr>
       <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/readline/rdoc/Readline.html">readline</a></td>
@@ -610,7 +570,7 @@
     </tr>
     <tr>
       <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/unicode_normalize/rdoc/UnicodeNormalize.html">unicode_normalize</a></td>
-      <td><a href="https://github.com/ruby/ruby/tree/trunk/lib/unicode_normalize.rb">mri</a></td>
+      <td><a href="https://github.com/ruby/ruby/tree/trunk/lib/unicode_normalize.rb">mri</a><br /><a href="https://github.com/rubysl/rubysl-unicode_normalize">rubysl</a></td>
       <td>Adds a <a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/unicode_normalize/rdoc/String.html#method-i-unicode_normalize">String#unicode_normalize</a> method which <a href="http://unicode.org/reports/tr15/">normalizes unicode strings</a></td>
       <td><a href="https://github.com/knu/ruby-unf">unf</a>, <a href="https://github.com/blackwinter/unicode">unicode</a></td>
     </tr>
@@ -665,6 +625,90 @@
   </tbody>
 </table>
 
+<h2 id="default-gems">Default Gems</h2>
+
+<p>Standard Ruby extensions that come as Ruby gems, so that they can be updated independently from Ruby.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Gem</th>
+      <th>Sources</th>
+      <th>Description</th>
+      <th>Alternatives</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/bigdecimal/rdoc/BigDecimal.html">bigdecimal</a> <strong>c</strong></td>
+      <td><a href="https://github.com/ruby/ruby/tree/trunk/ext/bigdecimal">mri</a><br /><a href="https://github.com/rubysl/rubysl-bigdecimal">rubysl</a></td>
+      <td>Support for arbitrary-precision floating point decimal arithmetic</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/io/console/rdoc/IO.html">io/console</a> <strong>c</strong></td>
+      <td><a href="https://github.com/ruby/ruby/tree/trunk/ext/io/console">mri</a><br /><a href="https://github.com/rubysl/rubysl-io-console">rubysl</a><br /><a href="https://github.com/nobu/io-console">gem</a></td>
+      <td>Patches <code>IO</code> for simple and portable access to the console</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/json/rdoc/JSON.html">json</a> <strong>c</strong></td>
+      <td><a href="https://github.com/ruby/ruby/tree/trunk/ext/json">mri</a><br /><a href="https://github.com/flori/json">gem</a></td>
+      <td>Support for JSON (<a href="http://en.wikipedia.org/wiki/JSON">JavaScript Object Notation</a>)</td>
+      <td><a href="https://github.com/ohler55/oj">oj</a>, <a href="https://github.com/brianmario/yajl-ruby">yajl-ruby</a></td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/psych/rdoc/Psych.html">psych</a> <strong>c</strong></td>
+      <td><a href="https://github.com/ruby/ruby/tree/trunk/ext/psych">mri</a><br /><a href="https://github.com/tenderlove/psych">gem</a></td>
+      <td>Support for YAML (<a href="http://en.wikipedia.org/wiki/YAML">YAML Ain't Markup Language</a>)</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/rake/rdoc/index.html">rake</a></td>
+      <td><a href="https://github.com/ruby/ruby/tree/trunk/lib/rake.rb">mri</a><br /><a href="https://github.com/ruby/rake">gem</a></td>
+      <td>A Ruby task runner, inspired by <a href="http://en.wikipedia.org/wiki/Make_%28software%29">make</a></td>
+      <td><a href="http://whatisthor.com/">thor</a>, <a href="https://github.com/cldwalker/boson">boson</a></td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/stdlib-2.2.2/libdoc/rdoc/rdoc/RDoc.html">rdoc</a></td>
+      <td><a href="https://github.com/ruby/ruby/blob/trunk/lib/rdoc.rb">mri</a><br /><a href="https://github.com/rdoc/rdoc">gem</a></td>
+      <td>Ruby documentation generator</td>
+      <td><a href="http://yardoc.org/">yard</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="bundled-gems">Bundled Gems</h2>
+
+<p>Gems that will be installed together with Ruby.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Gem</th>
+      <th>Description</th>
+      <th>Alternatives</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://github.com/seattlerb/minitest">minitest</a></td>
+      <td>Test/spec framework, comes with mocking and benchmark capabilities</td>
+      <td><a href="https://github.com/rspec/rspec">rspec</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/k-tsj/power_assert">power_assert</a></td>
+      <td>Debug tool that displays intermediate results of a method chain</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/test-unit/test-unit">test-unit</a></td>
+      <td>A xUnit family unit testing framework</td>
+      <td><a href="https://github.com/seattlerb/minitest">minitest</a>, <a href="https://github.com/rspec/rspec">rspec</a></td>
+    </tr>
+  </tbody>
+</table>
+
 <p><a href="https://github.com/janlelis/idiosyncratic-ruby.com/blob/master/source/posts/20-better-standards.html.md">Something's wrong or missing? You can edit this list on GitHub!</a></p>
 
 <h2 id="resources">Resources</h2>
@@ -696,7 +740,7 @@
           On <a href="/">Idiosyncratic Ruby</a> by <a href="https://github.com/janlelis">Jan Lelis</a><br>
         </div>
         About Stdlib |
-        Last Update: 2015-06-17
+        Last Update: 2015-11-24
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
