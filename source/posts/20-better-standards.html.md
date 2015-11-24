@@ -5,7 +5,9 @@ tags: stdlib
 commit: b5489240ebc0e4a48de502eaca40e86087858afe
 ---
 
-A guide to Ruby's standard library and available alternatives.
+A guide to Ruby's stdlib and available alternatives.
+
+## Standard Library Overview
 
 ARTICLE
 
@@ -14,7 +16,6 @@ Library | Sources | Description | Alternatives
 [abbrev](http://ruby-doc.org/stdlib-2.2.2/libdoc/abbrev/rdoc/Abbrev.html) | [mri](https://github.com/ruby/ruby/blob/trunk/lib/abbrev.rb)<br>[rubysl](https://github.com/rubysl/rubysl-abbrev) | Small library that finds the shortest abbreviation to identify one string amongst many | -
 [base64](http://ruby-doc.org/stdlib-2.2.2/libdoc/base64/rdoc/Base64.html) | [mri](https://github.com/ruby/ruby/blob/trunk/lib/base64.rb)<br>[rubysl](https://github.com/rubysl/rubysl-base64) | Encodes and decodes strings to a [Base64](http://en.wikipedia.org/wiki/Base64) representation. Implemented as a small wrapper around [String#unpack](http://idiosyncratic-ruby.com/4-what-the-pack.html) | -
 [benchmark](http://ruby-doc.org/stdlib-2.2.2/libdoc/benchmark/rdoc/Benchmark.html) | [mri](https://github.com/ruby/ruby/blob/trunk/lib/benchmark.rb)<br>[rubysl](https://github.com/rubysl/rubysl-benchmark) | Benchmarking library | [benchmark-ips](https://github.com/evanphx/benchmark-ips)
-[bigdecimal](http://ruby-doc.org/stdlib-2.2.2/libdoc/bigdecimal/rdoc/BigDecimal.html) **c**<br>(gem) | [mri](https://github.com/ruby/ruby/tree/trunk/ext/bigdecimal)<br>[rubysl](https://github.com/rubysl/rubysl-bigdecimal) | Support for arbitrary-precision floating point decimal arithmetic | -
 [cgi](http://ruby-doc.org/stdlib-2.2.2/libdoc/cgi/rdoc/CGI.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/cgi.rb)<br>[rubysl](https://github.com/rubysl/rubysl-cgi) | Support for CGI ([Common Gateway Interface](https://en.wikipedia.org/wiki/Common_Gateway_Interface)) | [rack](https://github.com/rack/rack/)
 [cmath](http://ruby-doc.org/stdlib-2.2.2/libdoc/cmath/rdoc/CMath.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/cmath.rb)<br>[rubysl](https://github.com/rubysl/rubysl-cmath) | Trigonometric and transcendental functions for complex numbers | -
 [continuation](http://ruby-doc.org/core-2.2.2/Continuation.html) | [mri](https://github.com/ruby/ruby/tree/trunk/ext/continuation)<br>[rubysl](https://github.com/rubysl/rubysl-continuation) | Deprecated library that adds the [goto](http://idiosyncratic-ruby.com/24-goto-fail.html)-like [Kernel#callcc](http://ruby-doc.org/core-2.2.2/Kernel.html#method-i-callcc) | [Fiber](http://ruby-doc.org/core-2.2.2/Fiber.html)
@@ -39,16 +40,13 @@ Library | Sources | Description | Alternatives
 [forwardable]([forwardable](http://ruby-doc.org/stdlib-2.2.2/libdoc/forwardable/rdoc/Forwardable.html)) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/forwardable.rb)<br>[rubysl](https://github.com/rubysl/rubysl-forwardable) | Provides a way to [delegate](http://en.wikipedia.org/wiki/Delegation_pattern) method calls. Also see [this overview of delegation in Ruby](http://radar.oreilly.com/2014/02/delegation-patterns-in-ruby.html), which contains an example | -
 [gdbm](http://ruby-doc.org/stdlib-2.2.2/libdoc/gdbm/rdoc/GDBM.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/gdbm)<br>[rubysl](https://github.com/rubysl/rubysl-gdbm) | Support for [GNU dbm databases](http://www.gnu.org.ua/software/gdbm/) | -
 [getoptlong](http://ruby-doc.org/stdlib-2.2.2/libdoc/getoptlong/rdoc/GetoptLong.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/getoptlong.rb)<br>[rubysl](https://github.com/rubysl/rubysl-getoptlong) | [GNU getopt_long()](http://linux.die.net/man/3/getopt_long) style command-line option parsing | [OptParse](http://ruby-doc.org/stdlib-2.2.2/libdoc/optparse/rdoc/OptParse.html), [slop](https://github.com/leejarvis/slop), [trollop](https://github.com/ManageIq/trollop), [clap](https://github.com/soveran/clap), [rationalist](https://github.com/janlelis/rationalist)
-[io/console](http://ruby-doc.org/stdlib-2.2.2/libdoc/io/console/rdoc/IO.html) **c**<br>(gem) | [mri](https://github.com/ruby/ruby/tree/trunk/ext/io/console)<br>[rubysl](https://github.com/rubysl/rubysl-io-console)<br>[gem](https://github.com/nobu/io-console) | Patches `IO` for simple and portable access to the console | -
 [io/nonblock](http://ruby-doc.org/stdlib-2.2.2/libdoc/io/nonblock/rdoc/IO.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/io/nonblock)<br>[rubysl](https://github.com/rubysl/rubysl-io-nonblock) | Allows to work with `IO` streams in a non-blocking way | -
 [io/wait](http://ruby-doc.org/stdlib-2.2.2/libdoc/io/wait/rdoc/IO.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/io/wait)<br>[rubysl](https://github.com/rubysl/rubysl-io-wait) | Adds methods to wait until an `IO` stream becomes readable or writable | -
 [ipaddr](http://ruby-doc.org/stdlib-2.2.2/libdoc/ipaddr/rdoc/IPAddr.html) | [mri](https://github.com/ruby/ruby/blob/trunk/lib/ipaddr.rb)<br>[rubysl](https://github.com/rubysl/rubysl-ipaddr) | IP address manipulation | [ipaddress](https://github.com/bluemonk/ipaddress), [ruby-ip](https://github.com/deploy2/ruby-ip)
 [irb](http://ruby-doc.org/stdlib-2.2.2/libdoc/irb/rdoc/IRB.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/irb.rb)<br>[rubysl](https://github.com/rubysl/rubysl-irb) | Interactive Ruby Console ([REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop)) | [ripl](https://github.com/cldwalker/ripl), [pry](http://pryrepl.org/), [rib](https://github.com/godfat/rib)
-[json](http://ruby-doc.org/stdlib-2.2.2/libdoc/json/rdoc/JSON.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/json)<br>[gem](https://github.com/flori/json) | Support for JSON ([JavaScript Object Notation](http://en.wikipedia.org/wiki/JSON)) | [oj](https://github.com/ohler55/oj), [yajl-ruby](https://github.com/brianmario/yajl-ruby)
 [logger](http://ruby-doc.org/stdlib-2.2.2/libdoc/logger/rdoc/Logger.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/logger.rb)<br>[rubysl](https://github.com/rubysl/rubysl-logger) | [Logging utility](http://ruby.janlelis.de/50-exploring-the-stdlib-logger) | [log4r](https://github.com/colbygk/log4r), [lumberjack](https://github.com/bdurand/lumberjack), [yell](https://github.com/rudionrails/yell), [logging](https://github.com/TwP/logging), [micrologger](https://github.com/janlelis/micrologger)
 [mathn](http://ruby-doc.org/stdlib-2.2.2/libdoc/mathn/rdoc/index.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/lib/mathn.rb)<br>[rubysl](https://github.com/rubysl/rubysl-mathn) | Deprecated library that extends math operations | -
 [matrix](http://ruby-doc.org/stdlib-2.2.2/libdoc/matrix/rdoc/index.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/matrix.rb)<br>[rubysl](https://github.com/rubysl/rubysl-matrix) | Support for [matrices](https://en.wikipedia.org/wiki/Matrix_%28mathematics%29) | [nmatrix](https://github.com/SciRuby/nmatrix)
-[minitest](https://github.com/ruby/ruby/tree/trunk/test/lib/minitest) | [mri](https://github.com/ruby/ruby/tree/trunk/test/lib/minitest)<br>[gem](https://github.com/seattlerb/minitest) | Test/spec framework, comes with mocking and benchmark capabilities| [rspec](https://github.com/rspec/rspec)
 [mkmf](http://ruby-doc.org/stdlib-2.2.2/libdoc/mkmf/rdoc/MakeMakefile.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/mkmf.rb)<br>[rubysl](https://github.com/rubysl/rubysl-mkmf) | Generates [Makefiles](http://en.wikipedia.org/wiki/Makefile) for native [C extensions](https://github.com/ruby/ruby/blob/trunk/doc/extension.rdoc) | -
 [monitor](http://ruby-doc.org/stdlib-2.2.2/libdoc/monitor/rdoc/Monitor.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/monitor.rb)<br>[rubysl](https://github.com/rubysl/rubysl-monitor) | [Monitors](http://en.wikipedia.org/wiki/Monitor_%28synchronization%29) for multi-threaded code | -
 [mutex_m](http://ruby-doc.org/stdlib-2.2.2/libdoc/mutex_m/rdoc/Mutex_m.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/mutex_m.rb)<br>[rubysl](https://github.com/rubysl/rubysl-mutex_m) | A mixin that makes any object behave like a [mutex](http://ruby-doc.org/core-2.2.2/Mutex.html) | -
@@ -71,12 +69,9 @@ Library | Sources | Description | Alternatives
 [prime](http://ruby-doc.org/stdlib-2.2.2/libdoc/prime/rdoc/Prime.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/prime.rb)<br>[rubysl](https://github.com/rubysl/rubysl-prime) | Access to prime numbers and prime factorization | -
 [profiler](http://ruby-doc.org/stdlib-2.2.2/libdoc/profiler/rdoc/Profiler__.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/profiler.rb)<br>[rubysl](https://github.com/rubysl/rubysl-profiler) | Measures which methods are called and how long each method takes to complete. Auto-start via `require 'profile'` | [ruby-prof](https://github.com/ruby-prof/ruby-prof), [perftools.rb](https://github.com/tmm1/perftools.rb), [method_profiler](https://github.com/change/method_profiler)
 [pstore](http://ruby-doc.org/stdlib-2.2.2/libdoc/pstore/rdoc/PStore.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/pstore.rb)<br>[rubysl](https://github.com/rubysl/rubysl-pstore) | Transactional file storage for Ruby objects | -
-[psych](http://ruby-doc.org/stdlib-2.2.2/libdoc/psych/rdoc/Psych.html) **c**<br>(gem) | [mri](https://github.com/ruby/ruby/tree/trunk/ext/psych)<br>[gem](https://github.com/tenderlove/psych) | Support for YAML ([YAML Ain't Markup Language](http://en.wikipedia.org/wiki/YAML)) | -
 [pty](http://ruby-doc.org/stdlib-2.2.2/libdoc/pty/rdoc/PTY.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/pty)<br>[rubysl](https://github.com/rubysl/rubysl-pty) | Manages [pseudo terminals](http://en.wikipedia.org/wiki/Pseudo_terminal) | -
 [racc](http://ruby-doc.org/stdlib-2.2.2/libdoc/racc/parser/rdoc/Racc.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/racc)<br>[gem](https://github.com/tenderlove/racc) | A [YACC](http://en.wikipedia.org/wiki/Yacc)-like [LALR(1) parser generator](http://en.wikipedia.org/wiki/LALR_parser_generator) | [parslet](https://github.com/kschiess/parslet/), [citrus](https://github.com/mjackson/citrus), [treetop](https://github.com/nathansobo/treetop)
-[rake](http://ruby-doc.org/stdlib-2.2.2/libdoc/rake/rdoc/index.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/rake.rb)<br>[gem](https://github.com/ruby/rake) | A Ruby task runner, inspired by [make](http://en.wikipedia.org/wiki/Make_%28software%29) | [thor](http://whatisthor.com/), [boson](https://github.com/cldwalker/boson)
 [rbconfig](http://technicalpickles.com/posts/spelunking-your-ruby-installs-configuration-with-rbconfig/) | - | `RbConfig` is a Ruby constant that contains compile time information | -
-[rdoc](http://ruby-doc.org/stdlib-2.2.2/libdoc/rdoc/rdoc/RDoc.html) | [mri](https://github.com/ruby/ruby/blob/trunk/lib/rdoc.rb)<br>[gem](https://github.com/rdoc/rdoc) | Ruby documentation generator | [yard](http://yardoc.org/)
 [readline](http://ruby-doc.org/stdlib-2.2.2/libdoc/readline/rdoc/Readline.html) | [mri](https://github.com/ruby/ruby/tree/trunk/ext/readline)<br>[rubysl](https://github.com/rubysl/rubysl-readline) | Interface to [GNU Readline](http://directory.fsf.org/wiki/Readline) and [NetBSD Editline](http://thrysoee.dk/editline/) | [rb-readline](https://github.com/ConnorAtherton/rb-readline)
 [resolv](http://ruby-doc.org/stdlib-2.2.2/libdoc/resolv/rdoc/Resolv.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/resolv.rb)<br>[rubysl](https://github.com/rubysl/rubysl-resolv) | Thread-aware [DNS](http://en.wikipedia.org/wiki/Domain_Name_System) resolver. Will replace [Socket](http://ruby-doc.org/stdlib-2.2.2/libdoc/socket/rdoc/Socket.html)'s DNS via `require 'resolve-replace'` | [rubydns](https://github.com/ioquatix/rubydns), [net-dns](https://github.com/bluemonk/net-dns), [em-resolve-replace](https://github.com/mperham/em-resolv-replace)
 [rexml](http://ruby-doc.org/stdlib-2.2.2/libdoc/rexml/rdoc/REXML.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/rexml.rb)<br>[rubysl](https://github.com/rubysl/rubysl-rexml) | Support for XML ([Extensible Markup Language](http://en.wikipedia.org/wiki/XML)) | [nokogiri](http://www.nokogiri.org/), [oga](https://github.com/YorickPeterse/oga)
@@ -116,6 +111,30 @@ Library | Sources | Description | Alternatives
 [yaml](http://ruby-doc.org/stdlib-2.2.2/libdoc/yaml/rdoc/YAML.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/yaml.rb)<br>[rubysl](https://github.com/rubysl/rubysl-yaml) | Loads the psych yaml parser and sets `YAML = Psych` | -
 [zlib](http://ruby-doc.org/stdlib-2.2.2/libdoc/zlib/rdoc/Zlib.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/zlib)<br>[rubysl](https://github.com/rubysl/rubysl-zlib) | Interface to the [zlib compression library](http://en.wikipedia.org/wiki/Zlib) | -
 {:.table-20-10-50-X}
+
+## Default Gems
+
+Standard Ruby extensions that come as Ruby gems, so that they can be updated independently from Ruby.
+
+Gem | Sources | Description | Alternatives
+----|---------|-------------|-------------
+[bigdecimal](http://ruby-doc.org/stdlib-2.2.2/libdoc/bigdecimal/rdoc/BigDecimal.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/bigdecimal)<br>[rubysl](https://github.com/rubysl/rubysl-bigdecimal) | Support for arbitrary-precision floating point decimal arithmetic | -
+[io/console](http://ruby-doc.org/stdlib-2.2.2/libdoc/io/console/rdoc/IO.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/io/console)<br>[rubysl](https://github.com/rubysl/rubysl-io-console)<br>[gem](https://github.com/nobu/io-console) | Patches `IO` for simple and portable access to the console | -
+[json](http://ruby-doc.org/stdlib-2.2.2/libdoc/json/rdoc/JSON.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/json)<br>[gem](https://github.com/flori/json) | Support for JSON ([JavaScript Object Notation](http://en.wikipedia.org/wiki/JSON)) | [oj](https://github.com/ohler55/oj), [yajl-ruby](https://github.com/brianmario/yajl-ruby)
+[psych](http://ruby-doc.org/stdlib-2.2.2/libdoc/psych/rdoc/Psych.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/psych)<br>[gem](https://github.com/tenderlove/psych) | Support for YAML ([YAML Ain't Markup Language](http://en.wikipedia.org/wiki/YAML)) | -
+[rake](http://ruby-doc.org/stdlib-2.2.2/libdoc/rake/rdoc/index.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/rake.rb)<br>[gem](https://github.com/ruby/rake) | A Ruby task runner, inspired by [make](http://en.wikipedia.org/wiki/Make_%28software%29) | [thor](http://whatisthor.com/), [boson](https://github.com/cldwalker/boson)
+[rdoc](http://ruby-doc.org/stdlib-2.2.2/libdoc/rdoc/rdoc/RDoc.html) | [mri](https://github.com/ruby/ruby/blob/trunk/lib/rdoc.rb)<br>[gem](https://github.com/rdoc/rdoc) | Ruby documentation generator | [yard](http://yardoc.org/)
+
+## Bundled Gems
+
+Gems that will be installed together with Ruby.
+
+Gem | Description | Alternatives
+----|-------------|-------------
+[minitest](https://github.com/seattlerb/minitest) | Test/spec framework, comes with mocking and benchmark capabilities | [rspec](https://github.com/rspec/rspec)
+[power_assert](https://github.com/k-tsj/power_assert) | Debug tool that displays intermediate results of a method chain | -
+[test-unit](https://github.com/test-unit/test-unit) |  A xUnit family unit testing framework | [minitest](https://github.com/seattlerb/minitest), [rspec](https://github.com/rspec/rspec)
+
 
 [Something's wrong or missing? You can edit this list on GitHub!](https://github.com/janlelis/idiosyncratic-ruby.com/blob/master/source/posts/20-better-standards.html.md)
 
