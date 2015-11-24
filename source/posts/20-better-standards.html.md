@@ -55,7 +55,6 @@ Library | Sources | Description | Alternatives
 [net/imap](http://ruby-doc.org/stdlib-2.3.0/libdoc/net/imap/rdoc/Net/IMAP.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/net/imap.rb)<br>[rubysl](https://github.com/rubysl/rubysl-net-imap) | Support for IMAP ([Internet Message Access Protocol](http://en.wikipedia.org/wiki/Internet_Message_Access_Protocol)) | [em-imap](https://github.com/ConradIrwin/em-imap)
 [net/pop](http://ruby-doc.org/stdlib-2.3.0/libdoc/net/pop/rdoc/Net/POP3.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/net/pop.rb)<br>[rubysl](https://github.com/rubysl/rubysl-net-pop) | Support for POP3 ([Post Office Protocol](http://en.wikipedia.org/wiki/Post_Office_Protocol)) | -
 [net/smtp](http://ruby-doc.org/stdlib-2.3.0/libdoc/net/smtp/rdoc/Net/SMTP.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/net/smtp.rb)<br>[rubysl](https://github.com/rubysl/rubysl-net-smtp) | Support for SMTP ([Simple Mail Transfer Protocol](http://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol)) | -
-[net/telnet](http://ruby-doc.org/stdlib-2.3.0/libdoc/net/telnet/rdoc/Net/Telnet.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/net/telnet.rb)<br>[rubysl](https://github.com/rubysl/rubysl-net-telnet) | Support for [Telnet](http://en.wikipedia.org/wiki/Telnet) | -
 [nkf](http://ruby-doc.org/stdlib-2.3.0/libdoc/nkf/rdoc/NKF.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/nkf)<br>[rubysl](https://github.com/rubysl/rubysl-nkf) | [Kanji](https://en.wikipedia.org/wiki/Kanji) encoding converter | -
 [objspace](http://ruby-doc.org/stdlib-2.3.0/libdoc/objspace/rdoc/ObjectSpace.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/objspace) | Adds more statistics methods to `ObjectSpace` | -
 [observer](http://ruby-doc.org/stdlib-2.3.0/libdoc/observer/rdoc/Observable.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/observer.rb)<br>[rubysl](https://github.com/rubysl/rubysl-observer) | Implementation of the [observer pattern](http://en.wikipedia.org/wiki/Observer_pattern), a way to let interested other objects know o an objetc's updates | [microevent](https://github.com/janlelis/microevent.rb), [signal_lamp](https://github.com/JEG2/signal_lamp/)
@@ -122,7 +121,6 @@ Gem | Sources | Description | Alternatives
 [io/console](http://ruby-doc.org/stdlib-2.3.0/libdoc/io/console/rdoc/IO.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/io/console)<br>[rubysl](https://github.com/rubysl/rubysl-io-console)<br>[gem](https://github.com/nobu/io-console) | Patches `IO` for simple and portable access to the console | -
 [json](http://ruby-doc.org/stdlib-2.3.0/libdoc/json/rdoc/JSON.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/json)<br>[gem](https://github.com/flori/json) | Support for JSON ([JavaScript Object Notation](http://en.wikipedia.org/wiki/JSON)) | [oj](https://github.com/ohler55/oj), [yajl-ruby](https://github.com/brianmario/yajl-ruby)
 [psych](http://ruby-doc.org/stdlib-2.3.0/libdoc/psych/rdoc/Psych.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/psych)<br>[gem](https://github.com/tenderlove/psych) | Support for YAML ([YAML Ain't Markup Language](http://en.wikipedia.org/wiki/YAML)) | -
-[rake](http://ruby-doc.org/stdlib-2.3.0/libdoc/rake/rdoc/index.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/rake.rb)<br>[gem](https://github.com/ruby/rake) | A Ruby task runner, inspired by [make](http://en.wikipedia.org/wiki/Make_%28software%29) | [thor](http://whatisthor.com/), [boson](https://github.com/cldwalker/boson)
 [rdoc](http://ruby-doc.org/stdlib-2.3.0/libdoc/rdoc/rdoc/RDoc.html) | [mri](https://github.com/ruby/ruby/blob/trunk/lib/rdoc.rb)<br>[gem](https://github.com/rdoc/rdoc) | Ruby documentation generator | [yard](http://yardoc.org/)
 
 ## Bundled Gems
@@ -131,8 +129,11 @@ Gems that will be installed together with Ruby.
 
 Gem | Description | Alternatives
 ----|-------------|-------------
+[did_you_mean](https://github.com/yuki24/did_you_mean) | Patches error messages to suggest correct spelling of methods/classes/variables | -
 [minitest](https://github.com/seattlerb/minitest) | Test/spec framework, comes with mocking and benchmark capabilities | [rspec](https://github.com/rspec/rspec)
+[net-telnet](https://github.com/ruby/net-telnet) | Support for [Telnet](http://en.wikipedia.org/wiki/Telnet) | -
 [power_assert](https://github.com/k-tsj/power_assert) | Debug tool that displays intermediate results of a method chain | -
+[rake](http://ruby-doc.org/stdlib-2.3.0/libdoc/rake/rdoc/index.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/rake.rb)<br>[gem](https://github.com/ruby/rake) | A Ruby task runner, inspired by [make](http://en.wikipedia.org/wiki/Make_%28software%29) | [thor](http://whatisthor.com/), [boson](https://github.com/cldwalker/boson)
 [test-unit](https://github.com/test-unit/test-unit) |  A xUnit family unit testing framework | [minitest](https://github.com/seattlerb/minitest), [rspec](https://github.com/rspec/rspec)
 
 
