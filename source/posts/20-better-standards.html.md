@@ -122,20 +122,21 @@ Gem | Sources | Description | Alternatives
 [json](http://ruby-doc.org/stdlib-2.3.0/libdoc/json/rdoc/JSON.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/json)<br>[gem](https://github.com/flori/json) | Support for JSON ([JavaScript Object Notation](http://en.wikipedia.org/wiki/JSON)) | [oj](https://github.com/ohler55/oj), [yajl-ruby](https://github.com/brianmario/yajl-ruby)
 [psych](http://ruby-doc.org/stdlib-2.3.0/libdoc/psych/rdoc/Psych.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/psych)<br>[gem](https://github.com/tenderlove/psych) | Support for YAML ([YAML Ain't Markup Language](http://en.wikipedia.org/wiki/YAML)) | -
 [rdoc](http://ruby-doc.org/stdlib-2.3.0/libdoc/rdoc/rdoc/RDoc.html) | [mri](https://github.com/ruby/ruby/blob/trunk/lib/rdoc.rb)<br>[gem](https://github.com/rdoc/rdoc) | Ruby documentation generator | [yard](http://yardoc.org/)
+{:.table-20-10-50-X}
 
 ## Bundled Gems
 
-Gems that will be installed together with Ruby.
+Gems that will be installed together with Ruby. Versions as of Ruby 2.3 (2.2).
 
-Gem | Description | Alternatives
-----|-------------|-------------
-[did_you_mean](https://github.com/yuki24/did_you_mean) | Patches error messages to suggest correct spelling of methods/classes/variables | -
-[minitest](https://github.com/seattlerb/minitest) | Test/spec framework, comes with mocking and benchmark capabilities | [rspec](https://github.com/rspec/rspec)
-[net-telnet](https://github.com/ruby/net-telnet) | Support for [Telnet](http://en.wikipedia.org/wiki/Telnet) | -
-[power_assert](https://github.com/k-tsj/power_assert) | Debug tool that displays intermediate results of a method chain | -
-[rake](http://ruby-doc.org/stdlib-2.3.0/libdoc/rake/rdoc/index.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/rake.rb)<br>[gem](https://github.com/ruby/rake) | A Ruby task runner, inspired by [make](http://en.wikipedia.org/wiki/Make_%28software%29) | [thor](http://whatisthor.com/), [boson](https://github.com/cldwalker/boson)
-[test-unit](https://github.com/test-unit/test-unit) |  A xUnit family unit testing framework | [minitest](https://github.com/seattlerb/minitest), [rspec](https://github.com/rspec/rspec)
-
+Gem | Version | Description | Alternatives
+----|---------|-------------|-------------
+[did_you_mean](https://github.com/yuki24/did_you_mean) | 1.0.0 | Patches error messages to suggest correct spelling of methods/classes/variables | -
+[minitest](https://github.com/seattlerb/minitest) | 5.8.3 (5.4.3) | Test/spec framework, comes with mocking and benchmark capabilities | [rspec](https://github.com/rspec/rspec)
+[net-telnet](https://github.com/ruby/net-telnet) | 0.1.1 | Support for [Telnet](http://en.wikipedia.org/wiki/Telnet) | -
+[power_assert](https://github.com/k-tsj/power_assert) | 0.2.6 (0.2.2) | Debug tool that displays intermediate results of a method chain | -
+[rake](https://github.com/ruby/rake) | 10.4.2 | A Ruby task runner, inspired by [make](http://en.wikipedia.org/wiki/Make_%28software%29) | [thor](http://whatisthor.com/), [boson](https://github.com/cldwalker/boson)
+[test-unit](https://github.com/test-unit/test-unit) | 3.1.5 (3.0.8) | A xUnit family unit testing framework | [minitest](https://github.com/seattlerb/minitest), [rspec](https://github.com/rspec/rspec)
+{:.table-20-15-45-X}
 
 [Something's wrong or missing? You can edit this list on GitHub!](https://github.com/janlelis/idiosyncratic-ruby.com/blob/master/source/posts/20-better-standards.html.md)
 
