@@ -96,7 +96,7 @@ p JSON,YAML
 
 <h2 id="regex-always-wins">Regex Always Wins</h2>
 
-<p>This is one of the golden rules of golfing. Especially, combining the <a href="http://ruby-doc.org/core-2.2.2/String.html#method-i-gsub">block syntax of <code>gsub</code></a> with the <a href="http://idiosyncratic-ruby.com/9-globalization.html">perlish regex variables</a> can be very expressive!</p>
+<p>This is one of the golden rules of golfing. Especially, combining the <a href="http://ruby-doc.org/core-2.3.0/String.html#method-i-gsub">block syntax of <code>gsub</code></a> with the <a href="http://idiosyncratic-ruby.com/9-globalization.html">perlish regex variables</a> can be very expressive!</p>
 
 <pre><code>"some_string".gsub(/(^|_)(\w)/){$2.upcase}
 </code></pre>
@@ -112,7 +112,7 @@ p JSON,YAML
 
 <h2 id="one-more-or-less">One More or Less</h2>
 
-<p>In some instances, you cannot use <code>i+1</code> or <code>i-1</code> without wrapping them in parenthesis. No problem, <a href="http://ruby-doc.org/core-2.2.2/Fixnum.html#method-i-7E">unary complement</a> to the rescue:</p>
+<p>In some instances, you cannot use <code>i+1</code> or <code>i-1</code> without wrapping them in parenthesis. No problem, <a href="http://ruby-doc.org/core-2.3.0/Fixnum.html#method-i-7E">unary complement</a> to the rescue:</p>
 
 <pre><code>-~42 # =&gt; 43
 ~-42 # =&gt; 41
@@ -155,7 +155,7 @@ p JSON,YAML
           On <a href="/">Idiosyncratic Ruby</a> by <a href="https://github.com/janlelis">Jan Lelis</a><br>
         </div>
         About Syntax, Golf, Strings |
-        Last Update: 2015-05-27
+        Last Update: 2015-11-24
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
