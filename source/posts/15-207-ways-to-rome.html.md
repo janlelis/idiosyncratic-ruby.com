@@ -1,5 +1,5 @@
 ---
-title: 207 Ways to Rome
+title: 210 Ways to Rome
 date: 2015-05-15
 tags: syntax, strings
 commit: dbb043e5ff98ddb776048d6f8c41aa1afc84422b
@@ -21,7 +21,7 @@ ARTICLE
 
 <code>?R</code>
 
-## (6) Heredocs
+## (9) Heredocs
 
 <pre><code>&lt;&lt;"STRING"
 R
@@ -44,6 +44,18 @@ R
 STRING</code></pre>
 
 <pre><code>&lt;&lt;-STRING
+R
+STRING</code></pre>
+
+<pre><code>&lt;&lt;~"STRING"
+R
+STRING</code></pre>
+
+<pre><code>&lt;&lt;~'STRING'
+R
+STRING</code></pre>
+
+<pre><code>&lt;&lt;~STRING
 R
 STRING</code></pre>
 
