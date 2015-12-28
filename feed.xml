@@ -2710,7 +2710,7 @@ expecting end-of-inputYIKES
 </content>
   </entry>
   <entry>
-    <title>207 Ways to Rome</title>
+    <title>210 Ways to Rome</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/15-207-ways-to-rome.html"/>
     <id>http://idiosyncratic-ruby.com/15-207-ways-to-rome.html</id>
     <published>2015-05-15T02:00:00+02:00</published>
@@ -2734,7 +2734,7 @@ expecting end-of-inputYIKES
 
 &lt;p&gt;&lt;code&gt;?R&lt;/code&gt;&lt;/p&gt;
 
-&lt;h2 id="heredocs"&gt;(6) Heredocs&lt;/h2&gt;
+&lt;h2 id="heredocs"&gt;(9) Heredocs&lt;/h2&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;lt;&amp;lt;"STRING"
 R
@@ -2757,6 +2757,18 @@ R
 STRING&lt;/code&gt;&lt;/pre&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;lt;&amp;lt;-STRING
+R
+STRING&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;&amp;lt;~"STRING"
+R
+STRING&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;&amp;lt;~'STRING'
+R
+STRING&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;&amp;lt;~STRING
 R
 STRING&lt;/code&gt;&lt;/pre&gt;
 
