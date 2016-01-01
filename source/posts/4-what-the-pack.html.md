@@ -158,7 +158,7 @@ Range: -9223372036854775808 to 9223372036854775807
 
 All the previous examples used the native byte order, which means, that the operating system defines, if the more significant bytes come first (little-endian) or last (big-endian). You will find more information about ["endianess" on wikipedia](http://en.wikipedia.org/wiki/Endianness).
 
-If you don't want to rely on your operating system to define byte order, you can add `<` for big-endianess or `>` for little-endianess to your template's directives:
+If you don't want to rely on your operating system to define byte order, you can add `>` for big-endianess or `<` for little-endianess to your template's directives:
 
     "\x01\x00\x02\x00".unpack("S<*") #=> [1, 2]
     "\x01\x00\x02\x00".unpack("S>*") #=> [256, 512]
