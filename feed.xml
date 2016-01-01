@@ -5041,7 +5041,7 @@ puts "#{`ps -o rss -p #{Process.pid}`.strip.split.last.to_i / 1024.0} MB"
 
 &lt;p&gt;All the previous examples used the native byte order, which means, that the operating system defines, if the more significant bytes come first (little-endian) or last (big-endian). You will find more information about &lt;a href="http://en.wikipedia.org/wiki/Endianness"&gt;"endianess" on wikipedia&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;If you don't want to rely on your operating system to define byte order, you can add &lt;code&gt;&amp;lt;&lt;/code&gt; for big-endianess or &lt;code&gt;&amp;gt;&lt;/code&gt; for little-endianess to your template's directives:&lt;/p&gt;
+&lt;p&gt;If you don't want to rely on your operating system to define byte order, you can add &lt;code&gt;&amp;gt;&lt;/code&gt; for big-endianess or &lt;code&gt;&amp;lt;&lt;/code&gt; for little-endianess to your template's directives:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;"\x01\x00\x02\x00".unpack("S&amp;lt;*") #=&amp;gt; [1, 2]
 "\x01\x00\x02\x00".unpack("S&amp;gt;*") #=&amp;gt; [256, 512]
