@@ -9,7 +9,17 @@ There is an operator in Ruby, that does nothing: The [unary plus operator](https
 
 ARTICLE
 
-This is awesome, an operator for free! What can be done with it?
+This is awesome, an operator for free! How can we utilize it?
+
+**Update:** In Ruby 2.3, the plus operator got its first purpose: [Create an unfrozen copy of a string](https://bugs.ruby-lang.org/issues/11782)
+
+    string = "frozen string".freeze
+    string.object_id # => 19066860
+    string.frozen? # => true
+
+    copy = +string
+    copy.object_id # => 19012140
+    copy.frozen? # => false
 
 ## 1 | Logging
 
