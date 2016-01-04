@@ -414,7 +414,7 @@
 
 &lt;pre&gt;&lt;code&gt;string = "frozen string".freeze
 string.object_id # =&amp;gt; 19066860
-	string.frozen? # =&amp;gt; true
+string.frozen? # =&amp;gt; true
 
 copy = +string
 copy.object_id # =&amp;gt; 19012140
