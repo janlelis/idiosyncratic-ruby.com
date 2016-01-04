@@ -408,7 +408,18 @@
 
 &lt;p&gt;&lt;/p&gt;
 
-&lt;p&gt;This is awesome, an operator for free! What can be done with it?&lt;/p&gt;
+&lt;p&gt;This is awesome, an operator for free! How can we utilize it?&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; In Ruby 2.3, the plus operator got its first purpose: &lt;a href="https://bugs.ruby-lang.org/issues/11782"&gt;Create an unfrozen copy of a string&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;string = "frozen string".freeze
+string.object_id # =&amp;gt; 19066860
+	string.frozen? # =&amp;gt; true
+
+copy = +string
+copy.object_id # =&amp;gt; 19012140
+copy.frozen? # =&amp;gt; false
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id="logging"&gt;1 | Logging&lt;/h2&gt;
 

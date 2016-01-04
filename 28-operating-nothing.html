@@ -28,7 +28,18 @@
 
 <p></p>
 
-<p>This is awesome, an operator for free! What can be done with it?</p>
+<p>This is awesome, an operator for free! How can we utilize it?</p>
+
+<p><strong>Update:</strong> In Ruby 2.3, the plus operator got its first purpose: <a href="https://bugs.ruby-lang.org/issues/11782">Create an unfrozen copy of a string</a></p>
+
+<pre><code>string = "frozen string".freeze
+string.object_id # =&gt; 19066860
+	string.frozen? # =&gt; true
+
+copy = +string
+copy.object_id # =&gt; 19012140
+copy.frozen? # =&gt; false
+</code></pre>
 
 <h2 id="logging">1 | Logging</h2>
 
@@ -191,7 +202,7 @@ end
           On <a href="/">Idiosyncratic Ruby</a> by <a href="https://github.com/janlelis">Jan Lelis</a><br>
         </div>
         About Core, Strings |
-        Last Update: 2015-05-28
+        Last Update: 2016-01-04
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
