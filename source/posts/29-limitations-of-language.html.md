@@ -34,6 +34,11 @@ ARTICLE
     >> class Eurucamp end
     # syntax error, unexpected $end
 
+**Update:** Since Ruby 2.3 this is no longer invalid syntax:
+
+    >> class Eurucamp end
+    # => nil
+
 ## Ambiguous if to Parse `~` Unary or as Part of Binary Match Operator
 
     >> $_="Eurucamp X"
