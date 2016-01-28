@@ -13,23 +13,30 @@ ARTICLE
     a # => "$"
     b # => "€"
 
-It is simple to understand and looks good. But Ruby would not be Ruby, if there weren"t for more obscure ways to assign variables: You could rewrite the previous example to create local variables in a more subtle way:
+It is simple to understand and looks good. But Ruby would not be Ruby, if there weren't for more obscure ways to assign variables: You could rewrite the previous example to create local variables in a more subtle way:
 
     %r<(?'a'.)(?'b'.)>=~"$" "€"
     a # => "$"
     b # => "€"
 
+## Implicit Local Variables Through Regex Macthing
 
-This implicit creation of local variables is not recommended, because obviously, it violates **PrOWCoFoHuNoMa** (Principle of writing code for humans, not machines).
+Without the fancy obfuscations, the example above would look like this:
 
-By the way, this will not work, when you swap operands:
+    /(?<a>.)(?<b>.)/ =~ "$€"
+    a # => "$"
+    b # => "€"
 
-    "$" "€"=~%r<(?<a>.)(?<b>.)>
+The regex matching operator `=~` will create new local variables, when used together with [named captures](http://ruby-doc.org/core-2.3.0/Regexp.html#class-Regexp-label-Capturing). However, this is not recommended, because obviously, it violates **PrOWCoFoHuNoMa** (Principle of writing code for humans, not machines).
+
+By the way, this will not work, if you swap operands:
+
+    "$€" =~ /(?<a>.)(?<b>.)/
     a # NameError: ...
 
 ## One More Option
 
-There is also a third way to set local variables: binding's `local_variable_set`, but it does not really count, since you cannot introduce new variables this way:
+In actuality, there is also a third way to set local variables: binding's `local_variable_set`, but it does not really count, since you cannot introduce new variables this way:
 
     a = nil
     binding.local_variable_set :a, "$"
