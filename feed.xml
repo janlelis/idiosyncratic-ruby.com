@@ -18,11 +18,15 @@
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;Why I — still — often use Ruby: It is a language with a &lt;strong&gt;terrific community&lt;/strong&gt; (welcoming and always questioning itself) and &lt;strong&gt;ecosystem&lt;/strong&gt; (a lot of problems &lt;a href="https://rubygems.org/"&gt;already&lt;/a&gt; &lt;a href="https://www.ruby-toolbox.com/"&gt;solved&lt;/a&gt;), which is &lt;strong&gt;beautiful&lt;/strong&gt; (focus on productivity), a little &lt;strong&gt;conservative&lt;/strong&gt; (easy to work with), and &lt;strong&gt;general purpose&lt;/strong&gt; (a good choice in most cases).&lt;/p&gt;
+    <content type="html">&lt;p&gt;This is a summary of reasons why you should still use Ruby:&lt;/p&gt;
+
+&lt;p&gt;It is a language with a &lt;strong&gt;terrific community&lt;/strong&gt; (welcoming and always questioning itself) and &lt;strong&gt;ecosystem&lt;/strong&gt; (a lot of problems &lt;a href="https://rubygems.org/"&gt;already&lt;/a&gt; &lt;a href="https://www.ruby-toolbox.com/"&gt;solved&lt;/a&gt;), which is &lt;strong&gt;beautiful&lt;/strong&gt; (focus on productivity), a little &lt;strong&gt;conservative&lt;/strong&gt; (in the sense that it is easy to work with), and &lt;strong&gt;general purpose&lt;/strong&gt; (a good choice in most cases).&lt;/p&gt;
+
+&lt;p&gt;For a deeper understanding of Ruby's principles, reading &lt;a href="https://en.wikipedia.org/wiki/Yukihiro_Matsumoto"&gt;matz&lt;/a&gt; is highly recommended:&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
-&lt;h2 id="understanding-matz"&gt;Understanding Matz&lt;/h2&gt;
+&lt;h2 id="the-philosophy-behind-ruby"&gt;The Philosophy Behind Ruby&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href="https://www.safaribooksonline.com/library/view/beautiful-code/9780596510046/ch29.html"&gt;Essay: Treating Code As an Essay (excerpt)&lt;/a&gt;&lt;/li&gt;
@@ -316,6 +320,12 @@
 
 &amp;gt;&amp;gt; class Eurucamp end
 # syntax error, unexpected $end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; Since Ruby 2.3 this is no longer invalid syntax:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt; class Eurucamp end
+# =&amp;gt; nil
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id="ambiguous-if-to-parse--unary-or-as-part-of-binary-match-operator"&gt;Ambiguous if to Parse &lt;code&gt;~&lt;/code&gt; Unary or as Part of Binary Match Operator&lt;/h2&gt;
@@ -3019,24 +3029,33 @@ a # =&amp;gt; "$"
 b # =&amp;gt; "€"
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;It is simple to understand and looks good. But Ruby would not be Ruby, if there weren"t for more obscure ways to assign variables: You could rewrite the previous example to create local variables in a more subtle way:&lt;/p&gt;
+&lt;p&gt;It is simple to understand and looks good. But Ruby would not be Ruby, if there weren't for more obscure ways to assign variables: You could rewrite the previous example to create local variables in a more subtle way:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;%r&amp;lt;(?'a'.)(?'b'.)&amp;gt;=~"$" "€"
 a # =&amp;gt; "$"
 b # =&amp;gt; "€"
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;This implicit creation of local variables is not recommended, because obviously, it violates &lt;strong&gt;PrOWCoFoHuNoMa&lt;/strong&gt; (Principle of writing code for humans, not machines).&lt;/p&gt;
+&lt;h2 id="implicit-local-variables-through-regex-macthing"&gt;Implicit Local Variables Through Regex Macthing&lt;/h2&gt;
 
-&lt;p&gt;By the way, this will not work, when you swap operands:&lt;/p&gt;
+&lt;p&gt;Without the fancy obfuscations, the example above would look like this:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;"$" "€"=~%r&amp;lt;(?&amp;lt;a&amp;gt;.)(?&amp;lt;b&amp;gt;.)&amp;gt;
+&lt;pre&gt;&lt;code&gt;/(?&amp;lt;a&amp;gt;.)(?&amp;lt;b&amp;gt;.)/ =~ "$€"
+a # =&amp;gt; "$"
+b # =&amp;gt; "€"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The regex matching operator &lt;code&gt;=~&lt;/code&gt; will create new local variables, when used together with &lt;a href="http://ruby-doc.org/core-2.3.0/Regexp.html#class-Regexp-label-Capturing"&gt;named captures&lt;/a&gt;. However, this is not recommended, because obviously, it violates &lt;strong&gt;PrOWCoFoHuNoMa&lt;/strong&gt; (Principle of writing code for humans, not machines).&lt;/p&gt;
+
+&lt;p&gt;By the way, this will not work, if you swap operands:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"$€" =~ /(?&amp;lt;a&amp;gt;.)(?&amp;lt;b&amp;gt;.)/
 a # NameError: ...
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id="one-more-option"&gt;One More Option&lt;/h2&gt;
 
-&lt;p&gt;There is also a third way to set local variables: binding's &lt;code&gt;local_variable_set&lt;/code&gt;, but it does not really count, since you cannot introduce new variables this way:&lt;/p&gt;
+&lt;p&gt;In actuality, there is also a third way to set local variables: binding's &lt;code&gt;local_variable_set&lt;/code&gt;, but it does not really count, since you cannot introduce new variables this way:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;a = nil
 binding.local_variable_set :a, "$"
