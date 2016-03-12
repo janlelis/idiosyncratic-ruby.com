@@ -7,11 +7,15 @@ commit: 8c3a41f41422042fb36a66a7d157b5e0cc02ae00
 
 Ruby's [Struct](http://ruby-doc.org/core-2.3.0/Struct.html) class is a convenient way to create Ruby classes, which already have some attributes defined. If you are not familiar with structs, you should watch [Avdi Grimm's introduction to structs](http://www.rubytapas.com/episodes/20-Struct)!
 
-But there is something better than structs:
+But in many cases there is something better than structs:
 
 ARTICLE
 
 ## Gems that Define Attributes for "Plain Old Ruby Objects"
+
+Instead of using a specialized struct-class (which has different semantics), you could also go with normal Ruby classes. What follows is a collection of gems you could use for this purpose.
+
+At the bottom, there are also some tips, [when to use structs and what to bear in mind regarding structs](#structs-are-still-useful-as-value-objects).
 
 ### Virtus
 
