@@ -26,11 +26,15 @@
       <article class="post">
         <p>Ruby's <a href="http://ruby-doc.org/core-2.3.0/Struct.html">Struct</a> class is a convenient way to create Ruby classes, which already have some attributes defined. If you are not familiar with structs, you should watch <a href="http://www.rubytapas.com/episodes/20-Struct">Avdi Grimm's introduction to structs</a>!</p>
 
-<p>But there is something better than structs:</p>
+<p>But in many cases there is something better than structs:</p>
 
 <p></p>
 
 <h2 id="gems-that-define-attributes-for-plain-old-ruby-objects">Gems that Define Attributes for "Plain Old Ruby Objects"</h2>
+
+<p>Instead of using a specialized struct-class (which has different semantics), you could also go with normal Ruby classes. What follows is a collection of gems you could use for this purpose.</p>
+
+<p>At the bottom, there are also some tips, <a href="#structs-are-still-useful-as-value-objects">when to use structs and what to bear in mind regarding structs</a>.</p>
 
 <h3 id="virtus">Virtus</h3>
 
@@ -311,7 +315,7 @@ end
           On <a href="/">Idiosyncratic Ruby</a> by <a href="https://github.com/janlelis">Jan Lelis</a><br>
         </div>
         About Core |
-        Last Update: 2015-11-24
+        Last Update: 2016-03-12
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

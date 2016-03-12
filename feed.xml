@@ -1751,7 +1751,7 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/rubygems/rdoc/Gem.html"&gt;rubygems&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/rubygems/rdoc/Gem.html"&gt;rubygems&lt;/a&gt;&lt;br /&gt;(auto-require)&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/rubygems.rb"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/rubygems/rubygems/"&gt;rubygems&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Manages Ruby libraries. Can be required as &lt;code&gt;ubygems&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
@@ -1889,7 +1889,7 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/unicode_normalize/rdoc/UnicodeNormalize.html"&gt;unicode_normalize&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/unicode_normalize/rdoc/UnicodeNormalize.html"&gt;unicode_normalize&lt;/a&gt;&lt;br /&gt;(auto-require)&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/unicode_normalize.rb"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/rubysl/rubysl-unicode_normalize"&gt;rubysl&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Adds a &lt;a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/unicode_normalize/rdoc/String.html#method-i-unicode_normalize"&gt;String#unicode_normalize&lt;/a&gt; method which &lt;a href="http://unicode.org/reports/tr15/"&gt;normalizes unicode strings&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/knu/ruby-unf"&gt;unf&lt;/a&gt;, &lt;a href="https://github.com/blackwinter/unicode"&gt;unicode&lt;/a&gt;&lt;/td&gt;
@@ -2007,7 +2007,7 @@ $ ruby -r uri -e 'p URI.regexp'
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="https://github.com/yuki24/did_you_mean"&gt;did_you_mean&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/yuki24/did_you_mean"&gt;did_you_mean&lt;/a&gt;&lt;br /&gt;(auto-require)&lt;/td&gt;
       &lt;td&gt;1.0.0&lt;/td&gt;
       &lt;td&gt;Patches error messages to suggest correct spelling of methods/classes/variables&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
@@ -2172,11 +2172,15 @@ puts a.map(&amp;amp;:inspect)
     </author>
     <content type="html">&lt;p&gt;Ruby's &lt;a href="http://ruby-doc.org/core-2.3.0/Struct.html"&gt;Struct&lt;/a&gt; class is a convenient way to create Ruby classes, which already have some attributes defined. If you are not familiar with structs, you should watch &lt;a href="http://www.rubytapas.com/episodes/20-Struct"&gt;Avdi Grimm's introduction to structs&lt;/a&gt;!&lt;/p&gt;
 
-&lt;p&gt;But there is something better than structs:&lt;/p&gt;
+&lt;p&gt;But in many cases there is something better than structs:&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
 &lt;h2 id="gems-that-define-attributes-for-plain-old-ruby-objects"&gt;Gems that Define Attributes for "Plain Old Ruby Objects"&lt;/h2&gt;
+
+&lt;p&gt;Instead of using a specialized struct-class (which has different semantics), you could also go with normal Ruby classes. What follows is a collection of gems you could use for this purpose.&lt;/p&gt;
+
+&lt;p&gt;At the bottom, there are also some tips, &lt;a href="#structs-are-still-useful-as-value-objects"&gt;when to use structs and what to bear in mind regarding structs&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h3 id="virtus"&gt;Virtus&lt;/h3&gt;
 
@@ -3393,11 +3397,17 @@ ENV[42] = "oops" # not quite: TypeError
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;This is an overview of all the special, two-letter global variables in Ruby, which Ruby &lt;a href="http://www.perlmonks.org/?node_id=353259"&gt;inherited from Perl&lt;/a&gt;. For the purpose of improving code readability, Ruby comes with &lt;a href="https://github.com/ruby/ruby/blob/trunk/lib/English.rb"&gt;English.rb&lt;/a&gt; in its standard library, which provides non-cryptic aliases and explainations.&lt;/p&gt;
+    <content type="html">&lt;p&gt;This is an overview of all the special, two-letter (and other) global variables in Ruby, which Ruby &lt;a href="http://www.perlmonks.org/?node_id=353259"&gt;inherited from Perl&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;For the purpose of improving code readability, Ruby comes with &lt;a href="https://github.com/ruby/ruby/blob/trunk/lib/English.rb"&gt;English.rb&lt;/a&gt; in its standard library (or &lt;a href="https://github.com/janlelis/Deutsch.rb/blob/master/lib/Deutsch.rb"&gt;Deutsch.rb&lt;/a&gt; as gem), which provides non-cryptic aliases and some documentation.&lt;/p&gt;
+
+&lt;p&gt;Ruby also defines some three-letter global variables that mirror CLI options (&lt;code&gt;$-…&lt;/code&gt;)&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
-&lt;h2 id="types-of-global-variables"&gt;Types of Global Variables&lt;/h2&gt;
+&lt;h2 id="types-of-special-global-variables"&gt;Types of Special Global Variables&lt;/h2&gt;
+
+&lt;p&gt;Idiosyncratically, not all special global variables are global:&lt;/p&gt;
 
 &lt;table class="table-20-X"&gt;
   &lt;thead&gt;
@@ -3409,7 +3419,7 @@ ENV[42] = "oops" # not quite: TypeError
   &lt;tbody&gt;
     &lt;tr&gt;
       &lt;td&gt;global&lt;/td&gt;
-      &lt;td&gt;Real Global variable&lt;/td&gt;
+      &lt;td&gt;Real global variable&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;thread&lt;/td&gt;
@@ -3421,7 +3431,7 @@ ENV[42] = "oops" # not quite: TypeError
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;defunct&lt;/td&gt;
-      &lt;td&gt;Not working (anymore)&lt;/td&gt;
+      &lt;td&gt;Not working, anymore (removed from Ruby)&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;read-only&lt;/td&gt;
@@ -3434,11 +3444,11 @@ ENV[42] = "oops" # not quite: TypeError
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;Not all special global variabales are global. This is definitely idiosyncratic.&lt;/p&gt;
+&lt;h2 id="list-of-all-special-global-variables"&gt;List of All Special Global Variables&lt;/h2&gt;
 
-&lt;h2 id="list-of-all-two-letter-global-variables"&gt;List of All Two-Letter Global Variables&lt;/h2&gt;
+&lt;p&gt;The first table contains all two-letter variables and their aliases:&lt;/p&gt;
 
-&lt;table class="table-15-20-40-15-X"&gt;
+&lt;table class="table-12-20-36-14-X"&gt;
   &lt;thead&gt;
     &lt;tr&gt;
       &lt;th&gt;Perlish&lt;/th&gt;
@@ -3510,13 +3520,13 @@ ENV[42] = "oops" # not quite: TypeError
       &lt;td&gt;global&lt;/td&gt;
       &lt;td&gt;$DEFAULT_OUTPUT&lt;/td&gt;
       &lt;td&gt;$stdout¹&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://robots.thoughtbot.com/io-in-ruby"&gt;Article&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://robots.thoughtbot.com/io-in-ruby"&gt;IO in Ruby&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;$&amp;lt;&lt;/td&gt;
       &lt;td&gt;global&lt;/td&gt;
       &lt;td&gt;$DEFAULT_INPUT&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;- (ARGF)&lt;/td&gt;
       &lt;td&gt;&lt;a href="http://www.rubydoc.info/stdlib/core/ARGF"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -3524,7 +3534,7 @@ ENV[42] = "oops" # not quite: TypeError
       &lt;td&gt;read-only&lt;/td&gt;
       &lt;td&gt;$PROCESS_ID&lt;/td&gt;
       &lt;td&gt;$PID&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://allenlsy.com/working-with-unix-process-in-ruby/"&gt;Article&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://allenlsy.com/working-with-unix-process-in-ruby/"&gt;Unix Processes&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;$?&lt;/td&gt;
@@ -3552,7 +3562,7 @@ ENV[42] = "oops" # not quite: TypeError
       &lt;td&gt;(read-only)&lt;/td&gt;
       &lt;td&gt;$ARGV&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://jnoconor.github.io/blog/2013/10/13/a-short-explanation-of-argv/"&gt;Article&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://jnoconor.github.io/blog/2013/10/13/a-short-explanation-of-argv/"&gt;Explanation&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;$&amp;amp;&lt;/td&gt;
@@ -3587,14 +3597,14 @@ ENV[42] = "oops" # not quite: TypeError
       &lt;td&gt;(read-only)&lt;/td&gt;
       &lt;td&gt;$LOAD_PATH¹&lt;/td&gt;
       &lt;td&gt;$-I¹&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://selfless-singleton.rickwinfrey.com/2012/12/20/-rubys-load-path/"&gt;Article&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://ruby-hacking-guide.github.io/load.html"&gt;RHG: Loading&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;$"&lt;/td&gt;
       &lt;td&gt;(read-only)&lt;/td&gt;
       &lt;td&gt;$LOADED_FEATURES¹&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://ruby-hacking-guide.github.io/load.html"&gt;Article&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://ruby-hacking-guide.github.io/load.html"&gt;RHG: Loading&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;$0&lt;/td&gt;
@@ -3615,7 +3625,7 @@ ENV[42] = "oops" # not quite: TypeError
       &lt;td&gt;global&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://manpages.ubuntu.com/manpages/intrepid/man1/ruby.1.html#contenttoc4"&gt;Manpage&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://idiosyncratic-ruby.com/17-stream-editing.html#auto-splitting-lines"&gt;Auto-Splitting Lines&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
@@ -3624,133 +3634,79 @@ ENV[42] = "oops" # not quite: TypeError
 ² No &lt;em&gt;T&lt;/em&gt;, because it stands for &lt;em&gt;PARENTHESES&lt;/em&gt;, not &lt;em&gt;PARENT&lt;/em&gt;&lt;br /&gt;
 ³ With command-line option &lt;code&gt;-a&lt;/code&gt;&lt;/p&gt;
 
-&lt;h2 id="translations"&gt;Translations&lt;/h2&gt;
+&lt;h3 id="other-special-global-variables"&gt;Other Special Global Variables&lt;/h3&gt;
 
-&lt;p&gt;There are approaches to translate all variables to other languages, for example, to German. You will need &lt;a href="https://github.com/janlelis/Deutsch.rb/blob/master/lib/Deutsch.rb"&gt;Deutsch.rb&lt;/a&gt; to be able to use these:&lt;/p&gt;
-
-&lt;table class="table-15-50-X"&gt;
+&lt;table class="table-20-15-X"&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th&gt;Perlish&lt;/th&gt;
-      &lt;th&gt;German&lt;/th&gt;
-      &lt;th&gt;Short&lt;/th&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+      &lt;th&gt;Type&lt;/th&gt;
+      &lt;th&gt;Info&lt;/th&gt;
     &lt;/tr&gt;
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;$!&lt;/td&gt;
-      &lt;td&gt;$FEHLER_INFO&lt;/td&gt;
+      &lt;td&gt;$stdin&lt;/td&gt;
+      &lt;td&gt;global&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://robots.thoughtbot.com/io-in-ruby"&gt;IO in Ruby&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;$stderr&lt;/td&gt;
+      &lt;td&gt;global&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://robots.thoughtbot.com/io-in-ruby"&gt;IO in Ruby&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;$SAFE&lt;/td&gt;
+      &lt;td&gt;thread&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://phrogz.net/programmingruby/taint.html#table_20.1"&gt;Level 1: Tainting&lt;/a&gt; (other levels were removed)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;$FILENAME&lt;/td&gt;
+      &lt;td&gt;read-only&lt;/td&gt;
+      &lt;td&gt;The current file being read via ARGF. Same as &lt;a href="http://www.rubydoc.info/stdlib/core/ARGF#filename-instance_method"&gt;ARGF.filename&lt;/a&gt;.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;$KCODE, $-K&lt;/td&gt;
+      &lt;td&gt;defunct&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;$@&lt;/td&gt;
-      &lt;td&gt;$FEHLER_POSITION&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;$DEBUG, $-d&lt;/td&gt;
+      &lt;td&gt;global&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://idiosyncratic-ruby.com/3-ruby-can-you-speak-louder.html#global-debug-state"&gt;Global Debug States&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;$;&lt;/td&gt;
-      &lt;td&gt;$FELD_TRENNER&lt;/td&gt;
-      &lt;td&gt;$FT&lt;/td&gt;
+      &lt;td&gt;$VERBOSE, $-v, $-w&lt;/td&gt;
+      &lt;td&gt;global&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://idiosyncratic-ruby.com/3-ruby-can-you-speak-louder.html#global-debug-state"&gt;Global Debug States&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;$,&lt;/td&gt;
-      &lt;td&gt;$AUSGABE_FELD_TRENNER&lt;/td&gt;
-      &lt;td&gt;$AFT&lt;/td&gt;
+      &lt;td&gt;$-W&lt;/td&gt;
+      &lt;td&gt;global&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://idiosyncratic-ruby.com/3-ruby-can-you-speak-louder.html#global-debug-state"&gt;Global Debug States&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;$/&lt;/td&gt;
-      &lt;td&gt;$EINGABE_DATENSATZ_TRENNER&lt;/td&gt;
-      &lt;td&gt;$DT&lt;/td&gt;
+      &lt;td&gt;$-p&lt;/td&gt;
+      &lt;td&gt;read-only&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://idiosyncratic-ruby.com/17-stream-editing.html"&gt;Stream Editing&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;$\&lt;/td&gt;
-      &lt;td&gt;$AUSGABE_DATENSATZ_TRENNER&lt;/td&gt;
-      &lt;td&gt;$ADT&lt;/td&gt;
+      &lt;td&gt;$-l&lt;/td&gt;
+      &lt;td&gt;read-only&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://idiosyncratic-ruby.com/17-stream-editing.html#specify-line-format"&gt;Specify Line Format&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;$.&lt;/td&gt;
-      &lt;td&gt;$EINGABE_ZEILEN_NUMMER&lt;/td&gt;
-      &lt;td&gt;$NR&lt;/td&gt;
+      &lt;td&gt;$-a&lt;/td&gt;
+      &lt;td&gt;read-only&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://idiosyncratic-ruby.com/17-stream-editing.html#auto-splitting-lines"&gt;Auto-Splitting Lines&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;$_&lt;/td&gt;
-      &lt;td&gt;$ZULETZT_GELESENE_ZEILE&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$&amp;gt;&lt;/td&gt;
-      &lt;td&gt;$STANDARD_AUSGABE&lt;/td&gt;
-      &lt;td&gt;$stdraus&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$&amp;lt;&lt;/td&gt;
-      &lt;td&gt;$STANDARD_EINGABE&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$$&lt;/td&gt;
-      &lt;td&gt;$PROZESS_ID&lt;/td&gt;
-      &lt;td&gt;$PID&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$?&lt;/td&gt;
-      &lt;td&gt;$KIND_STATUS&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$~&lt;/td&gt;
-      &lt;td&gt;$LETZTE_ÜBEREINSTIMMUNG&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$=&lt;/td&gt;
-      &lt;td&gt;$IGNORIERE_SCHREIBUNG&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$*&lt;/td&gt;
-      &lt;td&gt;$ARGV&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$&amp;amp;&lt;/td&gt;
-      &lt;td&gt;$ÜBEREINSTIMMUNG&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$`&lt;/td&gt;
-      &lt;td&gt;$VORÜBEREINSTIMMUNG&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$'&lt;/td&gt;
-      &lt;td&gt;$NACHÜBEREINSTIMMUNG&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$+&lt;/td&gt;
-      &lt;td&gt;$LETZTE_ELTERN_ÜBEREINSTIMMUNG&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$:&lt;/td&gt;
-      &lt;td&gt;$LADE_PFAD&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$"&lt;/td&gt;
-      &lt;td&gt;$GELADENE_FUNKTIONALITÄTEN&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$0&lt;/td&gt;
-      &lt;td&gt;$PROGRAMM_NAME&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;$-i&lt;/td&gt;
+      &lt;td&gt;global&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://idiosyncratic-ruby.com/17-stream-editing.html#inplace-editing-files"&gt;Inplace-Editing Files&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
-
-&lt;p&gt;Feel free to &lt;a href="https://github.com/janlelis/idiosyncratic-ruby.com/pulls"&gt;open a new pull request&lt;/a&gt; for more languages.&lt;/p&gt;
 </content>
   </entry>
   <entry>
@@ -5015,7 +4971,7 @@ puts "#{`ps -o rss -p #{Process.pid}`.strip.split.last.to_i / 1024.0} MB"
 &lt;p&gt;Range: -32768 to 32767&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;"Idiosyncrätic".unpack("s*")
-# =&amp;gt; [73, 100, 105, 111, 115, 121, 110, 99, 114, -61, -92, 116, 105, 99]
+# =&amp;gt; [25673, 28521, 31091, 25454, -15502, 29860, 25449]
 
 [25673, 28521, 31091, 25454, -15502, 29860, 25449].pack("s*")
 # =&amp;gt; "Idiosyncr\xC3\xA4tic"
@@ -5199,7 +5155,7 @@ puts "#{`ps -o rss -p #{Process.pid}`.strip.split.last.to_i / 1024.0} MB"
 
 &lt;h2 id="string-directives"&gt;String Directives&lt;/h2&gt;
 
-&lt;p&gt;String directives are more confusing in the regard that input and output of a &lt;code&gt;pack&lt;/code&gt; or &lt;code&gt;unpack&lt;/code&gt; operation are both strings, one of them being wrapped as a single argument in an array. The rule to remember here is that the string representation is something encoded (which might be saved or sent over the way), while the string-in-an-array format represents the data in a readable format.&lt;/p&gt;
+&lt;p&gt;String directives are more confusing in the regard that input and output of a &lt;code&gt;pack&lt;/code&gt; or &lt;code&gt;unpack&lt;/code&gt; operation are both strings, one of them being wrapped as a single argument in an array. The rule to remember here is that the string representation is something encoded (which might be saved or sent over the wire), while the string-in-an-array format represents the data in a readable format.&lt;/p&gt;
 
 &lt;h3 id="a--arbitrary-string"&gt;a | Arbitrary String&lt;/h3&gt;
 
