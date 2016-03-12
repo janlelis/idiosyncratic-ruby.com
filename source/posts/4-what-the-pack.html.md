@@ -274,7 +274,7 @@ The following directives will interpret bytes as [Floats.](http://en.wikipedia.o
 
 ## String Directives
 
-String directives are more confusing in the regard that input and output of a `pack` or `unpack` operation are both strings, one of them being wrapped as a single argument in an array. The rule to remember here is that the string representation is something encoded (which might be saved or sent over the way), while the string-in-an-array format represents the data in a readable format.
+String directives are more confusing in the regard that input and output of a `pack` or `unpack` operation are both strings, one of them being wrapped as a single argument in an array. The rule to remember here is that the string representation is something encoded (which might be saved or sent over the wire), while the string-in-an-array format represents the data in a readable format.
 
 ### a | Arbitrary String
 
