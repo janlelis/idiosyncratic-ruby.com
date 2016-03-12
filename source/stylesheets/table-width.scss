@@ -18,11 +18,16 @@
   th:nth-child(1) { width: 20%; }
 }
 
-.table-15-20-40-15-X {
-  th:nth-child(1) { width: 15%; }
+.table-12-20-36-14-X {
+  th:nth-child(1) { width: 12%; }
   th:nth-child(2) { width: 20%; }
-  th:nth-child(3) { width: 40%; }
-  th:nth-child(4) { width: 15%; }
+  th:nth-child(3) { width: 36%; }
+  th:nth-child(4) { width: 14%; }
+}
+
+.table-20-15-X {
+  th:nth-child(1) { width: 20%; }
+  th:nth-child(2) { width: 15%; }
 }
 
 .table-15-50-X {
