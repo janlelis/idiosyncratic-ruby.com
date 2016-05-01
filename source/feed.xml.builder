@@ -2,7 +2,7 @@ xml.instruct!
 xml.feed "xmlns" => "http://www.w3.org/2005/Atom" do
   site_url = "http://idiosyncratic-ruby.com/index/"
   xml.title "Idiosyncratic Ruby"
-  xml.subtitle "A 31 Parts Story about Ruby Specialities. A New Post Every Day in May 2015!"
+  xml.subtitle "Documentaing all Ruby Specialities. A New Post Every Day in May 2016!"
   xml.id URI.join(site_url, blog.options.prefix.to_s)
   xml.link "href" => URI.join(site_url, blog.options.prefix.to_s)
   xml.link "href" => URI.join(site_url, "https://feeds.feedburner.com/IdiosyncraticRuby"), "rel" => "self"
