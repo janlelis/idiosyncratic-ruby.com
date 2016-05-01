@@ -9,6 +9,8 @@ title: Idiosyncratic Ruby - All Posts
   </section>
 
   <section class="index-articles">
+    <p><a href="/categories/">Browse by Category</a></p>
+
     <% page_articles.sort_by{ |a| a.path.to_i }.each do |article| %>
       <article>
         <h2><a href="/<%= article.path[/\d+/].to_i %>-<%= article.slug %>.html"><%= article.path[/\d+/].to_i %> | <%= article.title %></a></h2>
@@ -17,7 +19,6 @@ title: Idiosyncratic Ruby - All Posts
       </article>
     <% end %>
 
-    <p><a href="/categories/">Browse by Category</a></p>
 
     <%= partial 'layouts/social_footer' %>
   </section>
