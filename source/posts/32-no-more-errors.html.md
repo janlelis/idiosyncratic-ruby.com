@@ -2,6 +2,7 @@
 title: No More Errors
 date: 2016-05-01
 tags: core, errors, cheatsheet
+commit: 8668726f93d2f9a40cb95698aabbced44cbfe5b8
 ---
 
 If you don't like errors in your code, you will have to fix them. This handy list of Ruby's errors will hopefully help you do so! (And welcome back for the second season of **Idiosyncratic Ruby**!)
