@@ -1,0 +1,1140 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - No More Errors</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="A 31 Parts Story about Ruby Specialities. A New Post Every Day in May 2015!"/>
+<meta name="keywords" content="ruby, core, errors, cheatsheet"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/32-no-more-errors.html">No More Errors</a></h1>
+      </section>
+
+      <article class="post">
+        <p>If you don't like errors in your code, you will have to fix them. This handy list of Ruby's errors will hopefully help you do so! (And welcome back for the second season of <strong>Idiosyncratic Ruby</strong>!)</p>
+
+<p></p>
+
+<h2 id="built-in-exceptions">Built-in Exceptions</h2>
+
+<table class="table-24-38-X">
+  <thead>
+    <tr>
+      <th>Exception</th>
+      <th>Thrown by core Ruby when</th>
+      <th>Remarks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/NoMemoryError.html">NoMemoryError</a></td>
+      <td>The Ruby interpreter could not allocate the required memory</td>
+      <td><code>"Idiosyncratic" * 100_000_000_000</code></td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/ScriptError.html">ScriptError</a></td>
+      <td>-</td>
+      <td>Not thrown directly</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/LoadError.html">ScriptError → LoadError</a></td>
+      <td>A source file could not be <a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-load">loaded</a>, <a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-require">required</a>, or <a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-require_relative">required relatively</a></td>
+      <td>It is meant for source code the current program is running and therfore should not be used for other kinds of files</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/NotImplementedError.html">ScriptError → NotImplementedError</a></td>
+      <td>A feature of Ruby does not work on this platform/OS, for example, <a href="http://ruby-doc.org/core-2.3.0/Process.html#method-c-fork">fork</a></td>
+      <td>Although it is often used as "I have not implemented it (yet)", its original purpose is low-level platform support errors</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/SyntaxError.html">ScriptError → SyntaxError</a></td>
+      <td>Invalid Ruby syntax was found</td>
+      <td>Do not raise when parsing some other file format fails. It is meant for source code that the current program is running.</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/SecurityError.html">SecurityError</a></td>
+      <td>Mostly raised when attempting a forbidden <a href="http://ruby-doc.com/docs/ProgrammingRuby/html/taint.html">$SAFE level 1</a> operation</td>
+      <td>Use as base class for critical security issues, which should intentionally not be rescued by default</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/SignalException.html">SignalException</a></td>
+      <td>A signal is received</td>
+      <td>The common way to catch a signal is the <a href="http://ruby-doc.org/core-2.3.0/Signal.html#method-c-trap">trap</a> method</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/Interrupt.html">SignalException → Interrupt</a></td>
+      <td>An interupt signal (SIGINT) is received</td>
+      <td>The common way to catch a signal is the <a href="http://ruby-doc.org/core-2.3.0/Signal.html#method-c-trap">trap</a> method</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/StandardError.html">StandardError</a></td>
+      <td>-</td>
+      <td>Base class for normal exceptions. See next table.</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/SystemExit.html">SystemExit</a></td>
+      <td>Thrown by <a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-exit">Kernel#exit</a></td>
+      <td>Not thrown by <a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-exit-21">Kernel#exit!</a></td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/SystemStackError.html">SystemStackError</a></td>
+      <td>Raised for stack overflows, for example, in case of infinite recursion</td>
+      <td>Cannot always be caught by the interpreter</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/fatal.html">fatal</a></td>
+      <td>When a <a href="https://github.com/ruby/ruby/blob/v2_3_0/thread.c#L4752-L4753">deadlock</a> is discovered or <a href="https://github.com/ruby/ruby/blob/v2_3_0/eval.c#L1651">this special vm exception</a> is triggered</td>
+      <td>Never rescuable. You can use this hack to get a reference to the error object: <code>ObjectSpace.each_object(Class){|c| break c if c.ancestors.include?(Exception) &amp;&amp; c.name == 'fatal' }</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="standarderror">StandardError</h3>
+
+<p>These will be caught by the <code>rescue</code> statement without defining an explicit error class.</p>
+
+<table class="table-24-38-X">
+  <thead>
+    <tr>
+      <th>Exception</th>
+      <th>Thrown by core Ruby when</th>
+      <th>Remarks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/ArgumentError.html">ArgumentError</a></td>
+      <td>Raised when a method is not given the proper arguments, for example, a wrong argument count</td>
+      <td>Best class to inherit from for custom errors describing that the method usage was wrong</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/UncaughtThrowError.html">ArgumentError → UncaughtThrowError</a></td>
+      <td>When <a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-throw">throw</a> is used without the proper <a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-catch">catch</a> around</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/EncodingError.html">EncodingError</a></td>
+      <td>Sometimes raised directly in <a href="https://github.com/ruby/ruby/blob/v2_3_0/encoding.c#L182-L189">unicode edge cases</a> or when <a href="https://github.com/ruby/ruby/blob/v2_3_0/symbol.c#L433">symbols are broken</a></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/Encoding/CompatibilityError.html">Encoding:: CompatibilityError</a></td>
+      <td>Raised when trying to combine strings of two incompatible encodings</td>
+      <td>Example: <code>"Idiosyn" +"crätic".encode("UTF-16LE")</code> under UTF-8 leads to <code>Encoding::CompatibilityError: incompatible character encodings: UTF-8 and UTF-16LE</code></td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/Encoding/ConverterNotFoundError.html">Encoding:: ConverterNotFoundError</a></td>
+      <td>Raised when no encoding converter is available</td>
+      <td>Example: <code>"Idiosyncrätic".encode("ABC")</code> under UTF-8 leads to <code>Encoding::ConverterNotFoundError: code converter not found (UTF-8 to ABC)</code></td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/Encoding/InvalidByteSequenceError.html">Encoding:: InvalidByteSequenceError</a></td>
+      <td>String contains byte sequences not valid in the current encoding</td>
+      <td>Example: <code>"Idiosyncr\u{D800}tic".encode("ASCII")</code> under UTF-8 leads to <code>Encoding::InvalidByteSequenceError: "\xED" followed by "\xA0" on UTF-8</code></td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/Encoding/UndefinedConversionError.html">Encoding:: UndefinedConversionError</a></td>
+      <td>Raised when an encoding converter is available, but it cannot convert a specific codepoint</td>
+      <td>Example: <code>"\u{00A0}".encode("EUC-JP")</code> under UTF-8 leads to <code>Encoding::UndefinedConversionError: U+00A0 from UTF-8 to EUC-JP</code></td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/Fiber.html">FiberError</a></td>
+      <td>Raised when an invalid operation is attempted on a <a href="http://ruby-doc.org/core-2.3.0/Fiber.html">Fiber</a></td>
+      <td>Such as: Attempting to call/resume a dead Fiber, yield from the root fiber, calling a Fiber across threads</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/IOError.html">IOError</a></td>
+      <td>Raised when an <a href="ruby-doc.org/core-2.3.0/IO.html">IO</a> operation fails, like opening a file</td>
+      <td>Pay attention that there are some failures will raise a <code>SystemCallError</code>, which is not a sub-class of <code>IOError</code>!</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/EOFError.html">IOError → EOFError</a></td>
+      <td>Raised by many <a href="ruby-doc.org/core-2.3.0/IO.html">IO</a> operations when reaching the end of file</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/IndexError.html">IndexError</a></td>
+      <td>Raised when an element or deducted value cannot be retrieved, for example, when using <a href="http://ruby-doc.org/core-2.3.0/Array.html#method-i-fetch">Array#fetch</a></td>
+      <td>Thrown by many core classes like Array, Regex, String, Struct or some standard libraries like <a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/strscan/rdoc/StringScanner.html">strscan</a></td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/KeyError.html">IndexError → KeyError</a></td>
+      <td>Raised when an element cannot be retrieved (by a key), for example, when using <a href="ruby-doc.org/core-2.3.0/Hash.html#method-i-fetch">Hash#fetch</a></td>
+      <td>Mainly used by hashes</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/StopIteration.html">IndexError → StopIteration</a></td>
+      <td>Raised when an <a href="ruby-doc.org/core-2.3.0/Enumerator.html">external iterator</a> has <a href="http://ruby-doc.org/core-2.3.0/StopIteration.html">reached its end</a></td>
+      <td>You can use the <a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-loop">Kernel#loop</a> method to automatically catch <code>StopIteration</code></td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/ClosedQueueError.html">IndexError → StopIteration → ClosedQueueError</a></td>
+      <td>Raised when trying to modify a <a href="http://ruby-doc.org/core-2.3.0/Queue.html#method-i-close">closed Queue</a></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/LocalJumpError.html">LocalJumpError</a></td>
+      <td>Thrown when an invalid control flow operation is attempted, like calling <code>yield</code> from a method that was not passed a block to</td>
+      <td><code>LocalJumpError</code>s contains a <code>reason</code> and an <code>exit_value</code> property from the last valid context</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/Math/DomainError.html">Math::DomainError</a></td>
+      <td>An invalid mathematical operation was attempted, for example, trying to calculate the <a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_functions">arctan</a> of a value greater than 1</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/NameError.html">NameError</a></td>
+      <td>Raised when referencing things that do not exist, like unknown constants</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/NoMethodError.html">NameError → NoMethodError</a></td>
+      <td>Raised if trying to call a method that does not exist, and no <a href="http://ruby-doc.org/core-2.3.0/BasicObject.html#method-i-method_missing"><code>method_missing</code></a> is defined</td>
+      <td>Trying to call non-existant private methods of <code>self</code> (like <code>Kernel#puts</code>) will result in <code>NameError</code> instead of <code>NoMethodError</code>, because it could also have been a local variable</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/RangeError.html">RangeError</a></td>
+      <td>A numerical number is off, most often it is too small or big</td>
+      <td>For example, <code>[].pack("C100000000000000000000")</code> does not work, because <a href="http://idiosyncratic-ruby.com/4-what-the-pack.html#c--an-unsigned-integer-per-byte">pack</a> requires the number to fit into <code>long</code></td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/FloatDomainError.html">RangeError → FloatDomainError</a></td>
+      <td>Raised when trying to convert a special Float value (<code>NaN</code>, <code>Float::INFINITY</code>) to another number format that does not support special values</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/RegexpError.html">RegexpError</a></td>
+      <td>Raised when trying to dynamically create an invalid regex</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/RuntimeError.html">RuntimeError</a></td>
+      <td>Unspecific occurrences</td>
+      <td>Default error class that will be used when raising a string: <code>raise "something"</code></td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/SystemCallError.html">SystemCallError</a></td>
+      <td>-</td>
+      <td>Lower level system call errors. See next table.</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/ThreadError.html">ThreadError</a></td>
+      <td>Raised for invalid <a href="http://ruby-doc.org/core-2.3.0/Thread.html">Thread</a> operations</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/TypeError.html">TypeError</a></td>
+      <td>Violations against Ruby's type system</td>
+      <td>For example, <code>"" + nil</code> will lead to "TypeError: no implicit conversion of nil into String"</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/ZeroDivisionError.html">ZeroDivisionError</a></td>
+      <td>An integer, complex, or rational number was tried to divide by another integer, complex, or rational number</td>
+      <td>Floats and BigDecimal return Infinity, negative Infinity, or <code>NaN</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="systemcallerror">SystemCallError</h3>
+
+<p>These errors are thrown by the operating system under certain circumstances. The exact list depends on your platform and can be found in <a href="http://www.gnu.org/software/libc/manual/html_node/Error-Codes.html">a file called <code>errno.h</code></a>. You get such errors when working with processes, <a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/socket/rdoc/Socket.html#method-i-connect-label-Unix-based+Exceptions">sockets</a>, files, and other functionality that relies on low level system operations.</p>
+
+<p>What follows is the list of errors that are known by Ruby. The error numbers and messages were generated on a recent ubuntu Linux machine. All system call errors are namespaced under <code>Errno::</code> and can be dynamically created using <code>SystemCallError.new(number)</code>.</p>
+
+<table class="table-30-8-36-X">
+  <thead>
+    <tr>
+      <th>Exception</th>
+      <th>No</th>
+      <th>Message</th>
+      <th>Example One-Liner¹</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Errno::E2BIG</td>
+      <td>7</td>
+      <td>Argument list too long</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EACCES</td>
+      <td>13</td>
+      <td>Permission denied</td>
+      <td>As non-root: <code>File.read('/root')</code></td>
+    </tr>
+    <tr>
+      <td>Errno::EADDRINUSE</td>
+      <td>98</td>
+      <td>Address already in use</td>
+      <td><code>require "socket"; 2.times{ TCPServer.new("", 3003) }</code></td>
+    </tr>
+    <tr>
+      <td>Errno::EADDRNOTAVAIL</td>
+      <td>99</td>
+      <td>Cannot assign requested address</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EADV</td>
+      <td>68</td>
+      <td>Advertise error</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EAFNOSUPPORT</td>
+      <td>97</td>
+      <td>Address family not supported by protocol</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EAGAIN</td>
+      <td>11</td>
+      <td>Resource temporarily unavailable</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/IO/EAGAINWaitReadable.html">Errno::EAGAIN → IO::EAGAINWaitReadable</a>²</td>
+      <td>-</td>
+      <td>-</td>
+      <td><code>STDIN.read_nonblock(1)</code> (if blocking)</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/IO/EAGAINWaitWritable.html">Errno::EAGAIN → IO::EAGAINWaitWritable</a>²</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EALREADY</td>
+      <td>114</td>
+      <td>Operation already in progress</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EBADE</td>
+      <td>52</td>
+      <td>Invalid exchange</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EBADF</td>
+      <td>9</td>
+      <td>Bad file descriptor</td>
+      <td><code>IO.new(-1)</code></td>
+    </tr>
+    <tr>
+      <td>Errno::EBADFD</td>
+      <td>77</td>
+      <td>File descriptor in bad state</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EBADMSG</td>
+      <td>74</td>
+      <td>Bad message</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EBADR</td>
+      <td>53</td>
+      <td>Invalid request descriptor</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EBADRQC</td>
+      <td>56</td>
+      <td>Invalid request code</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EBADSLT</td>
+      <td>57</td>
+      <td>Invalid slot</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EBFONT</td>
+      <td>59</td>
+      <td>Bad font file format</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EBUSY</td>
+      <td>16</td>
+      <td>Device or resource busy</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ECANCELED</td>
+      <td>125</td>
+      <td>Operation canceled</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ECHILD</td>
+      <td>10</td>
+      <td>No child processes</td>
+      <td><code>Process.wait</code> (with no child processes)</td>
+    </tr>
+    <tr>
+      <td>Errno::ECHRNG</td>
+      <td>44</td>
+      <td>Channel number out of range</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ECOMM</td>
+      <td>70</td>
+      <td>Communication error on send</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ECONNABORTED</td>
+      <td>103</td>
+      <td>Software caused connection abort</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ECONNREFUSED</td>
+      <td>111</td>
+      <td>Connection refused</td>
+      <td><code>require "socket"; TCPSocket.new("", rand(987654321))</code></td>
+    </tr>
+    <tr>
+      <td>Errno::ECONNRESET</td>
+      <td>104</td>
+      <td>Connection reset by peer</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EDEADLK</td>
+      <td>35</td>
+      <td>Resource deadlock avoided</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EDEADLOCK</td>
+      <td>35</td>
+      <td>Resource deadlock avoided</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EDESTADDRREQ</td>
+      <td>89</td>
+      <td>Destination address required</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EDOM</td>
+      <td>33</td>
+      <td>Numerical argument out of domain</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EDOTDOT</td>
+      <td>73</td>
+      <td>RFS specific error</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EDQUOT</td>
+      <td>122</td>
+      <td>Disk quota exceeded</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EEXIST</td>
+      <td>17</td>
+      <td>File exists</td>
+      <td><code>Dir.mkdir("/")</code></td>
+    </tr>
+    <tr>
+      <td>Errno::EFAULT</td>
+      <td>14</td>
+      <td>Bad address</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EFBIG</td>
+      <td>27</td>
+      <td>File too large</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EHOSTDOWN</td>
+      <td>112</td>
+      <td>Host is down</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EHOSTUNREACH</td>
+      <td>113</td>
+      <td>No route to host</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EHWPOISON</td>
+      <td>133</td>
+      <td>Memory page has hardware error</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EIDRM</td>
+      <td>43</td>
+      <td>Identifier removed</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EILSEQ</td>
+      <td>84</td>
+      <td>Invalid or incomplete multibyte or wide character</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EINPROGRESS</td>
+      <td>115</td>
+      <td>Operation now in progress</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/IO/EINPROGRESSWaitReadable.html">Errno::EINPROGRESS → IO::EINPROGRESSWaitReadable</a>²</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="http://ruby-doc.org/core-2.3.0/IO/EINPROGRESSWaitWritable.html">Errno::EINPROGRESS → IO::EINPROGRESSWaitWritable</a>²</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EINTR</td>
+      <td>4</td>
+      <td>Interrupted system call</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EINVAL</td>
+      <td>22</td>
+      <td>Invalid argument</td>
+      <td><code>Process.clock_gettime(42)</code></td>
+    </tr>
+    <tr>
+      <td>Errno::EIO</td>
+      <td>5</td>
+      <td>Input/output error</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EISCONN</td>
+      <td>106</td>
+      <td>Transport endpoint is already connected</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EISDIR</td>
+      <td>21</td>
+      <td>Is a directory</td>
+      <td><code>File.read("/")</code></td>
+    </tr>
+    <tr>
+      <td>Errno::EISNAM</td>
+      <td>120</td>
+      <td>Is a named type file</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EKEYEXPIRED</td>
+      <td>127</td>
+      <td>Key has expired</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EKEYREJECTED</td>
+      <td>129</td>
+      <td>Key was rejected by service</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EKEYREVOKED</td>
+      <td>128</td>
+      <td>Key has been revoked</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EL2HLT</td>
+      <td>51</td>
+      <td>Level 2 halted</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EL2NSYNC</td>
+      <td>45</td>
+      <td>Level 2 not synchronized</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EL3HLT</td>
+      <td>46</td>
+      <td>Level 3 halted</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EL3RST</td>
+      <td>47</td>
+      <td>Level 3 reset</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ELIBACC</td>
+      <td>79</td>
+      <td>Can not access a needed shared library</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ELIBBAD</td>
+      <td>80</td>
+      <td>Accessing a corrupted shared library</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ELIBEXEC</td>
+      <td>83</td>
+      <td>Cannot exec a shared library directly</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ELIBMAX</td>
+      <td>82</td>
+      <td>Attempting to link in too many shared libraries</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ELIBSCN</td>
+      <td>81</td>
+      <td>.lib section in a.out corrupted</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ELNRNG</td>
+      <td>48</td>
+      <td>Link number out of range</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ELOOP</td>
+      <td>40</td>
+      <td>Too many levels of symbolic links</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EMEDIUMTYPE</td>
+      <td>124</td>
+      <td>Wrong medium type</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EMFILE</td>
+      <td>24</td>
+      <td>Too many open files</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EMLINK</td>
+      <td>31</td>
+      <td>Too many links</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EMSGSIZE</td>
+      <td>90</td>
+      <td>Message too long</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EMULTIHOP</td>
+      <td>72</td>
+      <td>Multihop attempted</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENAMETOOLONG</td>
+      <td>36</td>
+      <td>File name too long</td>
+      <td><code>File.read("Ruby"*1000)</code></td>
+    </tr>
+    <tr>
+      <td>Errno::ENAVAIL</td>
+      <td>119</td>
+      <td>No XENIX semaphores available</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENETDOWN</td>
+      <td>100</td>
+      <td>Network is down</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENETRESET</td>
+      <td>102</td>
+      <td>Network dropped connection on reset</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENETUNREACH</td>
+      <td>101</td>
+      <td>Network is unreachable</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENFILE</td>
+      <td>23</td>
+      <td>Too many open files in system</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOANO</td>
+      <td>55</td>
+      <td>No anode</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOBUFS</td>
+      <td>105</td>
+      <td>No buffer space available</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOCSI</td>
+      <td>50</td>
+      <td>No CSI structure available</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENODATA</td>
+      <td>61</td>
+      <td>No data available</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENODEV</td>
+      <td>19</td>
+      <td>No such device</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOENT</td>
+      <td>2</td>
+      <td>No such file or directory</td>
+      <td><code>File.read("does not exist")</code></td>
+    </tr>
+    <tr>
+      <td>Errno::ENOEXEC</td>
+      <td>8</td>
+      <td>Exec format error</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOKEY</td>
+      <td>126</td>
+      <td>Required key not available</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOLCK</td>
+      <td>37</td>
+      <td>No locks available</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOLINK</td>
+      <td>67</td>
+      <td>Link has been severed</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOMEDIUM</td>
+      <td>123</td>
+      <td>No medium found</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOMEM</td>
+      <td>12</td>
+      <td>Cannot allocate memory</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOMSG</td>
+      <td>42</td>
+      <td>No message of desired type</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENONET</td>
+      <td>64</td>
+      <td>Machine is not on the network</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOPKG</td>
+      <td>65</td>
+      <td>Package not installed</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOPROTOOPT</td>
+      <td>92</td>
+      <td>Protocol not available</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOSPC</td>
+      <td>28</td>
+      <td>No space left on device</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOSR</td>
+      <td>63</td>
+      <td>Out of streams resources</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOSTR</td>
+      <td>60</td>
+      <td>Device not a stream</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOSYS</td>
+      <td>38</td>
+      <td>Function not implemented</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOTBLK</td>
+      <td>15</td>
+      <td>Block device required</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOTCONN</td>
+      <td>107</td>
+      <td>Transport endpoint is not connected</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOTDIR</td>
+      <td>20</td>
+      <td>Not a directory</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOTEMPTY</td>
+      <td>39</td>
+      <td>Directory not empty</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOTNAM</td>
+      <td>118</td>
+      <td>Not a XENIX named type file</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOTRECOVERABLE</td>
+      <td>131</td>
+      <td>State not recoverable</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOTSOCK</td>
+      <td>88</td>
+      <td>Socket operation on non-socket</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOTSUP</td>
+      <td>95</td>
+      <td>Operation not supported</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOTTY</td>
+      <td>25</td>
+      <td>Inappropriate ioctl for device</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENOTUNIQ</td>
+      <td>76</td>
+      <td>Name not unique on network</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ENXIO</td>
+      <td>6</td>
+      <td>No such device or address</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EOPNOTSUPP</td>
+      <td>95</td>
+      <td>Operation not supported</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EOVERFLOW</td>
+      <td>75</td>
+      <td>Value too large for defined data type</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EOWNERDEAD</td>
+      <td>130</td>
+      <td>Owner died</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EPERM</td>
+      <td>1</td>
+      <td>Operation not permitted</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EPFNOSUPPORT</td>
+      <td>96</td>
+      <td>Protocol family not supported</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EPIPE</td>
+      <td>32</td>
+      <td>Broken pipe</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EPROTO</td>
+      <td>71</td>
+      <td>Protocol error</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EPROTONOSUPPORT</td>
+      <td>93</td>
+      <td>Protocol not supported</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EPROTOTYPE</td>
+      <td>91</td>
+      <td>Protocol wrong type for socket</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ERANGE</td>
+      <td>34</td>
+      <td>Numerical result out of range</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EREMCHG</td>
+      <td>78</td>
+      <td>Remote address changed</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EREMOTE</td>
+      <td>66</td>
+      <td>Object is remote</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EREMOTEIO</td>
+      <td>121</td>
+      <td>Remote I/O error</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ERESTART</td>
+      <td>85</td>
+      <td>Interrupted system call should be restarted</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ERFKILL</td>
+      <td>132</td>
+      <td>Operation not possible due to RF-kill</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EROFS</td>
+      <td>30</td>
+      <td>Read-only file system</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ESHUTDOWN</td>
+      <td>108</td>
+      <td>Cannot send after transport endpoint shutdown</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ESOCKTNOSUPPORT</td>
+      <td>94</td>
+      <td>Socket type not supported</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ESPIPE</td>
+      <td>29</td>
+      <td>Illegal seek</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ESRCH</td>
+      <td>3</td>
+      <td>No such process</td>
+      <td><code>Process.kill(:KILL, 987654321)</code></td>
+    </tr>
+    <tr>
+      <td>Errno::ESRMNT</td>
+      <td>69</td>
+      <td>Srmount error</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ESTALE</td>
+      <td>116</td>
+      <td>Stale file handle</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ESTRPIPE</td>
+      <td>86</td>
+      <td>Streams pipe error</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ETIME</td>
+      <td>62</td>
+      <td>Timer expired</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ETIMEDOUT</td>
+      <td>110</td>
+      <td>Connection timed out</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ETOOMANYREFS</td>
+      <td>109</td>
+      <td>Too many references: cannot splice</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::ETXTBSY</td>
+      <td>26</td>
+      <td>Text file busy</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EUCLEAN</td>
+      <td>117</td>
+      <td>Structure needs cleaning</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EUNATCH</td>
+      <td>49</td>
+      <td>Protocol driver not attached</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EUSERS</td>
+      <td>87</td>
+      <td>Too many users</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EWOULDBLOCK³</td>
+      <td>11</td>
+      <td>Resource temporarily unavailable</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EXDEV</td>
+      <td>18</td>
+      <td>Invalid cross-device link</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::EXFULL</td>
+      <td>54</td>
+      <td>Exchange full</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Errno::NOERROR</td>
+      <td>0</td>
+      <td>Success</td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>¹ Feel free to <a href="https://github.com/janlelis/idiosyncratic-ruby.com/issues/new">suggest more one-liners</a>! I will also add some more over time.<br />
+² These include <code>IO::WaitReadable</code>/<code>IO::WaitWritable</code>. See <a href="http://ruby-doc.org/core-2.3.0/IO.html#method-i-read_nonblock">IO#read_nonblock</a>.<br />
+³ EAGAIN == EWOULDBLOCK <a href="http://stackoverflow.com/questions/7003234/which-systems-define-eagain-and-ewouldblock-as-different-values">on most systems</a></p>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li><a href="http://ruby-doc.org/core-2.3.0/Exception.html">RDoc: Exception</a></li>
+  <li><a href="https://github.com/ruby/ruby/blob/trunk/defs/known_errors.def">Source: defs/known_errors.def</a></li>
+  <li><a href="http://www.ioplex.com/~miallen/errcmpp.html">Popular Errno Codes by Platform</a></li>
+</ul>
+
+
+        <h2>More Idiosyncratic Ruby</h2>
+        <ul>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/8668726f93d2f9a40cb95698aabbced44cbfe5b8#all_commit_comments">Comments on GitHub</a></li>
+          <li><a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet this Episode
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
+            <li>Previous Article: <a href="/31-roots-of-rubyism.html">Roots of Rubyism</a></li>
+        </ul>
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="https://github.com/janlelis">Jan Lelis</a><br>
+        </div>
+        About Core, Errors, Cheatsheet |
+        Last Update: 2016-05-01
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>
