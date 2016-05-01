@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Idiosyncratic Ruby</title>
-  <subtitle>A 31 Parts Story about Ruby Specialities. A New Post Every Day in May 2015!</subtitle>
+  <subtitle>Documentaing all Ruby Specialities. A New Post Every Day in May 2016!</subtitle>
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
