@@ -5,10 +5,194 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2016-05-01T02:00:00+02:00</updated>
+  <updated>2016-05-02T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Too Expressive &amp; * _ ?</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/33-too-expressive.html"/>
+    <id>http://idiosyncratic-ruby.com/33-too-expressive.html</id>
+    <published>2016-05-02T02:00:00+02:00</published>
+    <updated>2016-05-02T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Ruby's syntax is so expressive — it utilizes every printable, non-alphanumeric ASCII character as much as it cans. Sometimes, this can be confusing for beginners.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;The next sections show 4+ different meanings of every portrayed single character (not counting different meaning as &lt;a href="http://idiosyncratic-ruby.com/15-207-ways-to-rome.html"&gt;custom string delimiter&lt;/a&gt; or meaning within a regex):&lt;/p&gt;
+
+&lt;h2 id="question-mark-4-syntactical-meanings"&gt;Question Mark (4 Syntactical Meanings)&lt;/h2&gt;
+
+&lt;p&gt;The question mark is a sure way to &lt;a href="http://idiosyncratic-ruby.com/1-test-highlights.html"&gt;confuse your syntax highlighter&lt;/a&gt;!&lt;/p&gt;
+
+&lt;h3 id="valid-ending-of-a-method-name"&gt;Valid ending of a method name&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;[].empty? # =&amp;gt; true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="part-of-the-ternary-operator"&gt;&lt;code&gt;?:&lt;/code&gt; Part of the Ternary Operator&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;nil ? true : false # =&amp;gt; false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="char-literals"&gt;&lt;code&gt;?&lt;/code&gt; char literals&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;?? # =&amp;gt; "?"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="part-of-special-variable-"&gt;Part of Special Variable &lt;code&gt;$?&lt;/code&gt;&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;system "ls"
+$? #=&amp;gt; #&amp;lt;Process::Status: pid 5223 exit 0&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="underscore-4-syntactical-meanings"&gt;Underscore (4 Syntactical Meanings)&lt;/h2&gt;
+
+&lt;p&gt;Underscores serve as a good example of having multiple uses: No purpose iterferes with another.&lt;/p&gt;
+
+&lt;h3 id="valid-part-of-an-identifier-and-"&gt;Valid Part of an Identifier (and &lt;code&gt;$_&lt;/code&gt;)&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;variable_name = 42
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="part-of-special-keywords-end-file-caller"&gt;Part of Special Keywords (&lt;code&gt;__END__&lt;/code&gt;, &lt;code&gt;__FILE__&lt;/code&gt;, &lt;code&gt;__caller__&lt;/code&gt;)&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;File.dirname(__FILE__)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="allowed-to-visually-separate-numbers"&gt;Allowed to Visually Separate Numbers&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;1_000_000 # =&amp;gt; 1000000
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="ignored-parameter"&gt;Ignored Parameter&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;# other names would raise an SyntaxError (duplicated argument name)
+def method_name(_,_)
+  p _
+end
+
+method_name(42, 23)
+# -&amp;gt; 42
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="ampersand-6-syntactical-meanings"&gt;Ampersand (6 Syntactical Meanings)&lt;/h2&gt;
+
+&lt;p&gt;Ruby 2.3 introduced the "safe navigation operator" which uses &lt;code&gt;&amp;amp;&lt;/code&gt;:&lt;/p&gt;
+
+&lt;h3 id="safe-navigation-operator"&gt;&lt;code&gt;&amp;amp;.&lt;/code&gt; Safe Navigation Operator&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;nil&amp;amp;.blank? # =&amp;gt; nil
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="methodoperator"&gt;&lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt; Method/Operator&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;p true &amp;amp;&amp;amp; false
+# =&amp;gt; false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="methodoperator-for-numbers-arrays-booleans"&gt;&lt;code&gt;&amp;amp;&lt;/code&gt; Method/Operator for Numbers, Arrays, Booleans&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;# set operation "and"
+[1, 2] &amp;amp; [2] # =&amp;gt; 2
+
+# bit operation "and"
+2 &amp;amp; 3 # =&amp;gt; 2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="explicit-block-param"&gt;Explicit Block Param&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;def method_name(&amp;amp;block)
+  p block.call(1)
+  p block.call(2)
+end
+
+method_name{ |x| x.odd? }
+# -&amp;gt; true
+# -&amp;gt; false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="toproc-shortcut"&gt;&lt;code&gt;to_proc&lt;/code&gt; Shortcut&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;class Class
+  def to_proc
+    lambda{ |*args| self.new(*args) }
+  end
+end
+
+[[1,2],[3,5,6,7,3]].map(&amp;amp;Set) # =&amp;gt; [Set[1,2], Set[5,6,7,3]]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="part-of-special-variable--1"&gt;Part of Special Variable &lt;code&gt;$&amp;amp;&lt;/code&gt;&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;/sync/ =~ "Idiosyncratic"
+$&amp;amp; # =&amp;gt; "sync"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="star-7-syntactical-meanings"&gt;Star (7 Syntactical Meanings)&lt;/h2&gt;
+
+&lt;p&gt;The record holder!&lt;/p&gt;
+
+&lt;h3 id="methodoperator-for-numbers-strings-arrays"&gt;&lt;code&gt;.*&lt;/code&gt; Method/Operator for Numbers, Strings, Arrays&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;4 * 4 # =&amp;gt; 16
+["4", "2"] * "." # =&amp;gt; "4.2"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="methodoperator-for-numbers"&gt;&lt;code&gt;.**&lt;/code&gt; Method/Operator for Numbers&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;4 ** 4 # =&amp;gt; 256
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="rest-arguments"&gt;&lt;code&gt;*&lt;/code&gt; Rest Arguments&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;def method_name(*arguments)
+  p arguments
+end
+
+method_name(42, 23)
+# -&amp;gt; [42, 23]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="splat-arguments"&gt;&lt;code&gt;*&lt;/code&gt; Splat Arguments&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;[1, *2..4] # =&amp;gt; [1, 2, 3, 4]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="keyword-rest-arguments"&gt;&lt;code&gt;**&lt;/code&gt; Keyword Rest Arguments&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;def method_name(**arguments)
+  p arguments
+end
+
+method_name(a: 42, b: 23)
+# -&amp;gt; { a: 42, b: 23 }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="keyword-splat-arguments"&gt;&lt;code&gt;**&lt;/code&gt; Keyword Splat Arguments&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;hash1 = { a: 1, b: 2 }
+hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="part-of-special-variable--2"&gt;Part of Special Variable &lt;code&gt;$*&lt;/code&gt;&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -e "p $*" -- 42 23
+["42", "23"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://github.com/JuanitoFatas/what-do-you-call-this-in-ruby"&gt;What do you call this in Ruby?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://raw.githubusercontent.com/ruby/ruby/trunk/parse.y"&gt;Ruby's Grammar Definition&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://idiosyncratic-ruby.com/9-globalization.html"&gt;Speial Global Variables&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>No More Errors</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/32-no-more-errors.html"/>
