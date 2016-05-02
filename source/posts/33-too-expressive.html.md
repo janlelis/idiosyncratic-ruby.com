@@ -2,6 +2,7 @@
 title: Too Expressive & * _ ?
 date: 2016-05-02
 tags: core, syntax
+commit: ba41f06ef8721392feb505f9a16244207dcb8777
 ---
 
 Ruby's syntax is so expressive — it utilizes every printable, non-alphanumeric ASCII character as much as it cans. Sometimes, this can be confusing for beginners.
