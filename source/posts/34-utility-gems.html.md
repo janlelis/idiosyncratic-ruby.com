@@ -2,6 +2,7 @@
 title: Utility Gems
 date: 2016-05-03
 tags: rubygems, core, stdlib
+commit: b47277fb7f82b048023350121086c5a9f8922c95
 ---
 
 [RubyGems](https://rubygems.org/) is bundled with core Ruby since 1.9, which was first released in 2007. As long as you do not run Ruby with the `$ ruby --disable-gems` flag, it is available to you without having to install anything. This also means that you can use some of RubyGems' support utilities for free!
