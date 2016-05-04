@@ -5,10 +5,75 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2016-05-03T02:00:00+02:00</updated>
+  <updated>2016-05-04T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Identification</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/35-identification.html"/>
+    <id>http://idiosyncratic-ruby.com/35-identification.html</id>
+    <published>2016-05-04T02:00:00+02:00</published>
+    <updated>2016-05-04T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Is it a hash? Or is it a hash?&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;hash = {"Idiosyncratic" =&amp;gt; "Ruby"}
+hash["Idiosyncratic"] # =&amp;gt; "Ruby"
+
+hash.compare_by_identity
+idiosyncratic_in_variable = "Idiosyncratic"
+hash[idiosyncratic_in_variable] # =&amp;gt; nil
+hash["Idiosyncratic"] # =&amp;gt; "Ruby"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Hash.html#method-i-compare_by_identity"&gt;&lt;code&gt;Hash#compare_by_identity&lt;/code&gt;&lt;/a&gt; changes the semantics of what is equal in a hash and what not. Only if exact the same object is passed in, the value will be retrieved.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note:&lt;/strong&gt; The above example works for the key of&lt;code&gt;"Idiosyncratic"&lt;/code&gt;, because every string literal returns the same object. This behaviour has been introduced with Ruby 2.2, so running it in 2.1 or lower will return &lt;code&gt;nil&lt;/code&gt; for the last line.&lt;/p&gt;
+
+&lt;h2 id="hash-surprise"&gt;Hash Surprise&lt;/h2&gt;
+
+&lt;p&gt;Identity hashes can feel very unnatural as the following snippet illustrates:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;hash = {}.compare_by_identity
+
+a="Idiosyncratic"
+b="Idiosyncratic"
+c="Idiosyncratic"
+
+hash[a] = "Ruby1"
+hash[b] = "Ruby2"
+hash[c] = "Ruby3"
+
+hash #=&amp;gt; {"Idiosyncratic"=&amp;gt;"Ruby1",
+     #    "Idiosyncratic"=&amp;gt;"Ruby2",
+     #    "Idiosyncratic"=&amp;gt;"Ruby3"}
+
+# Quiz: What is the result of: hash["Idiosyncratic"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="explicit-identity-hashes"&gt;Explicit Identity Hashes&lt;/h2&gt;
+
+&lt;p&gt;What can be done to improve readability and reduce surprise? A starting point can be using an extra class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class IdentityHash &amp;lt; Hash
+  def initialize(*)
+    super.compare_by_identity
+  end
+
+  def inspect
+    "#&amp;lt;IdentityHash: #{super}&amp;gt;"
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For this class to be really useful it would need some more Hash-like features, like ActiveSupport does with &lt;a href="https://github.com/rails/rails/blob/master/activesupport/lib/active_support/hash_with_indifferent_access.rb"&gt;HashWithIndifferentAccess&lt;/a&gt;. Still, it is already less confusable than some hash that looks like a normal hash and that you haven't checked &lt;code&gt;compare_by_identity?&lt;/code&gt; for.&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Utility Gems</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/34-utility-gems.html"/>
