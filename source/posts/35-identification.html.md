@@ -2,6 +2,7 @@
 title: Identification
 date: 2016-05-04
 tags: core, hash
+commit: c46b41ba73f30ea9194b4398332ee6be04dfe543
 ---
 
 Is it a hash? Or is it a hash?
