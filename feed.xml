@@ -5,10 +5,91 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2016-05-04T02:00:00+02:00</updated>
+  <updated>2016-05-05T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>ERB Render Standard</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/36-erb-render-standard.html"/>
+    <id>http://idiosyncratic-ruby.com/36-erb-render-standard.html</id>
+    <published>2016-05-05T02:00:00+02:00</published>
+    <updated>2016-05-05T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;ERB stands for &lt;em&gt;&amp;lt;%# Embedded Ruby %&amp;gt;&lt;/em&gt; and is the templating engine included in the Ruby Standard Library. While there are more recent gems that provide a better templating experience (see &lt;a href="https://github.com/rtomayko/tilt"&gt;tilt&lt;/a&gt; for an abstraction, and &lt;a href="http://www.kuwata-lab.com/erubis/"&gt;erubis&lt;/a&gt;/&lt;a href="https://github.com/apotonick/erbse"&gt;erbse&lt;/a&gt; for an updated ERB), it is also convenient to have basic support directly in the standard library.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;However, it does not directly support rendering data from a &lt;a href="http://ruby-doc.org/core-2.3.0/Hash.html"&gt;Hash&lt;/a&gt;, but only from a &lt;a href="http://ruby-doc.org/core-2.3.0/Binding.html"&gt;Binding&lt;/a&gt; object:&lt;/p&gt;
+
+&lt;h2 id="how-to-render-an-erb-template-pre-21"&gt;How to Render an ERB Template¹ (Pre 2.1)&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;require "erb"
+require "ostruct"
+
+def render_erb(template, data = nil)
+  ERB.new(template, nil, "%&amp;lt;&amp;gt;").result(
+    OpenStruct.new(data).instance_eval { binding }
+  )
+end
+
+example_data = {
+  idiosyncratic: "Ruby"
+}
+
+example_template = &amp;lt;&amp;lt;TEMPLATE
+&amp;lt;%= idiosyncratic %&amp;gt; 3.0
+TEMPLATE
+
+render_erb(example_template, example_data) # =&amp;gt; "Ruby 3.0\n"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;¹ Actually, this also supports a (quite useful) additional syntax of ERB templates, "percent-lines":&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;example_template2 =&amp;lt;&amp;lt;TEMPLATE
+% calculation = 2 + 1
+Result is: &amp;lt;%= calculation %&amp;gt;
+TEMPLATE
+
+render_erb(example_template2) # =&amp;gt; "Result is: 3\n"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="how-to-render-an-erb-template-post-21"&gt;How to Render an ERB Template (Post 2.1)&lt;/h2&gt;
+
+&lt;p&gt;Ruby 2.1 came with &lt;a href="http://ruby-doc.org/core-2.3.0/Binding.html#method-i-local_variable_set"&gt;Binding#local_variable_set&lt;/a&gt;, so we can remove &lt;a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/ostruct/rdoc/OpenStruct.html"&gt;OpenStruct&lt;/a&gt; from the equation:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;require "erb"
+
+def render_erb(template, data = {})
+  render_binding = binding
+  data.each{ |key, value| binding.local_variable_set(key.to_sym, value) }
+  ERB.new(template, nil, "%&amp;lt;&amp;gt;").result(render_binding)
+end
+
+example_data = {
+  idiosyncratic: "Ruby"
+}
+
+example_template = &amp;lt;&amp;lt;TEMPLATE
+&amp;lt;%= idiosyncratic %&amp;gt; 3.0
+TEMPLATE
+
+render_erb(example_template, example_data) # =&amp;gt; "Ruby 3.0\n"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Both versions' bindings also contain the method arguments of &lt;code&gt;render_erb&lt;/code&gt;, so you can access &lt;code&gt;template&lt;/code&gt; and &lt;code&gt;data&lt;/code&gt; from within the template.&lt;/p&gt;
+
+&lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/erb/rdoc/ERB.html"&gt;RDoc: ERB&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/janlelis/derb/blob/master/bin/derb"&gt;Tiny command-line tool that renders an ERB template with data from a YAML file&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/janlelis/productive-sublime-snippets-erb"&gt;Snippets for Sublime Text&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Identification</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/35-identification.html"/>

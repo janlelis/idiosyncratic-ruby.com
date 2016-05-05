@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - ERB Render Standard</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="Documentaing all Ruby Specialities. A New Post Every Day in May 2016!"/>
+<meta name="keywords" content="ruby, stdlib, erb, hash, binding"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/36-erb-render-standard.html">ERB Render Standard</a></h1>
+      </section>
+
+      <article class="post">
+        <p>ERB stands for <em>&lt;%# Embedded Ruby %&gt;</em> and is the templating engine included in the Ruby Standard Library. While there are more recent gems that provide a better templating experience (see <a href="https://github.com/rtomayko/tilt">tilt</a> for an abstraction, and <a href="http://www.kuwata-lab.com/erubis/">erubis</a>/<a href="https://github.com/apotonick/erbse">erbse</a> for an updated ERB), it is also convenient to have basic support directly in the standard library.</p>
+
+<p></p>
+
+<p>However, it does not directly support rendering data from a <a href="http://ruby-doc.org/core-2.3.0/Hash.html">Hash</a>, but only from a <a href="http://ruby-doc.org/core-2.3.0/Binding.html">Binding</a> object:</p>
+
+<h2 id="how-to-render-an-erb-template-pre-21">How to Render an ERB Template¹ (Pre 2.1)</h2>
+
+<pre><code>require "erb"
+require "ostruct"
+
+def render_erb(template, data = nil)
+  ERB.new(template, nil, "%&lt;&gt;").result(
+    OpenStruct.new(data).instance_eval { binding }
+  )
+end
+
+example_data = {
+  idiosyncratic: "Ruby"
+}
+
+example_template = &lt;&lt;TEMPLATE
+&lt;%= idiosyncratic %&gt; 3.0
+TEMPLATE
+
+render_erb(example_template, example_data) # =&gt; "Ruby 3.0\n"
+</code></pre>
+
+<p>¹ Actually, this also supports a (quite useful) additional syntax of ERB templates, "percent-lines":</p>
+
+<pre><code>example_template2 =&lt;&lt;TEMPLATE
+% calculation = 2 + 1
+Result is: &lt;%= calculation %&gt;
+TEMPLATE
+
+render_erb(example_template2) # =&gt; "Result is: 3\n"
+</code></pre>
+
+<h2 id="how-to-render-an-erb-template-post-21">How to Render an ERB Template (Post 2.1)</h2>
+
+<p>Ruby 2.1 came with <a href="http://ruby-doc.org/core-2.3.0/Binding.html#method-i-local_variable_set">Binding#local_variable_set</a>, so we can remove <a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/ostruct/rdoc/OpenStruct.html">OpenStruct</a> from the equation:</p>
+
+<pre><code>require "erb"
+
+def render_erb(template, data = {})
+  render_binding = binding
+  data.each{ |key, value| binding.local_variable_set(key.to_sym, value) }
+  ERB.new(template, nil, "%&lt;&gt;").result(render_binding)
+end
+
+example_data = {
+  idiosyncratic: "Ruby"
+}
+
+example_template = &lt;&lt;TEMPLATE
+&lt;%= idiosyncratic %&gt; 3.0
+TEMPLATE
+
+render_erb(example_template, example_data) # =&gt; "Ruby 3.0\n"
+</code></pre>
+
+<p><strong>Note:</strong> Both versions' bindings also contain the method arguments of <code>render_erb</code>, so you can access <code>template</code> and <code>data</code> from within the template.</p>
+
+<h2 id="also-see">Also See</h2>
+
+<ul>
+  <li><a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/erb/rdoc/ERB.html">RDoc: ERB</a></li>
+  <li><a href="https://github.com/janlelis/derb/blob/master/bin/derb">Tiny command-line tool that renders an ERB template with data from a YAML file</a></li>
+  <li><a href="https://github.com/janlelis/productive-sublime-snippets-erb">Snippets for Sublime Text</a></li>
+</ul>
+
+
+        <h2>More Idiosyncratic Ruby</h2>
+        <ul>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/030d6a66d980cce63e6b16e3d05b757e968f1040#all_commit_comments">Comments on GitHub</a></li>
+          <li><a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet this Episode
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
+            <li>Previous Article: <a href="/35-identification.html">Identification</a></li>
+        </ul>
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="https://github.com/janlelis">Jan Lelis</a><br>
+        </div>
+        About Stdlib, Erb, Hash, Binding |
+        Last Update: 2016-05-05
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>
