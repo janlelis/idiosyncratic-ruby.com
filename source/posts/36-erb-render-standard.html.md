@@ -1,0 +1,71 @@
+---
+title: ERB Render Standard
+date: 2016-05-05
+tags: stdlib, erb, hash, binding
+---
+
+ERB stands for *<%# Embedded Ruby %>* and is the templating engine included in the Ruby Standard Library. While there are more recent gems that provide a better templating experience (see [tilt](https://github.com/rtomayko/tilt) for an abstraction, and [erubis](http://www.kuwata-lab.com/erubis/)/[erbse](https://github.com/apotonick/erbse) for an updated ERB), it is also convenient to have basic support directly in the standard library.
+
+ARTICLE
+
+However, it does not directly support rendering data from a [Hash](http://ruby-doc.org/core-2.3.0/Hash.html), but only from a [Binding](http://ruby-doc.org/core-2.3.0/Binding.html) object:
+
+## How to Render an ERB Template¹ (Pre 2.1)
+
+    require "erb"
+    require "ostruct"
+
+    def render_erb(template, data = nil)
+      ERB.new(template, nil, "%<>").result(
+        OpenStruct.new(data).instance_eval { binding }
+      )
+    end
+
+    example_data = {
+      idiosyncratic: "Ruby"
+    }
+
+    example_template = <<TEMPLATE
+    <%= idiosyncratic %> 3.0
+    TEMPLATE
+
+    render_erb(example_template, example_data) # => "Ruby 3.0\n"
+
+¹ Actually, this also supports a (quite useful) additional syntax of ERB templates, "percent-lines":
+
+    example_template2 =<<TEMPLATE
+    % calculation = 2 + 1
+    Result is: <%= calculation %>
+    TEMPLATE
+
+    render_erb(example_template2) # => "Result is: 3\n"
+
+## How to Render an ERB Template (Post 2.1)
+
+Ruby 2.1 came with [Binding#local_variable_set](http://ruby-doc.org/core-2.3.0/Binding.html#method-i-local_variable_set), so we can remove [OpenStruct](http://ruby-doc.org/stdlib-2.3.0/libdoc/ostruct/rdoc/OpenStruct.html) from the equation:
+
+    require "erb"
+
+    def render_erb(template, data = {})
+      render_binding = binding
+      data.each{ |key, value| binding.local_variable_set(key.to_sym, value) }
+      ERB.new(template, nil, "%<>").result(render_binding)
+    end
+
+    example_data = {
+      idiosyncratic: "Ruby"
+    }
+
+    example_template = <<TEMPLATE
+    <%= idiosyncratic %> 3.0
+    TEMPLATE
+
+    render_erb(example_template, example_data) # => "Ruby 3.0\n"
+
+**Note:** Both versions' bindings also contain the method arguments of `render_erb`, so you can access `template` and `data` from within the template.
+
+## Also See
+
+- [RDoc: ERB](http://ruby-doc.org/stdlib-2.3.0/libdoc/erb/rdoc/ERB.html)
+- [Tiny command-line tool that renders an ERB template with data from a YAML file](https://github.com/janlelis/derb/blob/master/bin/derb)
+- [Snippets for Sublime Text](https://github.com/janlelis/productive-sublime-snippets-erb)
