@@ -2,6 +2,7 @@
 title: ERB Render Standard
 date: 2016-05-05
 tags: stdlib, erb, hash, binding
+commit: 030d6a66d980cce63e6b16e3d05b757e968f1040
 ---
 
 ERB stands for *<%# Embedded Ruby %>* and is the templating engine included in the Ruby Standard Library. While there are more recent gems that provide a better templating experience (see [tilt](https://github.com/rtomayko/tilt) for an abstraction, and [erubis](http://www.kuwata-lab.com/erubis/)/[erbse](https://github.com/apotonick/erbse) for an updated ERB), it is also convenient to have basic support directly in the standard library.
