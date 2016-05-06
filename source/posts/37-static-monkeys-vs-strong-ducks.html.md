@@ -2,6 +2,7 @@
 title: Static Monkeys vs. Strong Ducks
 date: 2016-05-06
 tags: core, types, language, syntax, community
+commit: cad922af6e336f347d193ad8cb22b92200265f27
 ---
 
 Programming languages have been, and will always be categorized by their [typing system](https://en.wikipedia.org/wiki/Type_system). Naturally, large parts of the Ruby community (including myself) have some kind of aversion against static typing. But while Ruby goes down the route of being dynamically typed that does not mean that you are not allowed to use some form of types!
