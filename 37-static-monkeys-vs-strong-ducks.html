@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - Static Monkeys vs. Strong Ducks</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="Documentaing all Ruby Specialities. A New Post Every Day in May 2016!"/>
+<meta name="keywords" content="ruby, core, types, language, syntax, community"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/37-static-monkeys-vs-strong-ducks.html">Static Monkeys vs. Strong Ducks</a></h1>
+      </section>
+
+      <article class="post">
+        <p>Programming languages have been, and will always be categorized by their <a href="https://en.wikipedia.org/wiki/Type_system">typing system</a>. Naturally, large parts of the Ruby community (including myself) have some kind of aversion against static typing. But while Ruby goes down the route of being dynamically typed that does not mean that you are not allowed to use some form of types!</p>
+
+<p></p>
+
+<p>Put differently, nothing is wrong with ensuring a specific behavior of arguments given to, or received from a method. You sometimes do it anyways, for example:</p>
+
+<ul>
+  <li>When you raise an error, because the argument given is not a <code>Numeric</code></li>
+  <li>When you raise an error, because an argument does not respond to <code>:to_i</code></li>
+  <li>When you check that something has a trueish value</li>
+</ul>
+
+<p>The second example is checking if an object has a specific method, you could call it <a href="https://en.wikipedia.org/wiki/Duck_typing">duck type checking</a>.</p>
+
+<p>The third example might not look logical at first glance, but: As soon as you check if an object is not "falsy", you are doing some kind of type checking. The type is "trueish" and it is very implicit (every object that is not <code>nil</code> or <code>false</code>) . Such <em>type checks</em> are normal, not necessarily a bad thing, and it also does not mean static typing is much better, and we all should use <a href="https://en.wikipedia.org/wiki/Haskell_%28programming_language%29">Haskell</a>. It is more about how to think about types and how to have conversations about types.</p>
+
+<h2 id="almighty-staticness">Almighty Staticness?</h2>
+
+<p>Static type systems often use compile time type checking, which lets you catch a specific type of bugs earlier. It also opens the room for a much better performance. There are some very Ruby-like languages that use static types and achieve a much better performance, namely <a href="http://www.mirah.org/">Mirah</a> and <a href="http://crystal-lang.org/">Crystal</a>.</p>
+
+<p>However, having to annotate everything is a very strict requirement. It is not <strong>Don't Repeat Yourself</strong>. It is harder to work with and less flexible. It is not backwards-compatible with existing Ruby code. Unless you put an unrealisticly huge effort into it, it will not proof your software is correct. It will not free you from the responsibilty to ensure your program is working properly (for instance, by writing tests).</p>
+
+<p>Yet, it will check types for you.</p>
+
+<h2 id="manual-type-checking-at-runtime">Manual Type Checking at Runtime</h2>
+
+<p>There are some options out there that can assist you with explicitly and optionally checking the type of method arguments and return values, for example <a href="https://github.com/gogotanaka/Rubype">Rubype</a>, or my very similar <a href="https://github.com/janlelis/sig">sig</a> library:</p>
+
+<pre><code># On main object
+sig [:to_i, :to_i], Integer,
+def sum(a, b)
+  a.to_i + b.to_i
+end
+
+sum(42, false)
+# Sig::ArgumentTypeError:
+# - Expected false to respond to :to_i
+
+# In modules
+class A
+  sig [Numeric, Numeric], Numeric,
+  def mul(a, b)
+    a * b
+  end
+end
+
+A.new.mul(4,"3")
+# Sig::ArgumentTypeError:
+# - Expected "3" to be a Numeric, but is a String
+
+
+# Explicitely define signature for singleton_class
+class B
+  sig_self [:reverse],
+  def self.rev(object)
+    object.reverse
+  end
+end
+
+B.rev 42
+# Sig::ArgumentTypeError:
+# - Expected 42 to respond to :reverse
+</code></pre>
+
+<p>There is also some <a href="http://www.cs.umd.edu/~jfoster/papers/oops13.pdf">acadamic work</a> that explores advanced runtime checking (like "gradual" typing) and resulted in the <a href="https://github.com/plum-umd/rtc">Ruby Type Checker</a>.</p>
+
+<h2 id="future">Future</h2>
+
+<p>But isn't the point of Ruby being a dynamic language and not having to care about types?</p>
+
+<p>…which is true and false at the same time. We are still dealing with types, since we do type checks all the time. Type checking is not a binary question. As a matter of fact, some form of static typing will <a href="http://confreaks.tv/videos/rubyconf2014-opening-keynote">perhaps be introduced in Ruby 3.0</a>!</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Types are not evil, they are all around us. Ruby 3.0 may include a new typing system. That is great news! In order to be as <em>rubyistic</em> as possible, it should:</p>
+
+<ul>
+  <li>Be optional</li>
+  <li>Support duck types</li>
+  <li>Have an intuitive syntax</li>
+  <li>Perhaps use <a href="https://en.wikipedia.org/wiki/Gradual_typing">gradual typing</a></li>
+  <li>Help us all writing better programs</li>
+</ul>
+
+<h2 id="further-reading">Further Reading</h2>
+
+<ul>
+  <li><a href="https://bugs.ruby-lang.org/issues/9999">Ruby Issue Tracking System: Feature #9999</a></li>
+  <li><a href="https://www.omniref.com/blog/2014/11/17/matz-at-rubyconf-2014-will-ruby-3-dot-0-be-statically-typed/">Will Ruby 3.0 be Statically Typed?</a></li>
+  <li><a href="https://tonyarcieri.com/an-open-letter-to-matz-on-ruby-type-systems">An open letter to Matz on Ruby type systems</a></li>
+  <li><a href="http://blog.codeclimate.com/blog/2014/05/06/gradual-type-checking-for-ruby/">Gradual Type Checking for Ruby</a></li>
+  <li><a href="http://crystal-lang.org/2016/05/05/crystal-0.16.0-released.html">Types in Crystal</a></li>
+</ul>
+
+
+        <h2>More Idiosyncratic Ruby</h2>
+        <ul>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/cad922af6e336f347d193ad8cb22b92200265f27#all_commit_comments">Comments on GitHub</a></li>
+          <li><a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet this Episode
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
+            <li>Previous Article: <a href="/36-erb-render-standard.html">ERB Render Standard</a></li>
+        </ul>
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="https://github.com/janlelis">Jan Lelis</a><br>
+        </div>
+        About Core, Types, Language, Syntax, Community |
+        Last Update: 2016-05-06
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>
