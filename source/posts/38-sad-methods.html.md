@@ -2,6 +2,7 @@
 title: Sad Methods
 date: 2016-05-07
 tags: core, cruby, reflection, metaprogramming
+commit: dcad9080db57bce96f53019244d609e554c81975
 ---
 
 In general, Ruby's [reflection capabilities](https://en.wikipedia.org/wiki/Reflection_%28computer_programming%29) are pretty powerful, although [not always logical](http://idiosyncratic-ruby.com/25-meta-methodology.html). However, when reflecting on a method's (or proc's) usage, you are sometimes stuck with **sad methods**.
