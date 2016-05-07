@@ -5,10 +5,79 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2016-05-06T02:00:00+02:00</updated>
+  <updated>2016-05-07T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Sad Methods</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/38-sad-methods.html"/>
+    <id>http://idiosyncratic-ruby.com/38-sad-methods.html</id>
+    <published>2016-05-07T02:00:00+02:00</published>
+    <updated>2016-05-07T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;In general, Ruby's &lt;a href="https://en.wikipedia.org/wiki/Reflection_%28computer_programming%29"&gt;reflection capabilities&lt;/a&gt; are pretty powerful, although &lt;a href="http://idiosyncratic-ruby.com/25-meta-methodology.html"&gt;not always logical&lt;/a&gt;. However, when reflecting on a method's (or proc's) usage, you are sometimes stuck with &lt;strong&gt;sad methods&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Sad methods only work for code, that is written in Ruby itself. And Ruby itself (official MRI) is written in C, which limits such methods' usefulness quite a lot. This is an implementation specific problem, and it naturally does not occur in implementations like &lt;a href="http://rubinius.com/"&gt;Rubinius&lt;/a&gt;. The following three methods are affected:&lt;/p&gt;
+
+&lt;h2 id="arity"&gt;Arity&lt;/h2&gt;
+
+&lt;p&gt;The arity of a method (or proc) will return:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A positive number if the method has a fixed number of arguments&lt;/li&gt;
+  &lt;li&gt;A negative number if the method has a variable number of arguments, the value denoting the number of required arguments&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;method(:require).arity # =&amp;gt; 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;However: &lt;a href="http://ruby-doc.org/core-2.3.0/Method.html#method-i-arity"&gt;For methods written in C, returns -1 if the call takes a variable number of arguments&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;method(:puts).arity # =&amp;gt; -1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="source-location"&gt;Source Location&lt;/h2&gt;
+
+&lt;p&gt;The &lt;code&gt;source_location&lt;/code&gt; of a method (or proc) returns a two-element array containing the path to the source file and the line number, where it is defined:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;method(:require).source_location
+# =&amp;gt; ["/home/jan/.rvm/rubies/ruby-2.3.0/lib/.../core_ext/kernel_require.rb", 39]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;However: &lt;a href="http://ruby-doc.org/core-2.3.0/Method.html#method-i-source_location"&gt;Returns […] nil if this method was not defined in Ruby (i.e. native)&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;method(:puts).source_location # =&amp;gt; nil
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="parameters"&gt;Parameters&lt;/h2&gt;
+
+&lt;p&gt;The &lt;code&gt;Method#parameters&lt;/code&gt; method lets inspect what kind of parameters a method (or proc) takes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;FileUtils.method(:cd).parameters
+# =&amp;gt; [[:req, :dir], [:opt, :options], [:block, :block]]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;However: Like &lt;code&gt;arity&lt;/code&gt;, it will treat all C methods with multiple arguments as "variable number of arguments", instead of providing exact information:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Module.instance_method(:define_method).parameters
+#=&amp;gt; [[:rest]]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://github.com/banister/method_source"&gt;method_source: Retrieve the method source via source_location&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/janlelis/debugging#howtocallobj--self-method_or_proc"&gt;howtocall: Extended version of &lt;code&gt;Method#parameters&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Static Monkeys vs. Strong Ducks</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/37-static-monkeys-vs-strong-ducks.html"/>
