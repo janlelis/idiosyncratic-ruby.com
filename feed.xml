@@ -78,7 +78,7 @@
 &lt;/table&gt;
 
 &lt;p&gt;¹ Also: &lt;code&gt;010&lt;/code&gt;&lt;br /&gt;
-² While the representation of a complex number (e.g. &lt;code&gt;(0+1i)&lt;/code&gt;) is a valid way to create the same number again, this is not true for &lt;code&gt;(1/2)&lt;/code&gt; which will just evaluate to &lt;code&gt;0&lt;/code&gt;³&lt;br /&gt;
+² While the representation of a complex number (e.g. &lt;code&gt;(0+1i)&lt;/code&gt;) is a valid way to create the same number again, this is not true for &lt;code&gt;(1/2)&lt;/code&gt; which will just evaluate to &lt;code&gt;0&lt;/code&gt;³. Also note that the &lt;a href="https://github.com/whitequark/parser/issues/287"&gt;&lt;code&gt;r&lt;/code&gt; only makes the &lt;code&gt;6&lt;/code&gt; a rational&lt;/a&gt;, which in turn "rationalizes" the result. An equivalent way of expressing the same fraction would be &lt;code&gt;3r/6&lt;/code&gt;&lt;br /&gt;
 ³ Execpt when you &lt;a href="https://github.com/ruby/ruby/blob/trunk/lib/mathn.rb"&gt;&lt;code&gt;require "mathn"&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
 </content>
   </entry>
