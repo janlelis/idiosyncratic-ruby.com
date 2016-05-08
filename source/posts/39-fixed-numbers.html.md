@@ -2,6 +2,7 @@
 title: Fixed Numbers
 date: 2016-05-08
 tags: ecosystem, community
+commit: 20be10cdba3ed129dbba52950b50042a73f48c25
 ---
 
 A quick reminder that number literals in Ruby can be pretty fancy!
