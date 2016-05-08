@@ -131,22 +131,22 @@
       <td>-</td>
     </tr>
     <tr>
-      <td><a href="http://ruby-doc.org/core-2.3.0/Encoding/CompatibilityError.html">Encoding:: CompatibilityError</a></td>
+      <td><a href="http://ruby-doc.org/core-2.3.0/Encoding/CompatibilityError.html">EncodingError → Encoding:: CompatibilityError</a></td>
       <td>Raised when trying to combine strings of two incompatible encodings</td>
       <td>Example: <code>"Idiosyn" +"crätic".encode("UTF-16LE")</code> under UTF-8 leads to <code>Encoding::CompatibilityError: incompatible character encodings: UTF-8 and UTF-16LE</code></td>
     </tr>
     <tr>
-      <td><a href="http://ruby-doc.org/core-2.3.0/Encoding/ConverterNotFoundError.html">Encoding:: ConverterNotFoundError</a></td>
+      <td><a href="http://ruby-doc.org/core-2.3.0/Encoding/ConverterNotFoundError.html">EncodingError → Encoding:: ConverterNotFoundError</a></td>
       <td>Raised when no encoding converter is available</td>
       <td>Example: <code>"Idiosyncrätic".encode("ABC")</code> under UTF-8 leads to <code>Encoding::ConverterNotFoundError: code converter not found (UTF-8 to ABC)</code></td>
     </tr>
     <tr>
-      <td><a href="http://ruby-doc.org/core-2.3.0/Encoding/InvalidByteSequenceError.html">Encoding:: InvalidByteSequenceError</a></td>
+      <td><a href="http://ruby-doc.org/core-2.3.0/Encoding/InvalidByteSequenceError.html">EncodingError → Encoding:: InvalidByteSequenceError</a></td>
       <td>String contains byte sequences not valid in the current encoding</td>
       <td>Example: <code>"Idiosyncr\u{D800}tic".encode("ASCII")</code> under UTF-8 leads to <code>Encoding::InvalidByteSequenceError: "\xED" followed by "\xA0" on UTF-8</code></td>
     </tr>
     <tr>
-      <td><a href="http://ruby-doc.org/core-2.3.0/Encoding/UndefinedConversionError.html">Encoding:: UndefinedConversionError</a></td>
+      <td><a href="http://ruby-doc.org/core-2.3.0/Encoding/UndefinedConversionError.html">EncodingError → Encoding:: UndefinedConversionError</a></td>
       <td>Raised when an encoding converter is available, but it cannot convert a specific codepoint</td>
       <td>Example: <code>"\u{00A0}".encode("EUC-JP")</code> under UTF-8 leads to <code>Encoding::UndefinedConversionError: U+00A0 from UTF-8 to EUC-JP</code></td>
     </tr>
@@ -1133,7 +1133,7 @@
           On <a href="/">Idiosyncratic Ruby</a> by <a href="https://github.com/janlelis">Jan Lelis</a><br>
         </div>
         About Core, Errors, Cheatsheet |
-        Last Update: 2016-05-01
+        Last Update: 2016-05-07
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
