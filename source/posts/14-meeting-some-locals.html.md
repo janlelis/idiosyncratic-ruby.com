@@ -19,7 +19,7 @@ It is simple to understand and looks good. But Ruby would not be Ruby, if there 
     a # => "$"
     b # => "€"
 
-## Implicit Local Variables Through Regex Macthing
+## Implicit Local Variables Through Regex Matching
 
 Without the fancy obfuscations, the example above would look like this:
 
