@@ -21,5 +21,5 @@ Example     | Evaluates To | Class    | Purpose
 {:.table-20-20-15-X}
 
 ¹ Also: `010`<br/>
-² While the representation of a complex number (e.g. `(0+1i)`) is a valid way to create the same number again, this is not true for `(1/2)` which will just evaluate to `0`³<br/>
+² While the representation of a complex number (e.g. `(0+1i)`) is a valid way to create the same number again, this is not true for `(1/2)` which will just evaluate to `0`³. Also note that the [`r` only makes the `6` a rational](https://github.com/whitequark/parser/issues/287), which in turn "rationalizes" the result. An equivalent way of expressing the same fraction would be `3r/6`<br/>
 ³ Execpt when you [`require "mathn"`](https://github.com/ruby/ruby/blob/trunk/lib/mathn.rb)
