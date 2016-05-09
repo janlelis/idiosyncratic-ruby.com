@@ -4852,7 +4852,7 @@ a # =&amp;gt; "$"
 b # =&amp;gt; "€"
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id="implicit-local-variables-through-regex-macthing"&gt;Implicit Local Variables Through Regex Macthing&lt;/h2&gt;
+&lt;h2 id="implicit-local-variables-through-regex-matching"&gt;Implicit Local Variables Through Regex Matching&lt;/h2&gt;
 
 &lt;p&gt;Without the fancy obfuscations, the example above would look like this:&lt;/p&gt;
 
@@ -5519,6 +5519,35 @@ ENV[42] = "oops" # not quite: TypeError
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Symbolic Validations</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/40-symbolic-validations.html"/>
+    <id>http://idiosyncratic-ruby.com/40-symbolic-validations.html</id>
+    <published>2015-05-09T02:00:00+02:00</published>
+    <updated>2015-05-09T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;When exactly don't you have to &lt;code&gt;:"escape"&lt;/code&gt; a Ruby symbol?&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Because this question is somehow related to the Ruby interpreter's internal usage of symbols, the rules are not the most obvious ones:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;:&lt;/code&gt; + Identifier¹, optionally appended by &lt;code&gt;!&lt;/code&gt;, &lt;code&gt;?&lt;/code&gt;, or &lt;code&gt;=&lt;/code&gt; (→ methods)&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;:@&lt;/code&gt; + Identifier¹ (→ instance variables)&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;:@@&lt;/code&gt; + Identifier¹ (→ class variables)&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;:$&lt;/code&gt; + Identifier¹ (→ global variables)&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;:$&lt;/code&gt; + Single identifier¹ character or &lt;code&gt;0-9&lt;/code&gt; (→ &lt;a href="http://idiosyncratic-ruby.com/9-globalization.html"&gt;Perl-style special variables&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;:$-&lt;/code&gt; + Single identifier¹ character or &lt;code&gt;0-9&lt;/code&gt; (→ &lt;a href="http://idiosyncratic-ruby.com/9-globalization.html#other-special-global-variables"&gt;Ruby interpreter CLI options&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;:!&lt;/code&gt;, &lt;code&gt;:!=&lt;/code&gt;, &lt;code&gt;:!~&lt;/code&gt;, &lt;code&gt;:%&lt;/code&gt;, &lt;code&gt;:&amp;amp;&lt;/code&gt;, &lt;code&gt;:*&lt;/code&gt;, &lt;code&gt;:+&lt;/code&gt;, &lt;code&gt;:-&lt;/code&gt;, &lt;code&gt;:/&lt;/code&gt;, &lt;code&gt;:&amp;lt;&lt;/code&gt;, &lt;code&gt;:&amp;gt;&lt;/code&gt;, &lt;code&gt;:^&lt;/code&gt;, &lt;code&gt;:`&lt;/code&gt;, &lt;code&gt;:|&lt;/code&gt;, &lt;code&gt;:~&lt;/code&gt;, &lt;code&gt;:$!&lt;/code&gt;, &lt;code&gt;:$"&lt;/code&gt;, &lt;code&gt;:$$&lt;/code&gt;, &lt;code&gt;:$&amp;amp;&lt;/code&gt;, &lt;code&gt;:$'&lt;/code&gt;, &lt;code&gt;:$*&lt;/code&gt;, &lt;code&gt;:$+&lt;/code&gt;, &lt;code&gt;:$,&lt;/code&gt;, &lt;code&gt;:$.&lt;/code&gt;, &lt;code&gt;:$/&lt;/code&gt;, &lt;code&gt;:$:&lt;/code&gt;, &lt;code&gt;:$;&lt;/code&gt;, &lt;code&gt;:$&amp;lt;&lt;/code&gt;, &lt;code&gt;:$=&lt;/code&gt;, &lt;code&gt;:$&amp;gt;&lt;/code&gt;, &lt;code&gt;:$?&lt;/code&gt;, &lt;code&gt;:$@&lt;/code&gt;, &lt;code&gt;:$\&lt;/code&gt;, &lt;code&gt;:$`&lt;/code&gt;, &lt;code&gt;:$~&lt;/code&gt;, &lt;code&gt;:**&lt;/code&gt;, &lt;code&gt;:+@&lt;/code&gt;, &lt;code&gt;:-@&lt;/code&gt;, &lt;code&gt;:&amp;lt;&amp;lt;&lt;/code&gt;, &lt;code&gt;:&amp;lt;=&lt;/code&gt;², &lt;code&gt;:&amp;lt;=&amp;gt;&lt;/code&gt;², &lt;code&gt;:==&lt;/code&gt;, &lt;code&gt;:===&lt;/code&gt;, &lt;code&gt;:=~&lt;/code&gt;, &lt;code&gt;:&amp;gt;=&lt;/code&gt;, &lt;code&gt;:&amp;gt;&amp;gt;&lt;/code&gt;, &lt;code&gt;:[]&lt;/code&gt;, &lt;code&gt;:[]=&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;¹ Valid for identifiers: &lt;code&gt;A-Z&lt;/code&gt;, &lt;code&gt;a-z&lt;/code&gt;, &lt;code&gt;0-9&lt;/code&gt;, &lt;code&gt;_&lt;/code&gt;, non-ASCII characters. Not allowed to start with &lt;code&gt;0-9&lt;/code&gt;.&lt;br /&gt;
+² &lt;a href="http://idiosyncratic-ruby.com/29-limitations-of-language.html#no-simple-rule-if-a-symbol-can-be-displayed-without-the-explicit--syntax"&gt;Example of a syntactical edge case that is not 100% clear&lt;/a&gt;&lt;/p&gt;
 </content>
   </entry>
   <entry>
