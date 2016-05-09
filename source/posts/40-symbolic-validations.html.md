@@ -2,6 +2,7 @@
 title: Symbolic Validations
 date: 2015-05-09
 tags: core, syntax, symbols
+commit: 636170b3c5e21288c5ebdc522806150090db0fde
 ---
 
 When exactly don't you have to `:"escape"` a Ruby symbol?
