@@ -5,10 +5,218 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2016-05-09T02:00:00+02:00</updated>
+  <updated>2016-05-10T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Proper Unicoding</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/41-proper-unicoding.html"/>
+    <id>http://idiosyncratic-ruby.com/41-proper-unicoding.html</id>
+    <published>2016-05-10T02:00:00+02:00</published>
+    <updated>2016-05-10T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Ruby's Regexp engine has a powerful feature built in: It can match for &lt;a href="http://www.unicode.org/reports/tr44/#Property_List_Table"&gt;Unicode character properties&lt;/a&gt;. But what exactly are properties you can match for?&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href="http://unicode.org/"&gt;Unicode consortium&lt;/a&gt; not only assigns all &lt;a href="https://en.wikipedia.org/wiki/Code_point"&gt;codepoints&lt;/a&gt;, it also publishes &lt;a href="http://www.unicode.org/Public/UNIDATA/"&gt;additional data&lt;/a&gt; about their assigned characters. When searching through a string, Ruby allows you to utilize some of this extra knowledge.&lt;/p&gt;
+
+&lt;h2 id="property-regexp-syntax"&gt;Property Regexp Syntax&lt;/h2&gt;
+
+&lt;p&gt;Within a regular expression, use the &lt;code&gt;\p&lt;/code&gt; directive:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;/\p{ PROPERTY NAME }/&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To invert the property (matching characters that do &lt;strong&gt;not&lt;/strong&gt; fit), you can either use a big &lt;code&gt;\P&lt;/code&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;/\P{ PROPERTY NAME }/&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Or add the &lt;code&gt;^&lt;/code&gt; sign:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;/\p{ ^PROPERTY NAME }/&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Ruby will strip all spaces, dashes, underscores from the given propertiy and convert it to a lowercased string. So the following examples are all valid syntax:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;/\p{AGE = 6.3}/&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;/\p{^In Supplementary Private Use Area-B}/&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;/\p{In_Egyptian_Hieroglyphs}/&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;/\P{inemoticons}/&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;/\P{inno   block}/&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;/\p{^zzzz}/&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;/\p{ z___    y-y-y   }/&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="supported-unicode-versions"&gt;Supported Unicode Versions&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Ruby Version&lt;/th&gt;
+      &lt;th&gt;Unicode Version&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;2.3&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;8.0.0&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;2.2&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;7.0.0&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;2.1&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;6.1.0&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id="list-of-properties"&gt;List of Properties&lt;/h2&gt;
+
+&lt;h3 id="general-category"&gt;General Category&lt;/h3&gt;
+
+&lt;p&gt;Each code point has a &lt;a href="https://en.wikipedia.org/wiki/Unicode_character_property#General_Category"&gt;General Category&lt;/a&gt;, one of the most basic categorizations. Codepoints without an explicit general category will implicitely get &lt;strong&gt;Cn&lt;/strong&gt; (Unassigned):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"Find decimal numbers (like 2 or 3)".scan(/\p{Nd}+/) # =&amp;gt; ["2", "3"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;See the &lt;a href="https://github.com/janlelis/unicode-categories"&gt;Unicode::Categories&lt;/a&gt; micro gem for a way find all general categories a string belongs to and a list of possible categories.&lt;/p&gt;
+
+&lt;h3 id="major-category"&gt;Major Category&lt;/h3&gt;
+
+&lt;p&gt;The Major category is basically the first letter of the general category:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;L&lt;/strong&gt;: Letter&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;M&lt;/strong&gt;: Mark&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;N&lt;/strong&gt;: Number&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;P&lt;/strong&gt;: Punctuation&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;S&lt;/strong&gt;: Symbol&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Z&lt;/strong&gt;: Separator&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;C&lt;/strong&gt;: Other&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"Find punctation characters (like : or ;)".scan(/\p{P}+/) # =&amp;gt; ["(", ":", ";)"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="block"&gt;Block&lt;/h3&gt;
+
+&lt;p&gt;Unicode codepoints are also structured as &lt;a href="https://en.wikipedia.org/wiki/Unicode_block"&gt;contiguous blocks&lt;/a&gt;: Each codepoint is part of one or has the special value &lt;strong&gt;No_Block&lt;/strong&gt;. To make the block name a Unicode property, you have to prefix it with "in":&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"Do not look directly into the ☼".scan /\p{In Miscellaneous Symbols}/ # =&amp;gt; ["☼"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;See the &lt;a href="https://github.com/janlelis/unicode-blocks"&gt;Unicode::Blocks&lt;/a&gt; micro gem for a way to retrieve the blocks of a string and a list of all valid block names.&lt;/p&gt;
+
+&lt;h3 id="script"&gt;Script&lt;/h3&gt;
+
+&lt;p&gt;The &lt;a href="https://en.wikipedia.org/wiki/Script_%28Unicode%29"&gt;script&lt;/a&gt; of a character can also be matched:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"ᴦ".scan/\p{Greek}/ # =&amp;gt; "ᴦ"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;See the &lt;a href="https://github.com/janlelis/unicode-scripts"&gt;Unicode::Scripts&lt;/a&gt; micro gem for a way to find all scripts a string containso and a list of valid script names. A great way to explore the different scripts is &lt;a href="https://codepoints.net/scripts"&gt;codepoints.net&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id="age"&gt;Age&lt;/h3&gt;
+
+&lt;p&gt;The age property lets you find out the required Unicode version to display a string:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"Train: 🛲 " =~ /\A\p{age=3.1}*\z/ # =&amp;gt; nil
+"Train: 🛲 " =~ /\A\p{age=7.0}*\z/ # =&amp;gt; 0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="combinedposix-like-properties"&gt;Combined/POSIX like Properties&lt;/h3&gt;
+
+&lt;p&gt;All properties of the &lt;a href="http://www.regular-expressions.info/posixbrackets.html"&gt;POSIX brackets syntax&lt;/a&gt; are available with the &lt;code&gt;\p&lt;/code&gt; syntax: For example, &lt;code&gt;[[:print:]]&lt;/code&gt; simply becomes &lt;code&gt;\p{print}&lt;/code&gt;. You can find the full list of properties in &lt;a href="http://idiosyncratic-ruby.com/30-regex-with-class.html#posix-and--unicode-property-style"&gt;Episode 30: Regex with Class&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id="derived-core-properties"&gt;Derived Core Properties&lt;/h3&gt;
+
+&lt;p&gt;These can be found in &lt;a href="http://www.unicode.org/Public/UCD/latest/ucd/DerivedCoreProperties.txt"&gt;DerivedCoreProperties.txt&lt;/a&gt; (&lt;a href="ftp://unicode.org/Public/3.2-Update/DerivedProperties-3.2.0.html"&gt;explanation&lt;/a&gt;), along with a comment how the property gets constructed. Possible values are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Math&lt;/li&gt;
+  &lt;li&gt;Alphabetic&lt;/li&gt;
+  &lt;li&gt;Lowercase&lt;/li&gt;
+  &lt;li&gt;Uppercase&lt;/li&gt;
+  &lt;li&gt;Cased&lt;/li&gt;
+  &lt;li&gt;Case Ignorable&lt;/li&gt;
+  &lt;li&gt;Changes When Lowercased&lt;/li&gt;
+  &lt;li&gt;Changes When Uppercased&lt;/li&gt;
+  &lt;li&gt;Changes When Titlecased&lt;/li&gt;
+  &lt;li&gt;Changes When Casefolded&lt;/li&gt;
+  &lt;li&gt;Changes When Casemapped&lt;/li&gt;
+  &lt;li&gt;ID Start&lt;/li&gt;
+  &lt;li&gt;ID Continue&lt;/li&gt;
+  &lt;li&gt;XID Start&lt;/li&gt;
+  &lt;li&gt;XID Continue&lt;/li&gt;
+  &lt;li&gt;Default Ignorable Code Point&lt;/li&gt;
+  &lt;li&gt;Grapheme Extend&lt;/li&gt;
+  &lt;li&gt;Grapheme Base&lt;/li&gt;
+  &lt;li&gt;Grapheme Link&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id="binary-properties"&gt;Binary Properties&lt;/h3&gt;
+
+&lt;p&gt;Other &lt;a href="https://en.wikipedia.org/wiki/Unicode_character_property"&gt;matchable character properties&lt;/a&gt; are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Bidi Control&lt;/li&gt;
+  &lt;li&gt;Join Control&lt;/li&gt;
+  &lt;li&gt;Dash&lt;/li&gt;
+  &lt;li&gt;Hypen&lt;/li&gt;
+  &lt;li&gt;Quotation Mark&lt;/li&gt;
+  &lt;li&gt;Terminal Punctation&lt;/li&gt;
+  &lt;li&gt;Other Math&lt;/li&gt;
+  &lt;li&gt;Hex Digit&lt;/li&gt;
+  &lt;li&gt;Other Alphabetic&lt;/li&gt;
+  &lt;li&gt;Ideographic&lt;/li&gt;
+  &lt;li&gt;Diacritic&lt;/li&gt;
+  &lt;li&gt;Extender&lt;/li&gt;
+  &lt;li&gt;Other Lowercase&lt;/li&gt;
+  &lt;li&gt;Other Uppercase&lt;/li&gt;
+  &lt;li&gt;Noncharacter Code Point&lt;/li&gt;
+  &lt;li&gt;Other Grapheme Extend&lt;/li&gt;
+  &lt;li&gt;IDS Binary Operator&lt;/li&gt;
+  &lt;li&gt;IDS Trinary Operator&lt;/li&gt;
+  &lt;li&gt;Radical&lt;/li&gt;
+  &lt;li&gt;Unified Ideograph&lt;/li&gt;
+  &lt;li&gt;Other Default Ignorable Code Point&lt;/li&gt;
+  &lt;li&gt;Deprecated&lt;/li&gt;
+  &lt;li&gt;Soft Dotted&lt;/li&gt;
+  &lt;li&gt;Logical Order Exception&lt;/li&gt;
+  &lt;li&gt;Other ID Start&lt;/li&gt;
+  &lt;li&gt;Other ID Continue&lt;/li&gt;
+  &lt;li&gt;STerm&lt;/li&gt;
+  &lt;li&gt;Variation Selector&lt;/li&gt;
+  &lt;li&gt;Pattern White Space&lt;/li&gt;
+  &lt;li&gt;Pattern Syntax&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Regexp.html#class-Regexp-label-Character+Properties"&gt;RDoc: Regexp (Character Properties)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/ruby/ruby/blob/trunk/tool/enc-unicode.rb"&gt;Source: tool/enc-unicode.rb&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://www.unicode.org/reports/tr44/"&gt;Unicode® Standard Annex #44: Unicode Character Database&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Unicode_character_property"&gt;Wikipedia: Unicode character property&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/twitter/twitter-cldr-rb#unicode-regular-expressions"&gt;Alternative: TwitterCldr Regexes&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://codepoints.net/"&gt;Codepoint Browser&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+  </entry>
   <entry>
     <title>Symbolic Validations</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/40-symbolic-validations.html"/>
@@ -1949,31 +2157,6 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
 &lt;p&gt;¹ Will only match linebreaks with &lt;code&gt;/m&lt;/code&gt; flag&lt;br /&gt;
 ² You'll need to &lt;a href="http://idiosyncratic-ruby.com/11-regular-extremism.html#turn-on-unicode-matching-for-w-d-s-and-b"&gt;manually turn on unicode matching&lt;/a&gt; for these to work&lt;/p&gt;
 
-&lt;h3 id="unicode-separators"&gt;Unicode Separators&lt;/h3&gt;
-
-&lt;table class="table-20-X"&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Property&lt;/th&gt;
-      &lt;th&gt;Characters&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Line_Separator&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Zl/list.htm"&gt;Zl&lt;/a&gt;)&lt;/td&gt;
-      &lt;td&gt;&lt;code&gt; &lt;/code&gt; 2028&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Paragraph_Separator&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Zp/list.htm"&gt;Zp&lt;/a&gt;)&lt;/td&gt;
-      &lt;td&gt;&lt;code&gt; &lt;/code&gt; 2029&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Space_Separator&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Zs/list.htm"&gt;Zs&lt;/a&gt;)&lt;/td&gt;
-      &lt;td&gt;&lt;code&gt; &lt;/code&gt; 00A0, &lt;code&gt; &lt;/code&gt; 1680, &lt;code&gt; &lt;/code&gt; 2000, &lt;code&gt; &lt;/code&gt; 2001 , &lt;code&gt; &lt;/code&gt; 2002, &lt;code&gt; &lt;/code&gt; 2003, &lt;code&gt; &lt;/code&gt; 2004, &lt;code&gt; &lt;/code&gt; 2005, &lt;code&gt; &lt;/code&gt; 2006, &lt;code&gt; &lt;/code&gt; 2007, &lt;code&gt; &lt;/code&gt; 2008, &lt;code&gt; &lt;/code&gt; 2009, &lt;code&gt; &lt;/code&gt; 200A, &lt;code&gt; &lt;/code&gt; 202F, &lt;code&gt; &lt;/code&gt; 205F, &lt;code&gt;　&lt;/code&gt; 3000&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
 &lt;h2 id="posix-and--unicode-property-style"&gt;POSIX and  Unicode Property Style&lt;/h2&gt;
 
 &lt;table class="table-13-13-13-13-20-X"&gt;
@@ -2034,7 +2217,7 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
       &lt;td&gt;&lt;code&gt;\p{Digit}&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;\p{^Digit}&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;[0-9]&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;See &lt;code&gt;\d&lt;/code&gt; above&lt;/td&gt;
+      &lt;td&gt;ASCII plus &lt;strong&gt;Decimal_Number&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Nd/list.htm"&gt;Nd&lt;/a&gt;)&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;code&gt;[:graph:]&lt;/code&gt;&lt;/td&gt;
@@ -2042,7 +2225,7 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
       &lt;td&gt;&lt;code&gt;\p{Graph}&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;\p{^Graph}&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;[\x21-\x7E]&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;em&gt;NONE OF:&lt;/em&gt; &lt;code&gt;\s&lt;/code&gt;, &lt;strong&gt;Control&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Cc/list.htm"&gt;Cc&lt;/a&gt;), &lt;strong&gt;Unassigned&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Cn/list.htm"&gt;Cn&lt;/a&gt;), &lt;strong&gt;Surrogate&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Cs/list.htm"&gt;Cs&lt;/a&gt;)&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;ALL, EXCEPT:&lt;/em&gt; &lt;strong&gt;Separator&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Zl/list.htm"&gt;Zl&lt;/a&gt; / &lt;a href="http://www.fileformat.info/info/unicode/category/Zp/list.htm"&gt;Zp&lt;/a&gt; / &lt;a href="http://www.fileformat.info/info/unicode/category/Zs/list.htm"&gt;Zs&lt;/a&gt;), &lt;strong&gt;Control&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Cc/list.htm"&gt;Cc&lt;/a&gt;), &lt;strong&gt;Unassigned&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Cn/list.htm"&gt;Cn&lt;/a&gt;), &lt;strong&gt;Surrogate&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Cs/list.htm"&gt;Cs&lt;/a&gt;)&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;code&gt;[:lower:]&lt;/code&gt;&lt;/td&gt;
@@ -2058,7 +2241,7 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
       &lt;td&gt;&lt;code&gt;\p{Print}&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;\p{^Print}&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;[\x20-\x7E]&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;strong&gt;Space_Separator&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Zs/list.htm"&gt;Zs&lt;/a&gt;), &lt;em&gt;NONE OF:&lt;/em&gt; &lt;code&gt;\s&lt;/code&gt;, &lt;strong&gt;Control&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Cc/list.htm"&gt;Cc&lt;/a&gt;), &lt;strong&gt;Unassigned&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Cn/list.htm"&gt;Cn&lt;/a&gt;), &lt;strong&gt;Surrogate&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Cs/list.htm"&gt;Cs&lt;/a&gt;)&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;ALL, EXCEPT:&lt;/em&gt;  &lt;strong&gt;Line_Separator&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Zs/list.htm"&gt;Zl&lt;/a&gt;), &lt;strong&gt;Paragraph_Separator&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Zs/list.htm"&gt;Zp&lt;/a&gt;) , &lt;strong&gt;Control&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Cc/list.htm"&gt;Cc&lt;/a&gt;), &lt;strong&gt;Unassigned&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Cn/list.htm"&gt;Cn&lt;/a&gt;), &lt;strong&gt;Surrogate&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Cs/list.htm"&gt;Cs&lt;/a&gt;)&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;code&gt;[:punct:]&lt;/code&gt;&lt;/td&gt;
@@ -2074,7 +2257,7 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
       &lt;td&gt;&lt;code&gt;\p{Space}&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;\p{^Space}&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;[ \t\r\v\n\f]&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;See &lt;code&gt;\s&lt;/code&gt; above&lt;/td&gt;
+      &lt;td&gt;ASCII plus &lt;strong&gt;Separator&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Zl/list.htm"&gt;Zl&lt;/a&gt; / &lt;a href="http://www.fileformat.info/info/unicode/category/Zp/list.htm"&gt;Zp&lt;/a&gt; / &lt;a href="http://www.fileformat.info/info/unicode/category/Zs/list.htm"&gt;Zs&lt;/a&gt;)&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;code&gt;[:upper:]&lt;/code&gt;&lt;/td&gt;
@@ -2098,7 +2281,7 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
       &lt;td&gt;&lt;code&gt;\p{Word}&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;\p{^Word}&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;[0-9a-zA-Z_]&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;See &lt;code&gt;\w&lt;/code&gt; above&lt;/td&gt;
+      &lt;td&gt;ASCII plus &lt;strong&gt;Letter&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/LC/list.htm"&gt;LC&lt;/a&gt; / &lt;a href="http://www.fileformat.info/info/unicode/category/Ll/list.htm"&gt;Ll&lt;/a&gt; / &lt;a href="http://www.fileformat.info/info/unicode/category/Lm/list.htm"&gt;Lm&lt;/a&gt; / &lt;a href="http://www.fileformat.info/info/unicode/category/Lo/list.htm"&gt;Lo&lt;/a&gt; / &lt;a href="http://www.fileformat.info/info/unicode/category/Lt/list.htm"&gt;Lt&lt;/a&gt; / &lt;a href="http://www.fileformat.info/info/unicode/category/Lu/list.htm"&gt;Lu&lt;/a&gt;), &lt;strong&gt;Mark&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Mc/list.htm"&gt;Mc&lt;/a&gt; / &lt;a href="http://www.fileformat.info/info/unicode/category/Me/list.htm"&gt;Me&lt;/a&gt; / &lt;a href="http://www.fileformat.info/info/unicode/category/Mn/list.htm"&gt;Mn&lt;/a&gt;), &lt;strong&gt;Number&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Nd/list.htm"&gt;Nd&lt;/a&gt; / &lt;a href="http://www.fileformat.info/info/unicode/category/Nl/list.htm"&gt;Nl&lt;/a&gt; / &lt;a href="http://www.fileformat.info/info/unicode/category/No/list.htm"&gt;No&lt;/a&gt;), &lt;strong&gt;Connector_Punctuation&lt;/strong&gt; (&lt;a href="http://www.fileformat.info/info/unicode/category/Pc/list.htm"&gt;Pc&lt;/a&gt;)&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
@@ -2107,7 +2290,7 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
 
 &lt;h3 id="more-properties"&gt;More Properties&lt;/h3&gt;
 
-&lt;p&gt;The above groups are only the tip of the iceberg. Using the &lt;code&gt;\p{}&lt;/code&gt; syntax, you can match for a lot more unicode properties, see the links below for the complete list!&lt;/p&gt;
+&lt;p&gt;The above groups are only the tip of the iceberg. Using the &lt;code&gt;\p{}&lt;/code&gt; syntax, you can match for a lot more unicode properties, see &lt;a href="/41-proper-unicoding.html"&gt;Episode 41: Proper Unicoding&lt;/a&gt; for details!&lt;/p&gt;
 
 &lt;h2 id="further-reading"&gt;Further Reading&lt;/h2&gt;
 

@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - Proper Unicoding</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="Documentaing all Ruby Specialities. A New Post Every Day in May 2016!"/>
+<meta name="keywords" content="ruby, strings, regex, syntax, unicode"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/41-proper-unicoding.html">Proper Unicoding</a></h1>
+      </section>
+
+      <article class="post">
+        <p>Ruby's Regexp engine has a powerful feature built in: It can match for <a href="http://www.unicode.org/reports/tr44/#Property_List_Table">Unicode character properties</a>. But what exactly are properties you can match for?</p>
+
+<p></p>
+
+<p>The <a href="http://unicode.org/">Unicode consortium</a> not only assigns all <a href="https://en.wikipedia.org/wiki/Code_point">codepoints</a>, it also publishes <a href="http://www.unicode.org/Public/UNIDATA/">additional data</a> about their assigned characters. When searching through a string, Ruby allows you to utilize some of this extra knowledge.</p>
+
+<h2 id="property-regexp-syntax">Property Regexp Syntax</h2>
+
+<p>Within a regular expression, use the <code>\p</code> directive:</p>
+
+<ul>
+  <li><code>/\p{ PROPERTY NAME }/</code></li>
+</ul>
+
+<p>To invert the property (matching characters that do <strong>not</strong> fit), you can either use a big <code>\P</code>:</p>
+
+<ul>
+  <li><code>/\P{ PROPERTY NAME }/</code></li>
+</ul>
+
+<p>Or add the <code>^</code> sign:</p>
+
+<ul>
+  <li><code>/\p{ ^PROPERTY NAME }/</code></li>
+</ul>
+
+<p>Ruby will strip all spaces, dashes, underscores from the given propertiy and convert it to a lowercased string. So the following examples are all valid syntax:</p>
+
+<ul>
+  <li><code>/\p{AGE = 6.3}/</code></li>
+  <li><code>/\p{^In Supplementary Private Use Area-B}/</code></li>
+  <li><code>/\p{In_Egyptian_Hieroglyphs}/</code></li>
+  <li><code>/\P{inemoticons}/</code></li>
+  <li><code>/\P{inno   block}/</code></li>
+  <li><code>/\p{^zzzz}/</code></li>
+  <li><code>/\p{ z___    y-y-y   }/</code></li>
+</ul>
+
+<h2 id="supported-unicode-versions">Supported Unicode Versions</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ruby Version</th>
+      <th>Unicode Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>2.3</strong></td>
+      <td><strong>8.0.0</strong></td>
+    </tr>
+    <tr>
+      <td><strong>2.2</strong></td>
+      <td><strong>7.0.0</strong></td>
+    </tr>
+    <tr>
+      <td><strong>2.1</strong></td>
+      <td><strong>6.1.0</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="list-of-properties">List of Properties</h2>
+
+<h3 id="general-category">General Category</h3>
+
+<p>Each code point has a <a href="https://en.wikipedia.org/wiki/Unicode_character_property#General_Category">General Category</a>, one of the most basic categorizations. Codepoints without an explicit general category will implicitely get <strong>Cn</strong> (Unassigned):</p>
+
+<pre><code>"Find decimal numbers (like 2 or 3)".scan(/\p{Nd}+/) # =&gt; ["2", "3"]
+</code></pre>
+
+<p>See the <a href="https://github.com/janlelis/unicode-categories">Unicode::Categories</a> micro gem for a way find all general categories a string belongs to and a list of possible categories.</p>
+
+<h3 id="major-category">Major Category</h3>
+
+<p>The Major category is basically the first letter of the general category:</p>
+
+<ul>
+  <li><strong>L</strong>: Letter</li>
+  <li><strong>M</strong>: Mark</li>
+  <li><strong>N</strong>: Number</li>
+  <li><strong>P</strong>: Punctuation</li>
+  <li><strong>S</strong>: Symbol</li>
+  <li><strong>Z</strong>: Separator</li>
+  <li><strong>C</strong>: Other</li>
+</ul>
+
+<p>Example:</p>
+
+<pre><code>"Find punctation characters (like : or ;)".scan(/\p{P}+/) # =&gt; ["(", ":", ";)"]
+</code></pre>
+
+<h3 id="block">Block</h3>
+
+<p>Unicode codepoints are also structured as <a href="https://en.wikipedia.org/wiki/Unicode_block">contiguous blocks</a>: Each codepoint is part of one or has the special value <strong>No_Block</strong>. To make the block name a Unicode property, you have to prefix it with "in":</p>
+
+<pre><code>"Do not look directly into the ☼".scan /\p{In Miscellaneous Symbols}/ # =&gt; ["☼"]
+</code></pre>
+
+<p>See the <a href="https://github.com/janlelis/unicode-blocks">Unicode::Blocks</a> micro gem for a way to retrieve the blocks of a string and a list of all valid block names.</p>
+
+<h3 id="script">Script</h3>
+
+<p>The <a href="https://en.wikipedia.org/wiki/Script_%28Unicode%29">script</a> of a character can also be matched:</p>
+
+<pre><code>"ᴦ".scan/\p{Greek}/ # =&gt; "ᴦ"
+</code></pre>
+
+<p>See the <a href="https://github.com/janlelis/unicode-scripts">Unicode::Scripts</a> micro gem for a way to find all scripts a string containso and a list of valid script names. A great way to explore the different scripts is <a href="https://codepoints.net/scripts">codepoints.net</a>.</p>
+
+<h3 id="age">Age</h3>
+
+<p>The age property lets you find out the required Unicode version to display a string:</p>
+
+<pre><code>"Train: 🛲 " =~ /\A\p{age=3.1}*\z/ # =&gt; nil
+"Train: 🛲 " =~ /\A\p{age=7.0}*\z/ # =&gt; 0
+</code></pre>
+
+<h3 id="combinedposix-like-properties">Combined/POSIX like Properties</h3>
+
+<p>All properties of the <a href="http://www.regular-expressions.info/posixbrackets.html">POSIX brackets syntax</a> are available with the <code>\p</code> syntax: For example, <code>[[:print:]]</code> simply becomes <code>\p{print}</code>. You can find the full list of properties in <a href="http://idiosyncratic-ruby.com/30-regex-with-class.html#posix-and--unicode-property-style">Episode 30: Regex with Class</a>.</p>
+
+<h3 id="derived-core-properties">Derived Core Properties</h3>
+
+<p>These can be found in <a href="http://www.unicode.org/Public/UCD/latest/ucd/DerivedCoreProperties.txt">DerivedCoreProperties.txt</a> (<a href="ftp://unicode.org/Public/3.2-Update/DerivedProperties-3.2.0.html">explanation</a>), along with a comment how the property gets constructed. Possible values are:</p>
+
+<ul>
+  <li>Math</li>
+  <li>Alphabetic</li>
+  <li>Lowercase</li>
+  <li>Uppercase</li>
+  <li>Cased</li>
+  <li>Case Ignorable</li>
+  <li>Changes When Lowercased</li>
+  <li>Changes When Uppercased</li>
+  <li>Changes When Titlecased</li>
+  <li>Changes When Casefolded</li>
+  <li>Changes When Casemapped</li>
+  <li>ID Start</li>
+  <li>ID Continue</li>
+  <li>XID Start</li>
+  <li>XID Continue</li>
+  <li>Default Ignorable Code Point</li>
+  <li>Grapheme Extend</li>
+  <li>Grapheme Base</li>
+  <li>Grapheme Link</li>
+</ul>
+
+<h3 id="binary-properties">Binary Properties</h3>
+
+<p>Other <a href="https://en.wikipedia.org/wiki/Unicode_character_property">matchable character properties</a> are:</p>
+
+<ul>
+  <li>Bidi Control</li>
+  <li>Join Control</li>
+  <li>Dash</li>
+  <li>Hypen</li>
+  <li>Quotation Mark</li>
+  <li>Terminal Punctation</li>
+  <li>Other Math</li>
+  <li>Hex Digit</li>
+  <li>Other Alphabetic</li>
+  <li>Ideographic</li>
+  <li>Diacritic</li>
+  <li>Extender</li>
+  <li>Other Lowercase</li>
+  <li>Other Uppercase</li>
+  <li>Noncharacter Code Point</li>
+  <li>Other Grapheme Extend</li>
+  <li>IDS Binary Operator</li>
+  <li>IDS Trinary Operator</li>
+  <li>Radical</li>
+  <li>Unified Ideograph</li>
+  <li>Other Default Ignorable Code Point</li>
+  <li>Deprecated</li>
+  <li>Soft Dotted</li>
+  <li>Logical Order Exception</li>
+  <li>Other ID Start</li>
+  <li>Other ID Continue</li>
+  <li>STerm</li>
+  <li>Variation Selector</li>
+  <li>Pattern White Space</li>
+  <li>Pattern Syntax</li>
+</ul>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li><a href="http://ruby-doc.org/core-2.3.1/Regexp.html#class-Regexp-label-Character+Properties">RDoc: Regexp (Character Properties)</a></li>
+  <li><a href="https://github.com/ruby/ruby/blob/trunk/tool/enc-unicode.rb">Source: tool/enc-unicode.rb</a></li>
+  <li><a href="http://www.unicode.org/reports/tr44/">Unicode® Standard Annex #44: Unicode Character Database</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Unicode_character_property">Wikipedia: Unicode character property</a></li>
+  <li><a href="https://github.com/twitter/twitter-cldr-rb#unicode-regular-expressions">Alternative: TwitterCldr Regexes</a></li>
+  <li><a href="https://codepoints.net/">Codepoint Browser</a></li>
+</ul>
+
+
+
+        <h2>More Idiosyncratic Ruby</h2>
+        <ul>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/62921ea553e4bca13d08c5939052674cec0bf896#all_commit_comments">Comments on GitHub</a></li>
+          <li><a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet this Episode
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
+            <li>Previous Article: <a href="/40-symbolic-validations.html">Symbolic Validations</a></li>
+        </ul>
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="https://github.com/janlelis">Jan Lelis</a><br>
+        </div>
+        About Strings, Regex, Syntax, Unicode |
+        Last Update: 2016-05-10
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>
