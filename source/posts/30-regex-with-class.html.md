@@ -59,7 +59,7 @@ POSIX        | Negation     | Property     | Negation³    | ASCII | Unicode
 
 ### More Properties
 
-The above groups are only the tip of the iceberg. Using the `\p{}` syntax, you can match for a lot more unicode properties, see the links below for the complete list!
+The above groups are only the tip of the iceberg. Using the `\p{}` syntax, you can match for a lot more unicode properties, see [Episode 41: Proper Unicoding](/41-proper-unicoding.html) for details!
 
 ## Further Reading
 
