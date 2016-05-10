@@ -25,16 +25,6 @@ Char           | Negation       | ASCII           | Unicode
 ¹ Will only match linebreaks with `/m` flag<br>
 ² You'll need to [manually turn on unicode matching](http://idiosyncratic-ruby.com/11-regular-extremism.html#turn-on-unicode-matching-for-w-d-s-and-b) for these to work
 
-### Unicode Separators
-
-Property | Characters
----------|-----------
-**Line_Separator** ([Zl](http://www.fileformat.info/info/unicode/category/Zl/list.htm))      | ` ` 2028
-**Paragraph_Separator** ([Zp](http://www.fileformat.info/info/unicode/category/Zp/list.htm)) | ` ` 2029
-**Space_Separator** ([Zs](http://www.fileformat.info/info/unicode/category/Zs/list.htm))       | ` ` 00A0, ` ` 1680, ` ` 2000, ` ` 2001 , ` ` 2002, ` ` 2003, ` ` 2004, ` ` 2005, ` ` 2006, ` ` 2007, ` ` 2008, ` ` 2009, ` ` 200A, ` ` 202F, ` ` 205F, `　` 3000
-{:.table-20-X}
-
-
 ## POSIX and  Unicode Property Style
 
 POSIX        | Negation     | Property     | Negation³    | ASCII | Unicode
