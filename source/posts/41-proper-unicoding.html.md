@@ -2,6 +2,7 @@
 title: Proper Unicoding
 date: 2016-05-10
 tags: strings, regex, syntax, unicode
+commit: 62921ea553e4bca13d08c5939052674cec0bf896
 ---
 
 Ruby's Regexp engine has a powerful feature built in: It can match for [Unicode character properties](http://www.unicode.org/reports/tr44/#Property_List_Table). But what exactly are properties you can match for?
