@@ -14,7 +14,7 @@ ARTICLE
     Gem::Platform.local.os # => "linux"
     Gem::Platform.local.cpu # => "x86_64"
 
-Also see the [OS](https://github.com/rdp/os) gem, which provides similar functionality.
+The value is derived from [RbConfig](/42-ruby-config.html). Also see the [OS](https://github.com/rdp/os) gem, which provides similar functionality.
 
 ## 2) `Gem.gzip` and `Gem.gunzip`
 
