@@ -2,6 +2,7 @@
 title: New Ruby Startup
 date: 2016-05-12
 tags: core
+commit: 0d910b314d2905cc4dfb065b9a2fa951efda6cbf
 ---
 
 What happens when you invoke the Ruby interpreter, even before it executes your first line of code? Actually a lot! A few observations:
