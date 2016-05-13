@@ -17,7 +17,7 @@
 
         <h2>More Idiosyncratic Ruby</h2>
         <ul>
-          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/<%= current_article.data.commit %>#all_commit_comments">Comments on GitHub</a></li>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/<%= current_article.data.commit %>#all_commit_comments">Please Comment on GitHub</a></li>
           <li><a class="twitter-share-button" href="https://twitter.com/share"
             data-via="idiosyncraticrb"
             data-count="horizontal"
@@ -36,6 +36,7 @@
       <footer>
         <div class="footer-right">
           On <a href="/">Idiosyncratic Ruby</a> by <a href="https://github.com/janlelis">Jan Lelis</a><br>
+          <%= get_contributors(__FILE__, current_article.path) %>
         </div>
         About <%= current_article.tags.map{ |e| e.capitalize }.join(", ") %> |
         Last Update: <%= ( Date.parse(`git log -1 --format=%cd -- #{__dir__ + "/../#{current_article.path}"}.md`) rescue current_article.date ).strftime("%Y-%m-%d") %>
