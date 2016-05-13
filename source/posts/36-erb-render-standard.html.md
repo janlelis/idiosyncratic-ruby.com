@@ -63,7 +63,7 @@ Ruby 2.1 came with [Binding#local_variable_set](http://ruby-doc.org/core-2.3.0/B
 
     render_erb(example_template, example_data) # => "Ruby 3.0\n"
 
-**Note:** Both versions' bindings also contain the method arguments of `render_erb`, so you can access `template` and `data` from within the template.
+**Note:** Both versions' bindings also contain the method arguments of `render_erb`, so you can access `template` and `data` from within the template. If you don't like this, you can can use [`TOPLEVEL_BINDING.dup` to work around the local parameters](/44-top-level-binding.html).
 
 ## Also See
 
