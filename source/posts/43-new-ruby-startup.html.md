@@ -30,13 +30,15 @@ These are core libraries that will always get loaded by Ruby:
 
     $ ruby --disable-all -e 'puts $LOADED_FEATURES.map{ |lib| "- #{lib} "}'
 
-- enumerator.so 
-- thread.rb 
-- rational.so 
-- complex.so 
 - /home/jan/.rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/x86_64-linux/enc/encdb.so 
 - /home/jan/.rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/x86_64-linux/enc/trans/transdb.so 
+- enumerator.so ¹
+- thread.rb ¹
+- rational.so ¹
+- complex.so ¹
 - /home/jan/.rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/unicode_normalize.rb
+
+¹ Not actual files. They show up here for backward compatibility because they were moved from the standard library (thus had to be loaded first) to the core.
 
 ## Initial Memory Consumption
 
