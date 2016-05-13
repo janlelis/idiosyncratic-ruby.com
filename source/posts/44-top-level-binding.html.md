@@ -2,6 +2,7 @@
 title: Top Level Binding
 date: 2016-05-31
 tags: core, stdlib
+commit: ff31100be1571930bbefd4d86de9d8323b86b0dc
 ---
 
 In case you have wondered, what this top-level constant `TOPLEVEL_BINDING` is all about:
