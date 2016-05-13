@@ -70,7 +70,7 @@ render_erb(example_template2) # =&gt; "Result is: 3\n"
 
 def render_erb(template, data = {})
   render_binding = binding
-  data.each{ |key, value| binding.local_variable_set(key.to_sym, value) }
+  data.each{ |key, value| render_binding.local_variable_set(key.to_sym, value) }
   ERB.new(template, nil, "%&lt;&gt;").result(render_binding)
 end
 
@@ -85,7 +85,7 @@ TEMPLATE
 render_erb(example_template, example_data) # =&gt; "Ruby 3.0\n"
 </code></pre>
 
-<p><strong>Note:</strong> Both versions' bindings also contain the method arguments of <code>render_erb</code>, so you can access <code>template</code> and <code>data</code> from within the template.</p>
+<p><strong>Note:</strong> Both versions' bindings also contain the method arguments of <code>render_erb</code>, so you can access <code>template</code> and <code>data</code> from within the template. If you don't like this, you can can use <a href="/44-top-level-binding.html"><code>TOPLEVEL_BINDING.dup</code> to work around the local parameters</a>.</p>
 
 <h2 id="also-see">Also See</h2>
 
@@ -98,7 +98,7 @@ render_erb(example_template, example_data) # =&gt; "Ruby 3.0\n"
 
         <h2>More Idiosyncratic Ruby</h2>
         <ul>
-          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/030d6a66d980cce63e6b16e3d05b757e968f1040#all_commit_comments">Comments on GitHub</a></li>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/030d6a66d980cce63e6b16e3d05b757e968f1040#all_commit_comments">Please Comment on GitHub</a></li>
           <li><a class="twitter-share-button" href="https://twitter.com/share"
             data-via="idiosyncraticrb"
             data-count="horizontal"
@@ -113,9 +113,10 @@ render_erb(example_template, example_data) # =&gt; "Ruby 3.0\n"
       <footer>
         <div class="footer-right">
           On <a href="/">Idiosyncratic Ruby</a> by <a href="https://github.com/janlelis">Jan Lelis</a><br>
+          
         </div>
         About Stdlib, Erb, Hash, Binding |
-        Last Update: 2016-05-05
+        Last Update: 2016-05-13
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

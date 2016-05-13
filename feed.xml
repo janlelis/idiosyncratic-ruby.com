@@ -48,14 +48,16 @@
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;enumerator.so&lt;/li&gt;
-  &lt;li&gt;thread.rb&lt;/li&gt;
-  &lt;li&gt;rational.so&lt;/li&gt;
-  &lt;li&gt;complex.so&lt;/li&gt;
   &lt;li&gt;/home/jan/.rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/x86_64-linux/enc/encdb.so&lt;/li&gt;
   &lt;li&gt;/home/jan/.rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/x86_64-linux/enc/trans/transdb.so&lt;/li&gt;
+  &lt;li&gt;enumerator.so ¹&lt;/li&gt;
+  &lt;li&gt;thread.rb ¹&lt;/li&gt;
+  &lt;li&gt;rational.so ¹&lt;/li&gt;
+  &lt;li&gt;complex.so ¹&lt;/li&gt;
   &lt;li&gt;/home/jan/.rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/unicode_normalize.rb&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;¹ Not actual files. They show up here for backward compatibility because they were moved from the standard library (thus had to be loaded first) to the core.&lt;/p&gt;
 
 &lt;h2 id="initial-memory-consumption"&gt;Initial Memory Consumption&lt;/h2&gt;
 
@@ -2248,7 +2250,7 @@ render_erb(example_template2) # =&amp;gt; "Result is: 3\n"
 
 def render_erb(template, data = {})
   render_binding = binding
-  data.each{ |key, value| binding.local_variable_set(key.to_sym, value) }
+  data.each{ |key, value| render_binding.local_variable_set(key.to_sym, value) }
   ERB.new(template, nil, "%&amp;lt;&amp;gt;").result(render_binding)
 end
 
@@ -2263,7 +2265,7 @@ TEMPLATE
 render_erb(example_template, example_data) # =&amp;gt; "Ruby 3.0\n"
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Both versions' bindings also contain the method arguments of &lt;code&gt;render_erb&lt;/code&gt;, so you can access &lt;code&gt;template&lt;/code&gt; and &lt;code&gt;data&lt;/code&gt; from within the template.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Both versions' bindings also contain the method arguments of &lt;code&gt;render_erb&lt;/code&gt;, so you can access &lt;code&gt;template&lt;/code&gt; and &lt;code&gt;data&lt;/code&gt; from within the template. If you don't like this, you can can use &lt;a href="/44-top-level-binding.html"&gt;&lt;code&gt;TOPLEVEL_BINDING.dup&lt;/code&gt; to work around the local parameters&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
 

@@ -54,14 +54,16 @@
 </code></pre>
 
 <ul>
-  <li>enumerator.so</li>
-  <li>thread.rb</li>
-  <li>rational.so</li>
-  <li>complex.so</li>
   <li>/home/jan/.rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/x86_64-linux/enc/encdb.so</li>
   <li>/home/jan/.rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/x86_64-linux/enc/trans/transdb.so</li>
+  <li>enumerator.so ¹</li>
+  <li>thread.rb ¹</li>
+  <li>rational.so ¹</li>
+  <li>complex.so ¹</li>
   <li>/home/jan/.rvm/rubies/ruby-2.3.1/lib/ruby/2.3.0/unicode_normalize.rb</li>
 </ul>
+
+<p>¹ Not actual files. They show up here for backward compatibility because they were moved from the standard library (thus had to be loaded first) to the core.</p>
 
 <h2 id="initial-memory-consumption">Initial Memory Consumption</h2>
 
@@ -352,7 +354,7 @@ map{ |g| "`#{g.to_s.sub("`", "\\`")}`" }.join(", ")'
 
         <h2>More Idiosyncratic Ruby</h2>
         <ul>
-          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/0d910b314d2905cc4dfb065b9a2fa951efda6cbf#all_commit_comments">Comments on GitHub</a></li>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/0d910b314d2905cc4dfb065b9a2fa951efda6cbf#all_commit_comments">Please Comment on GitHub</a></li>
           <li><a class="twitter-share-button" href="https://twitter.com/share"
             data-via="idiosyncraticrb"
             data-count="horizontal"
@@ -366,6 +368,7 @@ map{ |g| "`#{g.to_s.sub("`", "\\`")}`" }.join(", ")'
       <footer>
         <div class="footer-right">
           On <a href="/">Idiosyncratic Ruby</a> by <a href="https://github.com/janlelis">Jan Lelis</a><br>
+          Article Contributions by: cremno
         </div>
         About Core |
         Last Update: 2016-05-12
