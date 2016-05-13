@@ -49,7 +49,7 @@ Ruby 2.1 came with [Binding#local_variable_set](http://ruby-doc.org/core-2.3.0/B
 
     def render_erb(template, data = {})
       render_binding = binding
-      data.each{ |key, value| binding.local_variable_set(key.to_sym, value) }
+      data.each{ |key, value| render_binding.local_variable_set(key.to_sym, value) }
       ERB.new(template, nil, "%<>").result(render_binding)
     end
 
