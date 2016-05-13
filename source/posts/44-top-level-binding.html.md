@@ -1,6 +1,6 @@
 ---
 title: Top Level Binding
-date: 2016-05-31
+date: 2016-05-13
 tags: core, stdlib
 commit: ff31100be1571930bbefd4d86de9d8323b86b0dc
 ---
