@@ -5,10 +5,49 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2016-05-12T02:00:00+02:00</updated>
+  <updated>2016-05-13T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Top Level Binding</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/44-top-level-binding.html"/>
+    <id>http://idiosyncratic-ruby.com/44-top-level-binding.html</id>
+    <published>2016-05-13T02:00:00+02:00</published>
+    <updated>2016-05-13T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;In case you have wondered, what this top-level constant &lt;code&gt;TOPLEVEL_BINDING&lt;/code&gt; is all about:&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;It is, as its name suggest, the &lt;a href="http://ruby-doc.org/core-2.3.1/Binding.html"&gt;Binding&lt;/a&gt; of your script's main scope:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;a = 42
+p binding.local_variable_defined?(:a) # =&amp;gt; true
+p TOPLEVEL_BINDING.local_variable_defined?(:a) # =&amp;gt; true
+
+def example_method
+  p binding.local_variable_defined?(:a) # =&amp;gt; false
+  p TOPLEVEL_BINDING.local_variable_defined?(:a) # =&amp;gt; true
+end
+
+example_method
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="what-is-a-practical-use-of-it"&gt;What is a practical use of it?&lt;/h2&gt;
+
+&lt;p&gt;Besides being a general default binding for your application (&lt;a href="https://github.com/ruby/ruby/blob/v2_3_1/lib/irb.rb#L373"&gt;which is used in IRB&lt;/a&gt;), it can act also as the missing &lt;code&gt;Binding.new&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;clean_binding = TOPLEVEL_BINDING.dup
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Assuming a more complex/structured application (instead of a single-file script), the top-level binding is mostly empty or consists of just a few important variables.&lt;/p&gt;
+
+&lt;p&gt;In fact, this is how &lt;a href="https://github.com/ruby/ruby/blob/v2_3_1/lib/erb.rb#L872-L875"&gt;it is utilized in stdlib's ERB implementation&lt;/a&gt;.&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>New Ruby Startup</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/43-new-ruby-startup.html"/>
