@@ -2,6 +2,7 @@
 title: Constant Shuffle
 date: 2016-05-14
 tags: core, constants
+commit: 6e5232fda866ad899915fc12c120833f41990308
 ---
 
 Today, another snippet from the category *[don't try at home, might have unforseeable consequences!](/16-changing-the-rules.html)*
