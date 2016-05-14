@@ -102,14 +102,14 @@ Gem::Licenses.match? "Idiosyncratic" # =&gt; false
 
 <h2 id="gemutilsilentsystem">5) <code>Gem::Util.silent_system</code></h2>
 
-<p>Like <a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-system">Kernel#system</a>, but without printing to <code>STDOUT</code>/<code>STDERR</code>. It will temporary replace <code>STDOUT</code> and <code>STDERR</code> with a null device:</p>
+<p>Like <a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-system">Kernel#system</a>, but without printing to <code>STDOUT</code>/<code>STDERR</code>. It will temporary replace <code>STDOUT</code> and <code>STDERR</code> with a null device:</p>
 
 <pre><code>require 'rubygems/util'
 # create file 123, but output nothing
 Gem::Util.silent_system "touch 123"
 </code></pre>
 
-<p><strong>Note:</strong> If you don't want to print anything, but you are still interested in the commands output, you can use <a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-60">backticks</a>!</p>
+<p><strong>Note:</strong> If you don't want to print anything, but you are still interested in the commands output, you can use <a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-60">backticks</a>!</p>
 
 <h2 id="gemutiltraverseparents">6) <code>Gem::Util.traverse_parents</code></h2>
 
@@ -172,7 +172,7 @@ format "%.2f", 1
           
         </div>
         About Rubygems, Core, Stdlib |
-        Last Update: 2016-05-11
+        Last Update: 2016-05-14
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

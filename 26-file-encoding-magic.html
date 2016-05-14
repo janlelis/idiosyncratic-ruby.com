@@ -24,7 +24,7 @@
       </section>
 
       <article class="post">
-        <p>Ruby has <a href="http://graysoftinc.com/character-encodings/ruby-19s-three-default-encodings">three default encodings</a>. One of them is the default <a href="http://ruby-doc.org/core-2.3.0/Encoding.html#class-Encoding-label-Script+encoding">source encoding</a>, which can be set using a <strong>magic comment</strong> in the file's first line, or in the second line if the first line is taken by a <a href="https://en.wikipedia.org/wiki/Shebang_%28Unix%29">shebang</a>.</p>
+        <p>Ruby has <a href="http://graysoftinc.com/character-encodings/ruby-19s-three-default-encodings">three default encodings</a>. One of them is the default <a href="http://ruby-doc.org/core-2.3.1/Encoding.html#class-Encoding-label-Script+encoding">source encoding</a>, which can be set using a <strong>magic comment</strong> in the file's first line, or in the second line if the first line is taken by a <a href="https://en.wikipedia.org/wiki/Shebang_%28Unix%29">shebang</a>.</p>
 
 <p></p>
 
@@ -41,7 +41,7 @@ p "".encoding #=&gt; #&lt;Encoding:Windows-1252&gt;
 
 <h2 id="respecting-the-encoding-comment-when-reading-a-file">Respecting the Encoding Comment when Reading a File</h2>
 
-<p>You might come across a situation, where you want to read in a source file using Ruby's <a href="http://ruby-doc.org/core-2.3.0/File.html">File</a> class, but also want to set the proper encoding from the magic comment. Fortunately, Ruby's standard library supports this. Unfortunately, it is not a stand-alone module, but a part of IRB:</p>
+<p>You might come across a situation, where you want to read in a source file using Ruby's <a href="http://ruby-doc.org/core-2.3.1/File.html">File</a> class, but also want to set the proper encoding from the magic comment. Fortunately, Ruby's standard library supports this. Unfortunately, it is not a stand-alone module, but a part of IRB:</p>
 
 <pre><code>&gt;&gt; require 'irb/magic-file'
 # =&gt; false
@@ -81,7 +81,7 @@ p "".encoding #=&gt; #&lt;Encoding:Windows-1252&gt;
           
         </div>
         About Core, Encoding, Stdlib |
-        Last Update: 2015-11-24
+        Last Update: 2016-05-14
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

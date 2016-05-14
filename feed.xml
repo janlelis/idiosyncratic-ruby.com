@@ -5,10 +5,73 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2016-05-13T02:00:00+02:00</updated>
+  <updated>2016-05-14T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Constant Shuffle</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/45-constant-shuffle.html"/>
+    <id>http://idiosyncratic-ruby.com/45-constant-shuffle.html</id>
+    <published>2016-05-14T02:00:00+02:00</published>
+    <updated>2016-05-14T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Today, another snippet from the category &lt;em&gt;&lt;a href="/16-changing-the-rules.html"&gt;don't try at home, might have unforseeable consequences!&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Constant assignment¹ is not permanent in Ruby, so it is perfectly valid to do this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;module A
+end
+
+class B
+  def initialize
+    p 42
+  end
+end
+
+A, B = B, A
+# warning: already initialized constant A
+# warning: previous definition of A was here
+# warning: already initialized constant B
+# warning: previous definition of B was here
+A.new  #=&amp;gt; #&amp;lt;B:0x00000002744008&amp;gt;
+# 42
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;¹ As a side note: There is also &lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-remove_const"&gt;Module#remove_const&lt;/a&gt;, which will delete the constant, but not the module! Quoting the documentation: &lt;em&gt;"If that constant referred to a module, this will not change that module's name and can lead to confusion"&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;o = Object.send(:remove_const, :Object)
+Object.constants # NameError: uninitialized constant Object
+o # =&amp;gt; Object
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="the-ruby-shuffle"&gt;The Ruby Shuffle&lt;/h2&gt;
+
+&lt;p&gt;Developing the swapping idea further, for maximal confusion:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;require 'stringio'
+def shuffle_ruby(n=rand(50))
+  mod, os, e, sio = Module, ObjectSpace, Exception, StringIO
+  stderr, $stderr = $stderr, sio.new
+  n.times{
+    begin
+      m1 = os.each_object(mod).to_a.sample
+      m2 = os.each_object(mod).to_a.sample
+      puts "Swap #{m1} and #{m2}"
+      eval "#{m1}, #{m2} = #{m2}, #{m1}"
+    rescue e
+    end
+  }
+  $stderr = stderr
+  puts "Ruby shuffled (#{n} swaps)"
+end
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+  </entry>
   <entry>
     <title>Top Level Binding</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/44-top-level-binding.html"/>
@@ -111,7 +174,7 @@ example_method
 
 &lt;h2 id="initial-ruby-objects"&gt;Initial Ruby Objects&lt;/h2&gt;
 
-&lt;p&gt;Via: &lt;a href="http://ruby-doc.org/core-2.3.0/ObjectSpace.html#method-c-each_object"&gt;ObjectSpace.each_object&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Via: &lt;a href="http://ruby-doc.org/core-2.3.1/ObjectSpace.html#method-c-each_object"&gt;ObjectSpace.each_object&lt;/a&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ ruby --disable-all -e 'puts \
 " Ruby Object                   | Count\n" +
@@ -266,7 +329,7 @@ map{ |n| "- #{n} (#{n.class})" }'
 
 &lt;h2 id="initial-internal-objects"&gt;Initial Internal Objects&lt;/h2&gt;
 
-&lt;p&gt;Via: &lt;a href="http://ruby-doc.org/core-2.3.0/ObjectSpace.html#method-c-count_objects"&gt;ObjectSpace.count_objects&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Via: &lt;a href="http://ruby-doc.org/core-2.3.1/ObjectSpace.html#method-c-count_objects"&gt;ObjectSpace.count_objects&lt;/a&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ ruby --disable-all -e 'puts \
 " Object    | Count\n" +
@@ -2090,7 +2153,7 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
 &lt;pre&gt;&lt;code&gt;method(:require).arity # =&amp;gt; 1
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;However: &lt;a href="http://ruby-doc.org/core-2.3.0/Method.html#method-i-arity"&gt;For methods written in C, returns -1 if the call takes a variable number of arguments&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;However: &lt;a href="http://ruby-doc.org/core-2.3.1/Method.html#method-i-arity"&gt;For methods written in C, returns -1 if the call takes a variable number of arguments&lt;/a&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;method(:puts).arity # =&amp;gt; -1
 &lt;/code&gt;&lt;/pre&gt;
@@ -2103,7 +2166,7 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
 # =&amp;gt; ["/home/jan/.rvm/rubies/ruby-2.3.0/lib/.../core_ext/kernel_require.rb", 39]
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;However: &lt;a href="http://ruby-doc.org/core-2.3.0/Method.html#method-i-source_location"&gt;Returns […] nil if this method was not defined in Ruby (i.e. native)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;However: &lt;a href="http://ruby-doc.org/core-2.3.1/Method.html#method-i-source_location"&gt;Returns […] nil if this method was not defined in Ruby (i.e. native)&lt;/a&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;method(:puts).source_location # =&amp;gt; nil
 &lt;/code&gt;&lt;/pre&gt;
@@ -2247,7 +2310,7 @@ B.rev 42
 
 &lt;p&gt;&lt;/p&gt;
 
-&lt;p&gt;However, it does not directly support rendering data from a &lt;a href="http://ruby-doc.org/core-2.3.0/Hash.html"&gt;Hash&lt;/a&gt;, but only from a &lt;a href="http://ruby-doc.org/core-2.3.0/Binding.html"&gt;Binding&lt;/a&gt; object:&lt;/p&gt;
+&lt;p&gt;However, it does not directly support rendering data from a &lt;a href="http://ruby-doc.org/core-2.3.1/Hash.html"&gt;Hash&lt;/a&gt;, but only from a &lt;a href="http://ruby-doc.org/core-2.3.1/Binding.html"&gt;Binding&lt;/a&gt; object:&lt;/p&gt;
 
 &lt;h2 id="how-to-render-an-erb-template-pre-21"&gt;How to Render an ERB Template¹ (Pre 2.1)&lt;/h2&gt;
 
@@ -2283,7 +2346,7 @@ render_erb(example_template2) # =&amp;gt; "Result is: 3\n"
 
 &lt;h2 id="how-to-render-an-erb-template-post-21"&gt;How to Render an ERB Template (Post 2.1)&lt;/h2&gt;
 
-&lt;p&gt;Ruby 2.1 came with &lt;a href="http://ruby-doc.org/core-2.3.0/Binding.html#method-i-local_variable_set"&gt;Binding#local_variable_set&lt;/a&gt;, so we can remove &lt;a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/ostruct/rdoc/OpenStruct.html"&gt;OpenStruct&lt;/a&gt; from the equation:&lt;/p&gt;
+&lt;p&gt;Ruby 2.1 came with &lt;a href="http://ruby-doc.org/core-2.3.1/Binding.html#method-i-local_variable_set"&gt;Binding#local_variable_set&lt;/a&gt;, so we can remove &lt;a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/ostruct/rdoc/OpenStruct.html"&gt;OpenStruct&lt;/a&gt; from the equation:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;require "erb"
 
@@ -2337,7 +2400,7 @@ hash[idiosyncratic_in_variable] # =&amp;gt; nil
 hash["Idiosyncratic"] # =&amp;gt; "Ruby"
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Hash.html#method-i-compare_by_identity"&gt;&lt;code&gt;Hash#compare_by_identity&lt;/code&gt;&lt;/a&gt; changes the semantics of what is equal in a hash and what not. Only if exact the same object is passed in, the value will be retrieved.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Hash.html#method-i-compare_by_identity"&gt;&lt;code&gt;Hash#compare_by_identity&lt;/code&gt;&lt;/a&gt; changes the semantics of what is equal in a hash and what not. Only if exact the same object is passed in, the value will be retrieved.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Please note:&lt;/strong&gt; The above example works for the key of&lt;code&gt;"Idiosyncratic"&lt;/code&gt;, because every string literal returns the same object. This behaviour has been introduced with Ruby 2.2, so running it in 2.1 or lower will return &lt;code&gt;nil&lt;/code&gt; for the last line.&lt;/p&gt;
 
@@ -2467,14 +2530,14 @@ Gem::Licenses.match? "Idiosyncratic" # =&amp;gt; false
 
 &lt;h2 id="gemutilsilentsystem"&gt;5) &lt;code&gt;Gem::Util.silent_system&lt;/code&gt;&lt;/h2&gt;
 
-&lt;p&gt;Like &lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-system"&gt;Kernel#system&lt;/a&gt;, but without printing to &lt;code&gt;STDOUT&lt;/code&gt;/&lt;code&gt;STDERR&lt;/code&gt;. It will temporary replace &lt;code&gt;STDOUT&lt;/code&gt; and &lt;code&gt;STDERR&lt;/code&gt; with a null device:&lt;/p&gt;
+&lt;p&gt;Like &lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-system"&gt;Kernel#system&lt;/a&gt;, but without printing to &lt;code&gt;STDOUT&lt;/code&gt;/&lt;code&gt;STDERR&lt;/code&gt;. It will temporary replace &lt;code&gt;STDOUT&lt;/code&gt; and &lt;code&gt;STDERR&lt;/code&gt; with a null device:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;require 'rubygems/util'
 # create file 123, but output nothing
 Gem::Util.silent_system "touch 123"
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; If you don't want to print anything, but you are still interested in the commands output, you can use &lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-60"&gt;backticks&lt;/a&gt;!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; If you don't want to print anything, but you are still interested in the commands output, you can use &lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-60"&gt;backticks&lt;/a&gt;!&lt;/p&gt;
 
 &lt;h2 id="gemutiltraverseparents"&gt;6) &lt;code&gt;Gem::Util.traverse_parents&lt;/code&gt;&lt;/h2&gt;
 
@@ -2726,62 +2789,62 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/NoMemoryError.html"&gt;NoMemoryError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/NoMemoryError.html"&gt;NoMemoryError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;The Ruby interpreter could not allocate the required memory&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;"Idiosyncratic" * 100_000_000_000&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/ScriptError.html"&gt;ScriptError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/ScriptError.html"&gt;ScriptError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
       &lt;td&gt;Not thrown directly&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/LoadError.html"&gt;ScriptError → LoadError&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;A source file could not be &lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-load"&gt;loaded&lt;/a&gt;, &lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-require"&gt;required&lt;/a&gt;, or &lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-require_relative"&gt;required relatively&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/LoadError.html"&gt;ScriptError → LoadError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;A source file could not be &lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-load"&gt;loaded&lt;/a&gt;, &lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-require"&gt;required&lt;/a&gt;, or &lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-require_relative"&gt;required relatively&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;It is meant for source code the current program is running and therfore should not be used for other kinds of files&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/NotImplementedError.html"&gt;ScriptError → NotImplementedError&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;A feature of Ruby does not work on this platform/OS, for example, &lt;a href="http://ruby-doc.org/core-2.3.0/Process.html#method-c-fork"&gt;fork&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/NotImplementedError.html"&gt;ScriptError → NotImplementedError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;A feature of Ruby does not work on this platform/OS, for example, &lt;a href="http://ruby-doc.org/core-2.3.1/Process.html#method-c-fork"&gt;fork&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Although it is often used as "I have not implemented it (yet)", its original purpose is low-level platform support errors&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/SyntaxError.html"&gt;ScriptError → SyntaxError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/SyntaxError.html"&gt;ScriptError → SyntaxError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Invalid Ruby syntax was found&lt;/td&gt;
       &lt;td&gt;Do not raise when parsing some other file format fails. It is meant for source code that the current program is running.&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/SecurityError.html"&gt;SecurityError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/SecurityError.html"&gt;SecurityError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Mostly raised when attempting a forbidden &lt;a href="http://ruby-doc.com/docs/ProgrammingRuby/html/taint.html"&gt;$SAFE level 1&lt;/a&gt; operation&lt;/td&gt;
       &lt;td&gt;Use as base class for critical security issues, which should intentionally not be rescued by default&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/SignalException.html"&gt;SignalException&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/SignalException.html"&gt;SignalException&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;A signal is received&lt;/td&gt;
-      &lt;td&gt;The common way to catch a signal is the &lt;a href="http://ruby-doc.org/core-2.3.0/Signal.html#method-c-trap"&gt;trap&lt;/a&gt; method&lt;/td&gt;
+      &lt;td&gt;The common way to catch a signal is the &lt;a href="http://ruby-doc.org/core-2.3.1/Signal.html#method-c-trap"&gt;trap&lt;/a&gt; method&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Interrupt.html"&gt;SignalException → Interrupt&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Interrupt.html"&gt;SignalException → Interrupt&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;An interupt signal (SIGINT) is received&lt;/td&gt;
-      &lt;td&gt;The common way to catch a signal is the &lt;a href="http://ruby-doc.org/core-2.3.0/Signal.html#method-c-trap"&gt;trap&lt;/a&gt; method&lt;/td&gt;
+      &lt;td&gt;The common way to catch a signal is the &lt;a href="http://ruby-doc.org/core-2.3.1/Signal.html#method-c-trap"&gt;trap&lt;/a&gt; method&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/StandardError.html"&gt;StandardError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/StandardError.html"&gt;StandardError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
       &lt;td&gt;Base class for normal exceptions. See next table.&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/SystemExit.html"&gt;SystemExit&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Thrown by &lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-exit"&gt;Kernel#exit&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Not thrown by &lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-exit-21"&gt;Kernel#exit!&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/SystemExit.html"&gt;SystemExit&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Thrown by &lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-exit"&gt;Kernel#exit&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Not thrown by &lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-exit-21"&gt;Kernel#exit!&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/SystemStackError.html"&gt;SystemStackError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/SystemStackError.html"&gt;SystemStackError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Raised for stack overflows, for example, in case of infinite recursion&lt;/td&gt;
       &lt;td&gt;Cannot always be caught by the interpreter&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/fatal.html"&gt;fatal&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/fatal.html"&gt;fatal&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;When a &lt;a href="https://github.com/ruby/ruby/blob/v2_3_0/thread.c#L4752-L4753"&gt;deadlock&lt;/a&gt; is discovered or &lt;a href="https://github.com/ruby/ruby/blob/v2_3_0/eval.c#L1651"&gt;this special vm exception&lt;/a&gt; is triggered&lt;/td&gt;
       &lt;td&gt;Never rescuable. You can use this hack to get a reference to the error object: &lt;code&gt;ObjectSpace.each_object(Class){|c| break c if c.ancestors.include?(Exception) &amp;amp;&amp;amp; c.name == 'fatal' }&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
@@ -2802,132 +2865,132 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/ArgumentError.html"&gt;ArgumentError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/ArgumentError.html"&gt;ArgumentError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Raised when a method is not given the proper arguments, for example, a wrong argument count&lt;/td&gt;
       &lt;td&gt;Best class to inherit from for custom errors describing that the method usage was wrong&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/UncaughtThrowError.html"&gt;ArgumentError → UncaughtThrowError&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;When &lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-throw"&gt;throw&lt;/a&gt; is used without the proper &lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-catch"&gt;catch&lt;/a&gt; around&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/UncaughtThrowError.html"&gt;ArgumentError → UncaughtThrowError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;When &lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-throw"&gt;throw&lt;/a&gt; is used without the proper &lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-catch"&gt;catch&lt;/a&gt; around&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/EncodingError.html"&gt;EncodingError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/EncodingError.html"&gt;EncodingError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Sometimes raised directly in &lt;a href="https://github.com/ruby/ruby/blob/v2_3_0/encoding.c#L182-L189"&gt;unicode edge cases&lt;/a&gt; or when &lt;a href="https://github.com/ruby/ruby/blob/v2_3_0/symbol.c#L433"&gt;symbols are broken&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Encoding/CompatibilityError.html"&gt;EncodingError → Encoding:: CompatibilityError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Encoding/CompatibilityError.html"&gt;EncodingError → Encoding:: CompatibilityError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Raised when trying to combine strings of two incompatible encodings&lt;/td&gt;
       &lt;td&gt;Example: &lt;code&gt;"Idiosyn" +"crätic".encode("UTF-16LE")&lt;/code&gt; under UTF-8 leads to &lt;code&gt;Encoding::CompatibilityError: incompatible character encodings: UTF-8 and UTF-16LE&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Encoding/ConverterNotFoundError.html"&gt;EncodingError → Encoding:: ConverterNotFoundError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Encoding/ConverterNotFoundError.html"&gt;EncodingError → Encoding:: ConverterNotFoundError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Raised when no encoding converter is available&lt;/td&gt;
       &lt;td&gt;Example: &lt;code&gt;"Idiosyncrätic".encode("ABC")&lt;/code&gt; under UTF-8 leads to &lt;code&gt;Encoding::ConverterNotFoundError: code converter not found (UTF-8 to ABC)&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Encoding/InvalidByteSequenceError.html"&gt;EncodingError → Encoding:: InvalidByteSequenceError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Encoding/InvalidByteSequenceError.html"&gt;EncodingError → Encoding:: InvalidByteSequenceError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;String contains byte sequences not valid in the current encoding&lt;/td&gt;
       &lt;td&gt;Example: &lt;code&gt;"Idiosyncr\u{D800}tic".encode("ASCII")&lt;/code&gt; under UTF-8 leads to &lt;code&gt;Encoding::InvalidByteSequenceError: "\xED" followed by "\xA0" on UTF-8&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Encoding/UndefinedConversionError.html"&gt;EncodingError → Encoding:: UndefinedConversionError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Encoding/UndefinedConversionError.html"&gt;EncodingError → Encoding:: UndefinedConversionError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Raised when an encoding converter is available, but it cannot convert a specific codepoint&lt;/td&gt;
       &lt;td&gt;Example: &lt;code&gt;"\u{00A0}".encode("EUC-JP")&lt;/code&gt; under UTF-8 leads to &lt;code&gt;Encoding::UndefinedConversionError: U+00A0 from UTF-8 to EUC-JP&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Fiber.html"&gt;FiberError&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Raised when an invalid operation is attempted on a &lt;a href="http://ruby-doc.org/core-2.3.0/Fiber.html"&gt;Fiber&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Fiber.html"&gt;FiberError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Raised when an invalid operation is attempted on a &lt;a href="http://ruby-doc.org/core-2.3.1/Fiber.html"&gt;Fiber&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Such as: Attempting to call/resume a dead Fiber, yield from the root fiber, calling a Fiber across threads&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/IOError.html"&gt;IOError&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Raised when an &lt;a href="ruby-doc.org/core-2.3.0/IO.html"&gt;IO&lt;/a&gt; operation fails, like opening a file&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/IOError.html"&gt;IOError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Raised when an &lt;a href="ruby-doc.org/core-2.3.1/IO.html"&gt;IO&lt;/a&gt; operation fails, like opening a file&lt;/td&gt;
       &lt;td&gt;Pay attention that there are some failures will raise a &lt;code&gt;SystemCallError&lt;/code&gt;, which is not a sub-class of &lt;code&gt;IOError&lt;/code&gt;!&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/EOFError.html"&gt;IOError → EOFError&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Raised by many &lt;a href="ruby-doc.org/core-2.3.0/IO.html"&gt;IO&lt;/a&gt; operations when reaching the end of file&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/EOFError.html"&gt;IOError → EOFError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Raised by many &lt;a href="ruby-doc.org/core-2.3.1/IO.html"&gt;IO&lt;/a&gt; operations when reaching the end of file&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/IndexError.html"&gt;IndexError&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Raised when an element or deducted value cannot be retrieved, for example, when using &lt;a href="http://ruby-doc.org/core-2.3.0/Array.html#method-i-fetch"&gt;Array#fetch&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/IndexError.html"&gt;IndexError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Raised when an element or deducted value cannot be retrieved, for example, when using &lt;a href="http://ruby-doc.org/core-2.3.1/Array.html#method-i-fetch"&gt;Array#fetch&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Thrown by many core classes like Array, Regex, String, Struct or some standard libraries like &lt;a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/strscan/rdoc/StringScanner.html"&gt;strscan&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/KeyError.html"&gt;IndexError → KeyError&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Raised when an element cannot be retrieved (by a key), for example, when using &lt;a href="ruby-doc.org/core-2.3.0/Hash.html#method-i-fetch"&gt;Hash#fetch&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/KeyError.html"&gt;IndexError → KeyError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Raised when an element cannot be retrieved (by a key), for example, when using &lt;a href="ruby-doc.org/core-2.3.1/Hash.html#method-i-fetch"&gt;Hash#fetch&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Mainly used by hashes&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/StopIteration.html"&gt;IndexError → StopIteration&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Raised when an &lt;a href="ruby-doc.org/core-2.3.0/Enumerator.html"&gt;external iterator&lt;/a&gt; has &lt;a href="http://ruby-doc.org/core-2.3.0/StopIteration.html"&gt;reached its end&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;You can use the &lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-loop"&gt;Kernel#loop&lt;/a&gt; method to automatically catch &lt;code&gt;StopIteration&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/StopIteration.html"&gt;IndexError → StopIteration&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Raised when an &lt;a href="ruby-doc.org/core-2.3.1/Enumerator.html"&gt;external iterator&lt;/a&gt; has &lt;a href="http://ruby-doc.org/core-2.3.1/StopIteration.html"&gt;reached its end&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;You can use the &lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-loop"&gt;Kernel#loop&lt;/a&gt; method to automatically catch &lt;code&gt;StopIteration&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/ClosedQueueError.html"&gt;IndexError → StopIteration → ClosedQueueError&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Raised when trying to modify a &lt;a href="http://ruby-doc.org/core-2.3.0/Queue.html#method-i-close"&gt;closed Queue&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/ClosedQueueError.html"&gt;IndexError → StopIteration → ClosedQueueError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Raised when trying to modify a &lt;a href="http://ruby-doc.org/core-2.3.1/Queue.html#method-i-close"&gt;closed Queue&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/LocalJumpError.html"&gt;LocalJumpError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/LocalJumpError.html"&gt;LocalJumpError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Thrown when an invalid control flow operation is attempted, like calling &lt;code&gt;yield&lt;/code&gt; from a method that was not passed a block to&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;LocalJumpError&lt;/code&gt;s contains a &lt;code&gt;reason&lt;/code&gt; and an &lt;code&gt;exit_value&lt;/code&gt; property from the last valid context&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Math/DomainError.html"&gt;Math::DomainError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Math/DomainError.html"&gt;Math::DomainError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;An invalid mathematical operation was attempted, for example, trying to calculate the &lt;a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_functions"&gt;arctan&lt;/a&gt; of a value greater than 1&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/NameError.html"&gt;NameError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/NameError.html"&gt;NameError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Raised when referencing things that do not exist, like unknown constants&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/NoMethodError.html"&gt;NameError → NoMethodError&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Raised if trying to call a method that does not exist, and no &lt;a href="http://ruby-doc.org/core-2.3.0/BasicObject.html#method-i-method_missing"&gt;&lt;code&gt;method_missing&lt;/code&gt;&lt;/a&gt; is defined&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/NoMethodError.html"&gt;NameError → NoMethodError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Raised if trying to call a method that does not exist, and no &lt;a href="http://ruby-doc.org/core-2.3.1/BasicObject.html#method-i-method_missing"&gt;&lt;code&gt;method_missing&lt;/code&gt;&lt;/a&gt; is defined&lt;/td&gt;
       &lt;td&gt;Trying to call non-existant private methods of &lt;code&gt;self&lt;/code&gt; (like &lt;code&gt;Kernel#puts&lt;/code&gt;) will result in &lt;code&gt;NameError&lt;/code&gt; instead of &lt;code&gt;NoMethodError&lt;/code&gt;, because it could also have been a local variable&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/RangeError.html"&gt;RangeError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/RangeError.html"&gt;RangeError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;A numerical number is off, most often it is too small or big&lt;/td&gt;
       &lt;td&gt;For example, &lt;code&gt;[].pack("C100000000000000000000")&lt;/code&gt; does not work, because &lt;a href="http://idiosyncratic-ruby.com/4-what-the-pack.html#c--an-unsigned-integer-per-byte"&gt;pack&lt;/a&gt; requires the number to fit into &lt;code&gt;long&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/FloatDomainError.html"&gt;RangeError → FloatDomainError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/FloatDomainError.html"&gt;RangeError → FloatDomainError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Raised when trying to convert a special Float value (&lt;code&gt;NaN&lt;/code&gt;, &lt;code&gt;Float::INFINITY&lt;/code&gt;) to another number format that does not support special values&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/RegexpError.html"&gt;RegexpError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/RegexpError.html"&gt;RegexpError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Raised when trying to dynamically create an invalid regex&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/RuntimeError.html"&gt;RuntimeError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/RuntimeError.html"&gt;RuntimeError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Unspecific occurrences&lt;/td&gt;
       &lt;td&gt;Default error class that will be used when raising a string: &lt;code&gt;raise "something"&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/SystemCallError.html"&gt;SystemCallError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/SystemCallError.html"&gt;SystemCallError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
       &lt;td&gt;Lower level system call errors. See next table.&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/ThreadError.html"&gt;ThreadError&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Raised for invalid &lt;a href="http://ruby-doc.org/core-2.3.0/Thread.html"&gt;Thread&lt;/a&gt; operations&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/ThreadError.html"&gt;ThreadError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Raised for invalid &lt;a href="http://ruby-doc.org/core-2.3.1/Thread.html"&gt;Thread&lt;/a&gt; operations&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/TypeError.html"&gt;TypeError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/TypeError.html"&gt;TypeError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Violations against Ruby's type system&lt;/td&gt;
       &lt;td&gt;For example, &lt;code&gt;"" + nil&lt;/code&gt; will lead to "TypeError: no implicit conversion of nil into String"&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/ZeroDivisionError.html"&gt;ZeroDivisionError&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/ZeroDivisionError.html"&gt;ZeroDivisionError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;An integer, complex, or rational number was tried to divide by another integer, complex, or rational number&lt;/td&gt;
       &lt;td&gt;Floats and BigDecimal return Infinity, negative Infinity, or &lt;code&gt;NaN&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
@@ -2993,13 +3056,13 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/IO/EAGAINWaitReadable.html"&gt;Errno::EAGAIN → IO::EAGAINWaitReadable&lt;/a&gt;²&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/IO/EAGAINWaitReadable.html"&gt;Errno::EAGAIN → IO::EAGAINWaitReadable&lt;/a&gt;²&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;STDIN.read_nonblock(1)&lt;/code&gt; (if blocking)&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/IO/EAGAINWaitWritable.html"&gt;Errno::EAGAIN → IO::EAGAINWaitWritable&lt;/a&gt;²&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/IO/EAGAINWaitWritable.html"&gt;Errno::EAGAIN → IO::EAGAINWaitWritable&lt;/a&gt;²&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
@@ -3197,13 +3260,13 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/IO/EINPROGRESSWaitReadable.html"&gt;Errno::EINPROGRESS → IO::EINPROGRESSWaitReadable&lt;/a&gt;²&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/IO/EINPROGRESSWaitReadable.html"&gt;Errno::EINPROGRESS → IO::EINPROGRESSWaitReadable&lt;/a&gt;²&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/IO/EINPROGRESSWaitWritable.html"&gt;Errno::EINPROGRESS → IO::EINPROGRESSWaitWritable&lt;/a&gt;²&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/IO/EINPROGRESSWaitWritable.html"&gt;Errno::EINPROGRESS → IO::EINPROGRESSWaitWritable&lt;/a&gt;²&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
@@ -3788,13 +3851,13 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
 &lt;/table&gt;
 
 &lt;p&gt;¹ Feel free to &lt;a href="https://github.com/janlelis/idiosyncratic-ruby.com/issues/new"&gt;suggest more one-liners&lt;/a&gt;! I will also add some more over time.&lt;br /&gt;
-² These include &lt;code&gt;IO::WaitReadable&lt;/code&gt;/&lt;code&gt;IO::WaitWritable&lt;/code&gt;. See &lt;a href="http://ruby-doc.org/core-2.3.0/IO.html#method-i-read_nonblock"&gt;IO#read_nonblock&lt;/a&gt;.&lt;br /&gt;
+² These include &lt;code&gt;IO::WaitReadable&lt;/code&gt;/&lt;code&gt;IO::WaitWritable&lt;/code&gt;. See &lt;a href="http://ruby-doc.org/core-2.3.1/IO.html#method-i-read_nonblock"&gt;IO#read_nonblock&lt;/a&gt;.&lt;br /&gt;
 ³ EAGAIN == EWOULDBLOCK &lt;a href="http://stackoverflow.com/questions/7003234/which-systems-define-eagain-and-ewouldblock-as-different-values"&gt;on most systems&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Exception.html"&gt;RDoc: Exception&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Exception.html"&gt;RDoc: Exception&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="https://github.com/ruby/ruby/blob/trunk/defs/known_errors.def"&gt;Source: defs/known_errors.def&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="http://www.ioplex.com/~miallen/errcmpp.html"&gt;Popular Errno Codes by Platform&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -4039,7 +4102,7 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
 &lt;ul&gt;
   &lt;li&gt;&lt;a href="https://github.com/k-takata/Onigmo/blob/master/doc/RE"&gt;Onigmo Documentation&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="http://unicode.org/reports/tr23/"&gt;Unicode Character Property Model&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Regexp.html#class-Regexp-label-Character+Properties"&gt;RDoc: Regexp (Character Properties)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Regexp.html#class-Regexp-label-Character+Properties"&gt;RDoc: Regexp (Character Properties)&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="http://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt"&gt;Unicode Data&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="http://www.unicode.org/Public/UCD/latest/ucd/PropList.txt"&gt;Unicode Property List&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="http://www.unicode.org/Public/UCD/latest/ucd/PropertyAliases.txt"&gt;Unicode Property Aliases&lt;/a&gt;&lt;/li&gt;
@@ -4420,7 +4483,7 @@ p JSON,YAML
 
 &lt;h2 id="regex-always-wins"&gt;Regex Always Wins&lt;/h2&gt;
 
-&lt;p&gt;This is one of the golden rules of golfing. Especially, combining the &lt;a href="http://ruby-doc.org/core-2.3.0/String.html#method-i-gsub"&gt;block syntax of &lt;code&gt;gsub&lt;/code&gt;&lt;/a&gt; with the &lt;a href="http://idiosyncratic-ruby.com/9-globalization.html"&gt;perlish regex variables&lt;/a&gt; can be very expressive!&lt;/p&gt;
+&lt;p&gt;This is one of the golden rules of golfing. Especially, combining the &lt;a href="http://ruby-doc.org/core-2.3.1/String.html#method-i-gsub"&gt;block syntax of &lt;code&gt;gsub&lt;/code&gt;&lt;/a&gt; with the &lt;a href="http://idiosyncratic-ruby.com/9-globalization.html"&gt;perlish regex variables&lt;/a&gt; can be very expressive!&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;"some_string".gsub(/(^|_)(\w)/){$2.upcase}
 &lt;/code&gt;&lt;/pre&gt;
@@ -4436,7 +4499,7 @@ p JSON,YAML
 
 &lt;h2 id="one-more-or-less"&gt;One More or Less&lt;/h2&gt;
 
-&lt;p&gt;In some instances, you cannot use &lt;code&gt;i+1&lt;/code&gt; or &lt;code&gt;i-1&lt;/code&gt; without wrapping them in parenthesis. No problem, &lt;a href="http://ruby-doc.org/core-2.3.0/Fixnum.html#method-i-7E"&gt;unary complement&lt;/a&gt; to the rescue:&lt;/p&gt;
+&lt;p&gt;In some instances, you cannot use &lt;code&gt;i+1&lt;/code&gt; or &lt;code&gt;i-1&lt;/code&gt; without wrapping them in parenthesis. No problem, &lt;a href="http://ruby-doc.org/core-2.3.1/Fixnum.html#method-i-7E"&gt;unary complement&lt;/a&gt; to the rescue:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;-~42 # =&amp;gt; 43
 ~-42 # =&amp;gt; 41
@@ -4469,7 +4532,7 @@ p JSON,YAML
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;Ruby has &lt;a href="http://graysoftinc.com/character-encodings/ruby-19s-three-default-encodings"&gt;three default encodings&lt;/a&gt;. One of them is the default &lt;a href="http://ruby-doc.org/core-2.3.0/Encoding.html#class-Encoding-label-Script+encoding"&gt;source encoding&lt;/a&gt;, which can be set using a &lt;strong&gt;magic comment&lt;/strong&gt; in the file's first line, or in the second line if the first line is taken by a &lt;a href="https://en.wikipedia.org/wiki/Shebang_%28Unix%29"&gt;shebang&lt;/a&gt;.&lt;/p&gt;
+    <content type="html">&lt;p&gt;Ruby has &lt;a href="http://graysoftinc.com/character-encodings/ruby-19s-three-default-encodings"&gt;three default encodings&lt;/a&gt;. One of them is the default &lt;a href="http://ruby-doc.org/core-2.3.1/Encoding.html#class-Encoding-label-Script+encoding"&gt;source encoding&lt;/a&gt;, which can be set using a &lt;strong&gt;magic comment&lt;/strong&gt; in the file's first line, or in the second line if the first line is taken by a &lt;a href="https://en.wikipedia.org/wiki/Shebang_%28Unix%29"&gt;shebang&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
@@ -4486,7 +4549,7 @@ p "".encoding #=&amp;gt; #&amp;lt;Encoding:Windows-1252&amp;gt;
 
 &lt;h2 id="respecting-the-encoding-comment-when-reading-a-file"&gt;Respecting the Encoding Comment when Reading a File&lt;/h2&gt;
 
-&lt;p&gt;You might come across a situation, where you want to read in a source file using Ruby's &lt;a href="http://ruby-doc.org/core-2.3.0/File.html"&gt;File&lt;/a&gt; class, but also want to set the proper encoding from the magic comment. Fortunately, Ruby's standard library supports this. Unfortunately, it is not a stand-alone module, but a part of IRB:&lt;/p&gt;
+&lt;p&gt;You might come across a situation, where you want to read in a source file using Ruby's &lt;a href="http://ruby-doc.org/core-2.3.1/File.html"&gt;File&lt;/a&gt; class, but also want to set the proper encoding from the magic comment. Fortunately, Ruby's standard library supports this. Unfortunately, it is not a stand-alone module, but a part of IRB:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt; require 'irb/magic-file'
 # =&amp;gt; false
@@ -4564,55 +4627,55 @@ Class.private_instance_methods.grep /method/
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Object.html#method-i-singleton_methods"&gt;Object#singleton_methods&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Object.html#method-i-singleton_methods"&gt;Object#singleton_methods&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;singleton&lt;/td&gt;
       &lt;td&gt;public + protected&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Object.html#method-i-methods"&gt;Object#methods&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Object.html#method-i-methods"&gt;Object#methods&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;instance + singleton&lt;/td&gt;
       &lt;td&gt;public + protected&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Object.html#method-i-public_methods"&gt;Object#public_methods&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Object.html#method-i-public_methods"&gt;Object#public_methods&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;instance + singleton&lt;/td&gt;
       &lt;td&gt;public&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Object.html#method-i-protected_methods"&gt;Object#protected_methods&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Object.html#method-i-protected_methods"&gt;Object#protected_methods&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;instance + singleton&lt;/td&gt;
       &lt;td&gt;protected&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Object.html#method-i-private_methods"&gt;Object#private_methods&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Object.html#method-i-private_methods"&gt;Object#private_methods&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;instance + singleton&lt;/td&gt;
       &lt;td&gt;private&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Module.html#method-i-instance_methods"&gt;Module#instance_methods&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-instance_methods"&gt;Module#instance_methods&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;class&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;public + protected&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Module.html#method-i-public_instance_methods"&gt;Module#public_instance_methods&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-public_instance_methods"&gt;Module#public_instance_methods&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;class&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;public&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Module.html#method-i-proected_instance_methods"&gt;Module#proected_instance_methods&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-proected_instance_methods"&gt;Module#proected_instance_methods&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;class&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;proected&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Module.html#method-i-private_instance_methods"&gt;Module#private_instance_methods&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-private_instance_methods"&gt;Module#private_instance_methods&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;class&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;private&lt;/td&gt;
@@ -4639,25 +4702,25 @@ Class.private_instance_methods.grep /method/
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Module.html#method-i-method_defined-3F"&gt;Module#method_defined?&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-method_defined-3F"&gt;Module#method_defined?&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;class&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;all&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Module.html#method-i-public_method_defined-3F"&gt;Module#public_method_defined?&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-public_method_defined-3F"&gt;Module#public_method_defined?&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;class&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;public&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Module.html#method-i-protected_method_defined-3F"&gt;Module#protected_method_defined?&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-protected_method_defined-3F"&gt;Module#protected_method_defined?&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;class&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;protected&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Module.html#method-i-private_method_defined-3F"&gt;Module#private_method_defined?&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-private_method_defined-3F"&gt;Module#private_method_defined?&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;class&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;private&lt;/td&gt;
@@ -4686,39 +4749,39 @@ Class.private_instance_methods.grep /method/
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Object.html#method-i-singleton_method"&gt;Object#singleton_method&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Object.html#method-i-singleton_method"&gt;Object#singleton_method&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;singleton&lt;/td&gt;
       &lt;td&gt;all&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Method.html"&gt;Method&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Method.html"&gt;Method&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Object.html#method-i-method"&gt;Object#method&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Object.html#method-i-method"&gt;Object#method&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;instance + singleton&lt;/td&gt;
       &lt;td&gt;all&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Method.html"&gt;Method&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Method.html"&gt;Method&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Object.html#method-i-public_method"&gt;Object#public_method&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Object.html#method-i-public_method"&gt;Object#public_method&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;instance + singleton&lt;/td&gt;
       &lt;td&gt;public&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Method.html"&gt;Method&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Method.html"&gt;Method&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Module.html#method-i-instance_method"&gt;Module#instance_method&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-instance_method"&gt;Module#instance_method&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;class&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;all&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/UnboundMethod.html"&gt;UnboundMethod&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/UnboundMethod.html"&gt;UnboundMethod&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Module.html#method-i-public_instance_method"&gt;Module#public_instance_method&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-public_instance_method"&gt;Module#public_instance_method&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;class&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;public&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/UnboundMethod.html"&gt;UnboundMethod&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/UnboundMethod.html"&gt;UnboundMethod&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
@@ -4742,31 +4805,31 @@ Class.private_instance_methods.grep /method/
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Object.html#method-i-define_singleton_method"&gt;Object#define_singleton_method&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Object.html#method-i-define_singleton_method"&gt;Object#define_singleton_method&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;singleton&lt;/td&gt;
       &lt;td&gt;public&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Module.html#method-i-define_method"&gt;Module#define_method&lt;/a&gt; (private)&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-define_method"&gt;Module#define_method&lt;/a&gt; (private)&lt;/td&gt;
       &lt;td&gt;class&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;public (see notes)&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Module.html#method-i-remove_method"&gt;Module#remove_method&lt;/a&gt; (private)&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-remove_method"&gt;Module#remove_method&lt;/a&gt; (private)&lt;/td&gt;
       &lt;td&gt;class&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Module.html#method-i-undef_method"&gt;Module#undef_method&lt;/a&gt; (private)&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-undef_method"&gt;Module#undef_method&lt;/a&gt; (private)&lt;/td&gt;
       &lt;td&gt;class&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Module.html#method-i-alias_method"&gt;Module#alias_method&lt;/a&gt; (private)&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-alias_method"&gt;Module#alias_method&lt;/a&gt; (private)&lt;/td&gt;
       &lt;td&gt;class&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;same&lt;/td&gt;
@@ -4794,37 +4857,37 @@ Class.private_instance_methods.grep /method/
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/BasicObject.html#method-i-singleton_method_added"&gt;BasicObject#singleton_method_added&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/BasicObject.html#method-i-singleton_method_added"&gt;BasicObject#singleton_method_added&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;singleton&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/BasicObject.html#method-i-singleton_method_undefined"&gt;BasicObject#singleton_method_undefined&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/BasicObject.html#method-i-singleton_method_undefined"&gt;BasicObject#singleton_method_undefined&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;singleton&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/BasicObject.html#method-i-singleton_method_removed"&gt;BasicObject#singleton_method_removed&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/BasicObject.html#method-i-singleton_method_removed"&gt;BasicObject#singleton_method_removed&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
       &lt;td&gt;singleton&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Module.html#method-i-method_added"&gt;Module#method_added&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-method_added"&gt;Module#method_added&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;class&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Module.html#method-i-method_undefined"&gt;Module#method_undefined&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-method_undefined"&gt;Module#method_undefined&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;class&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Module.html#method-i-method_removed"&gt;Module#method_removed&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-method_removed"&gt;Module#method_removed&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;class&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/BasicObject.html#method-i-method_missing"&gt;BasicObject#method_missing&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/BasicObject.html#method-i-method_missing"&gt;BasicObject#method_missing&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;class&lt;/td&gt;
       &lt;td&gt;instance&lt;/td&gt;
     &lt;/tr&gt;
@@ -4850,13 +4913,13 @@ Class.private_instance_methods.grep /method/
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Module.html#method-i-public_class_method"&gt;Module#public_class_method&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-public_class_method"&gt;Module#public_class_method&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;class&lt;/td&gt;
       &lt;td&gt;singleton&lt;/td&gt;
       &lt;td&gt;Makes a class's singleton method public&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Module.html#method-i-private_class_method"&gt;Module#private_class_method&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-private_class_method"&gt;Module#private_class_method&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;class&lt;/td&gt;
       &lt;td&gt;singleton&lt;/td&gt;
       &lt;td&gt;Makes a class's singleton method private&lt;/td&gt;
@@ -4878,12 +4941,12 @@ Class.private_instance_methods.grep /method/
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-__method__"&gt;Kernel#__method__&lt;/a&gt; (private)&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-__method__"&gt;Kernel#__method__&lt;/a&gt; (private)&lt;/td&gt;
       &lt;td&gt;anywhere&lt;/td&gt;
       &lt;td&gt;Original method name&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-__callee__"&gt;Kernel#__callee__&lt;/a&gt; (private)&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-__callee__"&gt;Kernel#__callee__&lt;/a&gt; (private)&lt;/td&gt;
       &lt;td&gt;anywhere&lt;/td&gt;
       &lt;td&gt;Aliased method name&lt;/td&gt;
     &lt;/tr&gt;
@@ -4891,7 +4954,7 @@ Class.private_instance_methods.grep /method/
 &lt;/table&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Also see &lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-caller"&gt;Kernel#caller&lt;/a&gt; and &lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-caller_locations"&gt;Kernel#caller_locations&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Also see &lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-caller"&gt;Kernel#caller&lt;/a&gt; and &lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-caller_locations"&gt;Kernel#caller_locations&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id="a-better-api-for-metaprogramming-methods"&gt;A Better API for Metaprogramming Methods?&lt;/h2&gt;
@@ -5163,10 +5226,10 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Continuation.html"&gt;continuation&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Continuation.html"&gt;continuation&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/ext/continuation"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/rubysl/rubysl-continuation"&gt;rubysl&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Deprecated library that adds the &lt;a href="http://idiosyncratic-ruby.com/24-goto-fail.html"&gt;goto&lt;/a&gt;-like &lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-callcc"&gt;Kernel#callcc&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Fiber.html"&gt;Fiber&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Deprecated library that adds the &lt;a href="http://idiosyncratic-ruby.com/24-goto-fail.html"&gt;goto&lt;/a&gt;-like &lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-callcc"&gt;Kernel#callcc&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Fiber.html"&gt;Fiber&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/coverage/rdoc/Coverage.html"&gt;coverage&lt;/a&gt; &lt;strong&gt;c&lt;/strong&gt;&lt;/td&gt;
@@ -5249,13 +5312,13 @@ $ ruby -r uri -e 'p URI.regexp'
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/fcntl/rdoc/Fcntl.html"&gt;fcntl&lt;/a&gt; &lt;strong&gt;c&lt;/strong&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/ext/fcntl"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/rubysl/rubysl-fcntl"&gt;rubysl&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Loads values from the OS' &lt;code&gt;fcntl.h&lt;/code&gt; to be used for low-level &lt;a href="http://readruby.io/io#fcntl"&gt;file descriptior manipulation&lt;/a&gt; system calls with &lt;a href="http://ruby-doc.org/core-2.3.0/IO.html#method-i-fcntl"&gt;IO#fcntl&lt;/a&gt; and &lt;a href="http://ruby-doc.org/core-2.3.0/IO.html#method-c-sysopen"&gt;IO.sysopen&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Loads values from the OS' &lt;code&gt;fcntl.h&lt;/code&gt; to be used for low-level &lt;a href="http://readruby.io/io#fcntl"&gt;file descriptior manipulation&lt;/a&gt; system calls with &lt;a href="http://ruby-doc.org/core-2.3.1/IO.html#method-i-fcntl"&gt;IO#fcntl&lt;/a&gt; and &lt;a href="http://ruby-doc.org/core-2.3.1/IO.html#method-c-sysopen"&gt;IO.sysopen&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Fiber.html"&gt;fiber&lt;/a&gt; &lt;strong&gt;c&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Fiber.html"&gt;fiber&lt;/a&gt; &lt;strong&gt;c&lt;/strong&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/ext/fiber"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/rubysl/rubysl-fiber"&gt;rubysl&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Adds &lt;a href="http://ruby-doc.org/core-2.3.0/Fiber.html#method-i-transfer"&gt;Fiber#transfer&lt;/a&gt; and &lt;a href="http://ruby-doc.org/core-2.3.0/Fiber.html#method-i-alive-3F"&gt;Fiber#alive?&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Adds &lt;a href="http://ruby-doc.org/core-2.3.1/Fiber.html#method-i-transfer"&gt;Fiber#transfer&lt;/a&gt; and &lt;a href="http://ruby-doc.org/core-2.3.1/Fiber.html#method-i-alive-3F"&gt;Fiber#alive?&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -5351,7 +5414,7 @@ $ ruby -r uri -e 'p URI.regexp'
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/mutex_m/rdoc/Mutex_m.html"&gt;mutex_m&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/mutex_m.rb"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/rubysl/rubysl-mutex_m"&gt;rubysl&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;A mixin that makes any object behave like a &lt;a href="http://ruby-doc.org/core-2.3.0/Mutex.html"&gt;mutex&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;A mixin that makes any object behave like a &lt;a href="http://ruby-doc.org/core-2.3.1/Mutex.html"&gt;mutex&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -5405,7 +5468,7 @@ $ ruby -r uri -e 'p URI.regexp'
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/open-uri/rdoc/OpenURI.html"&gt;open-uri&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/open-uri.rb"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/rubysl/rubysl-open-uri"&gt;rubysl&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Monkeypatches &lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-open"&gt;Kernel#open&lt;/a&gt; to support remote endpoints via &lt;code&gt;net/http&lt;/code&gt; and &lt;code&gt;net/ftp&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Monkeypatches &lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-open"&gt;Kernel#open&lt;/a&gt; to support remote endpoints via &lt;code&gt;net/http&lt;/code&gt; and &lt;code&gt;net/ftp&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -5430,7 +5493,7 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/ostruct/rdoc/OpenStruct.html"&gt;ostruct&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/ostruct.rb"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/rubysl/rubysl-ostruct"&gt;rubysl&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Wrapper around Hash that lets you read and set attributes with a method API&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Hash.html"&gt;Hash&lt;/a&gt;, &lt;a href="https://github.com/rubyworks/ostruct2"&gt;ostruct2&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Hash.html"&gt;Hash&lt;/a&gt;, &lt;a href="https://github.com/rubyworks/ostruct2"&gt;ostruct2&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/pathname/rdoc/Pathname.html"&gt;pathname&lt;/a&gt; &lt;strong&gt;c&lt;/strong&gt;&lt;/td&gt;
@@ -5639,8 +5702,8 @@ $ ruby -r uri -e 'p URI.regexp'
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/tracer/rdoc/Tracer.html"&gt;tracer&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/tracer.rb"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/rubysl/rubysl-tracer"&gt;rubysl&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Outputs the &lt;a href="http://en.wikipedia.org/wiki/Tracing_%28software%29"&gt;code execution trace&lt;/a&gt; via &lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-set_trace_func"&gt;Kernel#set_trace_func&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/TracePoint.html"&gt;TracePoint&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Outputs the &lt;a href="http://en.wikipedia.org/wiki/Tracing_%28software%29"&gt;code execution trace&lt;/a&gt; via &lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-set_trace_func"&gt;Kernel#set_trace_func&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/TracePoint.html"&gt;TracePoint&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/tsort/rdoc/TSort.html"&gt;tsort&lt;/a&gt;&lt;/td&gt;
@@ -5816,8 +5879,8 @@ $ ruby -r uri -e 'p URI.regexp'
 &lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/doc/standard_library_rdoc.html"&gt;RDoc: Standard library short descriptions&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/doc/maintainers_rdoc.html"&gt;RDoc: Standard library maintainers&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/doc/standard_library_rdoc.html"&gt;RDoc: Standard library short descriptions&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/doc/maintainers_rdoc.html"&gt;RDoc: Standard library maintainers&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="https://redmine.ruby-lang.org/projects/ruby/wiki/StdlibGem"&gt;About standard library gems&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="http://rubini.us/2013/09/22/ready-set/"&gt;Rubinius' rubysl announcement&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -5923,7 +5986,7 @@ puts a.map(&amp;amp;:inspect)
 &lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Enumerable.html#method-i-chunk"&gt;RDoc Enumerable#chunk&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Enumerable.html#method-i-chunk"&gt;RDoc Enumerable#chunk&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
   </entry>
@@ -5936,7 +5999,7 @@ puts a.map(&amp;amp;:inspect)
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;Ruby's &lt;a href="http://ruby-doc.org/core-2.3.0/Struct.html"&gt;Struct&lt;/a&gt; class is a convenient way to create Ruby classes, which already have some attributes defined. If you are not familiar with structs, you should watch &lt;a href="http://www.rubytapas.com/episodes/20-Struct"&gt;Avdi Grimm's introduction to structs&lt;/a&gt;!&lt;/p&gt;
+    <content type="html">&lt;p&gt;Ruby's &lt;a href="http://ruby-doc.org/core-2.3.1/Struct.html"&gt;Struct&lt;/a&gt; class is a convenient way to create Ruby classes, which already have some attributes defined. If you are not familiar with structs, you should watch &lt;a href="http://www.rubytapas.com/episodes/20-Struct"&gt;Avdi Grimm's introduction to structs&lt;/a&gt;!&lt;/p&gt;
 
 &lt;p&gt;But in many cases there is something better than structs:&lt;/p&gt;
 
@@ -6141,7 +6204,7 @@ Person.new("Jan", 26) # =&amp;gt; #&amp;lt;ValueStruct Person name="Jan", age=26
 
 &lt;ul&gt;
   &lt;li&gt;You cannot access its instance variables directly&lt;/li&gt;
-  &lt;li&gt;Structs have &lt;a href="http://ruby-doc.org/core-2.3.0/Struct.html#public-instance-method-details"&gt;their own methods&lt;/a&gt; (like &lt;code&gt;[]&lt;/code&gt;, a getter for variables), which might not always be useful&lt;/li&gt;
+  &lt;li&gt;Structs have &lt;a href="http://ruby-doc.org/core-2.3.1/Struct.html#public-instance-method-details"&gt;their own methods&lt;/a&gt; (like &lt;code&gt;[]&lt;/code&gt;, a getter for variables), which might not always be useful&lt;/li&gt;
   &lt;li&gt;Pitfalls when creating structs with custom behavior (see below)&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -6357,7 +6420,7 @@ For example:
     &lt;tr&gt;
       &lt;td&gt;&lt;code&gt;-l&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;$\&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Sets the &lt;em&gt;output record separator&lt;/em&gt; to the value of the &lt;em&gt;input record separator&lt;/em&gt; (&lt;code&gt;$/&lt;/code&gt;). Also runs &lt;a href="http://ruby-doc.org/core-2.3.0/String.html#method-i-chop-21"&gt;String#chop!&lt;/a&gt; on every line!&lt;/td&gt;
+      &lt;td&gt;Sets the &lt;em&gt;output record separator&lt;/em&gt; to the value of the &lt;em&gt;input record separator&lt;/em&gt; (&lt;code&gt;$/&lt;/code&gt;). Also runs &lt;a href="http://ruby-doc.org/core-2.3.1/String.html#method-i-chop-21"&gt;String#chop!&lt;/a&gt; on every line!&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
@@ -6772,7 +6835,7 @@ STRING&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;¹ You might need a &lt;a href="https://en.wikipedia.org/wiki/Hex_editor"&gt;hex editor&lt;/a&gt;, or &lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-eval"&gt;&lt;code&gt;eval&lt;/code&gt;&lt;/a&gt;, to be able to use non-printable string delimiters.&lt;/p&gt;
+&lt;p&gt;¹ You might need a &lt;a href="https://en.wikipedia.org/wiki/Hex_editor"&gt;hex editor&lt;/a&gt;, or &lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-eval"&gt;&lt;code&gt;eval&lt;/code&gt;&lt;/a&gt;, to be able to use non-printable string delimiters.&lt;/p&gt;
 
 &lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
 
@@ -6815,7 +6878,7 @@ a # =&amp;gt; "$"
 b # =&amp;gt; "€"
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;The regex matching operator &lt;code&gt;=~&lt;/code&gt; will create new local variables, when used together with &lt;a href="http://ruby-doc.org/core-2.3.0/Regexp.html#class-Regexp-label-Capturing"&gt;named captures&lt;/a&gt;. However, this is not recommended, because obviously, it violates &lt;strong&gt;PrOWCoFoHuNoMa&lt;/strong&gt; (Principle of writing code for humans, not machines).&lt;/p&gt;
+&lt;p&gt;The regex matching operator &lt;code&gt;=~&lt;/code&gt; will create new local variables, when used together with &lt;a href="http://ruby-doc.org/core-2.3.1/Regexp.html#class-Regexp-label-Capturing"&gt;named captures&lt;/a&gt;. However, this is not recommended, because obviously, it violates &lt;strong&gt;PrOWCoFoHuNoMa&lt;/strong&gt; (Principle of writing code for humans, not machines).&lt;/p&gt;
 
 &lt;p&gt;By the way, this will not work, if you swap operands:&lt;/p&gt;
 
@@ -6836,8 +6899,8 @@ b # NameError: ...
 
 &lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Regexp.html#method-i-3D-7E"&gt;RDoc: Regexp#=~&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Binding.html#method-i-local_variable_set"&gt;RDoc: Binding#local_variable_set&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Regexp.html#method-i-3D-7E"&gt;RDoc: Regexp#=~&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Binding.html#method-i-local_variable_set"&gt;RDoc: Binding#local_variable_set&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
   </entry>
@@ -6850,7 +6913,7 @@ b # NameError: ...
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;Ruby puts a lot of effort into its &lt;a href="http://ruby-doc.org/core-2.3.0/Enumerable"&gt;Enumerable&lt;/a&gt; module, offering a lot of different ways of iterating through collections. It is one of the reasons for Ruby's success, but you can also call it idiosyncratic, sometimes. This episode potraits enumerables' three handy &lt;code&gt;slice_*&lt;/code&gt; methods.&lt;/p&gt;
+    <content type="html">&lt;p&gt;Ruby puts a lot of effort into its &lt;a href="http://ruby-doc.org/core-2.3.1/Enumerable"&gt;Enumerable&lt;/a&gt; module, offering a lot of different ways of iterating through collections. It is one of the reasons for Ruby's success, but you can also call it idiosyncratic, sometimes. This episode potraits enumerables' three handy &lt;code&gt;slice_*&lt;/code&gt; methods.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
@@ -6873,7 +6936,7 @@ b # NameError: ...
 # =&amp;gt; [["Ruby", "in", "the", "back-end,"], ["AngularJS", "in", "the", "front-end"]]
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Slicing uses &lt;a href="http://ruby-doc.org/core-2.3.0/Object.html#method-i-3D-3D-3D"&gt;===&lt;/a&gt; to compare each element with the given separator, so you can pass in a class as well:&lt;/p&gt;
+&lt;p&gt;Slicing uses &lt;a href="http://ruby-doc.org/core-2.3.1/Object.html#method-i-3D-3D-3D"&gt;===&lt;/a&gt; to compare each element with the given separator, so you can pass in a class as well:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;["A", "B", 1, "C", "D", 2].slice_after(Integer).to_a
 # =&amp;gt; [["A", "B", 1], ["C", "D", 2]]
@@ -6900,7 +6963,7 @@ b # NameError: ...
 &lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Enumerable.html#method-i-slice_after"&gt;RDoc: Enumerable#slice_*&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Enumerable.html#method-i-slice_after"&gt;RDoc: Enumerable#slice_*&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="https://bugs.ruby-lang.org/issues/9826"&gt;#slice_when discussion&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
@@ -7102,7 +7165,7 @@ string[/\X\X/] #=&amp;gt; "R̊u"
 &lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Regexp.html"&gt;RDoc: Regexp&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Regexp.html"&gt;RDoc: Regexp&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="https://github.com/k-takata/Onigmo/blob/master/doc/RE"&gt;Onigmo Documentation&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
@@ -7116,7 +7179,7 @@ string[/\X\X/] #=&amp;gt; "R̊u"
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;Ruby's &lt;a href="http://ruby-doc.org/core-2.3.0/ENV.html"&gt;ENV object&lt;/a&gt; gives you accss to &lt;a href="http://en.wikipedia.org/wiki/Environment_variable"&gt;enviroment variables&lt;/a&gt;. It looks like normal &lt;a href="http://ruby-doc.org/core-2.3.0/Hash.html"&gt;Ruby hash&lt;/a&gt;:&lt;/p&gt;
+    <content type="html">&lt;p&gt;Ruby's &lt;a href="http://ruby-doc.org/core-2.3.1/ENV.html"&gt;ENV object&lt;/a&gt; gives you accss to &lt;a href="http://en.wikipedia.org/wiki/Environment_variable"&gt;enviroment variables&lt;/a&gt;. It looks like normal &lt;a href="http://ruby-doc.org/core-2.3.1/Hash.html"&gt;Ruby hash&lt;/a&gt;:&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
@@ -7230,56 +7293,56 @@ ENV[42] = "oops" # not quite: TypeError
       &lt;td&gt;thread&lt;/td&gt;
       &lt;td&gt;$ERROR_INFO&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Exception.html"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Exception.html"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;$@&lt;/td&gt;
       &lt;td&gt;thread&lt;/td&gt;
       &lt;td&gt;$ERROR_POSITION&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Exception.html"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Exception.html"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;$;&lt;/td&gt;
       &lt;td&gt;global&lt;/td&gt;
       &lt;td&gt;$FIELD_SEPARATOR&lt;/td&gt;
       &lt;td&gt;$FS, $-F¹&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/String.html#method-i-split"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/String.html#method-i-split"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;$,&lt;/td&gt;
       &lt;td&gt;global&lt;/td&gt;
       &lt;td&gt;$OUTPUT_FIELD_SEPARATOR&lt;/td&gt;
       &lt;td&gt;$OFS&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/IO.html#method-i-print"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/IO.html#method-i-print"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;$/&lt;/td&gt;
       &lt;td&gt;global&lt;/td&gt;
       &lt;td&gt;$INPUT_RECORD_SEPARATOR&lt;/td&gt;
       &lt;td&gt;$RS, $-0¹&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/IO.html#method-i-gets"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/IO.html#method-i-gets"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;$\&lt;/td&gt;
       &lt;td&gt;global&lt;/td&gt;
       &lt;td&gt;$OUTPUT_RECORD_SEPARATOR&lt;/td&gt;
       &lt;td&gt;$ORS&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/IO.html#method-i-print"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/IO.html#method-i-print"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;$.&lt;/td&gt;
       &lt;td&gt;global&lt;/td&gt;
       &lt;td&gt;$INPUT_LINE_NUMBER&lt;/td&gt;
       &lt;td&gt;$NR&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/IO.html#method-i-lineno"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/IO.html#method-i-lineno"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;$_&lt;/td&gt;
       &lt;td&gt;pseudo&lt;/td&gt;
       &lt;td&gt;$LAST_READ_LINE&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/IO.html#method-i-gets"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/IO.html#method-i-gets"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;$&amp;gt;&lt;/td&gt;
@@ -7307,14 +7370,14 @@ ENV[42] = "oops" # not quite: TypeError
       &lt;td&gt;thread / read-only&lt;/td&gt;
       &lt;td&gt;$CHILD_STATUS&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Process.html#method-c-wait"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Process.html#method-c-wait"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;$~&lt;/td&gt;
       &lt;td&gt;pseudo&lt;/td&gt;
       &lt;td&gt;$LAST_MATCH_INFO&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Regexp.html#class-Regexp-label-Special+global+variables"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Regexp.html#class-Regexp-label-Special+global+variables"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;$=&lt;/td&gt;
@@ -7335,28 +7398,28 @@ ENV[42] = "oops" # not quite: TypeError
       &lt;td&gt;pseudo / read-only&lt;/td&gt;
       &lt;td&gt;$MATCH&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Regexp.html#class-Regexp-label-Special+global+variables"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Regexp.html#class-Regexp-label-Special+global+variables"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;$`&lt;/td&gt;
       &lt;td&gt;pseudo / read-only&lt;/td&gt;
       &lt;td&gt;$PREMATCH&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Regexp.html#class-Regexp-label-Special+global+variables"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Regexp.html#class-Regexp-label-Special+global+variables"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;$'&lt;/td&gt;
       &lt;td&gt;pseudo / read-only&lt;/td&gt;
       &lt;td&gt;$POSTMATCH&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Regexp.html#class-Regexp-label-Special+global+variables"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Regexp.html#class-Regexp-label-Special+global+variables"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;$+&lt;/td&gt;
       &lt;td&gt;pseudo / read-only&lt;/td&gt;
       &lt;td&gt;$LAST_PAREN_MATCH²&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Regexp.html#class-Regexp-label-Special+global+variables"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Regexp.html#class-Regexp-label-Special+global+variables"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;$:&lt;/td&gt;
@@ -7377,14 +7440,14 @@ ENV[42] = "oops" # not quite: TypeError
       &lt;td&gt;global&lt;/td&gt;
       &lt;td&gt;$PROGRAM_NAME¹&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Process.html#method-c-argv0"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Process.html#method-c-argv0"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;$1 - $9&lt;/td&gt;
       &lt;td&gt;pseudo&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Regexp.html#class-Regexp-label-Special+global+variables"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Regexp.html#class-Regexp-label-Special+global+variables"&gt;RDoc&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;$F³&lt;/td&gt;
@@ -7556,7 +7619,7 @@ Mathematics.method(:calc).owner.singleton_class? #=&amp;gt; true
 end
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Using &lt;a href="http://ruby-doc.org/core-2.3.0/Object.html#method-i-extend"&gt;extend&lt;/a&gt;, the module will add its instance methods to the module's very own inheritance chain.&lt;/p&gt;
+&lt;p&gt;Using &lt;a href="http://ruby-doc.org/core-2.3.1/Object.html#method-i-extend"&gt;extend&lt;/a&gt;, the module will add its instance methods to the module's very own inheritance chain.&lt;/p&gt;
 
 &lt;h3 id="reflection-observations-1"&gt;Reflection Observations&lt;/h3&gt;
 
@@ -9105,8 +9168,8 @@ puts "#{`ps -o rss -p #{Process.pid}`.strip.split.last.to_i / 1024.0} MB"
 &lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/String.html#method-i-unpack"&gt;RDoc: String#unpack&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Array.html#method-i-pack"&gt;RDoc: Array#pack&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/String.html#method-i-unpack"&gt;RDoc: String#unpack&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Array.html#method-i-pack"&gt;RDoc: Array#pack&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="https://github.com/ruby/ruby/blob/trunk/pack.c"&gt;Source: pack.c&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="http://www.perlmonks.org/?node_id=224666"&gt;unpack in Perl&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -9359,7 +9422,7 @@ end
 &lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href="http://www.ruby-doc.org/core-2.3.0/String.html"&gt;RDoc: String&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://www.ruby-doc.org/core-2.3.1/String.html"&gt;RDoc: String&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="https://github.com/ruby/ruby/blob/trunk/string.c"&gt;Source: String&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="https://github.com/rubinius/rubinius/blob/master/kernel/common/string.rb"&gt;Rubinus Source: String&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
