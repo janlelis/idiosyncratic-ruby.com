@@ -22,7 +22,7 @@ For example:
 
     method(:require).arity # => 1
 
-However: [For methods written in C, returns -1 if the call takes a variable number of arguments](http://ruby-doc.org/core-2.3.0/Method.html#method-i-arity)
+However: [For methods written in C, returns -1 if the call takes a variable number of arguments](http://ruby-doc.org/core-2.3.1/Method.html#method-i-arity)
 
     method(:puts).arity # => -1
 
@@ -33,7 +33,7 @@ The `source_location` of a method (or proc) returns a two-element array containi
     method(:require).source_location
     # => ["/home/jan/.rvm/rubies/ruby-2.3.0/lib/.../core_ext/kernel_require.rb", 39]
 
-However: [Returns […] nil if this method was not defined in Ruby (i.e. native)](http://ruby-doc.org/core-2.3.0/Method.html#method-i-source_location)
+However: [Returns […] nil if this method was not defined in Ruby (i.e. native)](http://ruby-doc.org/core-2.3.1/Method.html#method-i-source_location)
 
     method(:puts).source_location # => nil
 

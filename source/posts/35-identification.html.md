@@ -17,7 +17,7 @@ ARTICLE
     hash[idiosyncratic_in_variable] # => nil
     hash["Idiosyncratic"] # => "Ruby"
 
-[`Hash#compare_by_identity`](http://ruby-doc.org/core-2.3.0/Hash.html#method-i-compare_by_identity) changes the semantics of what is equal in a hash and what not. Only if exact the same object is passed in, the value will be retrieved.
+[`Hash#compare_by_identity`](http://ruby-doc.org/core-2.3.1/Hash.html#method-i-compare_by_identity) changes the semantics of what is equal in a hash and what not. Only if exact the same object is passed in, the value will be retrieved.
 
 **Please note:** The above example works for the key of`"Idiosyncratic"`, because every string literal returns the same object. This behaviour has been introduced with Ruby 2.2, so running it in 2.1 or lower will return `nil` for the last line.
 

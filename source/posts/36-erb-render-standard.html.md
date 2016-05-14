@@ -9,7 +9,7 @@ ERB stands for *<%# Embedded Ruby %>* and is the templating engine included in t
 
 ARTICLE
 
-However, it does not directly support rendering data from a [Hash](http://ruby-doc.org/core-2.3.0/Hash.html), but only from a [Binding](http://ruby-doc.org/core-2.3.0/Binding.html) object:
+However, it does not directly support rendering data from a [Hash](http://ruby-doc.org/core-2.3.1/Hash.html), but only from a [Binding](http://ruby-doc.org/core-2.3.1/Binding.html) object:
 
 ## How to Render an ERB Template¹ (Pre 2.1)
 
@@ -43,7 +43,7 @@ However, it does not directly support rendering data from a [Hash](http://ruby-d
 
 ## How to Render an ERB Template (Post 2.1)
 
-Ruby 2.1 came with [Binding#local_variable_set](http://ruby-doc.org/core-2.3.0/Binding.html#method-i-local_variable_set), so we can remove [OpenStruct](http://ruby-doc.org/stdlib-2.3.0/libdoc/ostruct/rdoc/OpenStruct.html) from the equation:
+Ruby 2.1 came with [Binding#local_variable_set](http://ruby-doc.org/core-2.3.1/Binding.html#method-i-local_variable_set), so we can remove [OpenStruct](http://ruby-doc.org/stdlib-2.3.0/libdoc/ostruct/rdoc/OpenStruct.html) from the equation:
 
     require "erb"
 

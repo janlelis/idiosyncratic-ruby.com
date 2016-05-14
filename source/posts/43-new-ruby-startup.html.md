@@ -52,7 +52,7 @@ These are core libraries that will always get loaded by Ruby:
 
 ## Initial Ruby Objects
 
-Via: [ObjectSpace.each_object](http://ruby-doc.org/core-2.3.0/ObjectSpace.html#method-c-each_object)
+Via: [ObjectSpace.each_object](http://ruby-doc.org/core-2.3.1/ObjectSpace.html#method-c-each_object)
 
     $ ruby --disable-all -e 'puts \
     " Ruby Object                   | Count\n" +
@@ -111,7 +111,7 @@ Some interesting *magic numbers*:
 
 ## Initial Internal Objects
 
-Via: [ObjectSpace.count_objects](http://ruby-doc.org/core-2.3.0/ObjectSpace.html#method-c-count_objects)
+Via: [ObjectSpace.count_objects](http://ruby-doc.org/core-2.3.1/ObjectSpace.html#method-c-count_objects)
 
     $ ruby --disable-all -e 'puts \
     " Object    | Count\n" +
