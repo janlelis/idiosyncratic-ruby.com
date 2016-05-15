@@ -5,10 +5,74 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2016-05-14T02:00:00+02:00</updated>
+  <updated>2016-05-15T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>The Art of Arguments</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/46-the-art-of-arguments.html"/>
+    <id>http://idiosyncratic-ruby.com/46-the-art-of-arguments.html</id>
+    <published>2016-05-15T02:00:00+02:00</published>
+    <updated>2016-05-15T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;There is nothing easier than parsing the command-line arguments given to your Ruby program: It is an array found in the special variable &lt;code&gt;$*&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -e 'p $*' -- some command line --arguments
+["some", "command", "line", "--arguments"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="that-is-too-easy"&gt;That is Too Easy!&lt;/h2&gt;
+
+&lt;p&gt;The trouble begins with supporting &lt;a href="http://www.gnu.org/prep/standards/html_node/Command_002dLine-Interfaces.html"&gt;common arguments conventions, like GNU's&lt;/a&gt;, and combining it with Ruby DSLs. This has lead to &lt;a href="https://www.ruby-toolbox.com/categories/CLI_Option_Parsers"&gt;hundreds of Ruby libraries&lt;/a&gt; parsing command line options, even the &lt;a href="http://idiosyncratic-ruby.com/20-better-standards.html"&gt;standard library&lt;/a&gt; includes two ways: &lt;a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/optparse/rdoc/OptParse.html"&gt;OptParse&lt;/a&gt; and &lt;a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/getoptlong/rdoc/GetoptLong.html"&gt;GetoptLong&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id="which-one-is-the-best"&gt;Which One is the Best?&lt;/h2&gt;
+
+&lt;p&gt;Despite all the options above, I found myself using &lt;code&gt;$*&lt;/code&gt; directly very often, because it is simple and does not require remembering the API of an option parser. Unfortunately, this also means loosing the ability to understand the mentioned conventions for command-line options.&lt;/p&gt;
+
+&lt;p&gt;This changed the day I came across the &lt;a href="https://github.com/substack/minimist"&gt;minimist option parser&lt;/a&gt; for NodeJS! It evolved out of the &lt;strong&gt;Optimist&lt;/strong&gt; option parser, which has the following slogan:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;With Optimist, the options are just a hash! No optstrings attached.&lt;/em&gt;&lt;/p&gt;
+&lt;a href="https://github.com/substack/node-optimist#examples"&gt;&amp;mdash; node-optimist readme&lt;/a&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id="we-need-this-in-ruby"&gt;We Need This in Ruby!&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="https://github.com/janlelis/rationalist"&gt;Why not?&lt;/a&gt;¹ It features a superior API:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby example/parse.rb -x 3 -y 4 -n5 -abc --beep=boop foo bar baz
+{ _: [ 'foo', 'bar', 'baz' ],
+  x: 3,
+  y: 4,
+  n: 5,
+  a: true,
+  b: true,
+  c: true,
+  beep: 'boop' }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The contents of &lt;code&gt;parse.rb&lt;/code&gt;:²&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;require 'rationalist'
+p Rationalist.parse(ARGV)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;You always get back a Ruby hash&lt;/li&gt;
+  &lt;li&gt;Options get their own key&lt;/li&gt;
+  &lt;li&gt;Untreated arguments go to &lt;code&gt;:_&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;The default usage is simple, yet advanced processing is easily configurable&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;¹ &lt;strong&gt;By the way:&lt;/strong&gt; On its syntactical surface, JavaScript and Ruby have more in commen than you would usually expect. Take arrays &lt;code&gt;[]&lt;/code&gt; and hashes &lt;code&gt;{}&lt;/code&gt;: They just look very similar!&lt;br /&gt;
+² To continue the tradition of &lt;a href="/9-globalization.html"&gt;Perl-style two-letter variables&lt;/a&gt;, we should probably do:&lt;br /&gt;&lt;code&gt;$★ = Rationalist.parse(ARGV)&lt;/code&gt;&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Constant Shuffle</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/45-constant-shuffle.html"/>
