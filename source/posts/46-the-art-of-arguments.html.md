@@ -2,6 +2,7 @@
 title: The Art of Arguments
 date: 2016-05-15
 tags: core, globals, cli
+commit: 5bc261c20e4378fb4dea3f61494f8b0f2fd6a327
 ---
 
 There is nothing easier than parsing the command-line arguments given to your Ruby program: It is an array found in the special variable `$*`:
