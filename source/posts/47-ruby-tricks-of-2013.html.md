@@ -12,7 +12,7 @@ Ruby was initially designed to be a successor of the Perl programming language, 
 - Show the robustness and portability of Ruby interpreters!
 - Stabilize the spec of Ruby by the presence of valuable but unmaintainable code!
 
-The best submissions were awarded at the Japanese **Ruby Kaigi** conference and also [inclueded in the Ruby source](https://github.com/ruby/ruby/tree/trunk/sample/trick2013), for educational purpose. The winning submissions² of 2013 were:
+The best submissions were awarded at the Japanese **Ruby Kaigi** conference and also [included in the Ruby source](https://github.com/ruby/ruby/tree/trunk/sample/trick2013), for educational purpose. The winning submissions² of 2013 were:
 
 ¹ *Transcendental Ruby Imbroglio Contest*<br/>
 ² *All code is MIT licensed, Copyright (c) 2013, TRICK Winners and Judges*
