@@ -1,0 +1,226 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - Ruby TRICKS of 2013</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="Documentaing all Ruby Specialities. A New Post Every Day in May 2016!"/>
+<meta name="keywords" content="ruby, tricks, community, obfuscate, golf"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/47-ruby-tricks-of-2013.html">Ruby TRICKS of 2013</a></h1>
+      </section>
+
+      <article class="post">
+        <p>Ruby was initially designed to be a successor of the Perl programming language, which also means that it inherited a lot of Perl's expressiveness. To celebrate this, the <a href="https://github.com/tric/trick2013">TRIC¹ contest</a> was invented:</p>
+
+<ul>
+  <li>Write the most Transcendental, Imbroglio Ruby program!</li>
+  <li>Illustrate some of the subtleties (and design issues) of Ruby!</li>
+  <li>Show the robustness and portability of Ruby interpreters!</li>
+  <li>Stabilize the spec of Ruby by the presence of valuable but unmaintainable code!</li>
+</ul>
+
+<p>The best submissions were awarded at the Japanese <strong>Ruby Kaigi</strong> conference and also <a href="https://github.com/ruby/ruby/tree/trunk/sample/trick2013">inclueded in the Ruby source</a>, for educational purpose. The winning submissions² of 2013 were:</p>
+
+<p>¹ <em>Transcendental Ruby Imbroglio Contest</em><br />
+² <em>All code is MIT licensed, Copyright (c) 2013, TRICK Winners and Judges</em></p>
+
+<h2 id="st-place-best-pangram">1st Place: "Best pangram"</h2>
+
+<p>By kinaba (<a href="https://github.com/tric/trick2013/blob/master/kinaba/remarks.markdown">remarks</a>)</p>
+
+<p><em>The program prints each ASCII character from 0x20 ' ' to 0x7e '~' exactly once</em>:</p>
+
+<pre><code>!@THEqQUICKbBROWNfFXjJMPSvVLAZYDGgkyz&amp;[%r{\"}mosx,4&gt;6]|?'while(putc 3_0-~$.+=9/2^5;)&lt;18*7and:`#
+</code></pre>
+
+<p>While this would not be such a complicated thing to accomplish, reconsider the program after reading the second constraint!</p>
+
+<p><em>The program contains each ASCII character from 0x20 ' ' to 0x7e '~' exactly once.</em></p>
+
+<p>This is what it outputs:</p>
+
+<pre><code>!"#$%&amp;'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~%
+</code></pre>
+
+<h2 id="nd-place-most-readable">2nd Place: "Most Readable"</h2>
+
+<p>By Shinichiro Hamaji (<a href="https://github.com/tric/trick2013/blob/master/shinh/remarks.markdown">remarks</a>)</p>
+
+<pre><code>begin with an easy program.
+you should be able to write
+a program unless for you,
+program in ruby language is
+too difficult. At the end
+of your journey towards the
+ultimate program; you must
+be a part of a programming
+language. You will end if
+you != program
+</code></pre>
+
+<p>This program does exactly nothing, but nevertheless, it is all valid syntax!</p>
+
+<h2 id="rd-place-most-classic">3rd Place: "Most classic"</h2>
+
+<p>By Yusuke Endoh (<a href="https://github.com/tric/trick2013/blob/master/mame1/remarks.markdown">remarks</a>)</p>
+
+<p>Guess what this one does:</p>
+
+<pre><code>          eval$C=%q(at_exit{
+          open("/dev/dsp","wb"){|g|h=[0]*80
+          $&gt;&lt;&lt;"\s"*18+"eval$C=%q(#$C);S=%:"
+          (S&lt;&lt;m=58).lines{|l|s=[128]*n=20E2
+          t=0;           h.map!{|v|d=?!==l[
+          t]?1                         :(l[
+          t]==                         ?#)?
+          0*v=                         6:03
+          (v&lt;1                         ?[]:
+          0..n                         -1).
+          each                         {|z|
+          s[z]                         +=2*
+  M.sin(($*[0]                         ||1)
+.to_f*M.sin(y=                 40*(z+m)*2**
+(t/12E0)/463)+               y)*(v-z*d/n)};
+t+=1;v-d};m+=                n;g.flush&lt;&lt;(s.
+  pack"C*");                 puts(l)}}};M= 
+                               Math);S=%:
+
+         Jesu, Joy of Man's Desiring
+            Johann Sebastian Bach
+
+  #
+  |                       #
+  |                         #
+              #      #    #   #
+              |      |    |      #
+              |      |   #     #
+           #           #  #    #
+           |           |  |        #
+           |           |    #    #
+      #                   #   #  #
+      |                   |   |       #
+      |                   | #        #
+           #           #      #       #
+           |           |      |  #
+           |           |  #   #
+           #      #    #  #
+           |      |    |    #
+           |      |  #        #
+    #           #      #       #
+    |           |      |         #
+    |           |        #         #
+      #              #    #      #
+      |              |    |    #
+      |              |        #
+       #           #   #    #
+       |           |   |      #
+       |          #|      #
+         #      #  |     #
+         |      |  |      #
+         |         | #      #
+             #  #    #      #
+             |  |        #  |
+             |  |         # #
+         #               #  #  #
+         |               |  | #
+         |               |  #
+              #      #    #   #
+              |      |    #   |
+              |          #  # |
+           #  #           #   #
+           |  |           |      #
+           |  |          #     #
+       #               #  #    #
+       |               |  |        #
+       |               |    #    #
+      #                   #   #  #
+      |                   |   |       #
+      |                   | #        #
+           #           #      #       #
+           |           |      |  #
+           |           |  #   #
+         #        #    #  #
+         |        |    |    #
+         |        |       #   #
+       #           #   #    #
+       |           |        |    #
+       |           |     #     #
+        #              #  #   #
+        |              |  | #
+        |              #  #
+         #      #    #
+         |      |    |    #
+         |         # |   #
+  #               #  #    #
+  |               |  |    |
+  |               |  |    |
+  |               |  |    |
+  |               |  |    |
+  |               |  |    |
+  |               |  |    |
+  |               |  |    |
+  |               |  |    |
+  |               |  |    |
+  |               |  |    |
+  |               |  |    :
+</code></pre>
+
+<p>Right! It will play some loveley classical music! Run it with:³</p>
+
+<pre><code>$ padsp ruby entry.rb
+</code></pre>
+
+<p>³ See <a href="https://github.com/tric/trick2013/blob/master/mame1/remarks.markdown#limitation">Limitations</a> for how to play it on Mac OS</p>
+
+<h2 id="other-awarded-submissions">Other Awarded Submissions</h2>
+
+<ul>
+  <li><a href="https://raw.githubusercontent.com/tric/trick2013/master/yhara1/entry.rb">"Worst Abuse of Constants - Dishonorable Mention"</a> by Yutaka Hara (<a href="https://github.com/tric/trick2013/blob/master/yhara1/remarks.markdown">remarks</a>)</li>
+  <li><a href="https://raw.githubusercontent.com/tric/trick2013/master/mame2/entry.rb">"Most Competitive"</a> by Yusuke Endoh (<a href="https://github.com/tric/trick2013/blob/master/mame2/remarks.markdown">remarks</a>)</li>
+  <li><a href="https://raw.githubusercontent.com/tric/trick2013/master/unak/entry.rb">"Best Way to Return true"</a> by NAKAMURA Usaku (<a href="https://github.com/tric/trick2013/blob/master/unak/remarks.en.markdown">remarks</a>)</li>
+  <li><a href="https://raw.githubusercontent.com/tric/trick2013/master/nari/entry.rb">"Worst House of Garbage"</a> by Nakamura Narihiro (<a href="https://raw.githubusercontent.com/tric/trick2013/master/nari/hello_world.br">hello_world.br</a>, <a href="https://github.com/tric/trick2013/blob/master/nari/remarks.en.markdown">remarks</a>)</li>
+  <li><a href="https://raw.githubusercontent.com/tric/trick2013/master/yhara2/entry.rb">"Ruby by Ruby for Ruby Award"</a> by Yutaka Hara (<a href="https://github.com/tric/trick2013/blob/master/yhara2/remarks.markdown">remarks</a>)</li>
+  <li><a href="https://raw.githubusercontent.com/tric/trick2013/master/yoshi-taka/entry.rb">"Most Characteristic"</a> by yoshi-taka (<a href="https://github.com/tric/trick2013/blob/master/yoshi-taka/remarks.markdown">remarks</a>)</li>
+  <li><a href="https://raw.githubusercontent.com/tric/trick2013/master/baban/entry.rb">"Good Way to make Programs Wonderful"</a> by baban (<a href="https://github.com/tric/trick2013/blob/master/baban/remarks.markdown">remarks</a>)</li>
+</ul>
+
+
+        <h2>More Idiosyncratic Ruby</h2>
+        <ul>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/5342f5d89d3938b20dc8820e7d355dd56be01358#all_commit_comments">Please Comment on GitHub</a></li>
+          <li><a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet this Episode
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
+            <li>Previous Article: <a href="/46-the-art-of-arguments.html">The Art of Arguments</a></li>
+        </ul>
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="https://github.com/janlelis">Jan Lelis</a><br>
+          
+        </div>
+        About Tricks, Community, Obfuscate, Golf |
+        Last Update: 2016-05-16
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>
