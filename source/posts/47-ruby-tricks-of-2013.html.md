@@ -160,6 +160,10 @@ Right! It will play some loveley classical music! Run it with:³
 
 ³ See [Limitations](https://github.com/tric/trick2013/blob/master/mame1/remarks.markdown#limitation) for how to play it on Mac OS
 
+## Also See
+
+- [TRIC 2015](/48-ruby-tricks-of-2015.html)
+
 ## Other Awarded Submissions
 
 - ["Worst Abuse of Constants - Dishonorable Mention"](https://raw.githubusercontent.com/tric/trick2013/master/yhara1/entry.rb) by Yutaka Hara ([remarks](https://github.com/tric/trick2013/blob/master/yhara1/remarks.markdown))
