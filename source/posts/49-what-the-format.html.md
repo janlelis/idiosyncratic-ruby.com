@@ -2,6 +2,7 @@
 title: What the Format?
 date: 2016-05-18
 tags: core, format, string, sprintf
+commit: a9f9e2f73c1f55604f650ce63030458e3dc968e6
 ---
 
 Ruby comes with a structured alternative to classic string interpolation: This episode will explore **format strings**, also known as the *sprintf* syntax.
