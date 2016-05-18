@@ -33,7 +33,7 @@ Format strings separate the string's format (= template) from the actual data. T
     "--> %<forty_two>s -- %<forty_three>s <--" % {forty_two: 42, forty_three: 43}
     # => --> 42 -- 43 <--
 
-    # Named format strings, fancy style (note the comma before `%`):
+    # Named format strings, fancy style (note the dot before `%`):
     "--> %<forty_two>s -- %<forty_three>s <--".% forty_two: 42, forty_three: 43
     # => --> 42 -- 43 <--
 
