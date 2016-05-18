@@ -48,7 +48,7 @@
 "--&amp;gt; %&amp;lt;forty_two&amp;gt;s -- %&amp;lt;forty_three&amp;gt;s &amp;lt;--" % {forty_two: 42, forty_three: 43}
 # =&amp;gt; --&amp;gt; 42 -- 43 &amp;lt;--
 
-# Named format strings, fancy style (note the comma before `%`):
+# Named format strings, fancy style (note the dot before `%`):
 "--&amp;gt; %&amp;lt;forty_two&amp;gt;s -- %&amp;lt;forty_three&amp;gt;s &amp;lt;--".% forty_two: 42, forty_three: 43
 # =&amp;gt; --&amp;gt; 42 -- 43 &amp;lt;--
 
