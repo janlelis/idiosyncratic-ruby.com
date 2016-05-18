@@ -5,10 +5,589 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2016-05-17T02:00:00+02:00</updated>
+  <updated>2016-05-18T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>What the Format?</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/49-what-the-format.html"/>
+    <id>http://idiosyncratic-ruby.com/49-what-the-format.html</id>
+    <published>2016-05-18T02:00:00+02:00</published>
+    <updated>2016-05-18T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Ruby comes with a structured alternative to classic string interpolation: This episode will explore &lt;strong&gt;format strings&lt;/strong&gt;, also known as the &lt;em&gt;sprintf&lt;/em&gt; syntax.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Recall the normal way of interpolating variables into a string:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;v = 42
+"--&amp;gt; #{v} &amp;lt;--"
+# =&amp;gt; "--&amp;gt; 42 &amp;lt;--"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Format strings are different in that they use a string template and bind it to data via the &lt;code&gt;%&lt;/code&gt; method:¹&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;v = 42
+"--&amp;gt; %s &amp;lt;--" % v
+# =&amp;gt; "--&amp;gt; 42 &amp;lt;--"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This might look familiar to you, because &lt;a href="https://en.wikipedia.org/wiki/Printf_format_string"&gt;dozens of other programming languages&lt;/a&gt; also support some flavor of this syntax.&lt;/p&gt;
+
+&lt;p&gt;¹ Some people prefer the functional-style &lt;em&gt;Kernel#sprintf&lt;/em&gt; or &lt;em&gt;Kernel#format&lt;/em&gt; methods, which let you access the same functionality&lt;/p&gt;
+
+&lt;h2 id="four-kinds-of-references"&gt;Four Kinds of References&lt;/h2&gt;
+
+&lt;p&gt;Format strings separate the string's format (= template) from the actual data. The template contains references in the format of &lt;code&gt;%X&lt;/code&gt; (unnamed) or &lt;code&gt;%&amp;lt;name&amp;gt;X&lt;/code&gt; (named). The &lt;code&gt;X&lt;/code&gt; consists of the formatting type, optionally preceded by other formatting options (see next section). The most basic formatting type is &lt;code&gt;%s&lt;/code&gt;, which stands for &lt;em&gt;string&lt;/em&gt;. You cannot mix between the two referencing styles; either go with named or unnamed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Named format strings take a hash parameter:
+"--&amp;gt; %&amp;lt;forty_two&amp;gt;s -- %&amp;lt;forty_three&amp;gt;s &amp;lt;--" % {forty_two: 42, forty_three: 43}
+# =&amp;gt; --&amp;gt; 42 -- 43 &amp;lt;--
+
+# Named format strings, fancy style (note the comma before `%`):
+"--&amp;gt; %&amp;lt;forty_two&amp;gt;s -- %&amp;lt;forty_three&amp;gt;s &amp;lt;--".% forty_two: 42, forty_three: 43
+# =&amp;gt; --&amp;gt; 42 -- 43 &amp;lt;--
+
+# Shorter, simple/unnamed format strings, take an array as parameter:
+"--&amp;gt; %s -- %s &amp;lt;--" % [42, 43]
+# =&amp;gt; --&amp;gt; 42 -- 43 &amp;lt;--
+
+# If you only need to interpolate a single value, you can shorten this to:
+"--&amp;gt; %s &amp;lt;--" % 42
+# =&amp;gt; --&amp;gt; 42 &amp;lt;--
+
+# Attempt to mix:
+"--&amp;gt; %s -- %&amp;lt;second&amp;gt;s &amp;lt;--" % [1, second: 2]
+# ArgumentError: named&amp;lt;second&amp;gt; after unnumbered(1)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Conceptionally, this is very similar to how regular expresions handle references. For simple interpolations use simple references, for more complex interpolations named references might be a better fit. Named references serve as inline documentation.&lt;/p&gt;
+
+&lt;h3 id="referencing-template-style"&gt;Referencing: Template Style&lt;/h3&gt;
+
+&lt;p&gt;Besides the two main styles, there exists a shorthand syntax for using format strings with named references:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"--&amp;gt; %{first} -- %{second} &amp;lt;--".% first: 1, second: 2
+# =&amp;gt; --&amp;gt; 1 -- 2 &amp;lt;--
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Though you will use the ability to apply a formatting type (see below), it is concise and looks good. At its core, it is templating built into the language!&lt;/p&gt;
+
+&lt;h3 id="referencing-absolute-positioning"&gt;Referencing: Absolute Positioning&lt;/h3&gt;
+
+&lt;p&gt;The fourth way of referencing the values is the most unreadable one and I would not recommend it. It is a modification of the unnamed reference style: Instead of using the variables in the order you passed them in, you denote the position of the value in the template string using &lt;code&gt;n$&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"--&amp;gt; %2$s -- %1$s &amp;lt;--" % [:first, :second]
+# =&amp;gt; "--&amp;gt; second -- first &amp;lt;--"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Again, mixing with other types of referencing will lead to errors like this one:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"--&amp;gt; %2$s -- %s &amp;lt;--" % [:first, :second]
+# ArgumentError: unnumbered(1) mixed with numbered
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="flags-widths-and-formatting-type"&gt;Flags, Widths, and Formatting Type&lt;/h2&gt;
+
+&lt;p&gt;In the previous examples, only basic string substitution was used. But format strings can do more: They can convert a value to another representation using a different &lt;strong&gt;formatting type&lt;/strong&gt;. The formatting type is specified by the last letter of the reference. Besides &lt;code&gt;%s&lt;/code&gt;, another common used formatting type is &lt;code&gt;%d&lt;/code&gt;, which will put the value through &lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-Integer"&gt;&lt;code&gt;Interger()&lt;/code&gt;&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%d" % 1
+# =&amp;gt; 1
+
+"%d" % "1"
+# =&amp;gt; 1
+
+"%d" % "string without integer value"
+# ArgumentError: invalid value for Integer(): "string without integer value"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There are three different kinds of formatting types: Format as &lt;code&gt;String&lt;/code&gt;, format as &lt;code&gt;Integer&lt;/code&gt;, and format as &lt;code&gt;Float&lt;/code&gt;. See further below for a detailed description. Often, the formatting can be enhanced with special flags or widths. Special options appear between the &lt;code&gt;%&lt;/code&gt; sign and the formatting type. For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%.2f" % 1.23456 # =&amp;gt; 1.23
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is a float conversion, and the special option "precision of 2" was used. Different formatting types support different kinds of flags and options. The complete syntax of a reference is:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;%&amp;lt;name&amp;gt;AB.CX&lt;/code&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Syntax&lt;/th&gt;
+      &lt;th&gt;Notes&lt;/th&gt;
+      &lt;th&gt;Required/Optional&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;%&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;-²&lt;/td&gt;
+      &lt;td&gt;Required&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;&amp;lt;name&amp;gt;&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Named reference&lt;/td&gt;
+      &lt;td&gt;Optional&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;em&gt;A&lt;/em&gt;&lt;/td&gt;
+      &lt;td&gt;Flags&lt;/td&gt;
+      &lt;td&gt;Optional&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;em&gt;B&lt;/em&gt;&lt;/td&gt;
+      &lt;td&gt;Width&lt;/td&gt;
+      &lt;td&gt;Optional&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;.&lt;/code&gt; &lt;em&gt;C&lt;/em&gt;&lt;/td&gt;
+      &lt;td&gt;Precision&lt;/td&gt;
+      &lt;td&gt;Optional&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;em&gt;X&lt;/em&gt;&lt;/td&gt;
+      &lt;td&gt;Formatting type&lt;/td&gt;
+      &lt;td&gt;Required&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;² Since the &lt;code&gt;%&lt;/code&gt; character denotes a reference, you have to use &lt;code&gt;%%&lt;/code&gt; to get a single "%"&lt;/p&gt;
+
+&lt;p&gt;What follows is a description of all formatting options and types.&lt;/p&gt;
+
+&lt;h2 id="formatting-flags-and-options-string-padding"&gt;Formatting Flags and Options: String Padding&lt;/h2&gt;
+
+&lt;p&gt;When the format string parser finds a number (which is not a preceeded by &lt;code&gt;.&lt;/code&gt; or &lt;code&gt;$&lt;/code&gt;), it will treat the value as a padding width. The padding width defines the minimum string length, the remaining space will be filled with ASCII spaces. This is a similar functionality like provided by &lt;a href="http://ruby-doc.org/core-2.3.1/String.html"&gt;String#ljust&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%20s" % "Idiosyncratic"
+# =&amp;gt; "       Idiosyncratic"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It also works with template-style references:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%20{ruby}".% ruby: "Idiosyncratic"
+#=&amp;gt; "       Idiosyncratic"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="minus"&gt;- | Minus&lt;/h3&gt;
+
+&lt;p&gt;You can use "negative widths" to right-pad a string:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%-20s" % "Idiosyncratic"
+# =&amp;gt; "Idiosyncratic       "
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="star"&gt;* | Star&lt;/h3&gt;
+
+&lt;p&gt;A dynamic padding width can be achieved with &lt;code&gt;*&lt;/code&gt;. This will require two arguments and does not work with named references:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;w = 20
+"%*s" % [w, "Idiosyncratic"] # =&amp;gt; "       Idiosyncratic"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Alternatively, you can just inline-interpolate the format string:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;w = 20
+"%#{w}s" % "Idiosyncratic" # =&amp;gt; "       Idiosyncratic"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Can be combined with absolute positioned references (e.g. &lt;code&gt;"%1$*2$s"&lt;/code&gt;).&lt;/p&gt;
+
+&lt;h3 id="zero"&gt;0 | Zero&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code&gt;0&lt;/code&gt; as flag allows you to pad numerical values with zeros instead of spaces:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%020i" % 1
+# =&amp;gt; #=&amp;gt; "00000000000000000001"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Will not work for &lt;code&gt;%s&lt;/code&gt;, &lt;code&gt;%p&lt;/code&gt;, or &lt;code&gt;%c&lt;/code&gt;. Can also not be combined with the &lt;code&gt;-&lt;/code&gt; flag (right-pad).&lt;/p&gt;
+
+&lt;h2 id="formatting-flags-and-options-algebraic-sign"&gt;Formatting Flags and Options: Algebraic Sign&lt;/h2&gt;
+
+&lt;h3 id="plus"&gt;+ | Plus&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code&gt;+&lt;/code&gt; flag forces a "+" sign for positive numbers:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%+d" % 1
+# =&amp;gt; "+1"
+
+"%+d" % -1
+# =&amp;gt; "-1"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Will not work for &lt;code&gt;%s&lt;/code&gt;, &lt;code&gt;%p&lt;/code&gt;, or &lt;code&gt;%c&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id="space"&gt;⍽ | Space&lt;/h3&gt;
+
+&lt;p&gt;In a similar manner, the &lt;code&gt; &lt;/code&gt; flag, forces positive numbers to leave a space (for a potential "-" sign):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"% d" % 1
+# =&amp;gt; " 1"
+
+"% d" % -1
+# =&amp;gt; "-1"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Will not work for &lt;code&gt;%s&lt;/code&gt;, &lt;code&gt;%p&lt;/code&gt;, or &lt;code&gt;%c&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id="other-formatting-flags-and-options"&gt;Other Formatting Flags and Options&lt;/h2&gt;
+
+&lt;h3 id="hash"&gt;# | Hash&lt;/h3&gt;
+
+&lt;p&gt;Modifies the way a numerical value gets converted. What it exactly does varies, so see the description at respective formatting type!&lt;/p&gt;
+
+&lt;h2 id="formatting-types-string"&gt;Formatting Types: String&lt;/h2&gt;
+
+&lt;h3 id="s--string"&gt;%s | String&lt;/h3&gt;
+
+&lt;p&gt;Does nothing but putting the string argument at the right position.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%s Ruby" % "Idiosyncratic"
+# =&amp;gt; "Idiosyncratic Ruby"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Will call &lt;code&gt;to_s&lt;/code&gt; on the object passed in.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%s Ruby" % :Idiosyncratic
+# =&amp;gt; "Idiosyncratic Ruby"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A padding example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%4s" % "A"
+# =&amp;gt; "   A"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Using the precision syntax, you can pass a hard length limit:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%.4s" % "Idiosyncratic"
+# =&amp;gt; "Idio"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Padding + Limit:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%4.8s" % "12"
+# =&amp;gt; "  12"
+
+"%4.8s" % "1234567890"
+# =&amp;gt; "12345678"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="p--inspect"&gt;%p | Inspect&lt;/h3&gt;
+
+&lt;p&gt;Calls &lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-p"&gt;inspect&lt;/a&gt; on the value:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%p" % "Idiosyncratic"
+# =&amp;gt; "\"Idiosyncratic\""
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Supports the same flags and arguments like &lt;code&gt;%s&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id="c--character"&gt;%c | Character&lt;/h3&gt;
+
+&lt;p&gt;Interpretes a numerical value as a &lt;a href="https://en.wikipedia.org/wiki/Code_point"&gt;codepoint&lt;/a&gt; of the current encoding and converts it to the respective character (the reverse of &lt;a href="http://ruby-doc.org/core-2.3.1/String.html#method-i-ord"&gt;String#ord&lt;/a&gt;, similar to what &lt;a href="(http://idiosyncratic-ruby.com/4-what-the-pack.html#u--utf-8-characters)"&gt;&lt;code&gt;Array#pack("U")&lt;/code&gt;&lt;/a&gt; does for UTF-8 strings):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%c" % 11835
+# =&amp;gt; "⸻"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Can also be used with a single letter string, which will just be inserted (as if was used with &lt;code&gt;%s&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%c" % "A"
+# =&amp;gt; "A"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="formatting-types-integer"&gt;Formatting Types: Integer&lt;/h2&gt;
+
+&lt;p&gt;A padding width has the same effect it has for strings. When Integer formatting is used together with a precision it will act as the minimum number of digits to display (which is different from the effect it has in Float formatting):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%6.4d" % 20
+# =&amp;gt; "  0020"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The all integer formatting type will run the value through &lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-Integer"&gt;&lt;code&gt;Integer()&lt;/code&gt;&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%d" % 42.9
+# =&amp;gt; "42"
+
+"%d" % "23"
+# =&amp;gt; "23"
+
+"%d" % "0xff"
+# =&amp;gt; "255"
+
+"%d" % nil
+# TypeError: can't convert nil into Integer
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="d-i-u--integer-decimal-number"&gt;%d, %i, %u | Integer (Decimal Number)&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;%d&lt;/code&gt;, &lt;code&gt;%i&lt;/code&gt; and &lt;code&gt;%u&lt;/code&gt; all convert the value to an integer (see explanation above):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%d" % "123"
+# =&amp;gt; 123
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="b-b--binary-number"&gt;%b, %B | Binary Number&lt;/h3&gt;
+
+&lt;p&gt;Converts the number to a binary number string:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%b" % 42
+# =&amp;gt; "101010"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Another way of achieving the same would be to use &lt;a href="http://ruby-doc.org/core-2.3.1/Numeric.html"&gt;Numeric#to_s(2)&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;42.to_s(2)
+# =&amp;gt; "101010"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Negative numbers will be convert to &lt;a href="https://en.wikipedia.org/wiki/Two's_complement"&gt;two's complement&lt;/a&gt;, preceeded by "..1" representing an infinite string of leading "1"s:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%b" % -42
+# =&amp;gt; "..1010110"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is not the case when the &lt;code&gt;+&lt;/code&gt; or &lt;code&gt; &lt;/code&gt; flag are in use:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%+b" % -42
+# =&amp;gt; "-101010"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Alternative conversion format (&lt;code&gt;#&lt;/code&gt; flag) will prepend "0b" (except for 0):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%#b" % 42
+# =&amp;gt; "0b101010"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;%B&lt;/code&gt; type has exactly the same behavior as &lt;code&gt;%b&lt;/code&gt;, except that it will use an uppercase "B" in alternative conversion format:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%#B" % 42
+# =&amp;gt; "0B101010"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="o--octal-number"&gt;%o | Octal Number&lt;/h3&gt;
+
+&lt;p&gt;Converts the number to an octal number string:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%o" % 42
+# =&amp;gt; "52"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Another way of achieving the same would be to use &lt;a href="http://ruby-doc.org/core-2.3.1/Numeric.html"&gt;Numeric#to_s(8)&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;42.to_s(8)
+# =&amp;gt; "52"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Negative numbers will be convert to &lt;a href="https://en.wikipedia.org/wiki/Two's_complement"&gt;two's complement&lt;/a&gt;, preceeded by "..7" representing an infinite string of leading "7"s:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%o" % -42
+# =&amp;gt; "..726"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is not the case when the &lt;code&gt;+&lt;/code&gt; or &lt;code&gt; &lt;/code&gt; flag are in use:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%+o" % -42
+# =&amp;gt; "-52"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Alternative conversion format (&lt;code&gt;#&lt;/code&gt; flag) will prepend "0" (except for 0):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%#o" % 42
+# =&amp;gt; "052"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="x-x--hexadecimal-number"&gt;%x, %X | Hexadecimal Number&lt;/h3&gt;
+
+&lt;p&gt;Converts the number to a hexadecimal number string:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%x" % 42
+# =&amp;gt; "2a"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;%X&lt;/code&gt; type has the same behavoir, except that it will used uppercased letters:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%X" % 42
+# =&amp;gt; "2A"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Another way of achieving the same would be to use &lt;a href="http://ruby-doc.org/core-2.3.1/Numeric.html"&gt;Numeric#to_s(16)&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;42.to_s(16)
+# =&amp;gt; "2a"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Negative numbers will be convert to &lt;a href="https://en.wikipedia.org/wiki/Two's_complement"&gt;two's complement&lt;/a&gt;, preceeded by "..f" representing an infinite string of leading "f"s:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%x" % -42
+# =&amp;gt; "..fd6"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is not the case when the &lt;code&gt;+&lt;/code&gt; or &lt;code&gt; &lt;/code&gt; flag are in use:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%+x" % -42
+# =&amp;gt; "-2a"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Alternative conversion format (&lt;code&gt;#&lt;/code&gt; flag) will prepend "0x" (except for 0):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%#x" % 42
+# =&amp;gt; "0x2a"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or "0X" when using big &lt;code&gt;%X&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%#X" % 42
+# =&amp;gt; "0X2A"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="formatting-types-float"&gt;Formatting Types: Float&lt;/h2&gt;
+
+&lt;h3 id="f--float"&gt;%f | Float&lt;/h3&gt;
+
+&lt;p&gt;This will convert the argument to a floating point number:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%f" % 42
+# =&amp;gt; "42.000000"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The precision syntax defines the actual precision here:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%.2f" % 42
+# =&amp;gt; "42.00"
+
+"%.3f" % 42
+# =&amp;gt; "42.000"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="e-e--float-in-exponential-notation"&gt;%e, %E | Float in Exponential Notation&lt;/h3&gt;
+
+&lt;p&gt;Converts the value to a float in &lt;a href="https://en.wikipedia.org/wiki/Scientific_notation"&gt;exponential notation&lt;/a&gt; (with 6 digits before the exponent):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%e" % 42
+# =&amp;gt; "4.200000e+01"
+
+"%e" % 0.00000023
+# =&amp;gt; "2.300000e-07"
+
+"%e" % -1_000_000_000
+# =&amp;gt; "-1.000000e+09"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The precision syntax defines the number of digits before the exponent:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%.2e" % 42
+#=&amp;gt; "4.20e+01"
+
+"%.4e" % 42
+# =&amp;gt; "4.2000e+01"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Using big &lt;code&gt;%E&lt;/code&gt; will uppercase the "E" in the result:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%E" % 1
+# =&amp;gt; "1.000000E+00"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="g-g--float-in-normal-or-exponential-notation"&gt;%g, %G | Float in Normal or Exponential Notation&lt;/h3&gt;
+
+&lt;p&gt;Converts a float either to normal representation &lt;code&gt;1.23&lt;/code&gt; or exponential notation (see &lt;code&gt;%e&lt;/code&gt; above). Which one is chosen, depends on the number: If the exponent is more than 5 or less than -4, exponential format is used:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt; "%g" % 100000
+# =&amp;gt; "100000"
+
+&amp;gt;&amp;gt; "%g" % 1000000
+# =&amp;gt; "1e+06"
+
+&amp;gt;&amp;gt; "%g" % 0.0001
+# =&amp;gt; "0.0001"
+
+&amp;gt;&amp;gt; "%g" % 0.00001
+# =&amp;gt; "1e-05"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Will use a given (positive) precision as the point to decide between both notation forms:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%.2g" % 10
+# =&amp;gt; "10"
+
+"%.2g" % 100
+# =&amp;gt; "1e+02"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Using big &lt;code&gt;%G&lt;/code&gt; will uppercase the "E" in the result:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%G" % 1234567890
+# =&amp;gt; "1.23457E+09"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="a-a--analyze-float"&gt;%a, %A | Analyze Float&lt;/h3&gt;
+
+&lt;p&gt;Converts a float into a format revealing its underlying representation, which is devided into &lt;a href="https://en.wikipedia.org/wiki/Floating_point"&gt;significand (mantissa) and exponent&lt;/a&gt;. The result is a string of the following format:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;-&lt;/code&gt; (if negative) + &lt;code&gt;0x&lt;/code&gt; + significand (hexadecimal) + &lt;code&gt;p&lt;/code&gt; + exponent sign + exponent (decimal)&lt;/p&gt;
+
+&lt;p&gt;Examples:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%a" % 1
+# =&amp;gt; "0x1p+0"
+
+"%a" % 1.2
+# =&amp;gt; "0x1.3333333333333p+0"
+
+"%a" % 1.23
+# =&amp;gt; "0x1.3ae147ae147aep+0"
+
+"%a" % 0.1
+# =&amp;gt; "0x1.999999999999ap-4"
+
+"%a" % 10000000000
+# =&amp;gt; "0x1.2a05f2p+33"
+
+"%a" % 0.000000001
+# =&amp;gt; "0x1.12e0be826d695p-30"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Using big &lt;code&gt;%A&lt;/code&gt; will uppercase all letters:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"%A" % -12.34
+# =&amp;gt; "-0X1.8AE147AE147AEP+3"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="classic-interpolation-vs-format-strings"&gt;Classic Interpolation vs. Format Strings&lt;/h2&gt;
+
+&lt;h3 id="advantages-of-format-strings"&gt;Advantages of Format Strings&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Values sit side by side, instead of being all around the place&lt;/li&gt;
+  &lt;li&gt;Simple access to string padding functionality&lt;/li&gt;
+  &lt;li&gt;Advanced (and explicit) numerical conversions&lt;/li&gt;
+  &lt;li&gt;Can be used as built-in mini templating engine&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id="advantages-of-classical-interpolation"&gt;Advantages of Classical Interpolation&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Interpolation happens on syntax level, no method calling involved&lt;/li&gt;
+  &lt;li&gt;Inline interpolation quicker to write/more convenient for simple interpolations&lt;/li&gt;
+  &lt;li&gt;Not possible to mismatch values and format string references&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-sprintf"&gt;RDoc: Kernel#sprintf&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/ruby/ruby/blob/trunk/sprintf.c"&gt;Source: sprintf.c&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Ruby TRICKS of 2015</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/48-ruby-tricks-of-2015.html"/>

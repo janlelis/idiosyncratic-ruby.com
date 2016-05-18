@@ -1,0 +1,621 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - What the Format?</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="Documentaing all Ruby Specialities. A New Post Every Day in May 2016!"/>
+<meta name="keywords" content="ruby, core, format, string, sprintf"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/49-what-the-format.html">What the Format?</a></h1>
+      </section>
+
+      <article class="post">
+        <p>Ruby comes with a structured alternative to classic string interpolation: This episode will explore <strong>format strings</strong>, also known as the <em>sprintf</em> syntax.</p>
+
+<p></p>
+
+<p>Recall the normal way of interpolating variables into a string:</p>
+
+<pre><code>v = 42
+"--&gt; #{v} &lt;--"
+# =&gt; "--&gt; 42 &lt;--"
+</code></pre>
+
+<p>Format strings are different in that they use a string template and bind it to data via the <code>%</code> method:¹</p>
+
+<pre><code>v = 42
+"--&gt; %s &lt;--" % v
+# =&gt; "--&gt; 42 &lt;--"
+</code></pre>
+
+<p>This might look familiar to you, because <a href="https://en.wikipedia.org/wiki/Printf_format_string">dozens of other programming languages</a> also support some flavor of this syntax.</p>
+
+<p>¹ Some people prefer the functional-style <em>Kernel#sprintf</em> or <em>Kernel#format</em> methods, which let you access the same functionality</p>
+
+<h2 id="four-kinds-of-references">Four Kinds of References</h2>
+
+<p>Format strings separate the string's format (= template) from the actual data. The template contains references in the format of <code>%X</code> (unnamed) or <code>%&lt;name&gt;X</code> (named). The <code>X</code> consists of the formatting type, optionally preceded by other formatting options (see next section). The most basic formatting type is <code>%s</code>, which stands for <em>string</em>. You cannot mix between the two referencing styles; either go with named or unnamed:</p>
+
+<pre><code># Named format strings take a hash parameter:
+"--&gt; %&lt;forty_two&gt;s -- %&lt;forty_three&gt;s &lt;--" % {forty_two: 42, forty_three: 43}
+# =&gt; --&gt; 42 -- 43 &lt;--
+
+# Named format strings, fancy style (note the comma before `%`):
+"--&gt; %&lt;forty_two&gt;s -- %&lt;forty_three&gt;s &lt;--".% forty_two: 42, forty_three: 43
+# =&gt; --&gt; 42 -- 43 &lt;--
+
+# Shorter, simple/unnamed format strings, take an array as parameter:
+"--&gt; %s -- %s &lt;--" % [42, 43]
+# =&gt; --&gt; 42 -- 43 &lt;--
+
+# If you only need to interpolate a single value, you can shorten this to:
+"--&gt; %s &lt;--" % 42
+# =&gt; --&gt; 42 &lt;--
+
+# Attempt to mix:
+"--&gt; %s -- %&lt;second&gt;s &lt;--" % [1, second: 2]
+# ArgumentError: named&lt;second&gt; after unnumbered(1)
+</code></pre>
+
+<p>Conceptionally, this is very similar to how regular expresions handle references. For simple interpolations use simple references, for more complex interpolations named references might be a better fit. Named references serve as inline documentation.</p>
+
+<h3 id="referencing-template-style">Referencing: Template Style</h3>
+
+<p>Besides the two main styles, there exists a shorthand syntax for using format strings with named references:</p>
+
+<pre><code>"--&gt; %{first} -- %{second} &lt;--".% first: 1, second: 2
+# =&gt; --&gt; 1 -- 2 &lt;--
+</code></pre>
+
+<p>Though you will use the ability to apply a formatting type (see below), it is concise and looks good. At its core, it is templating built into the language!</p>
+
+<h3 id="referencing-absolute-positioning">Referencing: Absolute Positioning</h3>
+
+<p>The fourth way of referencing the values is the most unreadable one and I would not recommend it. It is a modification of the unnamed reference style: Instead of using the variables in the order you passed them in, you denote the position of the value in the template string using <code>n$</code>:</p>
+
+<pre><code>"--&gt; %2$s -- %1$s &lt;--" % [:first, :second]
+# =&gt; "--&gt; second -- first &lt;--"
+</code></pre>
+
+<p>Again, mixing with other types of referencing will lead to errors like this one:</p>
+
+<pre><code>"--&gt; %2$s -- %s &lt;--" % [:first, :second]
+# ArgumentError: unnumbered(1) mixed with numbered
+</code></pre>
+
+<h2 id="flags-widths-and-formatting-type">Flags, Widths, and Formatting Type</h2>
+
+<p>In the previous examples, only basic string substitution was used. But format strings can do more: They can convert a value to another representation using a different <strong>formatting type</strong>. The formatting type is specified by the last letter of the reference. Besides <code>%s</code>, another common used formatting type is <code>%d</code>, which will put the value through <a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-Integer"><code>Interger()</code></a>:</p>
+
+<pre><code>"%d" % 1
+# =&gt; 1
+
+"%d" % "1"
+# =&gt; 1
+
+"%d" % "string without integer value"
+# ArgumentError: invalid value for Integer(): "string without integer value"
+</code></pre>
+
+<p>There are three different kinds of formatting types: Format as <code>String</code>, format as <code>Integer</code>, and format as <code>Float</code>. See further below for a detailed description. Often, the formatting can be enhanced with special flags or widths. Special options appear between the <code>%</code> sign and the formatting type. For example:</p>
+
+<pre><code>"%.2f" % 1.23456 # =&gt; 1.23
+</code></pre>
+
+<p>This is a float conversion, and the special option "precision of 2" was used. Different formatting types support different kinds of flags and options. The complete syntax of a reference is:</p>
+
+<p><code>%&lt;name&gt;AB.CX</code></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Syntax</th>
+      <th>Notes</th>
+      <th>Required/Optional</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>%</code></td>
+      <td>-²</td>
+      <td>Required</td>
+    </tr>
+    <tr>
+      <td><code>&lt;name&gt;</code></td>
+      <td>Named reference</td>
+      <td>Optional</td>
+    </tr>
+    <tr>
+      <td><em>A</em></td>
+      <td>Flags</td>
+      <td>Optional</td>
+    </tr>
+    <tr>
+      <td><em>B</em></td>
+      <td>Width</td>
+      <td>Optional</td>
+    </tr>
+    <tr>
+      <td><code>.</code> <em>C</em></td>
+      <td>Precision</td>
+      <td>Optional</td>
+    </tr>
+    <tr>
+      <td><em>X</em></td>
+      <td>Formatting type</td>
+      <td>Required</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>² Since the <code>%</code> character denotes a reference, you have to use <code>%%</code> to get a single "%"</p>
+
+<p>What follows is a description of all formatting options and types.</p>
+
+<h2 id="formatting-flags-and-options-string-padding">Formatting Flags and Options: String Padding</h2>
+
+<p>When the format string parser finds a number (which is not a preceeded by <code>.</code> or <code>$</code>), it will treat the value as a padding width. The padding width defines the minimum string length, the remaining space will be filled with ASCII spaces. This is a similar functionality like provided by <a href="http://ruby-doc.org/core-2.3.1/String.html">String#ljust</a>:</p>
+
+<pre><code>"%20s" % "Idiosyncratic"
+# =&gt; "       Idiosyncratic"
+</code></pre>
+
+<p>It also works with template-style references:</p>
+
+<pre><code>"%20{ruby}".% ruby: "Idiosyncratic"
+#=&gt; "       Idiosyncratic"
+</code></pre>
+
+<h3 id="minus">- | Minus</h3>
+
+<p>You can use "negative widths" to right-pad a string:</p>
+
+<pre><code>"%-20s" % "Idiosyncratic"
+# =&gt; "Idiosyncratic       "
+</code></pre>
+
+<h3 id="star">* | Star</h3>
+
+<p>A dynamic padding width can be achieved with <code>*</code>. This will require two arguments and does not work with named references:</p>
+
+<pre><code>w = 20
+"%*s" % [w, "Idiosyncratic"] # =&gt; "       Idiosyncratic"
+</code></pre>
+
+<p><strong>Note:</strong> Alternatively, you can just inline-interpolate the format string:</p>
+
+<pre><code>w = 20
+"%#{w}s" % "Idiosyncratic" # =&gt; "       Idiosyncratic"
+</code></pre>
+
+<p>Can be combined with absolute positioned references (e.g. <code>"%1$*2$s"</code>).</p>
+
+<h3 id="zero">0 | Zero</h3>
+
+<p>The <code>0</code> as flag allows you to pad numerical values with zeros instead of spaces:</p>
+
+<pre><code>"%020i" % 1
+# =&gt; #=&gt; "00000000000000000001"
+</code></pre>
+
+<p>Will not work for <code>%s</code>, <code>%p</code>, or <code>%c</code>. Can also not be combined with the <code>-</code> flag (right-pad).</p>
+
+<h2 id="formatting-flags-and-options-algebraic-sign">Formatting Flags and Options: Algebraic Sign</h2>
+
+<h3 id="plus">+ | Plus</h3>
+
+<p>The <code>+</code> flag forces a "+" sign for positive numbers:</p>
+
+<pre><code>"%+d" % 1
+# =&gt; "+1"
+
+"%+d" % -1
+# =&gt; "-1"
+</code></pre>
+
+<p>Will not work for <code>%s</code>, <code>%p</code>, or <code>%c</code>.</p>
+
+<h3 id="space">⍽ | Space</h3>
+
+<p>In a similar manner, the <code> </code> flag, forces positive numbers to leave a space (for a potential "-" sign):</p>
+
+<pre><code>"% d" % 1
+# =&gt; " 1"
+
+"% d" % -1
+# =&gt; "-1"
+</code></pre>
+
+<p>Will not work for <code>%s</code>, <code>%p</code>, or <code>%c</code>.</p>
+
+<h2 id="other-formatting-flags-and-options">Other Formatting Flags and Options</h2>
+
+<h3 id="hash"># | Hash</h3>
+
+<p>Modifies the way a numerical value gets converted. What it exactly does varies, so see the description at respective formatting type!</p>
+
+<h2 id="formatting-types-string">Formatting Types: String</h2>
+
+<h3 id="s--string">%s | String</h3>
+
+<p>Does nothing but putting the string argument at the right position.</p>
+
+<pre><code>"%s Ruby" % "Idiosyncratic"
+# =&gt; "Idiosyncratic Ruby"
+</code></pre>
+
+<p>Will call <code>to_s</code> on the object passed in.</p>
+
+<pre><code>"%s Ruby" % :Idiosyncratic
+# =&gt; "Idiosyncratic Ruby"
+</code></pre>
+
+<p>A padding example:</p>
+
+<pre><code>"%4s" % "A"
+# =&gt; "   A"
+</code></pre>
+
+<p>Using the precision syntax, you can pass a hard length limit:</p>
+
+<pre><code>"%.4s" % "Idiosyncratic"
+# =&gt; "Idio"
+</code></pre>
+
+<p>Padding + Limit:</p>
+
+<pre><code>"%4.8s" % "12"
+# =&gt; "  12"
+
+"%4.8s" % "1234567890"
+# =&gt; "12345678"
+</code></pre>
+
+<h3 id="p--inspect">%p | Inspect</h3>
+
+<p>Calls <a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-p">inspect</a> on the value:</p>
+
+<pre><code>"%p" % "Idiosyncratic"
+# =&gt; "\"Idiosyncratic\""
+</code></pre>
+
+<p>Supports the same flags and arguments like <code>%s</code>.</p>
+
+<h3 id="c--character">%c | Character</h3>
+
+<p>Interpretes a numerical value as a <a href="https://en.wikipedia.org/wiki/Code_point">codepoint</a> of the current encoding and converts it to the respective character (the reverse of <a href="http://ruby-doc.org/core-2.3.1/String.html#method-i-ord">String#ord</a>, similar to what <a href="(http://idiosyncratic-ruby.com/4-what-the-pack.html#u--utf-8-characters)"><code>Array#pack("U")</code></a> does for UTF-8 strings):</p>
+
+<pre><code>"%c" % 11835
+# =&gt; "⸻"
+</code></pre>
+
+<p>Can also be used with a single letter string, which will just be inserted (as if was used with <code>%s</code>):</p>
+
+<pre><code>"%c" % "A"
+# =&gt; "A"
+</code></pre>
+
+<h2 id="formatting-types-integer">Formatting Types: Integer</h2>
+
+<p>A padding width has the same effect it has for strings. When Integer formatting is used together with a precision it will act as the minimum number of digits to display (which is different from the effect it has in Float formatting):</p>
+
+<pre><code>"%6.4d" % 20
+# =&gt; "  0020"
+</code></pre>
+
+<p>The all integer formatting type will run the value through <a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-Integer"><code>Integer()</code></a>:</p>
+
+<pre><code>"%d" % 42.9
+# =&gt; "42"
+
+"%d" % "23"
+# =&gt; "23"
+
+"%d" % "0xff"
+# =&gt; "255"
+
+"%d" % nil
+# TypeError: can't convert nil into Integer
+</code></pre>
+
+<h3 id="d-i-u--integer-decimal-number">%d, %i, %u | Integer (Decimal Number)</h3>
+
+<p><code>%d</code>, <code>%i</code> and <code>%u</code> all convert the value to an integer (see explanation above):</p>
+
+<pre><code>"%d" % "123"
+# =&gt; 123
+</code></pre>
+
+<h3 id="b-b--binary-number">%b, %B | Binary Number</h3>
+
+<p>Converts the number to a binary number string:</p>
+
+<pre><code>"%b" % 42
+# =&gt; "101010"
+</code></pre>
+
+<p><strong>Note:</strong> Another way of achieving the same would be to use <a href="http://ruby-doc.org/core-2.3.1/Numeric.html">Numeric#to_s(2)</a>:</p>
+
+<pre><code>42.to_s(2)
+# =&gt; "101010"
+</code></pre>
+
+<p>Negative numbers will be convert to <a href="https://en.wikipedia.org/wiki/Two's_complement">two's complement</a>, preceeded by "..1" representing an infinite string of leading "1"s:</p>
+
+<pre><code>"%b" % -42
+# =&gt; "..1010110"
+</code></pre>
+
+<p>This is not the case when the <code>+</code> or <code> </code> flag are in use:</p>
+
+<pre><code>"%+b" % -42
+# =&gt; "-101010"
+</code></pre>
+
+<p>Alternative conversion format (<code>#</code> flag) will prepend "0b" (except for 0):</p>
+
+<pre><code>"%#b" % 42
+# =&gt; "0b101010"
+</code></pre>
+
+<p>The <code>%B</code> type has exactly the same behavior as <code>%b</code>, except that it will use an uppercase "B" in alternative conversion format:</p>
+
+<pre><code>"%#B" % 42
+# =&gt; "0B101010"
+</code></pre>
+
+<h3 id="o--octal-number">%o | Octal Number</h3>
+
+<p>Converts the number to an octal number string:</p>
+
+<pre><code>"%o" % 42
+# =&gt; "52"
+</code></pre>
+
+<p><strong>Note:</strong> Another way of achieving the same would be to use <a href="http://ruby-doc.org/core-2.3.1/Numeric.html">Numeric#to_s(8)</a>:</p>
+
+<pre><code>42.to_s(8)
+# =&gt; "52"
+</code></pre>
+
+<p>Negative numbers will be convert to <a href="https://en.wikipedia.org/wiki/Two's_complement">two's complement</a>, preceeded by "..7" representing an infinite string of leading "7"s:</p>
+
+<pre><code>"%o" % -42
+# =&gt; "..726"
+</code></pre>
+
+<p>This is not the case when the <code>+</code> or <code> </code> flag are in use:</p>
+
+<pre><code>"%+o" % -42
+# =&gt; "-52"
+</code></pre>
+
+<p>Alternative conversion format (<code>#</code> flag) will prepend "0" (except for 0):</p>
+
+<pre><code>"%#o" % 42
+# =&gt; "052"
+</code></pre>
+
+<h3 id="x-x--hexadecimal-number">%x, %X | Hexadecimal Number</h3>
+
+<p>Converts the number to a hexadecimal number string:</p>
+
+<pre><code>"%x" % 42
+# =&gt; "2a"
+</code></pre>
+
+<p>The <code>%X</code> type has the same behavoir, except that it will used uppercased letters:</p>
+
+<pre><code>"%X" % 42
+# =&gt; "2A"
+</code></pre>
+
+<p><strong>Note:</strong> Another way of achieving the same would be to use <a href="http://ruby-doc.org/core-2.3.1/Numeric.html">Numeric#to_s(16)</a>:</p>
+
+<pre><code>42.to_s(16)
+# =&gt; "2a"
+</code></pre>
+
+<p>Negative numbers will be convert to <a href="https://en.wikipedia.org/wiki/Two's_complement">two's complement</a>, preceeded by "..f" representing an infinite string of leading "f"s:</p>
+
+<pre><code>"%x" % -42
+# =&gt; "..fd6"
+</code></pre>
+
+<p>This is not the case when the <code>+</code> or <code> </code> flag are in use:</p>
+
+<pre><code>"%+x" % -42
+# =&gt; "-2a"
+</code></pre>
+
+<p>Alternative conversion format (<code>#</code> flag) will prepend "0x" (except for 0):</p>
+
+<pre><code>"%#x" % 42
+# =&gt; "0x2a"
+</code></pre>
+
+<p>Or "0X" when using big <code>%X</code>:</p>
+
+<pre><code>"%#X" % 42
+# =&gt; "0X2A"
+</code></pre>
+
+<h2 id="formatting-types-float">Formatting Types: Float</h2>
+
+<h3 id="f--float">%f | Float</h3>
+
+<p>This will convert the argument to a floating point number:</p>
+
+<pre><code>"%f" % 42
+# =&gt; "42.000000"
+</code></pre>
+
+<p>The precision syntax defines the actual precision here:</p>
+
+<pre><code>"%.2f" % 42
+# =&gt; "42.00"
+
+"%.3f" % 42
+# =&gt; "42.000"
+</code></pre>
+
+<h3 id="e-e--float-in-exponential-notation">%e, %E | Float in Exponential Notation</h3>
+
+<p>Converts the value to a float in <a href="https://en.wikipedia.org/wiki/Scientific_notation">exponential notation</a> (with 6 digits before the exponent):</p>
+
+<pre><code>"%e" % 42
+# =&gt; "4.200000e+01"
+
+"%e" % 0.00000023
+# =&gt; "2.300000e-07"
+
+"%e" % -1_000_000_000
+# =&gt; "-1.000000e+09"
+</code></pre>
+
+<p>The precision syntax defines the number of digits before the exponent:</p>
+
+<pre><code>"%.2e" % 42
+#=&gt; "4.20e+01"
+
+"%.4e" % 42
+# =&gt; "4.2000e+01"
+</code></pre>
+
+<p>Using big <code>%E</code> will uppercase the "E" in the result:</p>
+
+<pre><code>"%E" % 1
+# =&gt; "1.000000E+00"
+</code></pre>
+
+<h3 id="g-g--float-in-normal-or-exponential-notation">%g, %G | Float in Normal or Exponential Notation</h3>
+
+<p>Converts a float either to normal representation <code>1.23</code> or exponential notation (see <code>%e</code> above). Which one is chosen, depends on the number: If the exponent is more than 5 or less than -4, exponential format is used:</p>
+
+<pre><code>&gt;&gt; "%g" % 100000
+# =&gt; "100000"
+
+&gt;&gt; "%g" % 1000000
+# =&gt; "1e+06"
+
+&gt;&gt; "%g" % 0.0001
+# =&gt; "0.0001"
+
+&gt;&gt; "%g" % 0.00001
+# =&gt; "1e-05"
+</code></pre>
+
+<p>Will use a given (positive) precision as the point to decide between both notation forms:</p>
+
+<pre><code>"%.2g" % 10
+# =&gt; "10"
+
+"%.2g" % 100
+# =&gt; "1e+02"
+</code></pre>
+
+<p>Using big <code>%G</code> will uppercase the "E" in the result:</p>
+
+<pre><code>"%G" % 1234567890
+# =&gt; "1.23457E+09"
+</code></pre>
+
+<h3 id="a-a--analyze-float">%a, %A | Analyze Float</h3>
+
+<p>Converts a float into a format revealing its underlying representation, which is devided into <a href="https://en.wikipedia.org/wiki/Floating_point">significand (mantissa) and exponent</a>. The result is a string of the following format:</p>
+
+<p><code>-</code> (if negative) + <code>0x</code> + significand (hexadecimal) + <code>p</code> + exponent sign + exponent (decimal)</p>
+
+<p>Examples:</p>
+
+<pre><code>"%a" % 1
+# =&gt; "0x1p+0"
+
+"%a" % 1.2
+# =&gt; "0x1.3333333333333p+0"
+
+"%a" % 1.23
+# =&gt; "0x1.3ae147ae147aep+0"
+
+"%a" % 0.1
+# =&gt; "0x1.999999999999ap-4"
+
+"%a" % 10000000000
+# =&gt; "0x1.2a05f2p+33"
+
+"%a" % 0.000000001
+# =&gt; "0x1.12e0be826d695p-30"
+</code></pre>
+
+<p>Using big <code>%A</code> will uppercase all letters:</p>
+
+<pre><code>"%A" % -12.34
+# =&gt; "-0X1.8AE147AE147AEP+3"
+</code></pre>
+
+<h2 id="classic-interpolation-vs-format-strings">Classic Interpolation vs. Format Strings</h2>
+
+<h3 id="advantages-of-format-strings">Advantages of Format Strings</h3>
+
+<ul>
+  <li>Values sit side by side, instead of being all around the place</li>
+  <li>Simple access to string padding functionality</li>
+  <li>Advanced (and explicit) numerical conversions</li>
+  <li>Can be used as built-in mini templating engine</li>
+</ul>
+
+<h3 id="advantages-of-classical-interpolation">Advantages of Classical Interpolation</h3>
+
+<ul>
+  <li>Interpolation happens on syntax level, no method calling involved</li>
+  <li>Inline interpolation quicker to write/more convenient for simple interpolations</li>
+  <li>Not possible to mismatch values and format string references</li>
+</ul>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li><a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-sprintf">RDoc: Kernel#sprintf</a></li>
+  <li><a href="https://github.com/ruby/ruby/blob/trunk/sprintf.c">Source: sprintf.c</a></li>
+</ul>
+
+
+        <h2>More Idiosyncratic Ruby</h2>
+        <ul>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/a9f9e2f73c1f55604f650ce63030458e3dc968e6#all_commit_comments">Please Comment on GitHub</a></li>
+          <li><a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet this Episode
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
+            <li>Previous Article: <a href="/48-ruby-tricks-of-2015.html">Ruby TRICKS of 2015</a></li>
+        </ul>
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="https://github.com/janlelis">Jan Lelis</a><br>
+          
+        </div>
+        About Core, Format, String, Sprintf |
+        Last Update: 2016-05-18
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>
