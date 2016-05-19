@@ -2,6 +2,7 @@
 title: Naming Too Good
 date: 2016-05-19
 tags: core, api
+commit: 327e6ede5bb9fff2889fe8416f424a20561a1e0f
 ---
 
 Some words should not be chosen as identifiers for variables, parameters and methods in Ruby, because they clash with core methods or keywords.
