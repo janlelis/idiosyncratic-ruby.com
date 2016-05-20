@@ -2,6 +2,7 @@
 title: "½ Kilo of SHA256"
 date: 2016-05-20
 tags: golf
+commit: 7aacbecb0d33b51fd4c82779e0e6f4f71c2d8593
 ---
 
 How many bytes (= ASCII characters) of Ruby code does it take to generate a [SHA 256](https://en.wikipedia.org/wiki/SHA-2#Pseudocode) hash sum of STDIN?
