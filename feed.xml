@@ -5,10 +5,88 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2016-05-19T02:00:00+02:00</updated>
+  <updated>2016-05-20T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>½ Kilo of SHA256</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/51-half-kilo-of-sha256.html"/>
+    <id>http://idiosyncratic-ruby.com/51-half-kilo-of-sha256.html</id>
+    <published>2016-05-20T02:00:00+02:00</published>
+    <updated>2016-05-20T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;How many bytes (= ASCII characters) of Ruby code does it take to generate a &lt;a href="https://en.wikipedia.org/wiki/SHA-2#Pseudocode"&gt;SHA 256&lt;/a&gt; hash sum of STDIN?&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id="bytes"&gt;499 Bytes¹&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;q,z=[3,2].map{|t|i=l=1;(2..330).select{i-1&amp;lt;(l*=i)%i+=1}.map{|e|(e**t**-1*X=2**32).to_i&amp;amp;X-=1}}
+s=proc{|n,*m|a=0
+m.map{|e|a^=n&amp;gt;&amp;gt;e|n&amp;lt;&amp;lt;32-e}
+a}
+i=$&amp;lt;.read.b&amp;lt;&amp;lt;128
+(i+"\0"*(56-(w=i.size)%64)+[~-w*8].pack('Q&amp;gt;')).gsub(/.{64}/m){w=$&amp;amp;.unpack'N*'
+y=z
+64.times{|i|i&amp;gt;15&amp;amp;&amp;amp;w[i]=w[i-16]+(s[v=w[i-15],7,18]^v&amp;gt;&amp;gt;3)+w[i-7]+(s[w[i-2],17,19]^w[i-2]&amp;gt;&amp;gt;10)&amp;amp;X
+f=y[7]+s[u=y[4],6,11,25]+(u&amp;amp;y[5]^~u&amp;amp;y[6])+q[i]+w[i]
+y=[f+s[y[0],2,13,22]+(y[0]&amp;amp;y[1]^y[0]&amp;amp;y[2]^y[1]&amp;amp;y[2])&amp;amp;X]+y
+y[4]=y[4]+f&amp;amp;X}
+z=z.zip(y).map{|a,b|a+b&amp;amp;X}}
+$&amp;gt;&amp;lt;&amp;lt;'%.8x'*8%z
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is based on a submission to a (now defunct) code golf contest and there were "better" submissions, so it is possible to get the code smaller. Looking for pull requests!&lt;/p&gt;
+
+&lt;p&gt;¹ The code above actually contains 500 bytes, but you can replace &lt;code&gt;"\0"&lt;/code&gt; with a real null byte&lt;/p&gt;
+
+&lt;h3 id="test-script"&gt;Test Script&lt;/h3&gt;
+
+&lt;p&gt;Save the above code as &lt;code&gt;sha256.rb&lt;/code&gt; and create the following test script in the same directory:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# encoding: utf-8
+
+require "digest/sha2"
+require "open3"
+
+TEST_SCRIPT = "ruby sha256.rb"
+TEST_CASES  = [
+  "Idiosyncrätic Ruby",
+  "\n",
+  "",
+  "a"*6000
+]
+
+TEST_CASES.each{ |test_case|
+  expected = Digest::SHA256.hexdigest(test_case)
+  actual = nil
+  Open3.popen3(TEST_SCRIPT){ |in_, out,|
+    in_ &amp;lt;&amp;lt; test_case
+    in_.close
+    actual = out.read
+  }
+  if expected == actual
+    print "."
+  else
+    $stderr.puts "Fail:
+- Expected: #{expected.inspect}
+- Actual:   #{actual.inspect}
+"
+  end
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="/27-golfing-basics.html"&gt;Golfing Basics&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://golf.shinh.org/"&gt;Anarchy Golf&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Naming Too Good</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/50-naming-too-good.html"/>
