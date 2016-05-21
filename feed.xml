@@ -5,10 +5,104 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2016-05-20T02:00:00+02:00</updated>
+  <updated>2016-05-21T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Constant Visibility</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/52-constant-visibility.html"/>
+    <id>http://idiosyncratic-ruby.com/52-constant-visibility.html</id>
+    <published>2016-05-21T02:00:00+02:00</published>
+    <updated>2016-05-21T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;It is less common, but similar to methods, constants have a visibility attached to them. You have the choice between &lt;strong&gt;private&lt;/strong&gt; and &lt;strong&gt;public&lt;/strong&gt;, and you can also mark a constant &lt;strong&gt;deprecated&lt;/strong&gt;!&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Like with methods, the default visibility of a constant is &lt;strong&gt;public&lt;/strong&gt;. Unlike methods, &lt;a href="/25-meta-methodology.html"&gt;which have a lot of associated methods for metaprogramming&lt;/a&gt;, working with constants is easier:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Module.methods.grep /const/
+=&amp;gt; [:const_get, :constants, :const_defined?, :const_set, :private_constant,
+:public_constant, :deprecate_constant, :const_missing]
+
+Module.private_methods.grep /const/
+=&amp;gt; [:remove_const]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Besides some minor idiosyncrasies (like the visibility modifiers, which where introduced at a later time, refer to constants with &lt;em&gt;constant&lt;/em&gt;, while the others just use &lt;em&gt;const&lt;/em&gt;), their usage is straight forward.&lt;/p&gt;
+
+&lt;h2 id="effects-of-visibility-modifications"&gt;Effects of Visibility Modifications&lt;/h2&gt;
+
+&lt;p&gt;You must create a constant before you can modify its visibility. When a constant exists, you can use the class method &lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-private_constant"&gt;&lt;code&gt;private_constant&lt;/code&gt;&lt;/a&gt; or &lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-deprecate_constant"&gt;&lt;code&gt;deprecate_constant&lt;/code&gt;&lt;/a&gt; to alter its behaviour. You can change &lt;strong&gt;private&lt;/strong&gt; visibility back to the original state using the &lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-public_constant"&gt;&lt;code&gt;public_constant&lt;/code&gt;&lt;/a&gt; method. You cannot "undeprecate" constants.&lt;/p&gt;
+
+&lt;h3 id="public"&gt;Public&lt;/h3&gt;
+
+&lt;p&gt;This is the default behavior, the constant can be referenced from anywhere and shows up in the &lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-constants"&gt;&lt;code&gt;constants&lt;/code&gt;&lt;/a&gt; list:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;module Namespace
+  module Public
+  end
+end
+
+Namespace::Public # =&amp;gt; Namespace::Public
+
+Namespace.const_defined?(:Public) # =&amp;gt; true
+Namespace.constants.include?(:Public) # =&amp;gt; true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="private"&gt;Private&lt;/h3&gt;
+
+&lt;p&gt;The constant cannot referenced via the &lt;code&gt;::&lt;/code&gt; operator and does not show up in the constants list. They can still be accessed from within the namespace and via &lt;a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-const_get"&gt;&lt;code&gt;const_get&lt;/code&gt;&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;module Namespace
+  module Private
+  end
+
+  private_constant :Private
+end
+
+Namespace::Private # NameError: private constant Namespace::Private referenced
+
+module Namespace
+  Private # =&amp;gt; Namespace::Private
+end
+
+Namespace.const_defined?(:Private) # =&amp;gt; true
+Namespace.constants.include?(:Private) # =&amp;gt; false
+
+Namespace.const_get(:Private) # =&amp;gt; Namespace::Private
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="deprecated"&gt;Deprecated&lt;/h3&gt;
+
+&lt;p&gt;This is an additional property, which is also stored in a constant's visibility flag. Whenever you reference it, it will output a (&lt;a href="http://idiosyncratic-ruby.com/3-ruby-can-you-speak-louder.html#verbosity"&gt;$VERBOSE level independent&lt;/a&gt;) warning:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;module Namespace
+  module Deprecated
+  end
+
+  deprecate_constant :Deprecated
+end
+
+Namespace::Deprecated # =&amp;gt; Namespace::Deprecated
+# warning: constant Namespace::Deprecated is deprecated
+
+Namespace.const_defined? :Deprecated # =&amp;gt; true
+Namespace.constants.include? :Deprecated # =&amp;gt; true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="more-about-constants"&gt;More about Constants&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/doc/syntax/modules_and_classes_rdoc.html#label-Constants"&gt;RDoc: Modules (Constants)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://cirw.in/blog/constant-lookup.html"&gt;Everything you ever wanted to know about constant lookup in Ruby&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="/45-constant-shuffle.html"&gt;Constants can be redefined and removed&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>½ Kilo of SHA256</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/51-half-kilo-of-sha256.html"/>
