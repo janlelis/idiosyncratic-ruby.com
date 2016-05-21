@@ -2,6 +2,7 @@
 title: Constant Visibility
 date: 2016-05-21
 tags: core, constants
+commit: b55cbe7b47d3ce740f67c090093518547f16d176
 ---
 
 It is less common, but similar to methods, constants have a visibility attached to them. You have the choice between **private** and **public**, and you can also mark a constant **deprecated**!
