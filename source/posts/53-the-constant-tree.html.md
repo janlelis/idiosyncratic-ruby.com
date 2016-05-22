@@ -2,6 +2,7 @@
 title: The Constant Tree
 date: 2016-05-22
 tags: core, constants
+commit: ff20753adf4e143c64cfc55bd2f71c7975b7956c
 ---
 
 Generated with Ruby 2.3.1, including RubyGems and [DidYouMean](http://idiosyncratic-ruby.com/20-better-standards.html#bundled-gems):
