@@ -85,7 +85,7 @@ In the previous examples, only basic string substitution was used. But format st
     "%d" % "string without integer value"
     # ArgumentError: invalid value for Integer(): "string without integer value"
 
-There are three different kinds of formatting types: Format as `String`, format as `Integer`, and format as `Float`. See further below for a detailed description. Often, the formatting can be enhanced with special flags or widths. Special options appear between the `%` sign and the formatting type. For example:
+There are three different kinds of formatting types: Format as `String`, format as `Integer`, and format as `Float`. See further below for a detailed description. Often, the formatting can be enhanced with special flags or widths. Special options appear between the `%` sign and the formatting type². For example:
 
     "%.2f" % 1.23456 # => 1.23
 
@@ -95,14 +95,16 @@ This is a float conversion, and the special option "precision of 2" was used. Di
 
 Syntax  | Notes  | Required/Optional
 --------|-----------------|---------
-`%`     | -²              | Required
+`%`     | -³              | Required
 `<name>`| Named reference | Optional
 *A*     | Flags           | Optional
 *B*     | Width           | Optional
 `.` *C* | Precision       | Optional
 *X*     | Formatting type | Required
 
-² Since the `%` character denotes a reference, you have to use `%%` to get a single "%"
+² As [fnordfish noted](https://twitter.com/fnordfish/status/732957226932047877), the syntax can sometimes be quite confusing, such as in:<br/>`"Such %<num> cookies" % { num: 100 }`<br/>
+³ Since the `%` character denotes a reference, you have to use `%%` to get a single "%"
+
 
 What follows is a description of all formatting options and types.
 
