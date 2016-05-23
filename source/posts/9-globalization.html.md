@@ -48,7 +48,7 @@ $$ | read-only   | $PROCESS_ID              | $PID     | [Unix Processes](http:/
 $? | thread / read-only | $CHILD_STATUS     | -        | [RDoc](http://ruby-doc.org/core-2.3.1/Process.html#method-c-wait)
 $~ | pseudo      | $LAST_MATCH_INFO         | -        | [RDoc](http://ruby-doc.org/core-2.3.1/Regexp.html#class-Regexp-label-Special+global+variables)
 $= | defunct     | $IGNORECASE              | -        | -
-$* | (read-only) | $ARGV                    | -        | [Explanation](http://jnoconor.github.io/blog/2013/10/13/a-short-explanation-of-argv/)
+$* | (read-only) | $ARGV                    | -        | [Explanation](/50-the-art-of-arguments.html)
 $& | pseudo / read-only | $MATCH            | -        | [RDoc](http://ruby-doc.org/core-2.3.1/Regexp.html#class-Regexp-label-Special+global+variables)
 $` | pseudo / read-only | $PREMATCH         | -        | [RDoc](http://ruby-doc.org/core-2.3.1/Regexp.html#class-Regexp-label-Special+global+variables)
 $' | pseudo / read-only | $POSTMATCH        | -        | [RDoc](http://ruby-doc.org/core-2.3.1/Regexp.html#class-Regexp-label-Special+global+variables)
