@@ -5,10 +5,217 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2016-05-22T02:00:00+02:00</updated>
+  <updated>2016-05-23T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Try Converting</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/54-try-converting.html"/>
+    <id>http://idiosyncratic-ruby.com/54-try-converting.html</id>
+    <published>2016-05-23T02:00:00+02:00</published>
+    <updated>2016-05-23T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Similar to &lt;a href="/25-meta-methodology.html"&gt;metaprogramming&lt;/a&gt;, Ruby's type conversion system has evolved over time. While the result functions, it is also a little inconsistent and suffers from poor naming. Let's put things in perspective:&lt;/p&gt;
+
+&lt;h2 id="implicit-and-explicit-conversion"&gt;Implicit and Explicit Conversion&lt;/h2&gt;
+
+&lt;p&gt;Ruby objects are usually converted to other classes/types using &lt;code&gt;to_*&lt;/code&gt; functions. For example, converting the &lt;a href="http://ruby-doc.org/core-2.3.1/String.html"&gt;String&lt;/a&gt; &lt;code&gt;"42"&lt;/code&gt; to a &lt;a href="http://ruby-doc.org/core-2.3.1/Float.html"&gt;Float&lt;/a&gt; is done with &lt;code&gt;to_f&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"42".to_f # =&amp;gt; 42.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This process is called &lt;strong&gt;explicit conversion&lt;/strong&gt; (you want the object converted).&lt;/p&gt;
+
+&lt;p&gt;Some classes provide a second way to convert an object: &lt;strong&gt;implicit conversion&lt;/strong&gt; (you expect the object to be of some type).&lt;/p&gt;
+
+&lt;p&gt;The following table shows the defined conversion methods of Ruby's important core classes:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Class&lt;/th&gt;
+      &lt;th&gt;Explicit Conversion&lt;/th&gt;
+      &lt;th&gt;Implicit Conversion&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Array&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;to_a&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;to_ary&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Hash&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;to_h&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;to_hash&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;String&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;to_s&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;to_str&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Integer&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;to_i&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;to_int&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Float&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;to_f&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Complex&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;to_c&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Rational&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;to_r&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Regexp&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;to_regexp&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;IO&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;to_io&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;In most cases you should just go with the explicit conversion method and you are good.&lt;/p&gt;
+
+&lt;h2 id="expecting-a-specific-type"&gt;Expecting a Specific Type&lt;/h2&gt;
+
+&lt;p&gt;However, things are more complicated in real life. You might, and many of Ruby's core methods do, expect a compatible type that you can deal with. That is where two kinds of indirect conversion methods come into play:&lt;/p&gt;
+
+&lt;h3 id="tryconvert-class-methods-implicit-conversion-or-nil"&gt;&lt;code&gt;.try_convert&lt;/code&gt; Class Methods (Implicit Conversion or &lt;code&gt;nil&lt;/code&gt;)&lt;/h3&gt;
+
+&lt;p&gt;Some of Ruby's core classes have a &lt;code&gt;try_convert&lt;/code&gt; class method. Although its not obvious, which classes have one, and which do not have one (&lt;code&gt;Array&lt;/code&gt; has one, &lt;code&gt;Integer&lt;/code&gt; does not), its semantics are pretty clear: It will convert the object into an instance of the class via the &lt;strong&gt;implicit conversion&lt;/strong&gt; method (e.g. &lt;code&gt;to_ary&lt;/code&gt;), or, if no implicit conversion method is defined, will just return &lt;code&gt;nil&lt;/code&gt;. It will also return &lt;code&gt;nil&lt;/code&gt;, if the result of the conversion is &lt;code&gt;nil&lt;/code&gt;, or &lt;code&gt;nil&lt;/code&gt; was given as argument:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Array.try_convert(42) # =&amp;gt; nil
+Array.try_convert(42..43) # =&amp;gt; nil
+Array.try_convert([42, 43]) # =&amp;gt; [42, 43]
+Array.try_convert(nil) # =&amp;gt; nil
+
+o = Object.new
+def o.to_ary() [42] end
+Array.try_convert(o) # =&amp;gt; [42]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="uppercased-kernel-methods-special-conversion-or-typeerror"&gt;Uppercased Kernel Methods (Special Conversion or &lt;code&gt;TypeError&lt;/code&gt;)&lt;/h3&gt;
+
+&lt;p&gt;Idiosyncratically, there is a third way of converting values: &lt;em&gt;Uppercased Kernel methods&lt;/em&gt;, like &lt;code&gt;Array()&lt;/code&gt;.¹ The objects you pass in will be converted to the corresponding class, following the following rules:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Try to convert via the &lt;strong&gt;implicit convesion&lt;/strong&gt; method&lt;/li&gt;
+  &lt;li&gt;If it does not exist, try to convert via the &lt;strong&gt;explicit conversion&lt;/strong&gt; method&lt;/li&gt;
+  &lt;li&gt;Apply a &lt;strong&gt;special conversion&lt;/strong&gt;, see table&lt;/li&gt;
+  &lt;li&gt;Raise a &lt;a href="ruby-doc.org/core-2.3.1/TypeError.html"&gt;TypeError&lt;/a&gt; if everything of the above has failed&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;¹ Although defining uppercased methods for your custom classes to create instances of it looks like an interesting idea at first glance, it is rather confusing. Consider defining class&lt;code&gt;.[]&lt;/code&gt; instead, which enables a very similar syntax, but uses the real constant it belongs to. An example of such usage is &lt;a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/set/rdoc/Set.html#method-c-5B-5D"&gt;Set&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id="core-classes-conversion-table"&gt;Core Classes Conversion Table&lt;/h2&gt;
+
+&lt;table class="table-10-20-15-25-X"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Class&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;.try_convert&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;Kernel Method&lt;/th&gt;
+      &lt;th&gt;Kernel Method w/ &lt;code&gt;nil&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;Kernel Method Special&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Array&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Array.html#method-c-try_convert"&gt;Array.try_convert&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-Array"&gt;Array()&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;Array(nil) # =&amp;gt; []&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;If &lt;code&gt;:to_ary&lt;/code&gt; and &lt;code&gt;:to_a&lt;/code&gt; did not return an array, it will create single-element array which contains the given value&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Hash&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Hash.html#method-c-try_convert"&gt;Hash.try_convert&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-Hash"&gt;Hash()&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;Hash(nil) # =&amp;gt; {}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;Hash([]) # =&amp;gt; {}&lt;/code&gt;. Also remember that you can convert arrays to hashes with &lt;a href="http://ruby-doc.org/core-2.3.1/Hash.html#method-i-5B-5D"&gt;Hash#[]&lt;/a&gt;.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;String&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/String.html#method-c-try_convert"&gt;String.try_convert&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-String"&gt;String()&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;String(nil) # =&amp;gt; ""&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Integer&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-Integer"&gt;Integer()&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;Integer(nil) # TypeError&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Special behavior for strings: Instead of calling &lt;a href="http://ruby-doc.org/core-2.3.1/String.html#method-i-to_i"&gt;String#to_i&lt;/a&gt;, it will be more rigid². Takes a second argument defining the &lt;a href="https://en.wikipedia.org/wiki/Radix"&gt;numerical base&lt;/a&gt;. Also see ³&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Float&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-Float"&gt;Float()&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;Float(nil) # TypeError&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;- ³&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Complex&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-Complex"&gt;Complex()&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;Complex(nil) # TypeError&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Rational&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-Rational"&gt;Rational()&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;Rational(nil) # TypeError&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Regexp&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Regexp.html#method-c-try_convert"&gt;Regexp.try_convert&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;IO&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/IO.html#method-c-try_convert"&gt;IO.try_convert&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;.&lt;/p&gt;
+
+&lt;p&gt;² It will only convert strings that contain exactly an integer. It would not accept "42A", which &lt;code&gt;String#to_i&lt;/code&gt; would happily take. It also accepts &lt;a href="http://idiosyncratic-ruby.com/39-fixed-numbers.html"&gt;radix prefixes and numbers that contain underscores&lt;/a&gt;, so basically it accepts the same format that is valid for direct integer literals in Ruby. Will raise an &lt;code&gt;ArgumentError&lt;/code&gt; if an invalid string is passed in.&lt;br /&gt;
+³ It will convert to other low-level numerical types (such as integers and floats) directly, so &lt;code&gt;Float(4)&lt;/code&gt; will &lt;em&gt;not&lt;/em&gt; call &lt;code&gt;4.to_f&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id="when-to-use-what"&gt;When to Use What?&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Prefer &lt;strong&gt;explicit conversion&lt;/strong&gt;: &lt;code&gt;to_*&lt;/code&gt; methods&lt;/li&gt;
+  &lt;li&gt;Use &lt;code&gt;.try_convert&lt;/code&gt; for &lt;strong&gt;implicit conversion&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;Use the uppercased Kernel methods for their special effects, like &lt;code&gt;Array()&lt;/code&gt; for wrapping single arguments in an arrays, or &lt;code&gt;Integer()&lt;/code&gt; for strict integer conversion&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>The Constant Tree</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/53-the-constant-tree.html"/>
