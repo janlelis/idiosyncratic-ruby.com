@@ -2,6 +2,7 @@
 title: Struggling Four Equality
 date: 2016-05-24
 tags: core, equal, types
+commit: 3fcc648f2aba9272d2418d56025b8f817ca16423
 ---
 
 Another of Ruby's idiosycrasies is equalness. It's not too complicated, but naming is an issue here.
