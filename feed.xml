@@ -5,10 +5,144 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2016-05-23T02:00:00+02:00</updated>
+  <updated>2016-05-24T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Struggling Four Equality</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/55-struggling-four-equality.html"/>
+    <id>http://idiosyncratic-ruby.com/55-struggling-four-equality.html</id>
+    <published>2016-05-24T02:00:00+02:00</published>
+    <updated>2016-05-24T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Another of Ruby's idiosycrasies is equalness. It's not too complicated, but naming is an issue here.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id="four-concepts-of-equalness"&gt;Four Concepts of Equalness&lt;/h2&gt;
+
+&lt;h3 id="equal-object-identity-comparison"&gt;&lt;code&gt;equal?&lt;/code&gt; Object Identity Comparison&lt;/h3&gt;
+
+&lt;p&gt;This one is easy. Two objects should be considered identical. Think: &lt;code&gt;x.object_id == y.object_id&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id="equality-equality"&gt;&lt;code&gt;==&lt;/code&gt; Equality Equality&lt;/h3&gt;
+
+&lt;p&gt;This is the usual method to care about. Two objects should be treated the same.&lt;/p&gt;
+
+&lt;h3 id="eql-hash-key-equality"&gt;&lt;code&gt;eql?&lt;/code&gt; Hash Key Equality&lt;/h3&gt;
+
+&lt;p&gt;Normally, this is the same as &lt;code&gt;==&lt;/code&gt;: &lt;a href="http://ruby-doc.org/core-2.3.1/Hash.html#class-Hash-label-Hash+Keys"&gt;"…&lt;code&gt;eql?&lt;/code&gt; is usually aliased to the overridden &lt;code&gt;==&lt;/code&gt; method"&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The most important effect of the result of &lt;code&gt;eql?&lt;/code&gt; is to distinguish between hash keys: &lt;a href="http://ruby-doc.org/core-2.3.1/Hash.html#class-Hash-label-Hash+Keys"&gt;"Two objects refer to the same hash key when their &lt;code&gt;hash&lt;/code&gt; value is identical and the two objects are &lt;code&gt;eql?&lt;/code&gt; to each other"&lt;/a&gt;. A real life example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;1 == 1.0 # =&amp;gt; true
+1.eql?(1.0) # =&amp;gt; false
+
+# this means that the following will be treated as two different keys
+{1: "Idiosyncratic", 1.0 "Hash"}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So &lt;code&gt;eql?&lt;/code&gt; is a little stricter than &lt;code&gt;==&lt;/code&gt;, because it will return &lt;code&gt;false&lt;/code&gt; if two objects are not instances of the same class. A typical implementation looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def eql?(other)
+  instance_of?(other.class) &amp;amp;&amp;amp; self == other
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="fancy-equality"&gt;&lt;code&gt;===&lt;/code&gt; Fancy Equality&lt;/h3&gt;
+
+&lt;p&gt;Implicitely used for &lt;code&gt;case&lt;/code&gt; statements. Usually like &lt;code&gt;==&lt;/code&gt;, but can also mean that something has some kind of relationship, like being &lt;a href="https://github.com/janlelis/sig/blob/v1.0.1/lib/sig.rb#L108-L129"&gt;some kind of a class&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id="equality-implementations-for-core-classes"&gt;Equality Implementations for Core Classes&lt;/h2&gt;
+
+&lt;table class="table-13-29-29-X"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Class&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;eql?&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;==&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;===&lt;/code&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Object&lt;/td&gt;
+      &lt;td&gt;Identity (like &lt;code&gt;equal?&lt;/code&gt;)&lt;/td&gt;
+      &lt;td&gt;Same as &lt;code&gt;eql?&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Same as &lt;code&gt;==&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Symbol&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Numeric&lt;/td&gt;
+      &lt;td&gt;Same type, same value&lt;/td&gt;
+      &lt;td&gt;Same value, according to &lt;a href="http://ruby-doc.org/core-2.3.1/Numeric.html#method-i-3C-3D-3E"&gt;spaceship returning &lt;code&gt;0&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;String&lt;/td&gt;
+      &lt;td&gt;Same length, same contents&lt;/td&gt;
+      &lt;td&gt;If other is a String: &lt;code&gt;eql?&lt;/code&gt;, else: &lt;code&gt;other.to_str === self&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Regexp&lt;/td&gt;
+      &lt;td&gt;If other is a Regexp: Same pattern, same options, same encoding&lt;/td&gt;
+      &lt;td&gt;Same as &lt;code&gt;eql?&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;If other is a String: Match against self&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Array&lt;/td&gt;
+      &lt;td&gt;Same length, every element &lt;code&gt;.eql?&lt;/code&gt; corresponding other element&lt;/td&gt;
+      &lt;td&gt;Same length, every element &lt;code&gt;==&lt;/code&gt; corresponding other element. Will &lt;a href="/54-try-converting.html"&gt;implicetly convert&lt;/a&gt; other object via &lt;code&gt;.to_ary&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Hash&lt;/td&gt;
+      &lt;td&gt;Same length, every element &lt;code&gt;==&lt;/code&gt; corresponding other element (order not relevant)&lt;/td&gt;
+      &lt;td&gt;Same as &lt;code&gt;eql?&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Module&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;other.is_a?(self)&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Class&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;other.is_a?(self)&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Meaning of &lt;code&gt;-&lt;/code&gt;: Not defined / Use &lt;code&gt;Object&lt;/code&gt;'s implementation&lt;/p&gt;
+
+&lt;h2 id="best-practices-for-sub-classes"&gt;Best Practices for Sub Classes&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Define a meaningful &lt;code&gt;==&lt;/code&gt; which returns &lt;code&gt;true&lt;/code&gt; if two objects should be considered the same&lt;/li&gt;
+  &lt;li&gt;Make &lt;code&gt;eql?&lt;/code&gt; return the same value &lt;code&gt;==&lt;/code&gt;, but also limit it to return only &lt;code&gt;true&lt;/code&gt; if both object are instances of the same class&lt;/li&gt;
+  &lt;li&gt;Don't redefine &lt;code&gt;equal?&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Be creative with &lt;code&gt;===&lt;/code&gt; (On a reasonable level. Other people using your code expect it to be some kind of useful relationship check)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://github.com/dkubb/equalizer"&gt;equalizer: Automatically define &lt;code&gt;==&lt;/code&gt; and &lt;code&gt;eql?&lt;/code&gt; based on the object's instance variables&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Try Converting</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/54-try-converting.html"/>
@@ -1559,7 +1693,7 @@ end
 # ArgumentError: invalid value for Integer(): "string without integer value"
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;There are three different kinds of formatting types: Format as &lt;code&gt;String&lt;/code&gt;, format as &lt;code&gt;Integer&lt;/code&gt;, and format as &lt;code&gt;Float&lt;/code&gt;. See further below for a detailed description. Often, the formatting can be enhanced with special flags or widths. Special options appear between the &lt;code&gt;%&lt;/code&gt; sign and the formatting type. For example:&lt;/p&gt;
+&lt;p&gt;There are three different kinds of formatting types: Format as &lt;code&gt;String&lt;/code&gt;, format as &lt;code&gt;Integer&lt;/code&gt;, and format as &lt;code&gt;Float&lt;/code&gt;. See further below for a detailed description. Often, the formatting can be enhanced with special flags or widths. Special options appear between the &lt;code&gt;%&lt;/code&gt; sign and the formatting type². For example:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;"%.2f" % 1.23456 # =&amp;gt; 1.23
 &lt;/code&gt;&lt;/pre&gt;
@@ -1579,7 +1713,7 @@ end
   &lt;tbody&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;code&gt;%&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;-²&lt;/td&gt;
+      &lt;td&gt;-³&lt;/td&gt;
       &lt;td&gt;Required&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -1610,7 +1744,8 @@ end
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;² Since the &lt;code&gt;%&lt;/code&gt; character denotes a reference, you have to use &lt;code&gt;%%&lt;/code&gt; to get a single "%"&lt;/p&gt;
+&lt;p&gt;² As &lt;a href="https://twitter.com/fnordfish/status/732957226932047877"&gt;fnordfish noted&lt;/a&gt;, the syntax can sometimes be quite confusing, such as in:&lt;br /&gt;&lt;code&gt;"Such %&amp;lt;num&amp;gt; cookies" % { num: 100 }&lt;/code&gt;&lt;br /&gt;
+³ Since the &lt;code&gt;%&lt;/code&gt; character denotes a reference, you have to use &lt;code&gt;%%&lt;/code&gt; to get a single "%"&lt;/p&gt;
 
 &lt;p&gt;What follows is a description of all formatting options and types.&lt;/p&gt;
 
@@ -9998,7 +10133,7 @@ ENV[42] = "oops" # not quite: TypeError
       &lt;td&gt;(read-only)&lt;/td&gt;
       &lt;td&gt;$ARGV&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://jnoconor.github.io/blog/2013/10/13/a-short-explanation-of-argv/"&gt;Explanation&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="/50-the-art-of-arguments.html"&gt;Explanation&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;$&amp;amp;&lt;/td&gt;

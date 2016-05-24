@@ -111,7 +111,7 @@
 # ArgumentError: invalid value for Integer(): "string without integer value"
 </code></pre>
 
-<p>There are three different kinds of formatting types: Format as <code>String</code>, format as <code>Integer</code>, and format as <code>Float</code>. See further below for a detailed description. Often, the formatting can be enhanced with special flags or widths. Special options appear between the <code>%</code> sign and the formatting type. For example:</p>
+<p>There are three different kinds of formatting types: Format as <code>String</code>, format as <code>Integer</code>, and format as <code>Float</code>. See further below for a detailed description. Often, the formatting can be enhanced with special flags or widths. Special options appear between the <code>%</code> sign and the formatting type². For example:</p>
 
 <pre><code>"%.2f" % 1.23456 # =&gt; 1.23
 </code></pre>
@@ -131,7 +131,7 @@
   <tbody>
     <tr>
       <td><code>%</code></td>
-      <td>-²</td>
+      <td>-³</td>
       <td>Required</td>
     </tr>
     <tr>
@@ -162,7 +162,8 @@
   </tbody>
 </table>
 
-<p>² Since the <code>%</code> character denotes a reference, you have to use <code>%%</code> to get a single "%"</p>
+<p>² As <a href="https://twitter.com/fnordfish/status/732957226932047877">fnordfish noted</a>, the syntax can sometimes be quite confusing, such as in:<br /><code>"Such %&lt;num&gt; cookies" % { num: 100 }</code><br />
+³ Since the <code>%</code> character denotes a reference, you have to use <code>%%</code> to get a single "%"</p>
 
 <p>What follows is a description of all formatting options and types.</p>
 
@@ -614,7 +615,7 @@
           Article Contributions by: Lucas Dohmen
         </div>
         About Core, Format, String, Sprintf |
-        Last Update: 2016-05-18
+        Last Update: 2016-05-23
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
