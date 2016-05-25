@@ -314,10 +314,10 @@ Array.try_convert(o) # =&amp;gt; [42]
 &lt;p&gt;Idiosyncratically, there is a third way of converting values: &lt;em&gt;Uppercased Kernel methods&lt;/em&gt;, like &lt;code&gt;Array()&lt;/code&gt;.¹ The objects you pass in will be converted to the corresponding class, following the following rules:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Try to convert via the &lt;strong&gt;implicit convesion&lt;/strong&gt; method&lt;/li&gt;
+  &lt;li&gt;If there is a &lt;strong&gt;special conversion&lt;/strong&gt;, apply it. See the table below for details and the exact application order (e.g. &lt;code&gt;Array()&lt;/code&gt; does its special conversion &lt;em&gt;after&lt;/em&gt; it tried the two steps below).&lt;/li&gt;
+  &lt;li&gt;Unless special conversion gets applied, try to convert via the &lt;strong&gt;implicit convesion&lt;/strong&gt; method&lt;/li&gt;
   &lt;li&gt;If it does not exist, try to convert via the &lt;strong&gt;explicit conversion&lt;/strong&gt; method&lt;/li&gt;
-  &lt;li&gt;Apply a &lt;strong&gt;special conversion&lt;/strong&gt;, see table&lt;/li&gt;
-  &lt;li&gt;Raise a &lt;a href="ruby-doc.org/core-2.3.1/TypeError.html"&gt;TypeError&lt;/a&gt; if everything of the above has failed&lt;/li&gt;
+  &lt;li&gt;Raise a &lt;a href="http://ruby-doc.org/core-2.3.1/TypeError.html"&gt;TypeError&lt;/a&gt; if everything of the above has failed&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;¹ Although defining uppercased methods for your custom classes to create instances of it looks like an interesting idea at first glance, it is rather confusing. Consider defining class&lt;code&gt;.[]&lt;/code&gt; instead, which enables a very similar syntax, but uses the real constant it belongs to. An example of such usage is &lt;a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/set/rdoc/Set.html#method-c-5B-5D"&gt;Set&lt;/a&gt;.&lt;/p&gt;
