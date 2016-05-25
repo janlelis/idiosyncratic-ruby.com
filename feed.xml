@@ -5,10 +5,75 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2016-05-24T02:00:00+02:00</updated>
+  <updated>2016-05-25T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>US-ASCII-8BIT</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/56-us-ascii-8bit.html"/>
+    <id>http://idiosyncratic-ruby.com/56-us-ascii-8bit.html</id>
+    <published>2016-05-25T02:00:00+02:00</published>
+    <updated>2016-05-25T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;How comes that Ruby has two &lt;a href="https://en.wikipedia.org/wiki/ASCII"&gt;ASCII&lt;/a&gt; encodings?&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Encoding.name_list.grep(/ASCII/)
+# =&amp;gt; ["ASCII-8BIT", "US-ASCII"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Which one is the &lt;em&gt;normal&lt;/em&gt; one you should use for ASCII?&lt;/p&gt;
+
+&lt;h2 id="aliases"&gt;Aliases&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;ASCII-8BIT&lt;/th&gt;
+      &lt;th&gt;US-ASCII&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;BINARY&lt;/td&gt;
+      &lt;td&gt;ASCII&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;ANSI_X3.4-1968&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;646&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;So, &lt;strong&gt;US-ASCII&lt;/strong&gt; is aliased to &lt;strong&gt;ASCII&lt;/strong&gt;, but then what is &lt;strong&gt;ASCII-8BIT&lt;/strong&gt; for? &lt;a href="http://ruby-doc.org/core-2.3.1/Encoding.html"&gt;Encodings' RDoc&lt;/a&gt; has some help:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Encoding::ASCII_8BIT is a special encoding that is usually
+used for a byte string, not a character string. But as the name insists,
+its characters in the range of ASCII are considered as ASCII characters.
+This is useful when you use ASCII-8BIT characters with other ASCII
+compatible characters.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So basically, it is not a real encoding, but represents an arbitrary stream of bytes (bytes with a value between 0 and 255). It is used for raw byte stream or if you want to make clear that you do not know about a string's encoding!&lt;/p&gt;
+
+&lt;p&gt;The ASCII charset only takes 7 bytes, so in strict ASCII, the 8th byte should never be set. The allowed byte value range is from 0 to 127. This is what the &lt;strong&gt;US-ASCII&lt;/strong&gt; encoding is all about: It is used when dealing with ASCII encoded strings. Think: &lt;strong&gt;"ASCII-7BIT"&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A simple example illustrating the difference:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; out_of_ascii_range = 128.chr # =&amp;gt; "\x80"
+ out_of_ascii_range.force_encoding("US-ASCII").valid_encoding? # =&amp;gt; false
+ out_of_ascii_range.force_encoding("ASCII-8BIT").valid_encoding? # =&amp;gt; true
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+  </entry>
   <entry>
     <title>Struggling Four Equality</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/55-struggling-four-equality.html"/>

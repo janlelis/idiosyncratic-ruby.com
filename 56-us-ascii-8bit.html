@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - US-ASCII-8BIT</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="Documentaing all Ruby Specialities. A New Post Every Day in May 2016!"/>
+<meta name="keywords" content="ruby, string, encoding, ascii"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/56-us-ascii-8bit.html">US-ASCII-8BIT</a></h1>
+      </section>
+
+      <article class="post">
+        <p>How comes that Ruby has two <a href="https://en.wikipedia.org/wiki/ASCII">ASCII</a> encodings?</p>
+
+<p></p>
+
+<pre><code>Encoding.name_list.grep(/ASCII/)
+# =&gt; ["ASCII-8BIT", "US-ASCII"]
+</code></pre>
+
+<p>Which one is the <em>normal</em> one you should use for ASCII?</p>
+
+<h2 id="aliases">Aliases</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>ASCII-8BIT</th>
+      <th>US-ASCII</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>BINARY</td>
+      <td>ASCII</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>ANSI_X3.4-1968</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>646</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>So, <strong>US-ASCII</strong> is aliased to <strong>ASCII</strong>, but then what is <strong>ASCII-8BIT</strong> for? <a href="http://ruby-doc.org/core-2.3.1/Encoding.html">Encodings' RDoc</a> has some help:</p>
+
+<pre><code>Encoding::ASCII_8BIT is a special encoding that is usually
+used for a byte string, not a character string. But as the name insists,
+its characters in the range of ASCII are considered as ASCII characters.
+This is useful when you use ASCII-8BIT characters with other ASCII
+compatible characters.
+</code></pre>
+
+<p>So basically, it is not a real encoding, but represents an arbitrary stream of bytes (bytes with a value between 0 and 255). It is used for raw byte stream or if you want to make clear that you do not know about a string's encoding!</p>
+
+<p>The ASCII charset only takes 7 bytes, so in strict ASCII, the 8th byte should never be set. The allowed byte value range is from 0 to 127. This is what the <strong>US-ASCII</strong> encoding is all about: It is used when dealing with ASCII encoded strings. Think: <strong>"ASCII-7BIT"</strong></p>
+
+<p>A simple example illustrating the difference:</p>
+
+<pre><code> out_of_ascii_range = 128.chr # =&gt; "\x80"
+ out_of_ascii_range.force_encoding("US-ASCII").valid_encoding? # =&gt; false
+ out_of_ascii_range.force_encoding("ASCII-8BIT").valid_encoding? # =&gt; true
+</code></pre>
+
+
+        <h2>More Idiosyncratic Ruby</h2>
+        <ul>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/a5cb71a503b730ac5e901de4d91154b27f116613#all_commit_comments">Please Comment on GitHub</a></li>
+          <li><a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet this Episode
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
+            <li>Previous Article: <a href="/55-struggling-four-equality.html">Struggling Four Equality</a></li>
+        </ul>
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="https://github.com/janlelis">Jan Lelis</a><br>
+          
+        </div>
+        About String, Encoding, Ascii |
+        Last Update: 2016-05-25
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>
