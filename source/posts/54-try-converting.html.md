@@ -54,9 +54,9 @@ Some of Ruby's core classes have a `try_convert` class method. Although its not 
 
 Idiosyncratically, there is a third way of converting values: *Uppercased Kernel methods*, like `Array()`.¹ The objects you pass in will be converted to the corresponding class, following the following rules:
 
-- Try to convert via the **implicit convesion** method
+- If there is a **special conversion**, apply it. See the table below for details and the exact application order (e.g. `Array()` does its special conversion *after* it tried the two steps below).
+- Unless special conversion gets applied, try to convert via the **implicit convesion** method
 - If it does not exist, try to convert via the **explicit conversion** method
-- Apply a **special conversion**, see table
 - Raise a [TypeError](ruby-doc.org/core-2.3.1/TypeError.html) if everything of the above has failed
 
 ¹ Although defining uppercased methods for your custom classes to create instances of it looks like an interesting idea at first glance, it is rather confusing. Consider defining class`.[]` instead, which enables a very similar syntax, but uses the real constant it belongs to. An example of such usage is [Set](http://ruby-doc.org/stdlib-2.3.1/libdoc/set/rdoc/Set.html#method-c-5B-5D).
