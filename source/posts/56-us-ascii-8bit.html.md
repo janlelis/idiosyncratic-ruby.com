@@ -1,6 +1,6 @@
 ---
 title: US-ASCII-8BIT
-date: 2016-05-26
+date: 2016-05-25
 tags: string, encoding, ascii
 commit: a5cb71a503b730ac5e901de4d91154b27f116613
 ---
