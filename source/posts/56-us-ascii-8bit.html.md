@@ -5,7 +5,7 @@ tags: string, encoding, ascii
 commit: a5cb71a503b730ac5e901de4d91154b27f116613
 ---
 
-How comes that Ruby has two [ASCII](https://en.wikipedia.org/wiki/ASCII) encodings?
+How come that Ruby has two [ASCII](https://en.wikipedia.org/wiki/ASCII) encodings?
 
 ARTICLE
 
