@@ -24,7 +24,50 @@
       </section>
 
       <article class="post">
-        <p>Ruby comes equipped with a powerful option for low level string manipulation: <code>String#unpack</code> and its counter part <code>Array#pack</code>. Today's episode takes a closer look.</p>
+        <p><a href="#a--arbitrary-string">a</a>
+<a href="#a--arbitrary-string-clean-null-bytes">A</a>
+<a href="#b--bit-string-little-endian">b</a>
+<a href="#b--bit-string-big-endian">B</a>
+<a href="#c--a-signed-integer-per-byte">c</a>
+<a href="#c--an-unsigned-integer-per-byte">C</a>
+<a href="#d-d--a-float-double-precision-native-endian">d</a>
+<a href="#d-d--a-float-double-precision-native-endian">D</a>
+<a href="#e--a-float-single-precision-little-endian">e</a>
+<a href="#e--a-float-double-precision-little-endian">E</a>
+<a href="#f--a-float-single-precision-native-endian">F</a>
+<a href="#g--a-float-single-precision-big-endian">g</a>
+<a href="#g--a-float-double-precision-big-endian">G</a>
+<a href="#h--hex-string-little-endian">h</a>
+<a href="#h--hex-string-big-endian">H</a>
+<a href="#l--a-signed-integer-per-4-bytes">l</a>
+<a href="#l--an-unsigned-integer-per-4-bytes">L</a>
+<a href="#m--base64-encoding-rfc-2045">m</a>
+<a href="#m0--base64-encoding-rfc-4648">m0</a>
+<a href="#m--quoted-printable--mime-encoding-rfc2045">M</a>
+<a href="#n--an-unsigned-integer-per-2-bytes-big-endian-similar-to-s">n</a>
+<a href="#n--a-signed-integer-per-4-bytes-big-endian-similar-to-l">N</a>
+<a href="#p--pointer-to-null-terminated-string">p</a>
+<a href="#p--pointer-to-fixed-length-string">P</a>
+<a href="q--a-signed-integer-per-8-bytes">q</a>
+<a href="#q--an-unsigned-integer-per-8-bytes">Q</a>
+<a href="#s--a-signed-integer-per-2-bytes">s</a>
+<a href="#s--an-unsigned-integer-per-2-bytes">S</a>
+<a href="#u--uu-encoding">u</a>
+<a href="#u--utf-8-characters">U</a>
+<a href="#v--an-unsigned-integer-per-2-bytes-little-endian-similar-to-s">v</a>
+<a href="#v--a-signed-integer-per-4-bytes-little-endian-similar-to-l">V</a>
+<a href="#w--ber-compression">w</a>
+<a href="#x--skip-byte-fill-with-null-byte-when-packing">x</a>
+<a href="#x--move-a-byte-back">X</a>
+<a href="#z--null-terminated-string">Z</a>
+<a href="#go-to-position">@</a>
+<a href="#integer-directives">!</a>
+<a href="#pack-template-format">*</a>
+<a href="#a-note-on-byte-order-big-endian-vs-little-endian">&lt;</a>
+<a href="#a-note-on-byte-order-big-endian-vs-little-endian">&gt;</a>
+<a href="#integer-directives">_</a></p>
+
+<p>Ruby comes equipped with a powerful option for low level string manipulation: <code>String#unpack</code> and its counter part <code>Array#pack</code>. Today's episode takes a closer look.</p>
 
 <p></p>
 
@@ -537,6 +580,14 @@
   <li><a href="http://www.perlmonks.org/?node_id=224666">unpack in Perl</a></li>
 </ul>
 
+<h2 id="also-see">Also See</h2>
+
+<ul>
+  <li><a href="/49-what-the-format.html">What the Format?</a></li>
+  <li><a href="/57-what-the-time.html">What the Time?</a></li>
+</ul>
+
+
 
         <h2>More Idiosyncratic Ruby</h2>
         <ul>
@@ -558,7 +609,7 @@
           
         </div>
         About Core, Strings, Encoding |
-        Last Update: 2016-05-14
+        Last Update: 2016-05-26
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

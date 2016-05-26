@@ -24,7 +24,60 @@
       </section>
 
       <article class="post">
-        <p>Date and time formatting is traditionally done with <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/strftime.html">strftime</a>. Not any different in Ruby, which includes a <a href="https://github.com/ruby/ruby/blob/trunk/strftime.c">public domain based strftime implementation</a> accessible via <a href="http://ruby-doc.org/core-2.3.1/Time.html#method-i-strftime">Time#strftime</a>. Ruby would not be Ruby if it would not add some confusion: There is a <a href="https://github.com/ruby/ruby/blob/trunk/ext/date/date_strftime.c">second implementation included in the standard library</a> which is used by <a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/Date.html#method-i-strftime">Date#strftime</a> and <a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/DateTime.html#method-i-strftime">DateTime#strftime</a>. It behaves similarly in most cases, but also differs in some nuances (for example, additional formatting directives like <code>%Q</code> are supported).</p>
+        <p><a href="#a--weekday-name-abbreviated">%a</a>
+<a href="#a--weekday-name">%A</a>
+<a href="#b-h--month-name-abbreviated">%b</a>
+<a href="#b--month-name">%B</a>
+<a href="#c--date-weekday--month--day-of-month--time--year">%c</a>
+<a href="#c--century">%C</a>
+<a href="#d--day-of-month--0131">%d</a>
+<a href="#d-x--date-american">%D</a>
+<a href="#e--day-of-month-space-padded--0131">%e</a>
+<a href="#f--date-iso-8601">%F</a>
+<a href="#g--year-week-based-without-century">%g</a>
+<a href="#g--year-week-based-with-century">%G</a>
+<a href="#b-h--month-name-abbreviated">%h</a>
+<a href="#h--hour-of-day-24h-zero-padded--023">%H</a>
+<a href="#i--hour-of-day-12h-zero-padded--011">%I</a>
+<a href="#j--day-of-year--001366">%j</a>
+<a href="#k--hour-of-day-24h-space-padded--023">%k</a>
+<a href="#l--hour-of-day-12h-space-padded--011">%l</a>
+<a href="#l--millisecond--000999">%L</a>
+<a href="#m--month-as-number">%m</a>
+<a href="#m--minute-of-hour--0059">%M</a>
+<a href="#n--newline">%n</a>
+<a href="#n--fraction-default-nanosecond">%N</a>
+<a href="#p--meridian-indicator-uppercase">%p</a>
+<a href="#p--meridian-indicator-lowercase">%P</a>
+<a href="#q--milliseconds-since-unix-epoch">%Q</a>
+<a href="#r--time-hour--minute--second--daytime">%r</a>
+<a href="#r--time-hour--minute">%R</a>
+<a href="#s--seconds-since-unix-epoch">%s</a>
+<a href="#s--second-of-minute--0060">%S</a>
+<a href="#t--tab">%t</a>
+<a href="#t-x--time-hour--minute--second">%T</a>
+<a href="#u--weekday-as-number-monday-starts-week--17">%u</a>
+<a href="#u--week-number-sunday-starts-week--0053">%U</a>
+<a href="#v--date-vms">%v</a>
+<a href="#v--week-number-week-based-year--0153">%V</a>
+<a href="#w--weekday-as-number-sunday-starts-week--06">%w</a>
+<a href="#w--week-number-monday-starts-weeks--0053">%W</a>
+<a href="#d-x--date-american">%x</a>
+<a href="#t-x--time-hour--minute--second">%X</a>
+<a href="#y--year-without-century">%y</a>
+<a href="#y--year-with-century">%Y</a>
+<a href="#z--time-zone-offset-from-utc">%z</a>
+<a href="#z--time-zone-abbreviated-os-dependent">%Z</a>
+<a href="#date-date1-style">%+</a>
+<a href="#section">%%</a>
+<a href="#formatting-flags-and-padding">-</a>
+<a href="#formatting-flags-and-padding">_</a>
+<a href="#formatting-flags-and-padding">0</a>
+<a href="#formatting-flags-and-padding">^</a>
+<a href="#formatting-flags-and-padding">#</a>
+<a href="#z--time-zone-offset-from-utc">:</a></p>
+
+<p>Date and time formatting is traditionally done with <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/strftime.html">strftime</a>. Not any different in Ruby, which includes a <a href="https://github.com/ruby/ruby/blob/trunk/strftime.c">public domain based strftime implementation</a> accessible via <a href="http://ruby-doc.org/core-2.3.1/Time.html#method-i-strftime">Time#strftime</a>. Ruby would not be Ruby if it would not add some confusion: There is a <a href="https://github.com/ruby/ruby/blob/trunk/ext/date/date_strftime.c">second implementation included in the standard library</a> which is used by <a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/Date.html#method-i-strftime">Date#strftime</a> and <a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/DateTime.html#method-i-strftime">DateTime#strftime</a>. It behaves similarly in most cases, but also differs in some nuances (for example, additional formatting directives like <code>%Q</code> are supported).</p>
 
 <p></p>
 
@@ -797,6 +850,15 @@ Time.local(2016, 5, 24).to_datetime.strftime("%Z") # =&gt; "+02:00"
 
 <pre><code>Time.utc(2016).strftime("%%") # =&gt; "%"
 </code></pre>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li><a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-sprintf">RDoc: Time#strftime</a></li>
+  <li><a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/Date.html#method-i-strftime">RDoc: Date#strftime</a></li>
+  <li><a href="https://github.com/ruby/ruby/blob/trunk/strftime.c">Source: strftime.c</a></li>
+  <li><a href="https://github.com/ruby/ruby/blob/trunk/ext/date/date_strftime.c">Source: date_strftime.c</a></li>
+</ul>
 
 <h2 id="also-see">Also See</h2>
 

@@ -28,7 +28,60 @@
 
       <article>
         <h2><a href="/57-what-the-time.html">57 | What the Time?</a></h2>
-        <p>Date and time formatting is traditionally done with <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/strftime.html">strftime</a>. Not any different in Ruby, which includes a <a href="https://github.com/ruby/ruby/blob/trunk/strftime.c">public domain based strftime implementation</a> accessible via <a href="http://ruby-doc.org/core-2.3.1/Time.html#method-i-strftime">Time#strftime</a>. Ruby would not be Ruby if it would not add some confusion: There is a <a href="https://github.com/ruby/ruby/blob/trunk/ext/date/date_strftime.c">second implementation included in the standard library</a> which is used by <a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/Date.html#method-i-strftime">Date#strftime</a> and <a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/DateTime.html#method-i-strftime">DateTime#strftime</a>. It behaves similarly in most cases, but also differs in some nuances (for example, additional formatting directives like <code>%Q</code> are supported).</p>
+        <p><a href="#a--weekday-name-abbreviated">%a</a>
+<a href="#a--weekday-name">%A</a>
+<a href="#b-h--month-name-abbreviated">%b</a>
+<a href="#b--month-name">%B</a>
+<a href="#c--date-weekday--month--day-of-month--time--year">%c</a>
+<a href="#c--century">%C</a>
+<a href="#d--day-of-month--0131">%d</a>
+<a href="#d-x--date-american">%D</a>
+<a href="#e--day-of-month-space-padded--0131">%e</a>
+<a href="#f--date-iso-8601">%F</a>
+<a href="#g--year-week-based-without-century">%g</a>
+<a href="#g--year-week-based-with-century">%G</a>
+<a href="#b-h--month-name-abbreviated">%h</a>
+<a href="#h--hour-of-day-24h-zero-padded--023">%H</a>
+<a href="#i--hour-of-day-12h-zero-padded--011">%I</a>
+<a href="#j--day-of-year--001366">%j</a>
+<a href="#k--hour-of-day-24h-space-padded--023">%k</a>
+<a href="#l--hour-of-day-12h-space-padded--011">%l</a>
+<a href="#l--millisecond--000999">%L</a>
+<a href="#m--month-as-number">%m</a>
+<a href="#m--minute-of-hour--0059">%M</a>
+<a href="#n--newline">%n</a>
+<a href="#n--fraction-default-nanosecond">%N</a>
+<a href="#p--meridian-indicator-uppercase">%p</a>
+<a href="#p--meridian-indicator-lowercase">%P</a>
+<a href="#q--milliseconds-since-unix-epoch">%Q</a>
+<a href="#r--time-hour--minute--second--daytime">%r</a>
+<a href="#r--time-hour--minute">%R</a>
+<a href="#s--seconds-since-unix-epoch">%s</a>
+<a href="#s--second-of-minute--0060">%S</a>
+<a href="#t--tab">%t</a>
+<a href="#t-x--time-hour--minute--second">%T</a>
+<a href="#u--weekday-as-number-monday-starts-week--17">%u</a>
+<a href="#u--week-number-sunday-starts-week--0053">%U</a>
+<a href="#v--date-vms">%v</a>
+<a href="#v--week-number-week-based-year--0153">%V</a>
+<a href="#w--weekday-as-number-sunday-starts-week--06">%w</a>
+<a href="#w--week-number-monday-starts-weeks--0053">%W</a>
+<a href="#d-x--date-american">%x</a>
+<a href="#t-x--time-hour--minute--second">%X</a>
+<a href="#y--year-without-century">%y</a>
+<a href="#y--year-with-century">%Y</a>
+<a href="#z--time-zone-offset-from-utc">%z</a>
+<a href="#z--time-zone-abbreviated-os-dependent">%Z</a>
+<a href="#date-date1-style">%+</a>
+<a href="#section">%%</a>
+<a href="#formatting-flags-and-padding">-</a>
+<a href="#formatting-flags-and-padding">_</a>
+<a href="#formatting-flags-and-padding">0</a>
+<a href="#formatting-flags-and-padding">^</a>
+<a href="#formatting-flags-and-padding">#</a>
+<a href="#z--time-zone-offset-from-utc">:</a></p>
+
+<p>Date and time formatting is traditionally done with <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/strftime.html">strftime</a>. Not any different in Ruby, which includes a <a href="https://github.com/ruby/ruby/blob/trunk/strftime.c">public domain based strftime implementation</a> accessible via <a href="http://ruby-doc.org/core-2.3.1/Time.html#method-i-strftime">Time#strftime</a>. Ruby would not be Ruby if it would not add some confusion: There is a <a href="https://github.com/ruby/ruby/blob/trunk/ext/date/date_strftime.c">second implementation included in the standard library</a> which is used by <a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/Date.html#method-i-strftime">Date#strftime</a> and <a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/DateTime.html#method-i-strftime">DateTime#strftime</a>. It behaves similarly in most cases, but also differs in some nuances (for example, additional formatting directives like <code>%Q</code> are supported).</p>
 
 <p>
         <a href="/57-what-the-time.html">READ</a>
@@ -95,7 +148,34 @@
       </article>
       <article>
         <h2><a href="/49-what-the-format.html">49 | What the Format?</a></h2>
-        <p>Ruby comes with a structured alternative to classic string interpolation: This episode will explore <strong>format strings</strong>, also known as the <em>sprintf</em> syntax.</p>
+        <p><a href="#a-a--analyze-float">%a</a>
+<a href="#a-a--analyze-float">%A</a>
+<a href="#b-b--binary-number">%b</a>
+<a href="#b-b--binary-number">%B</a>
+<a href="#c--character">%c</a>
+<a href="#d-i-u--integer-decimal-number">%d</a>
+<a href="#e-e--float-in-exponential-notation">%e</a>
+<a href="#e-e--float-in-exponential-notation">%E</a>
+<a href="#f--float">%f</a>
+<a href="#g-g--float-in-normal-or-exponential-notation">%g</a>
+<a href="#g-g--float-in-normal-or-exponential-notation">%G</a>
+<a href="#d-i-u--integer-decimal-number">%i</a>
+<a href="#o--octal-number">%o</a>
+<a href="#p--inspect">%p</a>
+<a href="#s--string">%s</a>
+<a href="#d-i-u--integer-decimal-number">%u</a>
+<a href="#x-x--hexadecimal-number">%x</a>
+<a href="#x-x--hexadecimal-number">%X</a>
+<a href="#percent">%%</a>
+<a href="#zero">0</a>
+<a href="#referencing-absolute-positioning">$</a>
+<a href="#hash">#</a>
+<a href="#plus">+</a>
+<a href="#minus">-</a>
+<a href="#star">*</a>
+<a href="#space">space</a></p>
+
+<p>Ruby comes with a structured alternative to classic string interpolation: This episode will explore <strong>format strings</strong>, also known as the <em>sprintf</em> syntax.</p>
 
 <p>
         <a href="/49-what-the-format.html">READ</a>
@@ -426,7 +506,50 @@
       </article>
       <article>
         <h2><a href="/4-what-the-pack.html">4 | What the Pack?</a></h2>
-        <p>Ruby comes equipped with a powerful option for low level string manipulation: <code>String#unpack</code> and its counter part <code>Array#pack</code>. Today's episode takes a closer look.</p>
+        <p><a href="#a--arbitrary-string">a</a>
+<a href="#a--arbitrary-string-clean-null-bytes">A</a>
+<a href="#b--bit-string-little-endian">b</a>
+<a href="#b--bit-string-big-endian">B</a>
+<a href="#c--a-signed-integer-per-byte">c</a>
+<a href="#c--an-unsigned-integer-per-byte">C</a>
+<a href="#d-d--a-float-double-precision-native-endian">d</a>
+<a href="#d-d--a-float-double-precision-native-endian">D</a>
+<a href="#e--a-float-single-precision-little-endian">e</a>
+<a href="#e--a-float-double-precision-little-endian">E</a>
+<a href="#f--a-float-single-precision-native-endian">F</a>
+<a href="#g--a-float-single-precision-big-endian">g</a>
+<a href="#g--a-float-double-precision-big-endian">G</a>
+<a href="#h--hex-string-little-endian">h</a>
+<a href="#h--hex-string-big-endian">H</a>
+<a href="#l--a-signed-integer-per-4-bytes">l</a>
+<a href="#l--an-unsigned-integer-per-4-bytes">L</a>
+<a href="#m--base64-encoding-rfc-2045">m</a>
+<a href="#m0--base64-encoding-rfc-4648">m0</a>
+<a href="#m--quoted-printable--mime-encoding-rfc2045">M</a>
+<a href="#n--an-unsigned-integer-per-2-bytes-big-endian-similar-to-s">n</a>
+<a href="#n--a-signed-integer-per-4-bytes-big-endian-similar-to-l">N</a>
+<a href="#p--pointer-to-null-terminated-string">p</a>
+<a href="#p--pointer-to-fixed-length-string">P</a>
+<a href="q--a-signed-integer-per-8-bytes">q</a>
+<a href="#q--an-unsigned-integer-per-8-bytes">Q</a>
+<a href="#s--a-signed-integer-per-2-bytes">s</a>
+<a href="#s--an-unsigned-integer-per-2-bytes">S</a>
+<a href="#u--uu-encoding">u</a>
+<a href="#u--utf-8-characters">U</a>
+<a href="#v--an-unsigned-integer-per-2-bytes-little-endian-similar-to-s">v</a>
+<a href="#v--a-signed-integer-per-4-bytes-little-endian-similar-to-l">V</a>
+<a href="#w--ber-compression">w</a>
+<a href="#x--skip-byte-fill-with-null-byte-when-packing">x</a>
+<a href="#x--move-a-byte-back">X</a>
+<a href="#z--null-terminated-string">Z</a>
+<a href="#go-to-position">@</a>
+<a href="#integer-directives">!</a>
+<a href="#pack-template-format">*</a>
+<a href="#a-note-on-byte-order-big-endian-vs-little-endian">&lt;</a>
+<a href="#a-note-on-byte-order-big-endian-vs-little-endian">&gt;</a>
+<a href="#integer-directives">_</a></p>
+
+<p>Ruby comes equipped with a powerful option for low level string manipulation: <code>String#unpack</code> and its counter part <code>Array#pack</code>. Today's episode takes a closer look.</p>
 
 <p>
         <a href="/4-what-the-pack.html">READ</a>

@@ -18,7 +18,60 @@
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;Date and time formatting is traditionally done with &lt;a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/strftime.html"&gt;strftime&lt;/a&gt;. Not any different in Ruby, which includes a &lt;a href="https://github.com/ruby/ruby/blob/trunk/strftime.c"&gt;public domain based strftime implementation&lt;/a&gt; accessible via &lt;a href="http://ruby-doc.org/core-2.3.1/Time.html#method-i-strftime"&gt;Time#strftime&lt;/a&gt;. Ruby would not be Ruby if it would not add some confusion: There is a &lt;a href="https://github.com/ruby/ruby/blob/trunk/ext/date/date_strftime.c"&gt;second implementation included in the standard library&lt;/a&gt; which is used by &lt;a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/Date.html#method-i-strftime"&gt;Date#strftime&lt;/a&gt; and &lt;a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/DateTime.html#method-i-strftime"&gt;DateTime#strftime&lt;/a&gt;. It behaves similarly in most cases, but also differs in some nuances (for example, additional formatting directives like &lt;code&gt;%Q&lt;/code&gt; are supported).&lt;/p&gt;
+    <content type="html">&lt;p&gt;&lt;a href="#a--weekday-name-abbreviated"&gt;%a&lt;/a&gt;
+&lt;a href="#a--weekday-name"&gt;%A&lt;/a&gt;
+&lt;a href="#b-h--month-name-abbreviated"&gt;%b&lt;/a&gt;
+&lt;a href="#b--month-name"&gt;%B&lt;/a&gt;
+&lt;a href="#c--date-weekday--month--day-of-month--time--year"&gt;%c&lt;/a&gt;
+&lt;a href="#c--century"&gt;%C&lt;/a&gt;
+&lt;a href="#d--day-of-month--0131"&gt;%d&lt;/a&gt;
+&lt;a href="#d-x--date-american"&gt;%D&lt;/a&gt;
+&lt;a href="#e--day-of-month-space-padded--0131"&gt;%e&lt;/a&gt;
+&lt;a href="#f--date-iso-8601"&gt;%F&lt;/a&gt;
+&lt;a href="#g--year-week-based-without-century"&gt;%g&lt;/a&gt;
+&lt;a href="#g--year-week-based-with-century"&gt;%G&lt;/a&gt;
+&lt;a href="#b-h--month-name-abbreviated"&gt;%h&lt;/a&gt;
+&lt;a href="#h--hour-of-day-24h-zero-padded--023"&gt;%H&lt;/a&gt;
+&lt;a href="#i--hour-of-day-12h-zero-padded--011"&gt;%I&lt;/a&gt;
+&lt;a href="#j--day-of-year--001366"&gt;%j&lt;/a&gt;
+&lt;a href="#k--hour-of-day-24h-space-padded--023"&gt;%k&lt;/a&gt;
+&lt;a href="#l--hour-of-day-12h-space-padded--011"&gt;%l&lt;/a&gt;
+&lt;a href="#l--millisecond--000999"&gt;%L&lt;/a&gt;
+&lt;a href="#m--month-as-number"&gt;%m&lt;/a&gt;
+&lt;a href="#m--minute-of-hour--0059"&gt;%M&lt;/a&gt;
+&lt;a href="#n--newline"&gt;%n&lt;/a&gt;
+&lt;a href="#n--fraction-default-nanosecond"&gt;%N&lt;/a&gt;
+&lt;a href="#p--meridian-indicator-uppercase"&gt;%p&lt;/a&gt;
+&lt;a href="#p--meridian-indicator-lowercase"&gt;%P&lt;/a&gt;
+&lt;a href="#q--milliseconds-since-unix-epoch"&gt;%Q&lt;/a&gt;
+&lt;a href="#r--time-hour--minute--second--daytime"&gt;%r&lt;/a&gt;
+&lt;a href="#r--time-hour--minute"&gt;%R&lt;/a&gt;
+&lt;a href="#s--seconds-since-unix-epoch"&gt;%s&lt;/a&gt;
+&lt;a href="#s--second-of-minute--0060"&gt;%S&lt;/a&gt;
+&lt;a href="#t--tab"&gt;%t&lt;/a&gt;
+&lt;a href="#t-x--time-hour--minute--second"&gt;%T&lt;/a&gt;
+&lt;a href="#u--weekday-as-number-monday-starts-week--17"&gt;%u&lt;/a&gt;
+&lt;a href="#u--week-number-sunday-starts-week--0053"&gt;%U&lt;/a&gt;
+&lt;a href="#v--date-vms"&gt;%v&lt;/a&gt;
+&lt;a href="#v--week-number-week-based-year--0153"&gt;%V&lt;/a&gt;
+&lt;a href="#w--weekday-as-number-sunday-starts-week--06"&gt;%w&lt;/a&gt;
+&lt;a href="#w--week-number-monday-starts-weeks--0053"&gt;%W&lt;/a&gt;
+&lt;a href="#d-x--date-american"&gt;%x&lt;/a&gt;
+&lt;a href="#t-x--time-hour--minute--second"&gt;%X&lt;/a&gt;
+&lt;a href="#y--year-without-century"&gt;%y&lt;/a&gt;
+&lt;a href="#y--year-with-century"&gt;%Y&lt;/a&gt;
+&lt;a href="#z--time-zone-offset-from-utc"&gt;%z&lt;/a&gt;
+&lt;a href="#z--time-zone-abbreviated-os-dependent"&gt;%Z&lt;/a&gt;
+&lt;a href="#date-date1-style"&gt;%+&lt;/a&gt;
+&lt;a href="#section"&gt;%%&lt;/a&gt;
+&lt;a href="#formatting-flags-and-padding"&gt;-&lt;/a&gt;
+&lt;a href="#formatting-flags-and-padding"&gt;_&lt;/a&gt;
+&lt;a href="#formatting-flags-and-padding"&gt;0&lt;/a&gt;
+&lt;a href="#formatting-flags-and-padding"&gt;^&lt;/a&gt;
+&lt;a href="#formatting-flags-and-padding"&gt;#&lt;/a&gt;
+&lt;a href="#z--time-zone-offset-from-utc"&gt;:&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Date and time formatting is traditionally done with &lt;a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/strftime.html"&gt;strftime&lt;/a&gt;. Not any different in Ruby, which includes a &lt;a href="https://github.com/ruby/ruby/blob/trunk/strftime.c"&gt;public domain based strftime implementation&lt;/a&gt; accessible via &lt;a href="http://ruby-doc.org/core-2.3.1/Time.html#method-i-strftime"&gt;Time#strftime&lt;/a&gt;. Ruby would not be Ruby if it would not add some confusion: There is a &lt;a href="https://github.com/ruby/ruby/blob/trunk/ext/date/date_strftime.c"&gt;second implementation included in the standard library&lt;/a&gt; which is used by &lt;a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/Date.html#method-i-strftime"&gt;Date#strftime&lt;/a&gt; and &lt;a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/DateTime.html#method-i-strftime"&gt;DateTime#strftime&lt;/a&gt;. It behaves similarly in most cases, but also differs in some nuances (for example, additional formatting directives like &lt;code&gt;%Q&lt;/code&gt; are supported).&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
@@ -791,6 +844,15 @@ Time.local(2016, 5, 24).to_datetime.strftime("%Z") # =&amp;gt; "+02:00"
 
 &lt;pre&gt;&lt;code&gt;Time.utc(2016).strftime("%%") # =&amp;gt; "%"
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-sprintf"&gt;RDoc: Time#strftime&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/Date.html#method-i-strftime"&gt;RDoc: Date#strftime&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/ruby/ruby/blob/trunk/strftime.c"&gt;Source: strftime.c&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/ruby/ruby/blob/trunk/ext/date/date_strftime.c"&gt;Source: date_strftime.c&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
 
@@ -2462,7 +2524,34 @@ end
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;Ruby comes with a structured alternative to classic string interpolation: This episode will explore &lt;strong&gt;format strings&lt;/strong&gt;, also known as the &lt;em&gt;sprintf&lt;/em&gt; syntax.&lt;/p&gt;
+    <content type="html">&lt;p&gt;&lt;a href="#a-a--analyze-float"&gt;%a&lt;/a&gt;
+&lt;a href="#a-a--analyze-float"&gt;%A&lt;/a&gt;
+&lt;a href="#b-b--binary-number"&gt;%b&lt;/a&gt;
+&lt;a href="#b-b--binary-number"&gt;%B&lt;/a&gt;
+&lt;a href="#c--character"&gt;%c&lt;/a&gt;
+&lt;a href="#d-i-u--integer-decimal-number"&gt;%d&lt;/a&gt;
+&lt;a href="#e-e--float-in-exponential-notation"&gt;%e&lt;/a&gt;
+&lt;a href="#e-e--float-in-exponential-notation"&gt;%E&lt;/a&gt;
+&lt;a href="#f--float"&gt;%f&lt;/a&gt;
+&lt;a href="#g-g--float-in-normal-or-exponential-notation"&gt;%g&lt;/a&gt;
+&lt;a href="#g-g--float-in-normal-or-exponential-notation"&gt;%G&lt;/a&gt;
+&lt;a href="#d-i-u--integer-decimal-number"&gt;%i&lt;/a&gt;
+&lt;a href="#o--octal-number"&gt;%o&lt;/a&gt;
+&lt;a href="#p--inspect"&gt;%p&lt;/a&gt;
+&lt;a href="#s--string"&gt;%s&lt;/a&gt;
+&lt;a href="#d-i-u--integer-decimal-number"&gt;%u&lt;/a&gt;
+&lt;a href="#x-x--hexadecimal-number"&gt;%x&lt;/a&gt;
+&lt;a href="#x-x--hexadecimal-number"&gt;%X&lt;/a&gt;
+&lt;a href="#percent"&gt;%%&lt;/a&gt;
+&lt;a href="#zero"&gt;0&lt;/a&gt;
+&lt;a href="#referencing-absolute-positioning"&gt;$&lt;/a&gt;
+&lt;a href="#hash"&gt;#&lt;/a&gt;
+&lt;a href="#plus"&gt;+&lt;/a&gt;
+&lt;a href="#minus"&gt;-&lt;/a&gt;
+&lt;a href="#star"&gt;*&lt;/a&gt;
+&lt;a href="#space"&gt;space&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Ruby comes with a structured alternative to classic string interpolation: This episode will explore &lt;strong&gt;format strings&lt;/strong&gt;, also known as the &lt;em&gt;sprintf&lt;/em&gt; syntax.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
@@ -2601,7 +2690,7 @@ end
 &lt;/table&gt;
 
 &lt;p&gt;² As &lt;a href="https://twitter.com/fnordfish/status/732957226932047877"&gt;fnordfish noted&lt;/a&gt;, the syntax can sometimes be quite confusing, such as in:&lt;br /&gt;&lt;code&gt;"Such %&amp;lt;num&amp;gt; cookies" % { num: 100 }&lt;/code&gt;&lt;br /&gt;
-³ Since the &lt;code&gt;%&lt;/code&gt; character denotes a reference, you have to use &lt;code&gt;%%&lt;/code&gt; to get a single "%"&lt;/p&gt;
+³ &lt;span id="percent"&gt;Since the &lt;code&gt;%&lt;/code&gt; character denotes a reference, you have to use &lt;code&gt;%%&lt;/code&gt; to get a single "%"&lt;/span&gt;&lt;/p&gt;
 
 &lt;p&gt;What follows is a description of all formatting options and types.&lt;/p&gt;
 
@@ -3030,6 +3119,13 @@ end
 &lt;ul&gt;
   &lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-sprintf"&gt;RDoc: Kernel#sprintf&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="https://github.com/ruby/ruby/blob/trunk/sprintf.c"&gt;Source: sprintf.c&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="/4-what-the-pack.html"&gt;What the Pack?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="/57-what-the-time.html"&gt;What the Time?&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
   </entry>
@@ -12259,7 +12355,50 @@ puts "#{`ps -o rss -p #{Process.pid}`.strip.split.last.to_i / 1024.0} MB"
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;Ruby comes equipped with a powerful option for low level string manipulation: &lt;code&gt;String#unpack&lt;/code&gt; and its counter part &lt;code&gt;Array#pack&lt;/code&gt;. Today's episode takes a closer look.&lt;/p&gt;
+    <content type="html">&lt;p&gt;&lt;a href="#a--arbitrary-string"&gt;a&lt;/a&gt;
+&lt;a href="#a--arbitrary-string-clean-null-bytes"&gt;A&lt;/a&gt;
+&lt;a href="#b--bit-string-little-endian"&gt;b&lt;/a&gt;
+&lt;a href="#b--bit-string-big-endian"&gt;B&lt;/a&gt;
+&lt;a href="#c--a-signed-integer-per-byte"&gt;c&lt;/a&gt;
+&lt;a href="#c--an-unsigned-integer-per-byte"&gt;C&lt;/a&gt;
+&lt;a href="#d-d--a-float-double-precision-native-endian"&gt;d&lt;/a&gt;
+&lt;a href="#d-d--a-float-double-precision-native-endian"&gt;D&lt;/a&gt;
+&lt;a href="#e--a-float-single-precision-little-endian"&gt;e&lt;/a&gt;
+&lt;a href="#e--a-float-double-precision-little-endian"&gt;E&lt;/a&gt;
+&lt;a href="#f--a-float-single-precision-native-endian"&gt;F&lt;/a&gt;
+&lt;a href="#g--a-float-single-precision-big-endian"&gt;g&lt;/a&gt;
+&lt;a href="#g--a-float-double-precision-big-endian"&gt;G&lt;/a&gt;
+&lt;a href="#h--hex-string-little-endian"&gt;h&lt;/a&gt;
+&lt;a href="#h--hex-string-big-endian"&gt;H&lt;/a&gt;
+&lt;a href="#l--a-signed-integer-per-4-bytes"&gt;l&lt;/a&gt;
+&lt;a href="#l--an-unsigned-integer-per-4-bytes"&gt;L&lt;/a&gt;
+&lt;a href="#m--base64-encoding-rfc-2045"&gt;m&lt;/a&gt;
+&lt;a href="#m0--base64-encoding-rfc-4648"&gt;m0&lt;/a&gt;
+&lt;a href="#m--quoted-printable--mime-encoding-rfc2045"&gt;M&lt;/a&gt;
+&lt;a href="#n--an-unsigned-integer-per-2-bytes-big-endian-similar-to-s"&gt;n&lt;/a&gt;
+&lt;a href="#n--a-signed-integer-per-4-bytes-big-endian-similar-to-l"&gt;N&lt;/a&gt;
+&lt;a href="#p--pointer-to-null-terminated-string"&gt;p&lt;/a&gt;
+&lt;a href="#p--pointer-to-fixed-length-string"&gt;P&lt;/a&gt;
+&lt;a href="q--a-signed-integer-per-8-bytes"&gt;q&lt;/a&gt;
+&lt;a href="#q--an-unsigned-integer-per-8-bytes"&gt;Q&lt;/a&gt;
+&lt;a href="#s--a-signed-integer-per-2-bytes"&gt;s&lt;/a&gt;
+&lt;a href="#s--an-unsigned-integer-per-2-bytes"&gt;S&lt;/a&gt;
+&lt;a href="#u--uu-encoding"&gt;u&lt;/a&gt;
+&lt;a href="#u--utf-8-characters"&gt;U&lt;/a&gt;
+&lt;a href="#v--an-unsigned-integer-per-2-bytes-little-endian-similar-to-s"&gt;v&lt;/a&gt;
+&lt;a href="#v--a-signed-integer-per-4-bytes-little-endian-similar-to-l"&gt;V&lt;/a&gt;
+&lt;a href="#w--ber-compression"&gt;w&lt;/a&gt;
+&lt;a href="#x--skip-byte-fill-with-null-byte-when-packing"&gt;x&lt;/a&gt;
+&lt;a href="#x--move-a-byte-back"&gt;X&lt;/a&gt;
+&lt;a href="#z--null-terminated-string"&gt;Z&lt;/a&gt;
+&lt;a href="#go-to-position"&gt;@&lt;/a&gt;
+&lt;a href="#integer-directives"&gt;!&lt;/a&gt;
+&lt;a href="#pack-template-format"&gt;*&lt;/a&gt;
+&lt;a href="#a-note-on-byte-order-big-endian-vs-little-endian"&gt;&amp;lt;&lt;/a&gt;
+&lt;a href="#a-note-on-byte-order-big-endian-vs-little-endian"&gt;&amp;gt;&lt;/a&gt;
+&lt;a href="#integer-directives"&gt;_&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Ruby comes equipped with a powerful option for low level string manipulation: &lt;code&gt;String#unpack&lt;/code&gt; and its counter part &lt;code&gt;Array#pack&lt;/code&gt;. Today's episode takes a closer look.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
@@ -12771,6 +12910,14 @@ puts "#{`ps -o rss -p #{Process.pid}`.strip.split.last.to_i / 1024.0} MB"
   &lt;li&gt;&lt;a href="https://github.com/ruby/ruby/blob/trunk/pack.c"&gt;Source: pack.c&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="http://www.perlmonks.org/?node_id=224666"&gt;unpack in Perl&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="/49-what-the-format.html"&gt;What the Format?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="/57-what-the-time.html"&gt;What the Time?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
 </content>
   </entry>
   <entry>
