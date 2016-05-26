@@ -32,7 +32,7 @@ So, **US-ASCII** is aliased to **ASCII**, but then what is **ASCII-8BIT** for? [
 
 So basically, it is not a real encoding, but represents an arbitrary stream of bytes (bytes with a value between 0 and 255). It is used for raw byte stream or if you want to make clear that you do not know about a string's encoding!
 
-The ASCII charset only takes 7 bytes, so in strict ASCII, the 8th byte should never be set. The allowed byte value range is from 0 to 127. This is what the **US-ASCII** encoding is all about: It is used when dealing with ASCII encoded strings. Think: **"ASCII-7BIT"**
+The ASCII charset only takes 7 bits, so in strict ASCII, the 8th bit should never be set. The allowed byte value range is from 0 to 127. This is what the **US-ASCII** encoding is all about: It is used when dealing with ASCII encoded strings. Think: **"ASCII-7BIT"**
 
 A simple example illustrating the difference:
 
