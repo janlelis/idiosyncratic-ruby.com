@@ -1,0 +1,833 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - What the Time?</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="Documentaing all Ruby Specialities. A New Post Every Day in May 2016!"/>
+<meta name="keywords" content="ruby, date, time, cheatsheet, strftime"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/57-what-the-time.html">What the Time?</a></h1>
+      </section>
+
+      <article class="post">
+        <p>Date and time formatting is traditionally done with <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/strftime.html">strftime</a>. Not any different in Ruby, which includes a <a href="https://github.com/ruby/ruby/blob/trunk/strftime.c">public domain based strftime implementation</a> accessible via <a href="http://ruby-doc.org/core-2.3.1/Time.html#method-i-strftime">Time#strftime</a>. Ruby would not be Ruby if it would not add some confusion: There is a <a href="https://github.com/ruby/ruby/blob/trunk/ext/date/date_strftime.c">second implementation included in the standard library</a> which is used by <a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/Date.html#method-i-strftime">Date#strftime</a> and <a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/DateTime.html#method-i-strftime">DateTime#strftime</a>. It behaves similarly in most cases, but also differs in some nuances (for example, additional formatting directives like <code>%Q</code> are supported).</p>
+
+<p></p>
+
+<h2 id="usage">Usage</h2>
+
+<p><code>strftime()</code> is called on time objects to convert them to strings:</p>
+
+<pre><code>Time.utc(2016, 05, 24, 15).strftime("%a %b %e %T %Y")
+# =&gt; "Tue May 24 15:00:00 2016"
+</code></pre>
+
+<p>Similar to <a href="/49-what-the-format.html">format strings</a> or <a href="/4-what-the-pack.html">String.unpack()</a> you have to pass a template string which contains formatting directives (like <code>%Y</code> for year). Many of the directives are combined directives (like <code>%T</code> for time), constructed from multiple base directives ("atoms"). The following tables give an overview, scroll further down for an explanation of every directive.</p>
+
+<h2 id="atoms">Atoms</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Point of Time</th>
+      <th>Atoms (Example)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Year</td>
+      <td><code>%Y</code> (2016)<br /><code>%C</code> (20)<br /><code>%y</code> (16)</td>
+    </tr>
+    <tr>
+      <td>Month</td>
+      <td><code>%m</code> (05)</td>
+    </tr>
+    <tr>
+      <td>Day</td>
+      <td><code>%d</code> (31)<br /><code>%j</code> (365)</td>
+    </tr>
+    <tr>
+      <td>Hour/Daytime</td>
+      <td><code>%H</code> (23)<br /><code>%I</code> (11)<br /><code>%P</code> (am)</td>
+    </tr>
+    <tr>
+      <td>Minute</td>
+      <td><code>%M</code> (59)</td>
+    </tr>
+    <tr>
+      <td>Second</td>
+      <td><code>%S</code> (59)</td>
+    </tr>
+    <tr>
+      <td>Fraction</td>
+      <td><code>%N</code> (479254327)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="english">English</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Atoms (Example)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>English Month Name</td>
+      <td><code>%B</code> (January)<br /><code>%b</code> (Jan)</td>
+    </tr>
+    <tr>
+      <td>English Weekday Name</td>
+      <td><code>%A</code> (Monday)<br /><code>%a</code> (Mon)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="week-based">Week Based</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Point of Time</th>
+      <th>Atoms (Example)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Year (by Week)</td>
+      <td><code>%G</code> (2016)<br /><code>%g</code> (16)</td>
+    </tr>
+    <tr>
+      <td>Week</td>
+      <td><code>%W</code> (52)<br /><code>%U</code> (52)<br /><code>%V</code> (52)</td>
+    </tr>
+    <tr>
+      <td>Weekday</td>
+      <td><code>%u</code> (3)<br /><code>%w</code> (3)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="other">Other</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Atoms (Example)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Time Zone</td>
+      <td><code>%z</code> (+0000)<br /><code>%Z</code> (UTC)</td>
+    </tr>
+    <tr>
+      <td><a href="https://en.wikipedia.org/wiki/Unix_time">Unix Timestamp</a></td>
+      <td><code>%s</code> (1464188400)</td>
+    </tr>
+    <tr>
+      <td><a href="https://en.wikipedia.org/wiki/Unix_time">Unix Timestamp</a> (Milliseconds)¹</td>
+      <td><code>%Q</code> (1464188400)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>¹ Only available in Date/DateTime's strftime() implementation</p>
+
+<h2 id="formatting-flags-and-padding">Formatting Flags and Padding</h2>
+
+<p>Time formatting directives support some basic padding and formatting options via flags that appear between <code>%</code> and the directive type. Padding is the minimum length of the output, if the value is smaller, the remaining space will be filled with spaces or zeros.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Flag</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>-</code></td>
+      <td>Do not apply default padding</td>
+    </tr>
+    <tr>
+      <td><code>_</code></td>
+      <td>Use spaces for padding</td>
+    </tr>
+    <tr>
+      <td><code>0</code></td>
+      <td>Use zeros for padding</td>
+    </tr>
+    <tr>
+      <td><code>^</code></td>
+      <td>Upcase</td>
+    </tr>
+    <tr>
+      <td><code>#</code></td>
+      <td>Swap case</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Examples:</p>
+
+<pre><code>time = Time.utc(2016, 05, 25, 15) #=&gt; 2016-05-25 15:00:00 UTC
+
+time.strftime("%P") # =&gt; "pm"
+time.strftime("%^P") # =&gt; "PM"
+time.strftime("%#P") # =&gt; "PM"
+time.strftime("%10P") # =&gt;  "        pm"
+time.strftime("%010P") # =&gt; "00000000pm"
+time.strftime("%_10P") # =&gt;  "        pm"
+
+time.strftime("%m") # =&gt; "05"
+time.strftime("%-m") # =&gt; "5"
+time.strftime("%10m") #=&gt; "0000000005"
+time.strftime("%010m") #=&gt; "0000000005"
+time.strftime("%_10m") #=&gt; "         5"
+</code></pre>
+
+<h2 id="combined-directives-and-aliases">Combined Directives and Aliases</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Directive</th>
+      <th>Alias/From Atoms</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>%c</code></td>
+      <td><code>%a %b %e %T %Y</code></td>
+    </tr>
+    <tr>
+      <td><code>%D</code></td>
+      <td><code>%m/%d/%y</code></td>
+    </tr>
+    <tr>
+      <td><code>%e</code></td>
+      <td><code>%_d</code></td>
+    </tr>
+    <tr>
+      <td><code>%F</code></td>
+      <td><code>%Y-%m-%d</code></td>
+    </tr>
+    <tr>
+      <td><code>%h</code></td>
+      <td><code>%b</code></td>
+    </tr>
+    <tr>
+      <td><code>%k</code></td>
+      <td><code>%_H</code></td>
+    </tr>
+    <tr>
+      <td><code>%l</code></td>
+      <td><code>%_I</code></td>
+    </tr>
+    <tr>
+      <td><code>%L</code></td>
+      <td><code>%3N</code></td>
+    </tr>
+    <tr>
+      <td><code>%n</code></td>
+      <td><code>"\n"</code></td>
+    </tr>
+    <tr>
+      <td><code>%p</code></td>
+      <td><code>%^P</code></td>
+    </tr>
+    <tr>
+      <td><code>%r</code></td>
+      <td><code>%I:%M:%S %p</code></td>
+    </tr>
+    <tr>
+      <td><code>%R</code></td>
+      <td><code>%H:%M</code></td>
+    </tr>
+    <tr>
+      <td><code>%t</code></td>
+      <td><code>"\t"</code></td>
+    </tr>
+    <tr>
+      <td><code>%T</code></td>
+      <td><code>%H:%M:%S</code></td>
+    </tr>
+    <tr>
+      <td><code>%v</code></td>
+      <td>Time#strftime: <code>%e-%^b-%4Y</code><br />Date#strftime: <code>%e-%b-%4Y</code></td>
+    </tr>
+    <tr>
+      <td><code>%x</code></td>
+      <td><code>%m/%d/%y</code></td>
+    </tr>
+    <tr>
+      <td><code>%X</code></td>
+      <td><code>%H:%M:%S</code></td>
+    </tr>
+    <tr>
+      <td><code>%+</code>¹</td>
+      <td><code>%a %b %e %H:%M:%S %Z %Y</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>¹ Only available in Date/DateTime's strftime() implementation</p>
+
+<h2 id="years-directives">Years Directives</h2>
+
+<h3 id="y--year-with-century">%Y | Year, with Century</h3>
+
+<p>Will display the time's year with a default padding of 4:</p>
+
+<pre><code>Time.utc(2016).strftime("%Y") # =&gt; "2016"
+Time.utc(20000).strftime("%Y") # =&gt; "20000"
+Time.utc(2).strftime("%Y") # =&gt; "0002"
+Time.utc(2).strftime("%-Y") # =&gt; "2"
+</code></pre>
+
+<h3 id="y--year-without-century">%y | Year, without Century</h3>
+
+<p>Will display the time's year modulo 100 with a default padding of 2:</p>
+
+<pre><code>Time.utc(2016).strftime("%y") # =&gt; "16"
+Time.utc(20000).strftime("%y") # =&gt; "00"
+Time.utc(2).strftime("%y") # =&gt; "02"
+Time.utc(2).strftime("%-y") # =&gt; "2"
+</code></pre>
+
+<h3 id="c--century">%C | Century</h3>
+
+<p>Will display the time's year divided by 100 with a default padding of 2:</p>
+
+<pre><code>Time.utc(2016).strftime("%C") # =&gt; "20"
+Time.utc(20000).strftime("%C") # =&gt; "000"
+Time.utc(2).strftime("%C") # =&gt; "00"
+Time.utc(2).strftime("%-C") # =&gt; "0"
+</code></pre>
+
+<h3 id="g--year-week-based-with-century">%G | Year (Week based), with Century</h3>
+
+<p>Returns the year based on <a href="https://en.wikipedia.org/wiki/ISO_week_date#First_week">which year the time's week belongs to</a>:</p>
+
+<pre><code>Time.utc(2014, 12, 29).strftime("%G") # =&gt; "2015"
+Time.utc(2017, 1, 1).strftime("%G") #=&gt; "2016"
+</code></pre>
+
+<h3 id="g--year-week-based-without-century">%g | Year (Week based), without Century</h3>
+
+<p>Returns the year based on <a href="https://en.wikipedia.org/wiki/ISO_week_date#First_week">which year the time's week belongs to</a>:</p>
+
+<pre><code>Time.utc(2014, 12, 29).strftime("%g") # =&gt; "15"
+Time.utc(2017, 1, 1).strftime("%g") #=&gt; "16"
+</code></pre>
+
+<h2 id="months-directives">Months Directives</h2>
+
+<h3 id="m--month-as-number">%m | Month as Number</h3>
+
+<p>Number of month, with a default padding of 2:</p>
+
+<pre><code>Time.utc(2016, 5).strftime("%m") # =&gt; "05"
+Time.utc(2016, 5).strftime("%-m") # =&gt; "5"
+</code></pre>
+
+<h3 id="b--month-name">%B | Month Name</h3>
+
+<p>Locale-independent (English) month name:</p>
+
+<pre><code>Time.utc(2016, 1).strftime("%B") # =&gt; "January"
+</code></pre>
+
+<h3 id="b-h--month-name-abbreviated">%b, %h | Month Name (Abbreviated)</h3>
+
+<p>Locale-independent (English) three-letter month name:</p>
+
+<pre><code>Time.utc(2016, 1).strftime("%b") # =&gt; "Jan"
+Time.utc(2016, 1).strftime("%h") # =&gt; "Jan"
+</code></pre>
+
+<h2 id="weeks-directives">Weeks Directives</h2>
+
+<p>See <a href="https://en.wikipedia.org/wiki/ISO_week_date">ISO 8601</a> for an explanation of week number construction.</p>
+
+<h3 id="u--week-number-sunday-starts-week--0053">%U | Week Number (Sunday Starts Week) | 00..53</h3>
+
+<p>Considers Sunday the <strong>first</strong> day of the week. Will return <code>00</code> if week belongs to last year:</p>
+
+<pre><code>Time.utc(2015, 1, 1).strftime("%U") # =&gt; "00" # Thursday
+Time.utc(2016, 1, 1).strftime("%U") # =&gt; "00" # Friday
+Time.utc(2017, 1, 1).strftime("%U") # =&gt; "01" # Sunday
+</code></pre>
+
+<h3 id="v--week-number-week-based-year--0153">%V | Week Number (Week Based Year) | 01..53</h3>
+
+<p>Considers Sunday the <strong>first</strong> day of the week. Will return last years week number if week belongs to last year:</p>
+
+<pre><code>Time.utc(2015, 1, 1).strftime("%V") # =&gt; "01" # Thursday
+Time.utc(2016, 1, 1).strftime("%V") # =&gt; "53" # Friday
+Time.utc(2017, 1, 1).strftime("%V") # =&gt; "52" # Sunday
+</code></pre>
+
+<h3 id="w--week-number-monday-starts-weeks--0053">%W | Week Number (Monday Starts Weeks) | 00..53</h3>
+
+<p>Considers Sunday the <strong>last</strong> day of the week. Will return <code>00</code> if week belongs to last year:</p>
+
+<pre><code>Time.utc(2015, 1, 1).strftime("%W") # =&gt; "00" # Thursday
+Time.utc(2016, 1, 1).strftime("%W") # =&gt; "00" # Friday
+Time.utc(2017, 1, 1).strftime("%W") # =&gt; "00" # Sunday
+</code></pre>
+
+<h2 id="days-directives">Days Directives</h2>
+
+<h3 id="j--day-of-year--001366">%j | Day of Year | 001..366</h3>
+
+<p>Which day of the year with a default padding of 3:</p>
+
+<pre><code>Time.utc(2016, 5, 24, 15, 29, 59).strftime("%j") # =&gt; "145"
+Time.utc(2016, 1, 1, 15, 29, 59).strftime("%j") # =&gt; "001"
+Time.utc(2016, 1, 1, 15, 29, 59).strftime("%-j") # =&gt; "1"
+</code></pre>
+
+<h3 id="d--day-of-month--0131">%d | Day of Month | 01..31</h3>
+
+<p>Which day of the month with a default (zero) padding of 2:</p>
+
+<pre><code>Time.utc(2016, 5, 24, 15, 29, 59).strftime("%d") # =&gt; "24"
+Time.utc(2016, 1, 1, 15, 29, 59).strftime("%d") # =&gt; "01"
+Time.utc(2016, 1, 1, 15, 29, 59).strftime("%-d") # =&gt; "1"
+</code></pre>
+
+<h3 id="e--day-of-month-space-padded--0131">%e | Day of Month (Space Padded) | 01..31</h3>
+
+<p>Which day of the month with a default (space) padding of 2:</p>
+
+<pre><code>Time.utc(2016, 5, 24, 15, 29, 59).strftime("%e") # =&gt; "24"
+Time.utc(2016, 1, 1, 15, 29, 59).strftime("%e") # =&gt; " 1"
+Time.utc(2016, 1, 1, 15, 29, 59).strftime("%-e") # =&gt; "1"
+</code></pre>
+
+<h3 id="u--weekday-as-number-monday-starts-week--17">%u | Weekday as Number (Monday Starts Week) | 1..7</h3>
+
+<p>Number of day in the week, value of Sunday is 7:</p>
+
+<pre><code>Time.utc(2016, 5, 22).strftime("%u") # =&gt; 7 # Sunday
+Time.utc(2016, 5, 23).strftime("%u") # =&gt; 1 # Monday
+Time.utc(2016, 5, 24).strftime("%u") # =&gt; 2 # Tuesday
+Time.utc(2016, 5, 25).strftime("%u") # =&gt; 3 # Wednesday
+Time.utc(2016, 5, 26).strftime("%u") # =&gt; 4 # Thursday
+Time.utc(2016, 5, 27).strftime("%u") # =&gt; 5 # Friday
+Time.utc(2016, 5, 28).strftime("%u") # =&gt; 6 # Saturday
+</code></pre>
+
+<h3 id="w--weekday-as-number-sunday-starts-week--06">%w | Weekday as Number (Sunday Starts Week) | 0..6</h3>
+
+<p>Number of day in the week, value of Sunday is 0:</p>
+
+<pre><code>Time.utc(2016, 5, 22).strftime("%u") # =&gt; 0 # Sunday
+Time.utc(2016, 5, 23).strftime("%u") # =&gt; 1 # Monday
+Time.utc(2016, 5, 24).strftime("%u") # =&gt; 2 # Tuesday
+Time.utc(2016, 5, 25).strftime("%u") # =&gt; 3 # Wednesday
+Time.utc(2016, 5, 26).strftime("%u") # =&gt; 4 # Thursday
+Time.utc(2016, 5, 27).strftime("%u") # =&gt; 5 # Friday
+Time.utc(2016, 5, 28).strftime("%u") # =&gt; 6 # Saturday
+</code></pre>
+
+<h3 id="a--weekday-name">%A | Weekday Name</h3>
+
+<p>Locale-independent (English) name of weekday:</p>
+
+<pre><code>Time.utc(2016, 5, 22).strftime("%A") # =&gt; "Sunday"
+Time.utc(2016, 5, 23).strftime("%A") # =&gt; "Monday"
+Time.utc(2016, 5, 24).strftime("%A") # =&gt; "Tuesday"
+Time.utc(2016, 5, 25).strftime("%A") # =&gt; "Wednesday"
+Time.utc(2016, 5, 26).strftime("%A") # =&gt; "Thursday"
+Time.utc(2016, 5, 27).strftime("%A") # =&gt; "Friday"
+Time.utc(2016, 5, 28).strftime("%A") # =&gt; "Saturday"
+</code></pre>
+
+<h3 id="a--weekday-name-abbreviated">%a | Weekday Name (Abbreviated)</h3>
+
+<p>Locale-independent (English) three-letter name of weekday:</p>
+
+<pre><code>Time.utc(2016, 5, 22).strftime("%a") # =&gt; "Sun"
+Time.utc(2016, 5, 23).strftime("%a") # =&gt; "Mon"
+Time.utc(2016, 5, 24).strftime("%a") # =&gt; "Tue"
+Time.utc(2016, 5, 25).strftime("%a") # =&gt; "Wed"
+Time.utc(2016, 5, 26).strftime("%a") # =&gt; "Thu"
+Time.utc(2016, 5, 27).strftime("%a") # =&gt; "Fri"
+Time.utc(2016, 5, 28).strftime("%a") # =&gt; "Sat"
+</code></pre>
+
+<h3 id="d-x--date-american">%D, %x | Date, American</h3>
+
+<p><code>%m/%d/%y</code></p>
+
+<ul>
+  <li>Month</li>
+  <li>Day of Month</li>
+  <li>Year without Century</li>
+</ul>
+
+<pre><code>Time.utc(2016, 5, 24).strftime("%D") # =&gt; "05/24/16"
+Time.utc(2016, 5, 24).strftime("%x") # =&gt; "05/24/16"</code></pre>
+
+<h3 id="f--date-iso-8601">%F | Date, ISO 8601</h3>
+
+<p><code>%Y-%m-%d</code></p>
+
+<ul>
+  <li>Year</li>
+  <li>Month</li>
+  <li>Day of Month</li>
+</ul>
+
+<pre><code>Time.utc(2016, 5, 24).strftime("%F") # =&gt; "2016-05-24"</code></pre>
+
+<h3 id="v--date-vms">%v | Date, VMS</h3>
+
+<h4 id="with-timestrftime">With Time#strftime</h4>
+
+<p><code>%_d-%^b-%Y</code></p>
+
+<ul>
+  <li>Space Padded Day of Month</li>
+  <li>Uppercased Month Name</li>
+  <li>Year</li>
+</ul>
+
+<pre><code>Time.utc(2016, 5, 24).strftime("%v") # =&gt; "24-MAY-2016"</code></pre>
+
+<h4 id="with-datestrftime-and-datetimestrftime">With Date#strftime and DateTime#strftime</h4>
+
+<p><code>%_d-%b-%Y</code></p>
+
+<ul>
+  <li>Space Padded Day of Month</li>
+  <li>Month Name</li>
+  <li>Year</li>
+</ul>
+
+<pre><code>require "date"
+Time.utc(2016, 5, 24).to_date.strftime("%v") # =&gt; "24-May-2016"</code></pre>
+
+<h2 id="daytime-directives">Daytime Directives</h2>
+
+<h3 id="p--meridian-indicator-lowercase">%P | Meridian Indicator (Lowercase)</h3>
+
+<p>Returns "am" for hours between 0 and 11, returns "pm" for hours between 12 and 23:</p>
+
+<pre><code>Time.utc(2016, 5, 24, 15).strftime("%P") # =&gt; "pm"
+Time.utc(2016, 5, 24, 3).strftime("%P") # =&gt; "am"
+</code></pre>
+
+<h3 id="p--meridian-indicator-uppercase">%p | Meridian Indicator (Uppercase)</h3>
+
+<p>Returns "AM" for hours between 0 and 11, returns "PM" for hours between 12 and 23:</p>
+
+<pre><code>Time.utc(2016, 5, 24, 15).strftime("%p") # =&gt; "PM"
+Time.utc(2016, 5, 24, 3).strftime("%p") # =&gt; "AM"
+</code></pre>
+
+<h2 id="hours-directives">Hours Directives</h2>
+
+<h3 id="h--hour-of-day-24h-zero-padded--023">%H | Hour of Day, 24h (Zero Padded) | 0..23</h3>
+
+<p>Time's hour on the 24h clock:</p>
+
+<pre><code>Time.utc(2016, 5, 24, 15).strftime("%H") # =&gt; "15"
+Time.utc(2016, 5, 24, 3).strftime("%H") # =&gt; "03"
+Time.utc(2016, 5, 24, 3).strftime("%-H") # =&gt; "3"
+</code></pre>
+
+<h3 id="k--hour-of-day-24h-space-padded--023">%k | Hour of Day, 24h (Space Padded) | 0..23</h3>
+
+<p>Time's hour on the 24h clock:</p>
+
+<pre><code>Time.utc(2016, 5, 24, 15).strftime("%k") # =&gt; "15"
+Time.utc(2016, 5, 24, 3).strftime("%k") # =&gt; " 3"
+Time.utc(2016, 5, 24, 3).strftime("%-k") # =&gt; "3"
+</code></pre>
+
+<h3 id="i--hour-of-day-12h-zero-padded--011">%I | Hour of Day, 12h (Zero Padded) | 0..11</h3>
+
+<p>Time's hour on the 12h clock:</p>
+
+<pre><code>Time.utc(2016, 5, 24, 15).strftime("%I") # =&gt; "03"
+Time.utc(2016, 5, 24, 3).strftime("%I") # =&gt; "03"
+Time.utc(2016, 5, 24, 3).strftime("%-I") # =&gt; "3"
+</code></pre>
+
+<h3 id="l--hour-of-day-12h-space-padded--011">%l | Hour of Day, 12h (Space Padded) | 0..11</h3>
+
+<p>Time's hour on the 12h clock:</p>
+
+<pre><code>Time.utc(2016, 5, 24, 15).strftime("%l") # =&gt; " 3"
+Time.utc(2016, 5, 24, 3).strftime("%l") # =&gt; " 3"
+Time.utc(2016, 5, 24, 3).strftime("%-l") # =&gt; "3"
+</code></pre>
+
+<h2 id="minutes-directives">Minutes Directives</h2>
+
+<h3 id="m--minute-of-hour--0059">%M | Minute of Hour | 00..59</h3>
+
+<p>Time's minutes with default padding of 2:</p>
+
+<pre><code>Time.utc(2016, 5, 24, 15, 29).strftime("%M") # =&gt; "29"
+Time.utc(2016, 5, 24, 15, 1).strftime("%M") # =&gt; "01"
+Time.utc(2016, 5, 24, 15, 1).strftime("%-M") # =&gt; "1"
+</code></pre>
+
+<h3 id="r--time-hour--minute">%R | Time, Hour + Minute</h3>
+
+<p><code>%H:%M</code></p>
+
+<ul>
+  <li>Hour (24h)</li>
+  <li>Minute</li>
+</ul>
+
+<pre><code>Time.utc(2016, 5, 24, 15, 29).strftime("%R") # =&gt; "15:29"</code></pre>
+
+<h2 id="seconds-directives">Seconds Directives</h2>
+
+<h3 id="s--second-of-minute--0060">%S | Second of Minute | 00..60</h3>
+
+<p>Time's seconds with default padding of 2:</p>
+
+<pre><code>Time.utc(2016, 5, 24, 15, 29, 59).strftime("%S") # =&gt; "59"
+Time.utc(2016, 5, 24, 15, 29, 1).strftime("%S") # =&gt; "01"
+Time.utc(2016, 5, 24, 15, 29, 1).strftime("%-S") # =&gt; "1"
+</code></pre>
+
+<h3 id="s--seconds-since-unix-epoch">%s | Seconds Since Unix Epoch</h3>
+
+<p>Number of seconds since <strong>1970-01-01 00:00:00 UTC</strong>. This known as <a href="https://en.wikipedia.org/wiki/Unix_time">Unix timestamps</a>. It returns the same value (as string) like <a href="http://ruby-doc.org/core-2.3.1/Time.html#method-i-to_i">Time#to_i</a>:</p>
+
+<pre><code>Time.utc(2016, 5, 24, 15, 29, 59).strftime("%s") # =&gt; "1464103799"
+Time.utc(2016, 5, 24, 15, 29, 59).to_i # =&gt; 1464103799
+</code></pre>
+
+<h3 id="r--time-hour--minute--second--daytime">%r | Time, Hour + Minute + Second + Daytime</h3>
+
+<p><code>%I:%M:%S %p</code></p>
+
+<ul>
+  <li>Hour (12h)</li>
+  <li>Minute</li>
+  <li>Second</li>
+  <li>Daytime</li>
+</ul>
+
+<pre><code>Time.utc(2016, 5, 24, 15, 29, 59).strftime("%r") # =&gt; "03:29:59 PM"</code></pre>
+
+<h3 id="t-x--time-hour--minute--second">%T, %X | Time, Hour + Minute + Second</h3>
+
+<p><code>%H:%M:%S</code></p>
+
+<ul>
+  <li>Hour (24h)</li>
+  <li>Minute</li>
+  <li>Second</li>
+</ul>
+
+<pre><code>Time.utc(2016, 5, 24, 15, 29, 59).strftime("%T") # =&gt; "15:29:59"
+Time.utc(2016, 5, 24, 15, 29, 59).strftime("%X") # =&gt; "15:29:59"
+</code></pre>
+
+<h3 id="c--date-weekday--month--day-of-month--time--year">%c | Date, Weekday + Month + Day of Month + Time + Year</h3>
+
+<p><code>%a %b %e %T %Y</code></p>
+
+<ul>
+  <li>Weekday (Short)</li>
+  <li>Month (Short)</li>
+  <li>Day of Month</li>
+  <li>Time (24h)</li>
+  <li>Year</li>
+</ul>
+
+<pre><code>Time.utc(2016, 5, 24, 15, 29, 59).strftime("%c") # =&gt; "Tue May 24 15:29:59 2016"</code></pre>
+
+<h3 id="date-date1-style">%+ | Date, <code>date(1)</code> Style</h3>
+
+<p><em>Only available in Date/DateTime's strftime() implementation</em></p>
+
+<p><code>%a %b %e %T %Z %Y</code></p>
+
+<ul>
+  <li>Weekday (Short)</li>
+  <li>Month (Short)</li>
+  <li>Day of Month</li>
+  <li>Time (24h)</li>
+  <li>Numerical Time Zone Offset</li>
+  <li>Year</li>
+</ul>
+
+<pre><code>require "date"
+Time.utc(2016, 5, 24, 15, 29, 59).to_datetime.strftime("%+")
+# =&gt; "Tue May 24 15:29:59 +00:00 2016"
+</code></pre>
+
+<h2 id="smaller-than-seconds-directives">Smaller Than Seconds Directives</h2>
+
+<h3 id="l--millisecond--000999">%L | Millisecond | 000..999</h3>
+
+<p>Millisecond with default padding of 3. More precise fractions will be truncated:</p>
+
+<pre><code>Time.utc(2016, 5, 24, 15, 29, 0.1239).strftime("%L") # =&gt; "123"
+</code></pre>
+
+<h3 id="n--fraction-default-nanosecond">%N | Fraction, Default: Nanosecond</h3>
+
+<p>Specifies time fractions like milliseconds (precision of 3), microseconds (precision of 6), or nanoseconds (precision of 9). More precise fractions will be truncated. Cannot be combined with padding:</p>
+
+<pre><code>Time.utc(2016, 5, 24, 15, 29, 0.1234567890).strftime("%3N") # =&gt; "123"
+Time.utc(2016, 5, 24, 15, 29, 0.1234567890).strftime("%6N") # =&gt; "123456"
+Time.utc(2016, 5, 24, 15, 29, 0.1234567890).strftime("%9N") # =&gt; "123456789"
+Time.utc(2016, 5, 24, 15, 29, 0.1234567890).strftime("%N") # =&gt; "123456789"
+</code></pre>
+
+<h3 id="q--milliseconds-since-unix-epoch">%Q | Milliseconds Since Unix Epoch</h3>
+
+<p><em>Only available in Date/DateTime's strftime() implementation</em></p>
+
+<p>Number of milliseconds since <strong>1970-01-01 00:00:00 UTC</strong>:</p>
+
+<pre><code>require "date"
+Time.utc(2016, 5, 24, 15, 29, 59.012).to_datetime.strftime("%Q") #=&gt; "1464103799012"
+</code></pre>
+
+<h2 id="time-zone-directives">Time Zone Directives</h2>
+
+<h3 id="z--time-zone-offset-from-utc">%z | Time Zone, Offset from UTC</h3>
+
+<p>A numerical <a href="https://en.wikipedia.org/wiki/List_of_UTC_time_offsets">time zone</a> identifier in the format of</p>
+
+<ul>
+  <li>Sign</li>
+  <li>Two-digit Hour</li>
+  <li>Two-digit Minute</li>
+</ul>
+
+<p>which describes the offset from  <a href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time">UTC</a>:</p>
+
+<pre><code>Time.utc(2016, 5, 24).strftime("%z") # =&gt; "+0000"
+Time.local(2016, 5, 24).strftime("%z") # =&gt; "+0200"
+</code></pre>
+
+<p>The output separates hours and minutes when using a single <code>:</code> flag:</p>
+
+<pre><code>Time.local(2016, 5, 24).strftime("%:z") # =&gt; "+02:00"
+</code></pre>
+
+<p>It will also show the seconds offset when using two <code>::</code> colons:</p>
+
+<pre><code>Time.local(2016, 5, 24).strftime("%::z") # =&gt; "+02:00:00"
+</code></pre>
+
+<p>When using <code>:::</code>, it will only return significant information (no zero minutes or seconds):</p>
+
+<pre><code>Time.local(2016, 5, 24).strftime("%:::z") # =&gt; "+02"
+</code></pre>
+
+<h3 id="z--time-zone-abbreviated-os-dependent">%Z | Time Zone, Abbreviated, OS Dependent</h3>
+
+<h4 id="with-timestrftime-1">With Time#strftime</h4>
+
+<p>Big <code>%Z</code> displays a platform dependent time zone string:</p>
+
+<pre><code>Time.utc(2016, 5, 24).strftime("%Z") # =&gt; "UTC"
+Time.local(2016, 5, 24).strftime("%Z") # =&gt; "CEST"
+</code></pre>
+
+<p>Ruby's documentation disencourages <code>%Z</code>, because it has a different result on different platforms and also does not properly identify the time zone:</p>
+
+<blockquote>
+<p><em>While all directives are locale independent since Ruby 1.9, <code>%Z</code> is platform dependent. So, the result may differ even if the same format string is used in other systems such as C.</em></p>
+<p><em><code>%z</code> is recommended over <code>%Z</code>. <code>%Z</code> doesn’t identify the timezone. For example, "CST" is used at America/Chicago (-06:00), America/Havana (-05:00), Asia/Harbin (+08:00), Australia/Darwin (+09:30) and Australia/Adelaide (+10:30). Also, <code>%Z</code> is highly dependent on the operating system. For example, it may generate a non ASCII string on Japanese Windows. i.e. the result can be different to "JST". So the numeric time zone offset, <code>%z</code>, is recommended.</em></p>
+</blockquote>
+
+<h4 id="with-datestrftime-and-datetimestrftime-1">With Date#strftime and DateTime#strftime</h4>
+
+<p>Date's strftime() implementation outputs a numerical offset, similar to <code>%:z</code>:</p>
+
+<pre><code>require "date"
+Time.utc(2016, 5, 24).to_datetime.strftime("%Z") # =&gt; "+00:00"
+Time.local(2016, 5, 24).to_datetime.strftime("%Z") # =&gt; "+02:00"
+</code></pre>
+
+<h2 id="non-interpolating-directives">Non Interpolating Directives</h2>
+
+<h3 id="n--newline">%n | Newline</h3>
+
+<p>Output a newline:</p>
+
+<pre><code>Time.utc(2016).strftime("%n") # =&gt; "\n"
+</code></pre>
+
+<h3 id="t--tab">%t | Tab</h3>
+
+<p>Output a tab:</p>
+
+<pre><code>Time.utc(2016).strftime("%t") # =&gt; "\t"
+</code></pre>
+
+<h3 id="section">%% | %</h3>
+
+<p>A single <code>%</code> needs to be escaped:</p>
+
+<pre><code>Time.utc(2016).strftime("%%") # =&gt; "%"
+</code></pre>
+
+<h2 id="also-see">Also See</h2>
+
+<ul>
+  <li><a href="/4-what-the-pack.html">What the Pack?</a></li>
+  <li><a href="/49-what-the-format.html">What the Format?</a></li>
+</ul>
+
+
+        <h2>More Idiosyncratic Ruby</h2>
+        <ul>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/77a3e11fccaf1aa2ce7cb55dea992f3ffd1865d3#all_commit_comments">Please Comment on GitHub</a></li>
+          <li><a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet this Episode
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
+            <li>Previous Article: <a href="/56-us-ascii-8bit.html">US-ASCII-8BIT</a></li>
+        </ul>
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="https://github.com/janlelis">Jan Lelis</a><br>
+          
+        </div>
+        About Date, Time, Cheatsheet, Strftime |
+        Last Update: 2016-05-26
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>

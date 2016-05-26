@@ -27,8 +27,15 @@
     <p><a href="/categories/">Browse by Category</a></p>
 
       <article>
+        <h2><a href="/57-what-the-time.html">57 | What the Time?</a></h2>
+        <p>Date and time formatting is traditionally done with <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/strftime.html">strftime</a>. Not any different in Ruby, which includes a <a href="https://github.com/ruby/ruby/blob/trunk/strftime.c">public domain based strftime implementation</a> accessible via <a href="http://ruby-doc.org/core-2.3.1/Time.html#method-i-strftime">Time#strftime</a>. Ruby would not be Ruby if it would not add some confusion: There is a <a href="https://github.com/ruby/ruby/blob/trunk/ext/date/date_strftime.c">second implementation included in the standard library</a> which is used by <a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/Date.html#method-i-strftime">Date#strftime</a> and <a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/DateTime.html#method-i-strftime">DateTime#strftime</a>. It behaves similarly in most cases, but also differs in some nuances (for example, additional formatting directives like <code>%Q</code> are supported).</p>
+
+<p>
+        <a href="/57-what-the-time.html">READ</a>
+      </article>
+      <article>
         <h2><a href="/56-us-ascii-8bit.html">56 | US-ASCII-8BIT</a></h2>
-        <p>How comes that Ruby has two <a href="https://en.wikipedia.org/wiki/ASCII">ASCII</a> encodings?</p>
+        <p>How come that Ruby has two <a href="https://en.wikipedia.org/wiki/ASCII">ASCII</a> encodings?</p>
 
 <p>
         <a href="/56-us-ascii-8bit.html">READ</a>

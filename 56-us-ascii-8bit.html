@@ -24,7 +24,7 @@
       </section>
 
       <article class="post">
-        <p>How comes that Ruby has two <a href="https://en.wikipedia.org/wiki/ASCII">ASCII</a> encodings?</p>
+        <p>How come that Ruby has two <a href="https://en.wikipedia.org/wiki/ASCII">ASCII</a> encodings?</p>
 
 <p></p>
 
@@ -70,7 +70,7 @@ compatible characters.
 
 <p>So basically, it is not a real encoding, but represents an arbitrary stream of bytes (bytes with a value between 0 and 255). It is used for raw byte stream or if you want to make clear that you do not know about a string's encoding!</p>
 
-<p>The ASCII charset only takes 7 bytes, so in strict ASCII, the 8th byte should never be set. The allowed byte value range is from 0 to 127. This is what the <strong>US-ASCII</strong> encoding is all about: It is used when dealing with ASCII encoded strings. Think: <strong>"ASCII-7BIT"</strong></p>
+<p>The ASCII charset only takes 7 bits, so in strict ASCII, the 8th bit should never be set. The allowed byte value range is from 0 to 127. This is what the <strong>US-ASCII</strong> encoding is all about: It is used when dealing with ASCII encoded strings. Think: <strong>"ASCII-7BIT"</strong></p>
 
 <p>A simple example illustrating the difference:</p>
 
@@ -89,6 +89,7 @@ compatible characters.
             data-dnt="true"
           > Tweet this Episode
         </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
+            <li>Next Article: <a href="/57-what-the-time.html">What the Time?</a></li>
             <li>Previous Article: <a href="/55-struggling-four-equality.html">Struggling Four Equality</a></li>
         </ul>
       </article>
@@ -96,10 +97,10 @@ compatible characters.
       <footer>
         <div class="footer-right">
           On <a href="/">Idiosyncratic Ruby</a> by <a href="https://github.com/janlelis">Jan Lelis</a><br>
-          
+          Article Contributions by: Jan-Erik Rediger
         </div>
         About String, Encoding, Ascii |
-        Last Update: 2016-05-25
+        Last Update: 2016-05-26
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

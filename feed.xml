@@ -5,10 +5,801 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2016-05-25T02:00:00+02:00</updated>
+  <updated>2016-05-26T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>What the Time?</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/57-what-the-time.html"/>
+    <id>http://idiosyncratic-ruby.com/57-what-the-time.html</id>
+    <published>2016-05-26T02:00:00+02:00</published>
+    <updated>2016-05-26T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Date and time formatting is traditionally done with &lt;a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/strftime.html"&gt;strftime&lt;/a&gt;. Not any different in Ruby, which includes a &lt;a href="https://github.com/ruby/ruby/blob/trunk/strftime.c"&gt;public domain based strftime implementation&lt;/a&gt; accessible via &lt;a href="http://ruby-doc.org/core-2.3.1/Time.html#method-i-strftime"&gt;Time#strftime&lt;/a&gt;. Ruby would not be Ruby if it would not add some confusion: There is a &lt;a href="https://github.com/ruby/ruby/blob/trunk/ext/date/date_strftime.c"&gt;second implementation included in the standard library&lt;/a&gt; which is used by &lt;a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/Date.html#method-i-strftime"&gt;Date#strftime&lt;/a&gt; and &lt;a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/DateTime.html#method-i-strftime"&gt;DateTime#strftime&lt;/a&gt;. It behaves similarly in most cases, but also differs in some nuances (for example, additional formatting directives like &lt;code&gt;%Q&lt;/code&gt; are supported).&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id="usage"&gt;Usage&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;strftime()&lt;/code&gt; is called on time objects to convert them to strings:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 05, 24, 15).strftime("%a %b %e %T %Y")
+# =&amp;gt; "Tue May 24 15:00:00 2016"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Similar to &lt;a href="/49-what-the-format.html"&gt;format strings&lt;/a&gt; or &lt;a href="/4-what-the-pack.html"&gt;String.unpack()&lt;/a&gt; you have to pass a template string which contains formatting directives (like &lt;code&gt;%Y&lt;/code&gt; for year). Many of the directives are combined directives (like &lt;code&gt;%T&lt;/code&gt; for time), constructed from multiple base directives ("atoms"). The following tables give an overview, scroll further down for an explanation of every directive.&lt;/p&gt;
+
+&lt;h2 id="atoms"&gt;Atoms&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Point of Time&lt;/th&gt;
+      &lt;th&gt;Atoms (Example)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Year&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%Y&lt;/code&gt; (2016)&lt;br /&gt;&lt;code&gt;%C&lt;/code&gt; (20)&lt;br /&gt;&lt;code&gt;%y&lt;/code&gt; (16)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Month&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%m&lt;/code&gt; (05)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Day&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%d&lt;/code&gt; (31)&lt;br /&gt;&lt;code&gt;%j&lt;/code&gt; (365)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Hour/Daytime&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%H&lt;/code&gt; (23)&lt;br /&gt;&lt;code&gt;%I&lt;/code&gt; (11)&lt;br /&gt;&lt;code&gt;%P&lt;/code&gt; (am)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Minute&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%M&lt;/code&gt; (59)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Second&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%S&lt;/code&gt; (59)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Fraction&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%N&lt;/code&gt; (479254327)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id="english"&gt;English&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+      &lt;th&gt;Atoms (Example)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;English Month Name&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%B&lt;/code&gt; (January)&lt;br /&gt;&lt;code&gt;%b&lt;/code&gt; (Jan)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;English Weekday Name&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%A&lt;/code&gt; (Monday)&lt;br /&gt;&lt;code&gt;%a&lt;/code&gt; (Mon)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id="week-based"&gt;Week Based&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Point of Time&lt;/th&gt;
+      &lt;th&gt;Atoms (Example)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Year (by Week)&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%G&lt;/code&gt; (2016)&lt;br /&gt;&lt;code&gt;%g&lt;/code&gt; (16)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Week&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%W&lt;/code&gt; (52)&lt;br /&gt;&lt;code&gt;%U&lt;/code&gt; (52)&lt;br /&gt;&lt;code&gt;%V&lt;/code&gt; (52)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Weekday&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%u&lt;/code&gt; (3)&lt;br /&gt;&lt;code&gt;%w&lt;/code&gt; (3)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id="other"&gt;Other&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+      &lt;th&gt;Atoms (Example)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Time Zone&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%z&lt;/code&gt; (+0000)&lt;br /&gt;&lt;code&gt;%Z&lt;/code&gt; (UTC)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://en.wikipedia.org/wiki/Unix_time"&gt;Unix Timestamp&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%s&lt;/code&gt; (1464188400)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://en.wikipedia.org/wiki/Unix_time"&gt;Unix Timestamp&lt;/a&gt; (Milliseconds)¹&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%Q&lt;/code&gt; (1464188400)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;¹ Only available in Date/DateTime's strftime() implementation&lt;/p&gt;
+
+&lt;h2 id="formatting-flags-and-padding"&gt;Formatting Flags and Padding&lt;/h2&gt;
+
+&lt;p&gt;Time formatting directives support some basic padding and formatting options via flags that appear between &lt;code&gt;%&lt;/code&gt; and the directive type. Padding is the minimum length of the output, if the value is smaller, the remaining space will be filled with spaces or zeros.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Flag&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;-&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Do not apply default padding&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;_&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Use spaces for padding&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;0&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Use zeros for padding&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;^&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Upcase&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;#&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Swap case&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Examples:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;time = Time.utc(2016, 05, 25, 15) #=&amp;gt; 2016-05-25 15:00:00 UTC
+
+time.strftime("%P") # =&amp;gt; "pm"
+time.strftime("%^P") # =&amp;gt; "PM"
+time.strftime("%#P") # =&amp;gt; "PM"
+time.strftime("%10P") # =&amp;gt;  "        pm"
+time.strftime("%010P") # =&amp;gt; "00000000pm"
+time.strftime("%_10P") # =&amp;gt;  "        pm"
+
+time.strftime("%m") # =&amp;gt; "05"
+time.strftime("%-m") # =&amp;gt; "5"
+time.strftime("%10m") #=&amp;gt; "0000000005"
+time.strftime("%010m") #=&amp;gt; "0000000005"
+time.strftime("%_10m") #=&amp;gt; "         5"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="combined-directives-and-aliases"&gt;Combined Directives and Aliases&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Directive&lt;/th&gt;
+      &lt;th&gt;Alias/From Atoms&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;%c&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%a %b %e %T %Y&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;%D&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%m/%d/%y&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;%e&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%_d&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;%F&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%Y-%m-%d&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;%h&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%b&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;%k&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%_H&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;%l&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%_I&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;%L&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%3N&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;%n&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;"\n"&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;%p&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%^P&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;%r&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%I:%M:%S %p&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;%R&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%H:%M&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;%t&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;"\t"&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;%T&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%H:%M:%S&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;%v&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Time#strftime: &lt;code&gt;%e-%^b-%4Y&lt;/code&gt;&lt;br /&gt;Date#strftime: &lt;code&gt;%e-%b-%4Y&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;%x&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%m/%d/%y&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;%X&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%H:%M:%S&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;%+&lt;/code&gt;¹&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;%a %b %e %H:%M:%S %Z %Y&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;¹ Only available in Date/DateTime's strftime() implementation&lt;/p&gt;
+
+&lt;h2 id="years-directives"&gt;Years Directives&lt;/h2&gt;
+
+&lt;h3 id="y--year-with-century"&gt;%Y | Year, with Century&lt;/h3&gt;
+
+&lt;p&gt;Will display the time's year with a default padding of 4:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016).strftime("%Y") # =&amp;gt; "2016"
+Time.utc(20000).strftime("%Y") # =&amp;gt; "20000"
+Time.utc(2).strftime("%Y") # =&amp;gt; "0002"
+Time.utc(2).strftime("%-Y") # =&amp;gt; "2"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="y--year-without-century"&gt;%y | Year, without Century&lt;/h3&gt;
+
+&lt;p&gt;Will display the time's year modulo 100 with a default padding of 2:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016).strftime("%y") # =&amp;gt; "16"
+Time.utc(20000).strftime("%y") # =&amp;gt; "00"
+Time.utc(2).strftime("%y") # =&amp;gt; "02"
+Time.utc(2).strftime("%-y") # =&amp;gt; "2"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="c--century"&gt;%C | Century&lt;/h3&gt;
+
+&lt;p&gt;Will display the time's year divided by 100 with a default padding of 2:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016).strftime("%C") # =&amp;gt; "20"
+Time.utc(20000).strftime("%C") # =&amp;gt; "000"
+Time.utc(2).strftime("%C") # =&amp;gt; "00"
+Time.utc(2).strftime("%-C") # =&amp;gt; "0"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="g--year-week-based-with-century"&gt;%G | Year (Week based), with Century&lt;/h3&gt;
+
+&lt;p&gt;Returns the year based on &lt;a href="https://en.wikipedia.org/wiki/ISO_week_date#First_week"&gt;which year the time's week belongs to&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2014, 12, 29).strftime("%G") # =&amp;gt; "2015"
+Time.utc(2017, 1, 1).strftime("%G") #=&amp;gt; "2016"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="g--year-week-based-without-century"&gt;%g | Year (Week based), without Century&lt;/h3&gt;
+
+&lt;p&gt;Returns the year based on &lt;a href="https://en.wikipedia.org/wiki/ISO_week_date#First_week"&gt;which year the time's week belongs to&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2014, 12, 29).strftime("%g") # =&amp;gt; "15"
+Time.utc(2017, 1, 1).strftime("%g") #=&amp;gt; "16"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="months-directives"&gt;Months Directives&lt;/h2&gt;
+
+&lt;h3 id="m--month-as-number"&gt;%m | Month as Number&lt;/h3&gt;
+
+&lt;p&gt;Number of month, with a default padding of 2:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5).strftime("%m") # =&amp;gt; "05"
+Time.utc(2016, 5).strftime("%-m") # =&amp;gt; "5"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="b--month-name"&gt;%B | Month Name&lt;/h3&gt;
+
+&lt;p&gt;Locale-independent (English) month name:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 1).strftime("%B") # =&amp;gt; "January"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="b-h--month-name-abbreviated"&gt;%b, %h | Month Name (Abbreviated)&lt;/h3&gt;
+
+&lt;p&gt;Locale-independent (English) three-letter month name:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 1).strftime("%b") # =&amp;gt; "Jan"
+Time.utc(2016, 1).strftime("%h") # =&amp;gt; "Jan"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="weeks-directives"&gt;Weeks Directives&lt;/h2&gt;
+
+&lt;p&gt;See &lt;a href="https://en.wikipedia.org/wiki/ISO_week_date"&gt;ISO 8601&lt;/a&gt; for an explanation of week number construction.&lt;/p&gt;
+
+&lt;h3 id="u--week-number-sunday-starts-week--0053"&gt;%U | Week Number (Sunday Starts Week) | 00..53&lt;/h3&gt;
+
+&lt;p&gt;Considers Sunday the &lt;strong&gt;first&lt;/strong&gt; day of the week. Will return &lt;code&gt;00&lt;/code&gt; if week belongs to last year:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2015, 1, 1).strftime("%U") # =&amp;gt; "00" # Thursday
+Time.utc(2016, 1, 1).strftime("%U") # =&amp;gt; "00" # Friday
+Time.utc(2017, 1, 1).strftime("%U") # =&amp;gt; "01" # Sunday
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="v--week-number-week-based-year--0153"&gt;%V | Week Number (Week Based Year) | 01..53&lt;/h3&gt;
+
+&lt;p&gt;Considers Sunday the &lt;strong&gt;first&lt;/strong&gt; day of the week. Will return last years week number if week belongs to last year:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2015, 1, 1).strftime("%V") # =&amp;gt; "01" # Thursday
+Time.utc(2016, 1, 1).strftime("%V") # =&amp;gt; "53" # Friday
+Time.utc(2017, 1, 1).strftime("%V") # =&amp;gt; "52" # Sunday
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="w--week-number-monday-starts-weeks--0053"&gt;%W | Week Number (Monday Starts Weeks) | 00..53&lt;/h3&gt;
+
+&lt;p&gt;Considers Sunday the &lt;strong&gt;last&lt;/strong&gt; day of the week. Will return &lt;code&gt;00&lt;/code&gt; if week belongs to last year:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2015, 1, 1).strftime("%W") # =&amp;gt; "00" # Thursday
+Time.utc(2016, 1, 1).strftime("%W") # =&amp;gt; "00" # Friday
+Time.utc(2017, 1, 1).strftime("%W") # =&amp;gt; "00" # Sunday
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="days-directives"&gt;Days Directives&lt;/h2&gt;
+
+&lt;h3 id="j--day-of-year--001366"&gt;%j | Day of Year | 001..366&lt;/h3&gt;
+
+&lt;p&gt;Which day of the year with a default padding of 3:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24, 15, 29, 59).strftime("%j") # =&amp;gt; "145"
+Time.utc(2016, 1, 1, 15, 29, 59).strftime("%j") # =&amp;gt; "001"
+Time.utc(2016, 1, 1, 15, 29, 59).strftime("%-j") # =&amp;gt; "1"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="d--day-of-month--0131"&gt;%d | Day of Month | 01..31&lt;/h3&gt;
+
+&lt;p&gt;Which day of the month with a default (zero) padding of 2:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24, 15, 29, 59).strftime("%d") # =&amp;gt; "24"
+Time.utc(2016, 1, 1, 15, 29, 59).strftime("%d") # =&amp;gt; "01"
+Time.utc(2016, 1, 1, 15, 29, 59).strftime("%-d") # =&amp;gt; "1"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="e--day-of-month-space-padded--0131"&gt;%e | Day of Month (Space Padded) | 01..31&lt;/h3&gt;
+
+&lt;p&gt;Which day of the month with a default (space) padding of 2:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24, 15, 29, 59).strftime("%e") # =&amp;gt; "24"
+Time.utc(2016, 1, 1, 15, 29, 59).strftime("%e") # =&amp;gt; " 1"
+Time.utc(2016, 1, 1, 15, 29, 59).strftime("%-e") # =&amp;gt; "1"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="u--weekday-as-number-monday-starts-week--17"&gt;%u | Weekday as Number (Monday Starts Week) | 1..7&lt;/h3&gt;
+
+&lt;p&gt;Number of day in the week, value of Sunday is 7:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 22).strftime("%u") # =&amp;gt; 7 # Sunday
+Time.utc(2016, 5, 23).strftime("%u") # =&amp;gt; 1 # Monday
+Time.utc(2016, 5, 24).strftime("%u") # =&amp;gt; 2 # Tuesday
+Time.utc(2016, 5, 25).strftime("%u") # =&amp;gt; 3 # Wednesday
+Time.utc(2016, 5, 26).strftime("%u") # =&amp;gt; 4 # Thursday
+Time.utc(2016, 5, 27).strftime("%u") # =&amp;gt; 5 # Friday
+Time.utc(2016, 5, 28).strftime("%u") # =&amp;gt; 6 # Saturday
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="w--weekday-as-number-sunday-starts-week--06"&gt;%w | Weekday as Number (Sunday Starts Week) | 0..6&lt;/h3&gt;
+
+&lt;p&gt;Number of day in the week, value of Sunday is 0:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 22).strftime("%u") # =&amp;gt; 0 # Sunday
+Time.utc(2016, 5, 23).strftime("%u") # =&amp;gt; 1 # Monday
+Time.utc(2016, 5, 24).strftime("%u") # =&amp;gt; 2 # Tuesday
+Time.utc(2016, 5, 25).strftime("%u") # =&amp;gt; 3 # Wednesday
+Time.utc(2016, 5, 26).strftime("%u") # =&amp;gt; 4 # Thursday
+Time.utc(2016, 5, 27).strftime("%u") # =&amp;gt; 5 # Friday
+Time.utc(2016, 5, 28).strftime("%u") # =&amp;gt; 6 # Saturday
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="a--weekday-name"&gt;%A | Weekday Name&lt;/h3&gt;
+
+&lt;p&gt;Locale-independent (English) name of weekday:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 22).strftime("%A") # =&amp;gt; "Sunday"
+Time.utc(2016, 5, 23).strftime("%A") # =&amp;gt; "Monday"
+Time.utc(2016, 5, 24).strftime("%A") # =&amp;gt; "Tuesday"
+Time.utc(2016, 5, 25).strftime("%A") # =&amp;gt; "Wednesday"
+Time.utc(2016, 5, 26).strftime("%A") # =&amp;gt; "Thursday"
+Time.utc(2016, 5, 27).strftime("%A") # =&amp;gt; "Friday"
+Time.utc(2016, 5, 28).strftime("%A") # =&amp;gt; "Saturday"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="a--weekday-name-abbreviated"&gt;%a | Weekday Name (Abbreviated)&lt;/h3&gt;
+
+&lt;p&gt;Locale-independent (English) three-letter name of weekday:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 22).strftime("%a") # =&amp;gt; "Sun"
+Time.utc(2016, 5, 23).strftime("%a") # =&amp;gt; "Mon"
+Time.utc(2016, 5, 24).strftime("%a") # =&amp;gt; "Tue"
+Time.utc(2016, 5, 25).strftime("%a") # =&amp;gt; "Wed"
+Time.utc(2016, 5, 26).strftime("%a") # =&amp;gt; "Thu"
+Time.utc(2016, 5, 27).strftime("%a") # =&amp;gt; "Fri"
+Time.utc(2016, 5, 28).strftime("%a") # =&amp;gt; "Sat"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="d-x--date-american"&gt;%D, %x | Date, American&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;%m/%d/%y&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Month&lt;/li&gt;
+  &lt;li&gt;Day of Month&lt;/li&gt;
+  &lt;li&gt;Year without Century&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24).strftime("%D") # =&amp;gt; "05/24/16"
+Time.utc(2016, 5, 24).strftime("%x") # =&amp;gt; "05/24/16"&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="f--date-iso-8601"&gt;%F | Date, ISO 8601&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;%Y-%m-%d&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Year&lt;/li&gt;
+  &lt;li&gt;Month&lt;/li&gt;
+  &lt;li&gt;Day of Month&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24).strftime("%F") # =&amp;gt; "2016-05-24"&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="v--date-vms"&gt;%v | Date, VMS&lt;/h3&gt;
+
+&lt;h4 id="with-timestrftime"&gt;With Time#strftime&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;%_d-%^b-%Y&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Space Padded Day of Month&lt;/li&gt;
+  &lt;li&gt;Uppercased Month Name&lt;/li&gt;
+  &lt;li&gt;Year&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24).strftime("%v") # =&amp;gt; "24-MAY-2016"&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id="with-datestrftime-and-datetimestrftime"&gt;With Date#strftime and DateTime#strftime&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;%_d-%b-%Y&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Space Padded Day of Month&lt;/li&gt;
+  &lt;li&gt;Month Name&lt;/li&gt;
+  &lt;li&gt;Year&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;require "date"
+Time.utc(2016, 5, 24).to_date.strftime("%v") # =&amp;gt; "24-May-2016"&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="daytime-directives"&gt;Daytime Directives&lt;/h2&gt;
+
+&lt;h3 id="p--meridian-indicator-lowercase"&gt;%P | Meridian Indicator (Lowercase)&lt;/h3&gt;
+
+&lt;p&gt;Returns "am" for hours between 0 and 11, returns "pm" for hours between 12 and 23:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24, 15).strftime("%P") # =&amp;gt; "pm"
+Time.utc(2016, 5, 24, 3).strftime("%P") # =&amp;gt; "am"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="p--meridian-indicator-uppercase"&gt;%p | Meridian Indicator (Uppercase)&lt;/h3&gt;
+
+&lt;p&gt;Returns "AM" for hours between 0 and 11, returns "PM" for hours between 12 and 23:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24, 15).strftime("%p") # =&amp;gt; "PM"
+Time.utc(2016, 5, 24, 3).strftime("%p") # =&amp;gt; "AM"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="hours-directives"&gt;Hours Directives&lt;/h2&gt;
+
+&lt;h3 id="h--hour-of-day-24h-zero-padded--023"&gt;%H | Hour of Day, 24h (Zero Padded) | 0..23&lt;/h3&gt;
+
+&lt;p&gt;Time's hour on the 24h clock:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24, 15).strftime("%H") # =&amp;gt; "15"
+Time.utc(2016, 5, 24, 3).strftime("%H") # =&amp;gt; "03"
+Time.utc(2016, 5, 24, 3).strftime("%-H") # =&amp;gt; "3"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="k--hour-of-day-24h-space-padded--023"&gt;%k | Hour of Day, 24h (Space Padded) | 0..23&lt;/h3&gt;
+
+&lt;p&gt;Time's hour on the 24h clock:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24, 15).strftime("%k") # =&amp;gt; "15"
+Time.utc(2016, 5, 24, 3).strftime("%k") # =&amp;gt; " 3"
+Time.utc(2016, 5, 24, 3).strftime("%-k") # =&amp;gt; "3"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="i--hour-of-day-12h-zero-padded--011"&gt;%I | Hour of Day, 12h (Zero Padded) | 0..11&lt;/h3&gt;
+
+&lt;p&gt;Time's hour on the 12h clock:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24, 15).strftime("%I") # =&amp;gt; "03"
+Time.utc(2016, 5, 24, 3).strftime("%I") # =&amp;gt; "03"
+Time.utc(2016, 5, 24, 3).strftime("%-I") # =&amp;gt; "3"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="l--hour-of-day-12h-space-padded--011"&gt;%l | Hour of Day, 12h (Space Padded) | 0..11&lt;/h3&gt;
+
+&lt;p&gt;Time's hour on the 12h clock:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24, 15).strftime("%l") # =&amp;gt; " 3"
+Time.utc(2016, 5, 24, 3).strftime("%l") # =&amp;gt; " 3"
+Time.utc(2016, 5, 24, 3).strftime("%-l") # =&amp;gt; "3"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="minutes-directives"&gt;Minutes Directives&lt;/h2&gt;
+
+&lt;h3 id="m--minute-of-hour--0059"&gt;%M | Minute of Hour | 00..59&lt;/h3&gt;
+
+&lt;p&gt;Time's minutes with default padding of 2:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24, 15, 29).strftime("%M") # =&amp;gt; "29"
+Time.utc(2016, 5, 24, 15, 1).strftime("%M") # =&amp;gt; "01"
+Time.utc(2016, 5, 24, 15, 1).strftime("%-M") # =&amp;gt; "1"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="r--time-hour--minute"&gt;%R | Time, Hour + Minute&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;%H:%M&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Hour (24h)&lt;/li&gt;
+  &lt;li&gt;Minute&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24, 15, 29).strftime("%R") # =&amp;gt; "15:29"&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="seconds-directives"&gt;Seconds Directives&lt;/h2&gt;
+
+&lt;h3 id="s--second-of-minute--0060"&gt;%S | Second of Minute | 00..60&lt;/h3&gt;
+
+&lt;p&gt;Time's seconds with default padding of 2:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24, 15, 29, 59).strftime("%S") # =&amp;gt; "59"
+Time.utc(2016, 5, 24, 15, 29, 1).strftime("%S") # =&amp;gt; "01"
+Time.utc(2016, 5, 24, 15, 29, 1).strftime("%-S") # =&amp;gt; "1"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="s--seconds-since-unix-epoch"&gt;%s | Seconds Since Unix Epoch&lt;/h3&gt;
+
+&lt;p&gt;Number of seconds since &lt;strong&gt;1970-01-01 00:00:00 UTC&lt;/strong&gt;. This known as &lt;a href="https://en.wikipedia.org/wiki/Unix_time"&gt;Unix timestamps&lt;/a&gt;. It returns the same value (as string) like &lt;a href="http://ruby-doc.org/core-2.3.1/Time.html#method-i-to_i"&gt;Time#to_i&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24, 15, 29, 59).strftime("%s") # =&amp;gt; "1464103799"
+Time.utc(2016, 5, 24, 15, 29, 59).to_i # =&amp;gt; 1464103799
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="r--time-hour--minute--second--daytime"&gt;%r | Time, Hour + Minute + Second + Daytime&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;%I:%M:%S %p&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Hour (12h)&lt;/li&gt;
+  &lt;li&gt;Minute&lt;/li&gt;
+  &lt;li&gt;Second&lt;/li&gt;
+  &lt;li&gt;Daytime&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24, 15, 29, 59).strftime("%r") # =&amp;gt; "03:29:59 PM"&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="t-x--time-hour--minute--second"&gt;%T, %X | Time, Hour + Minute + Second&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;%H:%M:%S&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Hour (24h)&lt;/li&gt;
+  &lt;li&gt;Minute&lt;/li&gt;
+  &lt;li&gt;Second&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24, 15, 29, 59).strftime("%T") # =&amp;gt; "15:29:59"
+Time.utc(2016, 5, 24, 15, 29, 59).strftime("%X") # =&amp;gt; "15:29:59"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="c--date-weekday--month--day-of-month--time--year"&gt;%c | Date, Weekday + Month + Day of Month + Time + Year&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;%a %b %e %T %Y&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Weekday (Short)&lt;/li&gt;
+  &lt;li&gt;Month (Short)&lt;/li&gt;
+  &lt;li&gt;Day of Month&lt;/li&gt;
+  &lt;li&gt;Time (24h)&lt;/li&gt;
+  &lt;li&gt;Year&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24, 15, 29, 59).strftime("%c") # =&amp;gt; "Tue May 24 15:29:59 2016"&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="date-date1-style"&gt;%+ | Date, &lt;code&gt;date(1)&lt;/code&gt; Style&lt;/h3&gt;
+
+&lt;p&gt;&lt;em&gt;Only available in Date/DateTime's strftime() implementation&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;%a %b %e %T %Z %Y&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Weekday (Short)&lt;/li&gt;
+  &lt;li&gt;Month (Short)&lt;/li&gt;
+  &lt;li&gt;Day of Month&lt;/li&gt;
+  &lt;li&gt;Time (24h)&lt;/li&gt;
+  &lt;li&gt;Numerical Time Zone Offset&lt;/li&gt;
+  &lt;li&gt;Year&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;require "date"
+Time.utc(2016, 5, 24, 15, 29, 59).to_datetime.strftime("%+")
+# =&amp;gt; "Tue May 24 15:29:59 +00:00 2016"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="smaller-than-seconds-directives"&gt;Smaller Than Seconds Directives&lt;/h2&gt;
+
+&lt;h3 id="l--millisecond--000999"&gt;%L | Millisecond | 000..999&lt;/h3&gt;
+
+&lt;p&gt;Millisecond with default padding of 3. More precise fractions will be truncated:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24, 15, 29, 0.1239).strftime("%L") # =&amp;gt; "123"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="n--fraction-default-nanosecond"&gt;%N | Fraction, Default: Nanosecond&lt;/h3&gt;
+
+&lt;p&gt;Specifies time fractions like milliseconds (precision of 3), microseconds (precision of 6), or nanoseconds (precision of 9). More precise fractions will be truncated. Cannot be combined with padding:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24, 15, 29, 0.1234567890).strftime("%3N") # =&amp;gt; "123"
+Time.utc(2016, 5, 24, 15, 29, 0.1234567890).strftime("%6N") # =&amp;gt; "123456"
+Time.utc(2016, 5, 24, 15, 29, 0.1234567890).strftime("%9N") # =&amp;gt; "123456789"
+Time.utc(2016, 5, 24, 15, 29, 0.1234567890).strftime("%N") # =&amp;gt; "123456789"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="q--milliseconds-since-unix-epoch"&gt;%Q | Milliseconds Since Unix Epoch&lt;/h3&gt;
+
+&lt;p&gt;&lt;em&gt;Only available in Date/DateTime's strftime() implementation&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Number of milliseconds since &lt;strong&gt;1970-01-01 00:00:00 UTC&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;require "date"
+Time.utc(2016, 5, 24, 15, 29, 59.012).to_datetime.strftime("%Q") #=&amp;gt; "1464103799012"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="time-zone-directives"&gt;Time Zone Directives&lt;/h2&gt;
+
+&lt;h3 id="z--time-zone-offset-from-utc"&gt;%z | Time Zone, Offset from UTC&lt;/h3&gt;
+
+&lt;p&gt;A numerical &lt;a href="https://en.wikipedia.org/wiki/List_of_UTC_time_offsets"&gt;time zone&lt;/a&gt; identifier in the format of&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Sign&lt;/li&gt;
+  &lt;li&gt;Two-digit Hour&lt;/li&gt;
+  &lt;li&gt;Two-digit Minute&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;which describes the offset from  &lt;a href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time"&gt;UTC&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24).strftime("%z") # =&amp;gt; "+0000"
+Time.local(2016, 5, 24).strftime("%z") # =&amp;gt; "+0200"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The output separates hours and minutes when using a single &lt;code&gt;:&lt;/code&gt; flag:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.local(2016, 5, 24).strftime("%:z") # =&amp;gt; "+02:00"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It will also show the seconds offset when using two &lt;code&gt;::&lt;/code&gt; colons:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.local(2016, 5, 24).strftime("%::z") # =&amp;gt; "+02:00:00"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When using &lt;code&gt;:::&lt;/code&gt;, it will only return significant information (no zero minutes or seconds):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.local(2016, 5, 24).strftime("%:::z") # =&amp;gt; "+02"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="z--time-zone-abbreviated-os-dependent"&gt;%Z | Time Zone, Abbreviated, OS Dependent&lt;/h3&gt;
+
+&lt;h4 id="with-timestrftime-1"&gt;With Time#strftime&lt;/h4&gt;
+
+&lt;p&gt;Big &lt;code&gt;%Z&lt;/code&gt; displays a platform dependent time zone string:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24).strftime("%Z") # =&amp;gt; "UTC"
+Time.local(2016, 5, 24).strftime("%Z") # =&amp;gt; "CEST"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ruby's documentation disencourages &lt;code&gt;%Z&lt;/code&gt;, because it has a different result on different platforms and also does not properly identify the time zone:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;While all directives are locale independent since Ruby 1.9, &lt;code&gt;%Z&lt;/code&gt; is platform dependent. So, the result may differ even if the same format string is used in other systems such as C.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;code&gt;%z&lt;/code&gt; is recommended over &lt;code&gt;%Z&lt;/code&gt;. &lt;code&gt;%Z&lt;/code&gt; doesn’t identify the timezone. For example, "CST" is used at America/Chicago (-06:00), America/Havana (-05:00), Asia/Harbin (+08:00), Australia/Darwin (+09:30) and Australia/Adelaide (+10:30). Also, &lt;code&gt;%Z&lt;/code&gt; is highly dependent on the operating system. For example, it may generate a non ASCII string on Japanese Windows. i.e. the result can be different to "JST". So the numeric time zone offset, &lt;code&gt;%z&lt;/code&gt;, is recommended.&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id="with-datestrftime-and-datetimestrftime-1"&gt;With Date#strftime and DateTime#strftime&lt;/h4&gt;
+
+&lt;p&gt;Date's strftime() implementation outputs a numerical offset, similar to &lt;code&gt;%:z&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;require "date"
+Time.utc(2016, 5, 24).to_datetime.strftime("%Z") # =&amp;gt; "+00:00"
+Time.local(2016, 5, 24).to_datetime.strftime("%Z") # =&amp;gt; "+02:00"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="non-interpolating-directives"&gt;Non Interpolating Directives&lt;/h2&gt;
+
+&lt;h3 id="n--newline"&gt;%n | Newline&lt;/h3&gt;
+
+&lt;p&gt;Output a newline:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016).strftime("%n") # =&amp;gt; "\n"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="t--tab"&gt;%t | Tab&lt;/h3&gt;
+
+&lt;p&gt;Output a tab:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016).strftime("%t") # =&amp;gt; "\t"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="section"&gt;%% | %&lt;/h3&gt;
+
+&lt;p&gt;A single &lt;code&gt;%&lt;/code&gt; needs to be escaped:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Time.utc(2016).strftime("%%") # =&amp;gt; "%"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="/4-what-the-pack.html"&gt;What the Pack?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="/49-what-the-format.html"&gt;What the Format?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>US-ASCII-8BIT</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/56-us-ascii-8bit.html"/>
@@ -18,7 +809,7 @@
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;How comes that Ruby has two &lt;a href="https://en.wikipedia.org/wiki/ASCII"&gt;ASCII&lt;/a&gt; encodings?&lt;/p&gt;
+    <content type="html">&lt;p&gt;How come that Ruby has two &lt;a href="https://en.wikipedia.org/wiki/ASCII"&gt;ASCII&lt;/a&gt; encodings?&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
@@ -64,7 +855,7 @@ compatible characters.
 
 &lt;p&gt;So basically, it is not a real encoding, but represents an arbitrary stream of bytes (bytes with a value between 0 and 255). It is used for raw byte stream or if you want to make clear that you do not know about a string's encoding!&lt;/p&gt;
 
-&lt;p&gt;The ASCII charset only takes 7 bytes, so in strict ASCII, the 8th byte should never be set. The allowed byte value range is from 0 to 127. This is what the &lt;strong&gt;US-ASCII&lt;/strong&gt; encoding is all about: It is used when dealing with ASCII encoded strings. Think: &lt;strong&gt;"ASCII-7BIT"&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The ASCII charset only takes 7 bits, so in strict ASCII, the 8th bit should never be set. The allowed byte value range is from 0 to 127. This is what the &lt;strong&gt;US-ASCII&lt;/strong&gt; encoding is all about: It is used when dealing with ASCII encoded strings. Think: &lt;strong&gt;"ASCII-7BIT"&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;A simple example illustrating the difference:&lt;/p&gt;
 
@@ -338,21 +1129,21 @@ Array.try_convert(o) # =&amp;gt; [42]
     &lt;tr&gt;
       &lt;td&gt;Array&lt;/td&gt;
       &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Array.html#method-c-try_convert"&gt;Array.try_convert&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-Array"&gt;Array()&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-Array"&gt;Array()&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;Array(nil) # =&amp;gt; []&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;If &lt;code&gt;:to_ary&lt;/code&gt; and &lt;code&gt;:to_a&lt;/code&gt; did not return an array, it will create single-element array which contains the given value&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Hash&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Hash.html#method-c-try_convert"&gt;Hash.try_convert&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-Hash"&gt;Hash()&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Hash.html#method-c-try_convert"&gt;Hash.try_convert&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-Hash"&gt;Hash()&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;Hash(nil) # =&amp;gt; {}&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;Hash([]) # =&amp;gt; {}&lt;/code&gt;. Also remember that you can convert arrays to hashes with &lt;a href="http://ruby-doc.org/core-2.3.1/Hash.html#method-i-5B-5D"&gt;Hash#[]&lt;/a&gt;.&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;String&lt;/td&gt;
       &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/String.html#method-c-try_convert"&gt;String.try_convert&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-String"&gt;String()&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-String"&gt;String()&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;String(nil) # =&amp;gt; ""&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
