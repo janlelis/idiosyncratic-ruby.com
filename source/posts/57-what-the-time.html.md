@@ -2,6 +2,7 @@
 title: What the Time?
 date: 2016-05-26
 tags: date, time, cheatsheet, strftime
+commit: 77a3e11fccaf1aa2ce7cb55dea992f3ffd1865d3
 ---
 
 Date and time formatting is traditionally done with [strftime](http://pubs.opengroup.org/onlinepubs/9699919799/functions/strftime.html). Not any different in Ruby, which includes a [public domain based strftime implementation](https://github.com/ruby/ruby/blob/trunk/strftime.c) accessible via [Time#strftime](http://ruby-doc.org/core-2.3.1/Time.html#method-i-strftime). Ruby would not be Ruby if it would not add some confusion: There is a [second implementation included in the standard library](https://github.com/ruby/ruby/blob/trunk/ext/date/date_strftime.c) which is used by [Date#strftime](http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/Date.html#method-i-strftime) and [DateTime#strftime](http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/DateTime.html#method-i-strftime). It behaves similarly in most cases, but also differs in some nuances (for example, additional formatting directives like `%Q` are supported).
