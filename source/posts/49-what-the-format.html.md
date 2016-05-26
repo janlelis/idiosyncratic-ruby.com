@@ -5,6 +5,33 @@ tags: core, format, string, sprintf
 commit: a9f9e2f73c1f55604f650ce63030458e3dc968e6
 ---
 
+[%a](#a-a--analyze-float)
+[%A](#a-a--analyze-float)
+[%b](#b-b--binary-number)
+[%B](#b-b--binary-number)
+[%c](#c--character)
+[%d](#d-i-u--integer-decimal-number)
+[%e](#e-e--float-in-exponential-notation)
+[%E](#e-e--float-in-exponential-notation)
+[%f](#f--float)
+[%g](#g-g--float-in-normal-or-exponential-notation)
+[%G](#g-g--float-in-normal-or-exponential-notation)
+[%i](#d-i-u--integer-decimal-number)
+[%o](#o--octal-number)
+[%p](#p--inspect)
+[%s](#s--string)
+[%u](#d-i-u--integer-decimal-number)
+[%x](#x-x--hexadecimal-number)
+[%X](#x-x--hexadecimal-number)
+[%%](#percent)
+[0](#zero)
+[$](#referencing-absolute-positioning)
+[#](#hash)
+[+](#plus)
+[-](#minus)
+[*](#star)
+[space](#space)
+
 Ruby comes with a structured alternative to classic string interpolation: This episode will explore **format strings**, also known as the *sprintf* syntax.
 
 ARTICLE
@@ -103,8 +130,7 @@ Syntax  | Notes  | Required/Optional
 *X*     | Formatting type | Required
 
 ² As [fnordfish noted](https://twitter.com/fnordfish/status/732957226932047877), the syntax can sometimes be quite confusing, such as in:<br/>`"Such %<num> cookies" % { num: 100 }`<br/>
-³ Since the `%` character denotes a reference, you have to use `%%` to get a single "%"
-
+³ <span id="percent">Since the `%` character denotes a reference, you have to use `%%` to get a single "%"</span>
 
 What follows is a description of all formatting options and types.
 
@@ -483,3 +509,8 @@ Using big `%A` will uppercase all letters:
 
 - [RDoc: Kernel#sprintf](http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-sprintf)
 - [Source: sprintf.c](https://github.com/ruby/ruby/blob/trunk/sprintf.c)
+
+## Also See
+
+- [What the Pack?](/4-what-the-pack.html)
+- [What the Time?](/57-what-the-time.html)

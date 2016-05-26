@@ -5,6 +5,49 @@ tags: core, strings, encoding
 commit: fea958eff6b85935ea3a8a4974c2548e08abca2e
 ---
 
+[a](#a--arbitrary-string)
+[A](#a--arbitrary-string-clean-null-bytes)
+[b](#b--bit-string-little-endian)
+[B](#b--bit-string-big-endian)
+[c](#c--a-signed-integer-per-byte)
+[C](#c--an-unsigned-integer-per-byte)
+[d](#d-d--a-float-double-precision-native-endian)
+[D](#d-d--a-float-double-precision-native-endian)
+[e](#e--a-float-single-precision-little-endian)
+[E](#e--a-float-double-precision-little-endian)
+[F](#f--a-float-single-precision-native-endian)
+[g](#g--a-float-single-precision-big-endian)
+[G](#g--a-float-double-precision-big-endian)
+[h](#h--hex-string-little-endian)
+[H](#h--hex-string-big-endian)
+[l](#l--a-signed-integer-per-4-bytes)
+[L](#l--an-unsigned-integer-per-4-bytes)
+[m](#m--base64-encoding-rfc-2045)
+[m0](#m0--base64-encoding-rfc-4648)
+[M](#m--quoted-printable--mime-encoding-rfc2045)
+[n](#n--an-unsigned-integer-per-2-bytes-big-endian-similar-to-s)
+[N](#n--a-signed-integer-per-4-bytes-big-endian-similar-to-l)
+[p](#p--pointer-to-null-terminated-string)
+[P](#p--pointer-to-fixed-length-string)
+[q](q--a-signed-integer-per-8-bytes)
+[Q](#q--an-unsigned-integer-per-8-bytes)
+[s](#s--a-signed-integer-per-2-bytes)
+[S](#s--an-unsigned-integer-per-2-bytes)
+[u](#u--uu-encoding)
+[U](#u--utf-8-characters)
+[v](#v--an-unsigned-integer-per-2-bytes-little-endian-similar-to-s)
+[V](#v--a-signed-integer-per-4-bytes-little-endian-similar-to-l)
+[w](#w--ber-compression)
+[x](#x--skip-byte-fill-with-null-byte-when-packing)
+[X](#x--move-a-byte-back)
+[Z](#z--null-terminated-string)
+[@](#go-to-position)
+[!](#integer-directives)
+[*](#pack-template-format)
+[<](#a-note-on-byte-order-big-endian-vs-little-endian)
+[>](#a-note-on-byte-order-big-endian-vs-little-endian)
+[_](#integer-directives)
+
 Ruby comes equipped with a powerful option for low level string manipulation: `String#unpack` and its counter part `Array#pack`. Today's episode takes a closer look.
 
 ARTICLE
@@ -443,3 +486,9 @@ You can jump around the current byte position while processing the data. This en
 - [RDoc: Array#pack](http://ruby-doc.org/core-2.3.1/Array.html#method-i-pack)
 - [Source: pack.c](https://github.com/ruby/ruby/blob/trunk/pack.c)
 - [unpack in Perl](http://www.perlmonks.org/?node_id=224666)
+
+## Also See
+
+- [What the Format?](/49-what-the-format.html)
+- [What the Time?](/57-what-the-time.html)
+

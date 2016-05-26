@@ -5,6 +5,59 @@ tags: date, time, cheatsheet, strftime
 commit: 77a3e11fccaf1aa2ce7cb55dea992f3ffd1865d3
 ---
 
+[%a](#a--weekday-name-abbreviated)
+[%A](#a--weekday-name)
+[%b](#b-h--month-name-abbreviated)
+[%B](#b--month-name)
+[%c](#c--date-weekday--month--day-of-month--time--year)
+[%C](#c--century)
+[%d](#d--day-of-month--0131)
+[%D](#d-x--date-american)
+[%e](#e--day-of-month-space-padded--0131)
+[%F](#f--date-iso-8601)
+[%g](#g--year-week-based-without-century)
+[%G](#g--year-week-based-with-century)
+[%h](#b-h--month-name-abbreviated)
+[%H](#h--hour-of-day-24h-zero-padded--023)
+[%I](#i--hour-of-day-12h-zero-padded--011)
+[%j](#j--day-of-year--001366)
+[%k](#k--hour-of-day-24h-space-padded--023)
+[%l](#l--hour-of-day-12h-space-padded--011)
+[%L](#l--millisecond--000999)
+[%m](#m--month-as-number)
+[%M](#m--minute-of-hour--0059)
+[%n](#n--newline)
+[%N](#n--fraction-default-nanosecond)
+[%p](#p--meridian-indicator-uppercase)
+[%P](#p--meridian-indicator-lowercase)
+[%Q](#q--milliseconds-since-unix-epoch)
+[%r](#r--time-hour--minute--second--daytime)
+[%R](#r--time-hour--minute)
+[%s](#s--seconds-since-unix-epoch)
+[%S](#s--second-of-minute--0060)
+[%t](#t--tab)
+[%T](#t-x--time-hour--minute--second)
+[%u](#u--weekday-as-number-monday-starts-week--17)
+[%U](#u--week-number-sunday-starts-week--0053)
+[%v](#v--date-vms)
+[%V](#v--week-number-week-based-year--0153)
+[%w](#w--weekday-as-number-sunday-starts-week--06)
+[%W](#w--week-number-monday-starts-weeks--0053)
+[%x](#d-x--date-american)
+[%X](#t-x--time-hour--minute--second)
+[%y](#y--year-without-century)
+[%Y](#y--year-with-century)
+[%z](#z--time-zone-offset-from-utc)
+[%Z](#z--time-zone-abbreviated-os-dependent)
+[%+](#date-date1-style)
+[%%](#section)
+[-](#formatting-flags-and-padding)
+[_](#formatting-flags-and-padding)
+[0](#formatting-flags-and-padding)
+<a href="#formatting-flags-and-padding">^</a>
+[#](#formatting-flags-and-padding)
+[:](#z--time-zone-offset-from-utc)
+
 Date and time formatting is traditionally done with [strftime](http://pubs.opengroup.org/onlinepubs/9699919799/functions/strftime.html). Not any different in Ruby, which includes a [public domain based strftime implementation](https://github.com/ruby/ruby/blob/trunk/strftime.c) accessible via [Time#strftime](http://ruby-doc.org/core-2.3.1/Time.html#method-i-strftime). Ruby would not be Ruby if it would not add some confusion: There is a [second implementation included in the standard library](https://github.com/ruby/ruby/blob/trunk/ext/date/date_strftime.c) which is used by [Date#strftime](http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/Date.html#method-i-strftime) and [DateTime#strftime](http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/DateTime.html#method-i-strftime). It behaves similarly in most cases, but also differs in some nuances (for example, additional formatting directives like `%Q` are supported).
 
 ARTICLE
@@ -556,6 +609,12 @@ A single `%` needs to be escaped:
 
     Time.utc(2016).strftime("%%") # => "%"
 
+## Resources
+
+- [RDoc: Time#strftime](http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-sprintf)
+- [RDoc: Date#strftime](http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/Date.html#method-i-strftime)
+- [Source: strftime.c](https://github.com/ruby/ruby/blob/trunk/strftime.c)
+- [Source: date_strftime.c](https://github.com/ruby/ruby/blob/trunk/ext/date/date_strftime.c)
 
 ## Also See
 
