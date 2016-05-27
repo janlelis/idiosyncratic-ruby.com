@@ -18,6 +18,8 @@ With encoding comment (`file_with_magic_comment.rb`):
     # coding: cp1252
     p "".encoding #=> #<Encoding:Windows-1252>
 
+See [Magic Instructions](/58-magic-instructions.html) for more information about magic comments in general.
+
 ## Respecting the Encoding Comment when Reading a File
 
 You might come across a situation, where you want to read in a source file using Ruby's [File](http://ruby-doc.org/core-2.3.1/File.html) class, but also want to set the proper encoding from the magic comment. Fortunately, Ruby's standard library supports this. Unfortunately, it is not a stand-alone module, but a part of IRB:
