@@ -2,6 +2,7 @@
 title: Magic Instructions
 date: 2016-05-27
 tags: core, encoding, magic, comment
+commit: 4f29302f23c8954b80cfaab24454e670a2865e59
 ---
 
 Ruby supports **magic comments** (interpreter instructions) at the top of the source file, mostly known for setting a source files' [Encoding](http://ruby-doc.org/core-2.3.1/Encoding.html). This is the most common use case, but there is more you can do.
