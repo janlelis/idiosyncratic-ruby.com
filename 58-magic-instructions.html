@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby - Magic Instructions</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="Documentaing all Ruby Specialities. A New Post Every Day in May 2016!"/>
+<meta name="keywords" content="ruby, core, encoding, magic, comment"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/58-magic-instructions.html">Magic Instructions</a></h1>
+      </section>
+
+      <article class="post">
+        <p>Ruby supports <strong>magic comments</strong> (interpreter instructions) at the top of the source file, mostly known for setting a source files' <a href="http://ruby-doc.org/core-2.3.1/Encoding.html">Encoding</a>. This is the most common use case, but there is more you can do.</p>
+
+<p></p>
+
+<h2 id="source-file-encoding">Source File Encoding</h2>
+
+<p>The default encoding of string literals in a Ruby file is UTF-8:</p>
+
+<pre><code>p "".encoding # =&gt; #&lt;Encoding:UTF-8&gt;
+</code></pre>
+
+<p>You can change it like this</p>
+
+<pre><code># encoding: big5
+p "".encoding # =&gt; #&lt;Encoding:Big5&gt;
+</code></pre>
+
+<p>The magic comment parser is pretty liberal and supports various syntaxes:</p>
+
+<pre><code># Characters before encoding: ascii or after it will not affect its functionality
+p "".encoding # =&gt; #&lt;Encoding:US-ASCII&gt;¹
+</code></pre>
+
+<p>You can mix casing in the encoding name:</p>
+
+<pre><code># encOding: bInary
+p "".encoding # =&gt; #&lt;Encoding:ASCII-8BIT&gt;¹
+</code></pre>
+
+<p>The word <em>coding</em>² is allowed instead of <em>encoding</em>:</p>
+
+<pre><code># -*- coding: utf-8 -*-
+p "".encoding # =&gt; #&lt;Encoding:UTF-8&gt;
+</code></pre>
+
+<p>However, the source encoding must be ASCII compatible:</p>
+
+<pre><code># encoding: utf-16le
+p "".encoding
+# UTF-16LE is not ASCII compatible (ArgumentError)
+</code></pre>
+
+<p>It will also work if you have a <a href="https://en.wikipedia.org/wiki/Shebang_%28Unix%29">UNIX Shebang</a> in the first line:</p>
+
+<pre><code>#!/usr/bin/env ruby
+# encoding: windows-1250
+p "".encoding # =&gt; #&lt;Encoding:Windows-1250&gt;
+</code></pre>
+
+<p>The encoding can be any you could pass to <a href="http://ruby-doc.org/core-2.3.1/Encoding.html#method-c-find">Encoding.find</a>:</p>
+
+<pre><code>Encoding.name_list # =&gt; ["ASCII-8BIT", "UTF-8", "US-ASCII", "UTF-16BE", "UTF-16LE", "UTF-32BE", "UTF-32LE", "UTF-16", "UTF-32", "UTF8-MAC", "EUC-JP", "Windows-31J", "Big5", "Big5-HKSCS", "Big5-UAO", "CP949", "Emacs-Mule", "EUC-KR", "EUC-TW", "GB2312", "GB18030", "GBK", "ISO-8859-1", "ISO-8859-2", "ISO-8859-3", "ISO-8859-4", "ISO-8859-5", "ISO-8859-6", "ISO-8859-7", "ISO-8859-8", "ISO-8859-9", "ISO-8859-10", "ISO-8859-11", "ISO-8859-13", "ISO-8859-14", "ISO-8859-15", "ISO-8859-16", "KOI8-R", "KOI8-U", "Shift_JIS", "Windows-1250", "Windows-1251", "Windows-1252", "BINARY", "IBM437", "CP437", "IBM737", "CP737", "IBM775", "CP775", "CP850", "IBM850", "IBM852", "CP852", "IBM855", "CP855", "IBM857", "CP857", "IBM860", "CP860", "IBM861", "CP861", "IBM862", "CP862", "IBM863", "CP863", "IBM864", "CP864", "IBM865", "CP865", "IBM866", "CP866", "IBM869", "CP869", "Windows-1258", "CP1258", "GB1988", "macCentEuro", "macCroatian", "macCyrillic", "macGreek", "macIceland", "macRoman", "macRomania", "macThai", "macTurkish", "macUkraine", "CP950", "Big5-HKSCS:2008", "CP951", "IBM037", "ebcdic-cp-us", "stateless-ISO-2022-JP", "eucJP", "eucJP-ms", "euc-jp-ms", "CP51932", "EUC-JIS-2004", "EUC-JISX0213", "eucKR", "eucTW", "EUC-CN", "eucCN", "GB12345", "CP936", "ISO-2022-JP", "ISO2022-JP", "ISO-2022-JP-2", "ISO2022-JP2", "CP50220", "CP50221", "ISO8859-1", "ISO8859-2", "ISO8859-3", "ISO8859-4", "ISO8859-5", "ISO8859-6", "Windows-1256", "CP1256", "ISO8859-7", "Windows-1253", "CP1253", "ISO8859-8", "Windows-1255", "CP1255", "ISO8859-9", "Windows-1254", "CP1254", "ISO8859-10", "ISO8859-11", "TIS-620", "Windows-874", "CP874", "ISO8859-13", "Windows-1257", "CP1257", "ISO8859-14", "ISO8859-15", "ISO8859-16", "CP878", "MacJapanese", "MacJapan", "ASCII", "ANSI_X3.4-1968", "646", "UTF-7", "CP65000", "CP65001", "UTF-8-MAC", "UTF-8-HFS", "UCS-2BE", "UCS-4BE", "UCS-4LE", "CP932", "csWindows31J", "SJIS", "PCK", "CP1250", "CP1251", "CP1252", "UTF8-DoCoMo", "SJIS-DoCoMo", "UTF8-KDDI", "SJIS-KDDI", "ISO-2022-JP-KDDI", "stateless-ISO-2022-JP-KDDI", "UTF8-SoftBank", "SJIS-SoftBank", "locale", "external", "filesystem", "internal"]
+</code></pre>
+
+<p>¹ See <a href="/56-us-ascii-8bit.html">US-ASCII-8BIT</a> for an explanation of the difference between the both ASCII encodings<br />
+² <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Specify-Coding.html">Emacs style</a></p>
+
+<h2 id="more-comments-more-magic">More Comments, More Magic</h2>
+
+<p>Besides encoding instructions there are two additional magic comments. Note that when you have multiple comments, you must put the encoding comment first or it will not work!</p>
+
+<h3 id="frozen-strings">Frozen Strings</h3>
+
+<p>Ruby 2.3 introduced the ability to make all string literals frozen by default:</p>
+
+<pre><code># encoding: stateless-iso-2022-jp-kddi
+# frozen_string_literal: true
+p "".frozen? # =&gt; true
+p "".encoding # =&gt; #&lt;Encoding:stateless-ISO-2022-JP-KDDI&gt;
+</code></pre>
+
+<p>You can also freeze string literals using the <code>--enable-frozen</code> command line option, but the magic comment will always overwrite the behavior of the source file in question.</p>
+
+<h3 id="indentation-warnings">Indentation Warnings</h3>
+
+<pre><code># warn_indent: true
+def method_name
+  end
+
+# warning: mismatched indentations at 'end' with 'def' at 2
+</code></pre>
+
+<p>This warning also appears when running Ruby with the <a href="/3-ruby-can-you-speak-louder.html#command-line-options-for-debug-modes"><code>-w</code> command-line option</a>, but the magic comment will always overwrite the behavior of the source file in question.</p>
+
+
+        <h2>More Idiosyncratic Ruby</h2>
+        <ul>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/4f29302f23c8954b80cfaab24454e670a2865e59#all_commit_comments">Please Comment on GitHub</a></li>
+          <li><a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet this Episode
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
+            <li>Previous Article: <a href="/57-what-the-time.html">What the Time?</a></li>
+        </ul>
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="https://github.com/janlelis">Jan Lelis</a><br>
+          
+        </div>
+        About Core, Encoding, Magic, Comment |
+        Last Update: 2016-05-27
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>
