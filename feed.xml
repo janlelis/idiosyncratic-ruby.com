@@ -5,10 +5,68 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2016-05-27T02:00:00+02:00</updated>
+  <updated>2016-05-28T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Big Data Without End</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/59-big-data-without-end.html"/>
+    <id>http://idiosyncratic-ruby.com/59-big-data-without-end.html</id>
+    <published>2016-05-28T02:00:00+02:00</published>
+    <updated>2016-05-28T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Ruby's big &lt;code&gt;DATA&lt;/code&gt; constant does more than you might expect!&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Everything after the &lt;code&gt;__END__&lt;/code&gt; keyword (at the beginning of the line) is not interpreted as Ruby, but can be retrieved with the big¹ &lt;code&gt;DATA&lt;/code&gt; constant.² This is an example &lt;code&gt;big-data.rb&lt;/code&gt; script:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;p DATA.read
+__END__
+big data
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Big &lt;code&gt;DATA&lt;/code&gt; is a &lt;a href="http://ruby-doc.org/core-2.3.1/File.html"&gt;File&lt;/a&gt; object, which you can &lt;code&gt;read&lt;/code&gt;. The example will output &lt;code&gt;"big data"&lt;/code&gt;. An example of real-world usage is &lt;a href="http://www.sinatrarb.com/intro.html#Inline%20Templates"&gt;inline templating within the sinatra web framework&lt;/a&gt;.³&lt;/p&gt;
+
+&lt;p&gt;¹ Do not confuse with the small &lt;code&gt;Data&lt;/code&gt; class, which is a &lt;a href="http://ruby-doc.org/core-2.3.1/Data.html"&gt;CRuby implementation detail&lt;/a&gt;&lt;br /&gt;
+² Big &lt;code&gt;DATA&lt;/code&gt; &lt;a href="constant tree"&gt;is not defined&lt;/a&gt;, if you have no &lt;code&gt;__END__&lt;/code&gt;. Furthermore, it is not available if you did not execute the script directly, but loaded or requierd it.&lt;br /&gt;
+³ &lt;a href="http://blog.honeybadger.io/data-and-end-in-ruby/#a-work-around-for-multiple-files"&gt;Actually, not really&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id="is-the-data-section-enough"&gt;Is the Data Section Enough?&lt;/h2&gt;
+
+&lt;p&gt;Wait a minute! Big &lt;code&gt;DATA&lt;/code&gt; is a &lt;a href="http://ruby-doc.org/core-2.3.1/File.html"&gt;File&lt;/a&gt; object? What file exactly?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;p DATA.path
+p DATA.lineno
+__END__
+big data
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The output will be &lt;code&gt;"big-data.rb"&lt;/code&gt; and &lt;code&gt;3&lt;/code&gt;. The big &lt;code&gt;DATA&lt;/code&gt; object points to the source file itself at a specific position! And look, we can alter this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;DATA.rewind
+puts DATA.gets("\n__END__")[0..-9]
+__END__
+big data
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It will now read the source code of itself:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;DATA.rewind
+puts DATA.gets("\n__END__")[0..-9]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="/22-literate-ruby.html"&gt;&lt;code&gt;$ ruby -x&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="/5-constant-shadows.html"&gt;&lt;code&gt;SCRIPT_LINES__&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Magic Instructions</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/58-magic-instructions.html"/>
