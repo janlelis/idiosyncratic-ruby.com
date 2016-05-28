@@ -2,6 +2,7 @@
 title: Big Data Without End
 date: 2016-05-28
 tags: core, syntax, keywords
+commit: 344413c1e03d975b0955f643998d40f4d22282cc
 ---
 
 Ruby's big `DATA` constant does more than you might expect!
