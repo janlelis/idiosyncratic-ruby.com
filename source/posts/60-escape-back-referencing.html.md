@@ -2,6 +2,7 @@
 title: Escape Back Referencing
 date: 2016-05-29
 tags: regex, syntax
+commit: 0998097e41369176ba27870f9b78cbfdfe84b363
 ---
 
 Ruby has more than one way to access additional information about the most recent regex match, like captured groups. One way is using the [special variables <code>$`</code>, `$&`, `$'`, `$1` - `$9`, `$+`](/9-globalization.html), and also in the [MatchData](http://ruby-doc.org/core-2.3.1/MatchData.html) object `$~`. They become available after using a method that matched a regex, or when the method supports a block, they are already available in the block.
