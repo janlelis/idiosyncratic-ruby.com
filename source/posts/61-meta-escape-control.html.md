@@ -2,6 +2,7 @@
 title: Meta Escape Control
 date: 2016-05-30
 tags: strings, syntax, escape
+commit: 98945b36ee61d312a9d1863e278be8e8607d65ac
 ---
 
 Double-quoted strings can not only be used with interpolation, `#{}`, they also support various escape sequences, which are initiated with `\`. Escape sequences allow you to embed raw byte and codepoint values. Furthermore, there are shortcuts for common formatting and control characters.
