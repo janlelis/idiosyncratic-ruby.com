@@ -5,10 +5,142 @@
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2016-05-29T02:00:00+02:00</updated>
+  <updated>2016-05-30T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Meta Escape Control</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/61-meta-escape-control.html"/>
+    <id>http://idiosyncratic-ruby.com/61-meta-escape-control.html</id>
+    <published>2016-05-30T02:00:00+02:00</published>
+    <updated>2016-05-30T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Double-quoted strings can not only be used with interpolation, &lt;code&gt;#{}&lt;/code&gt;, they also support various escape sequences, which are initiated with &lt;code&gt;\&lt;/code&gt;. Escape sequences allow you to embed raw byte and codepoint values. Furthermore, there are shortcuts for common formatting and control characters.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id="byte-sequences"&gt;Byte Sequences&lt;/h2&gt;
+
+&lt;p&gt;There are two basic ways in which you can specify raw bytes to embed: &lt;code&gt;\x00&lt;/code&gt; (hexadecimal) or &lt;code&gt;\000&lt;/code&gt; (octal):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"\x20" # =&amp;gt; " " # space
+"\xab" # =&amp;gt; "\xAB" # byte value 171
+"\033" # =&amp;gt; "\e" # escape
+"\0"   # =&amp;gt; "\u0000" # null byte
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="meta-escapes"&gt;Meta Escapes&lt;/h3&gt;
+
+&lt;p&gt;There is a &lt;em&gt;meta escape&lt;/em&gt; syntax &lt;code&gt;"\M-x"&lt;/code&gt; with &lt;strong&gt;x&lt;/strong&gt; being a byte value. If the byte is below 128 (&lt;code&gt;\x80&lt;/code&gt;), it will add 128, otherwise it will return the same value. Differently put: It will return the same byte value with 8th bit set. The &lt;strong&gt;x&lt;/strong&gt; value can be escaped again:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"A".unpack("C")    # =&amp;gt; [65]
+"\M-A".unpack("C") # =&amp;gt; [193]
+"\M-\x01" # =&amp;gt; "\x81"
+"\M-\x81" # =&amp;gt; "\x81"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="control-escapes"&gt;Control Escapes&lt;/h3&gt;
+
+&lt;p&gt;Another legacy syntax is the &lt;em&gt;control escape&lt;/em&gt; syntax: &lt;code&gt;"\C-x"&lt;/code&gt; (or &lt;code&gt;"\cx"&lt;/code&gt;)  with &lt;strong&gt;x&lt;/strong&gt; being a byte value. It will return the value of the 5 least significant bits, so the value will also between 0 and 31. The &lt;strong&gt;x&lt;/strong&gt; value can be escaped again, or combined with &lt;em&gt;meta escapes&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"\C-\x01" # =&amp;gt; "\u0001"
+"\C-!"    # =&amp;gt; "\u0001"
+"\C-A"    # =&amp;gt; "\u0001"
+"\M-\C-A" # =&amp;gt; "\x81"
+"\C-\M-A" # =&amp;gt; "\x81"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="unicode-codepoints"&gt;Unicode Codepoints&lt;/h2&gt;
+
+&lt;p&gt;Unicode characters are represented by codepoint values. If you know the numerical codepoint value, you can embed it in a double-quoted string using &lt;code&gt;\u&lt;/code&gt;. You must use exactly 4 digits of the hexadecimal representation of the value, but casing is not relevant:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"\u0020" # =&amp;gt; " " # space
+"\u00A0" # =&amp;gt; " " # no-break space
+"\u203d" # =&amp;gt; "‽" # interrobang
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;\u&lt;/code&gt; syntax supports a more explicit &lt;code&gt;{}&lt;/code&gt; flavor:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"\u{9}" # =&amp;gt; "\t" # tab
+"\u{2602}" # =&amp;gt; "☂" # umbrella
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;\u{}&lt;/code&gt; syntax is required if you want to display codepoints which need more than four hexadecimal digest, for example, &lt;a href="https://codepoints.net/U+1F6A1"&gt;&lt;code&gt;U+1F6A1 AERIAL TRAMWAY&lt;/code&gt;&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"\u{1F6A1}" # "🚡"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It also allows you to specifiy multiple characters at once:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"\u{49 64 69 6f 73 79 6e 63 72 e4 74 69 63 20 52 75 62 79}"
+# =&amp;gt; "Idiosyncrätic Ruby"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="control-and-formatting-characters"&gt;Control and Formatting Characters&lt;/h2&gt;
+
+&lt;p&gt;Some byte values used for common control/formatting characters have escape sequences:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Escape&lt;/th&gt;
+      &lt;th&gt;Byte Value&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;\a&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;7&lt;/td&gt;
+      &lt;td&gt;terminal bell&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;\b&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;backspace&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;\t&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;9&lt;/td&gt;
+      &lt;td&gt;tab&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;\n&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;10&lt;/td&gt;
+      &lt;td&gt;newline&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;\v&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;11&lt;/td&gt;
+      &lt;td&gt;vertical tab&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;\f&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;12&lt;/td&gt;
+      &lt;td&gt;form feed&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;\r&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;13&lt;/td&gt;
+      &lt;td&gt;carriage return&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;\e&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;27&lt;/td&gt;
+      &lt;td&gt;start &lt;a href="https://en.wikipedia.org/wiki/ANSI_escape_code"&gt;escape sequence&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;\s&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;32&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt; &lt;/code&gt; (space)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</content>
+  </entry>
   <entry>
     <title>Escape Back Referencing</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/60-escape-back-referencing.html"/>
