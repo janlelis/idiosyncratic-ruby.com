@@ -17,7 +17,7 @@ This one is easy. Two objects should be considered identical. Think: `x.object_i
 
 ### `==` Equality Equality
 
-This is the usual method to care about. Two objects should be treated the same.
+This is the usual method to care about. Two objects should be treated the same. If the class supports the [`<=>` spaceship comparison operator](http://ruby-doc.org/core-2.3.1/Comparable.html), it is expected that `==` returns `true` for the same values, `<=>` returns `0` for.
 
 ### `eql?` Hash Key Equality
 
