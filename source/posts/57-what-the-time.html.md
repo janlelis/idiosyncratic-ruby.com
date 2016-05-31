@@ -261,25 +261,25 @@ Considers Sunday the **last** day of the week. Will return `00` if week belongs 
 
 Which day of the year with a default padding of 3:
 
-    Time.utc(2016, 5, 24, 15, 29, 59).strftime("%j") # => "145"
-    Time.utc(2016, 1, 1, 15, 29, 59).strftime("%j") # => "001"
-    Time.utc(2016, 1, 1, 15, 29, 59).strftime("%-j") # => "1"
+    Time.utc(2016, 5, 24).strftime("%j") # => "145"
+    Time.utc(2016, 1, 1).strftime("%j") # => "001"
+    Time.utc(2016, 1, 1).strftime("%-j") # => "1"
 
 ### %d | Day of Month | 01..31
 
 Which day of the month with a default (zero) padding of 2:
 
-    Time.utc(2016, 5, 24, 15, 29, 59).strftime("%d") # => "24"
-    Time.utc(2016, 1, 1, 15, 29, 59).strftime("%d") # => "01"
-    Time.utc(2016, 1, 1, 15, 29, 59).strftime("%-d") # => "1"
+    Time.utc(2016, 5, 24).strftime("%d") # => "24"
+    Time.utc(2016, 1, 1).strftime("%d") # => "01"
+    Time.utc(2016, 1, 1).strftime("%-d") # => "1"
 
 ### %e | Day of Month (Space Padded) | 01..31
 
 Which day of the month with a default (space) padding of 2:
 
-    Time.utc(2016, 5, 24, 15, 29, 59).strftime("%e") # => "24"
-    Time.utc(2016, 1, 1, 15, 29, 59).strftime("%e") # => " 1"
-    Time.utc(2016, 1, 1, 15, 29, 59).strftime("%-e") # => "1"
+    Time.utc(2016, 5, 24).strftime("%e") # => "24"
+    Time.utc(2016, 1, 1).strftime("%e") # => " 1"
+    Time.utc(2016, 1, 1).strftime("%-e") # => "1"
 
 ### %u | Weekday as Number (Monday Starts Week) | 1..7
 
