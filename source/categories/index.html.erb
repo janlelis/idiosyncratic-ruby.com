@@ -1,5 +1,5 @@
 ---
-title: Idiosyncratic Ruby - Browse by Category
+title: Idiosyncratic Ruby (Browse by Category)
 ---
 
 <div class="world">
@@ -13,13 +13,23 @@ title: Idiosyncratic Ruby - Browse by Category
       <h2>Quick Lists and Cheat Sheets</h2>
       <ul>
         <li><a href="/4-what-the-pack.html"><code>String#unpack</code> and <code>Array#pack</code></a></li>
-        <li><a href="/9-globalization.html">Special Global Variables</a></li>
+        <li><a href="/9-globalization.html">List of Special Global Variables</a></li>
         <li><a href="/20-better-standards.html">Commented Standard Library</a></li>
         <li><a href="/25-meta-methodology.html">Method Metaprogramming</a></li>
-        <li><a href="/32-no-more-errors.html">Commented List of Exceptions</a></li>
+        <li><a href="/32-no-more-errors.html">Commented <code>Exception</code> List</a></li>
         <li><a href="/42-ruby-config.html"><code>RbConfig</code></a></li>
-        <li><a href="/49-what-the-format.html"><code>sprintf</code> Formatted Strings</a></li>
+        <li><a href="/49-what-the-format.html"><code>sprintf</code></a></li>
         <li><a href="/57-what-the-time.html"><code>strftime</code></a></li>
+      </ul>
+
+      <h2>Idiosyncratic Syntax</h2>
+      <ul>
+        <li><a href="/15-207-ways-to-rome.html">210 Different Ways to Create Strings</a></li>
+        <li><a href="/29-limitations-of-language.html">Syntactical and Grammar Edge Cases</a></li>
+        <li><a href="/33-too-expressive.html">Multiple Syntactical Meanings of Characters</a></li>
+        <li><a href="/39-fixed-numbers.html">Valid (Pre|In|Suf)fixes for Number Literals</a></li>
+        <li><a href="/40-symbolic-validations.html">Rules for Symbol Construction</a></li>
+        <li><a href="/61-meta-escape-control.html">Escape Sequences in Double-Quoted Strings</a></li>
       </ul>
 
       <h2>Idiosyncratic Regexes</h2>
@@ -30,21 +40,11 @@ title: Idiosyncratic Ruby - Browse by Category
         <li><a href="/60-escape-back-referencing.html">Back References</a></li>
       </ul>
 
-      <h2>Collections of Bits'n'Tips</h2>
+      <h2>Idiosyncratic Constants</h2>
       <ul>
-        <li><a href="/2-ruby-string-magic.html">Things to Know About Strings</a></li>
-        <li><a href="/18-con-struct-attributes.html">Structs and Struct Alternatives</a></li>
-        <li><a href="/27-golfing-basics.html">Why You Should Play Code Golf</a></li>
-      </ul>
-
-      <h2>Idiosyncratic Syntax</h2>
-      <ul>
-        <li><a href="/15-207-ways-to-rome.html">210 Different Ways to Create Strings</a></li>
-        <li><a href="/29-limitations-of-language.html">Syntactical and Grammar Edge Cases</a></li>
-        <li><a href="/33-too-expressive.html">Multiple Syntactical Meanings of Characters</a></li>
-        <li><a href="/39-fixed-numbers.html">Valid (Pre|In|Suf)fixes for Number Literal</a></li>
-        <li><a href="/40-symbolic-validations.html">Rules for Symbol Construction</a></li>
-        <li><a href="/61-meta-escape-control.html">Escape Sequences in Double-Quoted Strings</a></li>
+        <li><a href="/45-constant-shuffle">Constant Re-Assignment</a></li>
+        <li><a href="/52-constant-visibility.html">Private &amp; Deprecated Constants</a></li>
+        <li><a href="/53-the-constant-tree.html">Tree of Ruby's Core Constants</a></li>
       </ul>
 
       <h2>Idiosyncratic Special Objects</h2>
@@ -74,6 +74,7 @@ title: Idiosyncratic Ruby - Browse by Category
 
       <h2>Ruby Idiosyncrasies</h2>
       <ul>
+        <li><a href="/2-ruby-string-magic.html">Things to Know About Strings</a></li>
         <li><a href="/3-ruby-can-you-speak-louder.html"><code>$VERBOSE</code> and <code>$DEBUG</code></a></li>
         <li><a href="/8-self-improvement.html"><code>module_function</code> vs. <code>extend self</code></a></li>
         <li><a href="/13-slicing-rubies.html"><code>Enumerable#slice_*</code></a></li>
@@ -83,29 +84,36 @@ title: Idiosyncratic Ruby - Browse by Category
         <li><a href="/28-operating-nothing.html">Unary Operators</a></li>
         <li><a href="/35-identification.html"><code>Hash#compare_by_identity</code></a></li>
         <li><a href="/38-sad-methods.html">Reflecting on Native Methods</a></li>
-        <li><a href="/43-new-ruby-startup.html">Ruby's Initial State</a></li>
-        <li><a href="/45-constant-shuffle">Constant Re-Assignment</a></li>
         <li><a href="/50-naming-too-good.html">Identifiers to Avoid</a></li>
-        <li><a href="/52-constant-visibility.html">Private &amp; Deprecated Constants</a></li>
         <li><a href="/54-try-converting.html"><code>.try_convert</code></a></li>
         <li><a href="/55-struggling-four-equality.html"><code>.equal?</code>, <code>eql?</code>, <code>==</code>, <code>===</code></a></li>
         <li><a href="/56-us-ascii-8bit.html"><code>ASCII-8BIT</code> vs. <code>US-ASCII</code></a></li>
         <li><a href="/58-magic-instructions.html">Magic Comments</a></li>
       </ul>
 
+      <h2>Obscure Ruby and Code Golf</h2>
+      <ul>
+        <li><a href="/27-golfing-basics.html">Why You Should Play Code Golf</a></li>
+        <li><a href="/47-ruby-tricks-of-2013.html">Transcendental Ruby Imbroglio Contest of 2013</a></li>
+        <li><a href="/48-ruby-tricks-of-2015.html">Transcendental Ruby Imbroglio Contest of 2015</a></li>
+        <li><a href="/51-half-kilo-of-sha256.html">SHA256 Golf</a></li>
+      </ul>
+
+      <h2>Opinion</h2>
+      <ul>
+        <li><a href="/31-roots-of-rubyism.html">Reasons for Ruby</a></li>
+        <li><a href="/37-static-monkeys-vs-strong-ducks.html.md">Static Typing</a></li>
+        <li><a href="/62-less-features-more-fun.html">Ruby Features to Remove</a></li>
+      </ul>
+
       <h2>Miscellaneous</h2>
       <ul>
         <li><a href="/1-test-highlights.html">No Tool Highlights Ruby Syntax Correctly</a></li>
+        <li><a href="/18-con-struct-attributes.html">Structs and Struct Alternatives</a></li>
         <li><a href="/23-ruby-lookalikes.html">Ruby's Successors</a></li>
         <li><a href="/24-goto-fail.html">The <code>SUPPORT_JOKE</code> Compiler Option</a></li>
-        <li><a href="/31-roots-of-rubyism.html">Reasons for Ruby</a></li>
-        <li><a href="/37-static-monkeys-vs-strong-ducks.html.md">Static Typing vs. Ruby</a></li>
-        <li><a href="/45-the-art-of-arguments">Parsing Command-line Options</a></li>
-        <li><a href="/47-ruby-tricks-of-2013.html">TRIC 2013</a></li>
-        <li><a href="/48-ruby-tricks-of-2015.html">TRIC 2015</a></li>
-        <li><a href="/51-half-kilo-of-sha256.html">Code Golf: SHA256</a></li>
-        <li><a href="/53-the-constant-tree.html">Tree of Ruby's Core Constants</a></li>
-        <li><a href="/62-less-features-more-fun.html">Ruby Features to Remove</a></li>
+        <li><a href="/43-new-ruby-startup.html">Ruby's Initial State</a></li>
+        <li><a href="/45-the-art-of-arguments">Parsing Command-Line Options</a></li>
       </ul>
 
       <p><a href="/index/">Browse Chronologically</a></p>

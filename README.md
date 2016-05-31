@@ -1,7 +1,7 @@
 Idiosyncratic Ruby
 ==================
 
-Documentaing all Ruby Specialities. A New Post Every Day in May 2016!
+Documenting All Ruby Specialities.
 
 - [Read Online](http://idiosyncratic-ruby.com/)
 - [Articles on GitHub](https://github.com/janlelis/idiosyncratic-ruby.com/tree/master/source/posts)
