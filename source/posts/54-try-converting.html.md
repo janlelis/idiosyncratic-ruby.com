@@ -7,6 +7,8 @@ commit: 98e8de49193e1f636d90431b2374c09ca0de4da7
 
 Similar to [metaprogramming](/25-meta-methodology.html), Ruby's type conversion system has evolved over time. While the result functions, it is also a little inconsistent and suffers from poor naming. Let's put things in perspective:
 
+ARTICLE
+
 ## Implicit and Explicit Conversion
 
 Ruby objects are usually converted to other classes/types using `to_*` functions. For example, converting the [String](http://ruby-doc.org/core-2.3.1/String.html) `"42"` to a [Float](http://ruby-doc.org/core-2.3.1/Float.html) is done with `to_f`:
