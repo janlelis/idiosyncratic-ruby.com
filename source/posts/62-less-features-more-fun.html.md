@@ -2,6 +2,7 @@
 title: Less Features, More Fun
 date: 2016-05-31
 tags: syntax, grammar, keywords
+commit: 3b9d255870669d87b7eee74f595e03b4f0d11de9
 ---
 
 Ruby was created in 1993 and has come a long way. The preferred style of coding has changed quite a lot and solid best practice has emerged (though, as always, [one size does not fit all](http://relaxed.ruby.style/)). At the same time, [Ruby's tool support could be better](/1-test-highlights.html), the language is still too complex. Maybe, the time has come to remove some features from Ruby.
