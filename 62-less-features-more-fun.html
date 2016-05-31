@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby: Less Features, More Fun</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="Documentaing all Ruby Specialities. A New Post Every Day in May 2016!"/>
+<meta name="keywords" content="ruby, syntax, grammar, keywords"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/62-less-features-more-fun.html">Less Features, More Fun</a></h1>
+      </section>
+
+      <article class="post">
+        <p>Ruby was created in 1993 and has come a long way. The preferred style of coding has changed quite a lot and solid best practice has emerged (though, as always, <a href="http://relaxed.ruby.style/">one size does not fit all</a>). At the same time, <a href="/1-test-highlights.html">Ruby's tool support could be better</a>, the language is still too complex. Maybe, the time has come to remove some features from Ruby.</p>
+
+<p></p>
+
+<p>Which is always hard, because it will break exisisting code.¹ But it can still be worth it:</p>
+
+<ul>
+  <li>People new to Ruby start with learning the <em>right thing</em>, instead of having to learnthe best practice later ("avoid for loops")</li>
+  <li>The language gets simpler, which means: better tool support!</li>
+</ul>
+
+<p>What follows are some opinionated examples of what could be removed from Ruby without breaking too much code (hopefully).</p>
+
+<h2 id="ten-ruby-features-which-could-be-removed-without-too-much-trouble-more-or-less">Ten Ruby Features which Could Be Removed Without Too Much Trouble (More or Less)</h2>
+
+<h3 id="for-and-in-keywords">1. <code>for</code> and <code>in</code> Keywords</h3>
+
+<p>For loops are rarely used in favor of semantically alrmost similar alternatives like <a href="http://ruby-doc.org/core-2.3.1/Array.html#method-i-each">Array#each</a> or <a href="http://ruby-doc.org/core-2.3.1/Integer.html#method-i-times">Integer#times</a>. They are even <a href="https://github.com/JuanitoFatas/fast-ruby#enumerableeach-vs-for-loop-code">a little slower than calling <code>each</code> directly</a>. Also see: <a href="http://graysoftinc.com/early-steps/the-evils-of-the-for-loop">The Evils of the For Loop</a></p>
+
+<h3 id="character-literals">2. <code>?</code> Character Literals</h3>
+
+<p>The <a href="/33-too-expressive.html#question-mark-4-syntactical-meanings">question mark allows you to create single-letter strings</a>. This was indeed useful when writing code that should work for both, Ruby 1.8 and Ruby 1.9:</p>
+
+<pre><code>"Idiosyncratic"[0] == ?I
+</code></pre>
+
+<p>While the return value in Ruby 1.9+ is <code>"I"</code> on both sides, in Ruby 1.8 it was <code>73</code> on both sides, so it would still return <code>true</code>. Support for Ruby 1.8 ended in 2013, so there is no benefit of the <code>?</code> syntax anymore.</p>
+
+<h3 id="class-hierarchy-variables">3. <code>@@</code> Class Hierarchy Variables</h3>
+
+<p><a href="http://makandracards.com/makandra/14229-the-many-gotchas-of-ruby-class-variables">You should not use class variables!</a> They will confuse almost every newcomer and should be removed from the language. Some alternatives:</p>
+
+<ul>
+  <li>Class-instance variables</li>
+  <li><a href="http://guides.rubyonrails.org/active_support_core_extensions.html#class-attributes">ActiveSupport's class attributes</a></li>
+  <li><a href="https://github.com/hanami/utils/blob/master/lib/hanami/utils/class_attribute.rb">Hanami's class attributes</a></li>
+</ul>
+
+<p>To be fair: Removing class variables would break more code than any of the other suggestions on this page. Too big to remove.</p>
+
+<h3 id="then-keyword">4. <code>then</code> Keyword</h3>
+
+<p>If statements usually separate the condition from the body using a newline or <code>;</code>:</p>
+
+<pre><code>if true
+  p 42
+else
+  p 43
+end
+</code></pre>
+
+<p>However, you can optionally use the <code>then</code> keyword:</p>
+
+<pre><code>if true then
+  p 42
+else
+  p 43
+end
+</code></pre>
+
+<p>There exist two case where <code>then</code> makes sense. One is one-liners:</p>
+
+<pre><code>if true then p 42 else p 43 end
+</code></pre>
+
+<p>But even they look better with the ternary operator (<code>?:</code>)</p>
+
+<pre><code>p true ? 42 : 43
+</code></pre>
+
+<p>The other is single-line <code>when</code> statements:</p>
+
+<pre><code>case
+when true  then 42
+when false then 43
+end
+</code></pre>
+
+<p>Going with <code>;</code>, it would still be possible to write single-line <code>when</code>s without <code>then</code>:</p>
+
+<pre><code>case
+when true;  42
+when false; 43
+end
+</code></pre>
+
+<p>All in all: <code>then</code> is superflous.</p>
+
+<h3 id="true-false-nil-constants">5. <code>TRUE</code>, <code>FALSE</code>, <code>NIL</code> constants</h3>
+
+<p>There are keywords for <code>true</code>, <code>false</code>, and <code>nil</code>. They all have a predefined associated constant, <a href="/45-constant-shuffle.html">which can be redefined</a>: <code>TRUE, FALSE, NIL = nil, true, false</code>. There is no reason to keep them around.</p>
+
+<h3 id="implicit-creation-of-local-variables-via-regex-matching">6. Implicit Creation of Local Variables via Regex Matching</h3>
+
+<p>Accessing the last regex match: There is no need for <a href="/14-meeting-some-locals.html#implicit-local-variables-through-regex-matching"><code>=~</code> to be able to create local variables</a>, but only if both operands are in the right order. Using <a href="http://idiosyncratic-ruby.com/60-escape-back-referencing.html"><code>$~[:group_name]</code></a> instead is more explicit and still very concise.</p>
+
+<h3 id="and-or-not-keywords">7. <code>and</code>, <code>or</code>, <code>not</code> Keywords</h3>
+
+<p>The boolean operators with lower precedence are nice in some situations, for example, using <code>or</code> to raise an exception when an assignment value is <code>nil</code>:</p>
+
+<pre><code>a = dangerous_operation or raise "dangerous operation failed"
+</code></pre>
+
+<p>But is it a strong enough reason to keep the keywords in the language? They already have created lots of confusion for Ruby learners.</p>
+
+<h3 id="secret-cli-options-like--s-and--x">8. Secret CLI Options like <code>-s</code> and <code>-x</code></h3>
+
+<p>When is the last time you used <a href="/7-easier-switching.html"><code>$ ruby -s</code></a> or <a href="/22-literate-ruby.html"><code>$ ruby -x</code></a>?</p>
+
+<h3 id="symbols">9. Symbols</h3>
+
+<p>Semantically, symbols and frozen strings are very similar. <a href="https://speakerdeck.com/sferik/symbols">Symbols should become a shorthand syntax for frozen strings!</a></p>
+
+<h3 id="flip-flops">10. Flip Flops</h3>
+
+<p>This blog covers a lot of Ruby's lesser-known features. It does not even have an episode about <a href="https://www.google.com/search?tbm=isch&amp;q=ruby%20flip%20flops">Ruby's Flip Flops</a>.</p>
+
+<p>¹ Maybe, we can have strict/quirks modes via a <a href="/58-magic-instructions.html">magic comments</a>? More complexity, though.</p>
+
+
+        <h2>More Idiosyncratic Ruby</h2>
+        <ul>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/3b9d255870669d87b7eee74f595e03b4f0d11de9#all_commit_comments">Please Comment on GitHub</a></li>
+          <li><a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet this Episode
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
+            <li>Previous Article: <a href="/61-meta-escape-control.html">Meta Escape Control</a></li>
+        </ul>
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="https://github.com/janlelis">Jan Lelis</a><br>
+          
+        </div>
+        About Syntax, Grammar, Keywords |
+        Last Update: 2016-05-31
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>

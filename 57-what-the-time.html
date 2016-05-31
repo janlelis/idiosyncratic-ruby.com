@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>Idiosyncratic Ruby - What the Time?</title>
+    <title>Idiosyncratic Ruby: What the Time?</title>
     <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
 <link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
 <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
@@ -455,27 +455,27 @@ Time.utc(2017, 1, 1).strftime("%W") # =&gt; "00" # Sunday
 
 <p>Which day of the year with a default padding of 3:</p>
 
-<pre><code>Time.utc(2016, 5, 24, 15, 29, 59).strftime("%j") # =&gt; "145"
-Time.utc(2016, 1, 1, 15, 29, 59).strftime("%j") # =&gt; "001"
-Time.utc(2016, 1, 1, 15, 29, 59).strftime("%-j") # =&gt; "1"
+<pre><code>Time.utc(2016, 5, 24).strftime("%j") # =&gt; "145"
+Time.utc(2016, 1, 1).strftime("%j") # =&gt; "001"
+Time.utc(2016, 1, 1).strftime("%-j") # =&gt; "1"
 </code></pre>
 
 <h3 id="d--day-of-month--0131">%d | Day of Month | 01..31</h3>
 
 <p>Which day of the month with a default (zero) padding of 2:</p>
 
-<pre><code>Time.utc(2016, 5, 24, 15, 29, 59).strftime("%d") # =&gt; "24"
-Time.utc(2016, 1, 1, 15, 29, 59).strftime("%d") # =&gt; "01"
-Time.utc(2016, 1, 1, 15, 29, 59).strftime("%-d") # =&gt; "1"
+<pre><code>Time.utc(2016, 5, 24).strftime("%d") # =&gt; "24"
+Time.utc(2016, 1, 1).strftime("%d") # =&gt; "01"
+Time.utc(2016, 1, 1).strftime("%-d") # =&gt; "1"
 </code></pre>
 
 <h3 id="e--day-of-month-space-padded--0131">%e | Day of Month (Space Padded) | 01..31</h3>
 
 <p>Which day of the month with a default (space) padding of 2:</p>
 
-<pre><code>Time.utc(2016, 5, 24, 15, 29, 59).strftime("%e") # =&gt; "24"
-Time.utc(2016, 1, 1, 15, 29, 59).strftime("%e") # =&gt; " 1"
-Time.utc(2016, 1, 1, 15, 29, 59).strftime("%-e") # =&gt; "1"
+<pre><code>Time.utc(2016, 5, 24).strftime("%e") # =&gt; "24"
+Time.utc(2016, 1, 1).strftime("%e") # =&gt; " 1"
+Time.utc(2016, 1, 1).strftime("%-e") # =&gt; "1"
 </code></pre>
 
 <h3 id="u--weekday-as-number-monday-starts-week--17">%u | Weekday as Number (Monday Starts Week) | 1..7</h3>
@@ -888,7 +888,7 @@ Time.local(2016, 5, 24).to_datetime.strftime("%Z") # =&gt; "+02:00"
           
         </div>
         About Date, Time, Cheatsheet, Strftime |
-        Last Update: 2016-05-26
+        Last Update: 2016-05-31
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

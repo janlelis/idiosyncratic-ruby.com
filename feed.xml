@@ -1,14 +1,143 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Idiosyncratic Ruby</title>
-  <subtitle>Documentaing all Ruby Specialities. A New Post Every Day in May 2016!</subtitle>
+  <subtitle>Documenting All Ruby Specialities</subtitle>
   <id>http://idiosyncratic-ruby.com/index/</id>
   <link href="http://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2016-05-30T02:00:00+02:00</updated>
+  <updated>2016-05-31T02:00:00+02:00</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Less Features, More Fun</title>
+    <link rel="alternate" href="http://idiosyncratic-ruby.com/62-less-features-more-fun.html"/>
+    <id>http://idiosyncratic-ruby.com/62-less-features-more-fun.html</id>
+    <published>2016-05-31T02:00:00+02:00</published>
+    <updated>2016-05-31T02:00:00+02:00</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Ruby was created in 1993 and has come a long way. The preferred style of coding has changed quite a lot and solid best practice has emerged (though, as always, &lt;a href="http://relaxed.ruby.style/"&gt;one size does not fit all&lt;/a&gt;). At the same time, &lt;a href="/1-test-highlights.html"&gt;Ruby's tool support could be better&lt;/a&gt;, the language is still too complex. Maybe, the time has come to remove some features from Ruby.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Which is always hard, because it will break exisisting code.¹ But it can still be worth it:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;People new to Ruby start with learning the &lt;em&gt;right thing&lt;/em&gt;, instead of having to learnthe best practice later ("avoid for loops")&lt;/li&gt;
+  &lt;li&gt;The language gets simpler, which means: better tool support!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;What follows are some opinionated examples of what could be removed from Ruby without breaking too much code (hopefully).&lt;/p&gt;
+
+&lt;h2 id="ten-ruby-features-which-could-be-removed-without-too-much-trouble-more-or-less"&gt;Ten Ruby Features which Could Be Removed Without Too Much Trouble (More or Less)&lt;/h2&gt;
+
+&lt;h3 id="for-and-in-keywords"&gt;1. &lt;code&gt;for&lt;/code&gt; and &lt;code&gt;in&lt;/code&gt; Keywords&lt;/h3&gt;
+
+&lt;p&gt;For loops are rarely used in favor of semantically alrmost similar alternatives like &lt;a href="http://ruby-doc.org/core-2.3.1/Array.html#method-i-each"&gt;Array#each&lt;/a&gt; or &lt;a href="http://ruby-doc.org/core-2.3.1/Integer.html#method-i-times"&gt;Integer#times&lt;/a&gt;. They are even &lt;a href="https://github.com/JuanitoFatas/fast-ruby#enumerableeach-vs-for-loop-code"&gt;a little slower than calling &lt;code&gt;each&lt;/code&gt; directly&lt;/a&gt;. Also see: &lt;a href="http://graysoftinc.com/early-steps/the-evils-of-the-for-loop"&gt;The Evils of the For Loop&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id="character-literals"&gt;2. &lt;code&gt;?&lt;/code&gt; Character Literals&lt;/h3&gt;
+
+&lt;p&gt;The &lt;a href="/33-too-expressive.html#question-mark-4-syntactical-meanings"&gt;question mark allows you to create single-letter strings&lt;/a&gt;. This was indeed useful when writing code that should work for both, Ruby 1.8 and Ruby 1.9:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"Idiosyncratic"[0] == ?I
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;While the return value in Ruby 1.9+ is &lt;code&gt;"I"&lt;/code&gt; on both sides, in Ruby 1.8 it was &lt;code&gt;73&lt;/code&gt; on both sides, so it would still return &lt;code&gt;true&lt;/code&gt;. Support for Ruby 1.8 ended in 2013, so there is no benefit of the &lt;code&gt;?&lt;/code&gt; syntax anymore.&lt;/p&gt;
+
+&lt;h3 id="class-hierarchy-variables"&gt;3. &lt;code&gt;@@&lt;/code&gt; Class Hierarchy Variables&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href="http://makandracards.com/makandra/14229-the-many-gotchas-of-ruby-class-variables"&gt;You should not use class variables!&lt;/a&gt; They will confuse almost every newcomer and should be removed from the language. Some alternatives:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Class-instance variables&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://guides.rubyonrails.org/active_support_core_extensions.html#class-attributes"&gt;ActiveSupport's class attributes&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/hanami/utils/blob/master/lib/hanami/utils/class_attribute.rb"&gt;Hanami's class attributes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To be fair: Removing class variables would break more code than any of the other suggestions on this page. Too big to remove.&lt;/p&gt;
+
+&lt;h3 id="then-keyword"&gt;4. &lt;code&gt;then&lt;/code&gt; Keyword&lt;/h3&gt;
+
+&lt;p&gt;If statements usually separate the condition from the body using a newline or &lt;code&gt;;&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if true
+  p 42
+else
+  p 43
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;However, you can optionally use the &lt;code&gt;then&lt;/code&gt; keyword:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if true then
+  p 42
+else
+  p 43
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There exist two case where &lt;code&gt;then&lt;/code&gt; makes sense. One is one-liners:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if true then p 42 else p 43 end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But even they look better with the ternary operator (&lt;code&gt;?:&lt;/code&gt;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;p true ? 42 : 43
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The other is single-line &lt;code&gt;when&lt;/code&gt; statements:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;case
+when true  then 42
+when false then 43
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Going with &lt;code&gt;;&lt;/code&gt;, it would still be possible to write single-line &lt;code&gt;when&lt;/code&gt;s without &lt;code&gt;then&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;case
+when true;  42
+when false; 43
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All in all: &lt;code&gt;then&lt;/code&gt; is superflous.&lt;/p&gt;
+
+&lt;h3 id="true-false-nil-constants"&gt;5. &lt;code&gt;TRUE&lt;/code&gt;, &lt;code&gt;FALSE&lt;/code&gt;, &lt;code&gt;NIL&lt;/code&gt; constants&lt;/h3&gt;
+
+&lt;p&gt;There are keywords for &lt;code&gt;true&lt;/code&gt;, &lt;code&gt;false&lt;/code&gt;, and &lt;code&gt;nil&lt;/code&gt;. They all have a predefined associated constant, &lt;a href="/45-constant-shuffle.html"&gt;which can be redefined&lt;/a&gt;: &lt;code&gt;TRUE, FALSE, NIL = nil, true, false&lt;/code&gt;. There is no reason to keep them around.&lt;/p&gt;
+
+&lt;h3 id="implicit-creation-of-local-variables-via-regex-matching"&gt;6. Implicit Creation of Local Variables via Regex Matching&lt;/h3&gt;
+
+&lt;p&gt;Accessing the last regex match: There is no need for &lt;a href="/14-meeting-some-locals.html#implicit-local-variables-through-regex-matching"&gt;&lt;code&gt;=~&lt;/code&gt; to be able to create local variables&lt;/a&gt;, but only if both operands are in the right order. Using &lt;a href="http://idiosyncratic-ruby.com/60-escape-back-referencing.html"&gt;&lt;code&gt;$~[:group_name]&lt;/code&gt;&lt;/a&gt; instead is more explicit and still very concise.&lt;/p&gt;
+
+&lt;h3 id="and-or-not-keywords"&gt;7. &lt;code&gt;and&lt;/code&gt;, &lt;code&gt;or&lt;/code&gt;, &lt;code&gt;not&lt;/code&gt; Keywords&lt;/h3&gt;
+
+&lt;p&gt;The boolean operators with lower precedence are nice in some situations, for example, using &lt;code&gt;or&lt;/code&gt; to raise an exception when an assignment value is &lt;code&gt;nil&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;a = dangerous_operation or raise "dangerous operation failed"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But is it a strong enough reason to keep the keywords in the language? They already have created lots of confusion for Ruby learners.&lt;/p&gt;
+
+&lt;h3 id="secret-cli-options-like--s-and--x"&gt;8. Secret CLI Options like &lt;code&gt;-s&lt;/code&gt; and &lt;code&gt;-x&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;When is the last time you used &lt;a href="/7-easier-switching.html"&gt;&lt;code&gt;$ ruby -s&lt;/code&gt;&lt;/a&gt; or &lt;a href="/22-literate-ruby.html"&gt;&lt;code&gt;$ ruby -x&lt;/code&gt;&lt;/a&gt;?&lt;/p&gt;
+
+&lt;h3 id="symbols"&gt;9. Symbols&lt;/h3&gt;
+
+&lt;p&gt;Semantically, symbols and frozen strings are very similar. &lt;a href="https://speakerdeck.com/sferik/symbols"&gt;Symbols should become a shorthand syntax for frozen strings!&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id="flip-flops"&gt;10. Flip Flops&lt;/h3&gt;
+
+&lt;p&gt;This blog covers a lot of Ruby's lesser-known features. It does not even have an episode about &lt;a href="https://www.google.com/search?tbm=isch&amp;amp;q=ruby%20flip%20flops"&gt;Ruby's Flip Flops&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;¹ Maybe, we can have strict/quirks modes via a &lt;a href="/58-magic-instructions.html"&gt;magic comments&lt;/a&gt;? More complexity, though.&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Meta Escape Control</title>
     <link rel="alternate" href="http://idiosyncratic-ruby.com/61-meta-escape-control.html"/>
@@ -898,27 +1027,27 @@ Time.utc(2017, 1, 1).strftime("%W") # =&amp;gt; "00" # Sunday
 
 &lt;p&gt;Which day of the year with a default padding of 3:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24, 15, 29, 59).strftime("%j") # =&amp;gt; "145"
-Time.utc(2016, 1, 1, 15, 29, 59).strftime("%j") # =&amp;gt; "001"
-Time.utc(2016, 1, 1, 15, 29, 59).strftime("%-j") # =&amp;gt; "1"
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24).strftime("%j") # =&amp;gt; "145"
+Time.utc(2016, 1, 1).strftime("%j") # =&amp;gt; "001"
+Time.utc(2016, 1, 1).strftime("%-j") # =&amp;gt; "1"
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id="d--day-of-month--0131"&gt;%d | Day of Month | 01..31&lt;/h3&gt;
 
 &lt;p&gt;Which day of the month with a default (zero) padding of 2:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24, 15, 29, 59).strftime("%d") # =&amp;gt; "24"
-Time.utc(2016, 1, 1, 15, 29, 59).strftime("%d") # =&amp;gt; "01"
-Time.utc(2016, 1, 1, 15, 29, 59).strftime("%-d") # =&amp;gt; "1"
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24).strftime("%d") # =&amp;gt; "24"
+Time.utc(2016, 1, 1).strftime("%d") # =&amp;gt; "01"
+Time.utc(2016, 1, 1).strftime("%-d") # =&amp;gt; "1"
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id="e--day-of-month-space-padded--0131"&gt;%e | Day of Month (Space Padded) | 01..31&lt;/h3&gt;
 
 &lt;p&gt;Which day of the month with a default (space) padding of 2:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24, 15, 29, 59).strftime("%e") # =&amp;gt; "24"
-Time.utc(2016, 1, 1, 15, 29, 59).strftime("%e") # =&amp;gt; " 1"
-Time.utc(2016, 1, 1, 15, 29, 59).strftime("%-e") # =&amp;gt; "1"
+&lt;pre&gt;&lt;code&gt;Time.utc(2016, 5, 24).strftime("%e") # =&amp;gt; "24"
+Time.utc(2016, 1, 1).strftime("%e") # =&amp;gt; " 1"
+Time.utc(2016, 1, 1).strftime("%-e") # =&amp;gt; "1"
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id="u--weekday-as-number-monday-starts-week--17"&gt;%u | Weekday as Number (Monday Starts Week) | 1..7&lt;/h3&gt;
@@ -1397,7 +1526,7 @@ compatible characters.
 
 &lt;h3 id="equality-equality"&gt;&lt;code&gt;==&lt;/code&gt; Equality Equality&lt;/h3&gt;
 
-&lt;p&gt;This is the usual method to care about. Two objects should be treated the same.&lt;/p&gt;
+&lt;p&gt;This is the usual method to care about. Two objects should be treated the same. If the class supports the &lt;a href="http://ruby-doc.org/core-2.3.1/Comparable.html"&gt;&lt;code&gt;&amp;lt;=&amp;gt;&lt;/code&gt; spaceship comparison operator&lt;/a&gt;, it is expected that &lt;code&gt;==&lt;/code&gt; returns &lt;code&gt;true&lt;/code&gt; for the same values, &lt;code&gt;&amp;lt;=&amp;gt;&lt;/code&gt; returns &lt;code&gt;0&lt;/code&gt; for.&lt;/p&gt;
 
 &lt;h3 id="eql-hash-key-equality"&gt;&lt;code&gt;eql?&lt;/code&gt; Hash Key Equality&lt;/h3&gt;
 
@@ -1520,6 +1649,8 @@ end
       <name>Jan Lelis</name>
     </author>
     <content type="html">&lt;p&gt;Similar to &lt;a href="/25-meta-methodology.html"&gt;metaprogramming&lt;/a&gt;, Ruby's type conversion system has evolved over time. While the result functions, it is also a little inconsistent and suffers from poor naming. Let's put things in perspective:&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
 
 &lt;h2 id="implicit-and-explicit-conversion"&gt;Implicit and Explicit Conversion&lt;/h2&gt;
 
