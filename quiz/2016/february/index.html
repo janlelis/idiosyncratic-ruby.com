@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Idiosyncratic Ruby</title>
+
+    <meta name="description" content="Idiosyncratic Ruby">
+    <meta name="author" content="Jan Lelis">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+    <link rel="stylesheet" href="lib/css/github.css">
+    <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+
+    <script>
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <style>
+      .reveal section img {
+        box-shadow: none;
+        border: 0px;
+      }
+      .reveal section img.no-shadow {
+        /*box-shadow: none;*/
+        background: #f3f3f3;
+      }
+      .reveal pre code {
+        font-size: 20pt;
+        line-height: 23pt;
+        /*margin: 0px -200px;*/
+        margin-top: 2em;
+        /*border: 1px solid #ccc !important;*/
+        margin-bottom: 2em;
+      }
+      pre{
+        /*box-shadow: none !important;*/
+      }
+      /*.reveal pre .xml .ruby {
+        opacity: 1;
+        color: #fff;
+      }*/
+
+      .reveal p {
+        font-size: 33pt;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+          <section>
+            <img src="images/idiosyncratic.png"/>
+            <h2>Idiosyncratic Ruby</h2>
+            <h1>Quiz</h1>
+            <br/>
+
+            <p><a href="https://twitter.com/JanLelis">@JanLelis</a> — <a href="https://twitter.com/JanLelis">February 2016</a> — <a href="http://berlin.onruby.de/">RUG::B</a></p>
+          </section>
+
+          <section>
+            <img src="images/idiosyncratic.png"/>
+            <h2><a href="http://idiosyncratic-ruby.com">idiosyncratic-ruby.com</a></h2>
+            <p>Documenting lesser-known features in Ruby</p>
+            <br>
+            <h3 class="fragment">Ruby String Magic Edition</h3>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Question 1</h3>
+            <p>A new syntax for creating strings has been introduced in Ruby 2.3</p>
+            <pre class="fragment"><code data-trim contenteditable class="ruby">
+string = &lt;&lt;~RUGB
+  squiggly heredoc
+  RUGB
+string # => "squiggly heredoc\n"
+            </code></pre>
+
+            <div class="fragment">
+              <p>How many syntaxes exist to create strings in Ruby?</p>
+            </div>
+          </section>
+
+          <section>
+            <h3>Question 1</h3>
+            <h2>210</h2>
+            <p class="fragment">double quoted literal (1 way)</p>
+            <p class="fragment">single quoted literal (1 way)</p>
+            <p class="fragment">single char literal (1 way)</p>
+            <p class="fragment">heredocs (9 ways)</p>
+            <p class="fragment"><code>%Q[]</code> syntax (66 ways)</p>
+            <p class="fragment"><code>%q[]</code> syntax (66 ways)</p>
+            <p class="fragment"><code>%[]</code> syntax (66 ways)</p>
+
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Question 2</h3>
+            <p>Ruby has a <strong>unary plus operator</strong></p>
+            <pre class="fragment"><code data-trim contenteditable class="ruby">+42 # => 42</code></pre>
+            <p class="fragment">For a long time it had no function</p>
+            <p class="fragment"><br><i>"[The  unary plus] is provided for symmetry with unary minus, and can, of course, be redefined."</i></p>
+            <p class="fragment"><br>From Ruby 2.3 on, it finally does something. What?</p>
+          </section>
+
+          <section>
+            <h3>Question 2</h3>
+            <p>It unfreezes strings</p>
+            <pre><code data-trim contenteditable class="ruby">string = "frozen string".freeze
+string.object_id # => 19066860
+string.frozen? # => true
+
+copy = +string
+copy.object_id # => 19012140
+copy.frozen? # => false
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Question 3</h3>
+            <p>In a regex, <code>\w</code> will match word characters</p>
+
+            <div class="fragment">
+              <p>More specifically, it will only match ASCII characters</p>
+              <pre><code data-trim contenteditable class="ruby">
+  "Rüben☃"[/\w+/] #=> "R"
+              </code></pre>
+            </div>
+            <p class="fragment">How to also match Unicode characters with <code>\w</code>? </p>
+            <pre class="fragment"><code data-trim contenteditable class="ruby">
+"Rüben☃"[/(?u)\w+/] #=> "Rüben"
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Bonus Question 3</h3>
+            <p>What other ways are there to match Unicode word characters?</p>
+            <pre class="fragment"><code data-trim contenteditable class="ruby">
+"Rüben☃"[/[[:word:]]+/] #=> "Rüben"
+            </code></pre>
+
+            <pre class="fragment"><code data-trim contenteditable class="ruby">
+"Rüben☃"[/\p{Word}+/] #=> "Rüben"
+            </code></pre>
+
+            <pre class="fragment"><code data-trim contenteditable class="ruby">
+"Rüben☃"[/\p{wORD}+/] #=> "Rüben"
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Bonus Bonus Question 3</h3>
+            <p>How to negate <code>\p{Word}</code></p>
+            <pre><code data-trim contenteditable class="ruby">
+"Rüben☃"[/???/] #=> "☃"
+            </code></pre>
+            <pre class="fragment"><code data-trim contenteditable class="ruby">
+"Rüben☃"[/\p{^Word}+/] #=> "☃"
+            </code></pre>
+            <pre class="fragment"><code data-trim contenteditable class="ruby">
+"Rüben☃"[/\P{Word}+/] #=> "☃"
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Question 4</h3>
+            <p>How to find URLs in text? (fill in)</p>
+            <pre><code data-trim contenteditable class="ruby" style="font-size: 90%">
+require '___'
+string = "Visit http://idiosyncratic-ruby.com/20-better-standards.html for a" \
+         "comprehensive quick list of the standard library!"
+puts string._________________.to_a.compact
+            </code></pre>
+            <code data-trim contenteditable style="font-size: 90%"><pre>http://idiosyncratic-ruby.com/20-better-standards.html
+http
+idiosyncratic-ruby.com
+/20-better-standards.html</code></pre>
+          </section>
+
+          <section>
+            <h3>Question 4</h3>
+            <p>How to find URLs in text? (fill in)</p>
+            <pre><code data-trim contenteditable class="ruby" style="font-size: 90%">
+require 'uri'
+string = "Visit http://idiosyncratic-ruby.com/20-better-standards.html for a" \
+         "comprehensive quick list of the standard library!"
+puts string.match(URI.regexp).to_a.compact
+            </code></pre>
+            <code data-trim contenteditable style="font-size: 90%"><pre>http://idiosyncratic-ruby.com/20-better-standards.html
+http
+idiosyncratic-ruby.com
+/20-better-standards.html</code></pre>
+          <h3>URI.regexp</h3>
+          </section>
+
+          <section>
+            <h3>Ultimate Bonus Question 4</h3>
+            <pre class="fragment"><code data-trim contenteditable class="ruby">
+require 'uri'
+string = URI.regexp.inspect.length # => ?
+            </code></pre>
+          </section>
+
+          <!--section>
+            <h3>Ultimate Bonus Question 4</h3>
+            <p>URI.regexp</p>
+            <pre><code data-trim contenteditable class="ruby"># …does not fit here</code></pre>
+          </section-->
+
+          <section>
+            <h3>Ultimate Bonus Question 4</h3>
+            <pre><code data-trim contenteditable class="ruby">
+require 'uri'
+string = URI.regexp.inspect.length # => 1454
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2><span>This was Ruby Quiz #2</span></h2>
+            <!--p><a href="https://twitter.com/JanLelis">idiosyncratic-ruby.com</a></p-->
+            <p><a href="https://twitter.com/JanLelis">@JanLelis</a></p>
+          </section>
+
+          <section>
+            <img src="images/mmm.png" alt="MMM" style="height: 300px">
+            <p><a href="https://twitter.com/JanLelis">Micro Modules Meetup</a></p>
+            <p>February 29, 2016 @ co-up 5th floor</p>
+            <h3<code>DateTime</code> edition</h3>
+          </section>
+        </section>
+
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        slideNumber: true,
+
+        theme: Reveal.getQueryHash().theme || 'default', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'concave', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+    </script>
+  </body>
+</html>

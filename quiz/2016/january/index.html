@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Idiosyncratic Ruby</title>
+
+    <meta name="description" content="Idiosyncratic Ruby">
+    <meta name="author" content="Jan Lelis">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+    <link rel="stylesheet" href="lib/css/github.css">
+    <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+
+    <script>
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <style>
+      .reveal section img {
+        box-shadow: none;
+        border: 0px;
+      }
+      .reveal section img.no-shadow {
+        /*box-shadow: none;*/
+        background: #f3f3f3;
+      }
+      .reveal pre code {
+        font-size: 20pt;
+        line-height: 23pt;
+        /*margin: 0px -200px;*/
+        margin-top: 2em;
+        /*border: 1px solid #ccc !important;*/
+        margin-bottom: 2em;
+      }
+      pre{
+        /*box-shadow: none !important;*/
+      }
+      /*.reveal pre .xml .ruby {
+        opacity: 1;
+        color: #fff;
+      }*/
+
+      .reveal p {
+        font-size: 33pt;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+          <section>
+            <img src="images/idiosyncratic.png"/>
+            <h2>Idiosyncrätic</h2>
+            <h1>Ruby Quiz</h1>
+            <br/>
+
+            <p><a href="https://twitter.com/JanLelis">@JanLelis</a> — <a href="https://twitter.com/JanLelis">January 2016</a> — <a href="http://berlin.onruby.de/">RUG::B</a></p>
+          </section>
+
+          <section>
+            <img src="images/idiosyncratic.png"/>
+            <h2><a href="http://idiosyncratic-ruby.com">idiosyncratic-ruby.com</a></h2>
+            <p>Documenting lesser-known features in Ruby</p>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Question 1</h3>
+            <p>There is a String method that will generate the "successor" of a string</p>
+            <pre><code data-trim contenteditable class="ruby">
+"aaa".succ #=> "aab"
+            </code></pre>
+
+            <div class="fragment">
+              <p>What's the result of:</p>
+              <pre><code data-trim contenteditable class="ruby">
+"9z".succ #=> ?
+              </code></pre>
+            </div>
+          </section>
+
+          <section>
+            <h3>Question 1</h3>
+            <pre><code data-trim contenteditable class="ruby">
+"9z".succ #=> "10a"
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Bonus Question 1</h3>
+            <p>What's the result of:</p>
+            <pre><code data-trim contenteditable class="ruby">
+"z9".succ #=> ?
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Bonus Question 1</h3>
+            <pre><code data-trim contenteditable class="ruby">
+"z9".succ #=> "aa0"
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Question 2</h3>
+            <p>There is the concept of "bundled gems" in Ruby.</p>
+            <p>These will be installed alongside Ruby.</p>
+            <p class="fragment">How many gems are bundled with Ruby 2.3?</p>
+          </section>
+
+          <section>
+            <h3>Question 2</h3>
+            <p>There is the concept of "bundled gems" in Ruby.</p>
+            <p>These will be installed alongside Ruby.</p>
+            <p>How many gems are bundled with Ruby 2.3?</p>
+            <h2>6</h2>
+          </section>
+
+          <section>
+            <h3>Bonus Question 2</h3>
+            <p>Which ones?</p>
+            <pre class="fragment"><code data-trim contenteditable class="ruby">
+power_assert 0.2.6
+test-unit 3.1.5
+minitest 5.8.3
+rake 10.4.2
+net-telnet 0.1.1
+did_you_mean 1.0.0
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Question 3</h3>
+            <p>There is a <code>String#split</code> method,<br>which also accepts regexes:</p>
+            <pre><code data-trim contenteditable class="ruby">
+"rug-b".split(/-/) #=> ["rug", "b"]
+            </code></pre>
+            <div class="fragment">
+              <p>What will happen if we use a capturing group in the regex?</p>
+              <pre><code data-trim contenteditable class="ruby">
+  "rug-b".split(/(-)/) #=> ?
+              </code></pre>
+            </div>
+          </section>
+
+          <section>
+            <h3>Question 3</h3>
+            <pre><code data-trim contenteditable class="ruby">
+"rug-b".split(/(-)/) #=> ["rug", "-", "b"]
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Bonus Question 3</h3>
+            <p>What will happen if we use a multiple capturing groups?</p>
+            <pre class="fragment"><code data-trim contenteditable class="ruby">
+"rug-b".split(/((-))/) #=> ?
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Bonus Question 3</h3>
+            <p>What will happen if we use a multiple capturing groups?</p>
+            <pre><code data-trim contenteditable class="ruby">
+"rug-b".split(/((-))/) #=> ["rug", "-", "-", "b"]
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Bonus Bonus</h3>
+            <pre><code data-trim contenteditable class="ruby">
+"rug-b".split(/(((((-)))))/)
+#=> ["rug", "-", "-", "-", "-", "-", "b"] 
+            </code></pre>
+            <pre class="fragment"><code data-trim contenteditable class="ruby">
+"rug-b".split(/-(?=(.))/)
+#=> ["rug", "b", "b"]
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2><span>This was Ruby Quiz 1!</span></h2>
+            <p><a href="https://twitter.com/JanLelis">idiosyncratic-ruby.com</a></p>
+            <p><a href="https://twitter.com/JanLelis">@JanLelis</a></p>
+          </section>
+        </section>
+
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        slideNumber: true,
+
+        theme: Reveal.getQueryHash().theme || 'default', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'concave', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Idiosyncratic Ruby</title>
+
+    <meta name="description" content="Idiosyncratic Ruby">
+    <meta name="author" content="Jan Lelis">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+    <link rel="stylesheet" href="lib/css/github.css">
+    <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+
+    <script>
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <style>
+      .reveal section img {
+        box-shadow: none;
+        border: 0px;
+      }
+      .reveal section img.no-shadow {
+        /*box-shadow: none;*/
+        background: #f3f3f3;
+      }
+      .reveal pre code {
+        font-size: 20pt;
+        line-height: 23pt;
+        /*margin: 0px -200px;*/
+        margin-top: 2em;
+        /*border: 1px solid #ccc !important;*/
+        margin-bottom: 2em;
+      }
+      pre{
+        /*box-shadow: none !important;*/
+      }
+      /*.reveal pre .xml .ruby {
+        opacity: 1;
+        color: #fff;
+      }*/
+
+      .reveal p {
+        font-size: 33pt;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+          <section>
+            <img src="images/idiosyncratic.png"/>
+            <h2>Idiosyncratic Ruby</h2>
+            <h1>Quiz</h1>
+            <br/>
+
+            <p><a href="https://twitter.com/JanLelis">@JanLelis</a> — <a href="https://twitter.com/JanLelis">May 2016</a> — <a href="http://berlin.onruby.de/">RUG::B</a></p>
+          </section>
+
+          <section>
+            <img src="images/idiosyncratic.png"/>
+            <h2><a href="http://idiosyncratic-ruby.com">idiosyncratic-ruby.com</a></h2>
+            <p>Documenting lesser-known features in Ruby</p>
+            <br>
+            <h3 class="fragment">Transcendental Edition</h3>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Transcendental Ruby Imbroglio Contest</h2>
+            <p>2013 + 2015</p>
+          </section>
+
+          <section>
+            <h3>Example Entry</h3>
+            <p>2nd Place in 2015 by Shinichiro Hamaji</p>
+            <br>
+
+            <h2 class="fragment">
+              Most Readable
+            </h2>
+            <pre class="fragment"><code data-trim contenteditable class="ruby" style="font-size: 90%">
+begin with an easy program.
+you should be able to write
+a program unless for you,
+program in ruby language is
+too difficult. At the end
+of your journey towards the
+ultimate program; you must
+be a part of a programming
+language. You will end if
+you != program
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Challenge 1</h3>
+            <p>4th Place in 2015 by Benoit Daloze</p>
+            <br>
+            <h2 class="fragment">
+              Least general solver
+            </h2>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>Challenge 2</h3>
+            <p>1st Place in 2013 by kinaba</p>
+            <br>
+            <h2 class="fragment">
+              Best pangram
+            </h2>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Challenge 3</h3>
+            <p>1st Place in 2015 by kinaba</p>
+            <br>
+            <h2 class="fragment">
+              Best piphilology
+            </h2>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2><span>This was Ruby Quiz</span></h2>
+            <h3>Transcendental Edition</h3>
+            <p><a href="https://twitter.com/JanLelis">idiosyncratic-ruby.com</a></p>
+            <p><a href="https://twitter.com/JanLelis">@JanLelis</a></p>
+          </section>
+        </section>
+
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        slideNumber: true,
+
+        theme: Reveal.getQueryHash().theme || 'default', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'concave', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+    </script>
+  </body>
+</html>
