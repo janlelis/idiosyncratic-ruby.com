@@ -1,5 +1,5 @@
 ---
-title: Less Features, More Fun
+title: Less Feature-Rich, More Fun
 date: 2016-05-31
 tags: syntax, grammar, keywords
 commit: 3b9d255870669d87b7eee74f595e03b4f0d11de9
