@@ -1780,7 +1780,7 @@ Array.try_convert(o) # =&amp;gt; [42]
       &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Hash.html#method-c-try_convert"&gt;Hash.try_convert&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-Hash"&gt;Hash()&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;Hash(nil) # =&amp;gt; {}&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;code&gt;Hash([]) # =&amp;gt; {}&lt;/code&gt;. Also remember that you can convert arrays to hashes with &lt;a href="http://ruby-doc.org/core-2.3.1/Hash.html#method-i-5B-5D"&gt;Hash#[]&lt;/a&gt;.&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;Hash([]) # =&amp;gt; {}&lt;/code&gt;. Also remember that you can convert arrays to hashes with &lt;a href="http://ruby-doc.org/core-2.3.1/Hash.html#method-c-5B-5D"&gt;Hash.[]&lt;/a&gt;.&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;String&lt;/td&gt;
@@ -11931,12 +11931,6 @@ Mathematics.method(:calc).owner.singleton_class? #=&amp;gt; false
   &lt;li&gt;Making included methods private &lt;a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/7923275d6bfce595c3f0a0f1d9eceaa6dae43800#commitcomment-11553416"&gt;might be desired&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href="http://blog.rubybestpractices.com/posts/gregory/040-issue-10-uses-for-modules.html"&gt;Blog post on Ruby Best Practices about extend self&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href="http://blog.rubybestpractices.com/posts/gregory/041-issue-10.5-uses-for-modules.html"&gt;Blog post on Ruby Best Practices about module_function&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
 </content>
   </entry>
   <entry>
