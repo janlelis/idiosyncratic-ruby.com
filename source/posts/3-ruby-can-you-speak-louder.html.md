@@ -75,18 +75,23 @@ Option      | Alias      | Effects
 
 A funny thing to note is that `-v` is a shortcut for `--version` as well as it is one for `--verbose`.
 
-## Verbosity
+## Effect of Debug Modes on Interpreter
+### Verbosity
 
-The only thing that actually changes the behavior of the interpreter is the value of `VERBOSE`:
+`$VERBOSE`                        | Effect
+----------------------------------|--------------------------------
+`true` or `false` (but not `nil`) | `Kernel#warn` will output to `STDERR`
+`true`                            | Interpreter warnings will be printed
 
-`$VERBOSE`             | Effect
+### Debug Mode
+
+`$DEBUG`               | Effect
 -----------------------|--------------------------------
-`true` or `false`      | `Kernel#warn` will output to `STDERR`
-`true`                 | Interpreter warnings will be printed
+`true`          `      | Extended Exception reporting will be turned on. See [this blog post](https://tenderlovemaking.com/2016/02/05/i-am-a-puts-debuggerer.html#i-know-an-exception-is-getting-raised-but-i-dont-know-where) for an example
 
-## What to Use?
+## What to Use to Trigger a Custom Application's Debug Mode?
 
-Use neither `$VERBOSE`, nor `$DEBUG`, but to use an instance variable in your library. Or use standard library's logger or some other logging gem. It is easier to understand than relying on the global debug modes.
+Use neither `$VERBOSE`, nor `$DEBUG`, but to use a class instance variable in your library. Or use [standard library's logger or some other logging gem](http://idiosyncratic-ruby.com/20-better-standards.html). It is easier to understand than relying on the global debug modes.
 
 Use `$VERBOSE = true` if you are interested in interpreter warnings.
 
