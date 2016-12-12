@@ -3093,6 +3093,10 @@ end
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;I still do it sometimes, but it conflicts with: &lt;a href="http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-format"&gt;Kernel#format&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id="display"&gt;&lt;code&gt;display&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="http://ruby-doc.org/core-2.3.0/Object.html#method-i-display"&gt;Object#display&lt;/a&gt; should also &lt;a href="https://chrisarcand.com/the-search-for-class0x0000001ab51700/"&gt;be avoided&lt;/a&gt;!&lt;/p&gt;
 </content>
   </entry>
   <entry>
@@ -9487,7 +9491,7 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/benchmark/rdoc/Benchmark.html"&gt;benchmark&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/blob/trunk/lib/benchmark.rb"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/rubysl/rubysl-benchmark"&gt;rubysl&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Benchmarking library&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/evanphx/benchmark-ips"&gt;benchmark-ips&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/evanphx/benchmark-ips"&gt;benchmark-ips&lt;/a&gt;, &lt;a href="https://github.com/bwbuchanan/absolute_time/"&gt;absolute_time&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/cgi/rdoc/CGI.html"&gt;cgi&lt;/a&gt;&lt;/td&gt;
@@ -9505,7 +9509,7 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Continuation.html"&gt;continuation&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/ext/continuation"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/rubysl/rubysl-continuation"&gt;rubysl&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Deprecated library that adds the &lt;a href="http://idiosyncratic-ruby.com/24-goto-fail.html"&gt;goto&lt;/a&gt;-like &lt;a href="http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-callcc"&gt;Kernel#callcc&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby-doc.org/core-2.3.1/Fiber.html"&gt;Fiber&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/ruby-concurrency/concurrent-ruby"&gt;Concurrent Ruby&lt;/a&gt;, &lt;a href="http://ruby-doc.org/core-2.3.1/Fiber.html"&gt;Fiber&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/coverage/rdoc/Coverage.html"&gt;coverage&lt;/a&gt; &lt;strong&gt;c&lt;/strong&gt;&lt;/td&gt;
@@ -9571,7 +9575,7 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/erb/rdoc/index.html"&gt;erb&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/erb.rb"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/rubysl/rubysl-erb"&gt;rubysl&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Templating engine for Ruby&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://www.kuwata-lab.com/erubis/"&gt;erubis&lt;/a&gt;, &lt;a href="https://github.com/apotonick/erbse"&gt;erbse&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://www.kuwata-lab.com/erubis/"&gt;erubis&lt;/a&gt;, &lt;a href="https://github.com/apotonick/erbse"&gt;erbse&lt;/a&gt;, &lt;a href="https://github.com/jeremyevans/erubi"&gt;erubi&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/etc/rdoc/Etc.html"&gt;etc&lt;/a&gt; &lt;strong&gt;c&lt;/strong&gt;&lt;/td&gt;
@@ -13646,9 +13650,8 @@ end
 
 &lt;p&gt;A funny thing to note is that &lt;code&gt;-v&lt;/code&gt; is a shortcut for &lt;code&gt;--version&lt;/code&gt; as well as it is one for &lt;code&gt;--verbose&lt;/code&gt;.&lt;/p&gt;
 
-&lt;h2 id="verbosity"&gt;Verbosity&lt;/h2&gt;
-
-&lt;p&gt;The only thing that actually changes the behavior of the interpreter is the value of &lt;code&gt;VERBOSE&lt;/code&gt;:&lt;/p&gt;
+&lt;h2 id="effect-of-debug-modes-on-interpreter"&gt;Effect of Debug Modes on Interpreter&lt;/h2&gt;
+&lt;p&gt;### Verbosity&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -13659,7 +13662,7 @@ end
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; (but not &lt;code&gt;nil&lt;/code&gt;)&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;Kernel#warn&lt;/code&gt; will output to &lt;code&gt;STDERR&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -13669,9 +13672,26 @@ end
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h2 id="what-to-use"&gt;What to Use?&lt;/h2&gt;
+&lt;h3 id="debug-mode"&gt;Debug Mode&lt;/h3&gt;
 
-&lt;p&gt;Use neither &lt;code&gt;$VERBOSE&lt;/code&gt;, nor &lt;code&gt;$DEBUG&lt;/code&gt;, but to use an instance variable in your library. Or use standard library's logger or some other logging gem. It is easier to understand than relying on the global debug modes.&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;&lt;code&gt;$DEBUG&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;Effect&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;true&lt;/code&gt;          `&lt;/td&gt;
+      &lt;td&gt;Extended Exception reporting will be turned on. See &lt;a href="https://tenderlovemaking.com/2016/02/05/i-am-a-puts-debuggerer.html#i-know-an-exception-is-getting-raised-but-i-dont-know-where"&gt;this blog post&lt;/a&gt; for an example&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id="what-to-use-to-trigger-a-custom-applications-debug-mode"&gt;What to Use to Trigger a Custom Application's Debug Mode?&lt;/h2&gt;
+
+&lt;p&gt;Use neither &lt;code&gt;$VERBOSE&lt;/code&gt;, nor &lt;code&gt;$DEBUG&lt;/code&gt;, but to use a class instance variable in your library. Or use &lt;a href="http://idiosyncratic-ruby.com/20-better-standards.html"&gt;standard library's logger or some other logging gem&lt;/a&gt;. It is easier to understand than relying on the global debug modes.&lt;/p&gt;
 
 &lt;p&gt;Use &lt;code&gt;$VERBOSE = true&lt;/code&gt; if you are interested in interpreter warnings.&lt;/p&gt;
 
