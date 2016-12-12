@@ -123,18 +123,18 @@ Gem | Sources | Description | Alternatives
 
 ## Bundled Gems
 
-Gems that will be installed together with Ruby. Versions as of Ruby 2.3 (2.2).
+Gems that will be installed together with Ruby. Columns 2-4 refer to the respective gem version bundled with a specific version of Ruby.
 
-Gem | Version | Description | Alternatives
+Gem | 2.4 | 2.3 | 2.2 | Description | Alternatives
 ----|---------|-------------|-------------
-[did_you_mean](https://github.com/yuki24/did_you_mean)<br/>(auto-require) | 1.0.0 | Patches error messages to suggest correct spelling of methods/classes/variables | -
-[minitest](https://github.com/seattlerb/minitest) | 5.8.3 (5.4.3) | Test/spec framework, comes with mocking and benchmark capabilities | [rspec](https://github.com/rspec/rspec)
-[net-telnet](https://github.com/ruby/net-telnet) | 0.1.1 | Support for [Telnet](http://en.wikipedia.org/wiki/Telnet) | -
-[power_assert](https://github.com/k-tsj/power_assert) | 0.2.6 (0.2.2) | Debug tool that displays intermediate results of a method chain | -
-[rake](https://github.com/ruby/rake) | 10.4.2 | A Ruby task runner, inspired by [make](http://en.wikipedia.org/wiki/Make_%28software%29) | [thor](http://whatisthor.com/), [boson](https://github.com/cldwalker/boson)
-[test-unit](https://github.com/test-unit/test-unit) | 3.1.5 (3.0.8) | A xUnit family unit testing framework | [minitest](https://github.com/seattlerb/minitest), [rspec](https://github.com/rspec/rspec)
-[xmlrpc](https://github.com/ruby/xmlrpc) | 0.1.1 | [Remote Procedure Calls via XML and HTTP](http://en.wikipedia.org/wiki/XML-RPC) | -
-{:.table-20-15-45-X}
+[did_you_mean](https://github.com/yuki24/did_you_mean)<br/>(auto-require) | 1.1.0 | 1.0.0 | - | Patches error messages to suggest correct spelling of methods/classes/variables | -
+[minitest](https://github.com/seattlerb/minitest) | 5.10.1 | 5.8.3 | 5.4.3 | Test/spec framework, comes with mocking and benchmark capabilities | [rspec](https://github.com/rspec/rspec)
+[net-telnet](https://github.com/ruby/net-telnet) | 0.1.1 | 0.1.1 | - | Support for [Telnet](http://en.wikipedia.org/wiki/Telnet) | -
+[power_assert](https://github.com/k-tsj/power_assert) | 0.4.1 | 0.2.6 | 0.2.2 | Debug tool that displays intermediate results of a method chain | -
+[rake](https://github.com/ruby/rake) | 12.0.0 | 10.4.2 | - | A Ruby task runner, inspired by [make](http://en.wikipedia.org/wiki/Make_%28software%29) | [thor](http://whatisthor.com/), [boson](https://github.com/cldwalker/boson)
+[test-unit](https://github.com/test-unit/test-unit) | 3.2.3 | 3.1.5 | 3.0.8 | A xUnit family unit testing framework | [minitest](https://github.com/seattlerb/minitest), [rspec](https://github.com/rspec/rspec)
+[xmlrpc](https://github.com/ruby/xmlrpc) | 0.2.1 | - | - | [Remote Procedure Calls via XML and HTTP](http://en.wikipedia.org/wiki/XML-RPC) | -
+{:.table-15-7-7-7-45-X}
 
 [Something's wrong or missing? You can edit this list on GitHub!](https://github.com/janlelis/idiosyncratic-ruby.com/blob/master/source/posts/20-better-standards.html.md)
 
