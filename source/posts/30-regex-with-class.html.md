@@ -55,7 +55,7 @@ The above groups are only the tip of the iceberg. Using the `\p{}` syntax, you c
 
 - [Onigmo Documentation](https://github.com/k-takata/Onigmo/blob/master/doc/RE)
 - [Unicode Character Property Model](http://unicode.org/reports/tr23/)
-- [RDoc: Regexp (Character Properties)](http://ruby-doc.org/core-2.3.1/Regexp.html#class-Regexp-label-Character+Properties)
+- [RDoc: Regexp (Character Properties)](http://ruby-doc.org/core-2.4.0/Regexp.html#class-Regexp-label-Character+Properties)
 - [Unicode Data](http://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt)
 - [Unicode Property List](http://www.unicode.org/Public/UCD/latest/ucd/PropList.txt)
 - [Unicode Property Aliases](http://www.unicode.org/Public/UCD/latest/ucd/PropertyAliases.txt)

@@ -40,7 +40,7 @@ A common pattern:
       # ...
     end
 
-Conflicts with: [Object#method](http://ruby-doc.org/core-2.3.0/Object.html#method-i-method)
+Conflicts with: [Object#method](http://ruby-doc.org/core-2.4.0/Object.html#method-i-method)
 
 ## `hash`
 
@@ -49,7 +49,7 @@ Calculating a hash:
     require "digest/sha2"
     hash = Digest::SHA256.hexdigest "ö"
 
-Conflicts with: [Object#hash](http://ruby-doc.org/core-2.3.0/Object.html#method-i-hash)
+Conflicts with: [Object#hash](http://ruby-doc.org/core-2.4.0/Object.html#method-i-hash)
 
 ## `format`
 
@@ -59,8 +59,8 @@ Conflicts with: [Object#hash](http://ruby-doc.org/core-2.3.0/Object.html#method-
       # ...
     end
 
-I still do it sometimes, but it conflicts with: [Kernel#format](http://ruby-doc.org/core-2.3.0/Kernel.html#method-i-format)
+I still do it sometimes, but it conflicts with: [Kernel#format](http://ruby-doc.org/core-2.4.0/Kernel.html#method-i-format)
 
 ## `display`
 
-[Object#display](http://ruby-doc.org/core-2.3.0/Object.html#method-i-display) should also [be avoided](https://chrisarcand.com/the-search-for-class0x0000001ab51700/)!
+[Object#display](http://ruby-doc.org/core-2.4.0/Object.html#method-i-display) should also [be avoided](https://chrisarcand.com/the-search-for-class0x0000001ab51700/)!

@@ -5,7 +5,7 @@ tags: core
 commit: 8c3a41f41422042fb36a66a7d157b5e0cc02ae00
 ---
 
-Ruby's [Struct](http://ruby-doc.org/core-2.3.1/Struct.html) class is a convenient way to create Ruby classes, which already have some attributes defined. If you are not familiar with structs, you should watch [Avdi Grimm's introduction to structs](http://www.rubytapas.com/episodes/20-Struct)!
+Ruby's [Struct](http://ruby-doc.org/core-2.4.0/Struct.html) class is a convenient way to create Ruby classes, which already have some attributes defined. If you are not familiar with structs, you should watch [Avdi Grimm's introduction to structs](http://www.rubytapas.com/episodes/20-Struct)!
 
 But in many cases there is something better than structs:
 
@@ -198,7 +198,7 @@ Structs are different from normal Ruby classes, but they are still very useful f
 ## Why Not Structs Everywhere?
 
 * You cannot access its instance variables directly
-* Structs have [their own methods](http://ruby-doc.org/core-2.3.1/Struct.html#public-instance-method-details) (like `[]`, a getter for variables), which might not always be useful
+* Structs have [their own methods](http://ruby-doc.org/core-2.4.0/Struct.html#public-instance-method-details) (like `[]`, a getter for variables), which might not always be useful
 * Pitfalls when creating structs with custom behavior (see below)
 
 The different ways to initialize a Struct:

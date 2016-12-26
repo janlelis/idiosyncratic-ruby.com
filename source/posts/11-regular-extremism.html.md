@@ -103,5 +103,5 @@ But if you want to make your code as hard to read as possible, remember that cap
 
 ## Resources
 
-- [RDoc: Regexp](http://ruby-doc.org/core-2.3.1/Regexp.html)
+- [RDoc: Regexp](http://ruby-doc.org/core-2.4.0/Regexp.html)
 - [Onigmo Documentation](https://github.com/k-takata/Onigmo/blob/master/doc/RE)

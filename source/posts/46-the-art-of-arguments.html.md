@@ -14,7 +14,7 @@ ARTICLE
 
 ## That is Too Easy!
 
-The trouble begins with supporting [common arguments conventions, like GNU's](http://www.gnu.org/prep/standards/html_node/Command_002dLine-Interfaces.html), and combining it with Ruby DSLs. This has lead to [hundreds of Ruby libraries](https://www.ruby-toolbox.com/categories/CLI_Option_Parsers) parsing command line options, even the [standard library](http://idiosyncratic-ruby.com/20-better-standards.html) includes two ways: [OptParse](http://ruby-doc.org/stdlib-2.3.1/libdoc/optparse/rdoc/OptParse.html) and [GetoptLong](http://ruby-doc.org/stdlib-2.3.1/libdoc/getoptlong/rdoc/GetoptLong.html).
+The trouble begins with supporting [common arguments conventions, like GNU's](http://www.gnu.org/prep/standards/html_node/Command_002dLine-Interfaces.html), and combining it with Ruby DSLs. This has lead to [hundreds of Ruby libraries](https://www.ruby-toolbox.com/categories/CLI_Option_Parsers) parsing command line options, even the [standard library](http://idiosyncratic-ruby.com/20-better-standards.html) includes two ways: [OptParse](http://ruby-doc.org/stdlib-2.4.0/libdoc/optparse/rdoc/OptParse.html) and [GetoptLong](http://ruby-doc.org/stdlib-2.4.0/libdoc/getoptlong/rdoc/GetoptLong.html).
 
 ## Which One is the Best?
 

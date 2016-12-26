@@ -17,13 +17,13 @@ This one is easy. Two objects should be considered identical. Think: `x.object_i
 
 ### `==` Equality Equality
 
-This is the usual method to care about. Two objects should be treated the same. If the class supports the [`<=>` spaceship comparison operator](http://ruby-doc.org/core-2.3.1/Comparable.html), it is expected that `==` returns `true` for the same values, `<=>` returns `0` for.
+This is the usual method to care about. Two objects should be treated the same. If the class supports the [`<=>` spaceship comparison operator](http://ruby-doc.org/core-2.4.0/Comparable.html), it is expected that `==` returns `true` for the same values, `<=>` returns `0` for.
 
 ### `eql?` Hash Key Equality
 
-Normally, this is the same as `==`: ["…`eql?` is usually aliased to the overridden `==` method"](http://ruby-doc.org/core-2.3.1/Hash.html#class-Hash-label-Hash+Keys)
+Normally, this is the same as `==`: ["…`eql?` is usually aliased to the overridden `==` method"](http://ruby-doc.org/core-2.4.0/Hash.html#class-Hash-label-Hash+Keys)
 
-The most important effect of the result of `eql?` is to distinguish between hash keys: ["Two objects refer to the same hash key when their `hash` value is identical and the two objects are `eql?` to each other"](http://ruby-doc.org/core-2.3.1/Hash.html#class-Hash-label-Hash+Keys). A real life example:
+The most important effect of the result of `eql?` is to distinguish between hash keys: ["Two objects refer to the same hash key when their `hash` value is identical and the two objects are `eql?` to each other"](http://ruby-doc.org/core-2.4.0/Hash.html#class-Hash-label-Hash+Keys). A real life example:
 
     1 == 1.0 # => true
     1.eql?(1.0) # => false
@@ -47,7 +47,7 @@ Class             | `eql?` | `==` | `===`
 ------------------|--------|------|------
  Object           | Identity (like `equal?`) | Same as `eql?` | Same as `==`
  Symbol           | -      | -    | -
- Numeric          | Same type, same value | Same value, according to [spaceship returning `0`](http://ruby-doc.org/core-2.3.1/Numeric.html#method-i-3C-3D-3E) | -
+ Numeric          | Same type, same value | Same value, according to [spaceship returning `0`](http://ruby-doc.org/core-2.4.0/Numeric.html#method-i-3C-3D-3E) | -
  String           | Same length, same contents | If other is a String: `eql?`, else: `other.to_str === self` | -
  Regexp           | If other is a Regexp: Same pattern, same options, same encoding | Same as `eql?` | If other is a String: Match against self
  Array            | Same length, every element `.eql?` corresponding other element | Same length, every element `==` corresponding other element. Will [implicetly convert](/54-try-converting.html) other object via `.to_ary` | -

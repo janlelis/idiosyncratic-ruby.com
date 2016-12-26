@@ -20,7 +20,7 @@ What follows are some opinionated examples of what could be removed from Ruby wi
 
 ### 1. `for` and `in` Keywords
 
-For loops are rarely used in favor of semantically alrmost similar alternatives like [Array#each](http://ruby-doc.org/core-2.3.1/Array.html#method-i-each) or [Integer#times](http://ruby-doc.org/core-2.3.1/Integer.html#method-i-times). They are even [a little slower than calling `each` directly](https://github.com/JuanitoFatas/fast-ruby#enumerableeach-vs-for-loop-code). Also see: [The Evils of the For Loop](http://graysoftinc.com/early-steps/the-evils-of-the-for-loop)
+For loops are rarely used in favor of semantically alrmost similar alternatives like [Array#each](http://ruby-doc.org/core-2.4.0/Array.html#method-i-each) or [Integer#times](http://ruby-doc.org/core-2.4.0/Integer.html#method-i-times). They are even [a little slower than calling `each` directly](https://github.com/JuanitoFatas/fast-ruby#enumerableeach-vs-for-loop-code). Also see: [The Evils of the For Loop](http://graysoftinc.com/early-steps/the-evils-of-the-for-loop)
 
 ### 2. `?` Character Literals
 

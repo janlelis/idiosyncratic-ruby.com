@@ -78,13 +78,13 @@ Finally, it can also assist you with finding the right license:
 
 ## 5) `Gem::Util.silent_system`
 
-Like [Kernel#system](http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-system), but without printing to `STDOUT`/`STDERR`. It will temporary replace `STDOUT` and `STDERR` with a null device:
+Like [Kernel#system](http://ruby-doc.org/core-2.4.0/Kernel.html#method-i-system), but without printing to `STDOUT`/`STDERR`. It will temporary replace `STDOUT` and `STDERR` with a null device:
 
     require 'rubygems/util'
     # create file 123, but output nothing
     Gem::Util.silent_system "touch 123"
 
-**Note:** If you don't want to print anything, but you are still interested in the commands output, you can use [backticks](http://ruby-doc.org/core-2.3.1/Kernel.html#method-i-60)!
+**Note:** If you don't want to print anything, but you are still interested in the commands output, you can use [backticks](http://ruby-doc.org/core-2.4.0/Kernel.html#method-i-60)!
 
 ## 6) `Gem::Util.traverse_parents`
 
