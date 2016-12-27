@@ -1,0 +1,3 @@
+#!ruby --disable-all
+
+puts global_variables.sort.map{ |g| "`#{g.to_s.sub("`", "\\`")}`" }.join(", ")

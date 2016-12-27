@@ -1,0 +1,3 @@
+#!ruby --disable-all
+
+puts ObjectSpace.each_object(Numeric).map{ |n| "- #{n} (#{n.class})" }

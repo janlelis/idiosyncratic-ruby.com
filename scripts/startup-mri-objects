@@ -1,0 +1,8 @@
+#!ruby --disable-all
+
+puts \
+  " Object    | Count\n" +
+  "-----------|------\n" +
+  ObjectSpace.count_objects.to_a.sort_by(&:last).
+  reverse.map{|k,v| "#{k.to_s.rjust(10)} | #{v}" }.
+  join("\n")

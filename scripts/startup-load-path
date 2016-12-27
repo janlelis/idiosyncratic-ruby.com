@@ -1,0 +1,3 @@
+#!ruby --disable-all
+
+puts $LOAD_PATH.map{ |path| "- #{path}" }

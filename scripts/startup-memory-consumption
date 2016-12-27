@@ -1,0 +1,3 @@
+#!ruby --disable-all
+
+puts"%.2f MB".%`ps -o rss -p#$$`.strip.split.last.to_f/1024

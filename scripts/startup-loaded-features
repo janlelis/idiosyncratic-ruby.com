@@ -1,0 +1,3 @@
+#!ruby --disable-all
+
+puts $LOADED_FEATURES.map{ |lib| "- #{lib} "}

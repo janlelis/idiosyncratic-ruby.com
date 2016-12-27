@@ -1,0 +1,8 @@
+#!ruby --disable-all
+
+puts \
+  " Ruby Object                   | Count\n" +
+  "-------------------------------|------\n" +
+  ObjectSpace.each_object.group_by(&:class).map{|k,v| [k, v.size]}.
+  sort_by(&:last).reverse.map{|k,v| "#{k.to_s.rjust(30)} | #{v}" }.
+  join("\n")
