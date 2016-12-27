@@ -56,13 +56,14 @@ $+ | pseudo / read-only | $LAST_PAREN_MATCH²| -        | [RDoc](http://ruby-doc
 $: | (read-only) | $LOAD_PATH¹              | $-I¹     | [RHG: Loading](https://ruby-hacking-guide.github.io/load.html)
 $" | (read-only) | $LOADED_FEATURES¹        | -        | [RHG: Loading](https://ruby-hacking-guide.github.io/load.html)
 $0 | global      | $PROGRAM_NAME¹           | -        | [RDoc](http://ruby-doc.org/core-2.4.0/Process.html#method-c-argv0)
-$1 - $9 | pseudo | -                        | -        | [RDoc](http://ruby-doc.org/core-2.4.0/Regexp.html#class-Regexp-label-Special+global+variables)
-$F³| global      | -                        | -        | [Auto-Splitting Lines](http://idiosyncratic-ruby.com/17-stream-editing.html#auto-splitting-lines)
+$1 - $9³ | pseudo | -                        | -        | [RDoc](http://ruby-doc.org/core-2.4.0/Regexp.html#class-Regexp-label-Special+global+variables)
+$F⁴| global      | -                        | -        | [Auto-Splitting Lines](http://idiosyncratic-ruby.com/17-stream-editing.html#auto-splitting-lines)
 {:.table-12-20-36-14-X}
 
 ¹ Available without requiring English.rb<br/>
 ² No *T*, because it stands for *PARENTHESES*, not *PARENT*<br>
-³ With command-line option `-a`
+³ Starting with Ruby 2.4, [$1 - $9 only get defined when they are currently set](https://twitter.com/JanLelis/status/813836232245575680)<br>
+⁴ With command-line option `-a`
 
 ### Other Special Global Variables
 
