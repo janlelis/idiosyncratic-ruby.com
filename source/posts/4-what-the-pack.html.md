@@ -480,6 +480,50 @@ You can jump around the current byte position while processing the data. This en
     [97, 99].pack("C x C")
     # => "a\x00c"
 
+## New Features in Ruby 2.4
+
+### `String#unpack1`
+
+When you `unpack` something, the resulting object will always be an array. Often, this array consists of only single element, which you are interested in (for example, this is the case for all [String Encoding Directives](#string-directives)). This is why the `unpack1` has been introduced - It will return the first element directly:
+
+    "ℜ".unpack1("U")
+    # => 8476
+
+### `buffer:` Option for `Array#pack`
+
+This keyword argument for `Array#pack` lets you use an existing (already allocated) string object as the result object¹²³:
+
+    require "fiddle"
+
+    # Initialize a string we will use later
+    a = "Idiosyncrätic Ruby"
+    Fiddle::Pointer[a]
+    # => #<Fiddle::Pointer:0x00000001e79af0 ptr=0x00000001c3b270
+    #      size=18 free=0x00000000000000>
+
+    # Pack something, the normal way
+    b = [1,2,3,4].pack("C*")
+    # => "\x01\x02\x03\x04"
+    Fiddle::Pointer[b]
+    # => #<Fiddle::Pointer:0x00000001ef51a0 ptr=0x00000001fc7980
+    #      size=4 free=0x00000000000000>
+
+    # Pack something, using an existing buffer
+    # It appends the result to the existing string object (same memory address)
+    c = [1,2,3,4].pack("C*", buffer: a)
+    # => "Idiosyncratic Ruby\u0001\u0002\u0003\u0004"
+    Fiddle::Pointer[c]
+    # => #<Fiddle::Pointer:0x00000001c314d0 ptr=0x00000001c3b270
+    #      size=22 free=0x00000000000000>
+
+    a == c
+    # => true
+
+
+¹ Only if the string's capacity is enough to fit the result<br/>
+² You can manually create string buffers of a specific size with another new keyword option:<br/>[`String.new(..., capacity: ...)`](http://ruby-doc.org/core-2.4.0/String.html#method-c-new)<br/>
+³ See the [RDoc](https://ruby-doc.org/core-2.4.0/Array.html#method-i-pack) for more info how the buffer argument is handled exactly
+
 ## Resources
 
 - [RDoc: String#unpack](http://ruby-doc.org/core-2.4.0/String.html#method-i-unpack)
