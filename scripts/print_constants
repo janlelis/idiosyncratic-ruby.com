@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+def print_constants(nested_constants = [Object], nested_last_status = [], seen_constants = [])
+  current_constant = nested_constants[-1]
+  seen_constants << current_constant
+  constants = current_constant.constants(false).select{|c| c.to_s =~ /^[A-Z]/ }.sort
+  length = constants.length
+  constants.each.with_index{ |constant_name, index|
+    is_last = (index + 1) == length
+    constant = current_constant.const_get(constant_name)
+    print nested_last_status.map{ |is_hidden| is_hidden ? "  " : "│ " }.join
+    print is_last ? "└─" : "├─"
+    if seen_constants.include?(constant)
+      puts '%{name} → %{alias}' % { name: constant_name, alias: constant.name }
+    else
+      puts '%{name} (%{class})' % { name: constant_name, class: constant.class }
+      print_constants(nested_constants + [constant], nested_last_status + [is_last]) if constant.is_a? Module
+    end
+  }
+end
+
+puts "Object (Class)"
+print_constants
+
