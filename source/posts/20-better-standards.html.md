@@ -109,17 +109,17 @@ Library | Sources | Description | Alternatives
 
 ## Default Gems
 
-Standard Ruby extensions that come as Ruby gems, so that they can be updated independently from Ruby.
+Standard Ruby extensions that come as Ruby gems, so that they can be updated independently from Ruby. The second column is the version of the that is included in Ruby 2.4.
 
-Gem | Sources | Description | Alternatives
-----|---------|-------------|-------------
-[bigdecimal](http://ruby-doc.org/stdlib-2.4.0/libdoc/bigdecimal/rdoc/BigDecimal.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/bigdecimal)<br>[rubysl](https://github.com/rubysl/rubysl-bigdecimal) | Support for arbitrary-precision floating point decimal arithmetic | -
-[io/console](http://ruby-doc.org/stdlib-2.4.0/libdoc/io/console/rdoc/IO.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/io/console)<br>[rubysl](https://github.com/rubysl/rubysl-io-console)<br>[gem](https://github.com/nobu/io-console) | Patches `IO` for simple and portable access to the console | -
-[json](http://ruby-doc.org/stdlib-2.4.0/libdoc/json/rdoc/JSON.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/json)<br>[gem](https://github.com/flori/json) | Support for JSON ([JavaScript Object Notation](http://en.wikipedia.org/wiki/JSON)) | [oj](https://github.com/ohler55/oj), [yajl-ruby](https://github.com/brianmario/yajl-ruby)
-[openssl](http://ruby-doc.org/stdlib-2.4.0/libdoc/openssl/rdoc/OpenSSL.html) **c**<br>[gem](https://github.com/ruby/openssl) | [mri](https://github.com/ruby/ruby/tree/trunk/ext/openssl)<br>[rubysl](https://github.com/rubysl/rubysl-openssl) | Wraps [OpenSSL](http://www.openssl.org/) for cryptographic functionality | -
-[psych](http://ruby-doc.org/stdlib-2.4.0/libdoc/psych/rdoc/Psych.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/psych)<br>[gem](https://github.com/tenderlove/psych) | Support for YAML ([YAML Ain't Markup Language](http://en.wikipedia.org/wiki/YAML)) | -
-[rdoc](http://ruby-doc.org/stdlib-2.4.0/libdoc/rdoc/rdoc/RDoc.html) | [mri](https://github.com/ruby/ruby/blob/trunk/lib/rdoc.rb)<br>[gem](https://github.com/rdoc/rdoc) | Ruby documentation generator | [yard](http://yardoc.org/)
-{:.table-20-10-50-X}
+Gem | 2.4 | Sources | Description | Alternatives
+----|-----|---------|-------------|-------------
+[bigdecimal](http://ruby-doc.org/stdlib-2.4.0/libdoc/bigdecimal/rdoc/BigDecimal.html) **c** | 1.3.0 | [mri](https://github.com/ruby/ruby/tree/trunk/ext/bigdecimal)<br>[rubysl](https://github.com/rubysl/rubysl-bigdecimal)<br>[gem](https://github.com/ruby/bigdecimal) | Support for arbitrary-precision floating point decimal arithmetic | -
+[io/console](http://ruby-doc.org/stdlib-2.4.0/libdoc/io/console/rdoc/IO.html) **c** | 0.4.6 | [mri](https://github.com/ruby/ruby/tree/trunk/ext/io/console)<br>[rubysl](https://github.com/rubysl/rubysl-io-console)<br>[gem](https://github.com/nobu/io-console) | Patches `IO` for simple and portable access to the console | -
+[json](http://ruby-doc.org/stdlib-2.4.0/libdoc/json/rdoc/JSON.html) **c** | 2.0.2 | [mri](https://github.com/ruby/ruby/tree/trunk/ext/json)<br>[gem](https://github.com/flori/json) | Support for JSON ([JavaScript Object Notation](http://en.wikipedia.org/wiki/JSON)) | [oj](https://github.com/ohler55/oj), [yajl-ruby](https://github.com/brianmario/yajl-ruby)
+[openssl](http://ruby-doc.org/stdlib-2.4.0/libdoc/openssl/rdoc/OpenSSL.html) **c** | 2.0.2 | [mri](https://github.com/ruby/ruby/tree/trunk/ext/openssl)<br>[rubysl](https://github.com/rubysl/rubysl-openssl)<br>[gem](https://github.com/ruby/openssl) | Wraps [OpenSSL](http://www.openssl.org/) for cryptographic functionality | -
+[psych](http://ruby-doc.org/stdlib-2.4.0/libdoc/psych/rdoc/Psych.html) **c** | 2.2.2 | [mri](https://github.com/ruby/ruby/tree/trunk/ext/psych)<br>[gem](https://github.com/tenderlove/psych) | Support for YAML ([YAML Ain't Markup Language](http://en.wikipedia.org/wiki/YAML)) | -
+[rdoc](http://ruby-doc.org/stdlib-2.4.0/libdoc/rdoc/rdoc/RDoc.html) | 5.0.0 | [mri](https://github.com/ruby/ruby/blob/trunk/lib/rdoc.rb)<br>[gem](https://github.com/rdoc/rdoc) | Ruby documentation generator | [yard](http://yardoc.org/)
+{:.table-15-7-10-45-X}
 
 ## Bundled Gems
 
