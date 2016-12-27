@@ -27,7 +27,7 @@ Without the fancy obfuscations, the example above would look like this:
     a # => "$"
     b # => "€"
 
-The regex matching operator `=~` will create new local variables, when used together with [named captures](http://ruby-doc.org/core-2.4.0/Regexp.html#class-Regexp-label-Capturing). However, this is not recommended, because obviously, it violates **PrOWCoFoHuNoMa** (Principle of writing code for humans, not machines).
+The regex matching operator `=~` will create new local variables, when used together with [named captures](http://ruby-doc.org/core/Regexp.html#class-Regexp-label-Capturing). However, this is not recommended, because obviously, it violates **PrOWCoFoHuNoMa** (Principle of writing code for humans, not machines).
 
 By the way, this will not work, if you swap operands:
 
@@ -45,5 +45,5 @@ In actuality, there is also a third way to set local variables: binding's `local
     b # NameError: ...
 
 ## Resources
-- [RDoc: Regexp#=~](http://ruby-doc.org/core-2.4.0/Regexp.html#method-i-3D-7E)
-- [RDoc: Binding#local_variable_set](http://ruby-doc.org/core-2.4.0/Binding.html#method-i-local_variable_set)
+- [RDoc: Regexp#=~](http://ruby-doc.org/core/Regexp.html#method-i-3D-7E)
+- [RDoc: Binding#local_variable_set](http://ruby-doc.org/core/Binding.html#method-i-local_variable_set)

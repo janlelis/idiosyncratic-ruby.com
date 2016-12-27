@@ -5,7 +5,7 @@ tags: core
 commit: 5d787c8cb128aec700f2872e9611b4ab9b01f892
 ---
 
-Ruby's [ENV object](http://ruby-doc.org/core-2.4.0/ENV.html) gives you accss to [enviroment variables](http://en.wikipedia.org/wiki/Environment_variable). It looks like normal [Ruby hash](http://ruby-doc.org/core-2.4.0/Hash.html):
+Ruby's [ENV object](http://ruby-doc.org/core/ENV.html) gives you accss to [enviroment variables](http://en.wikipedia.org/wiki/Environment_variable). It looks like normal [Ruby hash](http://ruby-doc.org/core/Hash.html):
 
 ARTICLE
 

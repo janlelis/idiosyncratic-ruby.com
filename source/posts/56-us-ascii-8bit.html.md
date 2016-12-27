@@ -22,7 +22,7 @@ Which one is the *normal* one you should use for ASCII?
             | ANSI_X3.4-1968
             | 646
 
-So, **US-ASCII** is aliased to **ASCII**, but then what is **ASCII-8BIT** for? [Encodings' RDoc](http://ruby-doc.org/core-2.4.0/Encoding.html) has some help:
+So, **US-ASCII** is aliased to **ASCII**, but then what is **ASCII-8BIT** for? [Encodings' RDoc](http://ruby-doc.org/core/Encoding.html) has some help:
 
     Encoding::ASCII_8BIT is a special encoding that is usually
     used for a byte string, not a character string. But as the name insists,

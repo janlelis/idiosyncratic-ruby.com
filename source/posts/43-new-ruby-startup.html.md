@@ -11,7 +11,7 @@ ARTICLE
 
 ## Initial Load Path
 
-These are all locations you can [Kernel#require](http://ruby-doc.org/core-2.4.0/Kernel.html#method-i-require) from:
+These are all locations you can [Kernel#require](http://ruby-doc.org/core/Kernel.html#method-i-require) from:
 
     $ ruby --disable-all -e 'puts $LOAD_PATH.map{ |path| "- #{path}" }'
 
@@ -52,7 +52,7 @@ These are core libraries that will always get loaded by Ruby:
 
 ## Initial Ruby Objects
 
-Via: [ObjectSpace.each_object](http://ruby-doc.org/core-2.4.0/ObjectSpace.html#method-c-each_object)
+Via: [ObjectSpace.each_object](http://ruby-doc.org/core/ObjectSpace.html#method-c-each_object)
 
     $ ruby --disable-all -e 'puts \
     " Ruby Object                   | Count\n" +
@@ -92,7 +92,7 @@ Via: [ObjectSpace.each_object](http://ruby-doc.org/core-2.4.0/ObjectSpace.html#m
                     Enumerator | 1
 
 
-Not listed in this table are "immediate" objects that are directly embedded in Ruby's underlying object system, for example, [small integers](http://ruby-doc.org/core-2.4.0/Fixnum.html).
+Not listed in this table are "immediate" objects that are directly embedded in Ruby's underlying object system, for example, [small integers](http://ruby-doc.org/core/Fixnum.html).
 
 ### Initial Numbers
 
@@ -111,7 +111,7 @@ Some interesting *magic numbers*:
 
 ## Initial Internal Objects
 
-Via: [ObjectSpace.count_objects](http://ruby-doc.org/core-2.4.0/ObjectSpace.html#method-c-count_objects)
+Via: [ObjectSpace.count_objects](http://ruby-doc.org/core/ObjectSpace.html#method-c-count_objects)
 
     $ ruby --disable-all -e 'puts \
     " Object    | Count\n" +
@@ -142,7 +142,7 @@ Via: [ObjectSpace.count_objects](http://ruby-doc.org/core-2.4.0/ObjectSpace.html
 
 ## Initial Symbols
 
-Via: [Symbol.all_symbols](http://ruby-doc.org/core-2.4.0/Symbol.html#method-c-all_symbols)
+Via: [Symbol.all_symbols](http://ruby-doc.org/core/Symbol.html#method-c-all_symbols)
 
 Related: [Grammar rules for symbols](/40-symbolic-validations.html)
 

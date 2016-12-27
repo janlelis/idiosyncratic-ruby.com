@@ -11,12 +11,12 @@ ARTICLE
 
 Example     | Evaluates To | Class    | Purpose
 ------------|--------------|----------|--------
-`0x10`      | `16`         | [Integer](http://ruby-doc.org/core-2.4.0/Integer.html)     | Integers in hexadecimal (0-16) format
-`0o10`¹     | `8`          | [Integer](http://ruby-doc.org/core-2.4.0/Integer.html)     | Integers in octal (0-8) format
-`0b10`      | `2`          | [Integer](http://ruby-doc.org/core-2.4.0/Integer.html)     | Integers in binary (0-1) format
-`1e1000`    | `Float::INFINITY` | [Float](http://ruby-doc.org/core-2.4.0/Float.html)    | Floats in [exponential notation](https://en.wikipedia.org/wiki/Scientific_notation#E_notation)
-`1i`        | `(0+1i)`²    | [Complex](http://ruby-doc.org/core-2.4.0/Complex.html)     | Shorthand for creating complex numbers
-`3/6r`      | `(1/2)`²     | [Rational](http://ruby-doc.org/core-2.4.0/Rational.html)   | Shorthand for creating rational numbers
+`0x10`      | `16`         | [Integer](http://ruby-doc.org/core/Integer.html)     | Integers in hexadecimal (0-16) format
+`0o10`¹     | `8`          | [Integer](http://ruby-doc.org/core/Integer.html)     | Integers in octal (0-8) format
+`0b10`      | `2`          | [Integer](http://ruby-doc.org/core/Integer.html)     | Integers in binary (0-1) format
+`1e1000`    | `Float::INFINITY` | [Float](http://ruby-doc.org/core/Float.html)    | Floats in [exponential notation](https://en.wikipedia.org/wiki/Scientific_notation#E_notation)
+`1i`        | `(0+1i)`²    | [Complex](http://ruby-doc.org/core/Complex.html)     | Shorthand for creating complex numbers
+`3/6r`      | `(1/2)`²     | [Rational](http://ruby-doc.org/core/Rational.html)   | Shorthand for creating rational numbers
 `0_0`       | `0`          | any                                                        | Visually separate digits
 {:.table-20-20-15-X}
 

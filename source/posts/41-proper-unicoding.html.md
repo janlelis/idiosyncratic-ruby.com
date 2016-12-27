@@ -163,7 +163,7 @@ Other [matchable character properties](https://en.wikipedia.org/wiki/Unicode_cha
 
 ## Resources
 
-- [RDoc: Regexp (Character Properties)](http://ruby-doc.org/core-2.4.0/Regexp.html#class-Regexp-label-Character+Properties)
+- [RDoc: Regexp (Character Properties)](http://ruby-doc.org/core/Regexp.html#class-Regexp-label-Character+Properties)
 - [Source: tool/enc-unicode.rb](https://github.com/ruby/ruby/blob/trunk/tool/enc-unicode.rb)
 - [Unicode® Standard Annex #44: Unicode Character Database](http://www.unicode.org/reports/tr44/)
 - [Wikipedia: Unicode character property](https://en.wikipedia.org/wiki/Unicode_character_property)

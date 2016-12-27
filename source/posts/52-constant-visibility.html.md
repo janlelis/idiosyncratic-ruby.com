@@ -22,11 +22,11 @@ Besides some minor idiosyncrasies (like the visibility modifiers, which where in
 
 ## Effects of Visibility Modifications
 
-You must create a constant before you can modify its visibility. When a constant exists, you can use the class method [`private_constant`](http://ruby-doc.org/core-2.4.0/Module.html#method-i-private_constant) or [`deprecate_constant`](http://ruby-doc.org/core-2.4.0/Module.html#method-i-deprecate_constant) to alter its behaviour. You can change **private** visibility back to the original state using the [`public_constant`](http://ruby-doc.org/core-2.4.0/Module.html#method-i-public_constant) method. You cannot "undeprecate" constants.
+You must create a constant before you can modify its visibility. When a constant exists, you can use the class method [`private_constant`](http://ruby-doc.org/core/Module.html#method-i-private_constant) or [`deprecate_constant`](http://ruby-doc.org/core/Module.html#method-i-deprecate_constant) to alter its behaviour. You can change **private** visibility back to the original state using the [`public_constant`](http://ruby-doc.org/core/Module.html#method-i-public_constant) method. You cannot "undeprecate" constants.
 
 ### Public
 
-This is the default behavior, the constant can be referenced from anywhere and shows up in the [`constants`](http://ruby-doc.org/core-2.4.0/Module.html#method-i-constants) list:
+This is the default behavior, the constant can be referenced from anywhere and shows up in the [`constants`](http://ruby-doc.org/core/Module.html#method-i-constants) list:
 
     module Namespace
       module Public
@@ -40,7 +40,7 @@ This is the default behavior, the constant can be referenced from anywhere and s
 
 ### Private
 
-The constant cannot referenced via the `::` operator and does not show up in the constants list. They can still be accessed from within the namespace and via [`const_get`](http://ruby-doc.org/core-2.4.0/Module.html#method-i-const_get):
+The constant cannot referenced via the `::` operator and does not show up in the constants list. They can still be accessed from within the namespace and via [`const_get`](http://ruby-doc.org/core/Module.html#method-i-const_get):
 
     module Namespace
       module Private
@@ -79,6 +79,6 @@ This is an additional property, which is also stored in a constant's visibility 
 
 ## More about Constants
 
-- [RDoc: Modules (Constants)](http://ruby-doc.org/core-2.4.0/doc/syntax/modules_and_classes_rdoc.html#label-Constants)
+- [RDoc: Modules (Constants)](http://ruby-doc.org/core/doc/syntax/modules_and_classes_rdoc.html#label-Constants)
 - [Everything you ever wanted to know about constant lookup in Ruby](http://cirw.in/blog/constant-lookup.html)
 - [Constants can be redefined and removed](/45-constant-shuffle.html)

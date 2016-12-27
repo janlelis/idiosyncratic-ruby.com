@@ -5,7 +5,7 @@ tags: stdlib, regex
 commit: cb3a4428bb004ee39a8ab5edc834c00b9db2b157
 ---
 
-Ruby's [URI standard library](http://ruby-doc.org/stdlib-2.4.0/libdoc/uri/rdoc/URI.html) contains a very sophisticated regex for matching URLs:
+Ruby's [URI standard library](http://ruby-doc.org/stdlib/libdoc/uri/rdoc/URI.html) contains a very sophisticated regex for matching URLs:
 
 ARTICLE
 

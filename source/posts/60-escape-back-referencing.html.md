@@ -5,11 +5,11 @@ tags: regex, syntax
 commit: 0998097e41369176ba27870f9b78cbfdfe84b363
 ---
 
-Ruby has more than one way to access additional information about the most recent regex match, like captured groups. One way is using the [special variables <code>$`</code>, `$&`, `$'`, `$1` - `$9`, `$+`](/9-globalization.html), and also in the [MatchData](http://ruby-doc.org/core-2.4.0/MatchData.html) object `$~`. They become available after using a method that matched a regex, or when the method supports a block, they are already available in the block.
+Ruby has more than one way to access additional information about the most recent regex match, like captured groups. One way is using the [special variables <code>$`</code>, `$&`, `$'`, `$1` - `$9`, `$+`](/9-globalization.html), and also in the [MatchData](http://ruby-doc.org/core/MatchData.html) object `$~`. They become available after using a method that matched a regex, or when the method supports a block, they are already available in the block.
 
 ARTICLE
 
-However, there is also a special string processing supported by the string replacement methods [String#gsub](ruby-doc.org/core-2.4.0/String.html#method-i-gsub) and [String#sub](ruby-doc.org/core-2.4.0/String.html#method-i-sub). The replacement string (second parameter) can contain **back references**, which behave similarly to their corresponding special variable:
+However, there is also a special string processing supported by the string replacement methods [String#gsub](ruby-doc.org/core/String.html#method-i-gsub) and [String#sub](ruby-doc.org/core/String.html#method-i-sub). The replacement string (second parameter) can contain **back references**, which behave similarly to their corresponding special variable:
 
     "Idiosyncratic Ruby".sub(/(\w+) (\w+)/, '\2 \1') # => "Ruby Idiosyncratic"
 

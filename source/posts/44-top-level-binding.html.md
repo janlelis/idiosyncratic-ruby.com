@@ -9,7 +9,7 @@ In case you have wondered, what this top-level constant `TOPLEVEL_BINDING` is al
 
 ARTICLE
 
-It is, as its name suggest, the [Binding](http://ruby-doc.org/core-2.4.0/Binding.html) of your script's main scope:
+It is, as its name suggest, the [Binding](http://ruby-doc.org/core/Binding.html) of your script's main scope:
 
     a = 42
     p binding.local_variable_defined?(:a) # => true

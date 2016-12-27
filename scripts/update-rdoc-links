@@ -1,2 +1,0 @@
-#!/bin/sh
-ruby -ne 'print $_.gsub /(core|stdlib)-2\.3\.1/, "\\1-2.4.0"' -i source/posts/*

@@ -268,7 +268,7 @@ topdir                | `File.dirname(__FILE__)`            | `"/home/jan/.rvm/r
 
 ## `RbConfig::SIZEOF`
 
-This hash contains the [byte sizes of low-level data structures](https://github.com/ruby/ruby/blob/trunk/template/sizes.c.tmpl) of your system. This is useful when interacting with external libraries via [FFI](https://github.com/ffi/ffi)/[Fiddle](http://ruby-doc.org/stdlib-2.4.0/libdoc/fiddle/rdoc/Fiddle.html). I needs to be explicitely required:
+This hash contains the [byte sizes of low-level data structures](https://github.com/ruby/ruby/blob/trunk/template/sizes.c.tmpl) of your system. This is useful when interacting with external libraries via [FFI](https://github.com/ffi/ffi)/[Fiddle](http://ruby-doc.org/stdlib/libdoc/fiddle/rdoc/Fiddle.html). I needs to be explicitely required:
 
     require "rbconfig/sizeof"
     RbConfig::SIZEOF # => {"int"=>4, "short"=>2, "long"=>8, "long long"=>8, ...

@@ -521,13 +521,13 @@ This keyword argument for `Array#pack` lets you use an existing (already allocat
 
 
 ¹ Only if the string's capacity is enough to fit the result<br/>
-² You can manually create string buffers of a specific size with another new keyword option:<br/>[`String.new(..., capacity: ...)`](http://ruby-doc.org/core-2.4.0/String.html#method-c-new)<br/>
-³ See the [RDoc](https://ruby-doc.org/core-2.4.0/Array.html#method-i-pack) for more info how the buffer argument is handled exactly
+² You can manually create string buffers of a specific size with another new keyword option:<br/>[`String.new(..., capacity: ...)`](http://ruby-doc.org/core/String.html#method-c-new)<br/>
+³ See the [RDoc](https://ruby-doc.org/core/Array.html#method-i-pack) for more info how the buffer argument is handled exactly
 
 ## Resources
 
-- [RDoc: String#unpack](http://ruby-doc.org/core-2.4.0/String.html#method-i-unpack)
-- [RDoc: Array#pack](http://ruby-doc.org/core-2.4.0/Array.html#method-i-pack)
+- [RDoc: String#unpack](http://ruby-doc.org/core/String.html#method-i-unpack)
+- [RDoc: Array#pack](http://ruby-doc.org/core/Array.html#method-i-pack)
 - [Source: pack.c](https://github.com/ruby/ruby/blob/trunk/pack.c)
 - [unpack in Perl](http://www.perlmonks.org/?node_id=224666)
 
