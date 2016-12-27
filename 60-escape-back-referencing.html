@@ -24,11 +24,11 @@
       </section>
 
       <article class="post">
-        <p>Ruby has more than one way to access additional information about the most recent regex match, like captured groups. One way is using the <a href="/9-globalization.html">special variables <code>$`</code>, <code>$&amp;</code>, <code>$'</code>, <code>$1</code> - <code>$9</code>, <code>$+</code></a>, and also in the <a href="http://ruby-doc.org/core-2.3.1/MatchData.html">MatchData</a> object <code>$~</code>. They become available after using a method that matched a regex, or when the method supports a block, they are already available in the block.</p>
+        <p>Ruby has more than one way to access additional information about the most recent regex match, like captured groups. One way is using the <a href="/9-globalization.html">special variables <code>$`</code>, <code>$&amp;</code>, <code>$'</code>, <code>$1</code> - <code>$9</code>, <code>$+</code></a>, and also in the <a href="http://ruby-doc.org/core-2.4.0/MatchData.html">MatchData</a> object <code>$~</code>. They become available after using a method that matched a regex, or when the method supports a block, they are already available in the block.</p>
 
 <p></p>
 
-<p>However, there is also a special string processing supported by the string replacement methods <a href="ruby-doc.org/core-2.3.1/String.html#method-i-gsub">String#gsub</a> and <a href="ruby-doc.org/core-2.3.1/String.html#method-i-sub">String#sub</a>. The replacement string (second parameter) can contain <strong>back references</strong>, which behave similarly to their corresponding special variable:</p>
+<p>However, there is also a special string processing supported by the string replacement methods <a href="ruby-doc.org/core-2.4.0/String.html#method-i-gsub">String#gsub</a> and <a href="ruby-doc.org/core-2.4.0/String.html#method-i-sub">String#sub</a>. The replacement string (second parameter) can contain <strong>back references</strong>, which behave similarly to their corresponding special variable:</p>
 
 <pre><code>"Idiosyncratic Ruby".sub(/(\w+) (\w+)/, '\2 \1') # =&gt; "Ruby Idiosyncratic"
 </code></pre>
@@ -200,7 +200,7 @@
           
         </div>
         About Regex, Syntax |
-        Last Update: 2016-05-29
+        Last Update: 2016-12-27
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

@@ -42,7 +42,7 @@
       </article>
       <article>
         <h2><a href="/60-escape-back-referencing.html">60 | Escape Back Referencing</a></h2>
-        <p>Ruby has more than one way to access additional information about the most recent regex match, like captured groups. One way is using the <a href="/9-globalization.html">special variables <code>$`</code>, <code>$&amp;</code>, <code>$'</code>, <code>$1</code> - <code>$9</code>, <code>$+</code></a>, and also in the <a href="http://ruby-doc.org/core-2.3.1/MatchData.html">MatchData</a> object <code>$~</code>. They become available after using a method that matched a regex, or when the method supports a block, they are already available in the block.</p>
+        <p>Ruby has more than one way to access additional information about the most recent regex match, like captured groups. One way is using the <a href="/9-globalization.html">special variables <code>$`</code>, <code>$&amp;</code>, <code>$'</code>, <code>$1</code> - <code>$9</code>, <code>$+</code></a>, and also in the <a href="http://ruby-doc.org/core-2.4.0/MatchData.html">MatchData</a> object <code>$~</code>. They become available after using a method that matched a regex, or when the method supports a block, they are already available in the block.</p>
 
 <p>
         <a href="/60-escape-back-referencing.html">READ</a>
@@ -56,7 +56,7 @@
       </article>
       <article>
         <h2><a href="/58-magic-instructions.html">58 | Magic Instructions</a></h2>
-        <p>Ruby supports <strong>magic comments</strong> (interpreter instructions) at the top of the source file, mostly known for setting a source files' <a href="http://ruby-doc.org/core-2.3.1/Encoding.html">Encoding</a>. This is the most common use case, but there is more you can do.</p>
+        <p>Ruby supports <strong>magic comments</strong> (interpreter instructions) at the top of the source file, mostly known for setting a source files' <a href="http://ruby-doc.org/core-2.4.0/Encoding.html">Encoding</a>. This is the most common use case, but there is more you can do.</p>
 
 <p>
         <a href="/58-magic-instructions.html">READ</a>
@@ -116,7 +116,7 @@
 <a href="#formatting-flags-and-padding">#</a>
 <a href="#z--time-zone-offset-from-utc">:</a></p>
 
-<p>Date and time formatting is traditionally done with <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/strftime.html">strftime</a>. Not any different in Ruby, which includes a <a href="https://github.com/ruby/ruby/blob/trunk/strftime.c">public domain based strftime implementation</a> accessible via <a href="http://ruby-doc.org/core-2.3.1/Time.html#method-i-strftime">Time#strftime</a>. Ruby would not be Ruby if it would not add some confusion: There is a <a href="https://github.com/ruby/ruby/blob/trunk/ext/date/date_strftime.c">second implementation included in the standard library</a> which is used by <a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/Date.html#method-i-strftime">Date#strftime</a> and <a href="http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/DateTime.html#method-i-strftime">DateTime#strftime</a>. It behaves similarly in most cases, but also differs in some nuances (for example, additional formatting directives like <code>%Q</code> are supported).</p>
+<p>Date and time formatting is traditionally done with <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/strftime.html">strftime</a>. Not any different in Ruby, which includes a <a href="https://github.com/ruby/ruby/blob/trunk/strftime.c">public domain based strftime implementation</a> accessible via <a href="http://ruby-doc.org/core-2.4.0/Time.html#method-i-strftime">Time#strftime</a>. Ruby would not be Ruby if it would not add some confusion: There is a <a href="https://github.com/ruby/ruby/blob/trunk/ext/date/date_strftime.c">second implementation included in the standard library</a> which is used by <a href="http://ruby-doc.org/stdlib-2.4.0/libdoc/date/rdoc/Date.html#method-i-strftime">Date#strftime</a> and <a href="http://ruby-doc.org/stdlib-2.4.0/libdoc/date/rdoc/DateTime.html#method-i-strftime">DateTime#strftime</a>. It behaves similarly in most cases, but also differs in some nuances (for example, additional formatting directives like <code>%Q</code> are supported).</p>
 
 <p>
         <a href="/57-what-the-time.html">READ</a>
@@ -144,7 +144,7 @@
       </article>
       <article>
         <h2><a href="/53-the-constant-tree.html">53 | The Constant Tree</a></h2>
-        <p>Generated with Ruby 2.3.1, including RubyGems and <a href="http://idiosyncratic-ruby.com/20-better-standards.html#bundled-gems">DidYouMean</a>:</p>
+        <p>Generated with Ruby 2.4.0, including RubyGems and <a href="http://idiosyncratic-ruby.com/20-better-standards.html#bundled-gems">DidYouMean</a>:</p>
 
 <pre id="constant-tree">Object (Class)
 ├─ARGF (ARGF.class)
@@ -377,7 +377,7 @@
       </article>
       <article>
         <h2><a href="/26-file-encoding-magic.html">26 | File Encoding Magic</a></h2>
-        <p>Ruby has <a href="http://graysoftinc.com/character-encodings/ruby-19s-three-default-encodings">three default encodings</a>. One of them is the default <a href="http://ruby-doc.org/core-2.3.1/Encoding.html#class-Encoding-label-Script+encoding">source encoding</a>, which can be set using a <strong>magic comment</strong> in the file's first line, or in the second line if the first line is taken by a <a href="https://en.wikipedia.org/wiki/Shebang_%28Unix%29">shebang</a>.</p>
+        <p>Ruby has <a href="http://graysoftinc.com/character-encodings/ruby-19s-three-default-encodings">three default encodings</a>. One of them is the default <a href="http://ruby-doc.org/core-2.4.0/Encoding.html#class-Encoding-label-Script+encoding">source encoding</a>, which can be set using a <strong>magic comment</strong> in the file's first line, or in the second line if the first line is taken by a <a href="https://en.wikipedia.org/wiki/Shebang_%28Unix%29">shebang</a>.</p>
 
 <p>
         <a href="/26-file-encoding-magic.html">READ</a>
@@ -412,7 +412,7 @@
       </article>
       <article>
         <h2><a href="/21-uniform-resource-matching.html">21 | Uniform Resource Matching</a></h2>
-        <p>Ruby's <a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/uri/rdoc/URI.html">URI standard library</a> contains a very sophisticated regex for matching URLs:</p>
+        <p>Ruby's <a href="http://ruby-doc.org/stdlib-2.4.0/libdoc/uri/rdoc/URI.html">URI standard library</a> contains a very sophisticated regex for matching URLs:</p>
 
 <p>
         <a href="/21-uniform-resource-matching.html">READ</a>
@@ -435,7 +435,7 @@
       </article>
       <article>
         <h2><a href="/18-con-struct-attributes.html">18 | Con-Struct Attributes</a></h2>
-        <p>Ruby's <a href="http://ruby-doc.org/core-2.3.1/Struct.html">Struct</a> class is a convenient way to create Ruby classes, which already have some attributes defined. If you are not familiar with structs, you should watch <a href="http://www.rubytapas.com/episodes/20-Struct">Avdi Grimm's introduction to structs</a>!</p>
+        <p>Ruby's <a href="http://ruby-doc.org/core-2.4.0/Struct.html">Struct</a> class is a convenient way to create Ruby classes, which already have some attributes defined. If you are not familiar with structs, you should watch <a href="http://www.rubytapas.com/episodes/20-Struct">Avdi Grimm's introduction to structs</a>!</p>
 
 <p>But in many cases there is something better than structs:</p>
 
@@ -472,7 +472,7 @@
       </article>
       <article>
         <h2><a href="/13-slicing-rubies.html">13 | Slicing Rubies</a></h2>
-        <p>Ruby puts a lot of effort into its <a href="http://ruby-doc.org/core-2.3.1/Enumerable">Enumerable</a> module, offering a lot of different ways of iterating through collections. It is one of the reasons for Ruby's success, but you can also call it idiosyncratic, sometimes. This episode potraits enumerables' three handy <code>slice_*</code> methods.</p>
+        <p>Ruby puts a lot of effort into its <a href="http://ruby-doc.org/core-2.4.0/Enumerable">Enumerable</a> module, offering a lot of different ways of iterating through collections. It is one of the reasons for Ruby's success, but you can also call it idiosyncratic, sometimes. This episode potraits enumerables' three handy <code>slice_*</code> methods.</p>
 
 <p>
         <a href="/13-slicing-rubies.html">READ</a>
@@ -493,7 +493,7 @@
       </article>
       <article>
         <h2><a href="/10-know-your-environment.html">10 | Know your Environment</a></h2>
-        <p>Ruby's <a href="http://ruby-doc.org/core-2.3.1/ENV.html">ENV object</a> gives you accss to <a href="http://en.wikipedia.org/wiki/Environment_variable">enviroment variables</a>. It looks like normal <a href="http://ruby-doc.org/core-2.3.1/Hash.html">Ruby hash</a>:</p>
+        <p>Ruby's <a href="http://ruby-doc.org/core-2.4.0/ENV.html">ENV object</a> gives you accss to <a href="http://en.wikipedia.org/wiki/Environment_variable">enviroment variables</a>. It looks like normal <a href="http://ruby-doc.org/core-2.4.0/Hash.html">Ruby hash</a>:</p>
 
 <p>
         <a href="/10-know-your-environment.html">READ</a>

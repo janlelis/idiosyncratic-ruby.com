@@ -42,11 +42,11 @@ Module.private_methods.grep /const/
 
 <h2 id="effects-of-visibility-modifications">Effects of Visibility Modifications</h2>
 
-<p>You must create a constant before you can modify its visibility. When a constant exists, you can use the class method <a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-private_constant"><code>private_constant</code></a> or <a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-deprecate_constant"><code>deprecate_constant</code></a> to alter its behaviour. You can change <strong>private</strong> visibility back to the original state using the <a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-public_constant"><code>public_constant</code></a> method. You cannot "undeprecate" constants.</p>
+<p>You must create a constant before you can modify its visibility. When a constant exists, you can use the class method <a href="http://ruby-doc.org/core-2.4.0/Module.html#method-i-private_constant"><code>private_constant</code></a> or <a href="http://ruby-doc.org/core-2.4.0/Module.html#method-i-deprecate_constant"><code>deprecate_constant</code></a> to alter its behaviour. You can change <strong>private</strong> visibility back to the original state using the <a href="http://ruby-doc.org/core-2.4.0/Module.html#method-i-public_constant"><code>public_constant</code></a> method. You cannot "undeprecate" constants.</p>
 
 <h3 id="public">Public</h3>
 
-<p>This is the default behavior, the constant can be referenced from anywhere and shows up in the <a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-constants"><code>constants</code></a> list:</p>
+<p>This is the default behavior, the constant can be referenced from anywhere and shows up in the <a href="http://ruby-doc.org/core-2.4.0/Module.html#method-i-constants"><code>constants</code></a> list:</p>
 
 <pre><code>module Namespace
   module Public
@@ -61,7 +61,7 @@ Namespace.constants.include?(:Public) # =&gt; true
 
 <h3 id="private">Private</h3>
 
-<p>The constant cannot referenced via the <code>::</code> operator and does not show up in the constants list. They can still be accessed from within the namespace and via <a href="http://ruby-doc.org/core-2.3.1/Module.html#method-i-const_get"><code>const_get</code></a>:</p>
+<p>The constant cannot referenced via the <code>::</code> operator and does not show up in the constants list. They can still be accessed from within the namespace and via <a href="http://ruby-doc.org/core-2.4.0/Module.html#method-i-const_get"><code>const_get</code></a>:</p>
 
 <pre><code>module Namespace
   module Private
@@ -103,7 +103,7 @@ Namespace.constants.include? :Deprecated # =&gt; true
 <h2 id="more-about-constants">More about Constants</h2>
 
 <ul>
-  <li><a href="http://ruby-doc.org/core-2.3.1/doc/syntax/modules_and_classes_rdoc.html#label-Constants">RDoc: Modules (Constants)</a></li>
+  <li><a href="http://ruby-doc.org/core-2.4.0/doc/syntax/modules_and_classes_rdoc.html#label-Constants">RDoc: Modules (Constants)</a></li>
   <li><a href="http://cirw.in/blog/constant-lookup.html">Everything you ever wanted to know about constant lookup in Ruby</a></li>
   <li><a href="/45-constant-shuffle.html">Constants can be redefined and removed</a></li>
 </ul>
@@ -129,7 +129,7 @@ Namespace.constants.include? :Deprecated # =&gt; true
           
         </div>
         About Core, Constants |
-        Last Update: 2016-05-21
+        Last Update: 2016-12-27
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

@@ -571,11 +571,56 @@
 # =&gt; "a\x00c"
 </code></pre>
 
+<h2 id="new-features-in-ruby-24">New Features in Ruby 2.4</h2>
+
+<h3 id="stringunpack1"><code>String#unpack1</code></h3>
+
+<p>When you <code>unpack</code> something, the resulting object will always be an array. Often, this array consists of only single element, which you are interested in (for example, this is the case for all <a href="#string-directives">String Encoding Directives</a>). This is why the <code>unpack1</code> has been introduced - It will return the first element directly:</p>
+
+<pre><code>"ℜ".unpack1("U")
+# =&gt; 8476
+</code></pre>
+
+<h3 id="buffer-option-for-arraypack"><code>buffer:</code> Option for <code>Array#pack</code></h3>
+
+<p>This keyword argument for <code>Array#pack</code> lets you use an existing (already allocated) string object as the result object¹²³:</p>
+
+<pre><code>require "fiddle"
+
+# Initialize a string we will use later
+a = "Idiosyncrätic Ruby"
+Fiddle::Pointer[a]
+# =&gt; #&lt;Fiddle::Pointer:0x00000001e79af0 ptr=0x00000001c3b270
+#      size=18 free=0x00000000000000&gt;
+
+# Pack something, the normal way
+b = [1,2,3,4].pack("C*")
+# =&gt; "\x01\x02\x03\x04"
+Fiddle::Pointer[b]
+# =&gt; #&lt;Fiddle::Pointer:0x00000001ef51a0 ptr=0x00000001fc7980
+#      size=4 free=0x00000000000000&gt;
+
+# Pack something, using an existing buffer
+# It appends the result to the existing string object (same memory address)
+c = [1,2,3,4].pack("C*", buffer: a)
+# =&gt; "Idiosyncratic Ruby\u0001\u0002\u0003\u0004"
+Fiddle::Pointer[c]
+# =&gt; #&lt;Fiddle::Pointer:0x00000001c314d0 ptr=0x00000001c3b270
+#      size=22 free=0x00000000000000&gt;
+
+a == c
+# =&gt; true
+</code></pre>
+
+<p>¹ Only if the string's capacity is enough to fit the result<br />
+² You can manually create string buffers of a specific size with another new keyword option:<br /><a href="http://ruby-doc.org/core-2.4.0/String.html#method-c-new"><code>String.new(..., capacity: ...)</code></a><br />
+³ See the <a href="https://ruby-doc.org/core-2.4.0/Array.html#method-i-pack">RDoc</a> for more info how the buffer argument is handled exactly</p>
+
 <h2 id="resources">Resources</h2>
 
 <ul>
-  <li><a href="http://ruby-doc.org/core-2.3.1/String.html#method-i-unpack">RDoc: String#unpack</a></li>
-  <li><a href="http://ruby-doc.org/core-2.3.1/Array.html#method-i-pack">RDoc: Array#pack</a></li>
+  <li><a href="http://ruby-doc.org/core-2.4.0/String.html#method-i-unpack">RDoc: String#unpack</a></li>
+  <li><a href="http://ruby-doc.org/core-2.4.0/Array.html#method-i-pack">RDoc: Array#pack</a></li>
   <li><a href="https://github.com/ruby/ruby/blob/trunk/pack.c">Source: pack.c</a></li>
   <li><a href="http://www.perlmonks.org/?node_id=224666">unpack in Perl</a></li>
 </ul>
@@ -609,7 +654,7 @@
           
         </div>
         About Core, Strings, Encoding |
-        Last Update: 2016-05-26
+        Last Update: 2016-12-27
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

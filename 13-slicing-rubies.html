@@ -24,7 +24,7 @@
       </section>
 
       <article class="post">
-        <p>Ruby puts a lot of effort into its <a href="http://ruby-doc.org/core-2.3.1/Enumerable">Enumerable</a> module, offering a lot of different ways of iterating through collections. It is one of the reasons for Ruby's success, but you can also call it idiosyncratic, sometimes. This episode potraits enumerables' three handy <code>slice_*</code> methods.</p>
+        <p>Ruby puts a lot of effort into its <a href="http://ruby-doc.org/core-2.4.0/Enumerable">Enumerable</a> module, offering a lot of different ways of iterating through collections. It is one of the reasons for Ruby's success, but you can also call it idiosyncratic, sometimes. This episode potraits enumerables' three handy <code>slice_*</code> methods.</p>
 
 <p></p>
 
@@ -47,7 +47,7 @@
 # =&gt; [["Ruby", "in", "the", "back-end,"], ["AngularJS", "in", "the", "front-end"]]
 </code></pre>
 
-<p>Slicing uses <a href="http://ruby-doc.org/core-2.3.1/Object.html#method-i-3D-3D-3D">===</a> to compare each element with the given separator, so you can pass in a class as well:</p>
+<p>Slicing uses <a href="http://ruby-doc.org/core-2.4.0/Object.html#method-i-3D-3D-3D">===</a> to compare each element with the given separator, so you can pass in a class as well:</p>
 
 <pre><code>["A", "B", 1, "C", "D", 2].slice_after(Integer).to_a
 # =&gt; [["A", "B", 1], ["C", "D", 2]]
@@ -74,7 +74,7 @@
 <h2 id="resources">Resources</h2>
 
 <ul>
-  <li><a href="http://ruby-doc.org/core-2.3.1/Enumerable.html#method-i-slice_after">RDoc: Enumerable#slice_*</a></li>
+  <li><a href="http://ruby-doc.org/core-2.4.0/Enumerable.html#method-i-slice_after">RDoc: Enumerable#slice_*</a></li>
   <li><a href="https://bugs.ruby-lang.org/issues/9826">#slice_when discussion</a></li>
 </ul>
 
@@ -99,7 +99,7 @@
           
         </div>
         About Core, Enumerable |
-        Last Update: 2016-05-14
+        Last Update: 2016-12-27
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
