@@ -40,6 +40,7 @@ Ruby will strip all spaces, dashes, underscores from the given propertiy and con
 
 Ruby Version | Unicode Version
 -------------|----------------
+**2.4**      | **9.0.0**
 **2.3**      | **8.0.0**
 **2.2**      | **7.0.0**
 **2.1**      | **6.1.0**
@@ -125,6 +126,7 @@ These can be found in [DerivedCoreProperties.txt](http://www.unicode.org/Public/
 
 Other [matchable character properties](https://en.wikipedia.org/wiki/Unicode_character_property) are:
 
+- White Space
 - Bidi Control
 - Join Control
 - Dash
@@ -133,6 +135,7 @@ Other [matchable character properties](https://en.wikipedia.org/wiki/Unicode_cha
 - Terminal Punctation
 - Other Math
 - Hex Digit
+- ASCII Hex Digit
 - Other Alphabetic
 - Ideographic
 - Diacritic
@@ -151,10 +154,12 @@ Other [matchable character properties](https://en.wikipedia.org/wiki/Unicode_cha
 - Logical Order Exception
 - Other ID Start
 - Other ID Continue
+- Sentence Terminal
 - STerm
 - Variation Selector
 - Pattern White Space
 - Pattern Syntax
+- Prepended Concatenation Mark
 
 ## Resources
 
