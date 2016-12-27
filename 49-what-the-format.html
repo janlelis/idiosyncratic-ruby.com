@@ -126,7 +126,7 @@
 
 <h2 id="flags-widths-and-formatting-type">Flags, Widths, and Formatting Type</h2>
 
-<p>In the previous examples, only basic string substitution was used. But format strings can do more: They can convert a value to another representation using a different <strong>formatting type</strong>. The formatting type is specified by the last letter of the reference. Besides <code>%s</code>, another common used formatting type is <code>%d</code>, which will put the value through <a href="http://ruby-doc.org/core-2.4.0/Kernel.html#method-i-Integer"><code>Interger()</code></a>:</p>
+<p>In the previous examples, only basic string substitution was used. But format strings can do more: They can convert a value to another representation using a different <strong>formatting type</strong>. The formatting type is specified by the last letter of the reference. Besides <code>%s</code>, another common used formatting type is <code>%d</code>, which will put the value through <a href="http://ruby-doc.org/core/Kernel.html#method-i-Integer"><code>Interger()</code></a>:</p>
 
 <pre><code>"%d" % 1
 # =&gt; 1
@@ -196,7 +196,7 @@
 
 <h2 id="formatting-flags-and-options-string-padding">Formatting Flags and Options: String Padding</h2>
 
-<p>When the format string parser finds a number (which is not a preceeded by <code>.</code> or <code>$</code>), it will treat the value as a padding width. The padding width defines the minimum string length, the remaining space will be filled with ASCII spaces. This is a similar functionality like provided by <a href="http://ruby-doc.org/core-2.4.0/String.html">String#ljust</a>:</p>
+<p>When the format string parser finds a number (which is not a preceeded by <code>.</code> or <code>$</code>), it will treat the value as a padding width. The padding width defines the minimum string length, the remaining space will be filled with ASCII spaces. This is a similar functionality like provided by <a href="http://ruby-doc.org/core/String.html">String#ljust</a>:</p>
 
 <pre><code>"%20s" % "Idiosyncratic"
 # =&gt; "       Idiosyncratic"
@@ -315,7 +315,7 @@
 
 <h3 id="p--inspect">%p | Inspect</h3>
 
-<p>Calls <a href="http://ruby-doc.org/core-2.4.0/Kernel.html#method-i-p">inspect</a> on the value:</p>
+<p>Calls <a href="http://ruby-doc.org/core/Kernel.html#method-i-p">inspect</a> on the value:</p>
 
 <pre><code>"%p" % "Idiosyncratic"
 # =&gt; "\"Idiosyncratic\""
@@ -325,7 +325,7 @@
 
 <h3 id="c--character">%c | Character</h3>
 
-<p>Interpretes a numerical value as a <a href="https://en.wikipedia.org/wiki/Code_point">codepoint</a> of the current encoding and converts it to the respective character (the reverse of <a href="http://ruby-doc.org/core-2.4.0/String.html#method-i-ord">String#ord</a>, similar to what <a href="(http://idiosyncratic-ruby.com/4-what-the-pack.html#u--utf-8-characters)"><code>Array#pack("U")</code></a> does for UTF-8 strings):</p>
+<p>Interpretes a numerical value as a <a href="https://en.wikipedia.org/wiki/Code_point">codepoint</a> of the current encoding and converts it to the respective character (the reverse of <a href="http://ruby-doc.org/core/String.html#method-i-ord">String#ord</a>, similar to what <a href="(http://idiosyncratic-ruby.com/4-what-the-pack.html#u--utf-8-characters)"><code>Array#pack("U")</code></a> does for UTF-8 strings):</p>
 
 <pre><code>"%c" % 11835
 # =&gt; "⸻"
@@ -345,7 +345,7 @@
 # =&gt; "  0020"
 </code></pre>
 
-<p>The all integer formatting type will run the value through <a href="http://ruby-doc.org/core-2.4.0/Kernel.html#method-i-Integer"><code>Integer()</code></a>:</p>
+<p>The all integer formatting type will run the value through <a href="http://ruby-doc.org/core/Kernel.html#method-i-Integer"><code>Integer()</code></a>:</p>
 
 <pre><code>"%d" % 42.9
 # =&gt; "42"
@@ -376,7 +376,7 @@
 # =&gt; "101010"
 </code></pre>
 
-<p><strong>Note:</strong> Another way of achieving the same would be to use <a href="http://ruby-doc.org/core-2.4.0/Numeric.html">Numeric#to_s(2)</a>:</p>
+<p><strong>Note:</strong> Another way of achieving the same would be to use <a href="http://ruby-doc.org/core/Numeric.html">Numeric#to_s(2)</a>:</p>
 
 <pre><code>42.to_s(2)
 # =&gt; "101010"
@@ -414,7 +414,7 @@
 # =&gt; "52"
 </code></pre>
 
-<p><strong>Note:</strong> Another way of achieving the same would be to use <a href="http://ruby-doc.org/core-2.4.0/Numeric.html">Numeric#to_s(8)</a>:</p>
+<p><strong>Note:</strong> Another way of achieving the same would be to use <a href="http://ruby-doc.org/core/Numeric.html">Numeric#to_s(8)</a>:</p>
 
 <pre><code>42.to_s(8)
 # =&gt; "52"
@@ -452,7 +452,7 @@
 # =&gt; "2A"
 </code></pre>
 
-<p><strong>Note:</strong> Another way of achieving the same would be to use <a href="http://ruby-doc.org/core-2.4.0/Numeric.html">Numeric#to_s(16)</a>:</p>
+<p><strong>Note:</strong> Another way of achieving the same would be to use <a href="http://ruby-doc.org/core/Numeric.html">Numeric#to_s(16)</a>:</p>
 
 <pre><code>42.to_s(16)
 # =&gt; "2a"
@@ -617,7 +617,7 @@
 <h2 id="resources">Resources</h2>
 
 <ul>
-  <li><a href="http://ruby-doc.org/core-2.4.0/Kernel.html#method-i-sprintf">RDoc: Kernel#sprintf</a></li>
+  <li><a href="http://ruby-doc.org/core/Kernel.html#method-i-sprintf">RDoc: Kernel#sprintf</a></li>
   <li><a href="https://github.com/ruby/ruby/blob/trunk/sprintf.c">Source: sprintf.c</a></li>
 </ul>
 

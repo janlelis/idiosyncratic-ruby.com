@@ -1169,7 +1169,7 @@ RbConfig::TOPDIR #=&gt; "/home/jan/.rvm/rubies/ruby-2.3.0"
 
 <h2 id="rbconfigsizeof"><code>RbConfig::SIZEOF</code></h2>
 
-<p>This hash contains the <a href="https://github.com/ruby/ruby/blob/trunk/template/sizes.c.tmpl">byte sizes of low-level data structures</a> of your system. This is useful when interacting with external libraries via <a href="https://github.com/ffi/ffi">FFI</a>/<a href="http://ruby-doc.org/stdlib-2.4.0/libdoc/fiddle/rdoc/Fiddle.html">Fiddle</a>. I needs to be explicitely required:</p>
+<p>This hash contains the <a href="https://github.com/ruby/ruby/blob/trunk/template/sizes.c.tmpl">byte sizes of low-level data structures</a> of your system. This is useful when interacting with external libraries via <a href="https://github.com/ffi/ffi">FFI</a>/<a href="http://ruby-doc.org/stdlib/libdoc/fiddle/rdoc/Fiddle.html">Fiddle</a>. I needs to be explicitely required:</p>
 
 <pre><code>require "rbconfig/sizeof"
 RbConfig::SIZEOF # =&gt; {"int"=&gt;4, "short"=&gt;2, "long"=&gt;8, "long long"=&gt;8, ...

@@ -30,7 +30,7 @@
 
 <h2 id="initial-load-path">Initial Load Path</h2>
 
-<p>These are all locations you can <a href="http://ruby-doc.org/core-2.4.0/Kernel.html#method-i-require">Kernel#require</a> from:</p>
+<p>These are all locations you can <a href="http://ruby-doc.org/core/Kernel.html#method-i-require">Kernel#require</a> from:</p>
 
 <pre><code>$ ruby --disable-all -e 'puts $LOAD_PATH.map{ |path| "- #{path}" }'
 </code></pre>
@@ -78,7 +78,7 @@
 
 <h2 id="initial-ruby-objects">Initial Ruby Objects</h2>
 
-<p>Via: <a href="http://ruby-doc.org/core-2.4.0/ObjectSpace.html#method-c-each_object">ObjectSpace.each_object</a></p>
+<p>Via: <a href="http://ruby-doc.org/core/ObjectSpace.html#method-c-each_object">ObjectSpace.each_object</a></p>
 
 <pre><code>$ ruby --disable-all -e 'puts \
 " Ruby Object                   | Count\n" +
@@ -207,7 +207,7 @@ join("\n")'
   </tbody>
 </table>
 
-<p>Not listed in this table are "immediate" objects that are directly embedded in Ruby's underlying object system, for example, <a href="http://ruby-doc.org/core-2.4.0/Fixnum.html">small integers</a>.</p>
+<p>Not listed in this table are "immediate" objects that are directly embedded in Ruby's underlying object system, for example, <a href="http://ruby-doc.org/core/Fixnum.html">small integers</a>.</p>
 
 <h3 id="initial-numbers">Initial Numbers</h3>
 
@@ -229,7 +229,7 @@ map{ |n| "- #{n} (#{n.class})" }'
 
 <h2 id="initial-internal-objects">Initial Internal Objects</h2>
 
-<p>Via: <a href="http://ruby-doc.org/core-2.4.0/ObjectSpace.html#method-c-count_objects">ObjectSpace.count_objects</a></p>
+<p>Via: <a href="http://ruby-doc.org/core/ObjectSpace.html#method-c-count_objects">ObjectSpace.count_objects</a></p>
 
 <pre><code>$ ruby --disable-all -e 'puts \
 " Object    | Count\n" +
@@ -320,7 +320,7 @@ join("\n")'
 
 <h2 id="initial-symbols">Initial Symbols</h2>
 
-<p>Via: <a href="http://ruby-doc.org/core-2.4.0/Symbol.html#method-c-all_symbols">Symbol.all_symbols</a></p>
+<p>Via: <a href="http://ruby-doc.org/core/Symbol.html#method-c-all_symbols">Symbol.all_symbols</a></p>
 
 <p>Related: <a href="/40-symbolic-validations.html">Grammar rules for symbols</a></p>
 

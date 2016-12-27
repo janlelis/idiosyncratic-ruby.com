@@ -77,7 +77,7 @@
 <a href="#formatting-flags-and-padding">#</a>
 <a href="#z--time-zone-offset-from-utc">:</a></p>
 
-<p>Date and time formatting is traditionally done with <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/strftime.html">strftime</a>. Not any different in Ruby, which includes a <a href="https://github.com/ruby/ruby/blob/trunk/strftime.c">public domain based strftime implementation</a> accessible via <a href="http://ruby-doc.org/core-2.4.0/Time.html#method-i-strftime">Time#strftime</a>. Ruby would not be Ruby if it would not add some confusion: There is a <a href="https://github.com/ruby/ruby/blob/trunk/ext/date/date_strftime.c">second implementation included in the standard library</a> which is used by <a href="http://ruby-doc.org/stdlib-2.4.0/libdoc/date/rdoc/Date.html#method-i-strftime">Date#strftime</a> and <a href="http://ruby-doc.org/stdlib-2.4.0/libdoc/date/rdoc/DateTime.html#method-i-strftime">DateTime#strftime</a>. It behaves similarly in most cases, but also differs in some nuances (for example, additional formatting directives like <code>%Q</code> are supported).</p>
+<p>Date and time formatting is traditionally done with <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/strftime.html">strftime</a>. Not any different in Ruby, which includes a <a href="https://github.com/ruby/ruby/blob/trunk/strftime.c">public domain based strftime implementation</a> accessible via <a href="http://ruby-doc.org/core/Time.html#method-i-strftime">Time#strftime</a>. Ruby would not be Ruby if it would not add some confusion: There is a <a href="https://github.com/ruby/ruby/blob/trunk/ext/date/date_strftime.c">second implementation included in the standard library</a> which is used by <a href="http://ruby-doc.org/stdlib/libdoc/date/rdoc/Date.html#method-i-strftime">Date#strftime</a> and <a href="http://ruby-doc.org/stdlib/libdoc/date/rdoc/DateTime.html#method-i-strftime">DateTime#strftime</a>. It behaves similarly in most cases, but also differs in some nuances (for example, additional formatting directives like <code>%Q</code> are supported).</p>
 
 <p></p>
 
@@ -673,7 +673,7 @@ Time.utc(2016, 5, 24, 15, 29, 1).strftime("%-S") # =&gt; "1"
 
 <h3 id="s--seconds-since-unix-epoch">%s | Seconds Since Unix Epoch</h3>
 
-<p>Number of seconds since <strong>1970-01-01 00:00:00 UTC</strong>. This known as <a href="https://en.wikipedia.org/wiki/Unix_time">Unix timestamps</a>. It returns the same value (as string) like <a href="http://ruby-doc.org/core-2.4.0/Time.html#method-i-to_i">Time#to_i</a>:</p>
+<p>Number of seconds since <strong>1970-01-01 00:00:00 UTC</strong>. This known as <a href="https://en.wikipedia.org/wiki/Unix_time">Unix timestamps</a>. It returns the same value (as string) like <a href="http://ruby-doc.org/core/Time.html#method-i-to_i">Time#to_i</a>:</p>
 
 <pre><code>Time.utc(2016, 5, 24, 15, 29, 59).strftime("%s") # =&gt; "1464103799"
 Time.utc(2016, 5, 24, 15, 29, 59).to_i # =&gt; 1464103799
@@ -854,8 +854,8 @@ Time.local(2016, 5, 24).to_datetime.strftime("%Z") # =&gt; "+02:00"
 <h2 id="resources">Resources</h2>
 
 <ul>
-  <li><a href="http://ruby-doc.org/core-2.4.0/Kernel.html#method-i-sprintf">RDoc: Time#strftime</a></li>
-  <li><a href="http://ruby-doc.org/stdlib-2.4.0/libdoc/date/rdoc/Date.html#method-i-strftime">RDoc: Date#strftime</a></li>
+  <li><a href="http://ruby-doc.org/core/Kernel.html#method-i-sprintf">RDoc: Time#strftime</a></li>
+  <li><a href="http://ruby-doc.org/stdlib/libdoc/date/rdoc/Date.html#method-i-strftime">RDoc: Date#strftime</a></li>
   <li><a href="https://github.com/ruby/ruby/blob/trunk/strftime.c">Source: strftime.c</a></li>
   <li><a href="https://github.com/ruby/ruby/blob/trunk/ext/date/date_strftime.c">Source: date_strftime.c</a></li>
 </ul>
