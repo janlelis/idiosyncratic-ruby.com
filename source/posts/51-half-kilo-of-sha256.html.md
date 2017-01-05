@@ -9,14 +9,14 @@ How many bytes (= ASCII characters) of Ruby code does it take to generate a [SHA
 
 ARTICLE
 
-## 499 Bytes¹
+## 500 Bytes¹
 
     q,z=[3,2].map{|t|i=l=1;(2..330).select{i-1<(l*=i)%i+=1}.map{|e|(e**t**-1*X=2**32).to_i&X-=1}}
     s=proc{|n,*m|a=0
     m.map{|e|a^=n>>e|n<<32-e}
     a}
     i=$<.read.b<<128
-    (i+"\0"*(56-(w=i.size)%64)+[~-w*8].pack('Q>')).gsub(/.{64}/m){w=$&.unpack'N*'
+    (i+"\0"*(56.-(w=i.size)%64)+[~-w*8].pack('Q>')).gsub(/.{64}/m){w=$&.unpack'N*'
     y=z
     64.times{|i|i>15&&w[i]=w[i-16]+(s[v=w[i-15],7,18]^v>>3)+w[i-7]+(s[w[i-2],17,19]^w[i-2]>>10)&X
     f=y[7]+s[u=y[4],6,11,25]+(u&y[5]^~u&y[6])+q[i]+w[i]
@@ -27,7 +27,7 @@ ARTICLE
 
 This is based on a submission to a (now defunct) code golf contest and there were "better" submissions, so it is possible to get the code smaller. Looking for pull requests!
 
-¹ The code above actually contains 500 bytes, but you can replace `"\0"` with a real null byte
+¹ The code above actually contains 501 bytes, but you can replace `"\0"` with a real null byte
 
 ### Test Script
 
@@ -43,7 +43,8 @@ Save the above code as `sha256.rb` and create the following test script in the s
       "Idiosyncrätic Ruby",
       "\n",
       "",
-      "a"*6000
+      "a"*6000,
+      "a"*57
     ]
 
     TEST_CASES.each{ |test_case|
