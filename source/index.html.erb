@@ -2,6 +2,8 @@
 title: "Idiosyncratic Ruby: Documenting All Ruby Specialities"
 ---
 
+<% last_content_update = Date.parse(`git log -1 --format=%cd -- source/posts`).strftime("%Y-%m-%d") rescue nil %>
+
 <div class="hero">
   <div class="hero-inner">
     <a href="/categories/" class="hero-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
@@ -59,6 +61,9 @@ title: "Idiosyncratic Ruby: Documenting All Ruby Specialities"
           <li>Episodes  1 to 31 in May 2015</li>
           <li>Episodes 32 to 62 in May 2016</li>
         </ul>
+        <% if last_content_update %>
+        <p>Last update to an article: <%= last_content_update %> </p>
+        <% end %>
       </section>
       <section>
         <h3 id="about-jan">About Jan</h3>
