@@ -244,7 +244,7 @@ If you don't want to rely on your operating system to define byte order, you can
 
 ### U | UTF-8 Characters
 
-This will convert the string to [unicode code points.](http://en.wikipedia.org/wiki/Code_point)
+This will convert the string to [unicode code points.](http://en.wikipedia.org/wiki/Code_point). Note that while it throws ArgumentError for [invalid encodings](https://github.com/janlelis/unibits/#utf-8-1), it will happily decode surrogates and too large codepoint values.
 
     "ɔıʇɐɹɔuʎsoıpı".unpack("U*")
     # => [596, 305, 647, 592, 633, 596, 117, 654, 115, 111, 305, 112, 305]
