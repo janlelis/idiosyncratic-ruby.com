@@ -28,14 +28,14 @@
 
 <p></p>
 
-<h2 id="bytes">499 Bytes¹</h2>
+<h2 id="bytes">500 Bytes¹</h2>
 
 <pre><code>q,z=[3,2].map{|t|i=l=1;(2..330).select{i-1&lt;(l*=i)%i+=1}.map{|e|(e**t**-1*X=2**32).to_i&amp;X-=1}}
 s=proc{|n,*m|a=0
 m.map{|e|a^=n&gt;&gt;e|n&lt;&lt;32-e}
 a}
 i=$&lt;.read.b&lt;&lt;128
-(i+"\0"*(56-(w=i.size)%64)+[~-w*8].pack('Q&gt;')).gsub(/.{64}/m){w=$&amp;.unpack'N*'
+(i+"\0"*(56.-(w=i.size)%64)+[~-w*8].pack('Q&gt;')).gsub(/.{64}/m){w=$&amp;.unpack'N*'
 y=z
 64.times{|i|i&gt;15&amp;&amp;w[i]=w[i-16]+(s[v=w[i-15],7,18]^v&gt;&gt;3)+w[i-7]+(s[w[i-2],17,19]^w[i-2]&gt;&gt;10)&amp;X
 f=y[7]+s[u=y[4],6,11,25]+(u&amp;y[5]^~u&amp;y[6])+q[i]+w[i]
@@ -47,7 +47,7 @@ $&gt;&lt;&lt;'%.8x'*8%z
 
 <p>This is based on a submission to a (now defunct) code golf contest and there were "better" submissions, so it is possible to get the code smaller. Looking for pull requests!</p>
 
-<p>¹ The code above actually contains 500 bytes, but you can replace <code>"\0"</code> with a real null byte</p>
+<p>¹ The code above actually contains 501 bytes, but you can replace <code>"\0"</code> with a real null byte</p>
 
 <h3 id="test-script">Test Script</h3>
 
@@ -63,7 +63,8 @@ TEST_CASES  = [
   "Idiosyncrätic Ruby",
   "\n",
   "",
-  "a"*6000
+  "a"*6000,
+  "a"*57
 ]
 
 TEST_CASES.each{ |test_case|
@@ -113,7 +114,7 @@ TEST_CASES.each{ |test_case|
           
         </div>
         About Golf |
-        Last Update: 2016-05-20
+        Last Update: 2017-01-05
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

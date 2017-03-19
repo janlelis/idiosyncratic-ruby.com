@@ -3039,14 +3039,14 @@ Namespace.constants.include? :Deprecated # =&amp;gt; true
 
 &lt;p&gt;&lt;/p&gt;
 
-&lt;h2 id="bytes"&gt;499 Bytes¹&lt;/h2&gt;
+&lt;h2 id="bytes"&gt;500 Bytes¹&lt;/h2&gt;
 
 &lt;pre&gt;&lt;code&gt;q,z=[3,2].map{|t|i=l=1;(2..330).select{i-1&amp;lt;(l*=i)%i+=1}.map{|e|(e**t**-1*X=2**32).to_i&amp;amp;X-=1}}
 s=proc{|n,*m|a=0
 m.map{|e|a^=n&amp;gt;&amp;gt;e|n&amp;lt;&amp;lt;32-e}
 a}
 i=$&amp;lt;.read.b&amp;lt;&amp;lt;128
-(i+"\0"*(56-(w=i.size)%64)+[~-w*8].pack('Q&amp;gt;')).gsub(/.{64}/m){w=$&amp;amp;.unpack'N*'
+(i+"\0"*(56.-(w=i.size)%64)+[~-w*8].pack('Q&amp;gt;')).gsub(/.{64}/m){w=$&amp;amp;.unpack'N*'
 y=z
 64.times{|i|i&amp;gt;15&amp;amp;&amp;amp;w[i]=w[i-16]+(s[v=w[i-15],7,18]^v&amp;gt;&amp;gt;3)+w[i-7]+(s[w[i-2],17,19]^w[i-2]&amp;gt;&amp;gt;10)&amp;amp;X
 f=y[7]+s[u=y[4],6,11,25]+(u&amp;amp;y[5]^~u&amp;amp;y[6])+q[i]+w[i]
@@ -3058,7 +3058,7 @@ $&amp;gt;&amp;lt;&amp;lt;'%.8x'*8%z
 
 &lt;p&gt;This is based on a submission to a (now defunct) code golf contest and there were "better" submissions, so it is possible to get the code smaller. Looking for pull requests!&lt;/p&gt;
 
-&lt;p&gt;¹ The code above actually contains 500 bytes, but you can replace &lt;code&gt;"\0"&lt;/code&gt; with a real null byte&lt;/p&gt;
+&lt;p&gt;¹ The code above actually contains 501 bytes, but you can replace &lt;code&gt;"\0"&lt;/code&gt; with a real null byte&lt;/p&gt;
 
 &lt;h3 id="test-script"&gt;Test Script&lt;/h3&gt;
 
@@ -3074,7 +3074,8 @@ TEST_CASES  = [
   "Idiosyncrätic Ruby",
   "\n",
   "",
-  "a"*6000
+  "a"*6000,
+  "a"*57
 ]
 
 TEST_CASES.each{ |test_case|
@@ -13317,7 +13318,7 @@ puts "#{`ps -o rss -p #{Process.pid}`.strip.split.last.to_i / 1024.0} MB"
 
 &lt;h3 id="u--utf-8-characters"&gt;U | UTF-8 Characters&lt;/h3&gt;
 
-&lt;p&gt;This will convert the string to &lt;a href="http://en.wikipedia.org/wiki/Code_point"&gt;unicode code points.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This will convert the string to &lt;a href="http://en.wikipedia.org/wiki/Code_point"&gt;unicode code points.&lt;/a&gt;. Note that while it throws ArgumentError for &lt;a href="https://github.com/janlelis/unibits/#utf-8-1"&gt;invalid encodings&lt;/a&gt;, it will happily decode surrogates and too large codepoint values.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;"ɔıʇɐɹɔuʎsoıpı".unpack("U*")
 # =&amp;gt; [596, 305, 647, 592, 633, 596, 117, 654, 115, 111, 305, 112, 305]
