@@ -17,5 +17,6 @@ Name                                 | Compiles To | Description
  [CoffeeScript](http://coffeescript.org/) | JS     | JavaScript for Rubyists
  [Elixir](http://elixir-lang.org/)   | BEAM        | Ruby for Erlang
  [Scala](http://www.scala-lang.org/) | JVM         | Multi-Paradigm Ruby
+ [Rooby](https://github.com/rooby-lang/rooby) | Machine | Simple Ruby
 
 All of them are better than Ruby, in some way!
