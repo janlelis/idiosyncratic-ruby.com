@@ -2,19 +2,19 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Idiosyncratic Ruby</title>
   <subtitle>Documenting All Ruby Specialities</subtitle>
-  <id>http://idiosyncratic-ruby.com/index/</id>
-  <link href="http://idiosyncratic-ruby.com/index/"/>
+  <id>https://idiosyncratic-ruby.com/index/</id>
+  <link href="https://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2016-05-31T02:00:00+02:00</updated>
+  <updated>2016-05-31T00:00:00Z</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
   <entry>
     <title>Less Feature-Rich, More Fun</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/62-less-features-more-fun.html"/>
-    <id>http://idiosyncratic-ruby.com/62-less-features-more-fun.html</id>
-    <published>2016-05-31T02:00:00+02:00</published>
-    <updated>2016-05-31T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/62-less-features-more-fun.html"/>
+    <id>https://idiosyncratic-ruby.com/62-less-features-more-fun.html</id>
+    <published>2016-05-31T00:00:00Z</published>
+    <updated>2016-05-31T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -140,10 +140,10 @@ end
   </entry>
   <entry>
     <title>Meta Escape Control</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/61-meta-escape-control.html"/>
-    <id>http://idiosyncratic-ruby.com/61-meta-escape-control.html</id>
-    <published>2016-05-30T02:00:00+02:00</published>
-    <updated>2016-05-30T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/61-meta-escape-control.html"/>
+    <id>https://idiosyncratic-ruby.com/61-meta-escape-control.html</id>
+    <published>2016-05-30T00:00:00Z</published>
+    <updated>2016-05-30T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -272,10 +272,10 @@ end
   </entry>
   <entry>
     <title>Escape Back Referencing</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/60-escape-back-referencing.html"/>
-    <id>http://idiosyncratic-ruby.com/60-escape-back-referencing.html</id>
-    <published>2016-05-29T02:00:00+02:00</published>
-    <updated>2016-05-29T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/60-escape-back-referencing.html"/>
+    <id>https://idiosyncratic-ruby.com/60-escape-back-referencing.html</id>
+    <published>2016-05-29T00:00:00Z</published>
+    <updated>2016-05-29T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -437,10 +437,10 @@ end
   </entry>
   <entry>
     <title>Big Data Without End</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/59-big-data-without-end.html"/>
-    <id>http://idiosyncratic-ruby.com/59-big-data-without-end.html</id>
-    <published>2016-05-28T02:00:00+02:00</published>
-    <updated>2016-05-28T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/59-big-data-without-end.html"/>
+    <id>https://idiosyncratic-ruby.com/59-big-data-without-end.html</id>
+    <published>2016-05-28T00:00:00Z</published>
+    <updated>2016-05-28T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -495,10 +495,10 @@ puts DATA.gets("\n__END__")[0..-9]
   </entry>
   <entry>
     <title>Magic Instructions</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/58-magic-instructions.html"/>
-    <id>http://idiosyncratic-ruby.com/58-magic-instructions.html</id>
-    <published>2016-05-27T02:00:00+02:00</published>
-    <updated>2016-05-27T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/58-magic-instructions.html"/>
+    <id>https://idiosyncratic-ruby.com/58-magic-instructions.html</id>
+    <published>2016-05-27T00:00:00Z</published>
+    <updated>2016-05-27T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -589,10 +589,10 @@ def method_name
   </entry>
   <entry>
     <title>What the Time?</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/57-what-the-time.html"/>
-    <id>http://idiosyncratic-ruby.com/57-what-the-time.html</id>
-    <published>2016-05-26T02:00:00+02:00</published>
-    <updated>2016-05-26T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/57-what-the-time.html"/>
+    <id>https://idiosyncratic-ruby.com/57-what-the-time.html</id>
+    <published>2016-05-26T00:00:00Z</published>
+    <updated>2016-05-26T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -1442,10 +1442,10 @@ Time.local(2016, 5, 24).to_datetime.strftime("%Z") # =&amp;gt; "+02:00"
   </entry>
   <entry>
     <title>US-ASCII-8BIT</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/56-us-ascii-8bit.html"/>
-    <id>http://idiosyncratic-ruby.com/56-us-ascii-8bit.html</id>
-    <published>2016-05-25T02:00:00+02:00</published>
-    <updated>2016-05-25T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/56-us-ascii-8bit.html"/>
+    <id>https://idiosyncratic-ruby.com/56-us-ascii-8bit.html</id>
+    <published>2016-05-25T00:00:00Z</published>
+    <updated>2016-05-25T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -1507,10 +1507,10 @@ compatible characters.
   </entry>
   <entry>
     <title>Struggling Four Equality</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/55-struggling-four-equality.html"/>
-    <id>http://idiosyncratic-ruby.com/55-struggling-four-equality.html</id>
-    <published>2016-05-24T02:00:00+02:00</published>
-    <updated>2016-05-24T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/55-struggling-four-equality.html"/>
+    <id>https://idiosyncratic-ruby.com/55-struggling-four-equality.html</id>
+    <published>2016-05-24T00:00:00Z</published>
+    <updated>2016-05-24T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -1641,10 +1641,10 @@ end
   </entry>
   <entry>
     <title>Try Converting</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/54-try-converting.html"/>
-    <id>http://idiosyncratic-ruby.com/54-try-converting.html</id>
-    <published>2016-05-23T02:00:00+02:00</published>
-    <updated>2016-05-23T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/54-try-converting.html"/>
+    <id>https://idiosyncratic-ruby.com/54-try-converting.html</id>
+    <published>2016-05-23T00:00:00Z</published>
+    <updated>2016-05-23T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -1850,10 +1850,10 @@ Array.try_convert(o) # =&amp;gt; [42]
   </entry>
   <entry>
     <title>The Constant Tree</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/53-the-constant-tree.html"/>
-    <id>http://idiosyncratic-ruby.com/53-the-constant-tree.html</id>
-    <published>2016-05-22T02:00:00+02:00</published>
-    <updated>2016-05-22T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/53-the-constant-tree.html"/>
+    <id>https://idiosyncratic-ruby.com/53-the-constant-tree.html</id>
+    <published>2016-05-22T00:00:00Z</published>
+    <updated>2016-05-22T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -2934,10 +2934,10 @@ print_constants
   </entry>
   <entry>
     <title>Constant Visibility</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/52-constant-visibility.html"/>
-    <id>http://idiosyncratic-ruby.com/52-constant-visibility.html</id>
-    <published>2016-05-21T02:00:00+02:00</published>
-    <updated>2016-05-21T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/52-constant-visibility.html"/>
+    <id>https://idiosyncratic-ruby.com/52-constant-visibility.html</id>
+    <published>2016-05-21T00:00:00Z</published>
+    <updated>2016-05-21T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -3028,10 +3028,10 @@ Namespace.constants.include? :Deprecated # =&amp;gt; true
   </entry>
   <entry>
     <title>½ Kilo of SHA256</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/51-half-kilo-of-sha256.html"/>
-    <id>http://idiosyncratic-ruby.com/51-half-kilo-of-sha256.html</id>
-    <published>2016-05-20T02:00:00+02:00</published>
-    <updated>2016-05-20T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/51-half-kilo-of-sha256.html"/>
+    <id>https://idiosyncratic-ruby.com/51-half-kilo-of-sha256.html</id>
+    <published>2016-05-20T00:00:00Z</published>
+    <updated>2016-05-20T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -3107,10 +3107,10 @@ TEST_CASES.each{ |test_case|
   </entry>
   <entry>
     <title>Naming Too Good</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/50-naming-too-good.html"/>
-    <id>http://idiosyncratic-ruby.com/50-naming-too-good.html</id>
-    <published>2016-05-19T02:00:00+02:00</published>
-    <updated>2016-05-19T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/50-naming-too-good.html"/>
+    <id>https://idiosyncratic-ruby.com/50-naming-too-good.html</id>
+    <published>2016-05-19T00:00:00Z</published>
+    <updated>2016-05-19T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -3182,10 +3182,10 @@ end
   </entry>
   <entry>
     <title>What the Format?</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/49-what-the-format.html"/>
-    <id>http://idiosyncratic-ruby.com/49-what-the-format.html</id>
-    <published>2016-05-18T02:00:00+02:00</published>
-    <updated>2016-05-18T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/49-what-the-format.html"/>
+    <id>https://idiosyncratic-ruby.com/49-what-the-format.html</id>
+    <published>2016-05-18T00:00:00Z</published>
+    <updated>2016-05-18T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -3796,10 +3796,10 @@ end
   </entry>
   <entry>
     <title>Ruby TRICKS of 2015</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/48-ruby-tricks-of-2015.html"/>
-    <id>http://idiosyncratic-ruby.com/48-ruby-tricks-of-2015.html</id>
-    <published>2016-05-17T02:00:00+02:00</published>
-    <updated>2016-05-17T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/48-ruby-tricks-of-2015.html"/>
+    <id>https://idiosyncratic-ruby.com/48-ruby-tricks-of-2015.html</id>
+    <published>2016-05-17T00:00:00Z</published>
+    <updated>2016-05-17T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -4116,10 +4116,10 @@ ume ? 1:-1]}";eval z.tr ?\n,''
   </entry>
   <entry>
     <title>Ruby TRICKS of 2013</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/47-ruby-tricks-of-2013.html"/>
-    <id>http://idiosyncratic-ruby.com/47-ruby-tricks-of-2013.html</id>
-    <published>2016-05-16T02:00:00+02:00</published>
-    <updated>2016-05-16T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/47-ruby-tricks-of-2013.html"/>
+    <id>https://idiosyncratic-ruby.com/47-ruby-tricks-of-2013.html</id>
+    <published>2016-05-16T00:00:00Z</published>
+    <updated>2016-05-16T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -4306,10 +4306,10 @@ t+=1;v-d};m+=                n;g.flush&amp;lt;&amp;lt;(s.
   </entry>
   <entry>
     <title>The Art of Arguments</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/46-the-art-of-arguments.html"/>
-    <id>http://idiosyncratic-ruby.com/46-the-art-of-arguments.html</id>
-    <published>2016-05-15T02:00:00+02:00</published>
-    <updated>2016-05-15T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/46-the-art-of-arguments.html"/>
+    <id>https://idiosyncratic-ruby.com/46-the-art-of-arguments.html</id>
+    <published>2016-05-15T00:00:00Z</published>
+    <updated>2016-05-15T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -4370,10 +4370,10 @@ p Rationalist.parse(ARGV)
   </entry>
   <entry>
     <title>Constant Shuffle</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/45-constant-shuffle.html"/>
-    <id>http://idiosyncratic-ruby.com/45-constant-shuffle.html</id>
-    <published>2016-05-14T02:00:00+02:00</published>
-    <updated>2016-05-14T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/45-constant-shuffle.html"/>
+    <id>https://idiosyncratic-ruby.com/45-constant-shuffle.html</id>
+    <published>2016-05-14T00:00:00Z</published>
+    <updated>2016-05-14T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -4433,10 +4433,10 @@ end
   </entry>
   <entry>
     <title>Top Level Binding</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/44-top-level-binding.html"/>
-    <id>http://idiosyncratic-ruby.com/44-top-level-binding.html</id>
-    <published>2016-05-13T02:00:00+02:00</published>
-    <updated>2016-05-13T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/44-top-level-binding.html"/>
+    <id>https://idiosyncratic-ruby.com/44-top-level-binding.html</id>
+    <published>2016-05-13T00:00:00Z</published>
+    <updated>2016-05-13T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -4472,10 +4472,10 @@ example_method
   </entry>
   <entry>
     <title>New Ruby Startup</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/43-new-ruby-startup.html"/>
-    <id>http://idiosyncratic-ruby.com/43-new-ruby-startup.html</id>
-    <published>2016-05-12T02:00:00+02:00</published>
-    <updated>2016-05-12T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/43-new-ruby-startup.html"/>
+    <id>https://idiosyncratic-ruby.com/43-new-ruby-startup.html</id>
+    <published>2016-05-12T00:00:00Z</published>
+    <updated>2016-05-12T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -4805,10 +4805,10 @@ map{ |g| "`#{g.to_s.sub("`", "\\`")}`" }.join(", ")'
   </entry>
   <entry>
     <title>R(u)b(y)Config(uration)</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/42-ruby-config.html"/>
-    <id>http://idiosyncratic-ruby.com/42-ruby-config.html</id>
-    <published>2016-05-11T02:00:00+02:00</published>
-    <updated>2016-05-11T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/42-ruby-config.html"/>
+    <id>https://idiosyncratic-ruby.com/42-ruby-config.html</id>
+    <published>2016-05-11T00:00:00Z</published>
+    <updated>2016-05-11T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -6171,10 +6171,10 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
   </entry>
   <entry>
     <title>Proper Unicoding</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/41-proper-unicoding.html"/>
-    <id>http://idiosyncratic-ruby.com/41-proper-unicoding.html</id>
-    <published>2016-05-10T02:00:00+02:00</published>
-    <updated>2016-05-10T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/41-proper-unicoding.html"/>
+    <id>https://idiosyncratic-ruby.com/41-proper-unicoding.html</id>
+    <published>2016-05-10T00:00:00Z</published>
+    <updated>2016-05-10T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -6387,10 +6387,10 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
   </entry>
   <entry>
     <title>Symbolic Validations</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/40-symbolic-validations.html"/>
-    <id>http://idiosyncratic-ruby.com/40-symbolic-validations.html</id>
-    <published>2016-05-09T02:00:00+02:00</published>
-    <updated>2016-05-09T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/40-symbolic-validations.html"/>
+    <id>https://idiosyncratic-ruby.com/40-symbolic-validations.html</id>
+    <published>2016-05-09T00:00:00Z</published>
+    <updated>2016-05-09T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -6416,10 +6416,10 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
   </entry>
   <entry>
     <title>Fixed Numbers</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/39-fixed-numbers.html"/>
-    <id>http://idiosyncratic-ruby.com/39-fixed-numbers.html</id>
-    <published>2016-05-08T02:00:00+02:00</published>
-    <updated>2016-05-08T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/39-fixed-numbers.html"/>
+    <id>https://idiosyncratic-ruby.com/39-fixed-numbers.html</id>
+    <published>2016-05-08T00:00:00Z</published>
+    <updated>2016-05-08T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -6489,10 +6489,10 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
   </entry>
   <entry>
     <title>Sad Methods</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/38-sad-methods.html"/>
-    <id>http://idiosyncratic-ruby.com/38-sad-methods.html</id>
-    <published>2016-05-07T02:00:00+02:00</published>
-    <updated>2016-05-07T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/38-sad-methods.html"/>
+    <id>https://idiosyncratic-ruby.com/38-sad-methods.html</id>
+    <published>2016-05-07T00:00:00Z</published>
+    <updated>2016-05-07T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -6558,10 +6558,10 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
   </entry>
   <entry>
     <title>Static Monkeys vs. Strong Ducks</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/37-static-monkeys-vs-strong-ducks.html"/>
-    <id>http://idiosyncratic-ruby.com/37-static-monkeys-vs-strong-ducks.html</id>
-    <published>2016-05-06T02:00:00+02:00</published>
-    <updated>2016-05-06T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/37-static-monkeys-vs-strong-ducks.html"/>
+    <id>https://idiosyncratic-ruby.com/37-static-monkeys-vs-strong-ducks.html</id>
+    <published>2016-05-06T00:00:00Z</published>
+    <updated>2016-05-06T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -6662,10 +6662,10 @@ B.rev 42
   </entry>
   <entry>
     <title>ERB Render Standard</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/36-erb-render-standard.html"/>
-    <id>http://idiosyncratic-ruby.com/36-erb-render-standard.html</id>
-    <published>2016-05-05T02:00:00+02:00</published>
-    <updated>2016-05-05T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/36-erb-render-standard.html"/>
+    <id>https://idiosyncratic-ruby.com/36-erb-render-standard.html</id>
+    <published>2016-05-05T00:00:00Z</published>
+    <updated>2016-05-05T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -6743,10 +6743,10 @@ render_erb(example_template, example_data) # =&amp;gt; "Ruby 3.0\n"
   </entry>
   <entry>
     <title>Identification</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/35-identification.html"/>
-    <id>http://idiosyncratic-ruby.com/35-identification.html</id>
-    <published>2016-05-04T02:00:00+02:00</published>
-    <updated>2016-05-04T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/35-identification.html"/>
+    <id>https://idiosyncratic-ruby.com/35-identification.html</id>
+    <published>2016-05-04T00:00:00Z</published>
+    <updated>2016-05-04T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -6808,10 +6808,10 @@ end
   </entry>
   <entry>
     <title>Utility Gems</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/34-utility-gems.html"/>
-    <id>http://idiosyncratic-ruby.com/34-utility-gems.html</id>
-    <published>2016-05-03T02:00:00+02:00</published>
-    <updated>2016-05-03T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/34-utility-gems.html"/>
+    <id>https://idiosyncratic-ruby.com/34-utility-gems.html</id>
+    <published>2016-05-03T00:00:00Z</published>
+    <updated>2016-05-03T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -6945,10 +6945,10 @@ format "%.2f", 1
   </entry>
   <entry>
     <title>Too Expressive &amp; * _ ?</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/33-too-expressive.html"/>
-    <id>http://idiosyncratic-ruby.com/33-too-expressive.html</id>
-    <published>2016-05-02T02:00:00+02:00</published>
-    <updated>2016-05-02T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/33-too-expressive.html"/>
+    <id>https://idiosyncratic-ruby.com/33-too-expressive.html</id>
+    <published>2016-05-02T00:00:00Z</published>
+    <updated>2016-05-02T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -7129,10 +7129,10 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
   </entry>
   <entry>
     <title>No More Errors</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/32-no-more-errors.html"/>
-    <id>http://idiosyncratic-ruby.com/32-no-more-errors.html</id>
-    <published>2016-05-01T02:00:00+02:00</published>
-    <updated>2016-05-01T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/32-no-more-errors.html"/>
+    <id>https://idiosyncratic-ruby.com/32-no-more-errors.html</id>
+    <published>2016-05-01T00:00:00Z</published>
+    <updated>2016-05-01T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -8228,10 +8228,10 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
   </entry>
   <entry>
     <title>Roots of Rubyism</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/31-roots-of-rubyism.html"/>
-    <id>http://idiosyncratic-ruby.com/31-roots-of-rubyism.html</id>
-    <published>2015-05-31T02:00:00+02:00</published>
-    <updated>2015-05-31T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/31-roots-of-rubyism.html"/>
+    <id>https://idiosyncratic-ruby.com/31-roots-of-rubyism.html</id>
+    <published>2015-05-31T00:00:00Z</published>
+    <updated>2015-05-31T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -8254,10 +8254,10 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
   </entry>
   <entry>
     <title>Regex with Class</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/30-regex-with-class.html"/>
-    <id>http://idiosyncratic-ruby.com/30-regex-with-class.html</id>
-    <published>2015-05-30T02:00:00+02:00</published>
-    <updated>2015-05-30T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/30-regex-with-class.html"/>
+    <id>https://idiosyncratic-ruby.com/30-regex-with-class.html</id>
+    <published>2015-05-30T00:00:00Z</published>
+    <updated>2015-05-30T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -8475,10 +8475,10 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
   </entry>
   <entry>
     <title>Limitations of Language</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/29-limitations-of-language.html"/>
-    <id>http://idiosyncratic-ruby.com/29-limitations-of-language.html</id>
-    <published>2015-05-29T02:00:00+02:00</published>
-    <updated>2015-05-29T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/29-limitations-of-language.html"/>
+    <id>https://idiosyncratic-ruby.com/29-limitations-of-language.html</id>
+    <published>2015-05-29T00:00:00Z</published>
+    <updated>2015-05-29T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -8599,10 +8599,10 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
   </entry>
   <entry>
     <title>Operating Nothing</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/28-operating-nothing.html"/>
-    <id>http://idiosyncratic-ruby.com/28-operating-nothing.html</id>
-    <published>2015-05-28T02:00:00+02:00</published>
-    <updated>2015-05-28T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/28-operating-nothing.html"/>
+    <id>https://idiosyncratic-ruby.com/28-operating-nothing.html</id>
+    <published>2015-05-28T00:00:00Z</published>
+    <updated>2015-05-28T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -8767,10 +8767,10 @@ end
   </entry>
   <entry>
     <title>Golfing Basics</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/27-golfing-basics.html"/>
-    <id>http://idiosyncratic-ruby.com/27-golfing-basics.html</id>
-    <published>2015-05-27T02:00:00+02:00</published>
-    <updated>2015-05-27T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/27-golfing-basics.html"/>
+    <id>https://idiosyncratic-ruby.com/27-golfing-basics.html</id>
+    <published>2015-05-27T00:00:00Z</published>
+    <updated>2015-05-27T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -8888,10 +8888,10 @@ p JSON,YAML
   </entry>
   <entry>
     <title>File Encoding Magic</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/26-file-encoding-magic.html"/>
-    <id>http://idiosyncratic-ruby.com/26-file-encoding-magic.html</id>
-    <published>2015-05-26T02:00:00+02:00</published>
-    <updated>2015-05-26T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/26-file-encoding-magic.html"/>
+    <id>https://idiosyncratic-ruby.com/26-file-encoding-magic.html</id>
+    <published>2015-05-26T00:00:00Z</published>
+    <updated>2015-05-26T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -8936,10 +8936,10 @@ p "".encoding #=&amp;gt; #&amp;lt;Encoding:Windows-1252&amp;gt;
   </entry>
   <entry>
     <title>Meta Methodology</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/25-meta-methodology.html"/>
-    <id>http://idiosyncratic-ruby.com/25-meta-methodology.html</id>
-    <published>2015-05-25T02:00:00+02:00</published>
-    <updated>2015-05-25T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/25-meta-methodology.html"/>
+    <id>https://idiosyncratic-ruby.com/25-meta-methodology.html</id>
+    <published>2015-05-25T00:00:00Z</published>
+    <updated>2015-05-25T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -9329,10 +9329,10 @@ Class.private_instance_methods.grep /method/
   </entry>
   <entry>
     <title>Goto Fail</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/24-goto-fail.html"/>
-    <id>http://idiosyncratic-ruby.com/24-goto-fail.html</id>
-    <published>2015-05-24T02:00:00+02:00</published>
-    <updated>2015-05-24T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/24-goto-fail.html"/>
+    <id>https://idiosyncratic-ruby.com/24-goto-fail.html</id>
+    <published>2015-05-24T00:00:00Z</published>
+    <updated>2015-05-24T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -9382,10 +9382,10 @@ Failed
   </entry>
   <entry>
     <title>Ruby Lookalikes</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/23-ruby-lookalikes.html"/>
-    <id>http://idiosyncratic-ruby.com/23-ruby-lookalikes.html</id>
-    <published>2015-05-23T02:00:00+02:00</published>
-    <updated>2015-05-23T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/23-ruby-lookalikes.html"/>
+    <id>https://idiosyncratic-ruby.com/23-ruby-lookalikes.html</id>
+    <published>2015-05-23T00:00:00Z</published>
+    <updated>2015-05-23T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -9432,6 +9432,11 @@ Failed
       &lt;td&gt;JVM&lt;/td&gt;
       &lt;td&gt;Multi-Paradigm Ruby&lt;/td&gt;
     &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://github.com/rooby-lang/rooby"&gt;Rooby&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Machine&lt;/td&gt;
+      &lt;td&gt;Simple Ruby&lt;/td&gt;
+    &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 
@@ -9440,10 +9445,10 @@ Failed
   </entry>
   <entry>
     <title>Literate Ruby</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/22-literate-ruby.html"/>
-    <id>http://idiosyncratic-ruby.com/22-literate-ruby.html</id>
-    <published>2015-05-22T02:00:00+02:00</published>
-    <updated>2015-05-22T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/22-literate-ruby.html"/>
+    <id>https://idiosyncratic-ruby.com/22-literate-ruby.html</id>
+    <published>2015-05-22T00:00:00Z</published>
+    <updated>2015-05-22T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -9484,10 +9489,10 @@ __END__
   </entry>
   <entry>
     <title>Uniform Resource Matching</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/21-uniform-resource-matching.html"/>
-    <id>http://idiosyncratic-ruby.com/21-uniform-resource-matching.html</id>
-    <published>2015-05-21T02:00:00+02:00</published>
-    <updated>2015-05-21T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/21-uniform-resource-matching.html"/>
+    <id>https://idiosyncratic-ruby.com/21-uniform-resource-matching.html</id>
+    <published>2015-05-21T00:00:00Z</published>
+    <updated>2015-05-21T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -9537,10 +9542,10 @@ $ ruby -r uri -e 'p URI.regexp'
   </entry>
   <entry>
     <title>Better Standards</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/20-better-standards.html"/>
-    <id>http://idiosyncratic-ruby.com/20-better-standards.html</id>
-    <published>2015-05-20T02:00:00+02:00</published>
-    <updated>2015-05-20T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/20-better-standards.html"/>
+    <id>https://idiosyncratic-ruby.com/20-better-standards.html</id>
+    <published>2015-05-20T00:00:00Z</published>
+    <updated>2015-05-20T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -10264,10 +10269,10 @@ $ ruby -r uri -e 'p URI.regexp'
   </entry>
   <entry>
     <title>Symbolic Reservations</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/19-semantic-symbols.html"/>
-    <id>http://idiosyncratic-ruby.com/19-semantic-symbols.html</id>
-    <published>2015-05-19T02:00:00+02:00</published>
-    <updated>2015-05-19T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/19-semantic-symbols.html"/>
+    <id>https://idiosyncratic-ruby.com/19-semantic-symbols.html</id>
+    <published>2015-05-19T00:00:00Z</published>
+    <updated>2015-05-19T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -10368,10 +10373,10 @@ puts a.map(&amp;amp;:inspect)
   </entry>
   <entry>
     <title>Con-Struct Attributes</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/18-con-struct-attributes.html"/>
-    <id>http://idiosyncratic-ruby.com/18-con-struct-attributes.html</id>
-    <published>2015-05-18T02:00:00+02:00</published>
-    <updated>2015-05-18T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/18-con-struct-attributes.html"/>
+    <id>https://idiosyncratic-ruby.com/18-con-struct-attributes.html</id>
+    <published>2015-05-18T00:00:00Z</published>
+    <updated>2015-05-18T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -10649,10 +10654,10 @@ end
   </entry>
   <entry>
     <title>Stream Editing</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/17-stream-editing.html"/>
-    <id>http://idiosyncratic-ruby.com/17-stream-editing.html</id>
-    <published>2015-05-17T02:00:00+02:00</published>
-    <updated>2015-05-17T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/17-stream-editing.html"/>
+    <id>https://idiosyncratic-ruby.com/17-stream-editing.html</id>
+    <published>2015-05-17T00:00:00Z</published>
+    <updated>2015-05-17T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -10812,10 +10817,10 @@ For example:
   </entry>
   <entry>
     <title>Changing the Rules</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/16-changing-the-rules.html"/>
-    <id>http://idiosyncratic-ruby.com/16-changing-the-rules.html</id>
-    <published>2015-05-16T02:00:00+02:00</published>
-    <updated>2015-05-16T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/16-changing-the-rules.html"/>
+    <id>https://idiosyncratic-ruby.com/16-changing-the-rules.html</id>
+    <published>2015-05-16T00:00:00Z</published>
+    <updated>2015-05-16T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -10941,10 +10946,10 @@ expecting end-of-inputYIKES
   </entry>
   <entry>
     <title>210 Ways to Rome</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/15-207-ways-to-rome.html"/>
-    <id>http://idiosyncratic-ruby.com/15-207-ways-to-rome.html</id>
-    <published>2015-05-15T02:00:00+02:00</published>
-    <updated>2015-05-15T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/15-207-ways-to-rome.html"/>
+    <id>https://idiosyncratic-ruby.com/15-207-ways-to-rome.html</id>
+    <published>2015-05-15T00:00:00Z</published>
+    <updated>2015-05-15T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -11222,10 +11227,10 @@ STRING&lt;/code&gt;&lt;/pre&gt;
   </entry>
   <entry>
     <title>Meeting some Locals</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/14-meeting-some-locals.html"/>
-    <id>http://idiosyncratic-ruby.com/14-meeting-some-locals.html</id>
-    <published>2015-05-14T02:00:00+02:00</published>
-    <updated>2015-05-14T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/14-meeting-some-locals.html"/>
+    <id>https://idiosyncratic-ruby.com/14-meeting-some-locals.html</id>
+    <published>2015-05-14T00:00:00Z</published>
+    <updated>2015-05-14T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -11282,10 +11287,10 @@ b # NameError: ...
   </entry>
   <entry>
     <title>Slicing Rubies</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/13-slicing-rubies.html"/>
-    <id>http://idiosyncratic-ruby.com/13-slicing-rubies.html</id>
-    <published>2015-05-13T02:00:00+02:00</published>
-    <updated>2015-05-13T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/13-slicing-rubies.html"/>
+    <id>https://idiosyncratic-ruby.com/13-slicing-rubies.html</id>
+    <published>2015-05-13T00:00:00Z</published>
+    <updated>2015-05-13T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -11346,10 +11351,10 @@ b # NameError: ...
   </entry>
   <entry>
     <title>More Inspections</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/12-more-inspections.html"/>
-    <id>http://idiosyncratic-ruby.com/12-more-inspections.html</id>
-    <published>2015-05-12T02:00:00+02:00</published>
-    <updated>2015-05-12T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/12-more-inspections.html"/>
+    <id>https://idiosyncratic-ruby.com/12-more-inspections.html</id>
+    <published>2015-05-12T00:00:00Z</published>
+    <updated>2015-05-12T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -11400,10 +11405,10 @@ b # NameError: ...
   </entry>
   <entry>
     <title>Regular Extremism</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/11-regular-extremism.html"/>
-    <id>http://idiosyncratic-ruby.com/11-regular-extremism.html</id>
-    <published>2015-05-11T02:00:00+02:00</published>
-    <updated>2015-05-11T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/11-regular-extremism.html"/>
+    <id>https://idiosyncratic-ruby.com/11-regular-extremism.html</id>
+    <published>2015-05-11T00:00:00Z</published>
+    <updated>2015-05-11T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -11548,10 +11553,10 @@ string[/\X\X/] #=&amp;gt; "R̊u"
   </entry>
   <entry>
     <title>Know your Environment</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/10-know-your-environment.html"/>
-    <id>http://idiosyncratic-ruby.com/10-know-your-environment.html</id>
-    <published>2015-05-10T02:00:00+02:00</published>
-    <updated>2015-05-10T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/10-know-your-environment.html"/>
+    <id>https://idiosyncratic-ruby.com/10-know-your-environment.html</id>
+    <published>2015-05-10T00:00:00Z</published>
+    <updated>2015-05-10T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -11595,10 +11600,10 @@ ENV[42] = "oops" # not quite: TypeError
   </entry>
   <entry>
     <title>Globalization</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/9-globalization.html"/>
-    <id>http://idiosyncratic-ruby.com/9-globalization.html</id>
-    <published>2015-05-09T02:00:00+02:00</published>
-    <updated>2015-05-09T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/9-globalization.html"/>
+    <id>https://idiosyncratic-ruby.com/9-globalization.html</id>
+    <published>2015-05-09T00:00:00Z</published>
+    <updated>2015-05-09T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -11917,10 +11922,10 @@ ENV[42] = "oops" # not quite: TypeError
   </entry>
   <entry>
     <title>Self Improvement</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/8-self-improvement.html"/>
-    <id>http://idiosyncratic-ruby.com/8-self-improvement.html</id>
-    <published>2015-05-08T02:00:00+02:00</published>
-    <updated>2015-05-08T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/8-self-improvement.html"/>
+    <id>https://idiosyncratic-ruby.com/8-self-improvement.html</id>
+    <published>2015-05-08T00:00:00Z</published>
+    <updated>2015-05-08T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -12036,10 +12041,10 @@ Mathematics.method(:calc).owner.singleton_class? #=&amp;gt; false
   </entry>
   <entry>
     <title>Easier Switching</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/7-easier-switching.html"/>
-    <id>http://idiosyncratic-ruby.com/7-easier-switching.html</id>
-    <published>2015-05-07T02:00:00+02:00</published>
-    <updated>2015-05-07T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/7-easier-switching.html"/>
+    <id>https://idiosyncratic-ruby.com/7-easier-switching.html</id>
+    <published>2015-05-07T00:00:00Z</published>
+    <updated>2015-05-07T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -12103,10 +12108,10 @@ switch.rb: no implicit conversion of true into Integer (TypeError)
   </entry>
   <entry>
     <title>Run Ruby, Run!</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/6-run-ruby-run.html"/>
-    <id>http://idiosyncratic-ruby.com/6-run-ruby-run.html</id>
-    <published>2015-05-06T02:00:00+02:00</published>
-    <updated>2015-05-06T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/6-run-ruby-run.html"/>
+    <id>https://idiosyncratic-ruby.com/6-run-ruby-run.html</id>
+    <published>2015-05-06T00:00:00Z</published>
+    <updated>2015-05-06T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -12752,10 +12757,10 @@ provide:&lt;/p&gt;
   </entry>
   <entry>
     <title>Constant Shadows</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/5-constant-shadows.html"/>
-    <id>http://idiosyncratic-ruby.com/5-constant-shadows.html</id>
-    <published>2015-05-05T02:00:00+02:00</published>
-    <updated>2015-05-05T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/5-constant-shadows.html"/>
+    <id>https://idiosyncratic-ruby.com/5-constant-shadows.html</id>
+    <published>2015-05-05T00:00:00Z</published>
+    <updated>2015-05-05T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -13025,10 +13030,10 @@ puts "#{`ps -o rss -p #{Process.pid}`.strip.split.last.to_i / 1024.0} MB"
   </entry>
   <entry>
     <title>What the Pack?</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/4-what-the-pack.html"/>
-    <id>http://idiosyncratic-ruby.com/4-what-the-pack.html</id>
-    <published>2015-05-04T02:00:00+02:00</published>
-    <updated>2015-05-04T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/4-what-the-pack.html"/>
+    <id>https://idiosyncratic-ruby.com/4-what-the-pack.html</id>
+    <published>2015-05-04T00:00:00Z</published>
+    <updated>2015-05-04T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -13644,10 +13649,10 @@ a == c
   </entry>
   <entry>
     <title>Ruby, Can You Speak Louder?</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/3-ruby-can-you-speak-louder.html"/>
-    <id>http://idiosyncratic-ruby.com/3-ruby-can-you-speak-louder.html</id>
-    <published>2015-05-03T02:00:00+02:00</published>
-    <updated>2015-05-03T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/3-ruby-can-you-speak-louder.html"/>
+    <id>https://idiosyncratic-ruby.com/3-ruby-can-you-speak-louder.html</id>
+    <published>2015-05-03T00:00:00Z</published>
+    <updated>2015-05-03T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -13847,10 +13852,10 @@ end
   </entry>
   <entry>
     <title>Ruby String Magic</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/2-ruby-string-magic.html"/>
-    <id>http://idiosyncratic-ruby.com/2-ruby-string-magic.html</id>
-    <published>2015-05-02T02:00:00+02:00</published>
-    <updated>2015-05-02T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/2-ruby-string-magic.html"/>
+    <id>https://idiosyncratic-ruby.com/2-ruby-string-magic.html</id>
+    <published>2015-05-02T00:00:00Z</published>
+    <updated>2015-05-02T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
@@ -13913,10 +13918,10 @@ end
   </entry>
   <entry>
     <title>Test Highlights</title>
-    <link rel="alternate" href="http://idiosyncratic-ruby.com/1-test-highlights.html"/>
-    <id>http://idiosyncratic-ruby.com/1-test-highlights.html</id>
-    <published>2015-05-01T02:00:00+02:00</published>
-    <updated>2015-05-01T02:00:00+02:00</updated>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/1-test-highlights.html"/>
+    <id>https://idiosyncratic-ruby.com/1-test-highlights.html</id>
+    <published>2015-05-01T00:00:00Z</published>
+    <updated>2015-05-01T00:00:00Z</updated>
     <author>
       <name>Jan Lelis</name>
     </author>
