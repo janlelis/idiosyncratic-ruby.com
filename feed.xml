@@ -9551,6 +9551,8 @@ $ ruby -r uri -e 'p URI.regexp'
     </author>
     <content type="html">&lt;p&gt;A guide to Ruby's stdlib and available alternatives.&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;Also see:&lt;/strong&gt; The standard library will be turned into gems: &lt;a href="https://stdgems.org"&gt;stdgems.org&lt;/a&gt;&lt;/p&gt;
+
 &lt;h2 id="standard-library-overview"&gt;Standard Library Overview&lt;/h2&gt;
 
 &lt;p&gt;&lt;/p&gt;
