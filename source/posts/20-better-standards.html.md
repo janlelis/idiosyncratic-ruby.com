@@ -7,6 +7,8 @@ commit: b5489240ebc0e4a48de502eaca40e86087858afe
 
 A guide to Ruby's stdlib and available alternatives.
 
+**Also see:** The standard library will be turned into gems: [stdgems.org](https://stdgems.org)
+
 ## Standard Library Overview
 
 ARTICLE
