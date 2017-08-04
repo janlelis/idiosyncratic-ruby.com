@@ -22,7 +22,7 @@ Returns the absolute pathname of the `ruby` command, constructed from *bindir*, 
 
 ## `RbConfig.expand(val)`
 
-The RbConfig object has an internal method to substitute placeholders in values with other values from **RbConfig**. For example, 
+The RbConfig object has an internal method to substitute placeholders in values with other values from **RbConfig**. For example,
 the *LIBRUBY\_SO* value could be converted from `"lib$(RUBY_SO_NAME).so.$(MAJOR).$(MINOR).$(TEENY)"` to `"libruby.so.2.3.0"`.
 
 ## `RbConfig::TOPDIR`
@@ -275,53 +275,53 @@ This hash contains the [byte sizes of low-level data structures](https://github.
 
 The following table contains example values from an ubuntu machine using Ruby 2.3.0:
 
- Type                | Size
----------------------|-----
-                 int | 4
-               short | 2
-                long | 8
-           long long | 8
-               off_t | 8
-               void* | 8
-               float | 4
-              double | 8
-              time_t | 8
-             clock_t | 8
-              size_t | 8
-           ptrdiff_t | 8
-              int8_t | 1
-             uint8_t | 1
-             int16_t | 2
-            uint16_t | 2
-             int32_t | 4
-            uint32_t | 4
-             int64_t | 8
-            uint64_t | 8
-            intptr_t | 8
-           uintptr_t | 8
-             ssize_t | 8
-        int_least8_t | 1
-       int_least16_t | 2
-       int_least32_t | 4
-       int_least64_t | 8
-         int_fast8_t | 1
-        int_fast16_t | 8
-        int_fast32_t | 8
-        int_fast64_t | 8
-            intmax_t | 8
-        sig_atomic_t | 4
-             wchar_t | 4
-              wint_t | 4
-           wctrans_t | 8
-            wctype_t | 8
-               _Bool | 1
-         long double | 16
-      float _Complex | 8
-     double _Complex | 16
-long double _Complex | 32
-            __int128 | 16
-          __float128 | 16
-          _Decimal32 | 4
-          _Decimal64 | 8
-         _Decimal128 | 16
-           __float80 | 16
+| Type                | Size |
+|---------------------|------|
+|                 int | 4    |
+|               short | 2    |
+|                long | 8    |
+|           long long | 8    |
+|               off_t | 8    |
+|               void* | 8    |
+|               float | 4    |
+|              double | 8    |
+|              time_t | 8    |
+|             clock_t | 8    |
+|              size_t | 8    |
+|           ptrdiff_t | 8    |
+|              int8_t | 1    |
+|             uint8_t | 1    |
+|             int16_t | 2    |
+|            uint16_t | 2    |
+|             int32_t | 4    |
+|            uint32_t | 4    |
+|             int64_t | 8    |
+|            uint64_t | 8    |
+|            intptr_t | 8    |
+|           uintptr_t | 8    |
+|             ssize_t | 8    |
+|        int_least8_t | 1    |
+|       int_least16_t | 2    |
+|       int_least32_t | 4    |
+|       int_least64_t | 8    |
+|         int_fast8_t | 1    |
+|        int_fast16_t | 8    |
+|        int_fast32_t | 8    |
+|        int_fast64_t | 8    |
+|            intmax_t | 8    |
+|        sig_atomic_t | 4    |
+|             wchar_t | 4    |
+|              wint_t | 4    |
+|           wctrans_t | 8    |
+|            wctype_t | 8    |
+|               _Bool | 1    |
+|         long double | 16   |
+|      float _Complex | 8    |
+|     double _Complex | 16   |
+|long double _Complex | 32   |
+|            __int128 | 16   |
+|          __float128 | 16   |
+|          _Decimal32 | 4    |
+|          _Decimal64 | 8    |
+|         _Decimal128 | 16   |
+|           __float80 | 16   |
