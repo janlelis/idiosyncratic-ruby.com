@@ -9433,9 +9433,14 @@ Failed
       &lt;td&gt;Multi-Paradigm Ruby&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="https://github.com/rooby-lang/rooby"&gt;Rooby&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/rooby-lang/rooby/"&gt;Rooby&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Machine&lt;/td&gt;
       &lt;td&gt;Simple Ruby&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://github.com/SciRuby/rubex/"&gt;Rubex&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Machine&lt;/td&gt;
+      &lt;td&gt;Ruby Extensions Ruby&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
