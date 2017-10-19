@@ -4830,7 +4830,7 @@ RbConfig.ruby "/home/jan/.rvm/rubies/ruby-2.3.0/bin/ruby"
 
 &lt;h2 id="rbconfigexpandval"&gt;&lt;code&gt;RbConfig.expand(val)&lt;/code&gt;&lt;/h2&gt;
 
-&lt;p&gt;The RbConfig object has an internal method to substitute placeholders in values with other values from &lt;strong&gt;RbConfig&lt;/strong&gt;. For example, 
+&lt;p&gt;The RbConfig object has an internal method to substitute placeholders in values with other values from &lt;strong&gt;RbConfig&lt;/strong&gt;. For example,
 the &lt;em&gt;LIBRUBY_SO&lt;/em&gt; value could be converted from &lt;code&gt;"lib$(RUBY_SO_NAME).so.$(MAJOR).$(MINOR).$(TEENY)"&lt;/code&gt; to &lt;code&gt;"libruby.so.2.3.0"&lt;/code&gt;.&lt;/p&gt;
 
 &lt;h2 id="rbconfigtopdir"&gt;&lt;code&gt;RbConfig::TOPDIR&lt;/code&gt;&lt;/h2&gt;
@@ -10725,7 +10725,7 @@ For example:
 
 &lt;h2 id="running-code-before-or-after-processing-the-input"&gt;Running Code Before or After Processing the Input&lt;/h2&gt;
 
-&lt;p&gt;You can run code before the loop starts with &lt;code&gt;BEFORE&lt;/code&gt; and after the loop with &lt;code&gt;END&lt;/code&gt;. For example, this will count characters:&lt;/p&gt;
+&lt;p&gt;You can run code before the loop starts with &lt;code&gt;BEGIN&lt;/code&gt; and after the loop with &lt;code&gt;END&lt;/code&gt;. For example, this will count characters:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ ruby -ne 'BEGIN{ count = 0 }; count += $_.size; END{ print count }' filename
 &lt;/code&gt;&lt;/pre&gt;
