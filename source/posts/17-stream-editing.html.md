@@ -58,7 +58,7 @@ There is more to assist you in writing these short line manipulation scripts:
 
 ## Running Code Before or After Processing the Input
 
-You can run code before the loop starts with `BEFORE` and after the loop with `END`. For example, this will count characters:
+You can run code before the loop starts with `BEGIN` and after the loop with `END`. For example, this will count characters:
 
     $ ruby -ne 'BEGIN{ count = 0 }; count += $_.size; END{ print count }' filename
 
