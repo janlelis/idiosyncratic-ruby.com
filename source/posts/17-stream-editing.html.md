@@ -109,7 +109,7 @@ You might not always want to use `\n` as the character that separates lines. For
 Option | Variable  | Description
 -------|-----------|------------
 `-0`   | `$/`      | Sets the *input record separator*, which is used by `Kernel#gets`. Character to use must be given as [octal number](http://en.wikipedia.org/wiki/Octal). If no number is given (`-0`), it will use null bytes as separator. Using `-0777` will read in the whole file at once. Another special value is `-00`, which will set `$_` to `"\n\n"` (paragraph mode).
-`-F`   | `$;`      | Sets the *input field separator*, which is used by `Array#split`. Useful in combination with the `-a` option.
+`-F`   | `$;`      | Sets the *input field separator*, which is used by `String#split`. Useful in combination with the `-a` option.
 `-l`   | `$\`      | Sets the *output record separator* to the value of the *input record separator* (`$/`). Also runs [String#chop!](http://ruby-doc.org/core/String.html#method-i-chop-21) on every line!
 {:.table-10-10-X}
 
