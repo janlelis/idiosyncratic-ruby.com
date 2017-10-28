@@ -9,9 +9,11 @@ ERB stands for *<%# Embedded Ruby %>* and is the templating engine included in t
 
 ARTICLE
 
-However, it does not directly support rendering data from a [Hash](http://ruby-doc.org/core/Hash.html), but only from a [Binding](http://ruby-doc.org/core/Binding.html) object:
+However, it does not directly support rendering data from a [Hash](http://ruby-doc.org/core/Hash.html), but only from a [Binding](http://ruby-doc.org/core/Binding.html) object:¹
 
-## How to Render an ERB Template¹ (Pre 2.1)
+¹ **Update:** [It is now possible with Ruby 2.5](#how-to-render-an-erb-template-post-25)
+
+## How to Render an ERB Template² (Pre 2.1)
 
     require "erb"
     require "ostruct"
@@ -32,7 +34,7 @@ However, it does not directly support rendering data from a [Hash](http://ruby-d
 
     render_erb(example_template, example_data) # => "Ruby 3.0\n"
 
-¹ Actually, this also supports a (quite useful) additional syntax of ERB templates, "percent-lines":
+² Actually, this also supports a (quite useful) additional syntax of ERB templates, "percent-lines":
 
     example_template2 =<<TEMPLATE
     % calculation = 2 + 1
@@ -64,6 +66,26 @@ Ruby 2.1 came with [Binding#local_variable_set](http://ruby-doc.org/core/Binding
     render_erb(example_template, example_data) # => "Ruby 3.0\n"
 
 **Note:** Both versions' bindings also contain the method arguments of `render_erb`, so you can access `template` and `data` from within the template. If you don't like this, you can can use [`TOPLEVEL_BINDING.dup` to work around the local parameters](/44-top-level-binding.html).
+
+## How to Render an ERB Template (Post 2.5)
+
+Ruby 2.5 finally introduces a way to render hashes:
+
+    require "erb"
+
+    def render_erb(template, data = {})
+      ERB.new(template, nil, "%<>").result_with_hash(data)
+    end
+
+    example_data = {
+      idiosyncratic: "Ruby"
+    }
+
+    example_template = <<TEMPLATE
+    <%= idiosyncratic %> 3.0
+    TEMPLATE
+
+    render_erb(example_template, example_data) # => "Ruby 3.0\n"
 
 ## Also See
 
