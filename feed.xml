@@ -6673,9 +6673,11 @@ B.rev 42
 
 &lt;p&gt;&lt;/p&gt;
 
-&lt;p&gt;However, it does not directly support rendering data from a &lt;a href="http://ruby-doc.org/core/Hash.html"&gt;Hash&lt;/a&gt;, but only from a &lt;a href="http://ruby-doc.org/core/Binding.html"&gt;Binding&lt;/a&gt; object:&lt;/p&gt;
+&lt;p&gt;However, it does not directly support rendering data from a &lt;a href="http://ruby-doc.org/core/Hash.html"&gt;Hash&lt;/a&gt;, but only from a &lt;a href="http://ruby-doc.org/core/Binding.html"&gt;Binding&lt;/a&gt; object:¹&lt;/p&gt;
 
-&lt;h2 id="how-to-render-an-erb-template-pre-21"&gt;How to Render an ERB Template¹ (Pre 2.1)&lt;/h2&gt;
+&lt;p&gt;¹ &lt;strong&gt;Update:&lt;/strong&gt; &lt;a href="#how-to-render-an-erb-template-post-25"&gt;It is now possible with Ruby 2.5&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id="how-to-render-an-erb-template-pre-21"&gt;How to Render an ERB Template² (Pre 2.1)&lt;/h2&gt;
 
 &lt;pre&gt;&lt;code&gt;require "erb"
 require "ostruct"
@@ -6697,7 +6699,7 @@ TEMPLATE
 render_erb(example_template, example_data) # =&amp;gt; "Ruby 3.0\n"
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;¹ Actually, this also supports a (quite useful) additional syntax of ERB templates, "percent-lines":&lt;/p&gt;
+&lt;p&gt;² Actually, this also supports a (quite useful) additional syntax of ERB templates, "percent-lines":&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;example_template2 =&amp;lt;&amp;lt;TEMPLATE
 % calculation = 2 + 1
@@ -6731,6 +6733,27 @@ render_erb(example_template, example_data) # =&amp;gt; "Ruby 3.0\n"
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Both versions' bindings also contain the method arguments of &lt;code&gt;render_erb&lt;/code&gt;, so you can access &lt;code&gt;template&lt;/code&gt; and &lt;code&gt;data&lt;/code&gt; from within the template. If you don't like this, you can can use &lt;a href="/44-top-level-binding.html"&gt;&lt;code&gt;TOPLEVEL_BINDING.dup&lt;/code&gt; to work around the local parameters&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id="how-to-render-an-erb-template-post-25"&gt;How to Render an ERB Template (Post 2.5)&lt;/h2&gt;
+
+&lt;p&gt;Ruby 2.5 finally introduces a way to render hashes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;require "erb"
+
+def render_erb(template, data = {})
+  ERB.new(template, nil, "%&amp;lt;&amp;gt;").result_with_hash(data)
+end
+
+example_data = {
+  idiosyncratic: "Ruby"
+}
+
+example_template = &amp;lt;&amp;lt;TEMPLATE
+&amp;lt;%= idiosyncratic %&amp;gt; 3.0
+TEMPLATE
+
+render_erb(example_template, example_data) # =&amp;gt; "Ruby 3.0\n"
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
 
