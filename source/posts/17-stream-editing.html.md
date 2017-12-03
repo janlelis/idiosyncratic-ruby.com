@@ -115,6 +115,7 @@ Option | Variable  | Description
 
 ## Further Reading
 
+- [A lot of handy Ruby one-liners by Benoit Hamelin](http://benoithamelin.tumblr.com/ruby1line/)
 - [sed](https://en.wikipedia.org/wiki/Sed)
 - [un](http://idiosyncratic-ruby.com/6-run-ruby-run.html)
 - [pru](https://github.com/grosser/pru)
