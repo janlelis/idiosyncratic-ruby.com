@@ -19,5 +19,6 @@ Name                                 | Compiles To | Description
  [Scala](http://www.scala-lang.org/) | JVM         | Multi-Paradigm Ruby
  [Rooby](https://github.com/rooby-lang/rooby/) | Machine | Simple Ruby
  [Rubex](https://github.com/SciRuby/rubex/)    | Machine | Ruby Extensions Ruby
+ [Goby](https://github.com/goby-lang/goby)     | Machine | Go meets Ruby
 
 All of them are better than Ruby, in some way!
