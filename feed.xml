@@ -9465,6 +9465,11 @@ Failed
       &lt;td&gt;Machine&lt;/td&gt;
       &lt;td&gt;Ruby Extensions Ruby&lt;/td&gt;
     &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://github.com/goby-lang/goby"&gt;Goby&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Machine&lt;/td&gt;
+      &lt;td&gt;Go meets Ruby&lt;/td&gt;
+    &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 
