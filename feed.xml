@@ -10844,6 +10844,7 @@ For example:
 &lt;h2 id="further-reading"&gt;Further Reading&lt;/h2&gt;
 
 &lt;ul&gt;
+  &lt;li&gt;&lt;a href="http://benoithamelin.tumblr.com/ruby1line/"&gt;A lot of handy Ruby one-liners by Benoit Hamelin&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Sed"&gt;sed&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="http://idiosyncratic-ruby.com/6-run-ruby-run.html"&gt;un&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="https://github.com/grosser/pru"&gt;pru&lt;/a&gt;&lt;/li&gt;
