@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Idiosyncratic Ruby</title>
+
+    <meta name="description" content="Idiosyncratic Ruby">
+    <meta name="author" content="Jan Lelis">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+    <link rel="stylesheet" href="lib/css/github.css">
+    <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+
+    <script>
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <style>
+      .reveal section img {
+        box-shadow: none;
+        border: 0px;
+      }
+      .reveal section img.no-shadow {
+        /*box-shadow: none;*/
+        background: #f3f3f3;
+      }
+      .reveal pre code {
+        font-size: 20pt;
+        line-height: 23pt;
+        /*margin: 0px -200px;*/
+        margin-top: 2em;
+        /*border: 1px solid #ccc !important;*/
+        margin-bottom: 2em;
+      }
+      pre{
+        /*box-shadow: none !important;*/
+      }
+      /*.reveal pre .xml .ruby {
+        opacity: 1;
+        color: #fff;
+      }*/
+
+      .reveal p {
+        font-size: 33pt;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+          <section>
+            <img src="images/idiosyncratic.png"/>
+            <h2>Idiosyncratic Ruby</h2>
+            <h1>Quiz</h1>
+            <br/>
+
+            <p><a href="https://twitter.com/JanLelis">@JanLelis</a> — <a href="https://twitter.com/JanLelis">December 2017</a> — <a href="http://berlin.onruby.de/">RUG::B</a></p>
+          </section>
+
+          <section>
+            <img src="images/idiosyncratic.png"/>
+            <h2><a href="http://idiosyncratic-ruby.com">idiosyncratic-ruby.com</a></h2>
+            <p>Documenting lesser-known features in Ruby</p>
+            <br>
+            <h3 class="fragment">"Escape Ruby" Edition</h3>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Question 1</h3>
+
+            <div class="fragment">
+              <br/>
+              <p>What is the output of</p>
+              <code>?????:?????:??</code>
+            </div>
+
+            <div class="fragment">
+              <br/>
+              <p><em>A</em>: <code>"?"</code></p>
+            </div>
+          </section>
+
+          <section>
+            <h3>Answer 1</h3>
+
+            <p><code>?? ? ?? : ?? ? ?? : ??</code></p>
+            <p class="fragment"><code>"?" ? "?" : "?" ? "?" : "?"</code></p>
+            <p class="fragment"><code>"?" ? "?" : ("?" ? "?" : "?")</code></p>
+            <p class="fragment"><code>"?" ? "?" : "?"</code></p>
+            <p class="fragment"><code>"?"</code></p>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Question 2</h3>
+
+            <div class="fragment">
+              <br/>
+              <p>What is the output of</p>
+              <code>%%%%%%%%%%%</code>
+            </div>
+
+            <div class="fragment">
+              <br/>
+              <p><em>A</em>: <code>""</code></p>
+            </div>
+          </section>
+
+          <section>
+            <h3>Answer 2</h3>
+
+            <p><code>%%%%%%%%%%%</code></p>
+            <p class="fragment"><code>%%% % %%% % %%%</code></p>
+            <p class="fragment"><code>"" % "" % ""</code></p>
+            <p class="fragment"><code>"" % ""</code></p>
+            <p class="fragment"><code>""</code></p>
+          </section>
+
+          <section>
+            <h3>Bonus Question 2</h3>
+            <br/>
+            <p>What is the output of</p>
+            <code>% % % % % % % % </code>
+            <div class="fragment">
+              <br/>
+              <p><em>A</em>: <code>"%"</code></p>
+            </div>
+          </section>
+
+          <section>
+            <h3>Bonus Answer 2</h3>
+
+            <p><code>% % % % % % % % </code></p>
+            <p class="fragment"><code>"%"%"%"%"%"</code></p>
+            <p class="fragment"><code>"%" % "%" % "%"</code></p>
+            <p class="fragment"><code>"%" % "%"</code></p>
+            <p class="fragment"><code>"%"</code></p>
+          </section>
+        </section>
+
+
+        <section>
+          <section>
+            <h3>Question 3</h3>
+            <p>What is the result?</p>
+            <br/>
+            <div>
+              <p style="font-size: 80%"><strong class="fragment">"RUG::B".gsub(/(.*)::/, '\&\&')</strong>
+              <span style="font-size: 80%" class="fragment"><br/><code>"RUG::RUG::B"</code></span></p>
+              <p style="font-size: 80%"><strong class="fragment">"RUG::B".gsub(/(.*)::/, '\\&\\&')</strong>
+              <span style="font-size: 80%" class="fragment"><br/><code>"RUG::RUG::B"</code></span></p>
+              <p style="font-size: 80%"><strong class="fragment">"RUG::B".gsub(/(.*)::/, '\\\&\\\&')</strong>
+              <span style="font-size: 80%" class="fragment"><br/><code>"\\&\\&B"</code></span></p>
+              <p style="font-size: 80%"><strong class="fragment">"RUG::B".gsub(/(.*)::/, "\&\&")</strong>
+              <span  style="font-size: 80%" class="fragment"><br/><code>"&&B"</code></span></p>
+              <p style="font-size: 80%"><strong class="fragment">"RUG::B".gsub(/(.*)::/, "\\&\\&")</strong>
+              <span  style="font-size: 80%" class="fragment"><br/><code>"RUG::RUG::B"</code></span></p>
+              <p style="font-size: 80%"><strong class="fragment">"RUG::B".gsub(/(.*)::/, "\\\&\\\&")</strong>
+              <span  style="font-size: 80%" class="fragment"><br/><code>"RUG::RUG::B"</code></span></p>
+            </div>
+          </section>
+
+          <section>
+            <h3>Bonus Question 3</h3>
+            <p>What is the result?</p>
+            <br/>
+              <p style="font-size: 80%"><strong class="fragment">"RUG::B".gsub(/(.*)/, '\1')</strong>
+              <span style="font-size: 80%" class="fragment"><br/><code>"RUG::B"</code></span></p>
+
+              <p style="font-size: 80%" class="fragment"><strong class="fragment">"RUG::B".gsub(/(.*)/, '\\1')</strong>
+              <span style="font-size: 80%" class="fragment"><br/><code>"RUG::B"</code></span></p>
+
+              <p style="font-size: 80%"><strong class="fragment">"RUG::B".gsub(/(.*)/, '\\\1')</strong>
+              <span style="font-size: 80%" class="fragment"><br/><code>"\\1\\1"</code></span></p>
+
+
+              <p style="font-size: 80%"><strong class="fragment">"RUG::B".gsub(/(.*)/, "\1")</strong>
+              <span  style="font-size: 80%" class="fragment"><br/><code>"\u0001\u0001"</code></span></p>
+
+              <p style="font-size: 80%"><strong class="fragment">"RUG::B".gsub(/(.*)/, "\\1")</strong>
+              <span  style="font-size: 80%" class="fragment"><br/><code>"RUG::B"</code></span></p>
+
+              <p style="font-size: 80%"><strong class="fragment">"RUG::B".gsub(/(.*)/, "\\\1")</strong>
+              <span  style="font-size: 80%" class="fragment"><br/><code>"\\\u0001\\\u0001"</code></span></p>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Question 4</h3>
+            <br/>
+            <p>How many ways does Ruby provide to embed a NULL Byte?</p>
+            <div class="fragment">
+              <p>Hint: For example, <code>"\x00"</code> embeds a null byte</p>
+            </div>
+            <div class="fragment">
+              <br/>
+              <p><em>A</em>: 40</p>
+            </div>
+          </section>
+
+          <section>
+            <h3>Bonus Question 4</h3>
+            <p>What?</p>
+            <p>
+              <span class="fragment"><strong>"\0"</strong></span>
+              <span class="fragment"><strong>"\x00"</strong></span>
+              <span class="fragment"><strong>"\x0"</strong></span>
+              <span class="fragment"><strong>"\u0000"</strong></span>
+              <span class="fragment"><strong>"\u{0000}"</strong></span>
+              <span class="fragment"><strong>"\u{000}"</strong></span>
+              <span class="fragment"><strong>"\u{00}"</strong></span>
+              <span class="fragment"><strong>"\u{0}"</strong></span>
+              <span class="fragment"><strong>"\u{00000}"</strong></span>
+              <span class="fragment"><strong>"\u{000000}"</strong></span>
+              <span class="fragment"><strong>"\000"</strong></span>
+              <span class="fragment"><strong>"\00"</strong></span>
+              <span class="fragment"><strong>"\C-0"</strong></span>
+              <span class="fragment"><strong>"\C-\x00"</strong></span>
+              <span class="fragment"><strong>"\C-\x0"</strong></span>
+              <span class="fragment"><strong>"\C-\000"</strong></span>
+              <span class="fragment"><strong>"\C-\00"</strong></span>
+              <span class="fragment"><strong>"\C-@"</strong></span>
+              <span class="fragment"><strong>"\C-\x40"</strong></span>
+              <span class="fragment"><strong>"\C-\100"</strong></span>
+              <span class="fragment"><strong>"\C-`"</strong></span>
+              <span class="fragment"><strong>"\C-\x60"</strong></span>
+              <span class="fragment"><strong>"\C-\140"</strong></span>
+              <span class="fragment"><strong>"\C- "</strong></span>
+              <span class="fragment"><strong>"\C-\x20"</strong></span>
+              <span class="fragment"><strong>"\C-\40"</strong></span>
+              <span class="fragment"><strong>"\c0"</strong></span>
+              <span class="fragment"><strong>"\c\x00"</strong></span>
+              <span class="fragment"><strong>"\c\x0"</strong></span>
+              <span class="fragment"><strong>"\c\000"</strong></span>
+              <span class="fragment"><strong>"\c\00"</strong></span>
+              <span class="fragment"><strong>"\c@"</strong></span>
+              <span class="fragment"><strong>"\c\x40"</strong></span>
+              <span class="fragment"><strong>"\c\100"</strong></span>
+              <span class="fragment"><strong>"\c`"</strong></span>
+              <span class="fragment"><strong>"\c\x60"</strong></span>
+              <span class="fragment"><strong>"\c\140"</strong></span>
+              <span class="fragment"><strong>"\c "</strong></span>
+              <span class="fragment"><strong>"\c\x20"</strong></span>
+              <span class="fragment"><strong>"\c\40"</strong></span>
+            </p>
+          </section>
+        </section>
+
+
+        <section>
+          <section>
+            <h2><span>This was Ruby Quiz</span></h2>
+            <!--p><a href="https://twitter.com/JanLelis">idiosyncratic-ruby.com</a></p-->
+            <p><a href="https://twitter.com/JanLelis">@JanLelis</a></p>
+          </section>
+        </section>
+
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        slideNumber: true,
+
+        theme: Reveal.getQueryHash().theme || 'default', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'concave', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+    </script>
+  </body>
+</html>
