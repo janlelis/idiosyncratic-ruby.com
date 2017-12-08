@@ -10831,7 +10831,7 @@ For example:
     &lt;tr&gt;
       &lt;td&gt;&lt;code&gt;-F&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;$;&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Sets the &lt;em&gt;input field separator&lt;/em&gt;, which is used by &lt;code&gt;Array#split&lt;/code&gt;. Useful in combination with the &lt;code&gt;-a&lt;/code&gt; option.&lt;/td&gt;
+      &lt;td&gt;Sets the &lt;em&gt;input field separator&lt;/em&gt;, which is used by &lt;code&gt;String#split&lt;/code&gt;. Useful in combination with the &lt;code&gt;-a&lt;/code&gt; option.&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;code&gt;-l&lt;/code&gt;&lt;/td&gt;
