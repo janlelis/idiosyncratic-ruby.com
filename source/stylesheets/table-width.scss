@@ -146,3 +146,9 @@
    th:nth-child(4) { width:  7%; }
    th:nth-child(5) { width: 45%; }
 }
+
+.table-20-60-X {
+  th:nth-child(1) { width: 20%; }
+  th:nth-child(2) { width: 60%; }
+}
+
