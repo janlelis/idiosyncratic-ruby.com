@@ -25,7 +25,7 @@ In this context "corresponding variable" means *global variable*. Let's see this
 
 ## Switching Files
 
-You can add command-line options to the [Ruby shebang line](http://en.wikipedia.org/wiki/Shebang_%28Unix%29), which makes using the switch feature from the command-line more readable. Create a Ruby file (`switch.rb`) and add:
+You can add command-line options to the [Ruby shebang line](https://en.wikipedia.org/wiki/Shebang_%28Unix%29), which makes using the switch feature from the command-line more readable. Create a Ruby file (`switch.rb`) and add:
 
     #!ruby -s
     p $option

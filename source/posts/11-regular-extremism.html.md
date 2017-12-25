@@ -57,7 +57,7 @@ You can recursively apply regex groups again with `\g<ref>`. "ref" stands for a 
 
 ## Match Characters that Belong Together
 
-`\X` treats combined characters as a single character. See [grapheme clusters](http://unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries) for more information.
+`\X` treats combined characters as a single character. See [grapheme clusters](https://unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries) for more information.
 
     string = "R\u{030A}uby"
     string[/./] #=> "R"
@@ -103,5 +103,5 @@ But if you want to make your code as hard to read as possible, remember that cap
 
 ## Resources
 
-- [RDoc: Regexp](http://ruby-doc.org/core/Regexp.html)
+- [RDoc: Regexp](https://ruby-doc.org/core/Regexp.html)
 - [Onigmo Documentation](https://github.com/k-takata/Onigmo/blob/master/doc/RE)

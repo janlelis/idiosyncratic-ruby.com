@@ -5,7 +5,7 @@ tags: core, cruby, reflection, metaprogramming
 commit: dcad9080db57bce96f53019244d609e554c81975
 ---
 
-In general, Ruby's [reflection capabilities](https://en.wikipedia.org/wiki/Reflection_%28computer_programming%29) are pretty powerful, although [not always logical](http://idiosyncratic-ruby.com/25-meta-methodology.html). However, when reflecting on a method's (or proc's) usage, you are sometimes stuck with **sad methods**.
+In general, Ruby's [reflection capabilities](https://en.wikipedia.org/wiki/Reflection_%28computer_programming%29) are pretty powerful, although [not always logical](https://idiosyncratic-ruby.com/25-meta-methodology.html). However, when reflecting on a method's (or proc's) usage, you are sometimes stuck with **sad methods**.
 
 ARTICLE
 
@@ -22,7 +22,7 @@ For example:
 
     method(:require).arity # => 1
 
-However: [For methods written in C, returns -1 if the call takes a variable number of arguments](http://ruby-doc.org/core/Method.html#method-i-arity)
+However: [For methods written in C, returns -1 if the call takes a variable number of arguments](https://ruby-doc.org/core/Method.html#method-i-arity)
 
     method(:puts).arity # => -1
 
@@ -33,7 +33,7 @@ The `source_location` of a method (or proc) returns a two-element array containi
     method(:require).source_location
     # => ["/home/jan/.rvm/rubies/ruby-2.3.0/lib/.../core_ext/kernel_require.rb", 39]
 
-However: [Returns […] nil if this method was not defined in Ruby (i.e. native)](http://ruby-doc.org/core/Method.html#method-i-source_location)
+However: [Returns […] nil if this method was not defined in Ruby (i.e. native)](https://ruby-doc.org/core/Method.html#method-i-source_location)
 
     method(:puts).source_location # => nil
 

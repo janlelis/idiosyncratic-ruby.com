@@ -9,11 +9,11 @@ Ruby's syntax is so expressive — it utilizes every printable, non-alphanumeric
 
 ARTICLE
 
-The next sections show 4+ different meanings of every portrayed single character (not counting different meaning as [custom string delimiter](http://idiosyncratic-ruby.com/15-207-ways-to-rome.html) or meaning within a regex):
+The next sections show 4+ different meanings of every portrayed single character (not counting different meaning as [custom string delimiter](https://idiosyncratic-ruby.com/15-207-ways-to-rome.html) or meaning within a regex):
 
 ## Question Mark (4 Syntactical Meanings)
 
-The question mark is a sure way to [confuse your syntax highlighter](http://idiosyncratic-ruby.com/1-test-highlights.html)!
+The question mark is a sure way to [confuse your syntax highlighter](https://idiosyncratic-ruby.com/1-test-highlights.html)!
 
 ### Valid ending of a method name
 
@@ -154,4 +154,4 @@ The record holder!
 
 * [What do you call this in Ruby?](https://github.com/JuanitoFatas/what-do-you-call-this-in-ruby)
 * [Ruby's Grammar Definition](https://raw.githubusercontent.com/ruby/ruby/trunk/parse.y)
-* [Speial Global Variables](http://idiosyncratic-ruby.com/9-globalization.html)
+* [Speial Global Variables](https://idiosyncratic-ruby.com/9-globalization.html)

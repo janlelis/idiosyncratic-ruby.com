@@ -101,7 +101,7 @@ Again, mixing with other types of referencing will lead to errors like this one:
 
 ## Flags, Widths, and Formatting Type
 
-In the previous examples, only basic string substitution was used. But format strings can do more: They can convert a value to another representation using a different **formatting type**. The formatting type is specified by the last letter of the reference. Besides `%s`, another common used formatting type is `%d`, which will put the value through [`Interger()`](http://ruby-doc.org/core/Kernel.html#method-i-Integer):
+In the previous examples, only basic string substitution was used. But format strings can do more: They can convert a value to another representation using a different **formatting type**. The formatting type is specified by the last letter of the reference. Besides `%s`, another common used formatting type is `%d`, which will put the value through [`Interger()`](https://ruby-doc.org/core/Kernel.html#method-i-Integer):
 
     "%d" % 1
     # => 1
@@ -136,7 +136,7 @@ What follows is a description of all formatting options and types.
 
 ## Formatting Flags and Options: String Padding
 
-When the format string parser finds a number (which is not a preceeded by `.` or `$`), it will treat the value as a padding width. The padding width defines the minimum string length, the remaining space will be filled with ASCII spaces. This is a similar functionality like provided by [String#ljust](http://ruby-doc.org/core/String.html):
+When the format string parser finds a number (which is not a preceeded by `.` or `$`), it will treat the value as a padding width. The padding width defines the minimum string length, the remaining space will be filled with ASCII spaces. This is a similar functionality like provided by [String#ljust](https://ruby-doc.org/core/String.html):
 
     "%20s" % "Idiosyncratic"
     # => "       Idiosyncratic"
@@ -242,7 +242,7 @@ Padding + Limit:
 
 ### %p | Inspect
 
-Calls [inspect](http://ruby-doc.org/core/Kernel.html#method-i-p) on the value:
+Calls [inspect](https://ruby-doc.org/core/Kernel.html#method-i-p) on the value:
 
     "%p" % "Idiosyncratic"
     # => "\"Idiosyncratic\""
@@ -251,7 +251,7 @@ Supports the same flags and arguments like `%s`.
 
 ### %c | Character
 
-Interpretes a numerical value as a [codepoint](https://en.wikipedia.org/wiki/Code_point) of the current encoding and converts it to the respective character (the reverse of [String#ord](http://ruby-doc.org/core/String.html#method-i-ord), similar to what [`Array#pack("U")`]((http://idiosyncratic-ruby.com/4-what-the-pack.html#u--utf-8-characters)) does for UTF-8 strings):
+Interpretes a numerical value as a [codepoint](https://en.wikipedia.org/wiki/Code_point) of the current encoding and converts it to the respective character (the reverse of [String#ord](https://ruby-doc.org/core/String.html#method-i-ord), similar to what [`Array#pack("U")`]((https://idiosyncratic-ruby.com/4-what-the-pack.html#u--utf-8-characters)) does for UTF-8 strings):
 
     "%c" % 11835
     # => "⸻"
@@ -268,7 +268,7 @@ A padding width has the same effect it has for strings. When Integer formatting 
     "%6.4d" % 20
     # => "  0020"
 
-The all integer formatting type will run the value through [`Integer()`](http://ruby-doc.org/core/Kernel.html#method-i-Integer):
+The all integer formatting type will run the value through [`Integer()`](https://ruby-doc.org/core/Kernel.html#method-i-Integer):
 
     "%d" % 42.9
     # => "42"
@@ -297,7 +297,7 @@ Converts the number to a binary number string:
     "%b" % 42
     # => "101010"
 
-**Note:** Another way of achieving the same would be to use [Numeric#to_s(2)](http://ruby-doc.org/core/Numeric.html):
+**Note:** Another way of achieving the same would be to use [Numeric#to_s(2)](https://ruby-doc.org/core/Numeric.html):
 
     42.to_s(2)
     # => "101010"
@@ -329,7 +329,7 @@ Converts the number to an octal number string:
     "%o" % 42
     # => "52"
 
-**Note:** Another way of achieving the same would be to use [Numeric#to_s(8)](http://ruby-doc.org/core/Numeric.html):
+**Note:** Another way of achieving the same would be to use [Numeric#to_s(8)](https://ruby-doc.org/core/Numeric.html):
 
     42.to_s(8)
     # => "52"
@@ -361,7 +361,7 @@ The `%X` type has the same behavoir, except that it will used uppercased letters
     "%X" % 42
     # => "2A"
 
-**Note:** Another way of achieving the same would be to use [Numeric#to_s(16)](http://ruby-doc.org/core/Numeric.html):
+**Note:** Another way of achieving the same would be to use [Numeric#to_s(16)](https://ruby-doc.org/core/Numeric.html):
 
     42.to_s(16)
     # => "2a"
@@ -507,7 +507,7 @@ Using big `%A` will uppercase all letters:
 
 ## Resources
 
-- [RDoc: Kernel#sprintf](http://ruby-doc.org/core/Kernel.html#method-i-sprintf)
+- [RDoc: Kernel#sprintf](https://ruby-doc.org/core/Kernel.html#method-i-sprintf)
 - [Source: sprintf.c](https://github.com/ruby/ruby/blob/trunk/sprintf.c)
 
 ## Also See

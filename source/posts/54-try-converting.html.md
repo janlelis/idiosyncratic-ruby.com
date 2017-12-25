@@ -11,7 +11,7 @@ ARTICLE
 
 ## Implicit and Explicit Conversion
 
-Ruby objects are usually converted to other classes/types using `to_*` functions. For example, converting the [String](http://ruby-doc.org/core/String.html) `"42"` to a [Float](http://ruby-doc.org/core/Float.html) is done with `to_f`:
+Ruby objects are usually converted to other classes/types using `to_*` functions. For example, converting the [String](https://ruby-doc.org/core/String.html) `"42"` to a [Float](https://ruby-doc.org/core/Float.html) is done with `to_f`:
 
     "42".to_f # => 42.0
 
@@ -59,28 +59,28 @@ Idiosyncratically, there is a third way of converting values: *Uppercased Kernel
 - If there is a **special conversion**, apply it. See the table below for details and the exact application order (e.g. `Array()` does its special conversion *after* it tried the two steps below).
 - Unless special conversion gets applied, try to convert via the **implicit convesion** method
 - If it does not exist, try to convert via the **explicit conversion** method
-- Raise a [TypeError](http://ruby-doc.org/core/TypeError.html) if everything of the above has failed
+- Raise a [TypeError](https://ruby-doc.org/core/TypeError.html) if everything of the above has failed
 
-¹ Although defining uppercased methods for your custom classes to create instances of it looks like an interesting idea at first glance, it is rather confusing. Consider defining class`.[]` instead, which enables a very similar syntax, but uses the real constant it belongs to. An example of such usage is [Set](http://ruby-doc.org/stdlib/libdoc/set/rdoc/Set.html#method-c-5B-5D).
+¹ Although defining uppercased methods for your custom classes to create instances of it looks like an interesting idea at first glance, it is rather confusing. Consider defining class`.[]` instead, which enables a very similar syntax, but uses the real constant it belongs to. An example of such usage is [Set](https://ruby-doc.org/stdlib/libdoc/set/rdoc/Set.html#method-c-5B-5D).
 
 ## Core Classes Conversion Table
 
  Class | `.try_convert` | Kernel Method | Kernel Method w/ `nil` | Kernel Method Special
 -------|----------------|---------------|------------------------|----------------------
- Array | [Array.try_convert](http://ruby-doc.org/core/Array.html#method-c-try_convert) | [Array()](http://ruby-doc.org/core/Kernel.html#method-i-Array) | `Array(nil) # => []` | If `:to_ary` and `:to_a` did not return an array, it will create single-element array which contains the given value
- Hash | [Hash.try_convert](http://ruby-doc.org/core/Hash.html#method-c-try_convert) | [Hash()](http://ruby-doc.org/core/Kernel.html#method-i-Hash) | `Hash(nil) # => {}` | `Hash([]) # => {}`. Also remember that you can convert arrays to hashes with [Hash.[]](http://ruby-doc.org/core/Hash.html#method-c-5B-5D).
- String   | [String.try_convert](http://ruby-doc.org/core/String.html#method-c-try_convert) | [String()](http://ruby-doc.org/core/Kernel.html#method-i-String) | `String(nil) # => ""` | -
- Integer  | - | [Integer()](http://ruby-doc.org/core/Kernel.html#method-i-Integer) | `Integer(nil) # TypeError` | Special behavior for strings: Instead of calling [String#to_i](http://ruby-doc.org/core/String.html#method-i-to_i), it will be more rigid². Takes a second argument defining the [numerical base](https://en.wikipedia.org/wiki/Radix). Also see ³
- Float    | - | [Float()](http://ruby-doc.org/core/Kernel.html#method-i-Float) | `Float(nil) # TypeError` | - ³
- Complex  | - | [Complex()](http://ruby-doc.org/core/Kernel.html#method-i-Complex) | `Complex(nil) # TypeError` | -
- Rational | - | [Rational()](http://ruby-doc.org/core/Kernel.html#method-i-Rational) | `Rational(nil) # TypeError` | -
- Regexp   | [Regexp.try_convert](http://ruby-doc.org/core/Regexp.html#method-c-try_convert) | - | - | -
- IO       | [IO.try_convert](http://ruby-doc.org/core/IO.html#method-c-try_convert) | - | - | -
+ Array | [Array.try_convert](https://ruby-doc.org/core/Array.html#method-c-try_convert) | [Array()](https://ruby-doc.org/core/Kernel.html#method-i-Array) | `Array(nil) # => []` | If `:to_ary` and `:to_a` did not return an array, it will create single-element array which contains the given value
+ Hash | [Hash.try_convert](https://ruby-doc.org/core/Hash.html#method-c-try_convert) | [Hash()](https://ruby-doc.org/core/Kernel.html#method-i-Hash) | `Hash(nil) # => {}` | `Hash([]) # => {}`. Also remember that you can convert arrays to hashes with [Hash.[]](https://ruby-doc.org/core/Hash.html#method-c-5B-5D).
+ String   | [String.try_convert](https://ruby-doc.org/core/String.html#method-c-try_convert) | [String()](https://ruby-doc.org/core/Kernel.html#method-i-String) | `String(nil) # => ""` | -
+ Integer  | - | [Integer()](https://ruby-doc.org/core/Kernel.html#method-i-Integer) | `Integer(nil) # TypeError` | Special behavior for strings: Instead of calling [String#to_i](https://ruby-doc.org/core/String.html#method-i-to_i), it will be more rigid². Takes a second argument defining the [numerical base](https://en.wikipedia.org/wiki/Radix). Also see ³
+ Float    | - | [Float()](https://ruby-doc.org/core/Kernel.html#method-i-Float) | `Float(nil) # TypeError` | - ³
+ Complex  | - | [Complex()](https://ruby-doc.org/core/Kernel.html#method-i-Complex) | `Complex(nil) # TypeError` | -
+ Rational | - | [Rational()](https://ruby-doc.org/core/Kernel.html#method-i-Rational) | `Rational(nil) # TypeError` | -
+ Regexp   | [Regexp.try_convert](https://ruby-doc.org/core/Regexp.html#method-c-try_convert) | - | - | -
+ IO       | [IO.try_convert](https://ruby-doc.org/core/IO.html#method-c-try_convert) | - | - | -
 {:.table-10-20-15-25-X}
 
 .
 
-² It will only convert strings that contain exactly an integer. It would not accept "42A", which `String#to_i` would happily take. It also accepts [radix prefixes and numbers that contain underscores](http://idiosyncratic-ruby.com/39-fixed-numbers.html), so basically it accepts the same format that is valid for direct integer literals in Ruby. Will raise an `ArgumentError` if an invalid string is passed in.<br/>
+² It will only convert strings that contain exactly an integer. It would not accept "42A", which `String#to_i` would happily take. It also accepts [radix prefixes and numbers that contain underscores](https://idiosyncratic-ruby.com/39-fixed-numbers.html), so basically it accepts the same format that is valid for direct integer literals in Ruby. Will raise an `ArgumentError` if an invalid string is passed in.<br/>
 ³ It will convert to other low-level numerical types (such as integers and floats) directly, so `Float(4)` will *not* call `4.to_f`
 
 ## When to Use What?

@@ -5,13 +5,13 @@ tags: stdlib, regex
 commit: cb3a4428bb004ee39a8ab5edc834c00b9db2b157
 ---
 
-Ruby's [URI standard library](http://ruby-doc.org/stdlib/libdoc/uri/rdoc/URI.html) contains a very sophisticated regex for matching URLs:
+Ruby's [URI standard library](https://ruby-doc.org/stdlib/libdoc/uri/rdoc/URI.html) contains a very sophisticated regex for matching URLs:
 
 ARTICLE
 
-    "At http://idiosyncratic-ruby.com you can learn about the " \
+    "At https://idiosyncratic-ruby.com you can learn about the " \
     "obscure parts of Ruby"[URI.regexp]
-    # => "http://idiosyncratic-ruby.com"
+    # => "https://idiosyncratic-ruby.com"
 
 This regex is built in [uri/rfc2396_parser.rb](https://github.com/ruby/ruby/blob/trunk/lib/uri/rfc2396_parser.rb) and looks like this:
 

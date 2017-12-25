@@ -69,7 +69,7 @@ Finding the shortest way to read user input is a common problem for golfers and 
 
 ## Regex Always Wins
 
-This is one of the golden rules of golfing. Especially, combining the [block syntax of `gsub`](http://ruby-doc.org/core/String.html#method-i-gsub) with the [perlish regex variables](http://idiosyncratic-ruby.com/9-globalization.html) can be very expressive!
+This is one of the golden rules of golfing. Especially, combining the [block syntax of `gsub`](https://ruby-doc.org/core/String.html#method-i-gsub) with the [perlish regex variables](https://idiosyncratic-ruby.com/9-globalization.html) can be very expressive!
 
     "some_string".gsub(/(^|_)(\w)/){$2.upcase}
 
@@ -83,7 +83,7 @@ However, it's not true - regexes do not always win. If you need to perform some 
 
 ## One More or Less
 
-In some instances, you cannot use `i+1` or `i-1` without wrapping them in parenthesis. No problem, [unary complement](http://ruby-doc.org/core/Fixnum.html#method-i-7E) to the rescue:
+In some instances, you cannot use `i+1` or `i-1` without wrapping them in parenthesis. No problem, [unary complement](https://ruby-doc.org/core/Fixnum.html#method-i-7E) to the rescue:
 
     -~42 # => 43
     ~-42 # => 41

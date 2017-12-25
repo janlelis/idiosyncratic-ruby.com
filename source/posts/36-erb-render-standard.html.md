@@ -9,7 +9,7 @@ ERB stands for *<%# Embedded Ruby %>* and is the templating engine included in t
 
 ARTICLE
 
-However, it does not directly support rendering data from a [Hash](http://ruby-doc.org/core/Hash.html), but only from a [Binding](http://ruby-doc.org/core/Binding.html) object:¹
+However, it does not directly support rendering data from a [Hash](https://ruby-doc.org/core/Hash.html), but only from a [Binding](https://ruby-doc.org/core/Binding.html) object:¹
 
 ¹ **Update:** [It is now possible with Ruby 2.5](#how-to-render-an-erb-template-post-25)
 
@@ -45,7 +45,7 @@ However, it does not directly support rendering data from a [Hash](http://ruby-d
 
 ## How to Render an ERB Template (Post 2.1)
 
-Ruby 2.1 came with [Binding#local_variable_set](http://ruby-doc.org/core/Binding.html#method-i-local_variable_set), so we can remove [OpenStruct](http://ruby-doc.org/stdlib/libdoc/ostruct/rdoc/OpenStruct.html) from the equation:
+Ruby 2.1 came with [Binding#local_variable_set](https://ruby-doc.org/core/Binding.html#method-i-local_variable_set), so we can remove [OpenStruct](https://ruby-doc.org/stdlib/libdoc/ostruct/rdoc/OpenStruct.html) from the equation:
 
     require "erb"
 
@@ -89,6 +89,6 @@ Ruby 2.5 finally introduces a way to render hashes:
 
 ## Also See
 
-- [RDoc: ERB](http://ruby-doc.org/stdlib/libdoc/erb/rdoc/ERB.html)
+- [RDoc: ERB](https://ruby-doc.org/stdlib/libdoc/erb/rdoc/ERB.html)
 - [Tiny command-line tool that renders an ERB template with data from a YAML file](https://github.com/janlelis/derb/blob/master/bin/derb)
 - [Snippets for Sublime Text](https://github.com/janlelis/productive-sublime-snippets-erb)

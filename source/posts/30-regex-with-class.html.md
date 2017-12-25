@@ -14,7 +14,7 @@ ARTICLE
 Char           | Negation       | ASCII           | Unicode
 ---------------|----------------|-----------------|---------------------
 `.`            | -              | ¹ Any           | ¹ Any
-`\X`           | -              | Any             | [Grapheme clusters](http://unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries) (`\P{M}\p{M}*`)
+`\X`           | -              | Any             | [Grapheme clusters](https://unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries) (`\P{M}\p{M}*`)
 `\d`           | `\D`           | `[0-9]`         | ² ASCII plus **Decimal\_Number** ([Nd](http://www.fileformat.info/info/unicode/category/Nd/list.htm))
 `\h`           | `\H`           | `[0-9a-fA-F]`   | Like ASCII
 `\w`           | `\W`           | `[0-9a-zA-Z_]`  | ² ASCII plus **Letter** ([LC](http://www.fileformat.info/info/unicode/category/LC/list.htm) / [Ll](http://www.fileformat.info/info/unicode/category/Ll/list.htm) / [Lm](http://www.fileformat.info/info/unicode/category/Lm/list.htm) / [Lo](http://www.fileformat.info/info/unicode/category/Lo/list.htm) / [Lt](http://www.fileformat.info/info/unicode/category/Lt/list.htm) / [Lu](http://www.fileformat.info/info/unicode/category/Lu/list.htm)), **Mark** ([Mc](http://www.fileformat.info/info/unicode/category/Mc/list.htm) / [Me](http://www.fileformat.info/info/unicode/category/Me/list.htm) / [Mn](http://www.fileformat.info/info/unicode/category/Mn/list.htm)), **Number** ([Nd](http://www.fileformat.info/info/unicode/category/Nd/list.htm) / [Nl](http://www.fileformat.info/info/unicode/category/Nl/list.htm) / [No](http://www.fileformat.info/info/unicode/category/No/list.htm)), **Connector\_Punctuation** ([Pc](http://www.fileformat.info/info/unicode/category/Pc/list.htm))
@@ -23,7 +23,7 @@ Char           | Negation       | ASCII           | Unicode
 {:.table-11-11-20-X}
 
 ¹ Will only match linebreaks with `/m` flag<br>
-² You'll need to [manually turn on unicode matching](http://idiosyncratic-ruby.com/11-regular-extremism.html#turn-on-unicode-matching-for-w-d-s-and-b) for these to work
+² You'll need to [manually turn on unicode matching](https://idiosyncratic-ruby.com/11-regular-extremism.html#turn-on-unicode-matching-for-w-d-s-and-b) for these to work
 
 ## POSIX and  Unicode Property Style
 
@@ -54,9 +54,9 @@ The above groups are only the tip of the iceberg. Using the `\p{}` syntax, you c
 ## Further Reading
 
 - [Onigmo Documentation](https://github.com/k-takata/Onigmo/blob/master/doc/RE)
-- [Unicode Character Property Model](http://unicode.org/reports/tr23/)
-- [RDoc: Regexp (Character Properties)](http://ruby-doc.org/core/Regexp.html#class-Regexp-label-Character+Properties)
-- [Unicode Data](http://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt)
-- [Unicode Property List](http://www.unicode.org/Public/UCD/latest/ucd/PropList.txt)
-- [Unicode Property Aliases](http://www.unicode.org/Public/UCD/latest/ucd/PropertyAliases.txt)
-- [Unicode Property Values Aliases](http://www.unicode.org/Public/UCD/latest/ucd/PropertyValueAliases.txt)
+- [Unicode Character Property Model](https://unicode.org/reports/tr23/)
+- [RDoc: Regexp (Character Properties)](https://ruby-doc.org/core/Regexp.html#class-Regexp-label-Character+Properties)
+- [Unicode Data](https://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt)
+- [Unicode Property List](https://www.unicode.org/Public/UCD/latest/ucd/PropList.txt)
+- [Unicode Property Aliases](https://www.unicode.org/Public/UCD/latest/ucd/PropertyAliases.txt)
+- [Unicode Property Values Aliases](https://www.unicode.org/Public/UCD/latest/ucd/PropertyValueAliases.txt)

@@ -5,7 +5,7 @@ tags: core, enumerable
 commit: ecd7d03bab149ac62fb5028b83fde82ebd13dc2c
 ---
 
-Ruby puts a lot of effort into its [Enumerable](http://ruby-doc.org/core/Enumerable) module, offering a lot of different ways of iterating through collections. It is one of the reasons for Ruby's success, but you can also call it idiosyncratic, sometimes. This episode potraits enumerables' three handy `slice_*` methods.
+Ruby puts a lot of effort into its [Enumerable](https://ruby-doc.org/core/Enumerable) module, offering a lot of different ways of iterating through collections. It is one of the reasons for Ruby's success, but you can also call it idiosyncratic, sometimes. This episode potraits enumerables' three handy `slice_*` methods.
 
 ARTICLE
 
@@ -25,7 +25,7 @@ A variation of this is method is `slice_after`, which puts the separating elemen
     a.slice_after(/,/).to_a
     # => [["Ruby", "in", "the", "back-end,"], ["AngularJS", "in", "the", "front-end"]]
 
-Slicing uses [===](http://ruby-doc.org/core/Object.html#method-i-3D-3D-3D) to compare each element with the given separator, so you can pass in a class as well:
+Slicing uses [===](https://ruby-doc.org/core/Object.html#method-i-3D-3D-3D) to compare each element with the given separator, so you can pass in a class as well:
 
     ["A", "B", 1, "C", "D", 2].slice_after(Integer).to_a
     # => [["A", "B", 1], ["C", "D", 2]]
@@ -49,5 +49,5 @@ Keeping around additional variables is a little annoying, but fortunately, we ca
 
 ## Resources
 
-- [RDoc: Enumerable#slice_*](http://ruby-doc.org/core/Enumerable.html#method-i-slice_after)
+- [RDoc: Enumerable#slice_*](https://ruby-doc.org/core/Enumerable.html#method-i-slice_after)
 - [#slice_when discussion](https://bugs.ruby-lang.org/issues/9826)

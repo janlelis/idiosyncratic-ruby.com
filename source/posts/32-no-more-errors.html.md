@@ -13,18 +13,18 @@ ARTICLE
 
 Exception | Thrown by core Ruby when | Remarks
 ----------|--------------------------|--------
-[NoMemoryError](http://ruby-doc.org/core/NoMemoryError.html) | The Ruby interpreter could not allocate the required memory | `"Idiosyncratic" * 100_000_000_000`
-[ScriptError](http://ruby-doc.org/core/ScriptError.html) | - | Not thrown directly
-[ScriptError → LoadError](http://ruby-doc.org/core/LoadError.html) | A source file could not be [loaded](http://ruby-doc.org/core/Kernel.html#method-i-load), [required](http://ruby-doc.org/core/Kernel.html#method-i-require), or [required relatively](http://ruby-doc.org/core/Kernel.html#method-i-require_relative) | It is meant for source code the current program is running and therfore should not be used for other kinds of files
-[ScriptError → NotImplementedError](http://ruby-doc.org/core/NotImplementedError.html) | A feature of Ruby does not work on this platform/OS, for example, [fork](http://ruby-doc.org/core/Process.html#method-c-fork) | Although it is often used as "I have not implemented it (yet)", its original purpose is low-level platform support errors
-[ScriptError → SyntaxError](http://ruby-doc.org/core/SyntaxError.html) | Invalid Ruby syntax was found | Do not raise when parsing some other file format fails. It is meant for source code that the current program is running.
-[SecurityError](http://ruby-doc.org/core/SecurityError.html) | Mostly raised when attempting a forbidden [$SAFE level 1](http://ruby-doc.com/docs/ProgrammingRuby/html/taint.html) operation | Use as base class for critical security issues, which should intentionally not be rescued by default
-[SignalException](http://ruby-doc.org/core/SignalException.html) | A signal is received | The common way to catch a signal is the [trap](http://ruby-doc.org/core/Signal.html#method-c-trap) method
-[SignalException → Interrupt](http://ruby-doc.org/core/Interrupt.html) | An interupt signal (SIGINT) is received | The common way to catch a signal is the [trap](http://ruby-doc.org/core/Signal.html#method-c-trap) method
-[StandardError](http://ruby-doc.org/core/StandardError.html) | - | Base class for normal exceptions. See next table.
-[SystemExit](http://ruby-doc.org/core/SystemExit.html) | Thrown by [Kernel#exit](http://ruby-doc.org/core/Kernel.html#method-i-exit) | Not thrown by [Kernel#exit!](http://ruby-doc.org/core/Kernel.html#method-i-exit-21)
-[SystemStackError](http://ruby-doc.org/core/SystemStackError.html) | Raised for stack overflows, for example, in case of infinite recursion | Cannot always be caught by the interpreter
-[fatal](http://ruby-doc.org/core/fatal.html) | When a [deadlock](https://github.com/ruby/ruby/blob/v2_3_0/thread.c#L4752-L4753) is discovered or [this special vm exception](https://github.com/ruby/ruby/blob/v2_3_0/eval.c#L1651) is triggered | Never rescuable. You can use this hack to get a reference to the error object: `ObjectSpace.each_object(Class){|c| break c if c.ancestors.include?(Exception) && c.name == 'fatal' }`
+[NoMemoryError](https://ruby-doc.org/core/NoMemoryError.html) | The Ruby interpreter could not allocate the required memory | `"Idiosyncratic" * 100_000_000_000`
+[ScriptError](https://ruby-doc.org/core/ScriptError.html) | - | Not thrown directly
+[ScriptError → LoadError](https://ruby-doc.org/core/LoadError.html) | A source file could not be [loaded](https://ruby-doc.org/core/Kernel.html#method-i-load), [required](https://ruby-doc.org/core/Kernel.html#method-i-require), or [required relatively](https://ruby-doc.org/core/Kernel.html#method-i-require_relative) | It is meant for source code the current program is running and therfore should not be used for other kinds of files
+[ScriptError → NotImplementedError](https://ruby-doc.org/core/NotImplementedError.html) | A feature of Ruby does not work on this platform/OS, for example, [fork](https://ruby-doc.org/core/Process.html#method-c-fork) | Although it is often used as "I have not implemented it (yet)", its original purpose is low-level platform support errors
+[ScriptError → SyntaxError](https://ruby-doc.org/core/SyntaxError.html) | Invalid Ruby syntax was found | Do not raise when parsing some other file format fails. It is meant for source code that the current program is running.
+[SecurityError](https://ruby-doc.org/core/SecurityError.html) | Mostly raised when attempting a forbidden [$SAFE level 1](http://ruby-doc.com/docs/ProgrammingRuby/html/taint.html) operation | Use as base class for critical security issues, which should intentionally not be rescued by default
+[SignalException](https://ruby-doc.org/core/SignalException.html) | A signal is received | The common way to catch a signal is the [trap](https://ruby-doc.org/core/Signal.html#method-c-trap) method
+[SignalException → Interrupt](https://ruby-doc.org/core/Interrupt.html) | An interupt signal (SIGINT) is received | The common way to catch a signal is the [trap](https://ruby-doc.org/core/Signal.html#method-c-trap) method
+[StandardError](https://ruby-doc.org/core/StandardError.html) | - | Base class for normal exceptions. See next table.
+[SystemExit](https://ruby-doc.org/core/SystemExit.html) | Thrown by [Kernel#exit](https://ruby-doc.org/core/Kernel.html#method-i-exit) | Not thrown by [Kernel#exit!](https://ruby-doc.org/core/Kernel.html#method-i-exit-21)
+[SystemStackError](https://ruby-doc.org/core/SystemStackError.html) | Raised for stack overflows, for example, in case of infinite recursion | Cannot always be caught by the interpreter
+[fatal](https://ruby-doc.org/core/fatal.html) | When a [deadlock](https://github.com/ruby/ruby/blob/v2_3_0/thread.c#L4752-L4753) is discovered or [this special vm exception](https://github.com/ruby/ruby/blob/v2_3_0/eval.c#L1651) is triggered | Never rescuable. You can use this hack to get a reference to the error object: `ObjectSpace.each_object(Class){|c| break c if c.ancestors.include?(Exception) && c.name == 'fatal' }`
 {:.table-24-38-X}
 
 ### StandardError
@@ -33,38 +33,38 @@ These will be caught by the `rescue` statement without defining an explicit erro
 
 Exception | Thrown by core Ruby when | Remarks
 ----------|--------------------------|--------
-[ArgumentError](http://ruby-doc.org/core/ArgumentError.html) | Raised when a method is not given the proper arguments, for example, a wrong argument count | Best class to inherit from for custom errors describing that the method usage was wrong
-[ArgumentError → UncaughtThrowError](http://ruby-doc.org/core/UncaughtThrowError.html) | When [throw](http://ruby-doc.org/core/Kernel.html#method-i-throw) is used without the proper [catch](http://ruby-doc.org/core/Kernel.html#method-i-catch) around | -
-[EncodingError](http://ruby-doc.org/core/EncodingError.html) | Sometimes raised directly in [unicode edge cases](https://github.com/ruby/ruby/blob/v2_3_0/encoding.c#L182-L189) or when [symbols are broken](https://github.com/ruby/ruby/blob/v2_3_0/symbol.c#L433) | -
-[EncodingError → Encoding:: CompatibilityError](http://ruby-doc.org/core/Encoding/CompatibilityError.html) | Raised when trying to combine strings of two incompatible encodings | Example: `"Idiosyn" +"crätic".encode("UTF-16LE")` under UTF-8 leads to `Encoding::CompatibilityError: incompatible character encodings: UTF-8 and UTF-16LE`
-[EncodingError → Encoding:: ConverterNotFoundError](http://ruby-doc.org/core/Encoding/ConverterNotFoundError.html) | Raised when no encoding converter is available | Example: `"Idiosyncrätic".encode("ABC")` under UTF-8 leads to `Encoding::ConverterNotFoundError: code converter not found (UTF-8 to ABC)`
-[EncodingError → Encoding:: InvalidByteSequenceError](http://ruby-doc.org/core/Encoding/InvalidByteSequenceError.html) | String contains byte sequences not valid in the current encoding | Example: `"Idiosyncr\u{D800}tic".encode("ASCII")` under UTF-8 leads to `Encoding::InvalidByteSequenceError: "\xED" followed by "\xA0" on UTF-8`
-[EncodingError → Encoding:: UndefinedConversionError](http://ruby-doc.org/core/Encoding/UndefinedConversionError.html) | Raised when an encoding converter is available, but it cannot convert a specific codepoint | Example: `"\u{00A0}".encode("EUC-JP")` under UTF-8 leads to `Encoding::UndefinedConversionError: U+00A0 from UTF-8 to EUC-JP`
-[FiberError](http://ruby-doc.org/core/Fiber.html) | Raised when an invalid operation is attempted on a [Fiber](http://ruby-doc.org/core/Fiber.html) | Such as: Attempting to call/resume a dead Fiber, yield from the root fiber, calling a Fiber across threads
-[IOError](http://ruby-doc.org/core/IOError.html) | Raised when an [IO](ruby-doc.org/core/IO.html) operation fails, like opening a file | Pay attention that there are some failures will raise a `SystemCallError`, which is not a sub-class of `IOError`!
-[IOError → EOFError](http://ruby-doc.org/core/EOFError.html) | Raised by many [IO](ruby-doc.org/core/IO.html) operations when reaching the end of file | -
-[IndexError](http://ruby-doc.org/core/IndexError.html) | Raised when an element or deducted value cannot be retrieved, for example, when using [Array#fetch](http://ruby-doc.org/core/Array.html#method-i-fetch) | Thrown by many core classes like Array, Regex, String, Struct or some standard libraries like [strscan](http://ruby-doc.org/stdlib/libdoc/strscan/rdoc/StringScanner.html)
-[IndexError → KeyError](http://ruby-doc.org/core/KeyError.html) | Raised when an element cannot be retrieved (by a key), for example, when using [Hash#fetch](ruby-doc.org/core/Hash.html#method-i-fetch) | Mainly used by hashes
-[IndexError → StopIteration](http://ruby-doc.org/core/StopIteration.html) | Raised when an [external iterator](ruby-doc.org/core/Enumerator.html) has [reached its end](http://ruby-doc.org/core/StopIteration.html) | You can use the [Kernel#loop](http://ruby-doc.org/core/Kernel.html#method-i-loop) method to automatically catch `StopIteration`
-[IndexError → StopIteration → ClosedQueueError](http://ruby-doc.org/core/ClosedQueueError.html) | Raised when trying to modify a [closed Queue](http://ruby-doc.org/core/Queue.html#method-i-close) | -
-[LocalJumpError](http://ruby-doc.org/core/LocalJumpError.html) | Thrown when an invalid control flow operation is attempted, like calling `yield` from a method that was not passed a block to | `LocalJumpError`s contains a `reason` and an `exit_value` property from the last valid context
-[Math::DomainError](http://ruby-doc.org/core/Math/DomainError.html) | An invalid mathematical operation was attempted, for example, trying to calculate the [arctan](https://en.wikipedia.org/wiki/Inverse_trigonometric_functions) of a value greater than 1 | -
-[NameError](http://ruby-doc.org/core/NameError.html) | Raised when referencing things that do not exist, like unknown constants | -
-[NameError → NoMethodError](http://ruby-doc.org/core/NoMethodError.html) | Raised if trying to call a method that does not exist, and no [`method_missing`](http://ruby-doc.org/core/BasicObject.html#method-i-method_missing) is defined | Trying to call non-existant private methods of `self` (like `Kernel#puts`) will result in `NameError` instead of `NoMethodError`, because it could also have been a local variable
-[RangeError](http://ruby-doc.org/core/RangeError.html) | A numerical number is off, most often it is too small or big | For example, `[].pack("C100000000000000000000")` does not work, because [pack](http://idiosyncratic-ruby.com/4-what-the-pack.html#c--an-unsigned-integer-per-byte) requires the number to fit into `long`
-[RangeError → FloatDomainError](http://ruby-doc.org/core/FloatDomainError.html) | Raised when trying to convert a special Float value (`NaN`, `Float::INFINITY`) to another number format that does not support special values | -
-[RegexpError](http://ruby-doc.org/core/RegexpError.html) | Raised when trying to dynamically create an invalid regex | -
-[RuntimeError](http://ruby-doc.org/core/RuntimeError.html) | Unspecific occurrences | Default error class that will be used when raising a string: `raise "something"`
-[RuntimeError → FrozenError](http://ruby-doc.org/core/FrozenError.html) | Raised when trying to modify a frozen object | Introduced with Ruby 2.5
-[SystemCallError](http://ruby-doc.org/core/SystemCallError.html) | - | Lower level system call errors. See next table.
-[ThreadError](http://ruby-doc.org/core/ThreadError.html) | Raised for invalid [Thread](http://ruby-doc.org/core/Thread.html) operations | -
-[TypeError](http://ruby-doc.org/core/TypeError.html) | Violations against Ruby's type system | For example, `"" + nil` will lead to "TypeError: no implicit conversion of nil into String"
-[ZeroDivisionError](http://ruby-doc.org/core/ZeroDivisionError.html) | An integer, complex, or rational number was tried to divide by another integer, complex, or rational number | Floats and BigDecimal return Infinity, negative Infinity, or `NaN`
+[ArgumentError](https://ruby-doc.org/core/ArgumentError.html) | Raised when a method is not given the proper arguments, for example, a wrong argument count | Best class to inherit from for custom errors describing that the method usage was wrong
+[ArgumentError → UncaughtThrowError](https://ruby-doc.org/core/UncaughtThrowError.html) | When [throw](https://ruby-doc.org/core/Kernel.html#method-i-throw) is used without the proper [catch](https://ruby-doc.org/core/Kernel.html#method-i-catch) around | -
+[EncodingError](https://ruby-doc.org/core/EncodingError.html) | Sometimes raised directly in [unicode edge cases](https://github.com/ruby/ruby/blob/v2_3_0/encoding.c#L182-L189) or when [symbols are broken](https://github.com/ruby/ruby/blob/v2_3_0/symbol.c#L433) | -
+[EncodingError → Encoding:: CompatibilityError](https://ruby-doc.org/core/Encoding/CompatibilityError.html) | Raised when trying to combine strings of two incompatible encodings | Example: `"Idiosyn" +"crätic".encode("UTF-16LE")` under UTF-8 leads to `Encoding::CompatibilityError: incompatible character encodings: UTF-8 and UTF-16LE`
+[EncodingError → Encoding:: ConverterNotFoundError](https://ruby-doc.org/core/Encoding/ConverterNotFoundError.html) | Raised when no encoding converter is available | Example: `"Idiosyncrätic".encode("ABC")` under UTF-8 leads to `Encoding::ConverterNotFoundError: code converter not found (UTF-8 to ABC)`
+[EncodingError → Encoding:: InvalidByteSequenceError](https://ruby-doc.org/core/Encoding/InvalidByteSequenceError.html) | String contains byte sequences not valid in the current encoding | Example: `"Idiosyncr\u{D800}tic".encode("ASCII")` under UTF-8 leads to `Encoding::InvalidByteSequenceError: "\xED" followed by "\xA0" on UTF-8`
+[EncodingError → Encoding:: UndefinedConversionError](https://ruby-doc.org/core/Encoding/UndefinedConversionError.html) | Raised when an encoding converter is available, but it cannot convert a specific codepoint | Example: `"\u{00A0}".encode("EUC-JP")` under UTF-8 leads to `Encoding::UndefinedConversionError: U+00A0 from UTF-8 to EUC-JP`
+[FiberError](https://ruby-doc.org/core/Fiber.html) | Raised when an invalid operation is attempted on a [Fiber](https://ruby-doc.org/core/Fiber.html) | Such as: Attempting to call/resume a dead Fiber, yield from the root fiber, calling a Fiber across threads
+[IOError](https://ruby-doc.org/core/IOError.html) | Raised when an [IO](ruby-doc.org/core/IO.html) operation fails, like opening a file | Pay attention that there are some failures will raise a `SystemCallError`, which is not a sub-class of `IOError`!
+[IOError → EOFError](https://ruby-doc.org/core/EOFError.html) | Raised by many [IO](ruby-doc.org/core/IO.html) operations when reaching the end of file | -
+[IndexError](https://ruby-doc.org/core/IndexError.html) | Raised when an element or deducted value cannot be retrieved, for example, when using [Array#fetch](https://ruby-doc.org/core/Array.html#method-i-fetch) | Thrown by many core classes like Array, Regex, String, Struct or some standard libraries like [strscan](https://ruby-doc.org/stdlib/libdoc/strscan/rdoc/StringScanner.html)
+[IndexError → KeyError](https://ruby-doc.org/core/KeyError.html) | Raised when an element cannot be retrieved (by a key), for example, when using [Hash#fetch](ruby-doc.org/core/Hash.html#method-i-fetch) | Mainly used by hashes
+[IndexError → StopIteration](https://ruby-doc.org/core/StopIteration.html) | Raised when an [external iterator](ruby-doc.org/core/Enumerator.html) has [reached its end](https://ruby-doc.org/core/StopIteration.html) | You can use the [Kernel#loop](https://ruby-doc.org/core/Kernel.html#method-i-loop) method to automatically catch `StopIteration`
+[IndexError → StopIteration → ClosedQueueError](https://ruby-doc.org/core/ClosedQueueError.html) | Raised when trying to modify a [closed Queue](https://ruby-doc.org/core/Queue.html#method-i-close) | -
+[LocalJumpError](https://ruby-doc.org/core/LocalJumpError.html) | Thrown when an invalid control flow operation is attempted, like calling `yield` from a method that was not passed a block to | `LocalJumpError`s contains a `reason` and an `exit_value` property from the last valid context
+[Math::DomainError](https://ruby-doc.org/core/Math/DomainError.html) | An invalid mathematical operation was attempted, for example, trying to calculate the [arctan](https://en.wikipedia.org/wiki/Inverse_trigonometric_functions) of a value greater than 1 | -
+[NameError](https://ruby-doc.org/core/NameError.html) | Raised when referencing things that do not exist, like unknown constants | -
+[NameError → NoMethodError](https://ruby-doc.org/core/NoMethodError.html) | Raised if trying to call a method that does not exist, and no [`method_missing`](https://ruby-doc.org/core/BasicObject.html#method-i-method_missing) is defined | Trying to call non-existant private methods of `self` (like `Kernel#puts`) will result in `NameError` instead of `NoMethodError`, because it could also have been a local variable
+[RangeError](https://ruby-doc.org/core/RangeError.html) | A numerical number is off, most often it is too small or big | For example, `[].pack("C100000000000000000000")` does not work, because [pack](https://idiosyncratic-ruby.com/4-what-the-pack.html#c--an-unsigned-integer-per-byte) requires the number to fit into `long`
+[RangeError → FloatDomainError](https://ruby-doc.org/core/FloatDomainError.html) | Raised when trying to convert a special Float value (`NaN`, `Float::INFINITY`) to another number format that does not support special values | -
+[RegexpError](https://ruby-doc.org/core/RegexpError.html) | Raised when trying to dynamically create an invalid regex | -
+[RuntimeError](https://ruby-doc.org/core/RuntimeError.html) | Unspecific occurrences | Default error class that will be used when raising a string: `raise "something"`
+[RuntimeError → FrozenError](https://ruby-doc.org/core/FrozenError.html) | Raised when trying to modify a frozen object | Introduced with Ruby 2.5
+[SystemCallError](https://ruby-doc.org/core/SystemCallError.html) | - | Lower level system call errors. See next table.
+[ThreadError](https://ruby-doc.org/core/ThreadError.html) | Raised for invalid [Thread](https://ruby-doc.org/core/Thread.html) operations | -
+[TypeError](https://ruby-doc.org/core/TypeError.html) | Violations against Ruby's type system | For example, `"" + nil` will lead to "TypeError: no implicit conversion of nil into String"
+[ZeroDivisionError](https://ruby-doc.org/core/ZeroDivisionError.html) | An integer, complex, or rational number was tried to divide by another integer, complex, or rational number | Floats and BigDecimal return Infinity, negative Infinity, or `NaN`
 {:.table-24-38-X}
 
 ### SystemCallError
 
-These errors are thrown by the operating system under certain circumstances. The exact list depends on your platform and can be found in [a file called `errno.h`](http://www.gnu.org/software/libc/manual/html_node/Error-Codes.html). You get such errors when working with processes, [sockets](http://ruby-doc.org/stdlib/libdoc/socket/rdoc/Socket.html#method-i-connect-label-Unix-based+Exceptions), files, and other functionality that relies on low level system operations. 
+These errors are thrown by the operating system under certain circumstances. The exact list depends on your platform and can be found in [a file called `errno.h`](http://www.gnu.org/software/libc/manual/html_node/Error-Codes.html). You get such errors when working with processes, [sockets](https://ruby-doc.org/stdlib/libdoc/socket/rdoc/Socket.html#method-i-connect-label-Unix-based+Exceptions), files, and other functionality that relies on low level system operations.
 
 What follows is the list of errors that are known by Ruby. The error numbers and messages were generated on a recent ubuntu Linux machine. All system call errors are namespaced under `Errno::` and can be dynamically created using `SystemCallError.new(number)`.
 
@@ -77,8 +77,8 @@ Errno::EADDRNOTAVAIL     | 99  | Cannot assign requested address | -
 Errno::EADV              | 68  | Advertise error | -
 Errno::EAFNOSUPPORT      | 97  | Address family not supported by protocol | -
 Errno::EAGAIN            | 11  | Resource temporarily unavailable | -
-[Errno::EAGAIN → IO::EAGAINWaitReadable](http://ruby-doc.org/core/IO/EAGAINWaitReadable.html)² | - | - | `STDIN.read_nonblock(1)` (if blocking)
-[Errno::EAGAIN → IO::EAGAINWaitWritable](http://ruby-doc.org/core/IO/EAGAINWaitWritable.html)² | - | - | -
+[Errno::EAGAIN → IO::EAGAINWaitReadable](https://ruby-doc.org/core/IO/EAGAINWaitReadable.html)² | - | - | `STDIN.read_nonblock(1)` (if blocking)
+[Errno::EAGAIN → IO::EAGAINWaitWritable](https://ruby-doc.org/core/IO/EAGAINWaitWritable.html)² | - | - | -
 Errno::EALREADY          | 114 | Operation already in progress | -
 Errno::EBADE             | 52  | Invalid exchange | -
 Errno::EBADF             | 9   | Bad file descriptor | `IO.new(-1)`
@@ -111,8 +111,8 @@ Errno::EHWPOISON         | 133 | Memory page has hardware error | -
 Errno::EIDRM             | 43  | Identifier removed | -
 Errno::EILSEQ            | 84  | Invalid or incomplete multibyte or wide character | -
 Errno::EINPROGRESS       | 115 | Operation now in progress | -
-[Errno::EINPROGRESS → IO::EINPROGRESSWaitReadable](http://ruby-doc.org/core/IO/EINPROGRESSWaitReadable.html)² | - | - | -
-[Errno::EINPROGRESS → IO::EINPROGRESSWaitWritable](http://ruby-doc.org/core/IO/EINPROGRESSWaitWritable.html)² | - | - | -
+[Errno::EINPROGRESS → IO::EINPROGRESSWaitReadable](https://ruby-doc.org/core/IO/EINPROGRESSWaitReadable.html)² | - | - | -
+[Errno::EINPROGRESS → IO::EINPROGRESSWaitWritable](https://ruby-doc.org/core/IO/EINPROGRESSWaitWritable.html)² | - | - | -
 Errno::EINTR             | 4   | Interrupted system call | -
 Errno::EINVAL            | 22  | Invalid argument | `Process.clock_gettime(42)`
 Errno::EIO               | 5   | Input/output error | -
@@ -212,11 +212,11 @@ Errno::NOERROR           | 0   | Success | -
 {:.table-30-8-36-X}
 
 ¹ Feel free to [suggest more one-liners](https://github.com/janlelis/idiosyncratic-ruby.com/issues/new)! I will also add some more over time.<br/>
-² These include `IO::WaitReadable`/`IO::WaitWritable`. See [IO#read_nonblock](http://ruby-doc.org/core/IO.html#method-i-read_nonblock).<br/>
-³ EAGAIN == EWOULDBLOCK [on most systems](http://stackoverflow.com/questions/7003234/which-systems-define-eagain-and-ewouldblock-as-different-values)
+² These include `IO::WaitReadable`/`IO::WaitWritable`. See [IO#read_nonblock](https://ruby-doc.org/core/IO.html#method-i-read_nonblock).<br/>
+³ EAGAIN == EWOULDBLOCK [on most systems](https://stackoverflow.com/questions/7003234/which-systems-define-eagain-and-ewouldblock-as-different-values)
 
 ## Resources
 
-- [RDoc: Exception](http://ruby-doc.org/core/Exception.html)
+- [RDoc: Exception](https://ruby-doc.org/core/Exception.html)
 - [Source: defs/known_errors.def](https://github.com/ruby/ruby/blob/trunk/defs/known_errors.def)
 - [Popular Errno Codes by Platform](http://www.ioplex.com/~miallen/errcmpp.html)

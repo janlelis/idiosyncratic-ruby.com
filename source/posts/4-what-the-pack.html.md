@@ -199,7 +199,7 @@ Range: -9223372036854775808 to 9223372036854775807
 
 ### A Note on Byte Order (Big-Endian vs. Little-Endian)
 
-All the previous examples used the native byte order, which means, that the operating system defines, if the more significant bytes come first (little-endian) or last (big-endian). You will find more information about ["endianess" on wikipedia](http://en.wikipedia.org/wiki/Endianness).
+All the previous examples used the native byte order, which means, that the operating system defines, if the more significant bytes come first (little-endian) or last (big-endian). You will find more information about ["endianess" on wikipedia](https://en.wikipedia.org/wiki/Endianness).
 
 If you don't want to rely on your operating system to define byte order, you can add `>` for big-endianess or `<` for little-endianess to your template's directives:
 
@@ -244,7 +244,7 @@ If you don't want to rely on your operating system to define byte order, you can
 
 ### U | UTF-8 Characters
 
-This will convert the string to [unicode code points.](http://en.wikipedia.org/wiki/Code_point). Note that while it throws ArgumentError for [invalid encodings](https://github.com/janlelis/unibits/#utf-8-1), it will happily decode surrogates and too large codepoint values.
+This will convert the string to [unicode code points.](https://en.wikipedia.org/wiki/Code_point). Note that while it throws ArgumentError for [invalid encodings](https://github.com/janlelis/unibits/#utf-8-1), it will happily decode surrogates and too large codepoint values.
 
     "ɔıʇɐɹɔuʎsoıpı".unpack("U*")
     # => [596, 305, 647, 592, 633, 596, 117, 654, 115, 111, 305, 112, 305]
@@ -254,7 +254,7 @@ This will convert the string to [unicode code points.](http://en.wikipedia.org/w
 
 ### w | BER Compression
 
-See [wikipedia on X.690](http://en.wikipedia.org/wiki/X.690#BER_encoding) for an explanation.
+See [wikipedia on X.690](https://en.wikipedia.org/wiki/X.690#BER_encoding) for an explanation.
 
     "Idiosyncrätic".unpack("w*")
     # => [73, 100, 105, 111, 115, 121, 110, 99, 114, 1102452, 105, 99]
@@ -265,7 +265,7 @@ See [wikipedia on X.690](http://en.wikipedia.org/wiki/X.690#BER_encoding) for an
 
 ## Float Directives
 
-The following directives will interpret bytes as [Floats.](http://en.wikipedia.org/wiki/IEEE_floating_point)
+The following directives will interpret bytes as [Floats.](https://en.wikipedia.org/wiki/IEEE_floating_point)
 
 ### D, d | A `Float` (Double Precision, Native-Endian)
 
@@ -394,7 +394,7 @@ Pack supports a few encoding conversion directives. Note that they are idiosyncr
 
 ### u | UU-Encoding
 
-[Unix-to-Unix Encoding.](http://en.wikipedia.org/wiki/Uuencoding)
+[Unix-to-Unix Encoding.](https://en.wikipedia.org/wiki/Uuencoding)
 
     ["Idiosyncrätic"].pack("u")
     # => ".261I;W-Y;F-RPZ1T:6,`\n"
@@ -404,7 +404,7 @@ Pack supports a few encoding conversion directives. Note that they are idiosyncr
 
 ### M | Quoted-Printable / MIME Encoding (RFC2045)
 
-[Quoted-Printable.](http://en.wikipedia.org/wiki/Quoted-printable)
+[Quoted-Printable.](https://en.wikipedia.org/wiki/Quoted-printable)
 
     ["Idiosyncrätic"].pack("M")
     # => "Idiosyncr=C3=A4tic=\n"
@@ -414,7 +414,7 @@ Pack supports a few encoding conversion directives. Note that they are idiosyncr
 
 ### m | Base64 Encoding (RFC 2045)
 
-[Base64.](http://en.wikipedia.org/wiki/Base64) Ruby's standard library also contains a [Base64 wrapper.](https://github.com/ruby/ruby/blob/trunk/lib/base64.rb#L23)
+[Base64.](https://en.wikipedia.org/wiki/Base64) Ruby's standard library also contains a [Base64 wrapper.](https://github.com/ruby/ruby/blob/trunk/lib/base64.rb#L23)
 
     ["Idiosyncrätic"].pack("m")
     # => "SWRpb3N5bmNyw6R0aWM=\n"
@@ -424,7 +424,7 @@ Pack supports a few encoding conversion directives. Note that they are idiosyncr
 
 ### m0 | Base64 Encoding (RFC 4648)
 
-[Base64.](http://en.wikipedia.org/wiki/Base64#RFC_4648) This will not add a new-line at the end.
+[Base64.](https://en.wikipedia.org/wiki/Base64#RFC_4648) This will not add a new-line at the end.
 
     ["Idiosyncrätic"].pack("m0")
     # => "SWRpb3N5bmNyw6R0aWM="
@@ -434,7 +434,7 @@ Pack supports a few encoding conversion directives. Note that they are idiosyncr
 
 ## Pointer Directives
 
-[Pointer](http://en.wikipedia.org/wiki/Pointer_%28computer_programming%29) inspection. If you want to understand how to use these, you should read [pack's source.](https://github.com/ruby/ruby/blob/trunk/pack.c)
+[Pointer](https://en.wikipedia.org/wiki/Pointer_%28computer_programming%29) inspection. If you want to understand how to use these, you should read [pack's source.](https://github.com/ruby/ruby/blob/trunk/pack.c)
 
 ### P | Pointer to Fixed-Length String
 
@@ -521,13 +521,13 @@ This keyword argument for `Array#pack` lets you use an existing (already allocat
 
 
 ¹ Only if the string's capacity is enough to fit the result<br/>
-² You can manually create string buffers of a specific size with another new keyword option:<br/>[`String.new(..., capacity: ...)`](http://ruby-doc.org/core/String.html#method-c-new)<br/>
+² You can manually create string buffers of a specific size with another new keyword option:<br/>[`String.new(..., capacity: ...)`](https://ruby-doc.org/core/String.html#method-c-new)<br/>
 ³ See the [RDoc](https://ruby-doc.org/core/Array.html#method-i-pack) for more info how the buffer argument is handled exactly
 
 ## Resources
 
-- [RDoc: String#unpack](http://ruby-doc.org/core/String.html#method-i-unpack)
-- [RDoc: Array#pack](http://ruby-doc.org/core/Array.html#method-i-pack)
+- [RDoc: String#unpack](https://ruby-doc.org/core/String.html#method-i-unpack)
+- [RDoc: Array#pack](https://ruby-doc.org/core/Array.html#method-i-pack)
 - [Source: pack.c](https://github.com/ruby/ruby/blob/trunk/pack.c)
 - [unpack in Perl](http://www.perlmonks.org/?node_id=224666)
 

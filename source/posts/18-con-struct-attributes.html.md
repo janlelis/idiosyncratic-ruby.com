@@ -5,7 +5,7 @@ tags: core
 commit: 8c3a41f41422042fb36a66a7d157b5e0cc02ae00
 ---
 
-Ruby's [Struct](http://ruby-doc.org/core/Struct.html) class is a convenient way to create Ruby classes, which already have some attributes defined. If you are not familiar with structs, you should watch [Avdi Grimm's introduction to structs](http://www.rubytapas.com/episodes/20-Struct)!
+Ruby's [Struct](https://ruby-doc.org/core/Struct.html) class is a convenient way to create Ruby classes, which already have some attributes defined. If you are not familiar with structs, you should watch [Avdi Grimm's introduction to structs](http://www.rubytapas.com/episodes/20-Struct)!
 
 But in many cases there is something better than structs:
 
@@ -166,7 +166,7 @@ At the bottom, there are also some tips, [when to use structs and what to bear i
 
 ## Structs are Still Useful… as Value Objects
 
-Structs are different from normal Ruby classes, but they are still very useful for creating [value objects](http://en.wikipedia.org/wiki/Value_object). Value objects should be immutable and the following gems assist you in creating read-only objects with a Struct-like API:
+Structs are different from normal Ruby classes, but they are still very useful for creating [value objects](https://en.wikipedia.org/wiki/Value_object). Value objects should be immutable and the following gems assist you in creating read-only objects with a Struct-like API:
 
 ### Values
 
@@ -198,7 +198,7 @@ Structs are different from normal Ruby classes, but they are still very useful f
 ## Why Not Structs Everywhere?
 
 * You cannot access its instance variables directly
-* Structs have [their own methods](http://ruby-doc.org/core/Struct.html#public-instance-method-details) (like `[]`, a getter for variables), which might not always be useful
+* Structs have [their own methods](https://ruby-doc.org/core/Struct.html#public-instance-method-details) (like `[]`, a getter for variables), which might not always be useful
 * Pitfalls when creating structs with custom behavior (see below)
 
 The different ways to initialize a Struct:
@@ -251,7 +251,7 @@ It also seems to [perfom slightly better](https://gist.github.com/janlelis/02b75
 
 ### Further Reading
 
-- [Wikipedia: Plain old data structure](http://en.wikipedia.org/wiki/Plain_old_data_structure)
+- [Wikipedia: Plain old data structure](https://en.wikipedia.org/wiki/Plain_old_data_structure)
 - [Ruby Quiz: Implementing #attribute](http://rubyquiz.com/quiz67.html)
 - [Article: Structs inside out](http://blog.rubybestpractices.com/posts/rklemme/017-Struct.html)
 - [Article: Struct inheritance is overused](http://thepugautomatic.com/2013/08/struct-inheritance-is-overused/)

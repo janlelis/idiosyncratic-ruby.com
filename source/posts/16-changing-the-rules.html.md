@@ -61,7 +61,7 @@ Don't use `Kernel#rand`, `Array#shuffle` or `Array#sample`. [Always use](https:/
 
 ## Change a Global Default Separator
 
-Four of [Ruby's special two-letter globals](http://idiosyncratic-ruby.com/9-globalization.html) are called *record separators* and they affect the behaviour of various methods in Ruby:
+Four of [Ruby's special two-letter globals](https://idiosyncratic-ruby.com/9-globalization.html) are called *record separators* and they affect the behaviour of various methods in Ruby:
 
  Variable | Name                    | Default | Examples for Methods Affected
 ----------|-------------------------|---------|------------

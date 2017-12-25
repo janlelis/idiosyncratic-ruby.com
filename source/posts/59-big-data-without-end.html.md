@@ -15,15 +15,15 @@ Everything after the `__END__` keyword (at the beginning of the line) is not int
     __END__
     big data
 
-Big `DATA` is a [File](http://ruby-doc.org/core/File.html) object, which you can `read`. The example will output `"big data"`. An example of real-world usage is [inline templating within the sinatra web framework](http://www.sinatrarb.com/intro.html#Inline%20Templates).³
+Big `DATA` is a [File](https://ruby-doc.org/core/File.html) object, which you can `read`. The example will output `"big data"`. An example of real-world usage is [inline templating within the sinatra web framework](http://www.sinatrarb.com/intro.html#Inline%20Templates).³
 
-¹ Do not confuse with the small `Data` class, which is a [CRuby implementation detail](http://ruby-doc.org/core/Data.html)<br/>
+¹ Do not confuse with the small `Data` class, which is a [CRuby implementation detail](https://ruby-doc.org/core/Data.html)<br/>
 ² Big `DATA` [is not defined](constant tree), if you have no `__END__`. Furthermore, it is not available if you did not execute the script directly, but loaded or requierd it.<br/>
 ³ [Actually, not really](http://blog.honeybadger.io/data-and-end-in-ruby/#a-work-around-for-multiple-files)
 
 ## Is the Data Section Enough?
 
-Wait a minute! Big `DATA` is a [File](http://ruby-doc.org/core/File.html) object? What file exactly?
+Wait a minute! Big `DATA` is a [File](https://ruby-doc.org/core/File.html) object? What file exactly?
 
     p DATA.path
     p DATA.lineno

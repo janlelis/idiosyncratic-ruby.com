@@ -25,7 +25,7 @@ And its sibling `-p`:
           % echo matz | ruby -p -e '$_.tr! "a-z", "A-Z"'
           MATZ
 
-What you need to know is that the [special global variable](http://idiosyncratic-ruby.com/9-globalization.html) `$_` contains the last read input. When using `-n` or `-p`, this usualy means the current line. Another thing to keep in mind: `gets` reads from [`ARGF`](http://readruby.io/io#argf), not from `STDIN`, so you can pass arguments that will be interpreted as filenames of the files that should be processed. Equipped with this knowlegde, you can build a very basic example, which just prints out the given file:
+What you need to know is that the [special global variable](https://idiosyncratic-ruby.com/9-globalization.html) `$_` contains the last read input. When using `-n` or `-p`, this usualy means the current line. Another thing to keep in mind: `gets` reads from [`ARGF`](http://readruby.io/io#argf), not from `STDIN`, so you can pass arguments that will be interpreted as filenames of the files that should be processed. Equipped with this knowlegde, you can build a very basic example, which just prints out the given file:
 
     $ ruby -ne 'print $_' filename
 
@@ -104,18 +104,18 @@ The `-a` option will run `$F = $_.split` for every line:
 
 ## Specify Line Format
 
-You might not always want to use `\n` as the character that separates lines. Fortunately, Ruby has [record separators](http://idiosyncratic-ruby.com/16-changing-the-rules.html#change-a-global-default-separator), and you can set some of them via command-line options:
+You might not always want to use `\n` as the character that separates lines. Fortunately, Ruby has [record separators](https://idiosyncratic-ruby.com/16-changing-the-rules.html#change-a-global-default-separator), and you can set some of them via command-line options:
 
 Option | Variable  | Description
 -------|-----------|------------
-`-0`   | `$/`      | Sets the *input record separator*, which is used by `Kernel#gets`. Character to use must be given as [octal number](http://en.wikipedia.org/wiki/Octal). If no number is given (`-0`), it will use null bytes as separator. Using `-0777` will read in the whole file at once. Another special value is `-00`, which will set `$_` to `"\n\n"` (paragraph mode).
+`-0`   | `$/`      | Sets the *input record separator*, which is used by `Kernel#gets`. Character to use must be given as [octal number](https://en.wikipedia.org/wiki/Octal). If no number is given (`-0`), it will use null bytes as separator. Using `-0777` will read in the whole file at once. Another special value is `-00`, which will set `$_` to `"\n\n"` (paragraph mode).
 `-F`   | `$;`      | Sets the *input field separator*, which is used by `String#split`. Useful in combination with the `-a` option.
-`-l`   | `$\`      | Sets the *output record separator* to the value of the *input record separator* (`$/`). Also runs [String#chop!](http://ruby-doc.org/core/String.html#method-i-chop-21) on every line!
+`-l`   | `$\`      | Sets the *output record separator* to the value of the *input record separator* (`$/`). Also runs [String#chop!](https://ruby-doc.org/core/String.html#method-i-chop-21) on every line!
 {:.table-10-10-X}
 
 ## Further Reading
 
 - [A lot of handy Ruby one-liners by Benoit Hamelin](http://benoithamelin.tumblr.com/ruby1line/)
 - [sed](https://en.wikipedia.org/wiki/Sed)
-- [un](http://idiosyncratic-ruby.com/6-run-ruby-run.html)
+- [un](https://idiosyncratic-ruby.com/6-run-ruby-run.html)
 - [pru](https://github.com/grosser/pru)

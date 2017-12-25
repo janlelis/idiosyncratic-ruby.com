@@ -5,7 +5,7 @@ tags: core, strings
 commit: c32ba09fcb552e7ff87e2ba22442bbd6c138b6de
 ---
 
-There is an operator in Ruby, that does nothing: The [unary plus operator](https://github.com/ruby/ruby/blob/v2_2_2/numeric.c#L367-L371). It is part of the language for [keeping symmetry with the unary minus operator](http://stackoverflow.com/questions/5680587/whats-the-point-of-unary-plus-operator-in-ruby)!
+There is an operator in Ruby, that does nothing: The [unary plus operator](https://github.com/ruby/ruby/blob/v2_2_2/numeric.c#L367-L371). It is part of the language for [keeping symmetry with the unary minus operator](https://stackoverflow.com/questions/5680587/whats-the-point-of-unary-plus-operator-in-ruby)!
 
 ARTICLE
 

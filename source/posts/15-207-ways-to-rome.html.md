@@ -268,8 +268,8 @@ STRING</code></pre>
 
 <br>
 
-¹ You might need a [hex editor](https://en.wikipedia.org/wiki/Hex_editor), or [`eval`](http://ruby-doc.org/core/Kernel.html#method-i-eval), to be able to use non-printable string delimiters.
+¹ You might need a [hex editor](https://en.wikipedia.org/wiki/Hex_editor), or [`eval`](https://ruby-doc.org/core/Kernel.html#method-i-eval), to be able to use non-printable string delimiters.
 
 ## Resources
 
-- [String Literals](http://en.wikibooks.org/wiki/Ruby_Programming/Syntax/Literals#Strings)
+- [String Literals](https://en.wikibooks.org/wiki/Ruby_Programming/Syntax/Literals#Strings)

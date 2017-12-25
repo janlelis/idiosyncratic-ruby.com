@@ -5,11 +5,11 @@ tags: strings, regex, syntax, unicode
 commit: 62921ea553e4bca13d08c5939052674cec0bf896
 ---
 
-Ruby's Regexp engine has a powerful feature built in: It can match for [Unicode character properties](http://www.unicode.org/reports/tr44/#Property_List_Table). But what exactly are properties you can match for?
+Ruby's Regexp engine has a powerful feature built in: It can match for [Unicode character properties](https://www.unicode.org/reports/tr44/#Property_List_Table). But what exactly are properties you can match for?
 
 ARTICLE
 
-The [Unicode consortium](http://unicode.org/) not only assigns all [codepoints](https://en.wikipedia.org/wiki/Code_point), it also publishes [additional data](http://www.unicode.org/Public/UNIDATA/) about their assigned characters. When searching through a string, Ruby allows you to utilize some of this extra knowledge.
+The [Unicode consortium](https://unicode.org/) not only assigns all [codepoints](https://en.wikipedia.org/wiki/Code_point), it also publishes [additional data](https://www.unicode.org/Public/UNIDATA/) about their assigned characters. When searching through a string, Ruby allows you to utilize some of this extra knowledge.
 
 ## Property Regexp Syntax
 
@@ -96,11 +96,11 @@ The age property lets you find out the required Unicode version to display a str
 
 ### Combined/POSIX like Properties
 
-All properties of the [POSIX brackets syntax](http://www.regular-expressions.info/posixbrackets.html) are available with the `\p` syntax: For example, `[[:print:]]` simply becomes `\p{print}`. You can find the full list of properties in [Episode 30: Regex with Class](http://idiosyncratic-ruby.com/30-regex-with-class.html#posix-and--unicode-property-style).
+All properties of the [POSIX brackets syntax](http://www.regular-expressions.info/posixbrackets.html) are available with the `\p` syntax: For example, `[[:print:]]` simply becomes `\p{print}`. You can find the full list of properties in [Episode 30: Regex with Class](https://idiosyncratic-ruby.com/30-regex-with-class.html#posix-and--unicode-property-style).
 
 ### Derived Core Properties
 
-These can be found in [DerivedCoreProperties.txt](http://www.unicode.org/Public/UCD/latest/ucd/DerivedCoreProperties.txt) ([explanation](ftp://unicode.org/Public/3.2-Update/DerivedProperties-3.2.0.html)), along with a comment how the property gets constructed. Possible values are:
+These can be found in [DerivedCoreProperties.txt](https://www.unicode.org/Public/UCD/latest/ucd/DerivedCoreProperties.txt) ([explanation](ftp://unicode.org/Public/3.2-Update/DerivedProperties-3.2.0.html)), along with a comment how the property gets constructed. Possible values are:
 
 - Math
 - Alphabetic
@@ -163,9 +163,9 @@ Other [matchable character properties](https://en.wikipedia.org/wiki/Unicode_cha
 
 ## Resources
 
-- [RDoc: Regexp (Character Properties)](http://ruby-doc.org/core/Regexp.html#class-Regexp-label-Character+Properties)
+- [RDoc: Regexp (Character Properties)](https://ruby-doc.org/core/Regexp.html#class-Regexp-label-Character+Properties)
 - [Source: tool/enc-unicode.rb](https://github.com/ruby/ruby/blob/trunk/tool/enc-unicode.rb)
-- [Unicode® Standard Annex #44: Unicode Character Database](http://www.unicode.org/reports/tr44/)
+- [Unicode® Standard Annex #44: Unicode Character Database](https://www.unicode.org/reports/tr44/)
 - [Wikipedia: Unicode character property](https://en.wikipedia.org/wiki/Unicode_character_property)
 - [Alternative: TwitterCldr Regexes](https://github.com/twitter/twitter-cldr-rb#unicode-regular-expressions)
 - [Codepoint Browser](https://codepoints.net/)

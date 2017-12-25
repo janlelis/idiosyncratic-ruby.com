@@ -91,7 +91,7 @@ A funny thing to note is that `-v` is a shortcut for `--version` as well as it i
 
 ## What to Use to Trigger a Custom Application's Debug Mode?
 
-Use neither `$VERBOSE`, nor `$DEBUG`, but to use a class instance variable in your library. Or use [standard library's logger or some other logging gem](http://idiosyncratic-ruby.com/20-better-standards.html). It is easier to understand than relying on the global debug modes.
+Use neither `$VERBOSE`, nor `$DEBUG`, but to use a class instance variable in your library. Or use [standard library's logger or some other logging gem](https://idiosyncratic-ruby.com/20-better-standards.html). It is easier to understand than relying on the global debug modes.
 
 Use `$VERBOSE = true` if you are interested in interpreter warnings.
 

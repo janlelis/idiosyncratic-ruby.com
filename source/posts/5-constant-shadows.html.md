@@ -262,4 +262,4 @@ Result: 19.85546875 MB
 
 - [Source: SCRIPT_LINES__](https://github.com/ruby/ruby/blob/ruby_2_2/parse.y#L5446-L5460)
 - [JRuby Source: SCRIPT_LINES__](https://github.com/jruby/jruby/blob/9.0.0.0.pre2/core/src/main/java/org/jruby/parser/Parser.java#L176-L189)
-- [The memory profiling one-liner](http://stackoverflow.com/questions/7220896/get-current-ruby-process-memory-usage)
+- [The memory profiling one-liner](https://stackoverflow.com/questions/7220896/get-current-ruby-process-memory-usage)

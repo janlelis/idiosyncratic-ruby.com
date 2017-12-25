@@ -36,7 +36,7 @@ If you don't feel like reinventing the wheel today, use RubyGems' neat user_inte
     # Get Yes or No from the user
     ui.ask_yes_no "Install, this script?", false
     # ->
-    # Install, this script? [yN]  
+    # Install, this script? [yN]
 
     # Password Prompt
     password = ui.ask_for_password "Master password:"
@@ -66,7 +66,7 @@ RubyGems includes some [common license identifiers](http://spdx.org/spdx-license
 
 The data is also accessible via a special regex:
 
-    
+
     !!Gem::Licenses::REGEXP.match?("MIT") # => true
     Gem::Licenses.match? "Ruby" # => true
     Gem::Licenses.match? "Crossword" # => true
@@ -78,13 +78,13 @@ Finally, it can also assist you with finding the right license:
 
 ## 5) `Gem::Util.silent_system`
 
-Like [Kernel#system](http://ruby-doc.org/core/Kernel.html#method-i-system), but without printing to `STDOUT`/`STDERR`. It will temporary replace `STDOUT` and `STDERR` with a null device:
+Like [Kernel#system](https://ruby-doc.org/core/Kernel.html#method-i-system), but without printing to `STDOUT`/`STDERR`. It will temporary replace `STDOUT` and `STDERR` with a null device:
 
     require 'rubygems/util'
     # create file 123, but output nothing
     Gem::Util.silent_system "touch 123"
 
-**Note:** If you don't want to print anything, but you are still interested in the commands output, you can use [backticks](http://ruby-doc.org/core/Kernel.html#method-i-60)!
+**Note:** If you don't want to print anything, but you are still interested in the commands output, you can use [backticks](https://ruby-doc.org/core/Kernel.html#method-i-60)!
 
 ## 6) `Gem::Util.traverse_parents`
 

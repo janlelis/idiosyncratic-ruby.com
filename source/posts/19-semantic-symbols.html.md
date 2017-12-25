@@ -24,7 +24,7 @@ The `chunk` method splits the receiver object into multiple enumerators, using t
     # true: 33
     # false: 34 - 35 - 36 - 37 - 38 - 39 - 40 - 41 - 42
 
-You can use this to order numbers in [quotient rings](http://en.wikipedia.org/wiki/Quotient_ring):
+You can use this to order numbers in [quotient rings](https://en.wikipedia.org/wiki/Quotient_ring):
 
     a = (0..4).map{ [] }
     (1..42).chunk{ |n| n % 5 }.each{ |remainder, elements|
@@ -88,4 +88,4 @@ One more thing: Unknown **special symbols** (those that start with `_`) will rai
 
 ## Resources
 
-- [RDoc Enumerable#chunk](http://ruby-doc.org/core/Enumerable.html#method-i-chunk)
+- [RDoc Enumerable#chunk](https://ruby-doc.org/core/Enumerable.html#method-i-chunk)

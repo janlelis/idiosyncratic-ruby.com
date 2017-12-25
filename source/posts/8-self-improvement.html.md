@@ -72,7 +72,7 @@ There is another way to get something very similar:
       end
     end
 
-Using [extend](http://ruby-doc.org/core/Object.html#method-i-extend), the module will add its instance methods to the module's very own inheritance chain.
+Using [extend](https://ruby-doc.org/core/Object.html#method-i-extend), the module will add its instance methods to the module's very own inheritance chain.
 
 ### Reflection Observations
 

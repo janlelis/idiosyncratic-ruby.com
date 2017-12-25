@@ -28,7 +28,7 @@ Constant assignment¹ is not permanent in Ruby, so it is perfectly valid to do t
     A.new  #=> #<B:0x00000002744008>
     # 42
 
-¹ As a side note: There is also [Module#remove_const](http://ruby-doc.org/core/Module.html#method-i-remove_const), which will delete the constant, but not the module! Quoting the documentation: *"If that constant referred to a module, this will not change that module's name and can lead to confusion"*
+¹ As a side note: There is also [Module#remove_const](https://ruby-doc.org/core/Module.html#method-i-remove_const), which will delete the constant, but not the module! Quoting the documentation: *"If that constant referred to a module, this will not change that module's name and can lead to confusion"*
 
     o = Object.send(:remove_const, :Object)
     Object.constants # NameError: uninitialized constant Object

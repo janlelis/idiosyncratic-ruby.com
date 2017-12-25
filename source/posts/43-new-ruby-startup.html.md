@@ -11,7 +11,7 @@ ARTICLE
 
 ## Initial Load Path
 
-These are all locations you can [Kernel#require](http://ruby-doc.org/core/Kernel.html#method-i-require) from:
+These are all locations you can [Kernel#require](https://ruby-doc.org/core/Kernel.html#method-i-require) from:
 
     $ ruby --disable-all -e 'puts $LOAD_PATH.map{ |path| "- #{path}" }'
 
@@ -41,7 +41,7 @@ These are core libraries that will always get loaded by Ruby:
 
 ## Initial Memory Consumption
 
-[Measured with Ruby 2.4.0 on an ubuntu machine:](http://stackoverflow.com/questions/7220896/get-current-ruby-process-memory-usage)
+[Measured with Ruby 2.4.0 on an ubuntu machine:](https://stackoverflow.com/questions/7220896/get-current-ruby-process-memory-usage)
 
     $ ruby --disable-all -e'puts"%.2f MB".%`ps -o rss -p#$$$$`.strip.split.last.to_f/1024'
 
@@ -51,7 +51,7 @@ These are core libraries that will always get loaded by Ruby:
 
 ## Initial Ruby Objects
 
-Via: [ObjectSpace.each_object](http://ruby-doc.org/core/ObjectSpace.html#method-c-each_object)
+Via: [ObjectSpace.each_object](https://ruby-doc.org/core/ObjectSpace.html#method-c-each_object)
 
     $ ruby --disable-all -e 'puts \
     " Ruby Object                   | Count\n" +
@@ -87,7 +87,7 @@ Via: [ObjectSpace.each_object](http://ruby-doc.org/core/ObjectSpace.html#method-
                  Thread::Mutex | 1
                     Enumerator | 1
 
-Not listed in this table are "immediate" objects that are directly embedded in Ruby's underlying object system, for example, [small integers](http://ruby-doc.org/core/Fixnum.html).
+Not listed in this table are "immediate" objects that are directly embedded in Ruby's underlying object system, for example, [small integers](https://ruby-doc.org/core/Fixnum.html).
 
 ### Initial Numbers
 
@@ -106,7 +106,7 @@ Some interesting *magic numbers*:
 
 ## Initial Internal Objects
 
-Via: [ObjectSpace.count_objects](http://ruby-doc.org/core/ObjectSpace.html#method-c-count_objects)
+Via: [ObjectSpace.count_objects](https://ruby-doc.org/core/ObjectSpace.html#method-c-count_objects)
 
     $ ruby --disable-all -e 'puts \
     " Object    | Count\n" +
@@ -136,7 +136,7 @@ Via: [ObjectSpace.count_objects](http://ruby-doc.org/core/ObjectSpace.html#metho
 
 ## Initial Symbols
 
-Via: [Symbol.all_symbols](http://ruby-doc.org/core/Symbol.html#method-c-all_symbols)
+Via: [Symbol.all_symbols](https://ruby-doc.org/core/Symbol.html#method-c-all_symbols)
 
 Related: [Grammar rules for symbols](/40-symbolic-validations.html)
 
@@ -147,7 +147,7 @@ Related: [Grammar rules for symbols](/40-symbolic-validations.html)
 
 ## Initial Global/Special Variables
 
-[More info](http://idiosyncratic-ruby.com/9-globalization.html)
+[More info](https://idiosyncratic-ruby.com/9-globalization.html)
 
     $ ruby --disable-all -e 'puts global_variables.sort.
     map{ |g| "`#{g.to_s.sub("`", "\\`")}`" }.join(", ")'
