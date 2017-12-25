@@ -36,13 +36,13 @@
 
 <h3 id="equality-equality"><code>==</code> Equality Equality</h3>
 
-<p>This is the usual method to care about. Two objects should be treated the same. If the class supports the <a href="http://ruby-doc.org/core/Comparable.html"><code>&lt;=&gt;</code> spaceship comparison operator</a>, it is expected that <code>==</code> returns <code>true</code> for the same values, <code>&lt;=&gt;</code> returns <code>0</code> for.</p>
+<p>This is the usual method to care about. Two objects should be treated the same. If the class supports the <a href="https://ruby-doc.org/core/Comparable.html"><code>&lt;=&gt;</code> spaceship comparison operator</a>, it is expected that <code>==</code> returns <code>true</code> for the same values, <code>&lt;=&gt;</code> returns <code>0</code> for.</p>
 
 <h3 id="eql-hash-key-equality"><code>eql?</code> Hash Key Equality</h3>
 
-<p>Normally, this is the same as <code>==</code>: <a href="http://ruby-doc.org/core/Hash.html#class-Hash-label-Hash+Keys">"…<code>eql?</code> is usually aliased to the overridden <code>==</code> method"</a></p>
+<p>Normally, this is the same as <code>==</code>: <a href="https://ruby-doc.org/core/Hash.html#class-Hash-label-Hash+Keys">"…<code>eql?</code> is usually aliased to the overridden <code>==</code> method"</a></p>
 
-<p>The most important effect of the result of <code>eql?</code> is to distinguish between hash keys: <a href="http://ruby-doc.org/core/Hash.html#class-Hash-label-Hash+Keys">"Two objects refer to the same hash key when their <code>hash</code> value is identical and the two objects are <code>eql?</code> to each other"</a>. A real life example:</p>
+<p>The most important effect of the result of <code>eql?</code> is to distinguish between hash keys: <a href="https://ruby-doc.org/core/Hash.html#class-Hash-label-Hash+Keys">"Two objects refer to the same hash key when their <code>hash</code> value is identical and the two objects are <code>eql?</code> to each other"</a>. A real life example:</p>
 
 <pre><code>1 == 1.0 # =&gt; true
 1.eql?(1.0) # =&gt; false
@@ -89,7 +89,7 @@ end
     <tr>
       <td>Numeric</td>
       <td>Same type, same value</td>
-      <td>Same value, according to <a href="http://ruby-doc.org/core/Numeric.html#method-i-3C-3D-3E">spaceship returning <code>0</code></a></td>
+      <td>Same value, according to <a href="https://ruby-doc.org/core/Numeric.html#method-i-3C-3D-3E">spaceship returning <code>0</code></a></td>
       <td>-</td>
     </tr>
     <tr>
@@ -169,7 +169,7 @@ end
           
         </div>
         About Core, Equal, Types |
-        Last Update: 2016-12-27
+        Last Update: 2017-12-25
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

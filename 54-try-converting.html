@@ -30,7 +30,7 @@
 
 <h2 id="implicit-and-explicit-conversion">Implicit and Explicit Conversion</h2>
 
-<p>Ruby objects are usually converted to other classes/types using <code>to_*</code> functions. For example, converting the <a href="http://ruby-doc.org/core/String.html">String</a> <code>"42"</code> to a <a href="http://ruby-doc.org/core/Float.html">Float</a> is done with <code>to_f</code>:</p>
+<p>Ruby objects are usually converted to other classes/types using <code>to_*</code> functions. For example, converting the <a href="https://ruby-doc.org/core/String.html">String</a> <code>"42"</code> to a <a href="https://ruby-doc.org/core/Float.html">Float</a> is done with <code>to_f</code>:</p>
 
 <pre><code>"42".to_f # =&gt; 42.0
 </code></pre>
@@ -126,10 +126,10 @@ Array.try_convert(o) # =&gt; [42]
   <li>If there is a <strong>special conversion</strong>, apply it. See the table below for details and the exact application order (e.g. <code>Array()</code> does its special conversion <em>after</em> it tried the two steps below).</li>
   <li>Unless special conversion gets applied, try to convert via the <strong>implicit convesion</strong> method</li>
   <li>If it does not exist, try to convert via the <strong>explicit conversion</strong> method</li>
-  <li>Raise a <a href="http://ruby-doc.org/core/TypeError.html">TypeError</a> if everything of the above has failed</li>
+  <li>Raise a <a href="https://ruby-doc.org/core/TypeError.html">TypeError</a> if everything of the above has failed</li>
 </ul>
 
-<p>¹ Although defining uppercased methods for your custom classes to create instances of it looks like an interesting idea at first glance, it is rather confusing. Consider defining class<code>.[]</code> instead, which enables a very similar syntax, but uses the real constant it belongs to. An example of such usage is <a href="http://ruby-doc.org/stdlib/libdoc/set/rdoc/Set.html#method-c-5B-5D">Set</a>.</p>
+<p>¹ Although defining uppercased methods for your custom classes to create instances of it looks like an interesting idea at first glance, it is rather confusing. Consider defining class<code>.[]</code> instead, which enables a very similar syntax, but uses the real constant it belongs to. An example of such usage is <a href="https://ruby-doc.org/stdlib/libdoc/set/rdoc/Set.html#method-c-5B-5D">Set</a>.</p>
 
 <h2 id="core-classes-conversion-table">Core Classes Conversion Table</h2>
 
@@ -146,63 +146,63 @@ Array.try_convert(o) # =&gt; [42]
   <tbody>
     <tr>
       <td>Array</td>
-      <td><a href="http://ruby-doc.org/core/Array.html#method-c-try_convert">Array.try_convert</a></td>
-      <td><a href="http://ruby-doc.org/core/Kernel.html#method-i-Array">Array()</a></td>
+      <td><a href="https://ruby-doc.org/core/Array.html#method-c-try_convert">Array.try_convert</a></td>
+      <td><a href="https://ruby-doc.org/core/Kernel.html#method-i-Array">Array()</a></td>
       <td><code>Array(nil) # =&gt; []</code></td>
       <td>If <code>:to_ary</code> and <code>:to_a</code> did not return an array, it will create single-element array which contains the given value</td>
     </tr>
     <tr>
       <td>Hash</td>
-      <td><a href="http://ruby-doc.org/core/Hash.html#method-c-try_convert">Hash.try_convert</a></td>
-      <td><a href="http://ruby-doc.org/core/Kernel.html#method-i-Hash">Hash()</a></td>
+      <td><a href="https://ruby-doc.org/core/Hash.html#method-c-try_convert">Hash.try_convert</a></td>
+      <td><a href="https://ruby-doc.org/core/Kernel.html#method-i-Hash">Hash()</a></td>
       <td><code>Hash(nil) # =&gt; {}</code></td>
-      <td><code>Hash([]) # =&gt; {}</code>. Also remember that you can convert arrays to hashes with <a href="http://ruby-doc.org/core/Hash.html#method-c-5B-5D">Hash.[]</a>.</td>
+      <td><code>Hash([]) # =&gt; {}</code>. Also remember that you can convert arrays to hashes with <a href="https://ruby-doc.org/core/Hash.html#method-c-5B-5D">Hash.[]</a>.</td>
     </tr>
     <tr>
       <td>String</td>
-      <td><a href="http://ruby-doc.org/core/String.html#method-c-try_convert">String.try_convert</a></td>
-      <td><a href="http://ruby-doc.org/core/Kernel.html#method-i-String">String()</a></td>
+      <td><a href="https://ruby-doc.org/core/String.html#method-c-try_convert">String.try_convert</a></td>
+      <td><a href="https://ruby-doc.org/core/Kernel.html#method-i-String">String()</a></td>
       <td><code>String(nil) # =&gt; ""</code></td>
       <td>-</td>
     </tr>
     <tr>
       <td>Integer</td>
       <td>-</td>
-      <td><a href="http://ruby-doc.org/core/Kernel.html#method-i-Integer">Integer()</a></td>
+      <td><a href="https://ruby-doc.org/core/Kernel.html#method-i-Integer">Integer()</a></td>
       <td><code>Integer(nil) # TypeError</code></td>
-      <td>Special behavior for strings: Instead of calling <a href="http://ruby-doc.org/core/String.html#method-i-to_i">String#to_i</a>, it will be more rigid². Takes a second argument defining the <a href="https://en.wikipedia.org/wiki/Radix">numerical base</a>. Also see ³</td>
+      <td>Special behavior for strings: Instead of calling <a href="https://ruby-doc.org/core/String.html#method-i-to_i">String#to_i</a>, it will be more rigid². Takes a second argument defining the <a href="https://en.wikipedia.org/wiki/Radix">numerical base</a>. Also see ³</td>
     </tr>
     <tr>
       <td>Float</td>
       <td>-</td>
-      <td><a href="http://ruby-doc.org/core/Kernel.html#method-i-Float">Float()</a></td>
+      <td><a href="https://ruby-doc.org/core/Kernel.html#method-i-Float">Float()</a></td>
       <td><code>Float(nil) # TypeError</code></td>
       <td>- ³</td>
     </tr>
     <tr>
       <td>Complex</td>
       <td>-</td>
-      <td><a href="http://ruby-doc.org/core/Kernel.html#method-i-Complex">Complex()</a></td>
+      <td><a href="https://ruby-doc.org/core/Kernel.html#method-i-Complex">Complex()</a></td>
       <td><code>Complex(nil) # TypeError</code></td>
       <td>-</td>
     </tr>
     <tr>
       <td>Rational</td>
       <td>-</td>
-      <td><a href="http://ruby-doc.org/core/Kernel.html#method-i-Rational">Rational()</a></td>
+      <td><a href="https://ruby-doc.org/core/Kernel.html#method-i-Rational">Rational()</a></td>
       <td><code>Rational(nil) # TypeError</code></td>
       <td>-</td>
     </tr>
     <tr>
       <td>Regexp</td>
-      <td><a href="http://ruby-doc.org/core/Regexp.html#method-c-try_convert">Regexp.try_convert</a></td>
+      <td><a href="https://ruby-doc.org/core/Regexp.html#method-c-try_convert">Regexp.try_convert</a></td>
       <td>-</td>
       <td>-</td>
       <td>-</td>
     </tr>
     <tr>
       <td>IO</td>
-      <td><a href="http://ruby-doc.org/core/IO.html#method-c-try_convert">IO.try_convert</a></td>
+      <td><a href="https://ruby-doc.org/core/IO.html#method-c-try_convert">IO.try_convert</a></td>
       <td>-</td>
       <td>-</td>
       <td>-</td>
@@ -212,7 +212,7 @@ Array.try_convert(o) # =&gt; [42]
 
 <p>.</p>
 
-<p>² It will only convert strings that contain exactly an integer. It would not accept "42A", which <code>String#to_i</code> would happily take. It also accepts <a href="http://idiosyncratic-ruby.com/39-fixed-numbers.html">radix prefixes and numbers that contain underscores</a>, so basically it accepts the same format that is valid for direct integer literals in Ruby. Will raise an <code>ArgumentError</code> if an invalid string is passed in.<br />
+<p>² It will only convert strings that contain exactly an integer. It would not accept "42A", which <code>String#to_i</code> would happily take. It also accepts <a href="https://idiosyncratic-ruby.com/39-fixed-numbers.html">radix prefixes and numbers that contain underscores</a>, so basically it accepts the same format that is valid for direct integer literals in Ruby. Will raise an <code>ArgumentError</code> if an invalid string is passed in.<br />
 ³ It will convert to other low-level numerical types (such as integers and floats) directly, so <code>Float(4)</code> will <em>not</em> call <code>4.to_f</code></p>
 
 <h2 id="when-to-use-what">When to Use What?</h2>
@@ -244,7 +244,7 @@ Array.try_convert(o) # =&gt; [42]
           
         </div>
         About Core, Types |
-        Last Update: 2016-12-27
+        Last Update: 2017-12-25
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

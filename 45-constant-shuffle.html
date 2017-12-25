@@ -48,7 +48,7 @@ A.new  #=&gt; #&lt;B:0x00000002744008&gt;
 # 42
 </code></pre>
 
-<p>¹ As a side note: There is also <a href="http://ruby-doc.org/core/Module.html#method-i-remove_const">Module#remove_const</a>, which will delete the constant, but not the module! Quoting the documentation: <em>"If that constant referred to a module, this will not change that module's name and can lead to confusion"</em></p>
+<p>¹ As a side note: There is also <a href="https://ruby-doc.org/core/Module.html#method-i-remove_const">Module#remove_const</a>, which will delete the constant, but not the module! Quoting the documentation: <em>"If that constant referred to a module, this will not change that module's name and can lead to confusion"</em></p>
 
 <pre><code>o = Object.send(:remove_const, :Object)
 Object.constants # NameError: uninitialized constant Object
@@ -98,7 +98,7 @@ end
           
         </div>
         About Core, Constants |
-        Last Update: 2016-12-27
+        Last Update: 2017-12-25
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

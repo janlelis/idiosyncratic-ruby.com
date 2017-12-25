@@ -24,7 +24,7 @@
       </section>
 
       <article class="post">
-        <p>In general, Ruby's <a href="https://en.wikipedia.org/wiki/Reflection_%28computer_programming%29">reflection capabilities</a> are pretty powerful, although <a href="http://idiosyncratic-ruby.com/25-meta-methodology.html">not always logical</a>. However, when reflecting on a method's (or proc's) usage, you are sometimes stuck with <strong>sad methods</strong>.</p>
+        <p>In general, Ruby's <a href="https://en.wikipedia.org/wiki/Reflection_%28computer_programming%29">reflection capabilities</a> are pretty powerful, although <a href="https://idiosyncratic-ruby.com/25-meta-methodology.html">not always logical</a>. However, when reflecting on a method's (or proc's) usage, you are sometimes stuck with <strong>sad methods</strong>.</p>
 
 <p></p>
 
@@ -44,7 +44,7 @@
 <pre><code>method(:require).arity # =&gt; 1
 </code></pre>
 
-<p>However: <a href="http://ruby-doc.org/core/Method.html#method-i-arity">For methods written in C, returns -1 if the call takes a variable number of arguments</a></p>
+<p>However: <a href="https://ruby-doc.org/core/Method.html#method-i-arity">For methods written in C, returns -1 if the call takes a variable number of arguments</a></p>
 
 <pre><code>method(:puts).arity # =&gt; -1
 </code></pre>
@@ -57,7 +57,7 @@
 # =&gt; ["/home/jan/.rvm/rubies/ruby-2.3.0/lib/.../core_ext/kernel_require.rb", 39]
 </code></pre>
 
-<p>However: <a href="http://ruby-doc.org/core/Method.html#method-i-source_location">Returns […] nil if this method was not defined in Ruby (i.e. native)</a></p>
+<p>However: <a href="https://ruby-doc.org/core/Method.html#method-i-source_location">Returns […] nil if this method was not defined in Ruby (i.e. native)</a></p>
 
 <pre><code>method(:puts).source_location # =&gt; nil
 </code></pre>
@@ -104,7 +104,7 @@
           
         </div>
         About Core, Cruby, Reflection, Metaprogramming |
-        Last Update: 2016-12-27
+        Last Update: 2017-12-25
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

@@ -46,7 +46,7 @@ For example:
       MATZ
 </code></pre>
 
-<p>What you need to know is that the <a href="http://idiosyncratic-ruby.com/9-globalization.html">special global variable</a> <code>$_</code> contains the last read input. When using <code>-n</code> or <code>-p</code>, this usualy means the current line. Another thing to keep in mind: <code>gets</code> reads from <a href="http://readruby.io/io#argf"><code>ARGF</code></a>, not from <code>STDIN</code>, so you can pass arguments that will be interpreted as filenames of the files that should be processed. Equipped with this knowlegde, you can build a very basic example, which just prints out the given file:</p>
+<p>What you need to know is that the <a href="https://idiosyncratic-ruby.com/9-globalization.html">special global variable</a> <code>$_</code> contains the last read input. When using <code>-n</code> or <code>-p</code>, this usualy means the current line. Another thing to keep in mind: <code>gets</code> reads from <a href="http://readruby.io/io#argf"><code>ARGF</code></a>, not from <code>STDIN</code>, so you can pass arguments that will be interpreted as filenames of the files that should be processed. Equipped with this knowlegde, you can build a very basic example, which just prints out the given file:</p>
 
 <pre><code>$ ruby -ne 'print $_' filename
 </code></pre>
@@ -140,7 +140,7 @@ For example:
 
 <h2 id="specify-line-format">Specify Line Format</h2>
 
-<p>You might not always want to use <code>\n</code> as the character that separates lines. Fortunately, Ruby has <a href="http://idiosyncratic-ruby.com/16-changing-the-rules.html#change-a-global-default-separator">record separators</a>, and you can set some of them via command-line options:</p>
+<p>You might not always want to use <code>\n</code> as the character that separates lines. Fortunately, Ruby has <a href="https://idiosyncratic-ruby.com/16-changing-the-rules.html#change-a-global-default-separator">record separators</a>, and you can set some of them via command-line options:</p>
 
 <table class="table-10-10-X">
   <thead>
@@ -154,7 +154,7 @@ For example:
     <tr>
       <td><code>-0</code></td>
       <td><code>$/</code></td>
-      <td>Sets the <em>input record separator</em>, which is used by <code>Kernel#gets</code>. Character to use must be given as <a href="http://en.wikipedia.org/wiki/Octal">octal number</a>. If no number is given (<code>-0</code>), it will use null bytes as separator. Using <code>-0777</code> will read in the whole file at once. Another special value is <code>-00</code>, which will set <code>$_</code> to <code>"\n\n"</code> (paragraph mode).</td>
+      <td>Sets the <em>input record separator</em>, which is used by <code>Kernel#gets</code>. Character to use must be given as <a href="https://en.wikipedia.org/wiki/Octal">octal number</a>. If no number is given (<code>-0</code>), it will use null bytes as separator. Using <code>-0777</code> will read in the whole file at once. Another special value is <code>-00</code>, which will set <code>$_</code> to <code>"\n\n"</code> (paragraph mode).</td>
     </tr>
     <tr>
       <td><code>-F</code></td>
@@ -164,7 +164,7 @@ For example:
     <tr>
       <td><code>-l</code></td>
       <td><code>$\</code></td>
-      <td>Sets the <em>output record separator</em> to the value of the <em>input record separator</em> (<code>$/</code>). Also runs <a href="http://ruby-doc.org/core/String.html#method-i-chop-21">String#chop!</a> on every line!</td>
+      <td>Sets the <em>output record separator</em> to the value of the <em>input record separator</em> (<code>$/</code>). Also runs <a href="https://ruby-doc.org/core/String.html#method-i-chop-21">String#chop!</a> on every line!</td>
     </tr>
   </tbody>
 </table>
@@ -174,7 +174,7 @@ For example:
 <ul>
   <li><a href="http://benoithamelin.tumblr.com/ruby1line/">A lot of handy Ruby one-liners by Benoit Hamelin</a></li>
   <li><a href="https://en.wikipedia.org/wiki/Sed">sed</a></li>
-  <li><a href="http://idiosyncratic-ruby.com/6-run-ruby-run.html">un</a></li>
+  <li><a href="https://idiosyncratic-ruby.com/6-run-ruby-run.html">un</a></li>
   <li><a href="https://github.com/grosser/pru">pru</a></li>
 </ul>
 
@@ -199,7 +199,7 @@ For example:
           Article Contributions by: Piotr Szotkowski
         </div>
         About Cli-options, Golf, Globals, One-liner |
-        Last Update: 2017-12-08
+        Last Update: 2017-12-25
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

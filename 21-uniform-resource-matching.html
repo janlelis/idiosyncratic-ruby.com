@@ -24,13 +24,13 @@
       </section>
 
       <article class="post">
-        <p>Ruby's <a href="http://ruby-doc.org/stdlib/libdoc/uri/rdoc/URI.html">URI standard library</a> contains a very sophisticated regex for matching URLs:</p>
+        <p>Ruby's <a href="https://ruby-doc.org/stdlib/libdoc/uri/rdoc/URI.html">URI standard library</a> contains a very sophisticated regex for matching URLs:</p>
 
 <p></p>
 
-<pre><code>"At http://idiosyncratic-ruby.com you can learn about the " \
+<pre><code>"At https://idiosyncratic-ruby.com you can learn about the " \
 "obscure parts of Ruby"[URI.regexp]
-# =&gt; "http://idiosyncratic-ruby.com"
+# =&gt; "https://idiosyncratic-ruby.com"
 </code></pre>
 
 <p>This regex is built in <a href="https://github.com/ruby/ruby/blob/trunk/lib/uri/rfc2396_parser.rb">uri/rfc2396_parser.rb</a> and looks like this:</p>
@@ -88,7 +88,7 @@ $ ruby -r uri -e 'p URI.regexp'
           
         </div>
         About Stdlib, Regex |
-        Last Update: 2016-12-27
+        Last Update: 2017-12-25
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

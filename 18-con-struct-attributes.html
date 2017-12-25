@@ -24,7 +24,7 @@
       </section>
 
       <article class="post">
-        <p>Ruby's <a href="http://ruby-doc.org/core/Struct.html">Struct</a> class is a convenient way to create Ruby classes, which already have some attributes defined. If you are not familiar with structs, you should watch <a href="http://www.rubytapas.com/episodes/20-Struct">Avdi Grimm's introduction to structs</a>!</p>
+        <p>Ruby's <a href="https://ruby-doc.org/core/Struct.html">Struct</a> class is a convenient way to create Ruby classes, which already have some attributes defined. If you are not familiar with structs, you should watch <a href="http://www.rubytapas.com/episodes/20-Struct">Avdi Grimm's introduction to structs</a>!</p>
 
 <p>But in many cases there is something better than structs:</p>
 
@@ -193,7 +193,7 @@ Person.new(name: "Jan", age: 26)
 
 <h2 id="structs-are-still-useful-as-value-objects">Structs are Still Useful… as Value Objects</h2>
 
-<p>Structs are different from normal Ruby classes, but they are still very useful for creating <a href="http://en.wikipedia.org/wiki/Value_object">value objects</a>. Value objects should be immutable and the following gems assist you in creating read-only objects with a Struct-like API:</p>
+<p>Structs are different from normal Ruby classes, but they are still very useful for creating <a href="https://en.wikipedia.org/wiki/Value_object">value objects</a>. Value objects should be immutable and the following gems assist you in creating read-only objects with a Struct-like API:</p>
 
 <h3 id="values">Values</h3>
 
@@ -229,7 +229,7 @@ Person.new("Jan", 26) # =&gt; #&lt;ValueStruct Person name="Jan", age=26&gt;
 
 <ul>
   <li>You cannot access its instance variables directly</li>
-  <li>Structs have <a href="http://ruby-doc.org/core/Struct.html#public-instance-method-details">their own methods</a> (like <code>[]</code>, a getter for variables), which might not always be useful</li>
+  <li>Structs have <a href="https://ruby-doc.org/core/Struct.html#public-instance-method-details">their own methods</a> (like <code>[]</code>, a getter for variables), which might not always be useful</li>
   <li>Pitfalls when creating structs with custom behavior (see below)</li>
 </ul>
 
@@ -289,7 +289,7 @@ end
 <h3 id="further-reading">Further Reading</h3>
 
 <ul>
-  <li><a href="http://en.wikipedia.org/wiki/Plain_old_data_structure">Wikipedia: Plain old data structure</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Plain_old_data_structure">Wikipedia: Plain old data structure</a></li>
   <li><a href="http://rubyquiz.com/quiz67.html">Ruby Quiz: Implementing #attribute</a></li>
   <li><a href="http://blog.rubybestpractices.com/posts/rklemme/017-Struct.html">Article: Structs inside out</a></li>
   <li><a href="http://thepugautomatic.com/2013/08/struct-inheritance-is-overused/">Article: Struct inheritance is overused</a></li>
@@ -316,7 +316,7 @@ end
           Article Contributions by: Felix Schäfer, Eric Bouchut
         </div>
         About Core |
-        Last Update: 2016-12-27
+        Last Update: 2017-12-25
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
