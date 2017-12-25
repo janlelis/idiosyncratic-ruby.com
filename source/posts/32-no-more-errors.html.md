@@ -55,6 +55,7 @@ Exception | Thrown by core Ruby when | Remarks
 [RangeError → FloatDomainError](http://ruby-doc.org/core/FloatDomainError.html) | Raised when trying to convert a special Float value (`NaN`, `Float::INFINITY`) to another number format that does not support special values | -
 [RegexpError](http://ruby-doc.org/core/RegexpError.html) | Raised when trying to dynamically create an invalid regex | -
 [RuntimeError](http://ruby-doc.org/core/RuntimeError.html) | Unspecific occurrences | Default error class that will be used when raising a string: `raise "something"`
+[RuntimeError → FrozenError](http://ruby-doc.org/core/FrozenError.html) | Raised when trying to modify a frozen object | Introduced with Ruby 2.5
 [SystemCallError](http://ruby-doc.org/core/SystemCallError.html) | - | Lower level system call errors. See next table.
 [ThreadError](http://ruby-doc.org/core/ThreadError.html) | Raised for invalid [Thread](http://ruby-doc.org/core/Thread.html) operations | -
 [TypeError](http://ruby-doc.org/core/TypeError.html) | Violations against Ruby's type system | For example, `"" + nil` will lead to "TypeError: no implicit conversion of nil into String"
