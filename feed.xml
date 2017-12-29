@@ -6476,7 +6476,7 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
 
 &lt;p&gt;¹ Also: &lt;code&gt;010&lt;/code&gt;&lt;br /&gt;
 ² While the representation of a complex number (e.g. &lt;code&gt;(0+1i)&lt;/code&gt;) is a valid way to create the same number again, this is not true for &lt;code&gt;(1/2)&lt;/code&gt; which will just evaluate to &lt;code&gt;0&lt;/code&gt;³. Also note that the &lt;a href="https://github.com/whitequark/parser/issues/287"&gt;&lt;code&gt;r&lt;/code&gt; only makes the &lt;code&gt;6&lt;/code&gt; a rational&lt;/a&gt;, which in turn "rationalizes" the result. An equivalent way of expressing the same fraction would be &lt;code&gt;3r/6&lt;/code&gt;&lt;br /&gt;
-³ Execpt when you &lt;a href="https://github.com/ruby/ruby/blob/trunk/lib/mathn.rb"&gt;&lt;code&gt;require "mathn"&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+³ Except when you &lt;a href="https://github.com/ruby/ruby/blob/trunk/lib/mathn.rb"&gt;&lt;code&gt;require "mathn"&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
 </content>
   </entry>
   <entry>
@@ -9728,12 +9728,6 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/logger.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="http://ruby.janlelis.de/50-exploring-the-stdlib-logger"&gt;Logging utility&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/colbygk/log4r"&gt;log4r&lt;/a&gt;, &lt;a href="https://github.com/bdurand/lumberjack"&gt;lumberjack&lt;/a&gt;, &lt;a href="https://github.com/rudionrails/yell"&gt;yell&lt;/a&gt;, &lt;a href="https://github.com/TwP/logging"&gt;logging&lt;/a&gt;, &lt;a href="https://github.com/janlelis/micrologger"&gt;micrologger&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/mathn/rdoc/index.html"&gt;mathn&lt;/a&gt; &lt;strong&gt;c&lt;/strong&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/mathn.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Deprecated library that extends math operations&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/matrix/rdoc/index.html"&gt;matrix&lt;/a&gt;&lt;/td&gt;
