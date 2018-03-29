@@ -13562,6 +13562,8 @@ puts "#{`ps -o rss -p #{Process.pid}`.strip.split.last.to_i / 1024.0} MB"
 # =&amp;gt; "abc"
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;p&gt;&lt;em&gt;Note:&lt;/em&gt; There was a security issue with this feature where attackers would pass too large numbers to &lt;code&gt;@&lt;/code&gt;. See the &lt;a href="https://www.ruby-lang.org/en/news/2018/03/28/buffer-under-read-unpack-cve-2018-8778/"&gt;CVE-2018-8778 announcement&lt;/a&gt; for more info.&lt;/p&gt;
+
 &lt;h3 id="x--move-a-byte-back"&gt;X | Move a Byte Back&lt;/h3&gt;
 
 &lt;pre&gt;&lt;code&gt;"Idiosyncrä".unpack("C* X c*")
