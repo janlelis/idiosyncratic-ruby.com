@@ -464,6 +464,8 @@ You can jump around the current byte position while processing the data. This en
     ["ffffff", "011000010110001001100011"].pack("H* @0B*")
     # => "abc"
 
+*Note:* There was a security issue with this feature where attackers would pass too large numbers to `@`. See the [CVE-2018-8778 announcement](https://www.ruby-lang.org/en/news/2018/03/28/buffer-under-read-unpack-cve-2018-8778/) for more info.
+
 ### X | Move a Byte Back
 
     "Idiosyncrä".unpack("C* X c*")
