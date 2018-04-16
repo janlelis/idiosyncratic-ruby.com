@@ -76,6 +76,7 @@ Option      | Alias      | Effects
 A funny thing to note is that `-v` is a shortcut for `--version` as well as it is one for `--verbose`.
 
 ## Effect of Debug Modes on Interpreter
+
 ### Verbosity
 
 `$VERBOSE`                        | Effect
