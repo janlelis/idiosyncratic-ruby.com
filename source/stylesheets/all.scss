@@ -256,6 +256,9 @@ article, footer {
 
     li {
       list-style-type: circle;
+      ul {
+        margin-bottom: 0;
+      }
     }
   }
 }
@@ -334,4 +337,8 @@ a {
 .footer-right {
   float: right;
   text-align: right;
+}
+
+.action-color {
+  color: $action-color;
 }
