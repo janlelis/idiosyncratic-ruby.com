@@ -18,15 +18,15 @@
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;When you get farther upwards the steep hill that is Ruby mastery, you will come across some powerful, yet slightly evil methods: &lt;a href="https://ruby-doc.org/core/BasicObject.html#method-i-instance_eval"&gt;instance_eval&lt;/a&gt; and &lt;a href="https://ruby-doc.org/core/Module.html#method-i-class_eval"&gt;class_eval&lt;/a&gt;¹. They allow you to execute code and define methods tied to a specific class, at the same time giving you access to outer scope variables through the Ruby blocks syntax. Their exact behavior varies, depending on the context they are used in. So what is the difference between all the evals?&lt;/p&gt;
+    <content type="html">&lt;p&gt;When you get farther upwards the steep hill that is Ruby mastery, you will come across some powerful, yet slightly evil methods: &lt;a href="https://ruby-doc.org/core/BasicObject.html#method-i-instance_eval"&gt;instance_eval&lt;/a&gt; and &lt;a href="https://ruby-doc.org/core/Module.html#method-i-class_eval"&gt;class_eval&lt;/a&gt;¹. They allow you to execute code and define methods tied to a specific class, at the same time giving you access to outer scope variables through the Ruby block syntax. Their exact behavior varies, depending on the context they are used in. So what is the difference between all the evals?&lt;/p&gt;
 
 &lt;p&gt;¹ Also aliased as &lt;code&gt;module_eval&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
-&lt;h2 id="evals--method-definition-comparison"&gt;Evals + Method Definition Comparison&lt;/h2&gt;
+&lt;h2 id="eval--method-definition-comparison"&gt;Eval / Method Definition Comparison&lt;/h2&gt;
 
-&lt;p&gt;In the following tables, you will find all combinations of defining a methed and executing it in a different contexts:&lt;/p&gt;
+&lt;p&gt;In the following tables, you will find all combinations of defining a methed and executing it in a different class context:&lt;/p&gt;
 
 &lt;h3 id="class-scope"&gt;Class Scope&lt;/h3&gt;
 

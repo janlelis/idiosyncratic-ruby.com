@@ -24,15 +24,15 @@
       </section>
 
       <article class="post">
-        <p>When you get farther upwards the steep hill that is Ruby mastery, you will come across some powerful, yet slightly evil methods: <a href="https://ruby-doc.org/core/BasicObject.html#method-i-instance_eval">instance_eval</a> and <a href="https://ruby-doc.org/core/Module.html#method-i-class_eval">class_eval</a>¹. They allow you to execute code and define methods tied to a specific class, at the same time giving you access to outer scope variables through the Ruby blocks syntax. Their exact behavior varies, depending on the context they are used in. So what is the difference between all the evals?</p>
+        <p>When you get farther upwards the steep hill that is Ruby mastery, you will come across some powerful, yet slightly evil methods: <a href="https://ruby-doc.org/core/BasicObject.html#method-i-instance_eval">instance_eval</a> and <a href="https://ruby-doc.org/core/Module.html#method-i-class_eval">class_eval</a>¹. They allow you to execute code and define methods tied to a specific class, at the same time giving you access to outer scope variables through the Ruby block syntax. Their exact behavior varies, depending on the context they are used in. So what is the difference between all the evals?</p>
 
 <p>¹ Also aliased as <code>module_eval</code></p>
 
 <p></p>
 
-<h2 id="evals--method-definition-comparison">Evals + Method Definition Comparison</h2>
+<h2 id="eval--method-definition-comparison">Eval / Method Definition Comparison</h2>
 
-<p>In the following tables, you will find all combinations of defining a methed and executing it in a different contexts:</p>
+<p>In the following tables, you will find all combinations of defining a methed and executing it in a different class context:</p>
 
 <h3 id="class-scope">Class Scope</h3>
 
