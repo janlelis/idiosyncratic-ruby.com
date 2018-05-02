@@ -5,10 +5,510 @@
   <id>https://idiosyncratic-ruby.com/index/</id>
   <link href="https://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2016-05-31T00:00:00Z</updated>
+  <updated>2018-05-02T00:00:00Z</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>idiosyncratic_eval</title>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/63-instance-eval.html"/>
+    <id>https://idiosyncratic-ruby.com/63-instance-eval.html</id>
+    <published>2018-05-02T00:00:00Z</published>
+    <updated>2018-05-02T00:00:00Z</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;When you get farther upwards the steep hill that is Ruby mastery, you will come across some powerful, yet slightly evil methods: &lt;a href="https://ruby-doc.org/core/BasicObject.html#method-i-instance_eval"&gt;instance_eval&lt;/a&gt; and &lt;a href="https://ruby-doc.org/core/Module.html#method-i-class_eval"&gt;class_eval&lt;/a&gt;¹. They allow you to execute code and define methods tied to a specific class, at the same time giving you access to outer scope variables through the Ruby blocks syntax. Their exact behavior varies, depending on the context they are used in. So what is the difference between all the evals?&lt;/p&gt;
+
+&lt;p&gt;¹ Also aliased as &lt;code&gt;module_eval&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id="evals--method-definition-comparison"&gt;Evals + Method Definition Comparison&lt;/h2&gt;
+
+&lt;p&gt;In the following tables, you will find all combinations of defining a methed and executing it in a different contexts:&lt;/p&gt;
+
+&lt;h3 id="class-scope"&gt;Class Scope&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Definition Method&lt;/th&gt;
+      &lt;th&gt;No &lt;code&gt;eval&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;class_eval&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;instance_eval&lt;/code&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;def&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="#class--def"&gt;instance&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="#class--classeval--def"&gt;instance&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;&lt;a href="#class--instanceeval--def"&gt;class&lt;/a&gt;&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;define_method&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="#class--definemethod"&gt;instance&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="#class--classeval--definemethod"&gt;instance&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="#class--instanceeval--definemethod"&gt;instance&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;def self.&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="#class--def-self"&gt;class&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="#class--classeval--def-self"&gt;class&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="#class--instanceeval--def-self"&gt;class&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;define_singleton_method&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="#class--definesingletonmethod"&gt;class&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="#class--classeval--definesingletonmethod"&gt;class&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="#class--instanceeval--definesingletonmethod"&gt;class&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id="class-class-scope-class--self"&gt;Class-Class Scope (&lt;code&gt;class &amp;lt;&amp;lt; self&lt;/code&gt;)&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Definition Method&lt;/th&gt;
+      &lt;th&gt;No &lt;code&gt;eval&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;class_eval&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;instance_eval&lt;/code&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;def&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="#class-class--def"&gt;class&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="#class-class--classeval--def"&gt;class&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;&lt;a href="#class-class--instanceeval--def"&gt;class-class&lt;/a&gt;&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;define_method&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="#class-class--definemethod"&gt;class&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="#class-class--classeval--definemethod"&gt;class&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="#class-class--instanceeval--definemethod"&gt;class&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;def self.&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="#class-class--def-self"&gt;class-class&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="#class-class--classeval--def-self"&gt;class-class&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="#class-class--instanceeval--def-self"&gt;class-class&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;define_singleton_method&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="#class-class--definesingletonmethod"&gt;class-class&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="#class-class--classeval--definesingletonmethod"&gt;class-class&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="#class-class--instanceeval--definesingletonmethod"&gt;class-class&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id="observations"&gt;Observations&lt;/h2&gt;
+
+&lt;p&gt;While &lt;code&gt;class_eval&lt;/code&gt; behaves exactly as if it was in no eval-context at all, &lt;code&gt;instance_eval&lt;/code&gt; features a notable difference:
+&lt;strong&gt;&lt;span class="action-color"&gt;def inside instance_eval will define methods one class-level higher&lt;/span&gt;&lt;/strong&gt;. So when &lt;code&gt;instance_eval&lt;/code&gt; is executed on instances, &lt;code&gt;def&lt;/code&gt; will create instance methods instead of singleton methods. And when it is run on classes, &lt;code&gt;def&lt;/code&gt; will create class methods instead of instance methods.&lt;/p&gt;
+
+&lt;p&gt;Another difference is that while &lt;a href="https://ruby-doc.org/core/Module.html#method-i-class_eval"&gt;&lt;code&gt;class_eval&lt;/code&gt; is defined on Module&lt;/a&gt;, &lt;a href="https://ruby-doc.org/core/BasicObject.html#method-i-instance_eval"&gt;&lt;code&gt;instance_eval&lt;/code&gt; lives in BasicObject&lt;/a&gt; allowing you to use it on any object, not only modules and classes. However, there is a simple way to use &lt;code&gt;class_eval&lt;/code&gt; for instances, too. You can explicitely use the object's singleton class (&lt;code&gt;class &amp;lt;&amp;lt; self&lt;/code&gt;), which is a module:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;o = Object.new # =&amp;gt; #&amp;lt;Object:0x000055b6fdabf1f8&amp;gt;
+o.singleton_class.class_eval do
+  def m
+    p self
+  end
+end
+
+o.m # =&amp;gt; #&amp;lt;Object:0x000055b6fdabf1f8&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="best-practice"&gt;Best Practice&lt;/h3&gt;
+
+&lt;p&gt;Overall, the behavior of &lt;code&gt;instance_eval&lt;/code&gt; is rather confusing and my recommendation is to avoid it and always use &lt;code&gt;class_eval&lt;/code&gt;. If you do not need closure access, consider using no eval at all.&lt;/p&gt;
+
+&lt;h2 id="reference--examples-class-level-scope"&gt;Reference / Examples: Class-Level Scope&lt;/h2&gt;
+
+&lt;p&gt;For reference, what follows is a list of snippets illustrating each &lt;em&gt;eval-define&lt;/em&gt; combination.&lt;/p&gt;
+
+&lt;h3 id="class--def"&gt;Class / &lt;code&gt;def&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;instance&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  def m
+    p self
+  end
+end
+
+C.new.m # =&amp;gt; #&amp;lt;C:0x0000556efd3eb1a8&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="class--classeval--def"&gt;Class / &lt;code&gt;class_eval&lt;/code&gt; + &lt;code&gt;def&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;instance&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  class_eval{
+    def m
+      p self
+    end
+  }
+end
+
+C.new.m # =&amp;gt; #&amp;lt;C:0x0000556efd3eb1a8&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="class--instanceeval--def"&gt;Class / &lt;code&gt;instance_eval&lt;/code&gt; + &lt;code&gt;def&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;&lt;span class="action-color"&gt;class&lt;/span&gt;&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  instance_eval{
+    def m
+      p self
+    end
+  }
+end
+
+C.m # =&amp;gt; C
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="class--definemethod"&gt;Class / &lt;code&gt;define_method&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;instance&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  define_method(:m){
+    p self
+  }
+end
+
+C.new.m # =&amp;gt; #&amp;lt;C:0x0000556efd3eb1a8&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="class--classeval--definemethod"&gt;Class / &lt;code&gt;class_eval&lt;/code&gt; + &lt;code&gt;define_method&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;instance&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  class_eval{
+    define_method(:m){
+      p self
+    }
+  }
+end
+
+C.new.m # =&amp;gt; #&amp;lt;C:0x0000556efd3eb1a8&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="class--instanceeval--definemethod"&gt;Class / &lt;code&gt;instance_eval&lt;/code&gt; + &lt;code&gt;define_method&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;instance&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  instance_eval{
+    define_method(:m){
+      p self
+    }
+  }
+end
+
+C.new.m # =&amp;gt; #&amp;lt;C:0x0000556efd3eb1a8&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="class--def-self"&gt;Class / &lt;code&gt;def self.&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;class&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  def self.m
+    p self
+  end
+end
+
+C.m # =&amp;gt; C
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="class--classeval--def-self"&gt;Class / &lt;code&gt;class_eval&lt;/code&gt; + &lt;code&gt;def self.&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;class&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  class_eval{
+    def self.m
+      p self
+    end
+  }
+end
+
+C.m # =&amp;gt; C
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="class--instanceeval--def-self"&gt;Class / &lt;code&gt;instance_eval&lt;/code&gt; + &lt;code&gt;def self.&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;class&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  instance_eval{
+    def self.m
+      p self
+    end
+  }
+end
+
+C.m # =&amp;gt; C
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="class--definesingletonmethod"&gt;Class / &lt;code&gt;define_singleton_method&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;class&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  define_singleton_method(:m){
+    p self
+  }
+end
+
+C.m # =&amp;gt; C
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="class--classeval--definesingletonmethod"&gt;Class / &lt;code&gt;class_eval&lt;/code&gt; + &lt;code&gt;define_singleton_method&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;class&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  class_eval{
+    define_singleton_method(:m){
+      p self
+    }
+  }
+end
+
+C.m # =&amp;gt; C
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="class--instanceeval--definesingletonmethod"&gt;Class / &lt;code&gt;instance_eval&lt;/code&gt; + &lt;code&gt;define_singleton_method&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;class&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  instance_eval{
+    define_singleton_method(:m){
+      p self
+    }
+  }
+end
+
+C.m # =&amp;gt; C
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="reference--examples-class-class-level-scope"&gt;Reference / Examples: Class-Class-Level Scope&lt;/h2&gt;
+
+&lt;h3 id="class-class--def"&gt;Class-Class / &lt;code&gt;def&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;class&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  class &amp;lt;&amp;lt; self
+    def m
+      p self
+    end
+  end
+end
+
+C.m # =&amp;gt; C
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="class-class--classeval--def"&gt;Class-Class / &lt;code&gt;class_eval&lt;/code&gt; + &lt;code&gt;def&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;class&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  class &amp;lt;&amp;lt; self
+    class_eval{
+      def m
+        p self
+      end
+    }
+  end
+end
+
+C.m # =&amp;gt; C
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="class-class--instanceeval--def"&gt;Class-Class / &lt;code&gt;instance_eval&lt;/code&gt; + &lt;code&gt;def&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;&lt;span class="action-color"&gt;class-class&lt;/span&gt;&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  class &amp;lt;&amp;lt; self
+    instance_eval{
+      def m
+        p self
+      end
+    }
+  end
+end
+
+C.singleton_class.m #=&amp;gt; #&amp;lt;Class:C&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="class-class--definemethod"&gt;Class-Class / &lt;code&gt;define_method&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;class&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  class &amp;lt;&amp;lt; self
+    define_method(:m){
+      p self
+    }
+  end
+end
+
+C.m # =&amp;gt; C
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="class-class--classeval--definemethod"&gt;Class-Class / &lt;code&gt;class_eval&lt;/code&gt; + &lt;code&gt;define_method&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;class&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  class &amp;lt;&amp;lt; self
+    class_eval{
+      define_method(:m){
+        p self
+      }
+    }
+  end
+end
+
+C.m # =&amp;gt; C
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="class-class--instanceeval--definemethod"&gt;Class-Class / &lt;code&gt;instance_eval&lt;/code&gt; + &lt;code&gt;define_method&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;class&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  class &amp;lt;&amp;lt; self
+    instance_eval{
+      define_method(:m){
+        p self
+      }
+    }
+  end
+end
+
+C.m # =&amp;gt; C
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="class-class--def-self"&gt;Class-Class / &lt;code&gt;def self.&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;class-class&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  class &amp;lt;&amp;lt; self
+    def self.m
+      p self
+    end
+  end
+end
+
+C.singleton_class.m # =&amp;gt; C
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="class-class--classeval--def-self"&gt;Class-Class / &lt;code&gt;class_eval&lt;/code&gt; + &lt;code&gt;def self.&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;class-class&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  class &amp;lt;&amp;lt; self
+    class_eval{
+      def self.m
+        p self
+      end
+    end
+  }
+end
+
+C.singleton_class.m #=&amp;gt; #&amp;lt;Class:C&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="class-class--instanceeval--def-self"&gt;Class-Class / &lt;code&gt;instance_eval&lt;/code&gt; + &lt;code&gt;def self.&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;class-class&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  class &amp;lt;&amp;lt; self
+    instance_eval{
+      def self.m
+        p self
+      end
+    }
+  end
+end
+
+C.singleton_class.m #=&amp;gt; #&amp;lt;Class:C&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="class-class--definesingletonmethod"&gt;Class-Class / &lt;code&gt;define_singleton_method&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;class-class&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  class &amp;lt;&amp;lt; self
+    define_singleton_method(:m){
+      p self
+    }
+  end
+end
+
+C.singleton_class.m # =&amp;gt; C
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="class-class--classeval--definesingletonmethod"&gt;Class-Class / &lt;code&gt;class_eval&lt;/code&gt; + &lt;code&gt;define_singleton_method&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;class-class&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  class &amp;lt;&amp;lt; self
+    class_eval{
+      define_singleton_method(:m){
+        p self
+      }
+    }
+  end
+end
+
+C.singleton_class.m #=&amp;gt; #&amp;lt;Class:C&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="class-class--instanceeval--definesingletonmethod"&gt;Class-Class / &lt;code&gt;instance_eval&lt;/code&gt; + &lt;code&gt;define_singleton_method&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Defines method on &lt;strong&gt;class-class&lt;/strong&gt;-level&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class C
+  class &amp;lt;&amp;lt; self
+    instance_eval{
+      define_singleton_method(:m){
+        p self
+      }
+    }
+  end
+end
+
+C.singleton_class.m #=&amp;gt; #&amp;lt;Class:C&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Blog post: &lt;a href="http://blog.yugui.jp/entry/846"&gt;Three implicit contexts in Ruby&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="/25-meta-methodology.html"&gt;Episode 25: Meta Methodology&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Less Feature-Rich, More Fun</title>
     <link rel="alternate" href="https://idiosyncratic-ruby.com/62-less-features-more-fun.html"/>
@@ -13796,7 +14296,8 @@ end
 &lt;p&gt;A funny thing to note is that &lt;code&gt;-v&lt;/code&gt; is a shortcut for &lt;code&gt;--version&lt;/code&gt; as well as it is one for &lt;code&gt;--verbose&lt;/code&gt;.&lt;/p&gt;
 
 &lt;h2 id="effect-of-debug-modes-on-interpreter"&gt;Effect of Debug Modes on Interpreter&lt;/h2&gt;
-&lt;p&gt;### Verbosity&lt;/p&gt;
+
+&lt;h3 id="verbosity"&gt;Verbosity&lt;/h3&gt;
 
 &lt;table&gt;
   &lt;thead&gt;

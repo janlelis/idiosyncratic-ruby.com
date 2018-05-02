@@ -1,0 +1,542 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby: idiosyncratic_eval</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='https://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="Documenting All Ruby Specialities. New posts in May 2018!"/>
+<meta name="keywords" content="ruby, core, meta"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/63-instance-eval.html">idiosyncratic_eval</a></h1>
+      </section>
+
+      <article class="post">
+        <p>When you get farther upwards the steep hill that is Ruby mastery, you will come across some powerful, yet slightly evil methods: <a href="https://ruby-doc.org/core/BasicObject.html#method-i-instance_eval">instance_eval</a> and <a href="https://ruby-doc.org/core/Module.html#method-i-class_eval">class_eval</a>¹. They allow you to execute code and define methods tied to a specific class, at the same time giving you access to outer scope variables through the Ruby blocks syntax. Their exact behavior varies, depending on the context they are used in. So what is the difference between all the evals?</p>
+
+<p>¹ Also aliased as <code>module_eval</code></p>
+
+<p></p>
+
+<h2 id="evals--method-definition-comparison">Evals + Method Definition Comparison</h2>
+
+<p>In the following tables, you will find all combinations of defining a methed and executing it in a different contexts:</p>
+
+<h3 id="class-scope">Class Scope</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Definition Method</th>
+      <th>No <code>eval</code></th>
+      <th><code>class_eval</code></th>
+      <th><code>instance_eval</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>def</code></td>
+      <td><a href="#class--def">instance</a></td>
+      <td><a href="#class--classeval--def">instance</a></td>
+      <td><strong><a href="#class--instanceeval--def">class</a></strong></td>
+    </tr>
+    <tr>
+      <td><code>define_method</code></td>
+      <td><a href="#class--definemethod">instance</a></td>
+      <td><a href="#class--classeval--definemethod">instance</a></td>
+      <td><a href="#class--instanceeval--definemethod">instance</a></td>
+    </tr>
+    <tr>
+      <td><code>def self.</code></td>
+      <td><a href="#class--def-self">class</a></td>
+      <td><a href="#class--classeval--def-self">class</a></td>
+      <td><a href="#class--instanceeval--def-self">class</a></td>
+    </tr>
+    <tr>
+      <td><code>define_singleton_method</code></td>
+      <td><a href="#class--definesingletonmethod">class</a></td>
+      <td><a href="#class--classeval--definesingletonmethod">class</a></td>
+      <td><a href="#class--instanceeval--definesingletonmethod">class</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="class-class-scope-class--self">Class-Class Scope (<code>class &lt;&lt; self</code>)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Definition Method</th>
+      <th>No <code>eval</code></th>
+      <th><code>class_eval</code></th>
+      <th><code>instance_eval</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>def</code></td>
+      <td><a href="#class-class--def">class</a></td>
+      <td><a href="#class-class--classeval--def">class</a></td>
+      <td><strong><a href="#class-class--instanceeval--def">class-class</a></strong></td>
+    </tr>
+    <tr>
+      <td><code>define_method</code></td>
+      <td><a href="#class-class--definemethod">class</a></td>
+      <td><a href="#class-class--classeval--definemethod">class</a></td>
+      <td><a href="#class-class--instanceeval--definemethod">class</a></td>
+    </tr>
+    <tr>
+      <td><code>def self.</code></td>
+      <td><a href="#class-class--def-self">class-class</a></td>
+      <td><a href="#class-class--classeval--def-self">class-class</a></td>
+      <td><a href="#class-class--instanceeval--def-self">class-class</a></td>
+    </tr>
+    <tr>
+      <td><code>define_singleton_method</code></td>
+      <td><a href="#class-class--definesingletonmethod">class-class</a></td>
+      <td><a href="#class-class--classeval--definesingletonmethod">class-class</a></td>
+      <td><a href="#class-class--instanceeval--definesingletonmethod">class-class</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="observations">Observations</h2>
+
+<p>While <code>class_eval</code> behaves exactly as if it was in no eval-context at all, <code>instance_eval</code> features a notable difference:
+<strong><span class="action-color">def inside instance_eval will define methods one class-level higher</span></strong>. So when <code>instance_eval</code> is executed on instances, <code>def</code> will create instance methods instead of singleton methods. And when it is run on classes, <code>def</code> will create class methods instead of instance methods.</p>
+
+<p>Another difference is that while <a href="https://ruby-doc.org/core/Module.html#method-i-class_eval"><code>class_eval</code> is defined on Module</a>, <a href="https://ruby-doc.org/core/BasicObject.html#method-i-instance_eval"><code>instance_eval</code> lives in BasicObject</a> allowing you to use it on any object, not only modules and classes. However, there is a simple way to use <code>class_eval</code> for instances, too. You can explicitely use the object's singleton class (<code>class &lt;&lt; self</code>), which is a module:</p>
+
+<pre><code>o = Object.new # =&gt; #&lt;Object:0x000055b6fdabf1f8&gt;
+o.singleton_class.class_eval do
+  def m
+    p self
+  end
+end
+
+o.m # =&gt; #&lt;Object:0x000055b6fdabf1f8&gt;
+</code></pre>
+
+<h3 id="best-practice">Best Practice</h3>
+
+<p>Overall, the behavior of <code>instance_eval</code> is rather confusing and my recommendation is to avoid it and always use <code>class_eval</code>. If you do not need closure access, consider using no eval at all.</p>
+
+<h2 id="reference--examples-class-level-scope">Reference / Examples: Class-Level Scope</h2>
+
+<p>For reference, what follows is a list of snippets illustrating each <em>eval-define</em> combination.</p>
+
+<h3 id="class--def">Class / <code>def</code></h3>
+
+<p>Defines method on <strong>instance</strong>-level</p>
+
+<pre><code>class C
+  def m
+    p self
+  end
+end
+
+C.new.m # =&gt; #&lt;C:0x0000556efd3eb1a8&gt;
+</code></pre>
+
+<h3 id="class--classeval--def">Class / <code>class_eval</code> + <code>def</code></h3>
+
+<p>Defines method on <strong>instance</strong>-level</p>
+
+<pre><code>class C
+  class_eval{
+    def m
+      p self
+    end
+  }
+end
+
+C.new.m # =&gt; #&lt;C:0x0000556efd3eb1a8&gt;
+</code></pre>
+
+<h3 id="class--instanceeval--def">Class / <code>instance_eval</code> + <code>def</code></h3>
+
+<p>Defines method on <strong><span class="action-color">class</span></strong>-level</p>
+
+<pre><code>class C
+  instance_eval{
+    def m
+      p self
+    end
+  }
+end
+
+C.m # =&gt; C
+</code></pre>
+
+<h3 id="class--definemethod">Class / <code>define_method</code></h3>
+
+<p>Defines method on <strong>instance</strong>-level</p>
+
+<pre><code>class C
+  define_method(:m){
+    p self
+  }
+end
+
+C.new.m # =&gt; #&lt;C:0x0000556efd3eb1a8&gt;
+</code></pre>
+
+<h3 id="class--classeval--definemethod">Class / <code>class_eval</code> + <code>define_method</code></h3>
+
+<p>Defines method on <strong>instance</strong>-level</p>
+
+<pre><code>class C
+  class_eval{
+    define_method(:m){
+      p self
+    }
+  }
+end
+
+C.new.m # =&gt; #&lt;C:0x0000556efd3eb1a8&gt;
+</code></pre>
+
+<h3 id="class--instanceeval--definemethod">Class / <code>instance_eval</code> + <code>define_method</code></h3>
+
+<p>Defines method on <strong>instance</strong>-level</p>
+
+<pre><code>class C
+  instance_eval{
+    define_method(:m){
+      p self
+    }
+  }
+end
+
+C.new.m # =&gt; #&lt;C:0x0000556efd3eb1a8&gt;
+</code></pre>
+
+<h3 id="class--def-self">Class / <code>def self.</code></h3>
+
+<p>Defines method on <strong>class</strong>-level</p>
+
+<pre><code>class C
+  def self.m
+    p self
+  end
+end
+
+C.m # =&gt; C
+</code></pre>
+
+<h3 id="class--classeval--def-self">Class / <code>class_eval</code> + <code>def self.</code></h3>
+
+<p>Defines method on <strong>class</strong>-level</p>
+
+<pre><code>class C
+  class_eval{
+    def self.m
+      p self
+    end
+  }
+end
+
+C.m # =&gt; C
+</code></pre>
+
+<h3 id="class--instanceeval--def-self">Class / <code>instance_eval</code> + <code>def self.</code></h3>
+
+<p>Defines method on <strong>class</strong>-level</p>
+
+<pre><code>class C
+  instance_eval{
+    def self.m
+      p self
+    end
+  }
+end
+
+C.m # =&gt; C
+</code></pre>
+
+<h3 id="class--definesingletonmethod">Class / <code>define_singleton_method</code></h3>
+
+<p>Defines method on <strong>class</strong>-level</p>
+
+<pre><code>class C
+  define_singleton_method(:m){
+    p self
+  }
+end
+
+C.m # =&gt; C
+</code></pre>
+
+<h3 id="class--classeval--definesingletonmethod">Class / <code>class_eval</code> + <code>define_singleton_method</code></h3>
+
+<p>Defines method on <strong>class</strong>-level</p>
+
+<pre><code>class C
+  class_eval{
+    define_singleton_method(:m){
+      p self
+    }
+  }
+end
+
+C.m # =&gt; C
+</code></pre>
+
+<h3 id="class--instanceeval--definesingletonmethod">Class / <code>instance_eval</code> + <code>define_singleton_method</code></h3>
+
+<p>Defines method on <strong>class</strong>-level</p>
+
+<pre><code>class C
+  instance_eval{
+    define_singleton_method(:m){
+      p self
+    }
+  }
+end
+
+C.m # =&gt; C
+</code></pre>
+
+<h2 id="reference--examples-class-class-level-scope">Reference / Examples: Class-Class-Level Scope</h2>
+
+<h3 id="class-class--def">Class-Class / <code>def</code></h3>
+
+<p>Defines method on <strong>class</strong>-level</p>
+
+<pre><code>class C
+  class &lt;&lt; self
+    def m
+      p self
+    end
+  end
+end
+
+C.m # =&gt; C
+</code></pre>
+
+<h3 id="class-class--classeval--def">Class-Class / <code>class_eval</code> + <code>def</code></h3>
+
+<p>Defines method on <strong>class</strong>-level</p>
+
+<pre><code>class C
+  class &lt;&lt; self
+    class_eval{
+      def m
+        p self
+      end
+    }
+  end
+end
+
+C.m # =&gt; C
+</code></pre>
+
+<h3 id="class-class--instanceeval--def">Class-Class / <code>instance_eval</code> + <code>def</code></h3>
+
+<p>Defines method on <strong><span class="action-color">class-class</span></strong>-level</p>
+
+<pre><code>class C
+  class &lt;&lt; self
+    instance_eval{
+      def m
+        p self
+      end
+    }
+  end
+end
+
+C.singleton_class.m #=&gt; #&lt;Class:C&gt;
+</code></pre>
+
+<h3 id="class-class--definemethod">Class-Class / <code>define_method</code></h3>
+
+<p>Defines method on <strong>class</strong>-level</p>
+
+<pre><code>class C
+  class &lt;&lt; self
+    define_method(:m){
+      p self
+    }
+  end
+end
+
+C.m # =&gt; C
+</code></pre>
+
+<h3 id="class-class--classeval--definemethod">Class-Class / <code>class_eval</code> + <code>define_method</code></h3>
+
+<p>Defines method on <strong>class</strong>-level</p>
+
+<pre><code>class C
+  class &lt;&lt; self
+    class_eval{
+      define_method(:m){
+        p self
+      }
+    }
+  end
+end
+
+C.m # =&gt; C
+</code></pre>
+
+<h3 id="class-class--instanceeval--definemethod">Class-Class / <code>instance_eval</code> + <code>define_method</code></h3>
+
+<p>Defines method on <strong>class</strong>-level</p>
+
+<pre><code>class C
+  class &lt;&lt; self
+    instance_eval{
+      define_method(:m){
+        p self
+      }
+    }
+  end
+end
+
+C.m # =&gt; C
+</code></pre>
+
+<h3 id="class-class--def-self">Class-Class / <code>def self.</code></h3>
+
+<p>Defines method on <strong>class-class</strong>-level</p>
+
+<pre><code>class C
+  class &lt;&lt; self
+    def self.m
+      p self
+    end
+  end
+end
+
+C.singleton_class.m # =&gt; C
+</code></pre>
+
+<h3 id="class-class--classeval--def-self">Class-Class / <code>class_eval</code> + <code>def self.</code></h3>
+
+<p>Defines method on <strong>class-class</strong>-level</p>
+
+<pre><code>class C
+  class &lt;&lt; self
+    class_eval{
+      def self.m
+        p self
+      end
+    end
+  }
+end
+
+C.singleton_class.m #=&gt; #&lt;Class:C&gt;
+</code></pre>
+
+<h3 id="class-class--instanceeval--def-self">Class-Class / <code>instance_eval</code> + <code>def self.</code></h3>
+
+<p>Defines method on <strong>class-class</strong>-level</p>
+
+<pre><code>class C
+  class &lt;&lt; self
+    instance_eval{
+      def self.m
+        p self
+      end
+    }
+  end
+end
+
+C.singleton_class.m #=&gt; #&lt;Class:C&gt;
+</code></pre>
+
+<h3 id="class-class--definesingletonmethod">Class-Class / <code>define_singleton_method</code></h3>
+
+<p>Defines method on <strong>class-class</strong>-level</p>
+
+<pre><code>class C
+  class &lt;&lt; self
+    define_singleton_method(:m){
+      p self
+    }
+  end
+end
+
+C.singleton_class.m # =&gt; C
+</code></pre>
+
+<h3 id="class-class--classeval--definesingletonmethod">Class-Class / <code>class_eval</code> + <code>define_singleton_method</code></h3>
+
+<p>Defines method on <strong>class-class</strong>-level</p>
+
+<pre><code>class C
+  class &lt;&lt; self
+    class_eval{
+      define_singleton_method(:m){
+        p self
+      }
+    }
+  end
+end
+
+C.singleton_class.m #=&gt; #&lt;Class:C&gt;
+</code></pre>
+
+<h3 id="class-class--instanceeval--definesingletonmethod">Class-Class / <code>instance_eval</code> + <code>define_singleton_method</code></h3>
+
+<p>Defines method on <strong>class-class</strong>-level</p>
+
+<pre><code>class C
+  class &lt;&lt; self
+    instance_eval{
+      define_singleton_method(:m){
+        p self
+      }
+    }
+  end
+end
+
+C.singleton_class.m #=&gt; #&lt;Class:C&gt;
+</code></pre>
+
+<h2 id="also-see">Also See</h2>
+
+<ul>
+  <li>Blog post: <a href="http://blog.yugui.jp/entry/846">Three implicit contexts in Ruby</a></li>
+  <li><a href="/25-meta-methodology.html">Episode 25: Meta Methodology</a></li>
+</ul>
+
+
+        <h2>More Idiosyncratic Ruby</h2>
+        <ul>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/2cd53a45c8a1fc1378c7b37d162207bb3f964d0d#all_commit_comments">Please Comment on GitHub</a></li>
+          <li><a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet this Episode
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
+            <li>Previous Article: <a href="/62-less-features-more-fun.html">Less Feature-Rich, More Fun</a></li>
+        </ul>
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="https://janlelis.com">Jan Lelis</a><br>
+          
+        </div>
+        About Core, Meta |
+        Last Update: 2018-05-02
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>
