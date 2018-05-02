@@ -5,15 +5,15 @@ tags: core, meta
 commit: 2cd53a45c8a1fc1378c7b37d162207bb3f964d0d
 ---
 
-When you get farther upwards the steep hill that is Ruby mastery, you will come across some powerful, yet slightly evil methods: [instance_eval](https://ruby-doc.org/core/BasicObject.html#method-i-instance_eval) and [class_eval](https://ruby-doc.org/core/Module.html#method-i-class_eval)¹. They allow you to execute code and define methods tied to a specific class, at the same time giving you access to outer scope variables through the Ruby blocks syntax. Their exact behavior varies, depending on the context they are used in. So what is the difference between all the evals?
+When you get farther upwards the steep hill that is Ruby mastery, you will come across some powerful, yet slightly evil methods: [instance_eval](https://ruby-doc.org/core/BasicObject.html#method-i-instance_eval) and [class_eval](https://ruby-doc.org/core/Module.html#method-i-class_eval)¹. They allow you to execute code and define methods tied to a specific class, at the same time giving you access to outer scope variables through the Ruby block syntax. Their exact behavior varies, depending on the context they are used in. So what is the difference between all the evals?
 
 ¹ Also aliased as `module_eval`
 
 ARTICLE
 
-## Evals + Method Definition Comparison
+## Eval / Method Definition Comparison
 
-In the following tables, you will find all combinations of defining a methed and executing it in a different contexts:
+In the following tables, you will find all combinations of defining a methed and executing it in a different class context:
 
 ### Class Scope
 
