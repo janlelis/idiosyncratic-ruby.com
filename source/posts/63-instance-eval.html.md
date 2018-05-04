@@ -13,7 +13,7 @@ ARTICLE
 
 ## Eval / Method Definition Comparison
 
-In the following tables, you will find all combinations of defining a methed and executing it in a different class context:
+In the following tables, you will find all combinations of defining a method and executing it in a different class context:
 
 ### Class Scope
 
