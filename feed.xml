@@ -26,7 +26,7 @@
 
 &lt;h2 id="eval--method-definition-comparison"&gt;Eval / Method Definition Comparison&lt;/h2&gt;
 
-&lt;p&gt;In the following tables, you will find all combinations of defining a methed and executing it in a different class context:&lt;/p&gt;
+&lt;p&gt;In the following tables, you will find all combinations of defining a method and executing it in a different class context:&lt;/p&gt;
 
 &lt;h3 id="class-scope"&gt;Class Scope&lt;/h3&gt;
 
