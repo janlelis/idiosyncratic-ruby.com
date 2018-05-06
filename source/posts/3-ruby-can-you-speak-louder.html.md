@@ -82,21 +82,25 @@ A funny thing to note is that `-v` is a shortcut for `--version` as well as it i
 `$VERBOSE`                        | Effect
 ----------------------------------|--------------------------------
 `true` or `false` (but not `nil`) | `Kernel#warn` will output to `STDERR`
-`true`                            | Interpreter warnings will be printed
+`true`                            | Interpreter level 1 warnings will be printed, for example, duplicated hash keys
+`true`                            | Interpreter level 2 warnings will be printed, for example, method redefinition
 
 ### Debug Mode
 
 `$DEBUG`               | Effect
 -----------------------|--------------------------------
-`true`          `      | Extended Exception reporting will be turned on. See [this blog post](https://tenderlovemaking.com/2016/02/05/i-am-a-puts-debuggerer.html#i-know-an-exception-is-getting-raised-but-i-dont-know-where) for an example
+`true`                 | Extended exception reporting will be turned on. See [this blog post](https://tenderlovemaking.com/2016/02/05/i-am-a-puts-debuggerer.html#i-know-an-exception-is-getting-raised-but-i-dont-know-where) for an example. It will also turn on [Thread.abort_on_exception](https://ruby-doc.org/core/Thread.html#method-c-abort_on_exception-3D)
 
-## What to Use to Trigger a Custom Application's Debug Mode?
+## Best Practice
 
-Use neither `$VERBOSE`, nor `$DEBUG`, but to use a class instance variable in your library. Or use [standard library's logger or some other logging gem](https://idiosyncratic-ruby.com/20-better-standards.html). It is easier to understand than relying on the global debug modes.
+Use neither `$VERBOSE`, nor `$DEBUG`, but use custom logging, for example [standard library's logger or some other logging gem](/20-better-standards.html). It is easier to understand than relying on the global debug modes.
 
-Use `$VERBOSE = true` if you are interested in interpreter warnings.
+Use `$VERBOSE = true` if you are interested in level 2 interpreter warnings.
+
+Use `$DEBUG = true` if you want to turn on extended exception reporting or enable `Thread.abort_on_exception`.
 
 ## Further Reading
+
 - [Verbose mode and warnings](http://mislav.uniqpath.com/2011/06/ruby-verbose-mode/)
 - [Rails' verbosity silencer](http://api.rubyonrails.org/classes/Kernel.html#method-i-silence_warnings)
 - [Ruby Loggers](https://www.ruby-toolbox.com/categories/Logging)
