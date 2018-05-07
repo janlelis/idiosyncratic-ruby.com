@@ -2,6 +2,7 @@
 title: What the Regex?
 date: 2018-05-07
 tags: regex
+commit: ca6efb72fcb188fe197dadb606f9921362d6cf0b
 ---
 
 Regexes, the go-to-mechanism for string matching, must not only be written, but also need to be applied. This episode acts as a reference with some style advice for working with regular expressions in Ruby. If you are looking for resources on writing the actual regexes, take a look at the [link collection at the bottom](#regex-resources).
