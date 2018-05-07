@@ -12,8 +12,8 @@ ARTICLE
 ## What do you Want to Achieve?
 
 - [1 - Task: Check if Regex Matches](#task-check-if-regex-matches)
-- [2 - Task: Find Single/First Occurance](#task-find-singlefirst-occurance)
-- [3 - Task: Find All Occurances](#task-find-all-occurances)
+- [2 - Task: Find Single/First Occurrence](#task-find-singlefirst-occurrence)
+- [3 - Task: Find All Occurrences](#task-find-all-occurrences)
 - [4 - Task: Replace](#task-replace)
 - [Special Task: Split String Into Array](#special-task-split-string-into-array)
 - [Special Task: Filter Array of Strings](#special-task-filter-array-of-strings)
@@ -30,7 +30,7 @@ This is the preferred way to check for a match since Ruby 2.4. It only returns `
 
 ### 1b) `=~`
 
-This method is baked into Ruby's syntax, although its return value is rather special: It is the codepoint index in the string where the match occured or `nil` otherwise. However, it is a wise choice to only use it for its *truthy*/*falsey* value and use the more self-explaining [String#index method](https://ruby-doc.org/core/String.html#method-i-index) otherwise. Other than with the previous' `match?` approach, match data is set accordingly (this is the case with all other ways of matching) - see next section "[Find First Occurance](#task-find-singlefirst-occurance)" for ways to do so. Here is the example:
+This method is baked into Ruby's syntax, although its return value is rather special: It is the codepoint index in the string where the match occured or `nil` otherwise. However, it is a wise choice to only use it for its *truthy*/*falsey* value and use the more self-explaining [String#index method](https://ruby-doc.org/core/String.html#method-i-index) otherwise. Other than with the previous' `match?` approach, match data is set accordingly (this is the case with all other ways of matching) - see next section "[Find First Occurrence](#task-find-singlefirst-occurrence)" for ways to do so. Here is the example:
 
     "string" =~ /1.3/ # => false
     "123" =~ /1.3/ # => true
@@ -74,7 +74,7 @@ Regex' `===` operator is also mapped to matching strings (returns `true` or `fal
 ¹ The reason: It depends on the order of both operands, regex must be first, which is rather unintuitive. String's `===` operator has a different semantic of just comparing two strings<br/>
 ² For more general documentation about equalness in Ruby, checkout [Episode 55: Struggling Four Equality](/55-struggling-four-equality.html).
 
-## 2 - Task: Find Single/First Occurance
+## 2 - Task: Find Single/First Occurrence
 
 ### 2a) String#[]
 
@@ -106,7 +106,7 @@ Note that it *does not* match `"23"`, but `"3"`. If you want to match an express
     "String with 42, sorry with 23 things" =~ /\d+(?=\D*\z)/
     $& # => "23"
 
-## 3 - Task: Find All Occurances
+## 3 - Task: Find All Occurrences
 
 ### 3) String#scan
 
@@ -116,7 +116,7 @@ Your friend is the [scan method](https://ruby-doc.org/core/String.html#method-i-
 
 ## 4 - Task: Replace
 
-The usual string replacement tool is **gsub** (**g**lobal **sub**stitution) which replaces all matching occurances of the regex. Should you only want to replace the first occurance, use the **sub** method instead.
+The usual string replacement tool is **gsub** (**g**lobal **sub**stitution) which replaces all matching occurrences of the regex. Should you only want to replace the first occurrence, use the **sub** method instead.
 
 ### 4a) String#gsub with String Argument
 
