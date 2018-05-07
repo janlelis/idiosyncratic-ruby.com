@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby: What the Regex?</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+<link href='https://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="Documenting All Ruby Specialities. New posts in May 2018!"/>
+<meta name="keywords" content="ruby, regex"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/64-what-the-regex.html">What the Regex?</a></h1>
+      </section>
+
+      <article class="post">
+        <p>Regexes, the go-to-mechanism for string matching, must not only be written, but also need to be applied. This episode acts as a reference with some style advice for working with regular expressions in Ruby. If you are looking for resources on writing the actual regexes, take a look at the <a href="#regex-resources">link collection at the bottom</a>.</p>
+
+<p></p>
+
+<h2 id="what-do-you-want-to-achieve">What do you Want to Achieve?</h2>
+
+<ul>
+  <li><a href="#task-check-if-regex-matches">1 - Task: Check if Regex Matches</a></li>
+  <li><a href="#task-find-singlefirst-occurance">2 - Task: Find Single/First Occurance</a></li>
+  <li><a href="#task-find-all-occurances">3 - Task: Find All Occurances</a></li>
+  <li><a href="#task-replace">4 - Task: Replace</a></li>
+  <li><a href="#special-task-split-string-into-array">Special Task: Split String Into Array</a></li>
+  <li><a href="#special-task-filter-array-of-strings">Special Task: Filter Array of Strings</a></li>
+  <li><a href="#special-task-partition-string">Special Task: Partition String</a></li>
+</ul>
+
+<h2 id="task-check-if-regex-matches">1 - Task: Check if Regex Matches</h2>
+
+<h3 id="a-match">1a) <code>match?</code></h3>
+
+<p>This is the preferred way to check for a match since Ruby 2.4. It only returns <code>true</code> or <code>false</code>, but does not store any match data to get more performance:</p>
+
+<pre><code>"string".match? /1.3/ # =&gt; false
+"123".match? /1.3/ # =&gt; true
+</code></pre>
+
+<h3 id="b-">1b) <code>=~</code></h3>
+
+<p>This method is baked into Ruby's syntax, although its return value is rather special: It is the codepoint index in the string where the match occured or <code>nil</code> otherwise. However, it is a wise choice to only use it for its <em>truthy</em>/<em>falsey</em> value and use the more self-explaining <a href="https://ruby-doc.org/core/String.html#method-i-index">String#index method</a> otherwise. Other than with the previous' <code>match?</code> approach, match data is set accordingly (this is the case with all other ways of matching) - see next section "<a href="#task-find-singlefirst-occurance">Find First Occurance</a>" for ways to do so. Here is the example:</p>
+
+<pre><code>"string" =~ /1.3/ # =&gt; false
+"123" =~ /1.3/ # =&gt; true
+</code></pre>
+
+<p>The match operator's sibling is <code>!~</code> which negates the match result:</p>
+
+<pre><code>"string" !~ /1.3/ # =&gt; true
+"123" !~ /1.3/ # =&gt; false
+</code></pre>
+
+<p>More complicated matching can involve capture groups. Depending on the reference style (named or numbered), the way you can accees it differs:</p>
+
+<h4 id="numbered-1-9">Numbered: <code>$1-$9</code></h4>
+
+<p>The <a href="/9-globalization.html#list-of-all-special-global-variables">Perlish special variables</a> contain <a href="/60-escape-back-referencing.html#special-regex-variables--back-references">the matches</a>:</p>
+
+<pre><code>"String with 42 things" =~ /(\d+) things/
+$1 # =&gt; "42"
+</code></pre>
+
+<h4 id="named-">Named: <code>$~</code></h4>
+
+<p>The match data object contains the matches:</p>
+
+<pre><code>"String with 42 things" =~ /(?&lt;thing_count&gt;\d+) things/
+$~[:thing_count] # =&gt; "42"
+</code></pre>
+
+<p>Note that regex matching with named captures can <a href="/14-meeting-some-locals.html#implicit-local-variables-through-regex-matching">implicitly create local variables</a>. This is extremely confusing and you should rather use the above syntax which is clearer, yet still maintains conciseness.</p>
+
+<h3 id="c-case-compare">1c) Case Compare</h3>
+
+<p>Regex' <code>===</code> operator is also mapped to matching strings (returns <code>true</code> or <code>false</code>). However, although it should not be used directly¹, it allows you write very expressive and readable case statements²:</p>
+
+<pre><code>case variable = "string or number"
+when /\A\d+\z/
+  variable.to_i
+when /\A\d+\.\d+\z/
+  variable.to_f
+else
+  variable.to_s
+end
+</code></pre>
+
+<p>¹ The reason: It depends on the order of both operands, regex must be first, which is rather unintuitive. String's <code>===</code> operator has a different semantic of just comparing two strings<br />
+² For more general documentation about equalness in Ruby, checkout <a href="/55-struggling-four-equality.html">Episode 55: Struggling Four Equality</a>.</p>
+
+<h2 id="task-find-singlefirst-occurance">2 - Task: Find Single/First Occurance</h2>
+
+<h3 id="a-string">2a) String#[]</h3>
+
+<p>A very readable way to to return the match result of the string is:</p>
+
+<pre><code>"String with 42 things"[/\d\d/] # =&gt; "42"
+</code></pre>
+
+<p>You can also use capture groups here:</p>
+
+<pre><code>"String with 42 things"[/\d(\d)/, 1] # =&gt; "2"
+"String with 42 things"[/(?&lt;first&gt;\d)\d/, :first] # =&gt; "4"
+</code></pre>
+
+<h3 id="b---">2b) <code>=~</code> + <code>$&amp;</code></h3>
+
+<p>If you prefer the <code>=~</code> syntax, you can retrieve the matched string with the special variable <code>$&amp;</code>:</p>
+
+<pre><code>"String with 42 things" =~ /\d+/
+$&amp; # =&gt; "42"
+</code></pre>
+
+<h3 id="c-stringrindex">2c) String#rindex</h3>
+
+<p>Worth mentioning is the special behavior of <a href="https://ruby-doc.org/core/String.html#method-i-rindex">String.rindex</a>. It will start the match process on the right side of string and return the first index, where a match is possible:</p>
+
+<pre><code> "String with 42, sorry with 23 things".rindex /\d+/
+ $&amp; # =&gt; "3"
+</code></pre>
+
+<p>Note that it <em>does not</em> match <code>"23"</code>, but <code>"3"</code>. If you want to match an expression in relation to the end of the string you could use a positive-lookahead in combination with <code>\z</code>:</p>
+
+<pre><code>"String with 42, sorry with 23 things" =~ /\d+(?=\D*\z)/
+$&amp; # =&gt; "23"
+</code></pre>
+
+<h2 id="task-find-all-occurances">3 - Task: Find All Occurances</h2>
+
+<h3 id="stringscan">3) String#scan</h3>
+
+<p>Your friend is the <a href="https://ruby-doc.org/core/String.html#method-i-scan">scan method</a> which returns an array of all results:</p>
+
+<pre><code>"String with 42, sorry with 23 things".scan /\d+/ # =&gt; ["42", "23"]
+</code></pre>
+
+<h2 id="task-replace">4 - Task: Replace</h2>
+
+<p>The usual string replacement tool is <strong>gsub</strong> (<strong>g</strong>lobal <strong>sub</strong>stitution) which replaces all matching occurances of the regex. Should you only want to replace the first occurance, use the <strong>sub</strong> method instead.</p>
+
+<h3 id="a-stringgsub-with-string-argument">4a) String#gsub with String Argument</h3>
+
+<pre><code>"String with 42 things".gsub /\d+/, "23"
+</code></pre>
+
+<p>You can use <a href="/60-escape-back-referencing.html">back references</a> in the replacement string.</p>
+
+<h3 id="b-stringgsub-with-block">4b) String#gsub with Block</h3>
+
+<pre><code>"String with 42 things".gsub /\d+/ do
+  $&amp;.to_i + 1
+end # =&gt; 43
+</code></pre>
+
+<p>You can use <a href="/60-escape-back-referencing.html">Perl-style regex globals</a> in the replacement block.</p>
+
+<h2 id="special-task-split-string-into-array">Special Task: Split String Into Array</h2>
+
+<p><a href="https://ruby-doc.org/core/String.html#method-i-split">Splitting a string</a> along a separator is the main way of converting it into a useful array:</p>
+
+<pre><code>array = "String with     42\nthings".split(/\s+/)
+# =&gt; ["String", "with", "42", "things"]
+</code></pre>
+
+<h2 id="special-task-filter-array-of-strings">Special Task: Filter Array of Strings</h2>
+
+<p>The <a href="https://ruby-doc.org/core/Enumerable.html#method-i-grep">Enumerable#grep</a> method allows you to do so:</p>
+
+<pre><code>["String", "with", "42", "things"].grep(/\d/) # =&gt; ["42"]
+</code></pre>
+
+<p>Ther is also <a href="https://ruby-doc.org/core/Enumerable.html#method-i-grep_v">Enumerable#grep_v</a> which returns all elements that do not match (think #reject):</p>
+
+<pre><code>["String", "with", "42", "things"].grep_v(/\d/) # =&gt; ["String", "with", "things"]
+</code></pre>
+
+<h2 id="special-task-partition-string">Special Task: Partition String</h2>
+
+<p>Ruby's <a href="https://ruby-doc.org/core/String.html#method-i-partition">String#partition</a> divides a string into an array consisting of three elements:</p>
+
+<pre><code>parts = "String with 42 things".partition(/\d+/)
+parts # =&gt; ["String with ", "42", " things"]
+</code></pre>
+
+<ul>
+  <li>The string before regex match</li>
+  <li>The regex match</li>
+  <li>The string after the regex match</li>
+</ul>
+
+<p>Note that you can get to the same result using <a href="/60-escape-back-referencing.html#special-regex-variables--back-references">the special <em>pre-</em> and <em>post match</em> variables</a>:</p>
+
+<pre><code>"String with 42 things" =~ /\d+/
+parts = [$`, $&amp;, $'] # =&gt; ["String with ", "42", " things"]
+</code></pre>
+
+<h2 id="regex-resources">Regex Resources</h2>
+
+<ul>
+  <li><a href="https://ruby-doc.org/core/doc/regexp_rdoc.html">RDoc: Regular expressions</a> - Ruby regex documentation</li>
+  <li><a href="https://ruby-doc.org/core/Regexp.html">RDoc: Regexp</a> - Class docs (overlaps with general regex docs)</li>
+  <li><a href="/11-regular-extremism.html">Episode 11: Regular Extremism</a> - Collection of advanced regex syntaxes</li>
+  <li><a href="/21-uniform-resource-matching.html">Episode 21: Uniform Resource Matching</a> - URL regex included in Ruby's standard library</li>
+  <li><a href="/30-regex-with-class.html">Episode 30: Regex with Class</a> - Overview of Unicode and POSIX-style character clasess</li>
+  <li><a href="/41-proper-unicoding.html">Episode 41: Proper Unicoding</a> - Regex Unicode Property syntax (<code>\p{}</code>)</li>
+  <li><a href="https://github.com/janlelis/debugging#restring-regex-groups--nil"><code>re</code> method (part of irb.tools)</a> - Displays first match (including capture groups) in the terminal</li>
+  <li><a href="http://rubular.com/">Rubular</a> - Online regex testing</li>
+  <li><a href="https://github.com/k-takata/Onigmo/blob/master/doc/RE">Onigmo</a> - Upstream repository of Ruby's regex engine</li>
+</ul>
+
+
+        <h2>More Idiosyncratic Ruby</h2>
+        <ul>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/ca6efb72fcb188fe197dadb606f9921362d6cf0b#all_commit_comments">Please Comment on GitHub</a></li>
+          <li><a class="twitter-share-button" href="https://twitter.com/share"
+            data-via="idiosyncraticrb"
+            data-count="horizontal"
+            data-dnt="true"
+          > Tweet this Episode
+        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
+            <li>Previous Article: <a href="/63-instance-eval.html">idiosyncratic_eval</a></li>
+        </ul>
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="https://janlelis.com">Jan Lelis</a><br>
+          
+        </div>
+        About Regex |
+        Last Update: 2018-05-07
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>

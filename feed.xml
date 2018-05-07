@@ -5,10 +5,217 @@
   <id>https://idiosyncratic-ruby.com/index/</id>
   <link href="https://idiosyncratic-ruby.com/index/"/>
   <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
-  <updated>2018-05-02T00:00:00Z</updated>
+  <updated>2018-05-07T00:00:00Z</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>What the Regex?</title>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/64-what-the-regex.html"/>
+    <id>https://idiosyncratic-ruby.com/64-what-the-regex.html</id>
+    <published>2018-05-07T00:00:00Z</published>
+    <updated>2018-05-07T00:00:00Z</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Regexes, the go-to-mechanism for string matching, must not only be written, but also need to be applied. This episode acts as a reference with some style advice for working with regular expressions in Ruby. If you are looking for resources on writing the actual regexes, take a look at the &lt;a href="#regex-resources"&gt;link collection at the bottom&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id="what-do-you-want-to-achieve"&gt;What do you Want to Achieve?&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="#task-check-if-regex-matches"&gt;1 - Task: Check if Regex Matches&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="#task-find-singlefirst-occurance"&gt;2 - Task: Find Single/First Occurance&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="#task-find-all-occurances"&gt;3 - Task: Find All Occurances&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="#task-replace"&gt;4 - Task: Replace&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="#special-task-split-string-into-array"&gt;Special Task: Split String Into Array&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="#special-task-filter-array-of-strings"&gt;Special Task: Filter Array of Strings&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="#special-task-partition-string"&gt;Special Task: Partition String&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="task-check-if-regex-matches"&gt;1 - Task: Check if Regex Matches&lt;/h2&gt;
+
+&lt;h3 id="a-match"&gt;1a) &lt;code&gt;match?&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;This is the preferred way to check for a match since Ruby 2.4. It only returns &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt;, but does not store any match data to get more performance:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"string".match? /1.3/ # =&amp;gt; false
+"123".match? /1.3/ # =&amp;gt; true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="b-"&gt;1b) &lt;code&gt;=~&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;This method is baked into Ruby's syntax, although its return value is rather special: It is the codepoint index in the string where the match occured or &lt;code&gt;nil&lt;/code&gt; otherwise. However, it is a wise choice to only use it for its &lt;em&gt;truthy&lt;/em&gt;/&lt;em&gt;falsey&lt;/em&gt; value and use the more self-explaining &lt;a href="https://ruby-doc.org/core/String.html#method-i-index"&gt;String#index method&lt;/a&gt; otherwise. Other than with the previous' &lt;code&gt;match?&lt;/code&gt; approach, match data is set accordingly (this is the case with all other ways of matching) - see next section "&lt;a href="#task-find-singlefirst-occurance"&gt;Find First Occurance&lt;/a&gt;" for ways to do so. Here is the example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"string" =~ /1.3/ # =&amp;gt; false
+"123" =~ /1.3/ # =&amp;gt; true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The match operator's sibling is &lt;code&gt;!~&lt;/code&gt; which negates the match result:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"string" !~ /1.3/ # =&amp;gt; true
+"123" !~ /1.3/ # =&amp;gt; false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;More complicated matching can involve capture groups. Depending on the reference style (named or numbered), the way you can accees it differs:&lt;/p&gt;
+
+&lt;h4 id="numbered-1-9"&gt;Numbered: &lt;code&gt;$1-$9&lt;/code&gt;&lt;/h4&gt;
+
+&lt;p&gt;The &lt;a href="/9-globalization.html#list-of-all-special-global-variables"&gt;Perlish special variables&lt;/a&gt; contain &lt;a href="/60-escape-back-referencing.html#special-regex-variables--back-references"&gt;the matches&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"String with 42 things" =~ /(\d+) things/
+$1 # =&amp;gt; "42"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id="named-"&gt;Named: &lt;code&gt;$~&lt;/code&gt;&lt;/h4&gt;
+
+&lt;p&gt;The match data object contains the matches:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"String with 42 things" =~ /(?&amp;lt;thing_count&amp;gt;\d+) things/
+$~[:thing_count] # =&amp;gt; "42"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that regex matching with named captures can &lt;a href="/14-meeting-some-locals.html#implicit-local-variables-through-regex-matching"&gt;implicitly create local variables&lt;/a&gt;. This is extremely confusing and you should rather use the above syntax which is clearer, yet still maintains conciseness.&lt;/p&gt;
+
+&lt;h3 id="c-case-compare"&gt;1c) Case Compare&lt;/h3&gt;
+
+&lt;p&gt;Regex' &lt;code&gt;===&lt;/code&gt; operator is also mapped to matching strings (returns &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt;). However, although it should not be used directly¹, it allows you write very expressive and readable case statements²:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;case variable = "string or number"
+when /\A\d+\z/
+  variable.to_i
+when /\A\d+\.\d+\z/
+  variable.to_f
+else
+  variable.to_s
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;¹ The reason: It depends on the order of both operands, regex must be first, which is rather unintuitive. String's &lt;code&gt;===&lt;/code&gt; operator has a different semantic of just comparing two strings&lt;br /&gt;
+² For more general documentation about equalness in Ruby, checkout &lt;a href="/55-struggling-four-equality.html"&gt;Episode 55: Struggling Four Equality&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id="task-find-singlefirst-occurance"&gt;2 - Task: Find Single/First Occurance&lt;/h2&gt;
+
+&lt;h3 id="a-string"&gt;2a) String#[]&lt;/h3&gt;
+
+&lt;p&gt;A very readable way to to return the match result of the string is:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"String with 42 things"[/\d\d/] # =&amp;gt; "42"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can also use capture groups here:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"String with 42 things"[/\d(\d)/, 1] # =&amp;gt; "2"
+"String with 42 things"[/(?&amp;lt;first&amp;gt;\d)\d/, :first] # =&amp;gt; "4"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="b---"&gt;2b) &lt;code&gt;=~&lt;/code&gt; + &lt;code&gt;$&amp;amp;&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;If you prefer the &lt;code&gt;=~&lt;/code&gt; syntax, you can retrieve the matched string with the special variable &lt;code&gt;$&amp;amp;&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"String with 42 things" =~ /\d+/
+$&amp;amp; # =&amp;gt; "42"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="c-stringrindex"&gt;2c) String#rindex&lt;/h3&gt;
+
+&lt;p&gt;Worth mentioning is the special behavior of &lt;a href="https://ruby-doc.org/core/String.html#method-i-rindex"&gt;String.rindex&lt;/a&gt;. It will start the match process on the right side of string and return the first index, where a match is possible:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; "String with 42, sorry with 23 things".rindex /\d+/
+ $&amp;amp; # =&amp;gt; "3"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that it &lt;em&gt;does not&lt;/em&gt; match &lt;code&gt;"23"&lt;/code&gt;, but &lt;code&gt;"3"&lt;/code&gt;. If you want to match an expression in relation to the end of the string you could use a positive-lookahead in combination with &lt;code&gt;\z&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"String with 42, sorry with 23 things" =~ /\d+(?=\D*\z)/
+$&amp;amp; # =&amp;gt; "23"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="task-find-all-occurances"&gt;3 - Task: Find All Occurances&lt;/h2&gt;
+
+&lt;h3 id="stringscan"&gt;3) String#scan&lt;/h3&gt;
+
+&lt;p&gt;Your friend is the &lt;a href="https://ruby-doc.org/core/String.html#method-i-scan"&gt;scan method&lt;/a&gt; which returns an array of all results:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"String with 42, sorry with 23 things".scan /\d+/ # =&amp;gt; ["42", "23"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="task-replace"&gt;4 - Task: Replace&lt;/h2&gt;
+
+&lt;p&gt;The usual string replacement tool is &lt;strong&gt;gsub&lt;/strong&gt; (&lt;strong&gt;g&lt;/strong&gt;lobal &lt;strong&gt;sub&lt;/strong&gt;stitution) which replaces all matching occurances of the regex. Should you only want to replace the first occurance, use the &lt;strong&gt;sub&lt;/strong&gt; method instead.&lt;/p&gt;
+
+&lt;h3 id="a-stringgsub-with-string-argument"&gt;4a) String#gsub with String Argument&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;"String with 42 things".gsub /\d+/, "23"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can use &lt;a href="/60-escape-back-referencing.html"&gt;back references&lt;/a&gt; in the replacement string.&lt;/p&gt;
+
+&lt;h3 id="b-stringgsub-with-block"&gt;4b) String#gsub with Block&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;"String with 42 things".gsub /\d+/ do
+  $&amp;amp;.to_i + 1
+end # =&amp;gt; 43
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can use &lt;a href="/60-escape-back-referencing.html"&gt;Perl-style regex globals&lt;/a&gt; in the replacement block.&lt;/p&gt;
+
+&lt;h2 id="special-task-split-string-into-array"&gt;Special Task: Split String Into Array&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="https://ruby-doc.org/core/String.html#method-i-split"&gt;Splitting a string&lt;/a&gt; along a separator is the main way of converting it into a useful array:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;array = "String with     42\nthings".split(/\s+/)
+# =&amp;gt; ["String", "with", "42", "things"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="special-task-filter-array-of-strings"&gt;Special Task: Filter Array of Strings&lt;/h2&gt;
+
+&lt;p&gt;The &lt;a href="https://ruby-doc.org/core/Enumerable.html#method-i-grep"&gt;Enumerable#grep&lt;/a&gt; method allows you to do so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;["String", "with", "42", "things"].grep(/\d/) # =&amp;gt; ["42"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ther is also &lt;a href="https://ruby-doc.org/core/Enumerable.html#method-i-grep_v"&gt;Enumerable#grep_v&lt;/a&gt; which returns all elements that do not match (think #reject):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;["String", "with", "42", "things"].grep_v(/\d/) # =&amp;gt; ["String", "with", "things"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="special-task-partition-string"&gt;Special Task: Partition String&lt;/h2&gt;
+
+&lt;p&gt;Ruby's &lt;a href="https://ruby-doc.org/core/String.html#method-i-partition"&gt;String#partition&lt;/a&gt; divides a string into an array consisting of three elements:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;parts = "String with 42 things".partition(/\d+/)
+parts # =&amp;gt; ["String with ", "42", " things"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The string before regex match&lt;/li&gt;
+  &lt;li&gt;The regex match&lt;/li&gt;
+  &lt;li&gt;The string after the regex match&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Note that you can get to the same result using &lt;a href="/60-escape-back-referencing.html#special-regex-variables--back-references"&gt;the special &lt;em&gt;pre-&lt;/em&gt; and &lt;em&gt;post match&lt;/em&gt; variables&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"String with 42 things" =~ /\d+/
+parts = [$`, $&amp;amp;, $'] # =&amp;gt; ["String with ", "42", " things"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="regex-resources"&gt;Regex Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://ruby-doc.org/core/doc/regexp_rdoc.html"&gt;RDoc: Regular expressions&lt;/a&gt; - Ruby regex documentation&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://ruby-doc.org/core/Regexp.html"&gt;RDoc: Regexp&lt;/a&gt; - Class docs (overlaps with general regex docs)&lt;/li&gt;
+  &lt;li&gt;&lt;a href="/11-regular-extremism.html"&gt;Episode 11: Regular Extremism&lt;/a&gt; - Collection of advanced regex syntaxes&lt;/li&gt;
+  &lt;li&gt;&lt;a href="/21-uniform-resource-matching.html"&gt;Episode 21: Uniform Resource Matching&lt;/a&gt; - URL regex included in Ruby's standard library&lt;/li&gt;
+  &lt;li&gt;&lt;a href="/30-regex-with-class.html"&gt;Episode 30: Regex with Class&lt;/a&gt; - Overview of Unicode and POSIX-style character clasess&lt;/li&gt;
+  &lt;li&gt;&lt;a href="/41-proper-unicoding.html"&gt;Episode 41: Proper Unicoding&lt;/a&gt; - Regex Unicode Property syntax (&lt;code&gt;\p{}&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/janlelis/debugging#restring-regex-groups--nil"&gt;&lt;code&gt;re&lt;/code&gt; method (part of irb.tools)&lt;/a&gt; - Displays first match (including capture groups) in the terminal&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://rubular.com/"&gt;Rubular&lt;/a&gt; - Online regex testing&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/k-takata/Onigmo/blob/master/doc/RE"&gt;Onigmo&lt;/a&gt; - Upstream repository of Ruby's regex engine&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>idiosyncratic_eval</title>
     <link rel="alternate" href="https://idiosyncratic-ruby.com/63-instance-eval.html"/>
@@ -14313,7 +14520,11 @@ end
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;code&gt;true&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Interpreter warnings will be printed&lt;/td&gt;
+      &lt;td&gt;Interpreter level 1 warnings will be printed, for example, duplicated hash keys&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;true&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Interpreter level 2 warnings will be printed, for example, method redefinition&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
@@ -14329,19 +14540,22 @@ end
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;code&gt;true&lt;/code&gt;          `&lt;/td&gt;
-      &lt;td&gt;Extended Exception reporting will be turned on. See &lt;a href="https://tenderlovemaking.com/2016/02/05/i-am-a-puts-debuggerer.html#i-know-an-exception-is-getting-raised-but-i-dont-know-where"&gt;this blog post&lt;/a&gt; for an example&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;true&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Extended exception reporting will be turned on. See &lt;a href="https://tenderlovemaking.com/2016/02/05/i-am-a-puts-debuggerer.html#i-know-an-exception-is-getting-raised-but-i-dont-know-where"&gt;this blog post&lt;/a&gt; for an example. It will also turn on &lt;a href="https://ruby-doc.org/core/Thread.html#method-c-abort_on_exception-3D"&gt;Thread.abort_on_exception&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h2 id="what-to-use-to-trigger-a-custom-applications-debug-mode"&gt;What to Use to Trigger a Custom Application's Debug Mode?&lt;/h2&gt;
+&lt;h2 id="best-practice"&gt;Best Practice&lt;/h2&gt;
 
-&lt;p&gt;Use neither &lt;code&gt;$VERBOSE&lt;/code&gt;, nor &lt;code&gt;$DEBUG&lt;/code&gt;, but to use a class instance variable in your library. Or use &lt;a href="https://idiosyncratic-ruby.com/20-better-standards.html"&gt;standard library's logger or some other logging gem&lt;/a&gt;. It is easier to understand than relying on the global debug modes.&lt;/p&gt;
+&lt;p&gt;Use neither &lt;code&gt;$VERBOSE&lt;/code&gt;, nor &lt;code&gt;$DEBUG&lt;/code&gt;, but use custom logging, for example &lt;a href="/20-better-standards.html"&gt;standard library's logger or some other logging gem&lt;/a&gt;. It is easier to understand than relying on the global debug modes.&lt;/p&gt;
 
-&lt;p&gt;Use &lt;code&gt;$VERBOSE = true&lt;/code&gt; if you are interested in interpreter warnings.&lt;/p&gt;
+&lt;p&gt;Use &lt;code&gt;$VERBOSE = true&lt;/code&gt; if you are interested in level 2 interpreter warnings.&lt;/p&gt;
+
+&lt;p&gt;Use &lt;code&gt;$DEBUG = true&lt;/code&gt; if you want to turn on extended exception reporting or enable &lt;code&gt;Thread.abort_on_exception&lt;/code&gt;.&lt;/p&gt;
 
 &lt;h2 id="further-reading"&gt;Further Reading&lt;/h2&gt;
+
 &lt;ul&gt;
   &lt;li&gt;&lt;a href="http://mislav.uniqpath.com/2011/06/ruby-verbose-mode/"&gt;Verbose mode and warnings&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="http://api.rubyonrails.org/classes/Kernel.html#method-i-silence_warnings"&gt;Rails' verbosity silencer&lt;/a&gt;&lt;/li&gt;
