@@ -32,8 +32,8 @@
 
 <ul>
   <li><a href="#task-check-if-regex-matches">1 - Task: Check if Regex Matches</a></li>
-  <li><a href="#task-find-singlefirst-occurance">2 - Task: Find Single/First Occurance</a></li>
-  <li><a href="#task-find-all-occurances">3 - Task: Find All Occurances</a></li>
+  <li><a href="#task-find-singlefirst-occurrence">2 - Task: Find Single/First Occurrence</a></li>
+  <li><a href="#task-find-all-occurrences">3 - Task: Find All Occurrences</a></li>
   <li><a href="#task-replace">4 - Task: Replace</a></li>
   <li><a href="#special-task-split-string-into-array">Special Task: Split String Into Array</a></li>
   <li><a href="#special-task-filter-array-of-strings">Special Task: Filter Array of Strings</a></li>
@@ -52,7 +52,7 @@
 
 <h3 id="b-">1b) <code>=~</code></h3>
 
-<p>This method is baked into Ruby's syntax, although its return value is rather special: It is the codepoint index in the string where the match occured or <code>nil</code> otherwise. However, it is a wise choice to only use it for its <em>truthy</em>/<em>falsey</em> value and use the more self-explaining <a href="https://ruby-doc.org/core/String.html#method-i-index">String#index method</a> otherwise. Other than with the previous' <code>match?</code> approach, match data is set accordingly (this is the case with all other ways of matching) - see next section "<a href="#task-find-singlefirst-occurance">Find First Occurance</a>" for ways to do so. Here is the example:</p>
+<p>This method is baked into Ruby's syntax, although its return value is rather special: It is the codepoint index in the string where the match occured or <code>nil</code> otherwise. However, it is a wise choice to only use it for its <em>truthy</em>/<em>falsey</em> value and use the more self-explaining <a href="https://ruby-doc.org/core/String.html#method-i-index">String#index method</a> otherwise. Other than with the previous' <code>match?</code> approach, match data is set accordingly (this is the case with all other ways of matching) - see next section "<a href="#task-find-singlefirst-occurrence">Find First Occurrence</a>" for ways to do so. Here is the example:</p>
 
 <pre><code>"string" =~ /1.3/ # =&gt; false
 "123" =~ /1.3/ # =&gt; true
@@ -101,7 +101,7 @@ end
 <p>¹ The reason: It depends on the order of both operands, regex must be first, which is rather unintuitive. String's <code>===</code> operator has a different semantic of just comparing two strings<br />
 ² For more general documentation about equalness in Ruby, checkout <a href="/55-struggling-four-equality.html">Episode 55: Struggling Four Equality</a>.</p>
 
-<h2 id="task-find-singlefirst-occurance">2 - Task: Find Single/First Occurance</h2>
+<h2 id="task-find-singlefirst-occurrence">2 - Task: Find Single/First Occurrence</h2>
 
 <h3 id="a-string">2a) String#[]</h3>
 
@@ -138,7 +138,7 @@ $&amp; # =&gt; "42"
 $&amp; # =&gt; "23"
 </code></pre>
 
-<h2 id="task-find-all-occurances">3 - Task: Find All Occurances</h2>
+<h2 id="task-find-all-occurrences">3 - Task: Find All Occurrences</h2>
 
 <h3 id="stringscan">3) String#scan</h3>
 
@@ -149,7 +149,7 @@ $&amp; # =&gt; "23"
 
 <h2 id="task-replace">4 - Task: Replace</h2>
 
-<p>The usual string replacement tool is <strong>gsub</strong> (<strong>g</strong>lobal <strong>sub</strong>stitution) which replaces all matching occurances of the regex. Should you only want to replace the first occurance, use the <strong>sub</strong> method instead.</p>
+<p>The usual string replacement tool is <strong>gsub</strong> (<strong>g</strong>lobal <strong>sub</strong>stitution) which replaces all matching occurrences of the regex. Should you only want to replace the first occurrence, use the <strong>sub</strong> method instead.</p>
 
 <h3 id="a-stringgsub-with-string-argument">4a) String#gsub with String Argument</h3>
 
@@ -219,6 +219,14 @@ parts = [$`, $&amp;, $'] # =&gt; ["String with ", "42", " things"]
   <li><a href="https://github.com/janlelis/debugging#restring-regex-groups--nil"><code>re</code> method (part of irb.tools)</a> - Displays first match (including capture groups) in the terminal</li>
   <li><a href="http://rubular.com/">Rubular</a> - Online regex testing</li>
   <li><a href="https://github.com/k-takata/Onigmo/blob/master/doc/RE">Onigmo</a> - Upstream repository of Ruby's regex engine</li>
+</ul>
+
+<h2 id="also-see">Also See</h2>
+
+<ul>
+  <li><a href="/4-what-the-pack.html">What the Pack?</a></li>
+  <li><a href="/49-what-the-format.html">What the Format?</a></li>
+  <li><a href="/57-what-the-time.html">What the Time?</a></li>
 </ul>
 
 
