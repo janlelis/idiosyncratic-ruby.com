@@ -537,4 +537,4 @@ This keyword argument for `Array#pack` lets you use an existing (already allocat
 
 - [What the Format?](/49-what-the-format.html)
 - [What the Time?](/57-what-the-time.html)
-
+- [What the Regex?](/64-what-the-regex.html)

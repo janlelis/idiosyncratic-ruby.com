@@ -176,3 +176,9 @@ Note that you can get to the same result using [the special *pre-* and *post mat
 - [`re` method (part of irb.tools)](https://github.com/janlelis/debugging#restring-regex-groups--nil) - Displays first match (including capture groups) in the terminal
 - [Rubular](http://rubular.com/) - Online regex testing
 - [Onigmo](https://github.com/k-takata/Onigmo/blob/master/doc/RE) - Upstream repository of Ruby's regex engine
+
+## Also See
+
+- [What the Pack?](/4-what-the-pack.html)
+- [What the Format?](/49-what-the-format.html)
+- [What the Time?](/57-what-the-time.html)
