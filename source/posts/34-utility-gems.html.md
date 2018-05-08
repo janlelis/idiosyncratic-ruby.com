@@ -20,11 +20,12 @@ The value is derived from [RbConfig](/42-ruby-config.html). Also see the [OS](ht
 
 Super simple access to text compression functionality:
 
+    require "rubygems/util"
     s = "Ruby"*99
     s.size #=> 396
-    c = Gem.gzip(s)
+    c = Gem::Util.gzip(s)
     c.size #=> 29
-    Gem.gunzip(c) == s #=> true
+    Gem::Util.gunzip(c) == s #=> true
 
 ## 3) Console Use Interface
 
