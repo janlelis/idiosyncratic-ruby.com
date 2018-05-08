@@ -60,7 +60,7 @@ Note that regex matching with named captures can [implicitly create local variab
 
 ### 1c) Case Compare
 
-Regex' `===` operator is also mapped to matching strings (returns `true` or `false`). However, although it should not be used directly¹, it allows you write very expressive and readable case statements²:
+Regex' `===` operator is also mapped to matching strings (returns `true` or `false`). However, although it should not be used directly¹, it allows you to write very expressive and readable case statements²:
 
     case variable = "string or number"
     when /\A\d+\z/
@@ -120,7 +120,7 @@ The usual string replacement tool is **gsub** (**g**lobal **sub**stitution) whic
 
 ### 4a) String#gsub with String Argument
 
-    "String with 42 things".gsub /\d+/, "23"
+    "String with 42 things".gsub /\d+/, "23" # => "String with 23 things"
 
 You can use [back references](/60-escape-back-referencing.html) in the replacement string.
 
@@ -128,7 +128,7 @@ You can use [back references](/60-escape-back-referencing.html) in the replaceme
 
     "String with 42 things".gsub /\d+/ do
       $&.to_i + 1
-    end # => 43
+    end # => "String with 43 things"
 
 You can use [Perl-style regex globals](/60-escape-back-referencing.html) in the replacement block.
 
