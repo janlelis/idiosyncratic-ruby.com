@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
+<feed xmlns="https://www.w3.org/2005/Atom">
   <title>Idiosyncratic Ruby</title>
   <subtitle>Documenting All Ruby Specialities</subtitle>
   <id>https://idiosyncratic-ruby.com/index/</id>
   <link href="https://idiosyncratic-ruby.com/index/"/>
-  <link href="https://feeds.feedburner.com/IdiosyncraticRuby" rel="self"/>
+  <link href="https://idiosyncratic-ruby.com/feed.xml" rel="self"/>
   <updated>2018-05-07T00:00:00Z</updated>
   <author>
     <name>Jan Lelis</name>
@@ -80,7 +80,7 @@ $~[:thing_count] # =&amp;gt; "42"
 
 &lt;h3 id="c-case-compare"&gt;1c) Case Compare&lt;/h3&gt;
 
-&lt;p&gt;Regex' &lt;code&gt;===&lt;/code&gt; operator is also mapped to matching strings (returns &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt;). However, although it should not be used directly¹, it allows you write very expressive and readable case statements²:&lt;/p&gt;
+&lt;p&gt;Regex' &lt;code&gt;===&lt;/code&gt; operator is also mapped to matching strings (returns &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt;). However, although it should not be used directly¹, it allows you to write very expressive and readable case statements²:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;case variable = "string or number"
 when /\A\d+\z/
@@ -147,7 +147,7 @@ $&amp;amp; # =&amp;gt; "23"
 
 &lt;h3 id="a-stringgsub-with-string-argument"&gt;4a) String#gsub with String Argument&lt;/h3&gt;
 
-&lt;pre&gt;&lt;code&gt;"String with 42 things".gsub /\d+/, "23"
+&lt;pre&gt;&lt;code&gt;"String with 42 things".gsub /\d+/, "23" # =&amp;gt; "String with 23 things"
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;You can use &lt;a href="/60-escape-back-referencing.html"&gt;back references&lt;/a&gt; in the replacement string.&lt;/p&gt;
@@ -156,7 +156,7 @@ $&amp;amp; # =&amp;gt; "23"
 
 &lt;pre&gt;&lt;code&gt;"String with 42 things".gsub /\d+/ do
   $&amp;amp;.to_i + 1
-end # =&amp;gt; 43
+end # =&amp;gt; "String with 43 things"
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;You can use &lt;a href="/60-escape-back-referencing.html"&gt;Perl-style regex globals&lt;/a&gt; in the replacement block.&lt;/p&gt;
@@ -7563,11 +7563,12 @@ Gem::Platform.local.cpu # =&amp;gt; "x86_64"
 
 &lt;p&gt;Super simple access to text compression functionality:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;s = "Ruby"*99
+&lt;pre&gt;&lt;code&gt;require "rubygems/util"
+s = "Ruby"*99
 s.size #=&amp;gt; 396
-c = Gem.gzip(s)
+c = Gem::Util.gzip(s)
 c.size #=&amp;gt; 29
-Gem.gunzip(c) == s #=&amp;gt; true
+Gem::Util.gunzip(c) == s #=&amp;gt; true
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id="console-use-interface"&gt;3) Console Use Interface&lt;/h2&gt;

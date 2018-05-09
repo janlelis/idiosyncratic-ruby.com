@@ -5,7 +5,6 @@
     <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
 <link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
 <link href='https://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
-<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
 
 <script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
 
@@ -86,7 +85,7 @@ $~[:thing_count] # =&gt; "42"
 
 <h3 id="c-case-compare">1c) Case Compare</h3>
 
-<p>Regex' <code>===</code> operator is also mapped to matching strings (returns <code>true</code> or <code>false</code>). However, although it should not be used directly¹, it allows you write very expressive and readable case statements²:</p>
+<p>Regex' <code>===</code> operator is also mapped to matching strings (returns <code>true</code> or <code>false</code>). However, although it should not be used directly¹, it allows you to write very expressive and readable case statements²:</p>
 
 <pre><code>case variable = "string or number"
 when /\A\d+\z/
@@ -153,7 +152,7 @@ $&amp; # =&gt; "23"
 
 <h3 id="a-stringgsub-with-string-argument">4a) String#gsub with String Argument</h3>
 
-<pre><code>"String with 42 things".gsub /\d+/, "23"
+<pre><code>"String with 42 things".gsub /\d+/, "23" # =&gt; "String with 23 things"
 </code></pre>
 
 <p>You can use <a href="/60-escape-back-referencing.html">back references</a> in the replacement string.</p>
@@ -162,7 +161,7 @@ $&amp; # =&gt; "23"
 
 <pre><code>"String with 42 things".gsub /\d+/ do
   $&amp;.to_i + 1
-end # =&gt; 43
+end # =&gt; "String with 43 things"
 </code></pre>
 
 <p>You can use <a href="/60-escape-back-referencing.html">Perl-style regex globals</a> in the replacement block.</p>
@@ -249,7 +248,7 @@ parts = [$`, $&amp;, $'] # =&gt; ["String with ", "42", " things"]
           
         </div>
         About Regex |
-        Last Update: 2018-05-07
+        Last Update: 2018-05-08
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

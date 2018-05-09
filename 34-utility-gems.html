@@ -5,7 +5,6 @@
     <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
 <link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
 <link href='https://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
-<link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby" href="https://feeds.feedburner.com/IdiosyncraticRuby" />
 
 <script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
 
@@ -40,11 +39,12 @@ Gem::Platform.local.cpu # =&gt; "x86_64"
 
 <p>Super simple access to text compression functionality:</p>
 
-<pre><code>s = "Ruby"*99
+<pre><code>require "rubygems/util"
+s = "Ruby"*99
 s.size #=&gt; 396
-c = Gem.gzip(s)
+c = Gem::Util.gzip(s)
 c.size #=&gt; 29
-Gem.gunzip(c) == s #=&gt; true
+Gem::Util.gunzip(c) == s #=&gt; true
 </code></pre>
 
 <h2 id="console-use-interface">3) Console Use Interface</h2>
@@ -172,7 +172,7 @@ format "%.2f", 1
           
         </div>
         About Rubygems, Core, Stdlib |
-        Last Update: 2017-12-25
+        Last Update: 2018-05-08
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
