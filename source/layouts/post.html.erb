@@ -18,12 +18,6 @@
         <h2>More Idiosyncratic Ruby</h2>
         <ul>
           <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/<%= current_article.data.commit %>#all_commit_comments">Please Comment on GitHub</a></li>
-          <li><a class="twitter-share-button" href="https://twitter.com/share"
-            data-via="idiosyncraticrb"
-            data-count="horizontal"
-            data-dnt="true"
-          > Tweet this Episode
-        </a><script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script></li>
           <% if next_article = page_articles.find{ |a| a.path[/\d+/].to_i == current_article.path[/\d+/].to_i + 1 } %>
             <li>Next Article: <a href="/<%= next_article.path[/\d+/].to_i %>-<%= next_article.slug %>.html"><%= next_article.title %></a></li>
           <% end %>
