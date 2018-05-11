@@ -56,8 +56,6 @@ What follows is a list of 10 lesser known things about strings: Some of them use
 
 <blockquote class="twitter-tweet" lang="en"><p>You can snakify a string (SomeString =&gt; some_string) with: &#10;&quot;SomeString&quot;.gsub(/(?&lt;!^)[A-Z]/) do &quot;_#$&amp;&quot; end.downcase</p>&mdash; Ruby String Magic (@RubyStrings) <a href="https://twitter.com/RubyStrings/status/508995693277904896">September 8, 2014</a></blockquote>
 
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
 ## Resources
 
 - [RDoc: String](http://www.ruby-doc.org/core/String.html)
