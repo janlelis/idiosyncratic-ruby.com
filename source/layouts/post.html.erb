@@ -31,8 +31,9 @@
         <div class="footer-right">
           On <a href="/">Idiosyncratic Ruby</a> by <a href="https://janlelis.com">Jan Lelis</a><br>
           <%= get_contributors(__FILE__, current_article.path) %>
+          <a href="https://janlelis.com/data-protection.html">Data Protection</a>
         </div>
-        About <%= current_article.tags.map{ |e| e.capitalize }.join(", ") %> |
+        About <%= current_article.tags.map{ |e| e.capitalize }.join(", ") %><br>
         Last Update: <%= ( Date.parse(`git log -1 --format=%cd -- #{__dir__ + "/../#{current_article.path}"}.md`) rescue current_article.date ).strftime("%Y-%m-%d") %>
       </footer>
     </div>

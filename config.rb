@@ -47,7 +47,7 @@ helpers do
   def get_contributors(template_location, relative_article_path)
     article_path = File.dirname(template_location) + '/../' + relative_article_path + '.md'
     contributors = `git log --format='%aN' -- #{article_path}`.split("\n").uniq - ["Jan Lelis"]
-    "Article Contributions by: #{contributors.join(', ')}" unless contributors.empty?
+    "Article Contributions by: #{contributors.join(', ')}<br>" unless contributors.empty?
   end
 end
 
