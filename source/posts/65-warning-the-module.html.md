@@ -2,6 +2,7 @@
 title: "Warning: The Module"
 date: 2018-05-15
 tags: core, debug
+commit: cad95d1018a9da5c4289070e2da033fe0306d2ff
 ---
 
 Starting with Ruby 2.5¹ it is possible to customize the behavior of [Kernel#warn](https://ruby-doc.org/core/Kernel.html#method-i-warn) through the [**Warning** module](https://ruby-doc.org/core/Warning.html). Here is how:
