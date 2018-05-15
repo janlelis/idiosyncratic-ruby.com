@@ -5,10 +5,68 @@
   <id>https://idiosyncratic-ruby.com/index/</id>
   <link href="https://idiosyncratic-ruby.com/index/"/>
   <link href="https://idiosyncratic-ruby.com/feed.xml" rel="self"/>
-  <updated>2018-05-07T00:00:00Z</updated>
+  <updated>2018-05-15T00:00:00Z</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Warning: The Module</title>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/65-warning-the-module.html"/>
+    <id>https://idiosyncratic-ruby.com/65-warning-the-module.html</id>
+    <published>2018-05-15T00:00:00Z</published>
+    <updated>2018-05-15T00:00:00Z</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Starting with Ruby 2.5¹ it is possible to customize the behavior of &lt;a href="https://ruby-doc.org/core/Kernel.html#method-i-warn"&gt;Kernel#warn&lt;/a&gt; through the &lt;a href="https://ruby-doc.org/core/Warning.html"&gt;&lt;strong&gt;Warning&lt;/strong&gt; module&lt;/a&gt;. Here is how:&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def Warning.warn(w)
+  # super calls the original behavior, which is printing to $stderr
+  super "\e[31;1mRUBY WARNING: \e[22m#{w.sub(/warning: /, '')}\e[0m"
+end
+
+# # #
+# examples
+
+warn "test"
+# =&amp;gt; RUBY WARNING: test
+
+{ a: 1, a: 2 }
+# =&amp;gt; RUBY WARNING: (irb):4: key :a is duplicated and overwritten on line 4
+
+$VERBOSE = true # shows level 2 warnings
+def a() end
+def a() end
+# =&amp;gt; RUBY WARNING: (irb):8: method redefined; discarding old a
+# =&amp;gt; RUBY WARNING: (irb):6: previous definition of a was here
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can unlock some more &lt;strong&gt;warning&lt;/strong&gt; features by using &lt;a href="https://github.com/jeremyevans/ruby-warning/"&gt;Jeremy Evans' warning gem&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;require "warning"
+
+Warning.ignore /duplicated and overwritten/
+{ a: 1, a: 2 }
+# =&amp;gt; nothing
+
+$VERBOSE = true
+Warning.ignore :method_redefined
+def a() end
+def a() end
+# =&amp;gt; nothing
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;¹ Although the &lt;strong&gt;Warning&lt;/strong&gt; module existed in Ruby 2.4 already, &lt;strong&gt;Kernel#warn&lt;/strong&gt; did not make use of it yet&lt;/p&gt;
+
+&lt;h2 id="further-reading"&gt;Further Reading&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="/3-ruby-can-you-speak-louder.html#command-line-options-for-debug-modes"&gt;Ruby's verbosity and debug modes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>What the Regex?</title>
     <link rel="alternate" href="https://idiosyncratic-ruby.com/64-what-the-regex.html"/>
