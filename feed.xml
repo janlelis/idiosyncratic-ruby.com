@@ -14687,8 +14687,6 @@ end
 
 &lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;You can snakify a string (SomeString =&amp;gt; some_string) with: &amp;#10;&amp;quot;SomeString&amp;quot;.gsub(/(?&amp;lt;!^)[A-Z]/) do &amp;quot;_#$&amp;amp;&amp;quot; end.downcase&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/508995693277904896"&gt;September 8, 2014&lt;/a&gt;&lt;/blockquote&gt;
 
-&lt;script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
-
 &lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
 
 &lt;ul&gt;
