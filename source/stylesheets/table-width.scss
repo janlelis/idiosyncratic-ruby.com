@@ -152,3 +152,25 @@
   th:nth-child(2) { width: 60%; }
 }
 
+.table-15-15-10-20-20-X {
+  th:nth-child(1) { width: 15%; }
+  th:nth-child(2) { width: 15%; }
+  th:nth-child(3) { width: 10%; }
+  th:nth-child(4) { width: 20%; }
+  th:nth-child(5) { width: 20%; }
+}
+
+.table-10-X {
+  th:nth-child(1) { width: 10%; }
+}
+
+.table-15-15-X {
+  th:nth-child(1) { width: 15%; }
+  th:nth-child(2) { width: 15%; }
+}
+
+.table-20-15-15-X {
+  th:nth-child(1) { width: 20%; }
+  th:nth-child(2) { width: 15%; }
+  th:nth-child(3) { width: 15%; }
+}
