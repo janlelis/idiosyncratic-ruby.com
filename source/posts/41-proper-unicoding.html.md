@@ -25,7 +25,7 @@ Or add the `^` sign:
 
 - `/\p{ ^PROPERTY NAME }/`
 
-Ruby will strip all spaces, dashes, underscores from the given propertiy and convert it to a lowercased string. So the following examples are all valid syntax:
+Ruby will strip all spaces, dashes, underscores from the given property and convert it to a lowercased string. So the following examples are all valid syntax:
 
 - `/\p{AGE = 6.3}/`
 - `/\p{^In Supplementary Private Use Area-B}/`
@@ -40,16 +40,17 @@ Ruby will strip all spaces, dashes, underscores from the given propertiy and con
 
 Ruby Version | Unicode Version
 -------------|----------------
+**2.5**      | **10.0.0**
 **2.4**      | **9.0.0**
 **2.3**      | **8.0.0**
 **2.2**      | **7.0.0**
 **2.1**      | **6.1.0**
 
-## List of Properties
+## List of Properties as of Ruby 2.5 / Unicode 10.0
 
 ### General Category
 
-Each code point has a [General Category](https://en.wikipedia.org/wiki/Unicode_character_property#General_Category), one of the most basic categorizations. Codepoints without an explicit general category will implicitely get **Cn** (Unassigned):
+Each code point has a [General Category](https://en.wikipedia.org/wiki/Unicode_character_property#General_Category), one of the most basic categorizations. Codepoints without an explicit general category will implicitly get **Cn** (Unassigned):
 
     "Find decimal numbers (like 2 or 3)".scan(/\p{Nd}+/) # => ["2", "3"]
 
@@ -69,7 +70,7 @@ The Major category is basically the first letter of the general category:
 
 Example:
 
-    "Find punctation characters (like : or ;)".scan(/\p{P}+/) # => ["(", ":", ";)"]
+    "Find punctuation characters (like : or ;)".scan(/\p{P}+/) # => ["(", ":", ";)"]
 
 ### Block
 
@@ -98,6 +99,11 @@ The age property lets you find out the required Unicode version to display a str
 
 All properties of the [POSIX brackets syntax](http://www.regular-expressions.info/posixbrackets.html) are available with the `\p` syntax: For example, `[[:print:]]` simply becomes `\p{print}`. You can find the full list of properties in [Episode 30: Regex with Class](https://idiosyncratic-ruby.com/30-regex-with-class.html#posix-and--unicode-property-style).
 
+### Generic Properties
+
+- Any
+- Assigned
+
 ### Derived Core Properties
 
 These can be found in [DerivedCoreProperties.txt](https://www.unicode.org/Public/UCD/latest/ucd/DerivedCoreProperties.txt) ([explanation](ftp://unicode.org/Public/3.2-Update/DerivedProperties-3.2.0.html)), along with a comment how the property gets constructed. Possible values are:
@@ -121,6 +127,27 @@ These can be found in [DerivedCoreProperties.txt](https://www.unicode.org/Public
 - Grapheme Extend
 - Grapheme Base
 - Grapheme Link
+
+### Grapheme Related
+
+Ruby's regex engine supports [matching for grapheme clusters](/66-ruby-has-character.html#grapheme-clusters) using `\X`. But it can also match for very specific grapheme related properties:
+
+- Grapheme Cluster Break = Prepend
+- Grapheme Cluster Break = CR
+- Grapheme Cluster Break = LF
+- Grapheme Cluster Break = Control
+- Grapheme Cluster Break = Extend
+- Grapheme Cluster Break = Regional Indicator
+- Grapheme Cluster Break = SpacingMark
+- Grapheme Cluster Break = L
+- Grapheme Cluster Break = V
+- Grapheme Cluster Break = T
+- Grapheme Cluster Break = LV
+- Grapheme Cluster Break = LVT
+- Grapheme Cluster Break = E Base
+- Grapheme Cluster Break = E Modifier
+- Grapheme Cluster Break = ZWJ
+- Grapheme Cluster Break = Glue After Zwj
 
 ### Binary Properties
 
@@ -160,6 +187,15 @@ Other [matchable character properties](https://en.wikipedia.org/wiki/Unicode_cha
 - Pattern White Space
 - Pattern Syntax
 - Prepended Concatenation Mark
+- Regional Indicator
+
+## Emoji Properties
+
+- Emoji
+- Emoji_Presentation
+- Emoji_Modifier
+- Emoji_Modifier_Base
+- Emoji_Component
 
 ## Resources
 
@@ -169,4 +205,3 @@ Other [matchable character properties](https://en.wikipedia.org/wiki/Unicode_cha
 - [Wikipedia: Unicode character property](https://en.wikipedia.org/wiki/Unicode_character_property)
 - [Alternative: TwitterCldr Regexes](https://github.com/twitter/twitter-cldr-rb#unicode-regular-expressions)
 - [Codepoint Browser](https://codepoints.net/)
-
