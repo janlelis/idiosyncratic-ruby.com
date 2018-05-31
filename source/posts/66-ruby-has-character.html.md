@@ -2,6 +2,7 @@
 title: Ruby has Character
 date: 2018-05-31
 tags: strings, unicode, stdlib, regex
+commit: f38e2de90bdeab779bf95a73e3e36c068bebfa33
 ---
 
 Ruby comes with good support for Unicode-related features. Read on if you want to learn more about important Unicode fundamentals and how to use them in Ruby…
