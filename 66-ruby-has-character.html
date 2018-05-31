@@ -1,0 +1,1107 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Idiosyncratic Ruby: Ruby has Character</title>
+    <link rel="alternate" type="application/atom+xml" title="Idiosyncratic Ruby Feed" href="/feed.xml" />
+<link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script><script src="/javascripts/app.js" type="text/javascript"></script>
+
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="description" content="Documenting All Ruby Specialities."/>
+<meta name="keywords" content="ruby, strings, unicode, stdlib, regex"/>
+
+  </head>
+
+  <body>
+    <div class="world">
+      <section class="post-header">
+        <a href="/" class="post-logo"><img src="/images/idiosyncratic.png" alt="Idiosyncratic Ruby"></a>
+        <h1 class="post-heading" id="top"><a href="/66-ruby-has-character.html">Ruby has Character</a></h1>
+      </section>
+
+      <article class="post">
+        <p>Ruby comes with good support for Unicode-related features. Read on if you want to learn more about important Unicode fundamentals and how to use them in Ruby…</p>
+
+<p>…or just watch my talk from RubyConf 2017:<br />
+<span style="font-size: 140%">
+<a href="https://www.youtube.com/watch?v=hlryzsdGtZo">⑩ Unicode Characters You Should Know About as a 👩‍💻</a>
+</span></p>
+
+<p></p>
+
+<h2 id="ruby--unicode">Ruby ♡ Unicode</h2>
+
+<ul>
+  <li><a href="#characters-in-unicode">Characters in Unicode</a>
+    <ul>
+      <li><a href="#codepoints--encodings">Codepoints &amp; Encodings</a></li>
+      <li><a href="#grapheme-clusters">Grapheme Clusters</a></li>
+    </ul>
+  </li>
+  <li><a href="#normalization">Normalization</a>
+    <ul>
+      <li><a href="#special-case-visual-confusable-characters">Confusables</a></li>
+    </ul>
+  </li>
+  <li><a href="#case-mapping">Case-Mapping</a>
+    <ul>
+      <li><a href="#special-case-case-folding">Case-Folding</a></li>
+    </ul>
+  </li>
+  <li><a href="#regex-unicode-property-matching">Regex Unicode Properties</a>
+    <ul>
+      <li><a href="#special-case-emoji-matching">Emoji Regex</a></li>
+    </ul>
+  </li>
+  <li><a href="#monospace-display-width">Monospace Display Width</a></li>
+  <li><a href="#unicode-special-codepoints">Unicode Special Codepoints</a>
+    <ul>
+      <li><a href="#invalid-codepoints">Invalid Codepoints</a></li>
+      <li><a href="#unstandardized-codepoints">Unstandardized Codepoints</a></li>
+      <li><a href="#control-characters">Control Characters</a></li>
+      <li><a href="#ignorable-codepoints">Ignorable Codepoints</a></li>
+    </ul>
+  </li>
+  <li><a href="#cli-tools-for-codepoint-analysis">CLI Tools for Codepoint Analysis</a></li>
+</ul>
+
+<script src="/javascripts/d3.v4.min.js"></script>
+
+<script>
+  var dataCodepointsAssignment = {
+    "name": "Codepoints",
+    "children": [
+      { "name": "Reserved", "size": 837775 },
+      { "name": "Assigned",
+        "children": [
+          { "name": "Standardized", "size": 138869 },
+          { "name": "Private Use", "size": 137468 }
+        ]
+      }
+    ]
+  }
+
+  window.renderDiagram = function(data, domId){
+    var svg = d3.select("#" + domId),
+        width = +svg.attr("width"),
+        height = +svg.attr("height");
+
+    var fader = function(color) { return d3.interpolateRgb(color, "#fff")(0.2); },
+        color = d3.scaleOrdinal(d3.schemeCategory20.map(fader)),
+        format = d3.format(",d");
+
+    var treemap = d3.treemap()
+        .tile(d3.treemapResquarify)
+        .size([width, height])
+        .round(true)
+        .paddingInner(6);
+
+      var root = d3.hierarchy(data)
+          .eachBefore(function(d) { d.data.id = (d.parent ? d.parent.data.id + "." : "") + d.data.name; })
+          .sum(sumBySize)
+          .sort(function(b, a) { return b.height - a.height || b.value - a.value; });
+
+      treemap(root);
+
+      var cell = svg.selectAll("g")
+        .data(root.leaves())
+        .enter().append("g")
+          .attr("transform", function(d) { return "translate(" + d.x0 + "," + d.y0 + ")"; });
+
+      cell.append("rect")
+          .attr("id", function(d) { return d.data.id; })
+          .attr("width", function(d) { return d.x1 - d.x0; })
+          .attr("height", function(d) { return d.y1 - d.y0; })
+          .attr("fill", function(d) { return color(d.parent.data.id); });
+
+      cell.append("text")
+          .attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
+        .selectAll("tspan")
+          .data(function(d) { return [d.data.name, d.data.size] })
+        .enter().append("tspan")
+          .attr("x", 8)
+          .attr("y", function(d, i) { return 30 + i * 30; })
+          .text(function(d) { return d; });
+
+    function sumBySize(d) {
+      return d.size;
+    }
+  }
+</script>
+
+<h2 id="characters-in-unicode">Characters in Unicode</h2>
+
+<p>Unicode has come a long way and is now available in version 10.0 (<a href="https://www.unicode.org/versions/Unicode10.0.0/UnicodeStandard-10.0.pdf">core specification</a>), with version 11.0 being released within the next days. The standard defines a lot of things related to characters, however, it is not always easy to grasp what a <em>character</em> actually is. Is <em>Ǆ</em> a single character or not? What about non-Latin languages?</p>
+
+<p>We will need some more fine-grained concepts to distinguish and talk about characters in Unicode:</p>
+
+<ul>
+  <li><strong><em>Codepoint:</em></strong> A base unit to construct <em>characters</em> from. Often this maps directly to a single <em>character</em>. Depending on the encoding, a codepoint might require multiple bytes.</li>
+  <li><strong><em>Grapheme cluster:</em></strong> Smallest linguistic unit, a user-perceived <em>character</em>, constructed out of one or multiple codepoints.</li>
+  <li><strong><em>Glyph:</em></strong> The actual rendered shape which represents the grapheme cluster</li>
+</ul>
+
+<h3 id="codepoints--encodings">Codepoints &amp; Encodings</h3>
+
+<p>Codepoints are the base unit of Unicode: It is a number mapped to some meaning. Often this resolves to a single character:</p>
+
+<pre><code>"\u{65}" # =&gt; "A"
+"\u{ABCD}" # =&gt; "ꯍ"
+"\u{1F6A1}" # =&gt; "🚡"
+</code></pre>
+
+<p>There are 1114112 (in hexadecimal: 0x110000) different codepoints. On byte-level, a codepoint can be represented in different ways, which depends on the <em>encoding</em> used. Popular encodings for Unicode are <strong><em>UTF-8</em></strong>, <strong><em>UTF-16</em></strong>, and <strong><em>UTF-32</em></strong>, which all have different mechanisms of representing codepoints:</p>
+
+<table class="table-15-15-10-20-20-X">
+  <thead>
+    <tr>
+      <th>Codepoint</th>
+      <th>Decimal</th>
+      <th>Glyph</th>
+      <th>Bytes UTF-8</th>
+      <th>Bytes UTF-16LE</th>
+      <th>Bytes UTF-32LE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>U+0065</strong></td>
+      <td>101</td>
+      <td><code>A</code></td>
+      <td>41</td>
+      <td>41 00</td>
+      <td>41 00 00 00</td>
+    </tr>
+    <tr>
+      <td><strong>U+ABCD</strong></td>
+      <td>43981</td>
+      <td><code>ꯍ</code></td>
+      <td>EA AF 8D</td>
+      <td>CD AB</td>
+      <td>CD AB 00 00</td>
+    </tr>
+    <tr>
+      <td><strong>U+1F6A1</strong></td>
+      <td>128673</td>
+      <td><code>🚡</code></td>
+      <td>F0 9F 9A A1</td>
+      <td>3D D8 A1 DE</td>
+      <td>A1 F6 01 00</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Here is an overview, without going into too much detail:</p>
+
+<ul>
+  <li><strong><em>UTF-8</em></strong> uses a dynamic number of bytes: While <a href="/56-us-ascii-8bit.html">ASCII characters</a> fit into a single byte, it can use up to 4 bytes for higher codepoints.</li>
+  <li><strong><em>UTF-16</em></strong> uses 2 bytes, if possible, but has a 4 byte mechanism to represent higher codepoints.</li>
+  <li><strong><em>UTF-32</em></strong> is a direct representation of the codepoint and always uses 4 bytes, no logic is involved. It is also a little lavish, because even the largest codepoint <strong>U+10FFFF</strong> only uses 21 bit of information. As a consequence the last byte is always <code>00</code>.</li>
+</ul>
+
+<p>You can visualize and learn about encodings on the command-line with the <a href="https://github.com/janlelis/unibits/">unibits CLI utility</a>.</p>
+
+<p>The rest of this blog post will not deal with encodings and byte representations, but use codepoints as the smallest unit.</p>
+
+<h3 id="grapheme-clusters">Grapheme Clusters</h3>
+
+<p>A user-perceived character might be constructed out of multiple codepoints. There are a lot of <em>enclosing characters</em> (like <a href="https://en.wikipedia.org/wiki/Diacritic">diacritics</a>) which get combined with the previous character to form a new one:</p>
+
+<p>"Ä" = <strong>U+0041</strong> "A" + <strong>U+0308</strong> "◌̈"</p>
+
+<p>An example from the Thai language:</p>
+
+<p>"กำ" = <strong>U+0E01</strong> "ก" + <strong>U+0E33</strong> " ำ"</p>
+
+<p>Emoji are another example of grapheme clusters that require multiple codepoints:</p>
+
+<p>"👨🏻‍🍳"¹ = <strong>U+1F468</strong> "👨" + <strong>U+1F3FB</strong> "🏻" + <strong>U+0200D</strong> "‍" + <strong>U+1F373</strong> "🍳"</p>
+
+<p><a href="https://bugs.ruby-lang.org/issues/13780">Ruby 2.5 introduced a convenient way</a> to iterate through all grapheme clusters:</p>
+
+<pre><code>"abกำcd".grapheme_clusters # =&gt; ["a", "b", "กำ", "c", "d"]
+</code></pre>
+
+<p>There is also <code>/\X/</code>², a regex feature that you can use instead of the default <code>/./</code> to match for grapheme clusters instead of codepoints:</p>
+
+<pre><code>"abกำcd".scan(/./) # =&gt; ["a", "b", "ก", "ำ", "c", "d"]
+"abกำcd".scan(/\X/) # =&gt; ["a", "b", "กำ", "c", "d"]
+</code></pre>
+
+<p>¹ Depending on the recentness of your rendering software, this is displayed as a single male cook<br />
+² This regex matcher was already introduced in earlier versions of Ruby</p>
+
+<ul>
+  <li><a href="https://www.unicode.org/reports/tr29/">Unicode® Standard Annex #29: Unicode Text Segmentation</a></li>
+  <li><a href="https://ruby-doc.org/core/String.html#method-i-each_grapheme_cluster">RDoc: Grapheme clusters</a></li>
+  <li><a href="https://github.com/k-takata/Onigmo/blob/b8c3321cfdd5638c136ecff1fd139de24616a6aa/doc/RE#L117-L124">Onigmo documentation: <code>\X</code></a></li>
+</ul>
+
+<h2 id="normalization">Normalization</h2>
+
+<p><img src="images/keyboard.jpg" style="border: 1px solid #555; filter: grayscale(60%);" /></p>
+
+<p>Sometimes, the Unicode standard defines multiple ways to describe the same (or a very similar) glyph. Let us revisit the example from above: the German letter "Ä", which is a "A" with two dots above. It is defined as codepoint <strong>U+00C4</strong>. At the same time, there is a mechanism to put two dots above just any letter using the <em>combining codepoint</em> <strong>U+0308</strong>. Combine it with "A" and you get "Ä" - A different representation, although semantically, it is the same character.</p>
+
+<p>However, sometimes you need one canonical representation of a string. This is why the Unicode consortium came up with a normalization algorithm. It is <a href="https://stdgems.org/libraries/">included in Ruby's standard library</a> and required automatically. There are several types of normalization forms:</p>
+
+<table class="table-10-X">
+  <thead>
+    <tr>
+      <th>Form</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong><em>NFC</em></strong></td>
+      <td>Default. The <strong><em>C</em></strong> stands for <em>composed</em>, it uses the composed format for graphemes (if available).</td>
+    </tr>
+    <tr>
+      <td><strong><em>NFD</em></strong></td>
+      <td>The <strong><em>D</em></strong> stands for <em>decomposed</em>, it uses separate codepoints for such graphemes</td>
+    </tr>
+    <tr>
+      <td><strong><em>NFKC</em></strong></td>
+      <td>Like <strong><em>NFC</em></strong>, but uses compatibility mode, instead of canonical mode</td>
+    </tr>
+    <tr>
+      <td><strong><em>NFKD</em></strong></td>
+      <td>Like <strong><em>NFD</em></strong>, but uses compatibility mode, instead of canonical mode</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>NFC</em></p>
+
+<pre><code>"Ä".codepoints.map{ |c| "U+%04X"%c } # =&gt; ["U+00C4"]
+"Ä".unicode_normalize.codepoints.map{|c| "U+%04X"%c }
+# =&gt; ["U+00C4"]
+
+"Ä".codepoints.map{ |c| "U+%04X"%c } # =&gt; ["U+0041", "U+0308"]
+"Ä".unicode_normalize.codepoints.map{ |c| "U+%04X"%c }
+# =&gt; ["U+00C4"]
+
+"A²".codepoints.map{ |c| "U+%04X"%c } # =&gt; ["U+0041", "U+00B2"]
+"A²".unicode_normalize.codepoints.map{ |c| "U+%04X"%c }
+# =&gt;  ["U+0041", "U+00B2"]
+</code></pre>
+
+<p><em>NFD</em></p>
+
+<pre><code>"Ä".codepoints.map{ |c| "U+%04X"%c } # =&gt; ["U+00C4"]
+"Ä".unicode_normalize(:nfd).codepoints.map{ |c| "U+%04X"%c }
+# =&gt; ["U+0041", "U+0308"]
+
+"Ä".codepoints.map{ |c| "U+%04X"%c } # =&gt; ["U+0041", "U+0308"]
+"Ä".unicode_normalize(:nfd).codepoints.map{ |c| "U+%04X"%c }
+# =&gt; ["U+0041", "U+0308"]
+
+"A²".codepoints.map{ |c| "U+%04X"%c } # =&gt; ["U+0041", "U+00B2"]
+"A²".unicode_normalize(:nfd).codepoints.map{ |c| "U+%04X"%c }
+# =&gt;  ["U+0041", "U+00B2"]
+</code></pre>
+
+<p><em>NFKC</em></p>
+
+<pre><code>"Ä".codepoints.map{ |c| "U+%04X"%c } # =&gt; ["U+00C4"]
+"Ä".unicode_normalize(:nfkc).codepoints.map{ |c| "U+%04X"%c }
+# =&gt; ["U+00C4"]
+
+"Ä".codepoints.map{ |c| "U+%04X"%c } # =&gt; ["U+0041", "U+0308"]
+"Ä".unicode_normalize(:nfkc).codepoints.map{ |c| "U+%04X"%c }
+# =&gt; ["U+00C4"]
+
+"A²".codepoints.map{ |c| "U+%04X"%c } # =&gt; ["U+0041", "U+00B2"]
+"A²".unicode_normalize(:nfkc).codepoints.map{ |c| "U+%04X"%c }
+# =&gt;  ["U+0041", "U+0032"]
+</code></pre>
+
+<p><em>NFKD</em></p>
+
+<pre><code>"Ä".codepoints.map{ |c| "U+%04X"%c } # =&gt; ["U+00C4"]
+"Ä".unicode_normalize(:nfkd).codepoints.map{ |c| "U+%04X"%c }
+# =&gt; ["U+0041", "U+0308"]
+
+"Ä".codepoints.map{ |c| "U+%04X"%c } # =&gt; ["U+0041", "U+0308"]
+"Ä".unicode_normalize(:nfkd).codepoints.map{ |c| "U+%04X"%c }
+# =&gt; ["U+0041", "U+0308"]
+
+"A²".codepoints.map{ |c| "U+%04X"%c } # =&gt; ["U+0041", "U+00B2"]
+"A²".unicode_normalize(:nfkd).codepoints.map{ |c| "U+%04X"%c }
+# =&gt;  ["U+0041", "U+0032"]
+</code></pre>
+
+<p>See the standard and documentation for more details, including the differences between the normalization forms:</p>
+
+<ul>
+  <li><a href="https://unicode.org/reports/tr15/">Unicode® Standard Annex #15: Unicode Normalization Forms</a></li>
+  <li><a href="https://ruby-doc.org/core-2.5.1/String.html#method-i-unicode_normalize">RDoc: unicode_normalize</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Unicode_equivalence">Wikipedia: Unicode equivalence</a></li>
+</ul>
+
+<h3 id="special-case-visual-confusable-characters">Special Case: Visual Confusable Characters</h3>
+
+<p>Even in normalization form, there are characters which look very similar (sometimes even identical):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Codpoints A</th>
+      <th>String A</th>
+      <th>String B</th>
+      <th>Codepoints B</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>U+003F</strong> + <strong>U+003F</strong></td>
+      <td><code>??</code></td>
+      <td><code>⁇</code></td>
+      <td><strong>U+2047</strong></td>
+    </tr>
+    <tr>
+      <td><strong>U+0043</strong></td>
+      <td><code>C</code></td>
+      <td><code>С</code></td>
+      <td><strong>U+0421</strong></td>
+    </tr>
+    <tr>
+      <td><strong>U+0031</strong></td>
+      <td><code>1</code></td>
+      <td><code>l</code></td>
+      <td><strong>U+006C</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The record holder is <strong>LATIN SMALL LETTER O</strong> which is currently linked to 75 other characters that it could be confused with:</p>
+
+<div style="font-size: 130%; margin-bottom: 1em">
+ం ಂ ം ං ० ੦ ૦ ௦ ౦ ೦ ൦ ๐ ໐ ၀ ‎٥‎ ۵ ｏ ℴ 𝐨 𝑜 𝒐
+𝓸 𝔬 𝕠 𝖔 𝗈 𝗼 𝘰 𝙤 𝚘 ᴏ ᴑ ꬽ ο 𝛐 𝜊 𝝄 𝝾 𝞸 σ 𝛔 𝜎 𝝈 𝞂 𝞼
+ⲟ о ჿ օ ‎ס‎ ‎ه‎ ‎𞸤‎ ‎𞹤‎ ‎𞺄‎ ‎ﻫ‎ ‎ﻬ‎ ﻪ‎ ‎ﻩ‎ ‎ھ‎ ‎ﮬ‎ ‎ﮭ‎ ‎ﮫ‎ ‎ﮪ‎ ‎ہ‎ ‎ﮨ‎ ‎ﮩ‎ ‎ﮧ‎ ‎ﮦ‎
+‎ە‎ ഠ ဝ 𐓪 𑣈 𑣗 𐐬
+</div>
+
+<p>Detecting confusable characters is not built-in, it is possible with some gem support from <strong>unicode-confusable</strong>:</p>
+
+<pre><code>require "unicode/confusable"
+Unicode::Confusable.confusable? "ℜ𝘂ᖯʏ", "Ruby" # =&gt; true
+</code></pre>
+
+<ul>
+  <li><a href="https://unicode.org/reports/tr39/">Unicode® Technical Standard #39: Unicode Security Mechanisms</a></li>
+  <li><a href="https://github.com/janlelis/unicode-confusable">Gem: unicode-confusable</a></li>
+</ul>
+
+<h2 id="case-mapping">Case-Mapping</h2>
+
+<p>Another Unicode topic is converting a word from lowercase to uppercase or vice versa. Up until Ruby 2.3, string methods like <code>#upcase</code>,<code>#capitalize</code>, <code>#downcase</code>, or <code>#swapcase</code> would just not work with non-ASCII characters:</p>
+
+<pre><code>"ä".upcase # =&gt; "Ä" # Ruby 2.3
+</code></pre>
+
+<p>This has been fixed and more recent versions of Ruby are able to do this out of the box:</p>
+
+<pre><code>"ä".upcase # =&gt; "Ä"
+</code></pre>
+
+<p>The old, ASCII-only behavior can be achieved by passing the <code>:ascii</code> option:</p>
+
+<pre><code>"ä".upcase(:ascii) # =&gt; "ä"
+</code></pre>
+
+<p>This is already much better than before, however, keep in mind that <strong>case-mapping is a locale-dependent operation!</strong> Not all languages use the same rules for converting between lower- and uppercase. For example, in most languages, the uppercase version of letter <strong>i</strong> is <strong>I</strong>:</p>
+
+<pre><code>"i".upcase # =&gt; "I"
+</code></pre>
+
+<p>However, in Turkic languages, it's the letter <code>İ</code>:</p>
+
+<pre><code>"i".upcase(:turkic) # =&gt; "İ"
+</code></pre>
+
+<p>Although Ruby supports special local case mapping rules, as of Ruby 2.5.1, only <code>:turkic</code> is supported. More options might be supported in the future.</p>
+
+<ul>
+  <li><a href="https://unicode.org/reports/tr44/#Casemapping">Unicode® Standard Annex #44: Unicode Character Database / Section 5.6</a> (overview, see the respective sections in the <a href="https://www.unicode.org/versions/Unicode10.0.0/UnicodeStandard-10.0.pdf">Unicode standard</a> itself)</li>
+  <li><a href="https://ruby-doc.org/core/String.html#method-i-downcase">RDoc: String#downcase</a></li>
+</ul>
+
+<h3 id="special-case-case-folding">Special Case: Case-Folding</h3>
+
+<p>There is another special option that you can pass to the <code>String#downcase</code> method: The <code>:fold</code> symbol. It will turn on case-folding, which should be used instead of the default case-mapping behavior if you are interested in comparing/ordering strings. The case-folding algorithm might produce a different output than the case-mapping one. Fer example, the German letter <em>sharp s</em> should be treated like two normal <em>s</em> letters in comparisons:</p>
+
+<pre><code>"ẞ".downcase # =&gt; "ß"
+"ẞ".downcase(:fold) # =&gt; "ss"
+</code></pre>
+
+<p>There is another String method in Ruby core which makes use of case-folding: <a href="https://ruby-doc.org/core/String.html#method-i-casecmp-3F">String#casecmp?</a>¹ which compares two strings ignoring their case:</p>
+
+<pre><code> "A".casecmp? "a" # =&gt; true
+ "ẞ".casecmp? "ss" # =&gt; true
+</code></pre>
+
+<p>¹ You should pay attention that its sister method <a href="https://ruby-doc.org/core/String.html#method-i-casecmp">String#casecmp</a> only uses ASCII, despite the similar naming.</p>
+
+<h2 id="regex-unicode-property-matching">Regex Unicode Property Matching</h2>
+
+<p>Ruby's regex engine supports matching of Unicode characteristics, like a characters general purpose (<em>general category</em>), its script, or in which codepoint range it is defined (<em>block</em>):</p>
+
+<pre><code>"String, with: punctuation.".scan(/\p{P}/) # =&gt; [",", ":", "."]
+</code></pre>
+
+<p>See my previous articles for more details:</p>
+
+<ul>
+  <li><a href="/41-proper-unicoding.html">Episode 41: Proper Unicoding</a> - More about the Unicode property syntax</li>
+  <li><a href="/30-regex-with-class.html">Episode 30: Regex with Class</a> - Unicode behavior of regex matchers &amp; POSIX-style character classes</li>
+</ul>
+
+<h3 id="special-case-emoji-matching">Special Case: Emoji Matching</h3>
+
+<p>Detecting emoji is especially complicated, because there are multiple mechanisms to build up the final emoji glyph. You can use the <strong>unicode-emoji</strong> gem to find all kinds of emoji:</p>
+
+<pre><code>require "unicode/emoji"
+"😴 🛌🏽 🇵🇹 🤾🏽‍♀️".scan(Unicode::Emoji::REGEX) # =&gt; ["😴", "🛌🏽", "🇵🇹", "🤾🏽‍♀️"]
+</code></pre>
+
+<ul>
+  <li><a href="https://www.unicode.org/reports/tr51/">Unicode® Technical Standard #51: Unicode Emoji</a></li>
+  <li><a href="https://github.com/janlelis/unicode-emoji">Gem: unicode-emoji</a></li>
+</ul>
+
+<h2 id="monospace-display-width">Monospace Display-Width</h2>
+
+<p>Sometimes, you might find yourself in a situation where you would like to know the width of a character. But this is not easily possible, because the character width is just not defined! This, of course, leads to problems in fixed-width environments like terminals.</p>
+
+<p>If you don't believe me, here are some wide characters for you to checkout:</p>
+
+<table class="table-15-15-X">
+  <thead>
+    <tr>
+      <th>Codepoint</th>
+      <th>Glyph</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>U+1242B</strong></td>
+      <td>𒐫</td>
+      <td>CUNEIFORM NUMERIC SIGN NINE SHAR2</td>
+    </tr>
+    <tr>
+      <td><strong>U+12219</strong></td>
+      <td>𒈙</td>
+      <td>CUNEIFORM SIGN LUGAL OPPOSING LUGAL</td>
+    </tr>
+    <tr>
+      <td><strong>U+A9C4</strong></td>
+      <td>꧄</td>
+      <td>JAVANESE PADA MADYA</td>
+    </tr>
+    <tr>
+      <td><strong>U+2E3B</strong></td>
+      <td>⸻</td>
+      <td>THREE-EM DASH</td>
+    </tr>
+    <tr>
+      <td><strong>U+2031</strong></td>
+      <td>‱</td>
+      <td>PER TEN THOUSAND SIGN</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>To complicate things further, some Asian characters are marked as <em>ambiguous</em> and get displayed wide or narrow, depending on the software displaying them. The <strong>unicode-display_width</strong> can help:</p>
+
+<pre><code>require "unicode/display_width"
+
+Unicode::DisplayWidth.of("⚀") # =&gt; 1
+Unicode::DisplayWidth.of("一") # =&gt; 2
+
+# Ambiguous example
+Unicode::DisplayWidth.of("·", 1) # =&gt; 1
+Unicode::DisplayWidth.of("·", 2) # =&gt; 2
+</code></pre>
+
+<ul>
+  <li><a href="https://www.unicode.org/reports/tr11/tr11-33.html">Unicode® Standard Annex #11: East Asian Width</a></li>
+  <li><a href="https://github.com/janlelis/unicode-display_width">Gem: unicode-display_width</a></li>
+</ul>
+
+<h2 id="unicode-special-codepoints">Unicode Special Codepoints</h2>
+
+<p>The last section will put the focus on four types of codepoints that require some attention. This is just a selection, there are many more notable codepoints and a good starting point to dig deeper is the <a href="https://github.com/Codepoints/awesome-codepoints">Awesome Codepoints</a> list!</p>
+
+<h3 id="invalid-codepoints">Invalid Codepoints</h3>
+
+<p>There are two kinds of codepoints which are invalid. If you have these in your data, the data is invalid and <a href="https://ruby-doc.org/core/String.html#method-i-valid_encoding-3F">String#valid_encoding?</a> will return false. Both of them are encoding-related:</p>
+
+<p><em>UTF-16 Surrogates</em></p>
+
+<p>The four byte mechanism that <strong><em>UTF-16</em></strong> uses to represent codepoints higher than <strong>U+FFFF</strong> (= 65 535) needs auxiliary codepoints. These are <strong>U+D800..U+DFFF</strong> and they are strictly forbidden in <strong><em>UTF-8</em></strong> and <strong><em>UTF-32</em></strong>.</p>
+
+<p><em>Too Large Codepoints</em></p>
+
+<p>Any codepoint above <strong>U+10FFFF</strong> (= 1 114 111) is not allowed. The theoretical <strong>UTF-32</strong> maximum is <strong>U+FFFFFFFF</strong> (= 4 294 967 295) and four byte <strong>UTF-8</strong> could represent codepoints upto <strong>U+1FFFFF</strong> (= 2 097 151).</p>
+
+<p>Ruby does not let you create these from literals:</p>
+
+<pre><code>"\u{D800}" # =&gt; SyntaxError: (irb):52: invalid Unicode codepoint
+"\u{110000}" # =&gt; SyntaxError: (irb):54: invalid Unicode codepoint (too large)
+</code></pre>
+
+<p>But, if you really need to…, you can <a href="/4-what-the-pack.html">use Array#pack</a>:</p>
+
+<pre><code>[0xD800].pack("U") # =&gt; "\xED\xA0\x80"
+[0x110000].pack("U") # =&gt; "\xF4\x90\x80\x80"
+</code></pre>
+
+<p>Ruby also includes a useful method that removes all invalid bytes, for example, surrogates:</p>
+
+<pre><code>"a\xED\xA0\x80b" # =&gt; "a\xED\xA0\x80b"
+"a\xED\xA0\x80b".scrub # =&gt; "a���b"
+"a\xED\xA0\x80b".scrub("") # =&gt; "ab"
+</code></pre>
+
+<h3 id="unstandardized-codepoints">Unstandardized Codepoints</h3>
+
+<p>Another group of codepoints that require extra care are the unstandardized ones. When you look at the following diagram, you will see that a lot of codepoints actually do not have a meaning assigned by the consortium (yet):</p>
+
+<h4 id="codepoint-distribution-as-of-unicode-10">Codepoint Distribution as of Unicode 10</h4>
+
+<svg id="codepoints" style="margin-bottom: 1em; max-width: 100%" width="670" height="397" viewbox="0 0 670 397" preserveaspectratio="none" onload="renderDiagram(dataCodepointsAssignment, 'codepoints')"></svg>
+
+<h4 id="types-of-unstandardized-codepoints">Types of Unstandardized Codepoints</h4>
+
+<ul>
+  <li><strong>Private-Use Codepoints:</strong> Meant for custom allocations by anyone. You will find vendor logos here, for example, <strong>U+F8FF</strong> for the Apple logo "" and <strong>U+F200</strong> for the ubuntu logo "". Both may only display correctly on the respective operating system with a proper font). Other uses of the private plane include assigning codepoints to fantasy languages like <a href="http://www.evertype.com/standards/csur/">Tengwar by J.R.R. Tolkien</a>.</li>
+  <li><strong>Non-Characters:</strong> A handful of codepoints that will never be assigned. Different than invalid codepoints, they are allowed to be used in your data. But they have no meaning.</li>
+  <li><strong>Reserved Codepoints:</strong> Will (or might) be assigned in a later version of Unicode</li>
+</ul>
+
+<table class="table-15-15-30-X">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Count</th>
+      <th>Codepoints</th>
+      <th>Ruby Regex</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Private-Use</td>
+      <td>137 468¹</td>
+      <td><strong>U+E000..U+F8FF</strong>, <strong>U+F0000..U+FFFFD</strong>, <strong>U+100000..U+10FFFD</strong></td>
+      <td><code>/\p{private use}</code></td>
+    </tr>
+    <tr>
+      <td>Non-Characters</td>
+      <td>66</td>
+      <td><strong>U+FDD0..U+FDEF</strong> and the last two codepoints of each plane: <strong>U+XFFFE</strong>, <strong>U+XFFFF</strong></td>
+      <td><code>/\p{non character codepoint}/</code></td>
+    </tr>
+    <tr>
+      <td>Reserved</td>
+      <td>837 775</td>
+      <td>(not yet assigned)</td>
+      <td><code>/\p{unassigned}(?&lt;!\p{non character codepoint})/</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>¹ Two additional private-use codepoints are <strong>U+0091</strong> and <strong>U+0092</strong>, but they are counted as control characters (see next section)</p>
+
+<ul>
+  <li><a href="https://www.unicode.org/faq/private_use.html">Unicode: Private-Use Characters, Noncharacters &amp; Sentinels FAQ</a></li>
+</ul>
+
+<h3 id="control-characters">Control Characters</h3>
+
+<p>For historical reasons Unicode includes a set of 65 control codepoints. They were not defined by the Unicode Consortium and a lot of them are not universally standardized. However, some of them are extremely common, such as <strong>U+0009</strong>, the <a href="https://en.wikipedia.org/wiki/Tab_stop">tab-stop character</a>. It also contains the newline characters <strong>U+0010</strong> "\n" and <strong>U+0013</strong> "\r"; depending on your operating system, use one or both of them for <a href="https://en.wikipedia.org/wiki/Newline">a newline</a>.</p>
+
+<p>Control characters are divided into the two sections <strong><em>C0</em></strong>, covering <strong>U+0000..U+001F</strong>, and <strong><em>C1</em></strong>, covering <strong>U+0080..U+009F</strong>. Furthermore, the <a href="https://en.wikipedia.org/wiki/Delete_character">delete character</a> <strong>U+007F</strong> ␡ is also considered to be a control character.</p>
+
+<p>In regexes, you can match for control characters with <code>\p{control}</code> or just <code>\p{cc}</code>.</p>
+
+<h4 id="list-of-c0-control-codepoints">List of C0 Control Codepoints</h4>
+
+<table class="table-20-15-15-X">
+  <thead>
+    <tr>
+      <th>Codepoint</th>
+      <th>Symbol</th>
+      <th>Ruby Escape</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>U+0000</strong></td>
+      <td>␀ NUL</td>
+      <td><code>\0</code></td>
+      <td><em>NULL</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0001</strong></td>
+      <td>␁ SOH</td>
+      <td><code>\u{1}</code></td>
+      <td><em>START OF HEADING</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0002</strong></td>
+      <td>␂ STX</td>
+      <td><code>\u{2}</code></td>
+      <td><em>START OF TEXT</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0003</strong></td>
+      <td>␃ ETX</td>
+      <td><code>\u{3}</code></td>
+      <td><em>END OF TEXT</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0004</strong></td>
+      <td>␄ EOT</td>
+      <td><code>\u{4}</code></td>
+      <td><em>END OF TRANSMISSION</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0005</strong></td>
+      <td>␅ ENQ</td>
+      <td><code>\u{5}</code></td>
+      <td><em>ENQUIRY</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0006</strong></td>
+      <td>␆ ACK</td>
+      <td><code>\u{6}</code></td>
+      <td><em>ACKNOWLEDGE</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0007</strong></td>
+      <td>␇ BEL</td>
+      <td><code>\a</code></td>
+      <td><em>ALERT</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0008</strong></td>
+      <td>␈ BS</td>
+      <td><code>\b</code></td>
+      <td><em>BACKSPACE</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0009</strong></td>
+      <td>␉ HT</td>
+      <td><code>\t</code></td>
+      <td><em>CHARACTER TABULATION</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+000A</strong></td>
+      <td>␊ LF</td>
+      <td><code>\n</code></td>
+      <td><em>LINE FEED</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+000B</strong></td>
+      <td>␋ VT</td>
+      <td><code>\v</code></td>
+      <td><em>LINE TABULATION</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+000C</strong></td>
+      <td>␌ FF</td>
+      <td><code>\f</code></td>
+      <td><em>FORM FEED</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+000D</strong></td>
+      <td>␍ CR</td>
+      <td><code>\r</code></td>
+      <td><em>CARRIAGE RETURN</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+000E</strong></td>
+      <td>␎ SS</td>
+      <td><code>\u{e}</code></td>
+      <td><em>SHIFT OUT</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+000F</strong></td>
+      <td>␏ SI</td>
+      <td><code>\u{f}</code></td>
+      <td><em>SHIFT IN</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0010</strong></td>
+      <td>␐ DLE</td>
+      <td><code>\u{10}</code></td>
+      <td><em>DATA LINK ESCAPE</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0011</strong></td>
+      <td>␑ DC1</td>
+      <td><code>\u{11}</code></td>
+      <td><em>DEVICE CONTROL ONE</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0012</strong></td>
+      <td>␒ DC2</td>
+      <td><code>\u{12}</code></td>
+      <td><em>DEVICE CONTROL TWO</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0013</strong></td>
+      <td>␓ DC3</td>
+      <td><code>\u{13}</code></td>
+      <td><em>DEVICE CONTROL THREE</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0014</strong></td>
+      <td>␔ DC4</td>
+      <td><code>\u{14}</code></td>
+      <td><em>DEVICE CONTROL FOUR</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0015</strong></td>
+      <td>␕ NAK</td>
+      <td><code>\u{15}</code></td>
+      <td><em>NEGATIVE ACKNOWLEDGE</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0016</strong></td>
+      <td>␖ SYN</td>
+      <td><code>\u{16}</code></td>
+      <td><em>SYNCHRONOUS IDLE</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0017</strong></td>
+      <td>␗ ETB</td>
+      <td><code>\u{17}</code></td>
+      <td><em>END OF TRANSMISSION BLOCK</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0018</strong></td>
+      <td>␘ CAN</td>
+      <td><code>\u{18}</code></td>
+      <td><em>CANCEL</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0019</strong></td>
+      <td>␙ EM</td>
+      <td><code>\u{19}</code></td>
+      <td><em>END OF MEDIUM</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+001A</strong></td>
+      <td>␚ SUB</td>
+      <td><code>\u{1a}</code></td>
+      <td><em>SUBSTITUTE</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+001B</strong></td>
+      <td>␛ ESC</td>
+      <td><code>\e</code></td>
+      <td><em>ESCAPE</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+001C</strong></td>
+      <td>␜ FS</td>
+      <td><code>\u{1c}</code></td>
+      <td><em>INFORMATION SEPARATOR FOUR</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+001D</strong></td>
+      <td>␝ GS</td>
+      <td><code>\u{1d}</code></td>
+      <td><em>INFORMATION SEPARATOR THREE</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+001E</strong></td>
+      <td>␞ RS</td>
+      <td><code>\u{1e}</code></td>
+      <td><em>INFORMATION SEPARATOR TWO</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+001F</strong></td>
+      <td>␟ US</td>
+      <td><code>\u{1f}</code></td>
+      <td><em>INFORMATION SEPARATOR ONE</em></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h4 id="list-of-c1-control-codepoints">List of C1 Control Codepoints</h4>
+
+<table class="table-20-15-15-X">
+  <thead>
+    <tr>
+      <th>Codepoint</th>
+      <th>Symbol</th>
+      <th>Ruby Escape</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>U+0080</strong></td>
+      <td>PAD</td>
+      <td><code>\u{80}</code></td>
+      <td><em>PADDING CHARACTER</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0081</strong></td>
+      <td>HOP</td>
+      <td><code>\u{81}</code></td>
+      <td><em>HIGH OCTET PRESET</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0082</strong></td>
+      <td>BPH</td>
+      <td><code>\u{82}</code></td>
+      <td><em>BREAK PERMITTED HERE</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0083</strong></td>
+      <td>NBH</td>
+      <td><code>\u{83}</code></td>
+      <td><em>NO BREAK HERE</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0084</strong></td>
+      <td>IND</td>
+      <td><code>\u{84}</code></td>
+      <td><em>INDEX</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0085</strong></td>
+      <td>NEL¹</td>
+      <td><code>\u{85}</code></td>
+      <td><em>NEXT LINE</em>¹</td>
+    </tr>
+    <tr>
+      <td><strong>U+0086</strong></td>
+      <td>SSA</td>
+      <td><code>\u{86}</code></td>
+      <td><em>START OF SELECTED AREA</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0087</strong></td>
+      <td>ESA</td>
+      <td><code>\u{87}</code></td>
+      <td><em>END OF SELECTED AREA</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0088</strong></td>
+      <td>HTS</td>
+      <td><code>\u{88}</code></td>
+      <td><em>CHARACTER TABULATION SET</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0089</strong></td>
+      <td>HTJ</td>
+      <td><code>\u{89}</code></td>
+      <td><em>CHARACTER TABULATION WITH JUSTIFICATION</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+008A</strong></td>
+      <td>VTS</td>
+      <td><code>\u{8a}</code></td>
+      <td><em>LINE TABULATION SET</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+008B</strong></td>
+      <td>PLD</td>
+      <td><code>\u{8b}</code></td>
+      <td><em>PARTIAL LINE FORWARD</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+008C</strong></td>
+      <td>PLU</td>
+      <td><code>\u{8c}</code></td>
+      <td><em>PARTIAL LINE BACKWARD</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+008D</strong></td>
+      <td>RI</td>
+      <td><code>\u{8d}</code></td>
+      <td><em>REVERSE LINE FEED</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+008E</strong></td>
+      <td>SS2</td>
+      <td><code>\u{8e}</code></td>
+      <td><em>SINGLE SHIFT TWO</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+008F</strong></td>
+      <td>SS3</td>
+      <td><code>\u{8f}</code></td>
+      <td><em>SINGLE SHIFT THREE</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0090</strong></td>
+      <td>DCS</td>
+      <td><code>\u{90}</code></td>
+      <td><em>DEVICE CONTROL STRING</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0091</strong></td>
+      <td>PU1</td>
+      <td><code>\u{91}</code></td>
+      <td><em>PRIVATE USE ONE</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0092</strong></td>
+      <td>PU2</td>
+      <td><code>\u{92}</code></td>
+      <td><em>PRIVATE USE TWO</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0093</strong></td>
+      <td>STS</td>
+      <td><code>\u{93}</code></td>
+      <td><em>SET TRANSMIT STATE</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0094</strong></td>
+      <td>CCH</td>
+      <td><code>\u{94}</code></td>
+      <td><em>CANCEL CHARACTER</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0095</strong></td>
+      <td>MW</td>
+      <td><code>\u{95}</code></td>
+      <td><em>MESSAGE WAITING</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0096</strong></td>
+      <td>SPA</td>
+      <td><code>\u{96}</code></td>
+      <td><em>START OF GUARDED AREA</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0097</strong></td>
+      <td>EPA</td>
+      <td><code>\u{97}</code></td>
+      <td><em>END OF GUARDED AREA</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0098</strong></td>
+      <td>SOS</td>
+      <td><code>\u{98}</code></td>
+      <td><em>START OF STRING</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+0099</strong></td>
+      <td>SGC</td>
+      <td><code>\u{99}</code></td>
+      <td><em>SINGLE GRAPHIC CHARACTER INTRODUCER</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+009A</strong></td>
+      <td>SCI</td>
+      <td><code>\u{9a}</code></td>
+      <td><em>SINGLE CHARACTER INTRODUCER</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+009B</strong></td>
+      <td>CSI</td>
+      <td><code>\u{9b}</code></td>
+      <td><em>CONTROL SEQUENCE INTRODUCER</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+009C</strong></td>
+      <td>ST</td>
+      <td><code>\u{9c}</code></td>
+      <td><em>STRING TERMINATOR</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+009D</strong></td>
+      <td>OSC</td>
+      <td><code>\u{9d}</code></td>
+      <td><em>OPERATING SYSTEM COMMAND</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+009E</strong></td>
+      <td>PM</td>
+      <td><code>\u{9e}</code></td>
+      <td><em>PRIVACY MESSAGE</em></td>
+    </tr>
+    <tr>
+      <td><strong>U+009F</strong></td>
+      <td>APC</td>
+      <td><code>\u{9f}</code></td>
+      <td><em>APPLICATION PROGRAM COMMAND</em></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>¹ The <em>NEXT LINE</em> control character was introduced to have an universal codepoint for <a href="https://en.wikipedia.org/wiki/Newline">newlines</a>. This goal was not reached. Still, on some systems (for example, my ubuntu machine), it will actually create a newline!</p>
+
+<p>The <strong>characteristics</strong> gem lets you check if a codepoint belongs to a specific control group:</p>
+
+<pre><code>Characteristics.create("\u{80}").c0? # =&gt; false
+Characteristics.create("\u{80}").c1? # =&gt; true
+</code></pre>
+
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/C0_and_C1_control_codes">Wikipedia has more info on every control codepoint</a></li>
+  <li><a href="https://github.com/janlelis/characteristics">Gem: characteristics</a></li>
+</ul>
+
+<h3 id="ignorable-codepoints">Ignorable Codepoints</h3>
+
+<p>My last example of special codepoints are the so called ignorable codepoints. Their meaning varies, but most of them are invisible and they are often not treated as a whitespace by Unicode. They are ignorable in the sense that if your Unicode rendering engine does not know how to display it, it should <em>just display nothing</em>. The ignorable property is even given to some ranges of <em>unassigned</em> codepoints¹ (which is usually not done).</p>
+
+<p>You can check for ignorable codepoints using the <code>/\p{default ignorable code point}/</code> regex.</p>
+
+<p>For example, the following piece of code is made out of <a href="https://en.wikipedia.org/wiki/Tags_(Unicode_block)">tag characters</a>, which resemble all <a href="/56-us-ascii-8bit.html">ASCII characters</a>, but as ignorable characters:</p>
+
+<pre><code>eval "󠁰󠁵󠁴󠁳󠀠󠀧󠁉󠁤󠁩󠁯󠁳󠁹󠁮󠁣󠁲󠁡󠁴󠁩󠁣󠀠󠁕󠁮󠁩󠁣󠁯󠁤󠁥󠀧".codepoints.map{ |c| c - 0xE0000 }.pack("U*")
+</code></pre>
+
+<p>This program will output <code>Idiosyncratic Unicode</code></p>
+
+<p>¹ The whole range of <strong>E0000..E0FFF</strong> is ignorable!</p>
+
+<h2 id="cli-tools-for-codepoint-analysis">CLI Tools for Codepoint Analysis</h2>
+
+<p>I hope that you are now ready to closely inspect your own Unicode data! To help you do so, I made a few command-line tools, I hope you like them:</p>
+
+<ul>
+  <li><a href="https://github.com/janlelis/uniscribe">uniscribe</a> for codepoint analysis</li>
+  <li><a href="https://github.com/janlelis/unibits">unibits</a> for encoding analysis, also supports a lot of non-Unicode encodings</li>
+  <li><a href="https://github.com/janlelis/unicopy">unicopy</a> for converting &amp; copying codepoints</li>
+</ul>
+
+
+        <h2>More Idiosyncratic Ruby</h2>
+        <ul>
+          <li><a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/f38e2de90bdeab779bf95a73e3e36c068bebfa33#all_commit_comments">Please Comment on GitHub</a></li>
+            <li>Previous Article: <a href="/65-warning-the-module.html">Warning: The Module</a></li>
+        </ul>
+      </article>
+
+      <footer>
+        <div class="footer-right">
+          On <a href="/">Idiosyncratic Ruby</a> by <a href="https://janlelis.com">Jan Lelis</a><br>
+          
+          <a href="https://janlelis.com/data-protection.html">Data Protection</a>
+        </div>
+        About Strings, Unicode, Stdlib, Regex<br>
+        Last Update: 2018-05-31
+      </footer>
+    </div>
+    <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
+  </body>
+</html>

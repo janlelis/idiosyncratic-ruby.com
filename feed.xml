@@ -5,10 +5,1082 @@
   <id>https://idiosyncratic-ruby.com/index/</id>
   <link href="https://idiosyncratic-ruby.com/index/"/>
   <link href="https://idiosyncratic-ruby.com/feed.xml" rel="self"/>
-  <updated>2018-05-15T00:00:00Z</updated>
+  <updated>2018-05-31T00:00:00Z</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Ruby has Character</title>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/66-ruby-has-character.html"/>
+    <id>https://idiosyncratic-ruby.com/66-ruby-has-character.html</id>
+    <published>2018-05-31T00:00:00Z</published>
+    <updated>2018-05-31T00:00:00Z</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Ruby comes with good support for Unicode-related features. Read on if you want to learn more about important Unicode fundamentals and how to use them in Ruby…&lt;/p&gt;
+
+&lt;p&gt;…or just watch my talk from RubyConf 2017:&lt;br /&gt;
+&lt;span style="font-size: 140%"&gt;
+&lt;a href="https://www.youtube.com/watch?v=hlryzsdGtZo"&gt;⑩ Unicode Characters You Should Know About as a 👩‍💻&lt;/a&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id="ruby--unicode"&gt;Ruby ♡ Unicode&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="#characters-in-unicode"&gt;Characters in Unicode&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="#codepoints--encodings"&gt;Codepoints &amp;amp; Encodings&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#grapheme-clusters"&gt;Grapheme Clusters&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href="#normalization"&gt;Normalization&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="#special-case-visual-confusable-characters"&gt;Confusables&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href="#case-mapping"&gt;Case-Mapping&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="#special-case-case-folding"&gt;Case-Folding&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href="#regex-unicode-property-matching"&gt;Regex Unicode Properties&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="#special-case-emoji-matching"&gt;Emoji Regex&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href="#monospace-display-width"&gt;Monospace Display Width&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="#unicode-special-codepoints"&gt;Unicode Special Codepoints&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="#invalid-codepoints"&gt;Invalid Codepoints&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#unstandardized-codepoints"&gt;Unstandardized Codepoints&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#control-characters"&gt;Control Characters&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#ignorable-codepoints"&gt;Ignorable Codepoints&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href="#cli-tools-for-codepoint-analysis"&gt;CLI Tools for Codepoint Analysis&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;script src="/javascripts/d3.v4.min.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;
+  var dataCodepointsAssignment = {
+    "name": "Codepoints",
+    "children": [
+      { "name": "Reserved", "size": 837775 },
+      { "name": "Assigned",
+        "children": [
+          { "name": "Standardized", "size": 138869 },
+          { "name": "Private Use", "size": 137468 }
+        ]
+      }
+    ]
+  }
+
+  window.renderDiagram = function(data, domId){
+    var svg = d3.select("#" + domId),
+        width = +svg.attr("width"),
+        height = +svg.attr("height");
+
+    var fader = function(color) { return d3.interpolateRgb(color, "#fff")(0.2); },
+        color = d3.scaleOrdinal(d3.schemeCategory20.map(fader)),
+        format = d3.format(",d");
+
+    var treemap = d3.treemap()
+        .tile(d3.treemapResquarify)
+        .size([width, height])
+        .round(true)
+        .paddingInner(6);
+
+      var root = d3.hierarchy(data)
+          .eachBefore(function(d) { d.data.id = (d.parent ? d.parent.data.id + "." : "") + d.data.name; })
+          .sum(sumBySize)
+          .sort(function(b, a) { return b.height - a.height || b.value - a.value; });
+
+      treemap(root);
+
+      var cell = svg.selectAll("g")
+        .data(root.leaves())
+        .enter().append("g")
+          .attr("transform", function(d) { return "translate(" + d.x0 + "," + d.y0 + ")"; });
+
+      cell.append("rect")
+          .attr("id", function(d) { return d.data.id; })
+          .attr("width", function(d) { return d.x1 - d.x0; })
+          .attr("height", function(d) { return d.y1 - d.y0; })
+          .attr("fill", function(d) { return color(d.parent.data.id); });
+
+      cell.append("text")
+          .attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
+        .selectAll("tspan")
+          .data(function(d) { return [d.data.name, d.data.size] })
+        .enter().append("tspan")
+          .attr("x", 8)
+          .attr("y", function(d, i) { return 30 + i * 30; })
+          .text(function(d) { return d; });
+
+    function sumBySize(d) {
+      return d.size;
+    }
+  }
+&lt;/script&gt;
+
+&lt;h2 id="characters-in-unicode"&gt;Characters in Unicode&lt;/h2&gt;
+
+&lt;p&gt;Unicode has come a long way and is now available in version 10.0 (&lt;a href="https://www.unicode.org/versions/Unicode10.0.0/UnicodeStandard-10.0.pdf"&gt;core specification&lt;/a&gt;), with version 11.0 being released within the next days. The standard defines a lot of things related to characters, however, it is not always easy to grasp what a &lt;em&gt;character&lt;/em&gt; actually is. Is &lt;em&gt;Ǆ&lt;/em&gt; a single character or not? What about non-Latin languages?&lt;/p&gt;
+
+&lt;p&gt;We will need some more fine-grained concepts to distinguish and talk about characters in Unicode:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;em&gt;Codepoint:&lt;/em&gt;&lt;/strong&gt; A base unit to construct &lt;em&gt;characters&lt;/em&gt; from. Often this maps directly to a single &lt;em&gt;character&lt;/em&gt;. Depending on the encoding, a codepoint might require multiple bytes.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;em&gt;Grapheme cluster:&lt;/em&gt;&lt;/strong&gt; Smallest linguistic unit, a user-perceived &lt;em&gt;character&lt;/em&gt;, constructed out of one or multiple codepoints.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;em&gt;Glyph:&lt;/em&gt;&lt;/strong&gt; The actual rendered shape which represents the grapheme cluster&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id="codepoints--encodings"&gt;Codepoints &amp;amp; Encodings&lt;/h3&gt;
+
+&lt;p&gt;Codepoints are the base unit of Unicode: It is a number mapped to some meaning. Often this resolves to a single character:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"\u{65}" # =&amp;gt; "A"
+"\u{ABCD}" # =&amp;gt; "ꯍ"
+"\u{1F6A1}" # =&amp;gt; "🚡"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There are 1114112 (in hexadecimal: 0x110000) different codepoints. On byte-level, a codepoint can be represented in different ways, which depends on the &lt;em&gt;encoding&lt;/em&gt; used. Popular encodings for Unicode are &lt;strong&gt;&lt;em&gt;UTF-8&lt;/em&gt;&lt;/strong&gt;, &lt;strong&gt;&lt;em&gt;UTF-16&lt;/em&gt;&lt;/strong&gt;, and &lt;strong&gt;&lt;em&gt;UTF-32&lt;/em&gt;&lt;/strong&gt;, which all have different mechanisms of representing codepoints:&lt;/p&gt;
+
+&lt;table class="table-15-15-10-20-20-X"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Codepoint&lt;/th&gt;
+      &lt;th&gt;Decimal&lt;/th&gt;
+      &lt;th&gt;Glyph&lt;/th&gt;
+      &lt;th&gt;Bytes UTF-8&lt;/th&gt;
+      &lt;th&gt;Bytes UTF-16LE&lt;/th&gt;
+      &lt;th&gt;Bytes UTF-32LE&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0065&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;101&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;A&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;41&lt;/td&gt;
+      &lt;td&gt;41 00&lt;/td&gt;
+      &lt;td&gt;41 00 00 00&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+ABCD&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;43981&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;ꯍ&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;EA AF 8D&lt;/td&gt;
+      &lt;td&gt;CD AB&lt;/td&gt;
+      &lt;td&gt;CD AB 00 00&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+1F6A1&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;128673&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;🚡&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;F0 9F 9A A1&lt;/td&gt;
+      &lt;td&gt;3D D8 A1 DE&lt;/td&gt;
+      &lt;td&gt;A1 F6 01 00&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Here is an overview, without going into too much detail:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;em&gt;UTF-8&lt;/em&gt;&lt;/strong&gt; uses a dynamic number of bytes: While &lt;a href="/56-us-ascii-8bit.html"&gt;ASCII characters&lt;/a&gt; fit into a single byte, it can use up to 4 bytes for higher codepoints.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;em&gt;UTF-16&lt;/em&gt;&lt;/strong&gt; uses 2 bytes, if possible, but has a 4 byte mechanism to represent higher codepoints.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;em&gt;UTF-32&lt;/em&gt;&lt;/strong&gt; is a direct representation of the codepoint and always uses 4 bytes, no logic is involved. It is also a little lavish, because even the largest codepoint &lt;strong&gt;U+10FFFF&lt;/strong&gt; only uses 21 bit of information. As a consequence the last byte is always &lt;code&gt;00&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You can visualize and learn about encodings on the command-line with the &lt;a href="https://github.com/janlelis/unibits/"&gt;unibits CLI utility&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The rest of this blog post will not deal with encodings and byte representations, but use codepoints as the smallest unit.&lt;/p&gt;
+
+&lt;h3 id="grapheme-clusters"&gt;Grapheme Clusters&lt;/h3&gt;
+
+&lt;p&gt;A user-perceived character might be constructed out of multiple codepoints. There are a lot of &lt;em&gt;enclosing characters&lt;/em&gt; (like &lt;a href="https://en.wikipedia.org/wiki/Diacritic"&gt;diacritics&lt;/a&gt;) which get combined with the previous character to form a new one:&lt;/p&gt;
+
+&lt;p&gt;"Ä" = &lt;strong&gt;U+0041&lt;/strong&gt; "A" + &lt;strong&gt;U+0308&lt;/strong&gt; "◌̈"&lt;/p&gt;
+
+&lt;p&gt;An example from the Thai language:&lt;/p&gt;
+
+&lt;p&gt;"กำ" = &lt;strong&gt;U+0E01&lt;/strong&gt; "ก" + &lt;strong&gt;U+0E33&lt;/strong&gt; " ำ"&lt;/p&gt;
+
+&lt;p&gt;Emoji are another example of grapheme clusters that require multiple codepoints:&lt;/p&gt;
+
+&lt;p&gt;"👨🏻‍🍳"¹ = &lt;strong&gt;U+1F468&lt;/strong&gt; "👨" + &lt;strong&gt;U+1F3FB&lt;/strong&gt; "🏻" + &lt;strong&gt;U+0200D&lt;/strong&gt; "‍" + &lt;strong&gt;U+1F373&lt;/strong&gt; "🍳"&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://bugs.ruby-lang.org/issues/13780"&gt;Ruby 2.5 introduced a convenient way&lt;/a&gt; to iterate through all grapheme clusters:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"abกำcd".grapheme_clusters # =&amp;gt; ["a", "b", "กำ", "c", "d"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is also &lt;code&gt;/\X/&lt;/code&gt;², a regex feature that you can use instead of the default &lt;code&gt;/./&lt;/code&gt; to match for grapheme clusters instead of codepoints:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"abกำcd".scan(/./) # =&amp;gt; ["a", "b", "ก", "ำ", "c", "d"]
+"abกำcd".scan(/\X/) # =&amp;gt; ["a", "b", "กำ", "c", "d"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;¹ Depending on the recentness of your rendering software, this is displayed as a single male cook&lt;br /&gt;
+² This regex matcher was already introduced in earlier versions of Ruby&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://www.unicode.org/reports/tr29/"&gt;Unicode® Standard Annex #29: Unicode Text Segmentation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://ruby-doc.org/core/String.html#method-i-each_grapheme_cluster"&gt;RDoc: Grapheme clusters&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/k-takata/Onigmo/blob/b8c3321cfdd5638c136ecff1fd139de24616a6aa/doc/RE#L117-L124"&gt;Onigmo documentation: &lt;code&gt;\X&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="normalization"&gt;Normalization&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src="images/keyboard.jpg" style="border: 1px solid #555; filter: grayscale(60%);" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Sometimes, the Unicode standard defines multiple ways to describe the same (or a very similar) glyph. Let us revisit the example from above: the German letter "Ä", which is a "A" with two dots above. It is defined as codepoint &lt;strong&gt;U+00C4&lt;/strong&gt;. At the same time, there is a mechanism to put two dots above just any letter using the &lt;em&gt;combining codepoint&lt;/em&gt; &lt;strong&gt;U+0308&lt;/strong&gt;. Combine it with "A" and you get "Ä" - A different representation, although semantically, it is the same character.&lt;/p&gt;
+
+&lt;p&gt;However, sometimes you need one canonical representation of a string. This is why the Unicode consortium came up with a normalization algorithm. It is &lt;a href="https://stdgems.org/libraries/"&gt;included in Ruby's standard library&lt;/a&gt; and required automatically. There are several types of normalization forms:&lt;/p&gt;
+
+&lt;table class="table-10-X"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Form&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;&lt;em&gt;NFC&lt;/em&gt;&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;Default. The &lt;strong&gt;&lt;em&gt;C&lt;/em&gt;&lt;/strong&gt; stands for &lt;em&gt;composed&lt;/em&gt;, it uses the composed format for graphemes (if available).&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;&lt;em&gt;NFD&lt;/em&gt;&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;The &lt;strong&gt;&lt;em&gt;D&lt;/em&gt;&lt;/strong&gt; stands for &lt;em&gt;decomposed&lt;/em&gt;, it uses separate codepoints for such graphemes&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;&lt;em&gt;NFKC&lt;/em&gt;&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;Like &lt;strong&gt;&lt;em&gt;NFC&lt;/em&gt;&lt;/strong&gt;, but uses compatibility mode, instead of canonical mode&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;&lt;em&gt;NFKD&lt;/em&gt;&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;Like &lt;strong&gt;&lt;em&gt;NFD&lt;/em&gt;&lt;/strong&gt;, but uses compatibility mode, instead of canonical mode&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;em&gt;NFC&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"Ä".codepoints.map{ |c| "U+%04X"%c } # =&amp;gt; ["U+00C4"]
+"Ä".unicode_normalize.codepoints.map{|c| "U+%04X"%c }
+# =&amp;gt; ["U+00C4"]
+
+"Ä".codepoints.map{ |c| "U+%04X"%c } # =&amp;gt; ["U+0041", "U+0308"]
+"Ä".unicode_normalize.codepoints.map{ |c| "U+%04X"%c }
+# =&amp;gt; ["U+00C4"]
+
+"A²".codepoints.map{ |c| "U+%04X"%c } # =&amp;gt; ["U+0041", "U+00B2"]
+"A²".unicode_normalize.codepoints.map{ |c| "U+%04X"%c }
+# =&amp;gt;  ["U+0041", "U+00B2"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;NFD&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"Ä".codepoints.map{ |c| "U+%04X"%c } # =&amp;gt; ["U+00C4"]
+"Ä".unicode_normalize(:nfd).codepoints.map{ |c| "U+%04X"%c }
+# =&amp;gt; ["U+0041", "U+0308"]
+
+"Ä".codepoints.map{ |c| "U+%04X"%c } # =&amp;gt; ["U+0041", "U+0308"]
+"Ä".unicode_normalize(:nfd).codepoints.map{ |c| "U+%04X"%c }
+# =&amp;gt; ["U+0041", "U+0308"]
+
+"A²".codepoints.map{ |c| "U+%04X"%c } # =&amp;gt; ["U+0041", "U+00B2"]
+"A²".unicode_normalize(:nfd).codepoints.map{ |c| "U+%04X"%c }
+# =&amp;gt;  ["U+0041", "U+00B2"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;NFKC&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"Ä".codepoints.map{ |c| "U+%04X"%c } # =&amp;gt; ["U+00C4"]
+"Ä".unicode_normalize(:nfkc).codepoints.map{ |c| "U+%04X"%c }
+# =&amp;gt; ["U+00C4"]
+
+"Ä".codepoints.map{ |c| "U+%04X"%c } # =&amp;gt; ["U+0041", "U+0308"]
+"Ä".unicode_normalize(:nfkc).codepoints.map{ |c| "U+%04X"%c }
+# =&amp;gt; ["U+00C4"]
+
+"A²".codepoints.map{ |c| "U+%04X"%c } # =&amp;gt; ["U+0041", "U+00B2"]
+"A²".unicode_normalize(:nfkc).codepoints.map{ |c| "U+%04X"%c }
+# =&amp;gt;  ["U+0041", "U+0032"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;NFKD&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"Ä".codepoints.map{ |c| "U+%04X"%c } # =&amp;gt; ["U+00C4"]
+"Ä".unicode_normalize(:nfkd).codepoints.map{ |c| "U+%04X"%c }
+# =&amp;gt; ["U+0041", "U+0308"]
+
+"Ä".codepoints.map{ |c| "U+%04X"%c } # =&amp;gt; ["U+0041", "U+0308"]
+"Ä".unicode_normalize(:nfkd).codepoints.map{ |c| "U+%04X"%c }
+# =&amp;gt; ["U+0041", "U+0308"]
+
+"A²".codepoints.map{ |c| "U+%04X"%c } # =&amp;gt; ["U+0041", "U+00B2"]
+"A²".unicode_normalize(:nfkd).codepoints.map{ |c| "U+%04X"%c }
+# =&amp;gt;  ["U+0041", "U+0032"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;See the standard and documentation for more details, including the differences between the normalization forms:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://unicode.org/reports/tr15/"&gt;Unicode® Standard Annex #15: Unicode Normalization Forms&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://ruby-doc.org/core-2.5.1/String.html#method-i-unicode_normalize"&gt;RDoc: unicode_normalize&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Unicode_equivalence"&gt;Wikipedia: Unicode equivalence&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id="special-case-visual-confusable-characters"&gt;Special Case: Visual Confusable Characters&lt;/h3&gt;
+
+&lt;p&gt;Even in normalization form, there are characters which look very similar (sometimes even identical):&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Codpoints A&lt;/th&gt;
+      &lt;th&gt;String A&lt;/th&gt;
+      &lt;th&gt;String B&lt;/th&gt;
+      &lt;th&gt;Codepoints B&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+003F&lt;/strong&gt; + &lt;strong&gt;U+003F&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;??&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;⁇&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;U+2047&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0043&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;C&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;С&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;U+0421&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0031&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;1&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;l&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;U+006C&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;The record holder is &lt;strong&gt;LATIN SMALL LETTER O&lt;/strong&gt; which is currently linked to 75 other characters that it could be confused with:&lt;/p&gt;
+
+&lt;div style="font-size: 130%; margin-bottom: 1em"&gt;
+ం ಂ ം ං ० ੦ ૦ ௦ ౦ ೦ ൦ ๐ ໐ ၀ ‎٥‎ ۵ ｏ ℴ 𝐨 𝑜 𝒐
+𝓸 𝔬 𝕠 𝖔 𝗈 𝗼 𝘰 𝙤 𝚘 ᴏ ᴑ ꬽ ο 𝛐 𝜊 𝝄 𝝾 𝞸 σ 𝛔 𝜎 𝝈 𝞂 𝞼
+ⲟ о ჿ օ ‎ס‎ ‎ه‎ ‎𞸤‎ ‎𞹤‎ ‎𞺄‎ ‎ﻫ‎ ‎ﻬ‎ ﻪ‎ ‎ﻩ‎ ‎ھ‎ ‎ﮬ‎ ‎ﮭ‎ ‎ﮫ‎ ‎ﮪ‎ ‎ہ‎ ‎ﮨ‎ ‎ﮩ‎ ‎ﮧ‎ ‎ﮦ‎
+‎ە‎ ഠ ဝ 𐓪 𑣈 𑣗 𐐬
+&lt;/div&gt;
+
+&lt;p&gt;Detecting confusable characters is not built-in, it is possible with some gem support from &lt;strong&gt;unicode-confusable&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;require "unicode/confusable"
+Unicode::Confusable.confusable? "ℜ𝘂ᖯʏ", "Ruby" # =&amp;gt; true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://unicode.org/reports/tr39/"&gt;Unicode® Technical Standard #39: Unicode Security Mechanisms&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/janlelis/unicode-confusable"&gt;Gem: unicode-confusable&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="case-mapping"&gt;Case-Mapping&lt;/h2&gt;
+
+&lt;p&gt;Another Unicode topic is converting a word from lowercase to uppercase or vice versa. Up until Ruby 2.3, string methods like &lt;code&gt;#upcase&lt;/code&gt;,&lt;code&gt;#capitalize&lt;/code&gt;, &lt;code&gt;#downcase&lt;/code&gt;, or &lt;code&gt;#swapcase&lt;/code&gt; would just not work with non-ASCII characters:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"ä".upcase # =&amp;gt; "Ä" # Ruby 2.3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This has been fixed and more recent versions of Ruby are able to do this out of the box:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"ä".upcase # =&amp;gt; "Ä"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The old, ASCII-only behavior can be achieved by passing the &lt;code&gt;:ascii&lt;/code&gt; option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"ä".upcase(:ascii) # =&amp;gt; "ä"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is already much better than before, however, keep in mind that &lt;strong&gt;case-mapping is a locale-dependent operation!&lt;/strong&gt; Not all languages use the same rules for converting between lower- and uppercase. For example, in most languages, the uppercase version of letter &lt;strong&gt;i&lt;/strong&gt; is &lt;strong&gt;I&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"i".upcase # =&amp;gt; "I"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;However, in Turkic languages, it's the letter &lt;code&gt;İ&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"i".upcase(:turkic) # =&amp;gt; "İ"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Although Ruby supports special local case mapping rules, as of Ruby 2.5.1, only &lt;code&gt;:turkic&lt;/code&gt; is supported. More options might be supported in the future.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://unicode.org/reports/tr44/#Casemapping"&gt;Unicode® Standard Annex #44: Unicode Character Database / Section 5.6&lt;/a&gt; (overview, see the respective sections in the &lt;a href="https://www.unicode.org/versions/Unicode10.0.0/UnicodeStandard-10.0.pdf"&gt;Unicode standard&lt;/a&gt; itself)&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://ruby-doc.org/core/String.html#method-i-downcase"&gt;RDoc: String#downcase&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id="special-case-case-folding"&gt;Special Case: Case-Folding&lt;/h3&gt;
+
+&lt;p&gt;There is another special option that you can pass to the &lt;code&gt;String#downcase&lt;/code&gt; method: The &lt;code&gt;:fold&lt;/code&gt; symbol. It will turn on case-folding, which should be used instead of the default case-mapping behavior if you are interested in comparing/ordering strings. The case-folding algorithm might produce a different output than the case-mapping one. Fer example, the German letter &lt;em&gt;sharp s&lt;/em&gt; should be treated like two normal &lt;em&gt;s&lt;/em&gt; letters in comparisons:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"ẞ".downcase # =&amp;gt; "ß"
+"ẞ".downcase(:fold) # =&amp;gt; "ss"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is another String method in Ruby core which makes use of case-folding: &lt;a href="https://ruby-doc.org/core/String.html#method-i-casecmp-3F"&gt;String#casecmp?&lt;/a&gt;¹ which compares two strings ignoring their case:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; "A".casecmp? "a" # =&amp;gt; true
+ "ẞ".casecmp? "ss" # =&amp;gt; true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;¹ You should pay attention that its sister method &lt;a href="https://ruby-doc.org/core/String.html#method-i-casecmp"&gt;String#casecmp&lt;/a&gt; only uses ASCII, despite the similar naming.&lt;/p&gt;
+
+&lt;h2 id="regex-unicode-property-matching"&gt;Regex Unicode Property Matching&lt;/h2&gt;
+
+&lt;p&gt;Ruby's regex engine supports matching of Unicode characteristics, like a characters general purpose (&lt;em&gt;general category&lt;/em&gt;), its script, or in which codepoint range it is defined (&lt;em&gt;block&lt;/em&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"String, with: punctuation.".scan(/\p{P}/) # =&amp;gt; [",", ":", "."]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;See my previous articles for more details:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="/41-proper-unicoding.html"&gt;Episode 41: Proper Unicoding&lt;/a&gt; - More about the Unicode property syntax&lt;/li&gt;
+  &lt;li&gt;&lt;a href="/30-regex-with-class.html"&gt;Episode 30: Regex with Class&lt;/a&gt; - Unicode behavior of regex matchers &amp;amp; POSIX-style character classes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id="special-case-emoji-matching"&gt;Special Case: Emoji Matching&lt;/h3&gt;
+
+&lt;p&gt;Detecting emoji is especially complicated, because there are multiple mechanisms to build up the final emoji glyph. You can use the &lt;strong&gt;unicode-emoji&lt;/strong&gt; gem to find all kinds of emoji:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;require "unicode/emoji"
+"😴 🛌🏽 🇵🇹 🤾🏽‍♀️".scan(Unicode::Emoji::REGEX) # =&amp;gt; ["😴", "🛌🏽", "🇵🇹", "🤾🏽‍♀️"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://www.unicode.org/reports/tr51/"&gt;Unicode® Technical Standard #51: Unicode Emoji&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/janlelis/unicode-emoji"&gt;Gem: unicode-emoji&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="monospace-display-width"&gt;Monospace Display-Width&lt;/h2&gt;
+
+&lt;p&gt;Sometimes, you might find yourself in a situation where you would like to know the width of a character. But this is not easily possible, because the character width is just not defined! This, of course, leads to problems in fixed-width environments like terminals.&lt;/p&gt;
+
+&lt;p&gt;If you don't believe me, here are some wide characters for you to checkout:&lt;/p&gt;
+
+&lt;table class="table-15-15-X"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Codepoint&lt;/th&gt;
+      &lt;th&gt;Glyph&lt;/th&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+1242B&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;𒐫&lt;/td&gt;
+      &lt;td&gt;CUNEIFORM NUMERIC SIGN NINE SHAR2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+12219&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;𒈙&lt;/td&gt;
+      &lt;td&gt;CUNEIFORM SIGN LUGAL OPPOSING LUGAL&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+A9C4&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;꧄&lt;/td&gt;
+      &lt;td&gt;JAVANESE PADA MADYA&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+2E3B&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;⸻&lt;/td&gt;
+      &lt;td&gt;THREE-EM DASH&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+2031&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;‱&lt;/td&gt;
+      &lt;td&gt;PER TEN THOUSAND SIGN&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;To complicate things further, some Asian characters are marked as &lt;em&gt;ambiguous&lt;/em&gt; and get displayed wide or narrow, depending on the software displaying them. The &lt;strong&gt;unicode-display_width&lt;/strong&gt; can help:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;require "unicode/display_width"
+
+Unicode::DisplayWidth.of("⚀") # =&amp;gt; 1
+Unicode::DisplayWidth.of("一") # =&amp;gt; 2
+
+# Ambiguous example
+Unicode::DisplayWidth.of("·", 1) # =&amp;gt; 1
+Unicode::DisplayWidth.of("·", 2) # =&amp;gt; 2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://www.unicode.org/reports/tr11/tr11-33.html"&gt;Unicode® Standard Annex #11: East Asian Width&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/janlelis/unicode-display_width"&gt;Gem: unicode-display_width&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="unicode-special-codepoints"&gt;Unicode Special Codepoints&lt;/h2&gt;
+
+&lt;p&gt;The last section will put the focus on four types of codepoints that require some attention. This is just a selection, there are many more notable codepoints and a good starting point to dig deeper is the &lt;a href="https://github.com/Codepoints/awesome-codepoints"&gt;Awesome Codepoints&lt;/a&gt; list!&lt;/p&gt;
+
+&lt;h3 id="invalid-codepoints"&gt;Invalid Codepoints&lt;/h3&gt;
+
+&lt;p&gt;There are two kinds of codepoints which are invalid. If you have these in your data, the data is invalid and &lt;a href="https://ruby-doc.org/core/String.html#method-i-valid_encoding-3F"&gt;String#valid_encoding?&lt;/a&gt; will return false. Both of them are encoding-related:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;UTF-16 Surrogates&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;The four byte mechanism that &lt;strong&gt;&lt;em&gt;UTF-16&lt;/em&gt;&lt;/strong&gt; uses to represent codepoints higher than &lt;strong&gt;U+FFFF&lt;/strong&gt; (= 65 535) needs auxiliary codepoints. These are &lt;strong&gt;U+D800..U+DFFF&lt;/strong&gt; and they are strictly forbidden in &lt;strong&gt;&lt;em&gt;UTF-8&lt;/em&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;em&gt;UTF-32&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Too Large Codepoints&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Any codepoint above &lt;strong&gt;U+10FFFF&lt;/strong&gt; (= 1 114 111) is not allowed. The theoretical &lt;strong&gt;UTF-32&lt;/strong&gt; maximum is &lt;strong&gt;U+FFFFFFFF&lt;/strong&gt; (= 4 294 967 295) and four byte &lt;strong&gt;UTF-8&lt;/strong&gt; could represent codepoints upto &lt;strong&gt;U+1FFFFF&lt;/strong&gt; (= 2 097 151).&lt;/p&gt;
+
+&lt;p&gt;Ruby does not let you create these from literals:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"\u{D800}" # =&amp;gt; SyntaxError: (irb):52: invalid Unicode codepoint
+"\u{110000}" # =&amp;gt; SyntaxError: (irb):54: invalid Unicode codepoint (too large)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But, if you really need to…, you can &lt;a href="/4-what-the-pack.html"&gt;use Array#pack&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[0xD800].pack("U") # =&amp;gt; "\xED\xA0\x80"
+[0x110000].pack("U") # =&amp;gt; "\xF4\x90\x80\x80"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ruby also includes a useful method that removes all invalid bytes, for example, surrogates:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"a\xED\xA0\x80b" # =&amp;gt; "a\xED\xA0\x80b"
+"a\xED\xA0\x80b".scrub # =&amp;gt; "a���b"
+"a\xED\xA0\x80b".scrub("") # =&amp;gt; "ab"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="unstandardized-codepoints"&gt;Unstandardized Codepoints&lt;/h3&gt;
+
+&lt;p&gt;Another group of codepoints that require extra care are the unstandardized ones. When you look at the following diagram, you will see that a lot of codepoints actually do not have a meaning assigned by the consortium (yet):&lt;/p&gt;
+
+&lt;h4 id="codepoint-distribution-as-of-unicode-10"&gt;Codepoint Distribution as of Unicode 10&lt;/h4&gt;
+
+&lt;svg id="codepoints" style="margin-bottom: 1em; max-width: 100%" width="670" height="397" viewbox="0 0 670 397" preserveaspectratio="none" onload="renderDiagram(dataCodepointsAssignment, 'codepoints')"&gt;&lt;/svg&gt;
+
+&lt;h4 id="types-of-unstandardized-codepoints"&gt;Types of Unstandardized Codepoints&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Private-Use Codepoints:&lt;/strong&gt; Meant for custom allocations by anyone. You will find vendor logos here, for example, &lt;strong&gt;U+F8FF&lt;/strong&gt; for the Apple logo "" and &lt;strong&gt;U+F200&lt;/strong&gt; for the ubuntu logo "". Both may only display correctly on the respective operating system with a proper font). Other uses of the private plane include assigning codepoints to fantasy languages like &lt;a href="http://www.evertype.com/standards/csur/"&gt;Tengwar by J.R.R. Tolkien&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Non-Characters:&lt;/strong&gt; A handful of codepoints that will never be assigned. Different than invalid codepoints, they are allowed to be used in your data. But they have no meaning.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Reserved Codepoints:&lt;/strong&gt; Will (or might) be assigned in a later version of Unicode&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table class="table-15-15-30-X"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Type&lt;/th&gt;
+      &lt;th&gt;Count&lt;/th&gt;
+      &lt;th&gt;Codepoints&lt;/th&gt;
+      &lt;th&gt;Ruby Regex&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Private-Use&lt;/td&gt;
+      &lt;td&gt;137 468¹&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;U+E000..U+F8FF&lt;/strong&gt;, &lt;strong&gt;U+F0000..U+FFFFD&lt;/strong&gt;, &lt;strong&gt;U+100000..U+10FFFD&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;/\p{private use}&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Non-Characters&lt;/td&gt;
+      &lt;td&gt;66&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;U+FDD0..U+FDEF&lt;/strong&gt; and the last two codepoints of each plane: &lt;strong&gt;U+XFFFE&lt;/strong&gt;, &lt;strong&gt;U+XFFFF&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;/\p{non character codepoint}/&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Reserved&lt;/td&gt;
+      &lt;td&gt;837 775&lt;/td&gt;
+      &lt;td&gt;(not yet assigned)&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;/\p{unassigned}(?&amp;lt;!\p{non character codepoint})/&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;¹ Two additional private-use codepoints are &lt;strong&gt;U+0091&lt;/strong&gt; and &lt;strong&gt;U+0092&lt;/strong&gt;, but they are counted as control characters (see next section)&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://www.unicode.org/faq/private_use.html"&gt;Unicode: Private-Use Characters, Noncharacters &amp;amp; Sentinels FAQ&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id="control-characters"&gt;Control Characters&lt;/h3&gt;
+
+&lt;p&gt;For historical reasons Unicode includes a set of 65 control codepoints. They were not defined by the Unicode Consortium and a lot of them are not universally standardized. However, some of them are extremely common, such as &lt;strong&gt;U+0009&lt;/strong&gt;, the &lt;a href="https://en.wikipedia.org/wiki/Tab_stop"&gt;tab-stop character&lt;/a&gt;. It also contains the newline characters &lt;strong&gt;U+0010&lt;/strong&gt; "\n" and &lt;strong&gt;U+0013&lt;/strong&gt; "\r"; depending on your operating system, use one or both of them for &lt;a href="https://en.wikipedia.org/wiki/Newline"&gt;a newline&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Control characters are divided into the two sections &lt;strong&gt;&lt;em&gt;C0&lt;/em&gt;&lt;/strong&gt;, covering &lt;strong&gt;U+0000..U+001F&lt;/strong&gt;, and &lt;strong&gt;&lt;em&gt;C1&lt;/em&gt;&lt;/strong&gt;, covering &lt;strong&gt;U+0080..U+009F&lt;/strong&gt;. Furthermore, the &lt;a href="https://en.wikipedia.org/wiki/Delete_character"&gt;delete character&lt;/a&gt; &lt;strong&gt;U+007F&lt;/strong&gt; ␡ is also considered to be a control character.&lt;/p&gt;
+
+&lt;p&gt;In regexes, you can match for control characters with &lt;code&gt;\p{control}&lt;/code&gt; or just &lt;code&gt;\p{cc}&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4 id="list-of-c0-control-codepoints"&gt;List of C0 Control Codepoints&lt;/h4&gt;
+
+&lt;table class="table-20-15-15-X"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Codepoint&lt;/th&gt;
+      &lt;th&gt;Symbol&lt;/th&gt;
+      &lt;th&gt;Ruby Escape&lt;/th&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0000&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␀ NUL&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\0&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;NULL&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0001&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␁ SOH&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{1}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;START OF HEADING&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0002&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␂ STX&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{2}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;START OF TEXT&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0003&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␃ ETX&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{3}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;END OF TEXT&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0004&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␄ EOT&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{4}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;END OF TRANSMISSION&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0005&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␅ ENQ&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{5}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;ENQUIRY&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0006&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␆ ACK&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{6}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;ACKNOWLEDGE&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0007&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␇ BEL&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\a&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;ALERT&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0008&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␈ BS&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\b&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;BACKSPACE&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0009&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␉ HT&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\t&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;CHARACTER TABULATION&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+000A&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␊ LF&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\n&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;LINE FEED&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+000B&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␋ VT&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\v&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;LINE TABULATION&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+000C&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␌ FF&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\f&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;FORM FEED&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+000D&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␍ CR&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\r&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;CARRIAGE RETURN&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+000E&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␎ SS&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{e}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;SHIFT OUT&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+000F&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␏ SI&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{f}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;SHIFT IN&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0010&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␐ DLE&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{10}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;DATA LINK ESCAPE&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0011&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␑ DC1&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{11}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;DEVICE CONTROL ONE&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0012&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␒ DC2&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{12}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;DEVICE CONTROL TWO&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0013&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␓ DC3&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{13}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;DEVICE CONTROL THREE&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0014&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␔ DC4&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{14}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;DEVICE CONTROL FOUR&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0015&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␕ NAK&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{15}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;NEGATIVE ACKNOWLEDGE&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0016&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␖ SYN&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{16}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;SYNCHRONOUS IDLE&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0017&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␗ ETB&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{17}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;END OF TRANSMISSION BLOCK&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0018&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␘ CAN&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{18}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;CANCEL&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0019&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␙ EM&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{19}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;END OF MEDIUM&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+001A&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␚ SUB&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{1a}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;SUBSTITUTE&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+001B&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␛ ESC&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\e&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;ESCAPE&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+001C&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␜ FS&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{1c}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;INFORMATION SEPARATOR FOUR&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+001D&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␝ GS&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{1d}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;INFORMATION SEPARATOR THREE&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+001E&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␞ RS&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{1e}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;INFORMATION SEPARATOR TWO&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+001F&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;␟ US&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{1f}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;INFORMATION SEPARATOR ONE&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id="list-of-c1-control-codepoints"&gt;List of C1 Control Codepoints&lt;/h4&gt;
+
+&lt;table class="table-20-15-15-X"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Codepoint&lt;/th&gt;
+      &lt;th&gt;Symbol&lt;/th&gt;
+      &lt;th&gt;Ruby Escape&lt;/th&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0080&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;PAD&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{80}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;PADDING CHARACTER&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0081&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;HOP&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{81}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;HIGH OCTET PRESET&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0082&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;BPH&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{82}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;BREAK PERMITTED HERE&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0083&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;NBH&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{83}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;NO BREAK HERE&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0084&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;IND&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{84}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;INDEX&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0085&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;NEL¹&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{85}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;NEXT LINE&lt;/em&gt;¹&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0086&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;SSA&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{86}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;START OF SELECTED AREA&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0087&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;ESA&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{87}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;END OF SELECTED AREA&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0088&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;HTS&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{88}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;CHARACTER TABULATION SET&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0089&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;HTJ&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{89}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;CHARACTER TABULATION WITH JUSTIFICATION&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+008A&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;VTS&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{8a}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;LINE TABULATION SET&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+008B&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;PLD&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{8b}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;PARTIAL LINE FORWARD&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+008C&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;PLU&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{8c}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;PARTIAL LINE BACKWARD&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+008D&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;RI&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{8d}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;REVERSE LINE FEED&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+008E&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;SS2&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{8e}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;SINGLE SHIFT TWO&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+008F&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;SS3&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{8f}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;SINGLE SHIFT THREE&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0090&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;DCS&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{90}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;DEVICE CONTROL STRING&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0091&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;PU1&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{91}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;PRIVATE USE ONE&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0092&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;PU2&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{92}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;PRIVATE USE TWO&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0093&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;STS&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{93}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;SET TRANSMIT STATE&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0094&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;CCH&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{94}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;CANCEL CHARACTER&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0095&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;MW&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{95}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;MESSAGE WAITING&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0096&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;SPA&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{96}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;START OF GUARDED AREA&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0097&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;EPA&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{97}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;END OF GUARDED AREA&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0098&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;SOS&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{98}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;START OF STRING&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+0099&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;SGC&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{99}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;SINGLE GRAPHIC CHARACTER INTRODUCER&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+009A&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;SCI&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{9a}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;SINGLE CHARACTER INTRODUCER&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+009B&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;CSI&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{9b}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;CONTROL SEQUENCE INTRODUCER&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+009C&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;ST&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{9c}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;STRING TERMINATOR&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+009D&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;OSC&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{9d}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;OPERATING SYSTEM COMMAND&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+009E&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;PM&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{9e}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;PRIVACY MESSAGE&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;U+009F&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;APC&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;\u{9f}&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;APPLICATION PROGRAM COMMAND&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;¹ The &lt;em&gt;NEXT LINE&lt;/em&gt; control character was introduced to have an universal codepoint for &lt;a href="https://en.wikipedia.org/wiki/Newline"&gt;newlines&lt;/a&gt;. This goal was not reached. Still, on some systems (for example, my ubuntu machine), it will actually create a newline!&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;characteristics&lt;/strong&gt; gem lets you check if a codepoint belongs to a specific control group:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Characteristics.create("\u{80}").c0? # =&amp;gt; false
+Characteristics.create("\u{80}").c1? # =&amp;gt; true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/C0_and_C1_control_codes"&gt;Wikipedia has more info on every control codepoint&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/janlelis/characteristics"&gt;Gem: characteristics&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id="ignorable-codepoints"&gt;Ignorable Codepoints&lt;/h3&gt;
+
+&lt;p&gt;My last example of special codepoints are the so called ignorable codepoints. Their meaning varies, but most of them are invisible and they are often not treated as a whitespace by Unicode. They are ignorable in the sense that if your Unicode rendering engine does not know how to display it, it should &lt;em&gt;just display nothing&lt;/em&gt;. The ignorable property is even given to some ranges of &lt;em&gt;unassigned&lt;/em&gt; codepoints¹ (which is usually not done).&lt;/p&gt;
+
+&lt;p&gt;You can check for ignorable codepoints using the &lt;code&gt;/\p{default ignorable code point}/&lt;/code&gt; regex.&lt;/p&gt;
+
+&lt;p&gt;For example, the following piece of code is made out of &lt;a href="https://en.wikipedia.org/wiki/Tags_(Unicode_block)"&gt;tag characters&lt;/a&gt;, which resemble all &lt;a href="/56-us-ascii-8bit.html"&gt;ASCII characters&lt;/a&gt;, but as ignorable characters:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;eval "󠁰󠁵󠁴󠁳󠀠󠀧󠁉󠁤󠁩󠁯󠁳󠁹󠁮󠁣󠁲󠁡󠁴󠁩󠁣󠀠󠁕󠁮󠁩󠁣󠁯󠁤󠁥󠀧".codepoints.map{ |c| c - 0xE0000 }.pack("U*")
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This program will output &lt;code&gt;Idiosyncratic Unicode&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;¹ The whole range of &lt;strong&gt;E0000..E0FFF&lt;/strong&gt; is ignorable!&lt;/p&gt;
+
+&lt;h2 id="cli-tools-for-codepoint-analysis"&gt;CLI Tools for Codepoint Analysis&lt;/h2&gt;
+
+&lt;p&gt;I hope that you are now ready to closely inspect your own Unicode data! To help you do so, I made a few command-line tools, I hope you like them:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://github.com/janlelis/uniscribe"&gt;uniscribe&lt;/a&gt; for codepoint analysis&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/janlelis/unibits"&gt;unibits&lt;/a&gt; for encoding analysis, also supports a lot of non-Unicode encodings&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/janlelis/unicopy"&gt;unicopy&lt;/a&gt; for converting &amp;amp; copying codepoints&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Warning: The Module</title>
     <link rel="alternate" href="https://idiosyncratic-ruby.com/65-warning-the-module.html"/>
@@ -6971,7 +8043,7 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
   &lt;li&gt;&lt;code&gt;/\p{ ^PROPERTY NAME }/&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Ruby will strip all spaces, dashes, underscores from the given propertiy and convert it to a lowercased string. So the following examples are all valid syntax:&lt;/p&gt;
+&lt;p&gt;Ruby will strip all spaces, dashes, underscores from the given property and convert it to a lowercased string. So the following examples are all valid syntax:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;code&gt;/\p{AGE = 6.3}/&lt;/code&gt;&lt;/li&gt;
@@ -6994,6 +8066,10 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;2.5&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;10.0.0&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
       &lt;td&gt;&lt;strong&gt;2.4&lt;/strong&gt;&lt;/td&gt;
       &lt;td&gt;&lt;strong&gt;9.0.0&lt;/strong&gt;&lt;/td&gt;
     &lt;/tr&gt;
@@ -7012,11 +8088,11 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h2 id="list-of-properties"&gt;List of Properties&lt;/h2&gt;
+&lt;h2 id="list-of-properties-as-of-ruby-25--unicode-100"&gt;List of Properties as of Ruby 2.5 / Unicode 10.0&lt;/h2&gt;
 
 &lt;h3 id="general-category"&gt;General Category&lt;/h3&gt;
 
-&lt;p&gt;Each code point has a &lt;a href="https://en.wikipedia.org/wiki/Unicode_character_property#General_Category"&gt;General Category&lt;/a&gt;, one of the most basic categorizations. Codepoints without an explicit general category will implicitely get &lt;strong&gt;Cn&lt;/strong&gt; (Unassigned):&lt;/p&gt;
+&lt;p&gt;Each code point has a &lt;a href="https://en.wikipedia.org/wiki/Unicode_character_property#General_Category"&gt;General Category&lt;/a&gt;, one of the most basic categorizations. Codepoints without an explicit general category will implicitly get &lt;strong&gt;Cn&lt;/strong&gt; (Unassigned):&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;"Find decimal numbers (like 2 or 3)".scan(/\p{Nd}+/) # =&amp;gt; ["2", "3"]
 &lt;/code&gt;&lt;/pre&gt;
@@ -7039,7 +8115,7 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
 
 &lt;p&gt;Example:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;"Find punctation characters (like : or ;)".scan(/\p{P}+/) # =&amp;gt; ["(", ":", ";)"]
+&lt;pre&gt;&lt;code&gt;"Find punctuation characters (like : or ;)".scan(/\p{P}+/) # =&amp;gt; ["(", ":", ";)"]
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id="block"&gt;Block&lt;/h3&gt;
@@ -7072,6 +8148,13 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
 
 &lt;p&gt;All properties of the &lt;a href="http://www.regular-expressions.info/posixbrackets.html"&gt;POSIX brackets syntax&lt;/a&gt; are available with the &lt;code&gt;\p&lt;/code&gt; syntax: For example, &lt;code&gt;[[:print:]]&lt;/code&gt; simply becomes &lt;code&gt;\p{print}&lt;/code&gt;. You can find the full list of properties in &lt;a href="https://idiosyncratic-ruby.com/30-regex-with-class.html#posix-and--unicode-property-style"&gt;Episode 30: Regex with Class&lt;/a&gt;.&lt;/p&gt;
 
+&lt;h3 id="generic-properties"&gt;Generic Properties&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Any&lt;/li&gt;
+  &lt;li&gt;Assigned&lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h3 id="derived-core-properties"&gt;Derived Core Properties&lt;/h3&gt;
 
 &lt;p&gt;These can be found in &lt;a href="https://www.unicode.org/Public/UCD/latest/ucd/DerivedCoreProperties.txt"&gt;DerivedCoreProperties.txt&lt;/a&gt; (&lt;a href="ftp://unicode.org/Public/3.2-Update/DerivedProperties-3.2.0.html"&gt;explanation&lt;/a&gt;), along with a comment how the property gets constructed. Possible values are:&lt;/p&gt;
@@ -7096,6 +8179,29 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
   &lt;li&gt;Grapheme Extend&lt;/li&gt;
   &lt;li&gt;Grapheme Base&lt;/li&gt;
   &lt;li&gt;Grapheme Link&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id="grapheme-related"&gt;Grapheme Related&lt;/h3&gt;
+
+&lt;p&gt;Ruby's regex engine supports &lt;a href="/66-ruby-has-character.html#grapheme-clusters"&gt;matching for grapheme clusters&lt;/a&gt; using &lt;code&gt;\X&lt;/code&gt;. But it can also match for very specific grapheme related properties:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Grapheme Cluster Break = Prepend&lt;/li&gt;
+  &lt;li&gt;Grapheme Cluster Break = CR&lt;/li&gt;
+  &lt;li&gt;Grapheme Cluster Break = LF&lt;/li&gt;
+  &lt;li&gt;Grapheme Cluster Break = Control&lt;/li&gt;
+  &lt;li&gt;Grapheme Cluster Break = Extend&lt;/li&gt;
+  &lt;li&gt;Grapheme Cluster Break = Regional Indicator&lt;/li&gt;
+  &lt;li&gt;Grapheme Cluster Break = SpacingMark&lt;/li&gt;
+  &lt;li&gt;Grapheme Cluster Break = L&lt;/li&gt;
+  &lt;li&gt;Grapheme Cluster Break = V&lt;/li&gt;
+  &lt;li&gt;Grapheme Cluster Break = T&lt;/li&gt;
+  &lt;li&gt;Grapheme Cluster Break = LV&lt;/li&gt;
+  &lt;li&gt;Grapheme Cluster Break = LVT&lt;/li&gt;
+  &lt;li&gt;Grapheme Cluster Break = E Base&lt;/li&gt;
+  &lt;li&gt;Grapheme Cluster Break = E Modifier&lt;/li&gt;
+  &lt;li&gt;Grapheme Cluster Break = ZWJ&lt;/li&gt;
+  &lt;li&gt;Grapheme Cluster Break = Glue After Zwj&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id="binary-properties"&gt;Binary Properties&lt;/h3&gt;
@@ -7137,6 +8243,17 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
   &lt;li&gt;Pattern White Space&lt;/li&gt;
   &lt;li&gt;Pattern Syntax&lt;/li&gt;
   &lt;li&gt;Prepended Concatenation Mark&lt;/li&gt;
+  &lt;li&gt;Regional Indicator&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="emoji-properties"&gt;Emoji Properties&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Emoji&lt;/li&gt;
+  &lt;li&gt;Emoji_Presentation&lt;/li&gt;
+  &lt;li&gt;Emoji_Modifier&lt;/li&gt;
+  &lt;li&gt;Emoji_Modifier_Base&lt;/li&gt;
+  &lt;li&gt;Emoji_Component&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
@@ -7149,7 +8266,6 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
   &lt;li&gt;&lt;a href="https://github.com/twitter/twitter-cldr-rb#unicode-regular-expressions"&gt;Alternative: TwitterCldr Regexes&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="https://codepoints.net/"&gt;Codepoint Browser&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
 </content>
   </entry>
   <entry>

@@ -9,7 +9,7 @@
 
 <meta charset="utf-8">
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-<meta name="description" content="Documenting All Ruby Specialities. New posts in May 2018!"/>
+<meta name="description" content="Documenting All Ruby Specialities."/>
 <meta name="keywords" content="ruby, strings, regex, syntax, unicode"/>
 
   </head>
@@ -48,7 +48,7 @@
   <li><code>/\p{ ^PROPERTY NAME }/</code></li>
 </ul>
 
-<p>Ruby will strip all spaces, dashes, underscores from the given propertiy and convert it to a lowercased string. So the following examples are all valid syntax:</p>
+<p>Ruby will strip all spaces, dashes, underscores from the given property and convert it to a lowercased string. So the following examples are all valid syntax:</p>
 
 <ul>
   <li><code>/\p{AGE = 6.3}/</code></li>
@@ -71,6 +71,10 @@
   </thead>
   <tbody>
     <tr>
+      <td><strong>2.5</strong></td>
+      <td><strong>10.0.0</strong></td>
+    </tr>
+    <tr>
       <td><strong>2.4</strong></td>
       <td><strong>9.0.0</strong></td>
     </tr>
@@ -89,11 +93,11 @@
   </tbody>
 </table>
 
-<h2 id="list-of-properties">List of Properties</h2>
+<h2 id="list-of-properties-as-of-ruby-25--unicode-100">List of Properties as of Ruby 2.5 / Unicode 10.0</h2>
 
 <h3 id="general-category">General Category</h3>
 
-<p>Each code point has a <a href="https://en.wikipedia.org/wiki/Unicode_character_property#General_Category">General Category</a>, one of the most basic categorizations. Codepoints without an explicit general category will implicitely get <strong>Cn</strong> (Unassigned):</p>
+<p>Each code point has a <a href="https://en.wikipedia.org/wiki/Unicode_character_property#General_Category">General Category</a>, one of the most basic categorizations. Codepoints without an explicit general category will implicitly get <strong>Cn</strong> (Unassigned):</p>
 
 <pre><code>"Find decimal numbers (like 2 or 3)".scan(/\p{Nd}+/) # =&gt; ["2", "3"]
 </code></pre>
@@ -116,7 +120,7 @@
 
 <p>Example:</p>
 
-<pre><code>"Find punctation characters (like : or ;)".scan(/\p{P}+/) # =&gt; ["(", ":", ";)"]
+<pre><code>"Find punctuation characters (like : or ;)".scan(/\p{P}+/) # =&gt; ["(", ":", ";)"]
 </code></pre>
 
 <h3 id="block">Block</h3>
@@ -149,6 +153,13 @@
 
 <p>All properties of the <a href="http://www.regular-expressions.info/posixbrackets.html">POSIX brackets syntax</a> are available with the <code>\p</code> syntax: For example, <code>[[:print:]]</code> simply becomes <code>\p{print}</code>. You can find the full list of properties in <a href="https://idiosyncratic-ruby.com/30-regex-with-class.html#posix-and--unicode-property-style">Episode 30: Regex with Class</a>.</p>
 
+<h3 id="generic-properties">Generic Properties</h3>
+
+<ul>
+  <li>Any</li>
+  <li>Assigned</li>
+</ul>
+
 <h3 id="derived-core-properties">Derived Core Properties</h3>
 
 <p>These can be found in <a href="https://www.unicode.org/Public/UCD/latest/ucd/DerivedCoreProperties.txt">DerivedCoreProperties.txt</a> (<a href="ftp://unicode.org/Public/3.2-Update/DerivedProperties-3.2.0.html">explanation</a>), along with a comment how the property gets constructed. Possible values are:</p>
@@ -173,6 +184,29 @@
   <li>Grapheme Extend</li>
   <li>Grapheme Base</li>
   <li>Grapheme Link</li>
+</ul>
+
+<h3 id="grapheme-related">Grapheme Related</h3>
+
+<p>Ruby's regex engine supports <a href="/66-ruby-has-character.html#grapheme-clusters">matching for grapheme clusters</a> using <code>\X</code>. But it can also match for very specific grapheme related properties:</p>
+
+<ul>
+  <li>Grapheme Cluster Break = Prepend</li>
+  <li>Grapheme Cluster Break = CR</li>
+  <li>Grapheme Cluster Break = LF</li>
+  <li>Grapheme Cluster Break = Control</li>
+  <li>Grapheme Cluster Break = Extend</li>
+  <li>Grapheme Cluster Break = Regional Indicator</li>
+  <li>Grapheme Cluster Break = SpacingMark</li>
+  <li>Grapheme Cluster Break = L</li>
+  <li>Grapheme Cluster Break = V</li>
+  <li>Grapheme Cluster Break = T</li>
+  <li>Grapheme Cluster Break = LV</li>
+  <li>Grapheme Cluster Break = LVT</li>
+  <li>Grapheme Cluster Break = E Base</li>
+  <li>Grapheme Cluster Break = E Modifier</li>
+  <li>Grapheme Cluster Break = ZWJ</li>
+  <li>Grapheme Cluster Break = Glue After Zwj</li>
 </ul>
 
 <h3 id="binary-properties">Binary Properties</h3>
@@ -214,6 +248,17 @@
   <li>Pattern White Space</li>
   <li>Pattern Syntax</li>
   <li>Prepended Concatenation Mark</li>
+  <li>Regional Indicator</li>
+</ul>
+
+<h2 id="emoji-properties">Emoji Properties</h2>
+
+<ul>
+  <li>Emoji</li>
+  <li>Emoji_Presentation</li>
+  <li>Emoji_Modifier</li>
+  <li>Emoji_Modifier_Base</li>
+  <li>Emoji_Component</li>
 </ul>
 
 <h2 id="resources">Resources</h2>
@@ -226,7 +271,6 @@
   <li><a href="https://github.com/twitter/twitter-cldr-rb#unicode-regular-expressions">Alternative: TwitterCldr Regexes</a></li>
   <li><a href="https://codepoints.net/">Codepoint Browser</a></li>
 </ul>
-
 
 
         <h2>More Idiosyncratic Ruby</h2>
@@ -244,7 +288,7 @@
           <a href="https://janlelis.com/data-protection.html">Data Protection</a>
         </div>
         About Strings, Regex, Syntax, Unicode<br>
-        Last Update: 2017-12-25
+        Last Update: 2018-05-30
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
