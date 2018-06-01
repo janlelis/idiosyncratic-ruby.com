@@ -272,7 +272,7 @@ Detecting confusable characters is not built-in, it is possible with some gem su
 
 Another Unicode topic is converting a word from lowercase to uppercase or vice versa. Up until Ruby 2.3, string methods like `#upcase`,`#capitalize`, `#downcase`, or `#swapcase` would just not work with non-ASCII characters:
 
-    "ä".upcase # => "Ä" # Ruby 2.3
+    "ä".upcase # => "ä" # Ruby 2.3
 
 This has been fixed and more recent versions of Ruby are able to do this out of the box:
 
