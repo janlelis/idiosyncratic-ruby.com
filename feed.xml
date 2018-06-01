@@ -397,7 +397,7 @@ Unicode::Confusable.confusable? "ℜ𝘂ᖯʏ", "Ruby" # =&amp;gt; true
 
 &lt;p&gt;Another Unicode topic is converting a word from lowercase to uppercase or vice versa. Up until Ruby 2.3, string methods like &lt;code&gt;#upcase&lt;/code&gt;,&lt;code&gt;#capitalize&lt;/code&gt;, &lt;code&gt;#downcase&lt;/code&gt;, or &lt;code&gt;#swapcase&lt;/code&gt; would just not work with non-ASCII characters:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;"ä".upcase # =&amp;gt; "Ä" # Ruby 2.3
+&lt;pre&gt;&lt;code&gt;"ä".upcase # =&amp;gt; "ä" # Ruby 2.3
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;This has been fixed and more recent versions of Ruby are able to do this out of the box:&lt;/p&gt;
