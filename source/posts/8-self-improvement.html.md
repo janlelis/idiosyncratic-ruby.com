@@ -96,7 +96,7 @@ The differences to `module_function` are:
 - No side effects, like changing the method's visibility
 - It is no extra language feature
 
-### Adavantages of `module_function`
+### Advantages of `module_function`
 
 - The method name "module_function" describes what it does, so it might be better readable
 - Making included methods private [might be desired](https://github.com/janlelis/idiosyncratic-ruby.com/commit/7923275d6bfce595c3f0a0f1d9eceaa6dae43800#commitcomment-11553416)
