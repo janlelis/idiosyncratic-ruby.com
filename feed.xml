@@ -13918,7 +13918,7 @@ Mathematics.method(:calc).owner.singleton_class? #=&amp;gt; false
   &lt;li&gt;It is no extra language feature&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id="adavantages-of-modulefunction"&gt;Adavantages of &lt;code&gt;module_function&lt;/code&gt;&lt;/h3&gt;
+&lt;h3 id="advantages-of-modulefunction"&gt;Advantages of &lt;code&gt;module_function&lt;/code&gt;&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;The method name "module_function" describes what it does, so it might be better readable&lt;/li&gt;
