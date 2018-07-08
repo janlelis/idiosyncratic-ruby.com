@@ -42,7 +42,7 @@ We could use it for logging. But this is more of the category *nice, but feels l
 
 ## 2 | Null Objects
 
-A more useful case would be to simplify often done object conversions, for example, converting [null objects](http://devblog.avdi.org/2011/05/30/null-objects-and-falsiness/) to actual `nil` for comparsions:
+A more useful case would be to simplify often done object conversions, for example, converting [null objects](http://devblog.avdi.org/2011/05/30/null-objects-and-falsiness/) to actual `nil` for comparisons:
 
     # Definition
     class Object
@@ -78,7 +78,7 @@ See [null_question](https://github.com/janlelis/null_question) and [null_plus](h
 
 ## 3 | Symbol Conversion
 
-Another conversion related use of `+@` is the following snippet, which also defines `-@`. It will convert `String` and `Symbol` into each other's representation. It can be used as some kind of alternative to libraries that provide [HashWithIndifferentAccess](http://api.rubyonrails.org/classes/ActiveSupport/HashWithIndifferentAccess.html)-kind functionality, by always explicitely converting the key:
+Another conversion related use of `+@` is the following snippet, which also defines `-@`. It will convert `String` and `Symbol` into each other's representation. It can be used as some kind of alternative to libraries that provide [HashWithIndifferentAccess](http://api.rubyonrails.org/classes/ActiveSupport/HashWithIndifferentAccess.html)-kind functionality, by always explicitly converting the key:
 
     # Definition
     class String
@@ -155,4 +155,4 @@ There was a library that carried operator magic to the extremes: It let you defi
     # Usage
     [1,2,3] <--- [4,5,6]
 
-The library is not maintained, anymore, but it is the craziest leveraging of Ruby's capabalities I've ever seen! The repo is at [jicksta/superators](https://github.com/jicksta/superators).
+The library is not maintained, anymore, but it is the craziest leveraging of Ruby's capabilities I've ever seen! The repo is at [jicksta/superators](https://github.com/jicksta/superators).

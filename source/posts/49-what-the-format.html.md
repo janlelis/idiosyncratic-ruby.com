@@ -76,7 +76,7 @@ Format strings separate the string's format (= template) from the actual data. T
     "--> %s -- %<second>s <--" % [1, second: 2]
     # ArgumentError: named<second> after unnumbered(1)
 
-Conceptionally, this is very similar to how regular expresions handle references. For simple interpolations use simple references, for more complex interpolations named references might be a better fit. Named references serve as inline documentation.
+Conceptionally, this is very similar to how regular expressions handle references. For simple interpolations use simple references, for more complex interpolations named references might be a better fit. Named references serve as inline documentation.
 
 ### Referencing: Template Style
 
@@ -136,7 +136,7 @@ What follows is a description of all formatting options and types.
 
 ## Formatting Flags and Options: String Padding
 
-When the format string parser finds a number (which is not a preceeded by `.` or `$`), it will treat the value as a padding width. The padding width defines the minimum string length, the remaining space will be filled with ASCII spaces. This is a similar functionality like provided by [String#ljust](https://ruby-doc.org/core/String.html):
+When the format string parser finds a number (which is not a preceded by `.` or `$`), it will treat the value as a padding width. The padding width defines the minimum string length, the remaining space will be filled with ASCII spaces. This is a similar functionality like provided by [String#ljust](https://ruby-doc.org/core/String.html):
 
     "%20s" % "Idiosyncratic"
     # => "       Idiosyncratic"
@@ -302,7 +302,7 @@ Converts the number to a binary number string:
     42.to_s(2)
     # => "101010"
 
-Negative numbers will be convert to [two's complement](https://en.wikipedia.org/wiki/Two's_complement), preceeded by "..1" representing an infinite string of leading "1"s:
+Negative numbers will be convert to [two's complement](https://en.wikipedia.org/wiki/Two's_complement), preceded by "..1" representing an infinite string of leading "1"s:
 
     "%b" % -42
     # => "..1010110"
@@ -334,7 +334,7 @@ Converts the number to an octal number string:
     42.to_s(8)
     # => "52"
 
-Negative numbers will be convert to [two's complement](https://en.wikipedia.org/wiki/Two's_complement), preceeded by "..7" representing an infinite string of leading "7"s:
+Negative numbers will be convert to [two's complement](https://en.wikipedia.org/wiki/Two's_complement), preceded by "..7" representing an infinite string of leading "7"s:
 
     "%o" % -42
     # => "..726"
@@ -356,7 +356,7 @@ Converts the number to a hexadecimal number string:
     "%x" % 42
     # => "2a"
 
-The `%X` type has the same behavoir, except that it will used uppercased letters:
+The `%X` type has the same behavior, except that it will used uppercased letters:
 
     "%X" % 42
     # => "2A"
@@ -366,7 +366,7 @@ The `%X` type has the same behavoir, except that it will used uppercased letters
     42.to_s(16)
     # => "2a"
 
-Negative numbers will be convert to [two's complement](https://en.wikipedia.org/wiki/Two's_complement), preceeded by "..f" representing an infinite string of leading "f"s:
+Negative numbers will be convert to [two's complement](https://en.wikipedia.org/wiki/Two's_complement), preceded by "..f" representing an infinite string of leading "f"s:
 
     "%x" % -42
     # => "..fd6"
@@ -461,9 +461,9 @@ Using big `%G` will uppercase the "E" in the result:
 
 ### %a, %A | Analyze Float
 
-Converts a float into a format revealing its underlying representation, which is devided into [significand (mantissa) and exponent](https://en.wikipedia.org/wiki/Floating_point). The result is a string of the following format:
+Converts a float into a format revealing its underlying representation, which is divided into [significant (mantissa) and exponent](https://en.wikipedia.org/wiki/Floating_point). The result is a string of the following format:
 
-`-` (if negative) + `0x` + significand (hexadecimal) + `p` + exponent sign + exponent (decimal)
+`-` (if negative) + `0x` + significant (hexadecimal) + `p` + exponent sign + exponent (decimal)
 
 Examples:
 

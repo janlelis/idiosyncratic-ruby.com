@@ -5,7 +5,7 @@ tags: syntax, grammar
 commit: cdc80a62c207f966f5391f36ce9767ed41c7beb3
 ---
 
-If you take a closer look, you'll notice that Ruby's grammar has quite a few edge-case where its syntax is inconsistent or ambigious:
+If you take a closer look, you'll notice that Ruby's grammar has quite a few edge-case where its syntax is inconsistent or ambiguous:
 
 ARTICLE
 

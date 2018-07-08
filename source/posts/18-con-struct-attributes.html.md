@@ -205,7 +205,7 @@ The different ways to initialize a Struct:
 
 ### Inherit
 
-One way to add custom methods to a struct is to directley sub-class it:
+One way to add custom methods to a struct is to directly sub-class it:
 
     class Person < Struct.new(:name, :age)
       def name_and_age
@@ -213,7 +213,7 @@ One way to add custom methods to a struct is to directley sub-class it:
       end
     end
 
-The bad thing about this is that it will add an aditionial entry to your ancestor chain:
+The bad thing about this is that it will add an additional entry to your ancestor chain:
 
     Person.ancestors # => [Person, #<Class:0x00000001612140>, Struct, ...]
 
@@ -247,7 +247,7 @@ The approach that avoids both problems, is a little bit more verbose, but well r
       end
     end
 
-It also seems to [perfom slightly better](https://gist.github.com/janlelis/02b75baac8521d311bf2) than the other options.
+It also seems to [perform slightly better](https://gist.github.com/janlelis/02b75baac8521d311bf2) than the other options.
 
 ### Further Reading
 

@@ -9,7 +9,7 @@ Some words should not be chosen as identifiers for variables, parameters and met
 
 ARTICLE
 
-As long as you do not define a method with the name of a keyword, Ruby will not complain. Still, it is often better to avoid naming things like existing methods. It carries potential for future bugs and also confuses newcomers. You might change the name in the future, but miss some occurences, which will then do something completely different. It also [makes debugging harder](https://tenderlovemaking.com/2016/02/05/i-am-a-puts-debuggerer.html#what-if-the-thing-implements-the-method-method).
+As long as you do not define a method with the name of a keyword, Ruby will not complain. Still, it is often better to avoid naming things like existing methods. It carries potential for future bugs and also confuses newcomers. You might change the name in the future, but miss some occurrences, which will then do something completely different. It also [makes debugging harder](https://tenderlovemaking.com/2016/02/05/i-am-a-puts-debuggerer.html#what-if-the-thing-implements-the-method-method).
 
 A simple workaround is to append an `_` to critical identifiers. Some variables names that I find myself wanting to choose sometimes, but which should not (or cannot) be used:
 

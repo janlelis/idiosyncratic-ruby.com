@@ -86,7 +86,7 @@ The [script](https://en.wikipedia.org/wiki/Script_%28Unicode%29) of a character 
 
     "ᴦ".scan/\p{Greek}/ # => "ᴦ"
 
-See the [Unicode::Scripts](https://github.com/janlelis/unicode-scripts) micro gem for a way to find all scripts a string containso and a list of valid script names. A great way to explore the different scripts is [codepoints.net](https://codepoints.net/scripts).
+See the [Unicode::Scripts](https://github.com/janlelis/unicode-scripts) micro gem for a way to find all scripts a string contains and a list of valid script names. A great way to explore the different scripts is [codepoints.net](https://codepoints.net/scripts).
 
 ### Age
 
@@ -159,7 +159,7 @@ Other [matchable character properties](https://en.wikipedia.org/wiki/Unicode_cha
 - Dash
 - Hypen
 - Quotation Mark
-- Terminal Punctation
+- Terminal Punctuation
 - Other Math
 - Hex Digit
 - ASCII Hex Digit

@@ -27,7 +27,7 @@ How does this work and what does it do exactly? First of all, what does `ruby -r
 
     $ ruby -require "un" -e "httpd" . -p 8080
 
-The `-e` option directly executes the ruby code given, and `-r` is the short version of `--require`. So it requires "un", which happens to be included in Ruby's standard library¹. It was written by Hirofumi WATANABE (eban), a long-time Ruby contributer and code golf star. `un.rb`s goal is to
+The `-e` option directly executes the ruby code given, and `-r` is the short version of `--require`. So it requires "un", which happens to be included in Ruby's standard library¹. It was written by Hirofumi WATANABE (eban), a long-time Ruby contributor and code golf star. `un.rb`s goal is to
 provide:
 
     # Utilities to replace common UNIX commands in Makefiles etc
@@ -228,7 +228,7 @@ DOCUMENT_ROOT | Directory to serve
 
 Option                    | Short | Description                        | Example
 --------------------------|-------|------------------------------------|--------
---bind-adress=ADDR        | -b    | IP address to bind to              | `-b 127.0.0.1`
+--bind-address=ADDR       | -b    | IP address to bind to              | `-b 127.0.0.1`
 --port=NUM                | -p    | Port number to listen on           | `-p 8080`
 --max-clients=MAX         | -m    | Max number of simultaneous clients | `-m 2`
 --temp-dir=DIR            | -t    | Temporary directory to use         | `-t /tmp`

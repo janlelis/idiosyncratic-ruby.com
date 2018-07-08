@@ -5,7 +5,7 @@ tags: core, equal, types
 commit: 3fcc648f2aba9272d2418d56025b8f817ca16423
 ---
 
-Another of Ruby's idiosycrasies is equalness. It's not too complicated, but naming is an issue here.
+Another of Ruby's idiosyncrasies is equalness. It's not too complicated, but naming is an issue here.
 
 ARTICLE
 
@@ -39,7 +39,7 @@ So `eql?` is a little stricter than `==`, because it will return `false` if two 
 
 ### `===` Fancy Equality
 
-Implicitely used for `case` statements. Usually like `==`, but can also mean that something has some kind of relationship, like being [some kind of a class](https://github.com/janlelis/sig/blob/v1.0.1/lib/sig.rb#L108-L129).
+Implicitly used for `case` statements. Usually like `==`, but can also mean that something has some kind of relationship, like being [some kind of a class](https://github.com/janlelis/sig/blob/v1.0.1/lib/sig.rb#L108-L129).
 
 ## Equality Implementations for Core Classes
 
@@ -50,7 +50,7 @@ Class             | `eql?` | `==` | `===`
  Numeric          | Same type, same value | Same value, according to [spaceship returning `0`](https://ruby-doc.org/core/Numeric.html#method-i-3C-3D-3E) | -
  String           | Same length, same contents | If other is a String: `eql?`, else: `other.to_str === self` | -
  Regexp           | If other is a Regexp: Same pattern, same options, same encoding | Same as `eql?` | If other is a String: Match against self
- Array            | Same length, every element `.eql?` corresponding other element | Same length, every element `==` corresponding other element. Will [implicetly convert](/54-try-converting.html) other object via `.to_ary` | -
+ Array            | Same length, every element `.eql?` corresponding other element | Same length, every element `==` corresponding other element. Will [implicitly convert](/54-try-converting.html) other object via `.to_ary` | -
  Hash             | Same length, every element `==` corresponding other element (order not relevant) | Same as `eql?` | -
  Module           | -      | -    | `other.is_a?(self)`
  Class            | -      | -    | `other.is_a?(self)`

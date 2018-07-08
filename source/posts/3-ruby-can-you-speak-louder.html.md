@@ -57,7 +57,7 @@ Variable   | Value    | CLI-Variable Mirrors¹                          | Meanin
 
 Note that the Verbosity mode is different for `$VERBOSE == false` and `$VERBOSE == nil`.
 
-Another side note: While it is possible to change `$DEBUG` to an arbitrary value, this is not true for `$VERBOSE` - If you assign it a truish value, it will just be set to `true`.
+Another side note: While it is possible to change `$DEBUG` to an arbitrary value, this is not true for `$VERBOSE` - If you assign it a trueish value, it will just be set to `true`.
 
 What follows is a list of command line options that have an effects on the debug modes:
 

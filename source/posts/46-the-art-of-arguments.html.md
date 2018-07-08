@@ -51,5 +51,5 @@ The contents of `parse.rb`:²
 - Untreated arguments go to `:_`
 - The default usage is simple, yet advanced processing is easily configurable
 
-¹ **By the way:** On its syntactical surface, JavaScript and Ruby have more in commen than you would usually expect. Take arrays `[]` and hashes `{}`: They just look very similar!<br/>
+¹ **By the way:** On its syntactical surface, JavaScript and Ruby have more in common than you would usually expect. Take arrays `[]` and hashes `{}`: They just look very similar!<br/>
 ² To continue the tradition of [Perl-style two-letter variables](/9-globalization.html), we should probably do:<br/>`$★ = Rationalist.parse(ARGV)`

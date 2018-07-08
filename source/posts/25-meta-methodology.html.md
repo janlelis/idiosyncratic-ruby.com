@@ -59,8 +59,8 @@ Method                                                                          
 
 Instead of listing all methods and checking if the resulting array contains a specific method, you can also directly check if a method is defined:
 
-Method                                                                                                              | From  | Target   | Visibilitiy
---------------------------------------------------------------------------------------------------------------------|-------|----------|------------
+Method                                                                                                              | From  | Target   | Visibility
+--------------------------------------------------------------------------------------------------------------------|-------|----------|-----------
 [Module#method_defined?](https://ruby-doc.org/core/Module.html#method-i-method_defined-3F)                     | class | instance | all
 [Module#public_method_defined?](https://ruby-doc.org/core/Module.html#method-i-public_method_defined-3F)       | class | instance | public
 [Module#protected_method_defined?](https://ruby-doc.org/core/Module.html#method-i-protected_method_defined-3F) | class | instance | protected
@@ -83,7 +83,7 @@ Method                                                                          
 [Module#public_instance_method](https://ruby-doc.org/core/Module.html#method-i-public_instance_method) | class     | instance             | public     | [UnboundMethod](https://ruby-doc.org/core/UnboundMethod.html)
 {:.table-34-15-20-14-X}
 
-- There are no methods to explicitely get private methods
+- There are no methods to explicitly get private methods
 
 ## Method Manipulation
 
