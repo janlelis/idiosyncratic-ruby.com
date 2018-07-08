@@ -34,7 +34,7 @@ The question mark is a sure way to [confuse your syntax highlighter](https://idi
 
 ## Underscore (4 Syntactical Meanings)
 
-Underscores serve as a good example of having multiple uses: No purpose iterferes with another.
+Underscores serve as a good example of having multiple uses: No purpose interferes with another.
 
 ### Valid Part of an Identifier (and `$_`)
 
@@ -50,7 +50,7 @@ Underscores serve as a good example of having multiple uses: No purpose iterfere
 
 ### Ignored Parameter
 
-    # other names would raise an SyntaxError (duplicated argument name)
+    # other names would raise a SyntaxError (duplicated argument name)
     def method_name(_,_)
       p _
     end
@@ -154,4 +154,4 @@ The record holder!
 
 * [What do you call this in Ruby?](https://github.com/JuanitoFatas/what-do-you-call-this-in-ruby)
 * [Ruby's Grammar Definition](https://raw.githubusercontent.com/ruby/ruby/trunk/parse.y)
-* [Speial Global Variables](https://idiosyncratic-ruby.com/9-globalization.html)
+* [Special Global Variables](https://idiosyncratic-ruby.com/9-globalization.html)
