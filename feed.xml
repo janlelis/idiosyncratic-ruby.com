@@ -8892,7 +8892,7 @@ $? #=&amp;gt; #&amp;lt;Process::Status: pid 5223 exit 0&amp;gt;
 
 &lt;h2 id="underscore-4-syntactical-meanings"&gt;Underscore (4 Syntactical Meanings)&lt;/h2&gt;
 
-&lt;p&gt;Underscores serve as a good example of having multiple uses: No purpose iterferes with another.&lt;/p&gt;
+&lt;p&gt;Underscores serve as a good example of having multiple uses: No purpose interferes with another.&lt;/p&gt;
 
 &lt;h3 id="valid-part-of-an-identifier-and-"&gt;Valid Part of an Identifier (and &lt;code&gt;$_&lt;/code&gt;)&lt;/h3&gt;
 
@@ -8911,7 +8911,7 @@ $? #=&amp;gt; #&amp;lt;Process::Status: pid 5223 exit 0&amp;gt;
 
 &lt;h3 id="ignored-parameter"&gt;Ignored Parameter&lt;/h3&gt;
 
-&lt;pre&gt;&lt;code&gt;# other names would raise an SyntaxError (duplicated argument name)
+&lt;pre&gt;&lt;code&gt;# other names would raise a SyntaxError (duplicated argument name)
 def method_name(_,_)
   p _
 end
@@ -9030,7 +9030,7 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
 &lt;ul&gt;
   &lt;li&gt;&lt;a href="https://github.com/JuanitoFatas/what-do-you-call-this-in-ruby"&gt;What do you call this in Ruby?&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="https://raw.githubusercontent.com/ruby/ruby/trunk/parse.y"&gt;Ruby's Grammar Definition&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href="https://idiosyncratic-ruby.com/9-globalization.html"&gt;Speial Global Variables&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://idiosyncratic-ruby.com/9-globalization.html"&gt;Special Global Variables&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
   </entry>
