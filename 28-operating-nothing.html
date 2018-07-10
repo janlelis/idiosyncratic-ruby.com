@@ -61,7 +61,7 @@ end
 
 <h2 id="null-objects">2 | Null Objects</h2>
 
-<p>A more useful case would be to simplify often done object conversions, for example, converting <a href="http://devblog.avdi.org/2011/05/30/null-objects-and-falsiness/">null objects</a> to actual <code>nil</code> for comparsions:</p>
+<p>A more useful case would be to simplify often done object conversions, for example, converting <a href="http://devblog.avdi.org/2011/05/30/null-objects-and-falsiness/">null objects</a> to actual <code>nil</code> for comparisons:</p>
 
 <pre><code># Definition
 class Object
@@ -98,7 +98,7 @@ null = CustomNullObject.new
 
 <h2 id="symbol-conversion">3 | Symbol Conversion</h2>
 
-<p>Another conversion related use of <code>+@</code> is the following snippet, which also defines <code>-@</code>. It will convert <code>String</code> and <code>Symbol</code> into each other's representation. It can be used as some kind of alternative to libraries that provide <a href="http://api.rubyonrails.org/classes/ActiveSupport/HashWithIndifferentAccess.html">HashWithIndifferentAccess</a>-kind functionality, by always explicitely converting the key:</p>
+<p>Another conversion related use of <code>+@</code> is the following snippet, which also defines <code>-@</code>. It will convert <code>String</code> and <code>Symbol</code> into each other's representation. It can be used as some kind of alternative to libraries that provide <a href="http://api.rubyonrails.org/classes/ActiveSupport/HashWithIndifferentAccess.html">HashWithIndifferentAccess</a>-kind functionality, by always explicitly converting the key:</p>
 
 <pre><code># Definition
 class String
@@ -178,7 +178,7 @@ end
 [1,2,3] &lt;--- [4,5,6]
 </code></pre>
 
-<p>The library is not maintained, anymore, but it is the craziest leveraging of Ruby's capabalities I've ever seen! The repo is at <a href="https://github.com/jicksta/superators">jicksta/superators</a>.</p>
+<p>The library is not maintained, anymore, but it is the craziest leveraging of Ruby's capabilities I've ever seen! The repo is at <a href="https://github.com/jicksta/superators">jicksta/superators</a>.</p>
 
 
         <h2>More Idiosyncratic Ruby</h2>
@@ -192,11 +192,11 @@ end
       <footer>
         <div class="footer-right">
           On <a href="/">Idiosyncratic Ruby</a> by <a href="https://janlelis.com">Jan Lelis</a><br>
-          
+          Article Contributions by: Yauheni Dakuka<br>
           <a href="https://janlelis.com/data-protection.html">Data Protection</a>
         </div>
         About Core, Strings<br>
-        Last Update: 2017-12-25
+        Last Update: 2018-07-09
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

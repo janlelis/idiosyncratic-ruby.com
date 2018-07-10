@@ -96,7 +96,7 @@
 # ArgumentError: named&lt;second&gt; after unnumbered(1)
 </code></pre>
 
-<p>Conceptionally, this is very similar to how regular expresions handle references. For simple interpolations use simple references, for more complex interpolations named references might be a better fit. Named references serve as inline documentation.</p>
+<p>Conceptionally, this is very similar to how regular expressions handle references. For simple interpolations use simple references, for more complex interpolations named references might be a better fit. Named references serve as inline documentation.</p>
 
 <h3 id="referencing-template-style">Referencing: Template Style</h3>
 
@@ -194,7 +194,7 @@
 
 <h2 id="formatting-flags-and-options-string-padding">Formatting Flags and Options: String Padding</h2>
 
-<p>When the format string parser finds a number (which is not a preceeded by <code>.</code> or <code>$</code>), it will treat the value as a padding width. The padding width defines the minimum string length, the remaining space will be filled with ASCII spaces. This is a similar functionality like provided by <a href="https://ruby-doc.org/core/String.html">String#ljust</a>:</p>
+<p>When the format string parser finds a number (which is not a preceded by <code>.</code> or <code>$</code>), it will treat the value as a padding width. The padding width defines the minimum string length, the remaining space will be filled with ASCII spaces. This is a similar functionality like provided by <a href="https://ruby-doc.org/core/String.html">String#ljust</a>:</p>
 
 <pre><code>"%20s" % "Idiosyncratic"
 # =&gt; "       Idiosyncratic"
@@ -380,7 +380,7 @@
 # =&gt; "101010"
 </code></pre>
 
-<p>Negative numbers will be convert to <a href="https://en.wikipedia.org/wiki/Two's_complement">two's complement</a>, preceeded by "..1" representing an infinite string of leading "1"s:</p>
+<p>Negative numbers will be convert to <a href="https://en.wikipedia.org/wiki/Two's_complement">two's complement</a>, preceded by "..1" representing an infinite string of leading "1"s:</p>
 
 <pre><code>"%b" % -42
 # =&gt; "..1010110"
@@ -418,7 +418,7 @@
 # =&gt; "52"
 </code></pre>
 
-<p>Negative numbers will be convert to <a href="https://en.wikipedia.org/wiki/Two's_complement">two's complement</a>, preceeded by "..7" representing an infinite string of leading "7"s:</p>
+<p>Negative numbers will be convert to <a href="https://en.wikipedia.org/wiki/Two's_complement">two's complement</a>, preceded by "..7" representing an infinite string of leading "7"s:</p>
 
 <pre><code>"%o" % -42
 # =&gt; "..726"
@@ -444,7 +444,7 @@
 # =&gt; "2a"
 </code></pre>
 
-<p>The <code>%X</code> type has the same behavoir, except that it will used uppercased letters:</p>
+<p>The <code>%X</code> type has the same behavior, except that it will used uppercased letters:</p>
 
 <pre><code>"%X" % 42
 # =&gt; "2A"
@@ -456,7 +456,7 @@
 # =&gt; "2a"
 </code></pre>
 
-<p>Negative numbers will be convert to <a href="https://en.wikipedia.org/wiki/Two's_complement">two's complement</a>, preceeded by "..f" representing an infinite string of leading "f"s:</p>
+<p>Negative numbers will be convert to <a href="https://en.wikipedia.org/wiki/Two's_complement">two's complement</a>, preceded by "..f" representing an infinite string of leading "f"s:</p>
 
 <pre><code>"%x" % -42
 # =&gt; "..fd6"
@@ -562,9 +562,9 @@
 
 <h3 id="a-a--analyze-float">%a, %A | Analyze Float</h3>
 
-<p>Converts a float into a format revealing its underlying representation, which is devided into <a href="https://en.wikipedia.org/wiki/Floating_point">significand (mantissa) and exponent</a>. The result is a string of the following format:</p>
+<p>Converts a float into a format revealing its underlying representation, which is divided into <a href="https://en.wikipedia.org/wiki/Floating_point">significant (mantissa) and exponent</a>. The result is a string of the following format:</p>
 
-<p><code>-</code> (if negative) + <code>0x</code> + significand (hexadecimal) + <code>p</code> + exponent sign + exponent (decimal)</p>
+<p><code>-</code> (if negative) + <code>0x</code> + significant (hexadecimal) + <code>p</code> + exponent sign + exponent (decimal)</p>
 
 <p>Examples:</p>
 
@@ -639,11 +639,11 @@
       <footer>
         <div class="footer-right">
           On <a href="/">Idiosyncratic Ruby</a> by <a href="https://janlelis.com">Jan Lelis</a><br>
-          Article Contributions by: Lucas Dohmen<br>
+          Article Contributions by: Yauheni Dakuka, Lucas Dohmen<br>
           <a href="https://janlelis.com/data-protection.html">Data Protection</a>
         </div>
         About Core, Format, String, Sprintf<br>
-        Last Update: 2018-05-07
+        Last Update: 2018-07-09
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

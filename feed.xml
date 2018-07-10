@@ -345,7 +345,7 @@
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th&gt;Codpoints A&lt;/th&gt;
+      &lt;th&gt;Codepoints A&lt;/th&gt;
       &lt;th&gt;String A&lt;/th&gt;
       &lt;th&gt;String B&lt;/th&gt;
       &lt;th&gt;Codepoints B&lt;/th&gt;
@@ -1176,7 +1176,7 @@ def a() end
 
 &lt;h3 id="b-"&gt;1b) &lt;code&gt;=~&lt;/code&gt;&lt;/h3&gt;
 
-&lt;p&gt;This method is baked into Ruby's syntax, although its return value is rather special: It is the codepoint index in the string where the match occured or &lt;code&gt;nil&lt;/code&gt; otherwise. However, it is a wise choice to only use it for its &lt;em&gt;truthy&lt;/em&gt;/&lt;em&gt;falsey&lt;/em&gt; value and use the more self-explaining &lt;a href="https://ruby-doc.org/core/String.html#method-i-index"&gt;String#index method&lt;/a&gt; otherwise. Other than with the previous' &lt;code&gt;match?&lt;/code&gt; approach, match data is set accordingly (this is the case with all other ways of matching) - see next section "&lt;a href="#task-find-singlefirst-occurrence"&gt;Find First Occurrence&lt;/a&gt;" for ways to do so. Here is the example:&lt;/p&gt;
+&lt;p&gt;This method is baked into Ruby's syntax, although its return value is rather special: It is the codepoint index in the string where the match occurred or &lt;code&gt;nil&lt;/code&gt; otherwise. However, it is a wise choice to only use it for its &lt;em&gt;truthy&lt;/em&gt;/&lt;em&gt;falsey&lt;/em&gt; value and use the more self-explaining &lt;a href="https://ruby-doc.org/core/String.html#method-i-index"&gt;String#index method&lt;/a&gt; otherwise. Other than with the previous' &lt;code&gt;match?&lt;/code&gt; approach, match data is set accordingly (this is the case with all other ways of matching) - see next section "&lt;a href="#task-find-singlefirst-occurrence"&gt;Find First Occurrence&lt;/a&gt;" for ways to do so. Here is the example:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;"string" =~ /1.3/ # =&amp;gt; false
 "123" =~ /1.3/ # =&amp;gt; true
@@ -1188,7 +1188,7 @@ def a() end
 "123" !~ /1.3/ # =&amp;gt; false
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;More complicated matching can involve capture groups. Depending on the reference style (named or numbered), the way you can accees it differs:&lt;/p&gt;
+&lt;p&gt;More complicated matching can involve capture groups. Depending on the reference style (named or numbered), the way you can access it differs:&lt;/p&gt;
 
 &lt;h4 id="numbered-1-9"&gt;Numbered: &lt;code&gt;$1-$9&lt;/code&gt;&lt;/h4&gt;
 
@@ -1338,7 +1338,7 @@ parts = [$`, $&amp;amp;, $'] # =&amp;gt; ["String with ", "42", " things"]
   &lt;li&gt;&lt;a href="https://ruby-doc.org/core/Regexp.html"&gt;RDoc: Regexp&lt;/a&gt; - Class docs (overlaps with general regex docs)&lt;/li&gt;
   &lt;li&gt;&lt;a href="/11-regular-extremism.html"&gt;Episode 11: Regular Extremism&lt;/a&gt; - Collection of advanced regex syntaxes&lt;/li&gt;
   &lt;li&gt;&lt;a href="/21-uniform-resource-matching.html"&gt;Episode 21: Uniform Resource Matching&lt;/a&gt; - URL regex included in Ruby's standard library&lt;/li&gt;
-  &lt;li&gt;&lt;a href="/30-regex-with-class.html"&gt;Episode 30: Regex with Class&lt;/a&gt; - Overview of Unicode and POSIX-style character clasess&lt;/li&gt;
+  &lt;li&gt;&lt;a href="/30-regex-with-class.html"&gt;Episode 30: Regex with Class&lt;/a&gt; - Overview of Unicode and POSIX-style character classes&lt;/li&gt;
   &lt;li&gt;&lt;a href="/41-proper-unicoding.html"&gt;Episode 41: Proper Unicoding&lt;/a&gt; - Regex Unicode Property syntax (&lt;code&gt;\p{}&lt;/code&gt;)&lt;/li&gt;
   &lt;li&gt;&lt;a href="https://github.com/janlelis/debugging#restring-regex-groups--nil"&gt;&lt;code&gt;re&lt;/code&gt; method (part of irb.tools)&lt;/a&gt; - Displays first match (including capture groups) in the terminal&lt;/li&gt;
   &lt;li&gt;&lt;a href="http://rubular.com/"&gt;Rubular&lt;/a&gt; - Online regex testing&lt;/li&gt;
@@ -1456,7 +1456,7 @@ parts = [$`, $&amp;amp;, $'] # =&amp;gt; ["String with ", "42", " things"]
 &lt;p&gt;While &lt;code&gt;class_eval&lt;/code&gt; behaves exactly as if it was in no eval-context at all, &lt;code&gt;instance_eval&lt;/code&gt; features a notable difference:
 &lt;strong&gt;&lt;span class="action-color"&gt;def inside instance_eval will define methods one class-level higher&lt;/span&gt;&lt;/strong&gt;. So when &lt;code&gt;instance_eval&lt;/code&gt; is executed on instances, &lt;code&gt;def&lt;/code&gt; will create instance methods instead of singleton methods. And when it is run on classes, &lt;code&gt;def&lt;/code&gt; will create class methods instead of instance methods.&lt;/p&gt;
 
-&lt;p&gt;Another difference is that while &lt;a href="https://ruby-doc.org/core/Module.html#method-i-class_eval"&gt;&lt;code&gt;class_eval&lt;/code&gt; is defined on Module&lt;/a&gt;, &lt;a href="https://ruby-doc.org/core/BasicObject.html#method-i-instance_eval"&gt;&lt;code&gt;instance_eval&lt;/code&gt; lives in BasicObject&lt;/a&gt; allowing you to use it on any object, not only modules and classes. However, there is a simple way to use &lt;code&gt;class_eval&lt;/code&gt; for instances, too. You can explicitely use the object's singleton class (&lt;code&gt;class &amp;lt;&amp;lt; self&lt;/code&gt;), which is a module:&lt;/p&gt;
+&lt;p&gt;Another difference is that while &lt;a href="https://ruby-doc.org/core/Module.html#method-i-class_eval"&gt;&lt;code&gt;class_eval&lt;/code&gt; is defined on Module&lt;/a&gt;, &lt;a href="https://ruby-doc.org/core/BasicObject.html#method-i-instance_eval"&gt;&lt;code&gt;instance_eval&lt;/code&gt; lives in BasicObject&lt;/a&gt; allowing you to use it on any object, not only modules and classes. However, there is a simple way to use &lt;code&gt;class_eval&lt;/code&gt; for instances, too. You can explicitly use the object's singleton class (&lt;code&gt;class &amp;lt;&amp;lt; self&lt;/code&gt;), which is a module:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;o = Object.new # =&amp;gt; #&amp;lt;Object:0x000055b6fdabf1f8&amp;gt;
 o.singleton_class.class_eval do
@@ -1867,7 +1867,7 @@ C.singleton_class.m #=&amp;gt; #&amp;lt;Class:C&amp;gt;
 
 &lt;p&gt;&lt;/p&gt;
 
-&lt;p&gt;Which is always hard, because it will break exisisting code.¹ But it can still be worth it:&lt;/p&gt;
+&lt;p&gt;Which is always hard, because it will break existing code.¹ But it can still be worth it:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;People new to Ruby start with learning the &lt;em&gt;right thing&lt;/em&gt;, instead of having to learnthe best practice later ("avoid for loops")&lt;/li&gt;
@@ -1880,7 +1880,7 @@ C.singleton_class.m #=&amp;gt; #&amp;lt;Class:C&amp;gt;
 
 &lt;h3 id="for-and-in-keywords"&gt;1. &lt;code&gt;for&lt;/code&gt; and &lt;code&gt;in&lt;/code&gt; Keywords&lt;/h3&gt;
 
-&lt;p&gt;For loops are rarely used in favor of semantically alrmost similar alternatives like &lt;a href="https://ruby-doc.org/core/Array.html#method-i-each"&gt;Array#each&lt;/a&gt; or &lt;a href="https://ruby-doc.org/core/Integer.html#method-i-times"&gt;Integer#times&lt;/a&gt;. They are even &lt;a href="https://github.com/JuanitoFatas/fast-ruby#enumerableeach-vs-for-loop-code"&gt;a little slower than calling &lt;code&gt;each&lt;/code&gt; directly&lt;/a&gt;. Also see: &lt;a href="http://graysoftinc.com/early-steps/the-evils-of-the-for-loop"&gt;The Evils of the For Loop&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;For loops are rarely used in favor of semantically almost similar alternatives like &lt;a href="https://ruby-doc.org/core/Array.html#method-i-each"&gt;Array#each&lt;/a&gt; or &lt;a href="https://ruby-doc.org/core/Integer.html#method-i-times"&gt;Integer#times&lt;/a&gt;. They are even &lt;a href="https://github.com/JuanitoFatas/fast-ruby#enumerableeach-vs-for-loop-code"&gt;a little slower than calling &lt;code&gt;each&lt;/code&gt; directly&lt;/a&gt;. Also see: &lt;a href="http://graysoftinc.com/early-steps/the-evils-of-the-for-loop"&gt;The Evils of the For Loop&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id="character-literals"&gt;2. &lt;code&gt;?&lt;/code&gt; Character Literals&lt;/h3&gt;
 
@@ -1949,7 +1949,7 @@ when false; 43
 end
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;All in all: &lt;code&gt;then&lt;/code&gt; is superflous.&lt;/p&gt;
+&lt;p&gt;All in all: &lt;code&gt;then&lt;/code&gt; is superfluous.&lt;/p&gt;
 
 &lt;h3 id="true-false-nil-constants"&gt;5. &lt;code&gt;TRUE&lt;/code&gt;, &lt;code&gt;FALSE&lt;/code&gt;, &lt;code&gt;NIL&lt;/code&gt; constants&lt;/h3&gt;
 
@@ -2047,7 +2047,7 @@ end
 &lt;pre&gt;&lt;code&gt;"\u{1F6A1}" # "🚡"
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;It also allows you to specifiy multiple characters at once:&lt;/p&gt;
+&lt;p&gt;It also allows you to specify multiple characters at once:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;"\u{49 64 69 6f 73 79 6e 63 72 e4 74 69 63 20 52 75 62 79}"
 # =&amp;gt; "Idiosyncrätic Ruby"
@@ -2303,7 +2303,7 @@ big data
 &lt;p&gt;Big &lt;code&gt;DATA&lt;/code&gt; is a &lt;a href="https://ruby-doc.org/core/File.html"&gt;File&lt;/a&gt; object, which you can &lt;code&gt;read&lt;/code&gt;. The example will output &lt;code&gt;"big data"&lt;/code&gt;. An example of real-world usage is &lt;a href="http://www.sinatrarb.com/intro.html#Inline%20Templates"&gt;inline templating within the sinatra web framework&lt;/a&gt;.³&lt;/p&gt;
 
 &lt;p&gt;¹ Do not confuse with the small &lt;code&gt;Data&lt;/code&gt; class, which is a &lt;a href="https://ruby-doc.org/core/Data.html"&gt;CRuby implementation detail&lt;/a&gt;&lt;br /&gt;
-² Big &lt;code&gt;DATA&lt;/code&gt; &lt;a href="constant tree"&gt;is not defined&lt;/a&gt;, if you have no &lt;code&gt;__END__&lt;/code&gt;. Furthermore, it is not available if you did not execute the script directly, but loaded or requierd it.&lt;br /&gt;
+² Big &lt;code&gt;DATA&lt;/code&gt; &lt;a href="constant tree"&gt;is not defined&lt;/a&gt;, if you have no &lt;code&gt;__END__&lt;/code&gt;. Furthermore, it is not available if you did not execute the script directly, but loaded or required it.&lt;br /&gt;
 ³ &lt;a href="http://blog.honeybadger.io/data-and-end-in-ruby/#a-work-around-for-multiple-files"&gt;Actually, not really&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id="is-the-data-section-enough"&gt;Is the Data Section Enough?&lt;/h2&gt;
@@ -3360,7 +3360,7 @@ compatible characters.
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;Another of Ruby's idiosycrasies is equalness. It's not too complicated, but naming is an issue here.&lt;/p&gt;
+    <content type="html">&lt;p&gt;Another of Ruby's idiosyncrasies is equalness. It's not too complicated, but naming is an issue here.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
@@ -3396,7 +3396,7 @@ end
 
 &lt;h3 id="fancy-equality"&gt;&lt;code&gt;===&lt;/code&gt; Fancy Equality&lt;/h3&gt;
 
-&lt;p&gt;Implicitely used for &lt;code&gt;case&lt;/code&gt; statements. Usually like &lt;code&gt;==&lt;/code&gt;, but can also mean that something has some kind of relationship, like being &lt;a href="https://github.com/janlelis/sig/blob/v1.0.1/lib/sig.rb#L108-L129"&gt;some kind of a class&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Implicitly used for &lt;code&gt;case&lt;/code&gt; statements. Usually like &lt;code&gt;==&lt;/code&gt;, but can also mean that something has some kind of relationship, like being &lt;a href="https://github.com/janlelis/sig/blob/v1.0.1/lib/sig.rb#L108-L129"&gt;some kind of a class&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id="equality-implementations-for-core-classes"&gt;Equality Implementations for Core Classes&lt;/h2&gt;
 
@@ -3443,7 +3443,7 @@ end
     &lt;tr&gt;
       &lt;td&gt;Array&lt;/td&gt;
       &lt;td&gt;Same length, every element &lt;code&gt;.eql?&lt;/code&gt; corresponding other element&lt;/td&gt;
-      &lt;td&gt;Same length, every element &lt;code&gt;==&lt;/code&gt; corresponding other element. Will &lt;a href="/54-try-converting.html"&gt;implicetly convert&lt;/a&gt; other object via &lt;code&gt;.to_ary&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Same length, every element &lt;code&gt;==&lt;/code&gt; corresponding other element. Will &lt;a href="/54-try-converting.html"&gt;implicitly convert&lt;/a&gt; other object via &lt;code&gt;.to_ary&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -3594,7 +3594,7 @@ Array.try_convert(o) # =&amp;gt; [42]
 
 &lt;ul&gt;
   &lt;li&gt;If there is a &lt;strong&gt;special conversion&lt;/strong&gt;, apply it. See the table below for details and the exact application order (e.g. &lt;code&gt;Array()&lt;/code&gt; does its special conversion &lt;em&gt;after&lt;/em&gt; it tried the two steps below).&lt;/li&gt;
-  &lt;li&gt;Unless special conversion gets applied, try to convert via the &lt;strong&gt;implicit convesion&lt;/strong&gt; method&lt;/li&gt;
+  &lt;li&gt;Unless special conversion gets applied, try to convert via the &lt;strong&gt;implicit conversion&lt;/strong&gt; method&lt;/li&gt;
   &lt;li&gt;If it does not exist, try to convert via the &lt;strong&gt;explicit conversion&lt;/strong&gt; method&lt;/li&gt;
   &lt;li&gt;Raise a &lt;a href="https://ruby-doc.org/core/TypeError.html"&gt;TypeError&lt;/a&gt; if everything of the above has failed&lt;/li&gt;
 &lt;/ul&gt;
@@ -4973,7 +4973,7 @@ TEST_CASES.each{ |test_case|
 
 &lt;p&gt;&lt;/p&gt;
 
-&lt;p&gt;As long as you do not define a method with the name of a keyword, Ruby will not complain. Still, it is often better to avoid naming things like existing methods. It carries potential for future bugs and also confuses newcomers. You might change the name in the future, but miss some occurences, which will then do something completely different. It also &lt;a href="https://tenderlovemaking.com/2016/02/05/i-am-a-puts-debuggerer.html#what-if-the-thing-implements-the-method-method"&gt;makes debugging harder&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;As long as you do not define a method with the name of a keyword, Ruby will not complain. Still, it is often better to avoid naming things like existing methods. It carries potential for future bugs and also confuses newcomers. You might change the name in the future, but miss some occurrences, which will then do something completely different. It also &lt;a href="https://tenderlovemaking.com/2016/02/05/i-am-a-puts-debuggerer.html#what-if-the-thing-implements-the-method-method"&gt;makes debugging harder&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;A simple workaround is to append an &lt;code&gt;_&lt;/code&gt; to critical identifiers. Some variables names that I find myself wanting to choose sometimes, but which should not (or cannot) be used:&lt;/p&gt;
 
@@ -5118,7 +5118,7 @@ end
 # ArgumentError: named&amp;lt;second&amp;gt; after unnumbered(1)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Conceptionally, this is very similar to how regular expresions handle references. For simple interpolations use simple references, for more complex interpolations named references might be a better fit. Named references serve as inline documentation.&lt;/p&gt;
+&lt;p&gt;Conceptionally, this is very similar to how regular expressions handle references. For simple interpolations use simple references, for more complex interpolations named references might be a better fit. Named references serve as inline documentation.&lt;/p&gt;
 
 &lt;h3 id="referencing-template-style"&gt;Referencing: Template Style&lt;/h3&gt;
 
@@ -5216,7 +5216,7 @@ end
 
 &lt;h2 id="formatting-flags-and-options-string-padding"&gt;Formatting Flags and Options: String Padding&lt;/h2&gt;
 
-&lt;p&gt;When the format string parser finds a number (which is not a preceeded by &lt;code&gt;.&lt;/code&gt; or &lt;code&gt;$&lt;/code&gt;), it will treat the value as a padding width. The padding width defines the minimum string length, the remaining space will be filled with ASCII spaces. This is a similar functionality like provided by &lt;a href="https://ruby-doc.org/core/String.html"&gt;String#ljust&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;When the format string parser finds a number (which is not a preceded by &lt;code&gt;.&lt;/code&gt; or &lt;code&gt;$&lt;/code&gt;), it will treat the value as a padding width. The padding width defines the minimum string length, the remaining space will be filled with ASCII spaces. This is a similar functionality like provided by &lt;a href="https://ruby-doc.org/core/String.html"&gt;String#ljust&lt;/a&gt;:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;"%20s" % "Idiosyncratic"
 # =&amp;gt; "       Idiosyncratic"
@@ -5402,7 +5402,7 @@ end
 # =&amp;gt; "101010"
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Negative numbers will be convert to &lt;a href="https://en.wikipedia.org/wiki/Two's_complement"&gt;two's complement&lt;/a&gt;, preceeded by "..1" representing an infinite string of leading "1"s:&lt;/p&gt;
+&lt;p&gt;Negative numbers will be convert to &lt;a href="https://en.wikipedia.org/wiki/Two's_complement"&gt;two's complement&lt;/a&gt;, preceded by "..1" representing an infinite string of leading "1"s:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;"%b" % -42
 # =&amp;gt; "..1010110"
@@ -5440,7 +5440,7 @@ end
 # =&amp;gt; "52"
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Negative numbers will be convert to &lt;a href="https://en.wikipedia.org/wiki/Two's_complement"&gt;two's complement&lt;/a&gt;, preceeded by "..7" representing an infinite string of leading "7"s:&lt;/p&gt;
+&lt;p&gt;Negative numbers will be convert to &lt;a href="https://en.wikipedia.org/wiki/Two's_complement"&gt;two's complement&lt;/a&gt;, preceded by "..7" representing an infinite string of leading "7"s:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;"%o" % -42
 # =&amp;gt; "..726"
@@ -5466,7 +5466,7 @@ end
 # =&amp;gt; "2a"
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;The &lt;code&gt;%X&lt;/code&gt; type has the same behavoir, except that it will used uppercased letters:&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;%X&lt;/code&gt; type has the same behavior, except that it will used uppercased letters:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;"%X" % 42
 # =&amp;gt; "2A"
@@ -5478,7 +5478,7 @@ end
 # =&amp;gt; "2a"
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Negative numbers will be convert to &lt;a href="https://en.wikipedia.org/wiki/Two's_complement"&gt;two's complement&lt;/a&gt;, preceeded by "..f" representing an infinite string of leading "f"s:&lt;/p&gt;
+&lt;p&gt;Negative numbers will be convert to &lt;a href="https://en.wikipedia.org/wiki/Two's_complement"&gt;two's complement&lt;/a&gt;, preceded by "..f" representing an infinite string of leading "f"s:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;"%x" % -42
 # =&amp;gt; "..fd6"
@@ -5584,9 +5584,9 @@ end
 
 &lt;h3 id="a-a--analyze-float"&gt;%a, %A | Analyze Float&lt;/h3&gt;
 
-&lt;p&gt;Converts a float into a format revealing its underlying representation, which is devided into &lt;a href="https://en.wikipedia.org/wiki/Floating_point"&gt;significand (mantissa) and exponent&lt;/a&gt;. The result is a string of the following format:&lt;/p&gt;
+&lt;p&gt;Converts a float into a format revealing its underlying representation, which is divided into &lt;a href="https://en.wikipedia.org/wiki/Floating_point"&gt;significant (mantissa) and exponent&lt;/a&gt;. The result is a string of the following format:&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;-&lt;/code&gt; (if negative) + &lt;code&gt;0x&lt;/code&gt; + significand (hexadecimal) + &lt;code&gt;p&lt;/code&gt; + exponent sign + exponent (decimal)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;-&lt;/code&gt; (if negative) + &lt;code&gt;0x&lt;/code&gt; + significant (hexadecimal) + &lt;code&gt;p&lt;/code&gt; + exponent sign + exponent (decimal)&lt;/p&gt;
 
 &lt;p&gt;Examples:&lt;/p&gt;
 
@@ -6134,7 +6134,7 @@ t+=1;v-d};m+=                n;g.flush&amp;lt;&amp;lt;(s.
   |               |  |    :
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Right! It will play some loveley classical music! Run it with:³&lt;/p&gt;
+&lt;p&gt;Right! It will play some lovely classical music! Run it with:³&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ padsp ruby entry.rb
 &lt;/code&gt;&lt;/pre&gt;
@@ -6220,7 +6220,7 @@ p Rationalist.parse(ARGV)
   &lt;li&gt;The default usage is simple, yet advanced processing is easily configurable&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;¹ &lt;strong&gt;By the way:&lt;/strong&gt; On its syntactical surface, JavaScript and Ruby have more in commen than you would usually expect. Take arrays &lt;code&gt;[]&lt;/code&gt; and hashes &lt;code&gt;{}&lt;/code&gt;: They just look very similar!&lt;br /&gt;
+&lt;p&gt;¹ &lt;strong&gt;By the way:&lt;/strong&gt; On its syntactical surface, JavaScript and Ruby have more in common than you would usually expect. Take arrays &lt;code&gt;[]&lt;/code&gt; and hashes &lt;code&gt;{}&lt;/code&gt;: They just look very similar!&lt;br /&gt;
 ² To continue the tradition of &lt;a href="/9-globalization.html"&gt;Perl-style two-letter variables&lt;/a&gt;, we should probably do:&lt;br /&gt;&lt;code&gt;$★ = Rationalist.parse(ARGV)&lt;/code&gt;&lt;/p&gt;
 </content>
   </entry>
@@ -6233,7 +6233,7 @@ p Rationalist.parse(ARGV)
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;Today, another snippet from the category &lt;em&gt;&lt;a href="/16-changing-the-rules.html"&gt;don't try at home, might have unforseeable consequences!&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+    <content type="html">&lt;p&gt;Today, another snippet from the category &lt;em&gt;&lt;a href="/16-changing-the-rules.html"&gt;don't try at home, might have unforeseeable consequences!&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
@@ -6651,7 +6651,7 @@ map{ |g| "`#{g.to_s.sub("`", "\\`")}`" }.join(", ")'
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;At some point when working with Ruby, you come across this misterious &lt;strong&gt;RbConfig&lt;/strong&gt; constant. A typical scenario is that you want to check which operating system your current program is executed on. You can do this with &lt;code&gt;RbConfig::CONFIG['host_os']&lt;/code&gt; or &lt;code&gt;RbConfig::CONFIG['arch']&lt;/code&gt;, see the &lt;a href="https://github.com/rubygems/rubygems/blob/v2.6.3/lib/rubygems/platform.rb#L19-L112"&gt;RubyGems source&lt;/a&gt; for an advanced example!&lt;/p&gt;
+    <content type="html">&lt;p&gt;At some point when working with Ruby, you come across this mysterious &lt;strong&gt;RbConfig&lt;/strong&gt; constant. A typical scenario is that you want to check which operating system your current program is executed on. You can do this with &lt;code&gt;RbConfig::CONFIG['host_os']&lt;/code&gt; or &lt;code&gt;RbConfig::CONFIG['arch']&lt;/code&gt;, see the &lt;a href="https://github.com/rubygems/rubygems/blob/v2.6.3/lib/rubygems/platform.rb#L19-L112"&gt;RubyGems source&lt;/a&gt; for an advanced example!&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
@@ -6674,7 +6674,7 @@ the &lt;em&gt;LIBRUBY_SO&lt;/em&gt; value could be converted from &lt;code&gt;"l
 
 &lt;h2 id="rbconfigtopdir"&gt;&lt;code&gt;RbConfig::TOPDIR&lt;/code&gt;&lt;/h2&gt;
 
-&lt;p&gt;Returns the directory where the Ruby interpeter is located:&lt;/p&gt;
+&lt;p&gt;Returns the directory where the Ruby interpreter is located:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;require "rbconfig"
 RbConfig::TOPDIR #=&amp;gt; "/home/jan/.rvm/rubies/ruby-2.3.0"
@@ -7796,7 +7796,7 @@ RbConfig::TOPDIR #=&amp;gt; "/home/jan/.rvm/rubies/ruby-2.3.0"
 
 &lt;h2 id="rbconfigsizeof"&gt;&lt;code&gt;RbConfig::SIZEOF&lt;/code&gt;&lt;/h2&gt;
 
-&lt;p&gt;This hash contains the &lt;a href="https://github.com/ruby/ruby/blob/trunk/template/sizes.c.tmpl"&gt;byte sizes of low-level data structures&lt;/a&gt; of your system. This is useful when interacting with external libraries via &lt;a href="https://github.com/ffi/ffi"&gt;FFI&lt;/a&gt;/&lt;a href="https://ruby-doc.org/stdlib/libdoc/fiddle/rdoc/Fiddle.html"&gt;Fiddle&lt;/a&gt;. I needs to be explicitely required:&lt;/p&gt;
+&lt;p&gt;This hash contains the &lt;a href="https://github.com/ruby/ruby/blob/trunk/template/sizes.c.tmpl"&gt;byte sizes of low-level data structures&lt;/a&gt; of your system. This is useful when interacting with external libraries via &lt;a href="https://github.com/ffi/ffi"&gt;FFI&lt;/a&gt;/&lt;a href="https://ruby-doc.org/stdlib/libdoc/fiddle/rdoc/Fiddle.html"&gt;Fiddle&lt;/a&gt;. I needs to be explicitly required:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;require "rbconfig/sizeof"
 RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt;8, "long long"=&amp;gt;8, ...
@@ -8134,7 +8134,7 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
 &lt;pre&gt;&lt;code&gt;"ᴦ".scan/\p{Greek}/ # =&amp;gt; "ᴦ"
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;See the &lt;a href="https://github.com/janlelis/unicode-scripts"&gt;Unicode::Scripts&lt;/a&gt; micro gem for a way to find all scripts a string containso and a list of valid script names. A great way to explore the different scripts is &lt;a href="https://codepoints.net/scripts"&gt;codepoints.net&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;See the &lt;a href="https://github.com/janlelis/unicode-scripts"&gt;Unicode::Scripts&lt;/a&gt; micro gem for a way to find all scripts a string contains and a list of valid script names. A great way to explore the different scripts is &lt;a href="https://codepoints.net/scripts"&gt;codepoints.net&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h3 id="age"&gt;Age&lt;/h3&gt;
 
@@ -8215,7 +8215,7 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
   &lt;li&gt;Dash&lt;/li&gt;
   &lt;li&gt;Hypen&lt;/li&gt;
   &lt;li&gt;Quotation Mark&lt;/li&gt;
-  &lt;li&gt;Terminal Punctation&lt;/li&gt;
+  &lt;li&gt;Terminal Punctuation&lt;/li&gt;
   &lt;li&gt;Other Math&lt;/li&gt;
   &lt;li&gt;Hex Digit&lt;/li&gt;
   &lt;li&gt;ASCII Hex Digit&lt;/li&gt;
@@ -8468,7 +8468,7 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
 
 &lt;p&gt;Static type systems often use compile time type checking, which lets you catch a specific type of bugs earlier. It also opens the room for a much better performance. There are some very Ruby-like languages that use static types and achieve a much better performance, namely &lt;a href="http://www.mirah.org/"&gt;Mirah&lt;/a&gt; and &lt;a href="http://crystal-lang.org/"&gt;Crystal&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;However, having to annotate everything is a very strict requirement. It is not &lt;strong&gt;Don't Repeat Yourself&lt;/strong&gt;. It is harder to work with and less flexible. It is not backwards-compatible with existing Ruby code. Unless you put an unrealisticly huge effort into it, it will not proof your software is correct. It will not free you from the responsibilty to ensure your program is working properly (for instance, by writing tests).&lt;/p&gt;
+&lt;p&gt;However, having to annotate everything is a very strict requirement. It is not &lt;strong&gt;Don't Repeat Yourself&lt;/strong&gt;. It is harder to work with and less flexible. It is not backwards-compatible with existing Ruby code. Unless you put an unrealistically huge effort into it, it will not proof your software is correct. It will not free you from the responsibility to ensure your program is working properly (for instance, by writing tests).&lt;/p&gt;
 
 &lt;p&gt;Yet, it will check types for you.&lt;/p&gt;
 
@@ -8512,7 +8512,7 @@ B.rev 42
 # - Expected 42 to respond to :reverse
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;There is also some &lt;a href="http://www.cs.umd.edu/~jfoster/papers/oops13.pdf"&gt;acadamic work&lt;/a&gt; that explores advanced runtime checking (like "gradual" typing) and resulted in the &lt;a href="https://github.com/plum-umd/rtc"&gt;Ruby Type Checker&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;There is also some &lt;a href="http://www.cs.umd.edu/~jfoster/papers/oops13.pdf"&gt;academic work&lt;/a&gt; that explores advanced runtime checking (like "gradual" typing) and resulted in the &lt;a href="https://github.com/plum-umd/rtc"&gt;Ruby Type Checker&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id="future"&gt;Future&lt;/h2&gt;
 
@@ -9071,7 +9071,7 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/core/LoadError.html"&gt;ScriptError → LoadError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;A source file could not be &lt;a href="https://ruby-doc.org/core/Kernel.html#method-i-load"&gt;loaded&lt;/a&gt;, &lt;a href="https://ruby-doc.org/core/Kernel.html#method-i-require"&gt;required&lt;/a&gt;, or &lt;a href="https://ruby-doc.org/core/Kernel.html#method-i-require_relative"&gt;required relatively&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;It is meant for source code the current program is running and therfore should not be used for other kinds of files&lt;/td&gt;
+      &lt;td&gt;It is meant for source code the current program is running and therefore should not be used for other kinds of files&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/core/NotImplementedError.html"&gt;ScriptError → NotImplementedError&lt;/a&gt;&lt;/td&gt;
@@ -9095,7 +9095,7 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/core/Interrupt.html"&gt;SignalException → Interrupt&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;An interupt signal (SIGINT) is received&lt;/td&gt;
+      &lt;td&gt;An interrupt signal (SIGINT) is received&lt;/td&gt;
       &lt;td&gt;The common way to catch a signal is the &lt;a href="https://ruby-doc.org/core/Signal.html#method-c-trap"&gt;trap&lt;/a&gt; method&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -9222,7 +9222,7 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/core/NoMethodError.html"&gt;NameError → NoMethodError&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Raised if trying to call a method that does not exist, and no &lt;a href="https://ruby-doc.org/core/BasicObject.html#method-i-method_missing"&gt;&lt;code&gt;method_missing&lt;/code&gt;&lt;/a&gt; is defined&lt;/td&gt;
-      &lt;td&gt;Trying to call non-existant private methods of &lt;code&gt;self&lt;/code&gt; (like &lt;code&gt;Kernel#puts&lt;/code&gt;) will result in &lt;code&gt;NameError&lt;/code&gt; instead of &lt;code&gt;NoMethodError&lt;/code&gt;, because it could also have been a local variable&lt;/td&gt;
+      &lt;td&gt;Trying to call non-existent private methods of &lt;code&gt;self&lt;/code&gt; (like &lt;code&gt;Kernel#puts&lt;/code&gt;) will result in &lt;code&gt;NameError&lt;/code&gt; instead of &lt;code&gt;NoMethodError&lt;/code&gt;, because it could also have been a local variable&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/core/RangeError.html"&gt;RangeError&lt;/a&gt;&lt;/td&gt;
@@ -10041,7 +10041,7 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
     &lt;tr&gt;
       &lt;td&gt;Errno::ESRMNT&lt;/td&gt;
       &lt;td&gt;69&lt;/td&gt;
-      &lt;td&gt;Srmount error&lt;/td&gt;
+      &lt;td&gt;Surmount error&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -10394,7 +10394,7 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;If you take a closer look, you'll notice that Ruby's grammar has quite a few edge-case where its syntax is inconsistent or ambigious:&lt;/p&gt;
+    <content type="html">&lt;p&gt;If you take a closer look, you'll notice that Ruby's grammar has quite a few edge-case where its syntax is inconsistent or ambiguous:&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
@@ -10557,7 +10557,7 @@ end
 
 &lt;h2 id="null-objects"&gt;2 | Null Objects&lt;/h2&gt;
 
-&lt;p&gt;A more useful case would be to simplify often done object conversions, for example, converting &lt;a href="http://devblog.avdi.org/2011/05/30/null-objects-and-falsiness/"&gt;null objects&lt;/a&gt; to actual &lt;code&gt;nil&lt;/code&gt; for comparsions:&lt;/p&gt;
+&lt;p&gt;A more useful case would be to simplify often done object conversions, for example, converting &lt;a href="http://devblog.avdi.org/2011/05/30/null-objects-and-falsiness/"&gt;null objects&lt;/a&gt; to actual &lt;code&gt;nil&lt;/code&gt; for comparisons:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;# Definition
 class Object
@@ -10594,7 +10594,7 @@ null = CustomNullObject.new
 
 &lt;h2 id="symbol-conversion"&gt;3 | Symbol Conversion&lt;/h2&gt;
 
-&lt;p&gt;Another conversion related use of &lt;code&gt;+@&lt;/code&gt; is the following snippet, which also defines &lt;code&gt;-@&lt;/code&gt;. It will convert &lt;code&gt;String&lt;/code&gt; and &lt;code&gt;Symbol&lt;/code&gt; into each other's representation. It can be used as some kind of alternative to libraries that provide &lt;a href="http://api.rubyonrails.org/classes/ActiveSupport/HashWithIndifferentAccess.html"&gt;HashWithIndifferentAccess&lt;/a&gt;-kind functionality, by always explicitely converting the key:&lt;/p&gt;
+&lt;p&gt;Another conversion related use of &lt;code&gt;+@&lt;/code&gt; is the following snippet, which also defines &lt;code&gt;-@&lt;/code&gt;. It will convert &lt;code&gt;String&lt;/code&gt; and &lt;code&gt;Symbol&lt;/code&gt; into each other's representation. It can be used as some kind of alternative to libraries that provide &lt;a href="http://api.rubyonrails.org/classes/ActiveSupport/HashWithIndifferentAccess.html"&gt;HashWithIndifferentAccess&lt;/a&gt;-kind functionality, by always explicitly converting the key:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;# Definition
 class String
@@ -10674,7 +10674,7 @@ end
 [1,2,3] &amp;lt;--- [4,5,6]
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;The library is not maintained, anymore, but it is the craziest leveraging of Ruby's capabalities I've ever seen! The repo is at &lt;a href="https://github.com/jicksta/superators"&gt;jicksta/superators&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The library is not maintained, anymore, but it is the craziest leveraging of Ruby's capabilities I've ever seen! The repo is at &lt;a href="https://github.com/jicksta/superators"&gt;jicksta/superators&lt;/a&gt;.&lt;/p&gt;
 </content>
   </entry>
   <entry>
@@ -10751,7 +10751,7 @@ p JSON,YAML
 
 &lt;h2 id="appending-output"&gt;Appending Output&lt;/h2&gt;
 
-&lt;p&gt;&lt;code&gt;puts&lt;/code&gt; and &lt;code&gt;p&lt;/code&gt; are already good candidates to output content. However, sometimes, using &lt;code&gt;&amp;lt;&amp;lt;&lt;/code&gt; on &lt;code&gt;STDOUT&lt;/code&gt; is a tiny bit (or byte) more efficent:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;puts&lt;/code&gt; and &lt;code&gt;p&lt;/code&gt; are already good candidates to output content. However, sometimes, using &lt;code&gt;&amp;lt;&amp;lt;&lt;/code&gt; on &lt;code&gt;STDOUT&lt;/code&gt; is a tiny bit (or byte) more efficient:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;?a.upto(?z){|o|$&amp;gt;&amp;lt;&amp;lt;o}
 &lt;/code&gt;&lt;/pre&gt;
@@ -10765,7 +10765,7 @@ p JSON,YAML
 
 &lt;h2 id="stringtr"&gt;&lt;code&gt;String#tr&lt;/code&gt;&lt;/h2&gt;
 
-&lt;p&gt;However, it's not true - regexes do not always win. If you need to perform some simple character substitutions, &lt;a href="https://en.wikipedia.org/wiki/Tr_%28Unix%29"&gt;tr&lt;/a&gt; is an extremly short (and also clean) way to do so:&lt;/p&gt;
+&lt;p&gt;However, it's not true - regexes do not always win. If you need to perform some simple character substitutions, &lt;a href="https://en.wikipedia.org/wiki/Tr_%28Unix%29"&gt;tr&lt;/a&gt; is an extremely short (and also clean) way to do so:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;# ROT13 Cipher
 "Vqvbflapengvp Ehol".tr'a-zA-Z','n-za-mN-ZA-M'
@@ -10782,7 +10782,7 @@ p JSON,YAML
 
 &lt;h2 id="flexible-precedence"&gt;Flexible Precedence&lt;/h2&gt;
 
-&lt;p&gt;This is one of my favorites: Explicitely call (&lt;code&gt;.&lt;/code&gt;) operators for alternative precedence semantics:&lt;/p&gt;
+&lt;p&gt;This is one of my favorites: Explicitly call (&lt;code&gt;.&lt;/code&gt;) operators for alternative precedence semantics:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;3*(2+1) #=&amp;gt; 9
 3.*2+1 #=&amp;gt; 9
@@ -10974,7 +10974,7 @@ Class.private_instance_methods.grep /method/
       &lt;th&gt;Method&lt;/th&gt;
       &lt;th&gt;From&lt;/th&gt;
       &lt;th&gt;Target&lt;/th&gt;
-      &lt;th&gt;Visibilitiy&lt;/th&gt;
+      &lt;th&gt;Visibility&lt;/th&gt;
     &lt;/tr&gt;
   &lt;/thead&gt;
   &lt;tbody&gt;
@@ -11064,7 +11064,7 @@ Class.private_instance_methods.grep /method/
 &lt;/table&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;There are no methods to explicitely get private methods&lt;/li&gt;
+  &lt;li&gt;There are no methods to explicitly get private methods&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id="method-manipulation"&gt;Method Manipulation&lt;/h2&gt;
@@ -11552,7 +11552,7 @@ $ ruby -r uri -e 'p URI.regexp'
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/e2mmap/rdoc/Exception2MessageMapper.html"&gt;e2mmap&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/e2mmap.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Abstraction arround exception handling&lt;/td&gt;
+      &lt;td&gt;Abstraction around exception handling&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -11690,7 +11690,7 @@ $ ruby -r uri -e 'p URI.regexp'
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/observer/rdoc/Observable.html"&gt;observer&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/observer.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Implementation of the &lt;a href="https://en.wikipedia.org/wiki/Observer_pattern"&gt;observer pattern&lt;/a&gt;, a way to let interested other objects know o an objetc's updates&lt;/td&gt;
+      &lt;td&gt;Implementation of the &lt;a href="https://en.wikipedia.org/wiki/Observer_pattern"&gt;observer pattern&lt;/a&gt;, a way to let interested other objects know o an object's updates&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/janlelis/microevent.rb"&gt;microevent&lt;/a&gt;, &lt;a href="https://github.com/JEG2/signal_lamp/"&gt;signal_lamp&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -11822,7 +11822,7 @@ $ ruby -r uri -e 'p URI.regexp'
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/shellwords/rdoc/Shellwords.html"&gt;shellwords&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/shellwords.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Escape and manipulate commads to be run in the &lt;a href="https://en.wikipedia.org/wiki/Bourne_shell"&gt;shell&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Escape and manipulate commands to be run in the &lt;a href="https://en.wikipedia.org/wiki/Bourne_shell"&gt;shell&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -11888,7 +11888,7 @@ $ ruby -r uri -e 'p URI.regexp'
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/tsort/rdoc/TSort.html"&gt;tsort&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/tsort.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Topological sorting using &lt;a href="https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm"&gt;Tarjan’s algorithm&lt;/a&gt;, which finds &lt;a href="https://en.wikipedia.org/wiki/Strongly_connected_component"&gt;strongly connected components&lt;/a&gt; in &lt;a href="https://en.wikipedia.org/wiki/Graph_%28abstract_data_type%29"&gt;graphs&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Typological sorting using &lt;a href="https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm"&gt;Tarjan’s algorithm&lt;/a&gt;, which finds &lt;a href="https://en.wikipedia.org/wiki/Strongly_connected_component"&gt;strongly connected components&lt;/a&gt; in &lt;a href="https://en.wikipedia.org/wiki/Graph_%28abstract_data_type%29"&gt;graphs&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -11907,12 +11907,12 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/uri/rdoc/URI.html"&gt;uri&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/uri.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://en.wikipedia.org/wiki/Uniform_resource_identifier"&gt;URI&lt;/a&gt;/URL manipulation&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/sporkmonger/addressable"&gt;adressable&lt;/a&gt;,&lt;a href="https://github.com/tlewin/ruby-uriparser"&gt;ruby-uriparser&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/sporkmonger/addressable"&gt;addressable&lt;/a&gt;,&lt;a href="https://github.com/tlewin/ruby-uriparser"&gt;ruby-uriparser&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/weakref/rdoc/WeakRef.html"&gt;weakref&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/weakref.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Explicitely allow objects to be garbage collected&lt;/td&gt;
+      &lt;td&gt;Explicitly allow objects to be garbage collected&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby-concurrency/ref"&gt;ref&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -11989,7 +11989,7 @@ $ ruby -r uri -e 'p URI.regexp'
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/fcntl/rdoc/Fcntl.html"&gt;fcntl&lt;/a&gt; &lt;strong&gt;c&lt;/strong&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/ext/fcntl"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/ruby/fcntl"&gt;gem&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Loads values from the OS' &lt;code&gt;fcntl.h&lt;/code&gt; to be used for low-level &lt;a href="http://readruby.io/io#fcntl"&gt;file descriptior manipulation&lt;/a&gt; system calls with &lt;a href="https://ruby-doc.org/core/IO.html#method-i-fcntl"&gt;IO#fcntl&lt;/a&gt; and &lt;a href="https://ruby-doc.org/core/IO.html#method-c-sysopen"&gt;IO.sysopen&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Loads values from the OS' &lt;code&gt;fcntl.h&lt;/code&gt; to be used for low-level &lt;a href="http://readruby.io/io#fcntl"&gt;file descriptor manipulation&lt;/a&gt; system calls with &lt;a href="https://ruby-doc.org/core/IO.html#method-i-fcntl"&gt;IO#fcntl&lt;/a&gt; and &lt;a href="https://ruby-doc.org/core/IO.html#method-c-sysopen"&gt;IO.sysopen&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -12480,7 +12480,7 @@ Person.new("Jan", 26) # =&amp;gt; #&amp;lt;ValueStruct Person name="Jan", age=26
 
 &lt;h3 id="inherit"&gt;Inherit&lt;/h3&gt;
 
-&lt;p&gt;One way to add custom methods to a struct is to directley sub-class it:&lt;/p&gt;
+&lt;p&gt;One way to add custom methods to a struct is to directly sub-class it:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;class Person &amp;lt; Struct.new(:name, :age)
   def name_and_age
@@ -12489,7 +12489,7 @@ Person.new("Jan", 26) # =&amp;gt; #&amp;lt;ValueStruct Person name="Jan", age=26
 end
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;The bad thing about this is that it will add an aditionial entry to your ancestor chain:&lt;/p&gt;
+&lt;p&gt;The bad thing about this is that it will add an additional entry to your ancestor chain:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;Person.ancestors # =&amp;gt; [Person, #&amp;lt;Class:0x00000001612140&amp;gt;, Struct, ...]
 &lt;/code&gt;&lt;/pre&gt;
@@ -12527,7 +12527,7 @@ class Person
 end
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;It also seems to &lt;a href="https://gist.github.com/janlelis/02b75baac8521d311bf2"&gt;perfom slightly better&lt;/a&gt; than the other options.&lt;/p&gt;
+&lt;p&gt;It also seems to &lt;a href="https://gist.github.com/janlelis/02b75baac8521d311bf2"&gt;perform slightly better&lt;/a&gt; than the other options.&lt;/p&gt;
 
 &lt;h3 id="further-reading"&gt;Further Reading&lt;/h3&gt;
 
@@ -12570,17 +12570,17 @@ For example:
       MATZ
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;What you need to know is that the &lt;a href="https://idiosyncratic-ruby.com/9-globalization.html"&gt;special global variable&lt;/a&gt; &lt;code&gt;$_&lt;/code&gt; contains the last read input. When using &lt;code&gt;-n&lt;/code&gt; or &lt;code&gt;-p&lt;/code&gt;, this usualy means the current line. Another thing to keep in mind: &lt;code&gt;gets&lt;/code&gt; reads from &lt;a href="http://readruby.io/io#argf"&gt;&lt;code&gt;ARGF&lt;/code&gt;&lt;/a&gt;, not from &lt;code&gt;STDIN&lt;/code&gt;, so you can pass arguments that will be interpreted as filenames of the files that should be processed. Equipped with this knowlegde, you can build a very basic example, which just prints out the given file:&lt;/p&gt;
+&lt;p&gt;What you need to know is that the &lt;a href="https://idiosyncratic-ruby.com/9-globalization.html"&gt;special global variable&lt;/a&gt; &lt;code&gt;$_&lt;/code&gt; contains the last read input. When using &lt;code&gt;-n&lt;/code&gt; or &lt;code&gt;-p&lt;/code&gt;, this usually means the current line. Another thing to keep in mind: &lt;code&gt;gets&lt;/code&gt; reads from &lt;a href="http://readruby.io/io#argf"&gt;&lt;code&gt;ARGF&lt;/code&gt;&lt;/a&gt;, not from &lt;code&gt;STDIN&lt;/code&gt;, so you can pass arguments that will be interpreted as filenames of the files that should be processed. Equipped with this knowledge, you can build a very basic example, which just prints out the given file:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ ruby -ne 'print $_' filename
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Since print without arguments implicitely prints out &lt;code&gt;$_&lt;/code&gt;, this can be shortened to:&lt;/p&gt;
+&lt;p&gt;Since print without arguments implicitly prints out &lt;code&gt;$_&lt;/code&gt;, this can be shortened to:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ ruby -ne 'print' filename
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;If one uses &lt;code&gt;-p&lt;/code&gt;, instead of &lt;code&gt;-n&lt;/code&gt;, no code is required, because &lt;code&gt;-p&lt;/code&gt; will call &lt;code&gt;print&lt;/code&gt; implicitely:&lt;/p&gt;
+&lt;p&gt;If one uses &lt;code&gt;-p&lt;/code&gt;, instead of &lt;code&gt;-n&lt;/code&gt;, no code is required, because &lt;code&gt;-p&lt;/code&gt; will call &lt;code&gt;print&lt;/code&gt; implicitly:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ ruby -pe '' filename
 &lt;/code&gt;&lt;/pre&gt;
@@ -12604,7 +12604,7 @@ For example:
 &lt;ul&gt;
   &lt;li&gt;CLI Options: &lt;code&gt;-n&lt;/code&gt; &lt;code&gt;-p&lt;/code&gt; &lt;code&gt;-0&lt;/code&gt; &lt;code&gt;-F&lt;/code&gt; &lt;code&gt;-a&lt;/code&gt; &lt;code&gt;-i&lt;/code&gt; &lt;code&gt;-l&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;Global Variables: &lt;code&gt;$_&lt;/code&gt; &lt;code&gt;$/&lt;/code&gt; &lt;code&gt;$\&lt;/code&gt; &lt;code&gt;$;&lt;/code&gt; &lt;code&gt;$F&lt;/code&gt; &lt;code&gt;$.&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;Methods that operate on &lt;code&gt;$_&lt;/code&gt;, implicetly: &lt;code&gt;print&lt;/code&gt; &lt;code&gt;~&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Methods that operate on &lt;code&gt;$_&lt;/code&gt;, implicitly: &lt;code&gt;print&lt;/code&gt; &lt;code&gt;~&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;The special &lt;code&gt;BEGIN{}&lt;/code&gt; and &lt;code&gt;END{}&lt;/code&gt; blocks&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -12629,7 +12629,7 @@ For example:
 &lt;pre&gt;&lt;code&gt;$ ruby -ne 'print if ~/\d/' filename
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;The message to take away: The &lt;code&gt;~&lt;/code&gt; method implicitely matches the regex against &lt;code&gt;$_&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The message to take away: The &lt;code&gt;~&lt;/code&gt; method implicitly matches the regex against &lt;code&gt;$_&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;But it gets even better:&lt;/p&gt;
 
@@ -12645,7 +12645,7 @@ For example:
 
 &lt;h2 id="inplace-editing-files"&gt;Inplace-Editing files&lt;/h2&gt;
 
-&lt;p&gt;Using the &lt;code&gt;-i&lt;/code&gt; option, you can modify files directy (just like &lt;code&gt;sed&lt;/code&gt;'s &lt;code&gt;-i&lt;/code&gt; mode). For example, removing all trailing spaces:&lt;/p&gt;
+&lt;p&gt;Using the &lt;code&gt;-i&lt;/code&gt; option, you can modify files directly (just like &lt;code&gt;sed&lt;/code&gt;'s &lt;code&gt;-i&lt;/code&gt; mode). For example, removing all trailing spaces:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ ruby -ne 'puts $_.rstrip!' -i filename
 &lt;/code&gt;&lt;/pre&gt;
@@ -12743,7 +12743,7 @@ include Math
 end
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Nothing will fail, anymore. Not a good idea. Also see: &lt;a href="https://github.com/raganwald-deprecated/homoiconic/blob/master/2009-02-02/hopeless_egocentricity.md"&gt;Hopless Egocentricity&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Nothing will fail, anymore. Not a good idea. Also see: &lt;a href="https://github.com/raganwald-deprecated/homoiconic/blob/master/2009-02-02/hopeless_egocentricity.md"&gt;Hopeless Egocentricity&lt;/a&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;IDio.synCRATIC # =&amp;gt; nil
 &lt;/code&gt;&lt;/pre&gt;
@@ -13182,18 +13182,18 @@ b # NameError: ...
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;Ruby puts a lot of effort into its &lt;a href="https://ruby-doc.org/core/Enumerable"&gt;Enumerable&lt;/a&gt; module, offering a lot of different ways of iterating through collections. It is one of the reasons for Ruby's success, but you can also call it idiosyncratic, sometimes. This episode potraits enumerables' three handy &lt;code&gt;slice_*&lt;/code&gt; methods.&lt;/p&gt;
+    <content type="html">&lt;p&gt;Ruby puts a lot of effort into its &lt;a href="https://ruby-doc.org/core/Enumerable"&gt;Enumerable&lt;/a&gt; module, offering a lot of different ways of iterating through collections. It is one of the reasons for Ruby's success, but you can also call it idiosyncratic, sometimes. This episode portraits enumerables' three handy &lt;code&gt;slice_*&lt;/code&gt; methods.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
 &lt;h2 id="slicing-enumerables"&gt;Slicing Enumerables&lt;/h2&gt;
 
-&lt;p&gt;Slicing lets you devide a collection into sub-collections. Take this array:&lt;/p&gt;
+&lt;p&gt;Slicing lets you divide a collection into sub-collections. Take this array:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;a = %w[Ruby in the back-end, AngularJS in the front-end]
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Let's say you want to devide it into smaller arrays. The simplest option would be passing a regex to &lt;code&gt;slice_before&lt;/code&gt; describing where to slice:&lt;/p&gt;
+&lt;p&gt;Let's say you want to divide it into smaller arrays. The simplest option would be passing a regex to &lt;code&gt;slice_before&lt;/code&gt; describing where to slice:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;a.slice_before(/,/).to_a
 # =&amp;gt; [["Ruby", "in", "the"], ["back-end,", "AngularJS", "in", "the", "front-end"]]
@@ -13448,7 +13448,7 @@ string[/\X\X/] #=&amp;gt; "R̊u"
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;Ruby's &lt;a href="https://ruby-doc.org/core/ENV.html"&gt;ENV object&lt;/a&gt; gives you accss to &lt;a href="https://en.wikipedia.org/wiki/Environment_variable"&gt;enviroment variables&lt;/a&gt;. It looks like normal &lt;a href="https://ruby-doc.org/core/Hash.html"&gt;Ruby hash&lt;/a&gt;:&lt;/p&gt;
+    <content type="html">&lt;p&gt;Ruby's &lt;a href="https://ruby-doc.org/core/ENV.html"&gt;ENV object&lt;/a&gt; gives you access to &lt;a href="https://en.wikipedia.org/wiki/Environment_variable"&gt;environment variables&lt;/a&gt;. It looks like normal &lt;a href="https://ruby-doc.org/core/Hash.html"&gt;Ruby hash&lt;/a&gt;:&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
@@ -14029,7 +14029,7 @@ switch.rb: no implicit conversion of true into Integer (TypeError)
 &lt;pre&gt;&lt;code&gt;$ ruby -require "un" -e "httpd" . -p 8080
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;The &lt;code&gt;-e&lt;/code&gt; option directly executes the ruby code given, and &lt;code&gt;-r&lt;/code&gt; is the short version of &lt;code&gt;--require&lt;/code&gt;. So it requires "un", which happens to be included in Ruby's standard library¹. It was written by Hirofumi WATANABE (eban), a long-time Ruby contributer and code golf star. &lt;code&gt;un.rb&lt;/code&gt;s goal is to
+&lt;p&gt;The &lt;code&gt;-e&lt;/code&gt; option directly executes the ruby code given, and &lt;code&gt;-r&lt;/code&gt; is the short version of &lt;code&gt;--require&lt;/code&gt;. So it requires "un", which happens to be included in Ruby's standard library¹. It was written by Hirofumi WATANABE (eban), a long-time Ruby contributor and code golf star. &lt;code&gt;un.rb&lt;/code&gt;s goal is to
 provide:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;# Utilities to replace common UNIX commands in Makefiles etc
@@ -14585,7 +14585,7 @@ provide:&lt;/p&gt;
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;–bind-adress=ADDR&lt;/td&gt;
+      &lt;td&gt;–bind-address=ADDR&lt;/td&gt;
       &lt;td&gt;-b&lt;/td&gt;
       &lt;td&gt;IP address to bind to&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;-b 127.0.0.1&lt;/code&gt;&lt;/td&gt;
@@ -15161,9 +15161,9 @@ puts "#{`ps -o rss -p #{Process.pid}`.strip.split.last.to_i / 1024.0} MB"
 
 &lt;h3 id="a-note-on-byte-order-big-endian-vs-little-endian"&gt;A Note on Byte Order (Big-Endian vs. Little-Endian)&lt;/h3&gt;
 
-&lt;p&gt;All the previous examples used the native byte order, which means, that the operating system defines, if the more significant bytes come first (little-endian) or last (big-endian). You will find more information about &lt;a href="https://en.wikipedia.org/wiki/Endianness"&gt;"endianess" on wikipedia&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;All the previous examples used the native byte order, which means, that the operating system defines, if the more significant bytes come first (little-endian) or last (big-endian). You will find more information about &lt;a href="https://en.wikipedia.org/wiki/Endianness"&gt;"endianness" on wikipedia&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;If you don't want to rely on your operating system to define byte order, you can add &lt;code&gt;&amp;gt;&lt;/code&gt; for big-endianess or &lt;code&gt;&amp;lt;&lt;/code&gt; for little-endianess to your template's directives:&lt;/p&gt;
+&lt;p&gt;If you don't want to rely on your operating system to define byte order, you can add &lt;code&gt;&amp;gt;&lt;/code&gt; for big-endianness or &lt;code&gt;&amp;lt;&lt;/code&gt; for little-endianness to your template's directives:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;"\x01\x00\x02\x00".unpack("S&amp;lt;*") #=&amp;gt; [1, 2]
 "\x01\x00\x02\x00".unpack("S&amp;gt;*") #=&amp;gt; [256, 512]
@@ -15637,7 +15637,7 @@ end
 
 &lt;p&gt;Note that the Verbosity mode is different for &lt;code&gt;$VERBOSE == false&lt;/code&gt; and &lt;code&gt;$VERBOSE == nil&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;Another side note: While it is possible to change &lt;code&gt;$DEBUG&lt;/code&gt; to an arbitrary value, this is not true for &lt;code&gt;$VERBOSE&lt;/code&gt; - If you assign it a truish value, it will just be set to &lt;code&gt;true&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Another side note: While it is possible to change &lt;code&gt;$DEBUG&lt;/code&gt; to an arbitrary value, this is not true for &lt;code&gt;$VERBOSE&lt;/code&gt; - If you assign it a trueish value, it will just be set to &lt;code&gt;true&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;What follows is a list of command line options that have an effects on the debug modes:&lt;/p&gt;
 

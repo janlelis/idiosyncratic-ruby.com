@@ -235,7 +235,7 @@ Person.new("Jan", 26) # =&gt; #&lt;ValueStruct Person name="Jan", age=26&gt;
 
 <h3 id="inherit">Inherit</h3>
 
-<p>One way to add custom methods to a struct is to directley sub-class it:</p>
+<p>One way to add custom methods to a struct is to directly sub-class it:</p>
 
 <pre><code>class Person &lt; Struct.new(:name, :age)
   def name_and_age
@@ -244,7 +244,7 @@ Person.new("Jan", 26) # =&gt; #&lt;ValueStruct Person name="Jan", age=26&gt;
 end
 </code></pre>
 
-<p>The bad thing about this is that it will add an aditionial entry to your ancestor chain:</p>
+<p>The bad thing about this is that it will add an additional entry to your ancestor chain:</p>
 
 <pre><code>Person.ancestors # =&gt; [Person, #&lt;Class:0x00000001612140&gt;, Struct, ...]
 </code></pre>
@@ -282,7 +282,7 @@ class Person
 end
 </code></pre>
 
-<p>It also seems to <a href="https://gist.github.com/janlelis/02b75baac8521d311bf2">perfom slightly better</a> than the other options.</p>
+<p>It also seems to <a href="https://gist.github.com/janlelis/02b75baac8521d311bf2">perform slightly better</a> than the other options.</p>
 
 <h3 id="further-reading">Further Reading</h3>
 
@@ -305,11 +305,11 @@ end
       <footer>
         <div class="footer-right">
           On <a href="/">Idiosyncratic Ruby</a> by <a href="https://janlelis.com">Jan Lelis</a><br>
-          Article Contributions by: Felix Schäfer, Eric Bouchut<br>
+          Article Contributions by: Yauheni Dakuka, Felix Schäfer, Eric Bouchut<br>
           <a href="https://janlelis.com/data-protection.html">Data Protection</a>
         </div>
         About Core<br>
-        Last Update: 2017-12-25
+        Last Update: 2018-07-09
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

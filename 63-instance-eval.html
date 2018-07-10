@@ -115,7 +115,7 @@
 <p>While <code>class_eval</code> behaves exactly as if it was in no eval-context at all, <code>instance_eval</code> features a notable difference:
 <strong><span class="action-color">def inside instance_eval will define methods one class-level higher</span></strong>. So when <code>instance_eval</code> is executed on instances, <code>def</code> will create instance methods instead of singleton methods. And when it is run on classes, <code>def</code> will create class methods instead of instance methods.</p>
 
-<p>Another difference is that while <a href="https://ruby-doc.org/core/Module.html#method-i-class_eval"><code>class_eval</code> is defined on Module</a>, <a href="https://ruby-doc.org/core/BasicObject.html#method-i-instance_eval"><code>instance_eval</code> lives in BasicObject</a> allowing you to use it on any object, not only modules and classes. However, there is a simple way to use <code>class_eval</code> for instances, too. You can explicitely use the object's singleton class (<code>class &lt;&lt; self</code>), which is a module:</p>
+<p>Another difference is that while <a href="https://ruby-doc.org/core/Module.html#method-i-class_eval"><code>class_eval</code> is defined on Module</a>, <a href="https://ruby-doc.org/core/BasicObject.html#method-i-instance_eval"><code>instance_eval</code> lives in BasicObject</a> allowing you to use it on any object, not only modules and classes. However, there is a simple way to use <code>class_eval</code> for instances, too. You can explicitly use the object's singleton class (<code>class &lt;&lt; self</code>), which is a module:</p>
 
 <pre><code>o = Object.new # =&gt; #&lt;Object:0x000055b6fdabf1f8&gt;
 o.singleton_class.class_eval do
@@ -524,11 +524,11 @@ C.singleton_class.m #=&gt; #&lt;Class:C&gt;
       <footer>
         <div class="footer-right">
           On <a href="/">Idiosyncratic Ruby</a> by <a href="https://janlelis.com">Jan Lelis</a><br>
-          Article Contributions by: Piotr Szotkowski<br>
+          Article Contributions by: Yauheni Dakuka, Piotr Szotkowski<br>
           <a href="https://janlelis.com/data-protection.html">Data Protection</a>
         </div>
         About Core, Meta<br>
-        Last Update: 2018-05-04
+        Last Update: 2018-07-09
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

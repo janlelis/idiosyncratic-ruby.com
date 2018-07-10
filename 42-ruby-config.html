@@ -22,7 +22,7 @@
       </section>
 
       <article class="post">
-        <p>At some point when working with Ruby, you come across this misterious <strong>RbConfig</strong> constant. A typical scenario is that you want to check which operating system your current program is executed on. You can do this with <code>RbConfig::CONFIG['host_os']</code> or <code>RbConfig::CONFIG['arch']</code>, see the <a href="https://github.com/rubygems/rubygems/blob/v2.6.3/lib/rubygems/platform.rb#L19-L112">RubyGems source</a> for an advanced example!</p>
+        <p>At some point when working with Ruby, you come across this mysterious <strong>RbConfig</strong> constant. A typical scenario is that you want to check which operating system your current program is executed on. You can do this with <code>RbConfig::CONFIG['host_os']</code> or <code>RbConfig::CONFIG['arch']</code>, see the <a href="https://github.com/rubygems/rubygems/blob/v2.6.3/lib/rubygems/platform.rb#L19-L112">RubyGems source</a> for an advanced example!</p>
 
 <p></p>
 
@@ -45,7 +45,7 @@ the <em>LIBRUBY_SO</em> value could be converted from <code>"lib$(RUBY_SO_NAME).
 
 <h2 id="rbconfigtopdir"><code>RbConfig::TOPDIR</code></h2>
 
-<p>Returns the directory where the Ruby interpeter is located:</p>
+<p>Returns the directory where the Ruby interpreter is located:</p>
 
 <pre><code>require "rbconfig"
 RbConfig::TOPDIR #=&gt; "/home/jan/.rvm/rubies/ruby-2.3.0"
@@ -1167,7 +1167,7 @@ RbConfig::TOPDIR #=&gt; "/home/jan/.rvm/rubies/ruby-2.3.0"
 
 <h2 id="rbconfigsizeof"><code>RbConfig::SIZEOF</code></h2>
 
-<p>This hash contains the <a href="https://github.com/ruby/ruby/blob/trunk/template/sizes.c.tmpl">byte sizes of low-level data structures</a> of your system. This is useful when interacting with external libraries via <a href="https://github.com/ffi/ffi">FFI</a>/<a href="https://ruby-doc.org/stdlib/libdoc/fiddle/rdoc/Fiddle.html">Fiddle</a>. I needs to be explicitely required:</p>
+<p>This hash contains the <a href="https://github.com/ruby/ruby/blob/trunk/template/sizes.c.tmpl">byte sizes of low-level data structures</a> of your system. This is useful when interacting with external libraries via <a href="https://github.com/ffi/ffi">FFI</a>/<a href="https://ruby-doc.org/stdlib/libdoc/fiddle/rdoc/Fiddle.html">Fiddle</a>. I needs to be explicitly required:</p>
 
 <pre><code>require "rbconfig/sizeof"
 RbConfig::SIZEOF # =&gt; {"int"=&gt;4, "short"=&gt;2, "long"=&gt;8, "long long"=&gt;8, ...
@@ -1390,11 +1390,11 @@ RbConfig::SIZEOF # =&gt; {"int"=&gt;4, "short"=&gt;2, "long"=&gt;8, "long long"=
       <footer>
         <div class="footer-right">
           On <a href="/">Idiosyncratic Ruby</a> by <a href="https://janlelis.com">Jan Lelis</a><br>
-          
+          Article Contributions by: Yauheni Dakuka<br>
           <a href="https://janlelis.com/data-protection.html">Data Protection</a>
         </div>
         About Stdlib, Implementations<br>
-        Last Update: 2017-12-25
+        Last Update: 2018-07-09
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

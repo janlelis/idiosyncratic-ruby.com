@@ -44,17 +44,17 @@ For example:
       MATZ
 </code></pre>
 
-<p>What you need to know is that the <a href="https://idiosyncratic-ruby.com/9-globalization.html">special global variable</a> <code>$_</code> contains the last read input. When using <code>-n</code> or <code>-p</code>, this usualy means the current line. Another thing to keep in mind: <code>gets</code> reads from <a href="http://readruby.io/io#argf"><code>ARGF</code></a>, not from <code>STDIN</code>, so you can pass arguments that will be interpreted as filenames of the files that should be processed. Equipped with this knowlegde, you can build a very basic example, which just prints out the given file:</p>
+<p>What you need to know is that the <a href="https://idiosyncratic-ruby.com/9-globalization.html">special global variable</a> <code>$_</code> contains the last read input. When using <code>-n</code> or <code>-p</code>, this usually means the current line. Another thing to keep in mind: <code>gets</code> reads from <a href="http://readruby.io/io#argf"><code>ARGF</code></a>, not from <code>STDIN</code>, so you can pass arguments that will be interpreted as filenames of the files that should be processed. Equipped with this knowledge, you can build a very basic example, which just prints out the given file:</p>
 
 <pre><code>$ ruby -ne 'print $_' filename
 </code></pre>
 
-<p>Since print without arguments implicitely prints out <code>$_</code>, this can be shortened to:</p>
+<p>Since print without arguments implicitly prints out <code>$_</code>, this can be shortened to:</p>
 
 <pre><code>$ ruby -ne 'print' filename
 </code></pre>
 
-<p>If one uses <code>-p</code>, instead of <code>-n</code>, no code is required, because <code>-p</code> will call <code>print</code> implicitely:</p>
+<p>If one uses <code>-p</code>, instead of <code>-n</code>, no code is required, because <code>-p</code> will call <code>print</code> implicitly:</p>
 
 <pre><code>$ ruby -pe '' filename
 </code></pre>
@@ -78,7 +78,7 @@ For example:
 <ul>
   <li>CLI Options: <code>-n</code> <code>-p</code> <code>-0</code> <code>-F</code> <code>-a</code> <code>-i</code> <code>-l</code></li>
   <li>Global Variables: <code>$_</code> <code>$/</code> <code>$\</code> <code>$;</code> <code>$F</code> <code>$.</code></li>
-  <li>Methods that operate on <code>$_</code>, implicetly: <code>print</code> <code>~</code></li>
+  <li>Methods that operate on <code>$_</code>, implicitly: <code>print</code> <code>~</code></li>
   <li>The special <code>BEGIN{}</code> and <code>END{}</code> blocks</li>
 </ul>
 
@@ -103,7 +103,7 @@ For example:
 <pre><code>$ ruby -ne 'print if ~/\d/' filename
 </code></pre>
 
-<p>The message to take away: The <code>~</code> method implicitely matches the regex against <code>$_</code>.</p>
+<p>The message to take away: The <code>~</code> method implicitly matches the regex against <code>$_</code>.</p>
 
 <p>But it gets even better:</p>
 
@@ -119,7 +119,7 @@ For example:
 
 <h2 id="inplace-editing-files">Inplace-Editing files</h2>
 
-<p>Using the <code>-i</code> option, you can modify files directy (just like <code>sed</code>'s <code>-i</code> mode). For example, removing all trailing spaces:</p>
+<p>Using the <code>-i</code> option, you can modify files directly (just like <code>sed</code>'s <code>-i</code> mode). For example, removing all trailing spaces:</p>
 
 <pre><code>$ ruby -ne 'puts $_.rstrip!' -i filename
 </code></pre>
@@ -188,11 +188,11 @@ For example:
       <footer>
         <div class="footer-right">
           On <a href="/">Idiosyncratic Ruby</a> by <a href="https://janlelis.com">Jan Lelis</a><br>
-          Article Contributions by: Piotr Szotkowski<br>
+          Article Contributions by: Yauheni Dakuka, Piotr Szotkowski<br>
           <a href="https://janlelis.com/data-protection.html">Data Protection</a>
         </div>
         About Cli-options, Golf, Globals, One-liner<br>
-        Last Update: 2017-12-25
+        Last Update: 2018-07-09
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
