@@ -33,7 +33,7 @@ No more `NoMethodError: undefined method` or `NameError: uninitialized constant`
       end
     end
 
-Nothing will fail, anymore. Not a good idea. Also see: [Hopless Egocentricity](https://github.com/raganwald-deprecated/homoiconic/blob/master/2009-02-02/hopeless_egocentricity.md)
+Nothing will fail, anymore. Not a good idea. Also see: [Hopeless Egocentricity](https://github.com/raganwald-deprecated/homoiconic/blob/master/2009-02-02/hopeless_egocentricity.md)
 
     IDio.synCRATIC # => nil
 

@@ -245,9 +245,9 @@ See the standard and documentation for more details, including the differences b
 
 Even in normalization form, there are characters which look very similar (sometimes even identical):
 
-Codpoints A             | String A | String B | Codepoints B
+Codepoints A            | String A | String B | Codepoints B
 ------------------------|----------|----------|-------------
-**U+003F** + **U+003F** | `??`     | `⁇`     | **U+2047**
+**U+003F** + **U+003F** | `??`     | `⁇`      | **U+2047**
 **U+0043**              | `C`      | `С`      | **U+0421**
 **U+0031**              | `1`      | `l`      | **U+006C**
 

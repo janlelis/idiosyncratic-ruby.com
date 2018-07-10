@@ -5,7 +5,7 @@ tags: stdlib, implementations
 commit: d0f5cab36377da740d3f85bf35b2db68cdb5c541
 ---
 
-At some point when working with Ruby, you come across this misterious **RbConfig** constant. A typical scenario is that you want to check which operating system your current program is executed on. You can do this with `RbConfig::CONFIG['host_os']` or `RbConfig::CONFIG['arch']`, see the [RubyGems source](https://github.com/rubygems/rubygems/blob/v2.6.3/lib/rubygems/platform.rb#L19-L112) for an advanced example!
+At some point when working with Ruby, you come across this mysterious **RbConfig** constant. A typical scenario is that you want to check which operating system your current program is executed on. You can do this with `RbConfig::CONFIG['host_os']` or `RbConfig::CONFIG['arch']`, see the [RubyGems source](https://github.com/rubygems/rubygems/blob/v2.6.3/lib/rubygems/platform.rb#L19-L112) for an advanced example!
 
 ARTICLE
 
@@ -27,7 +27,7 @@ the *LIBRUBY\_SO* value could be converted from `"lib$(RUBY_SO_NAME).so.$(MAJOR)
 
 ## `RbConfig::TOPDIR`
 
-Returns the directory where the Ruby interpeter is located:
+Returns the directory where the Ruby interpreter is located:
 
     require "rbconfig"
     RbConfig::TOPDIR #=> "/home/jan/.rvm/rubies/ruby-2.3.0"
@@ -268,7 +268,7 @@ topdir                | `File.dirname(__FILE__)`            | `"/home/jan/.rvm/r
 
 ## `RbConfig::SIZEOF`
 
-This hash contains the [byte sizes of low-level data structures](https://github.com/ruby/ruby/blob/trunk/template/sizes.c.tmpl) of your system. This is useful when interacting with external libraries via [FFI](https://github.com/ffi/ffi)/[Fiddle](https://ruby-doc.org/stdlib/libdoc/fiddle/rdoc/Fiddle.html). I needs to be explicitely required:
+This hash contains the [byte sizes of low-level data structures](https://github.com/ruby/ruby/blob/trunk/template/sizes.c.tmpl) of your system. This is useful when interacting with external libraries via [FFI](https://github.com/ffi/ffi)/[Fiddle](https://ruby-doc.org/stdlib/libdoc/fiddle/rdoc/Fiddle.html). I needs to be explicitly required:
 
     require "rbconfig/sizeof"
     RbConfig::SIZEOF # => {"int"=>4, "short"=>2, "long"=>8, "long long"=>8, ...

@@ -15,12 +15,12 @@ Exception | Thrown by core Ruby when | Remarks
 ----------|--------------------------|--------
 [NoMemoryError](https://ruby-doc.org/core/NoMemoryError.html) | The Ruby interpreter could not allocate the required memory | `"Idiosyncratic" * 100_000_000_000`
 [ScriptError](https://ruby-doc.org/core/ScriptError.html) | - | Not thrown directly
-[ScriptError → LoadError](https://ruby-doc.org/core/LoadError.html) | A source file could not be [loaded](https://ruby-doc.org/core/Kernel.html#method-i-load), [required](https://ruby-doc.org/core/Kernel.html#method-i-require), or [required relatively](https://ruby-doc.org/core/Kernel.html#method-i-require_relative) | It is meant for source code the current program is running and therfore should not be used for other kinds of files
+[ScriptError → LoadError](https://ruby-doc.org/core/LoadError.html) | A source file could not be [loaded](https://ruby-doc.org/core/Kernel.html#method-i-load), [required](https://ruby-doc.org/core/Kernel.html#method-i-require), or [required relatively](https://ruby-doc.org/core/Kernel.html#method-i-require_relative) | It is meant for source code the current program is running and therefore should not be used for other kinds of files
 [ScriptError → NotImplementedError](https://ruby-doc.org/core/NotImplementedError.html) | A feature of Ruby does not work on this platform/OS, for example, [fork](https://ruby-doc.org/core/Process.html#method-c-fork) | Although it is often used as "I have not implemented it (yet)", its original purpose is low-level platform support errors
 [ScriptError → SyntaxError](https://ruby-doc.org/core/SyntaxError.html) | Invalid Ruby syntax was found | Do not raise when parsing some other file format fails. It is meant for source code that the current program is running.
 [SecurityError](https://ruby-doc.org/core/SecurityError.html) | Mostly raised when attempting a forbidden [$SAFE level 1](http://ruby-doc.com/docs/ProgrammingRuby/html/taint.html) operation | Use as base class for critical security issues, which should intentionally not be rescued by default
 [SignalException](https://ruby-doc.org/core/SignalException.html) | A signal is received | The common way to catch a signal is the [trap](https://ruby-doc.org/core/Signal.html#method-c-trap) method
-[SignalException → Interrupt](https://ruby-doc.org/core/Interrupt.html) | An interupt signal (SIGINT) is received | The common way to catch a signal is the [trap](https://ruby-doc.org/core/Signal.html#method-c-trap) method
+[SignalException → Interrupt](https://ruby-doc.org/core/Interrupt.html) | An interrupt signal (SIGINT) is received | The common way to catch a signal is the [trap](https://ruby-doc.org/core/Signal.html#method-c-trap) method
 [StandardError](https://ruby-doc.org/core/StandardError.html) | - | Base class for normal exceptions. See next table.
 [SystemExit](https://ruby-doc.org/core/SystemExit.html) | Thrown by [Kernel#exit](https://ruby-doc.org/core/Kernel.html#method-i-exit) | Not thrown by [Kernel#exit!](https://ruby-doc.org/core/Kernel.html#method-i-exit-21)
 [SystemStackError](https://ruby-doc.org/core/SystemStackError.html) | Raised for stack overflows, for example, in case of infinite recursion | Cannot always be caught by the interpreter
@@ -50,7 +50,7 @@ Exception | Thrown by core Ruby when | Remarks
 [LocalJumpError](https://ruby-doc.org/core/LocalJumpError.html) | Thrown when an invalid control flow operation is attempted, like calling `yield` from a method that was not passed a block to | `LocalJumpError`s contains a `reason` and an `exit_value` property from the last valid context
 [Math::DomainError](https://ruby-doc.org/core/Math/DomainError.html) | An invalid mathematical operation was attempted, for example, trying to calculate the [arctan](https://en.wikipedia.org/wiki/Inverse_trigonometric_functions) of a value greater than 1 | -
 [NameError](https://ruby-doc.org/core/NameError.html) | Raised when referencing things that do not exist, like unknown constants | -
-[NameError → NoMethodError](https://ruby-doc.org/core/NoMethodError.html) | Raised if trying to call a method that does not exist, and no [`method_missing`](https://ruby-doc.org/core/BasicObject.html#method-i-method_missing) is defined | Trying to call non-existant private methods of `self` (like `Kernel#puts`) will result in `NameError` instead of `NoMethodError`, because it could also have been a local variable
+[NameError → NoMethodError](https://ruby-doc.org/core/NoMethodError.html) | Raised if trying to call a method that does not exist, and no [`method_missing`](https://ruby-doc.org/core/BasicObject.html#method-i-method_missing) is defined | Trying to call non-existent private methods of `self` (like `Kernel#puts`) will result in `NameError` instead of `NoMethodError`, because it could also have been a local variable
 [RangeError](https://ruby-doc.org/core/RangeError.html) | A numerical number is off, most often it is too small or big | For example, `[].pack("C100000000000000000000")` does not work, because [pack](https://idiosyncratic-ruby.com/4-what-the-pack.html#c--an-unsigned-integer-per-byte) requires the number to fit into `long`
 [RangeError → FloatDomainError](https://ruby-doc.org/core/FloatDomainError.html) | Raised when trying to convert a special Float value (`NaN`, `Float::INFINITY`) to another number format that does not support special values | -
 [RegexpError](https://ruby-doc.org/core/RegexpError.html) | Raised when trying to dynamically create an invalid regex | -
@@ -195,7 +195,7 @@ Errno::ESHUTDOWN         | 108 | Cannot send after transport endpoint shutdown |
 Errno::ESOCKTNOSUPPORT   | 94  | Socket type not supported | -
 Errno::ESPIPE            | 29  | Illegal seek | -
 Errno::ESRCH             | 3   | No such process | `Process.kill(:KILL, 987654321)`
-Errno::ESRMNT            | 69  | Srmount error | -
+Errno::ESRMNT            | 69  | Surmount error | -
 Errno::ESTALE            | 116 | Stale file handle | -
 Errno::ESTRPIPE          | 86  | Streams pipe error | -
 Errno::ETIME             | 62  | Timer expired | -

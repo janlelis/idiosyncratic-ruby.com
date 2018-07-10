@@ -63,7 +63,7 @@ Finding the shortest way to read user input is a common problem for golfers and 
 
 ## Appending Output
 
-`puts` and `p` are already good candidates to output content. However, sometimes, using `<<` on `STDOUT` is a tiny bit (or byte) more efficent:
+`puts` and `p` are already good candidates to output content. However, sometimes, using `<<` on `STDOUT` is a tiny bit (or byte) more efficient:
 
     ?a.upto(?z){|o|$><<o}
 
@@ -75,7 +75,7 @@ This is one of the golden rules of golfing. Especially, combining the [block syn
 
 ## `String#tr`
 
-However, it's not true - regexes do not always win. If you need to perform some simple character substitutions, [tr](https://en.wikipedia.org/wiki/Tr_%28Unix%29) is an extremly short (and also clean) way to do so:
+However, it's not true - regexes do not always win. If you need to perform some simple character substitutions, [tr](https://en.wikipedia.org/wiki/Tr_%28Unix%29) is an extremely short (and also clean) way to do so:
 
     # ROT13 Cipher
     "Vqvbflapengvp Ehol".tr'a-zA-Z','n-za-mN-ZA-M'
@@ -90,7 +90,7 @@ In some instances, you cannot use `i+1` or `i-1` without wrapping them in parent
 
 ## Flexible Precedence
 
-This is one of my favorites: Explicitely call (`.`) operators for alternative precedence semantics:
+This is one of my favorites: Explicitly call (`.`) operators for alternative precedence semantics:
 
     3*(2+1) #=> 9
     3.*2+1 #=> 9

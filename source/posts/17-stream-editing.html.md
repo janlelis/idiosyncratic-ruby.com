@@ -25,15 +25,15 @@ And its sibling `-p`:
           % echo matz | ruby -p -e '$_.tr! "a-z", "A-Z"'
           MATZ
 
-What you need to know is that the [special global variable](https://idiosyncratic-ruby.com/9-globalization.html) `$_` contains the last read input. When using `-n` or `-p`, this usualy means the current line. Another thing to keep in mind: `gets` reads from [`ARGF`](http://readruby.io/io#argf), not from `STDIN`, so you can pass arguments that will be interpreted as filenames of the files that should be processed. Equipped with this knowlegde, you can build a very basic example, which just prints out the given file:
+What you need to know is that the [special global variable](https://idiosyncratic-ruby.com/9-globalization.html) `$_` contains the last read input. When using `-n` or `-p`, this usually means the current line. Another thing to keep in mind: `gets` reads from [`ARGF`](http://readruby.io/io#argf), not from `STDIN`, so you can pass arguments that will be interpreted as filenames of the files that should be processed. Equipped with this knowledge, you can build a very basic example, which just prints out the given file:
 
     $ ruby -ne 'print $_' filename
 
-Since print without arguments implicitely prints out `$_`, this can be shortened to:
+Since print without arguments implicitly prints out `$_`, this can be shortened to:
 
     $ ruby -ne 'print' filename
 
-If one uses `-p`, instead of `-n`, no code is required, because `-p` will call `print` implicitely:
+If one uses `-p`, instead of `-n`, no code is required, because `-p` will call `print` implicitly:
 
     $ ruby -pe '' filename
 
@@ -53,7 +53,7 @@ There is more to assist you in writing these short line manipulation scripts:
 
 * CLI Options: `-n` `-p` `-0` `-F` `-a` `-i` `-l`
 * Global Variables: `$_` `$/` `$\` `$;` `$F` `$.`
-* Methods that operate on `$_`, implicetly: `print` `~`
+* Methods that operate on `$_`, implicitly: `print` `~`
 * The special `BEGIN{}` and `END{}` blocks
 
 ## Running Code Before or After Processing the Input
@@ -74,7 +74,7 @@ Now let's do some conditional processing: Only print a line if it contains a dig
 
     $ ruby -ne 'print if ~/\d/' filename
 
-The message to take away: The `~` method implicitely matches the regex against `$_`.
+The message to take away: The `~` method implicitly matches the regex against `$_`.
 
 But it gets even better:
 
@@ -88,7 +88,7 @@ This also works when using the ternary operator for conditions:
 
 ## Inplace-Editing files
 
-Using the `-i` option, you can modify files directy (just like `sed`'s `-i` mode). For example, removing all trailing spaces:
+Using the `-i` option, you can modify files directly (just like `sed`'s `-i` mode). For example, removing all trailing spaces:
 
     $ ruby -ne 'puts $_.rstrip!' -i filename
 

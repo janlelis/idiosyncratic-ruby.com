@@ -57,7 +57,7 @@ Some of Ruby's core classes have a `try_convert` class method. Although its not 
 Idiosyncratically, there is a third way of converting values: *Uppercased Kernel methods*, like `Array()`.¹ The objects you pass in will be converted to the corresponding class, following the following rules:
 
 - If there is a **special conversion**, apply it. See the table below for details and the exact application order (e.g. `Array()` does its special conversion *after* it tried the two steps below).
-- Unless special conversion gets applied, try to convert via the **implicit convesion** method
+- Unless special conversion gets applied, try to convert via the **implicit conversion** method
 - If it does not exist, try to convert via the **explicit conversion** method
 - Raise a [TypeError](https://ruby-doc.org/core/TypeError.html) if everything of the above has failed
 

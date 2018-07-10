@@ -154,7 +154,7 @@ Guess what this one does:
       |               |  |    |
       |               |  |    :
 
-Right! It will play some loveley classical music! Run it with:³
+Right! It will play some lovely classical music! Run it with:³
 
     $ padsp ruby entry.rb
 

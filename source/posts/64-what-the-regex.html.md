@@ -30,7 +30,7 @@ This is the preferred way to check for a match since Ruby 2.4. It only returns `
 
 ### 1b) `=~`
 
-This method is baked into Ruby's syntax, although its return value is rather special: It is the codepoint index in the string where the match occured or `nil` otherwise. However, it is a wise choice to only use it for its *truthy*/*falsey* value and use the more self-explaining [String#index method](https://ruby-doc.org/core/String.html#method-i-index) otherwise. Other than with the previous' `match?` approach, match data is set accordingly (this is the case with all other ways of matching) - see next section "[Find First Occurrence](#task-find-singlefirst-occurrence)" for ways to do so. Here is the example:
+This method is baked into Ruby's syntax, although its return value is rather special: It is the codepoint index in the string where the match occurred or `nil` otherwise. However, it is a wise choice to only use it for its *truthy*/*falsey* value and use the more self-explaining [String#index method](https://ruby-doc.org/core/String.html#method-i-index) otherwise. Other than with the previous' `match?` approach, match data is set accordingly (this is the case with all other ways of matching) - see next section "[Find First Occurrence](#task-find-singlefirst-occurrence)" for ways to do so. Here is the example:
 
     "string" =~ /1.3/ # => false
     "123" =~ /1.3/ # => true
@@ -40,7 +40,7 @@ The match operator's sibling is `!~` which negates the match result:
     "string" !~ /1.3/ # => true
     "123" !~ /1.3/ # => false
 
-More complicated matching can involve capture groups. Depending on the reference style (named or numbered), the way you can accees it differs:
+More complicated matching can involve capture groups. Depending on the reference style (named or numbered), the way you can access it differs:
 
 #### Numbered: `$1-$9`
 
@@ -171,7 +171,7 @@ Note that you can get to the same result using [the special *pre-* and *post mat
 - [RDoc: Regexp](https://ruby-doc.org/core/Regexp.html) - Class docs (overlaps with general regex docs)
 - [Episode 11: Regular Extremism](/11-regular-extremism.html) - Collection of advanced regex syntaxes
 - [Episode 21: Uniform Resource Matching](/21-uniform-resource-matching.html) - URL regex included in Ruby's standard library
-- [Episode 30: Regex with Class](/30-regex-with-class.html) - Overview of Unicode and POSIX-style character clasess
+- [Episode 30: Regex with Class](/30-regex-with-class.html) - Overview of Unicode and POSIX-style character classes
 - [Episode 41: Proper Unicoding](/41-proper-unicoding.html) - Regex Unicode Property syntax (`\p{}`)
 - [`re` method (part of irb.tools)](https://github.com/janlelis/debugging#restring-regex-groups--nil) - Displays first match (including capture groups) in the terminal
 - [Rubular](http://rubular.com/) - Online regex testing

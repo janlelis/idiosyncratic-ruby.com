@@ -23,7 +23,7 @@ The third example might not look logical at first glance, but: As soon as you ch
 
 Static type systems often use compile time type checking, which lets you catch a specific type of bugs earlier. It also opens the room for a much better performance. There are some very Ruby-like languages that use static types and achieve a much better performance, namely [Mirah](http://www.mirah.org/) and [Crystal](http://crystal-lang.org/).
 
-However, having to annotate everything is a very strict requirement. It is not **Don't Repeat Yourself**. It is harder to work with and less flexible. It is not backwards-compatible with existing Ruby code. Unless you put an unrealisticly huge effort into it, it will not proof your software is correct. It will not free you from the responsibilty to ensure your program is working properly (for instance, by writing tests).
+However, having to annotate everything is a very strict requirement. It is not **Don't Repeat Yourself**. It is harder to work with and less flexible. It is not backwards-compatible with existing Ruby code. Unless you put an unrealistically huge effort into it, it will not proof your software is correct. It will not free you from the responsibility to ensure your program is working properly (for instance, by writing tests).
 
 Yet, it will check types for you.
 
@@ -66,7 +66,7 @@ There are some options out there that can assist you with explicitly and optiona
     # Sig::ArgumentTypeError:
     # - Expected 42 to respond to :reverse
 
-There is also some [acadamic work](http://www.cs.umd.edu/~jfoster/papers/oops13.pdf) that explores advanced runtime checking (like "gradual" typing) and resulted in the [Ruby Type Checker](https://github.com/plum-umd/rtc).
+There is also some [academic work](http://www.cs.umd.edu/~jfoster/papers/oops13.pdf) that explores advanced runtime checking (like "gradual" typing) and resulted in the [Ruby Type Checker](https://github.com/plum-umd/rtc).
 
 ## Future
 

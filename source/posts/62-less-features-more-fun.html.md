@@ -9,7 +9,7 @@ Ruby was created in 1993 and has come a long way. The preferred style of coding 
 
 ARTICLE
 
-Which is always hard, because it will break exisisting code.¹ But it can still be worth it:
+Which is always hard, because it will break existing code.¹ But it can still be worth it:
 
 - People new to Ruby start with learning the *right thing*, instead of having to learnthe best practice later ("avoid for loops")
 - The language gets simpler, which means: better tool support!
@@ -20,7 +20,7 @@ What follows are some opinionated examples of what could be removed from Ruby wi
 
 ### 1. `for` and `in` Keywords
 
-For loops are rarely used in favor of semantically alrmost similar alternatives like [Array#each](https://ruby-doc.org/core/Array.html#method-i-each) or [Integer#times](https://ruby-doc.org/core/Integer.html#method-i-times). They are even [a little slower than calling `each` directly](https://github.com/JuanitoFatas/fast-ruby#enumerableeach-vs-for-loop-code). Also see: [The Evils of the For Loop](http://graysoftinc.com/early-steps/the-evils-of-the-for-loop)
+For loops are rarely used in favor of semantically almost similar alternatives like [Array#each](https://ruby-doc.org/core/Array.html#method-i-each) or [Integer#times](https://ruby-doc.org/core/Integer.html#method-i-times). They are even [a little slower than calling `each` directly](https://github.com/JuanitoFatas/fast-ruby#enumerableeach-vs-for-loop-code). Also see: [The Evils of the For Loop](http://graysoftinc.com/early-steps/the-evils-of-the-for-loop)
 
 ### 2. `?` Character Literals
 
@@ -80,7 +80,7 @@ Going with `;`, it would still be possible to write single-line `when`s without 
     when false; 43
     end
 
-All in all: `then` is superflous.
+All in all: `then` is superfluous.
 
 ### 5. `TRUE`, `FALSE`, `NIL` constants
 

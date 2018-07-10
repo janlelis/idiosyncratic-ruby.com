@@ -38,7 +38,7 @@ Definition Method            | No `eval`                                        
 While `class_eval` behaves exactly as if it was in no eval-context at all, `instance_eval` features a notable difference:
 **<span class="action-color">def inside instance_eval will define methods one class-level higher</span>**. So when `instance_eval` is executed on instances, `def` will create instance methods instead of singleton methods. And when it is run on classes, `def` will create class methods instead of instance methods.
 
-Another difference is that while [`class_eval` is defined on Module](https://ruby-doc.org/core/Module.html#method-i-class_eval), [`instance_eval` lives in BasicObject](https://ruby-doc.org/core/BasicObject.html#method-i-instance_eval) allowing you to use it on any object, not only modules and classes. However, there is a simple way to use `class_eval` for instances, too. You can explicitely use the object's singleton class (`class << self`), which is a module:
+Another difference is that while [`class_eval` is defined on Module](https://ruby-doc.org/core/Module.html#method-i-class_eval), [`instance_eval` lives in BasicObject](https://ruby-doc.org/core/BasicObject.html#method-i-instance_eval) allowing you to use it on any object, not only modules and classes. However, there is a simple way to use `class_eval` for instances, too. You can explicitly use the object's singleton class (`class << self`), which is a module:
 
     o = Object.new # => #<Object:0x000055b6fdabf1f8>
     o.singleton_class.class_eval do

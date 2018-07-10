@@ -54,7 +54,7 @@ The `\u{}` syntax is required if you want to display codepoints which need more 
 
     "\u{1F6A1}" # "🚡"
 
-It also allows you to specifiy multiple characters at once:
+It also allows you to specify multiple characters at once:
 
     "\u{49 64 69 6f 73 79 6e 63 72 e4 74 69 63 20 52 75 62 79}"
     # => "Idiosyncrätic Ruby"
