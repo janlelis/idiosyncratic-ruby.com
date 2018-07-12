@@ -18,7 +18,7 @@ What follows is a list of 10 lesser known things about strings: Some of them use
 
 ## Named Format Strings
 
-<blockquote class="twitter-tweet" lang="en"><p>Btw, Ruby&#39;s format strings can be used with hashes:&#10;&quot;%&lt;language&gt;s: %&lt;author&gt;s&quot; % { language: &quot;Ruby&quot;, author: &quot;matz&quot; } #=&gt; &quot;Ruby: matz&quot;</p>&mdash; Ruby String Magic (@RubyStrings) <a href="https://twitter.com/RubyStrings/status/527152031782674432">October 28, 2014</a></blockquote>
+<blockquote class="twitter-tweet" lang="en"><p>Btw, Ruby&#39;s format strings can be used with hashes:<br/>&quot;%&lt;language&gt;s: %&lt;author&gt;s&quot; % { language: &quot;Ruby&quot;, author: &quot;matz&quot; } #=&gt; &quot;Ruby: matz&quot;</p>&mdash; Ruby String Magic (@RubyStrings) <a href="https://twitter.com/RubyStrings/status/527152031782674432">October 28, 2014</a></blockquote>
 
 ## String Concatenation
 
@@ -26,19 +26,19 @@ What follows is a list of 10 lesser known things about strings: Some of them use
 
 ## Strings + Empty Ranges
 
-<blockquote class="twitter-tweet" lang="en"><p>Ruby is strange. How can an *empty* range have an effect when applied to a string?&#10;r = 0..-3&#10;r.to_a.empty? #=&gt; true&#10;&quot;Ruby&quot;[r] #=&gt; &quot;Ru&quot;</p>&mdash; Ruby String Magic (@RubyStrings) <a href="https://twitter.com/RubyStrings/status/519066888014659584">October 6, 2014</a></blockquote>
+<blockquote class="twitter-tweet" lang="en"><p>Ruby is strange. How can an *empty* range have an effect when applied to a string?<br/>r = 0..-3<br/>r.to_a.empty? #=&gt; true<br/>&quot;Ruby&quot;[r] #=&gt; &quot;Ru&quot;</p>&mdash; Ruby String Magic (@RubyStrings) <a href="https://twitter.com/RubyStrings/status/519066888014659584">October 6, 2014</a></blockquote>
 
 ## Whitespace Matching
 
-<blockquote class="twitter-tweet" lang="en"><p>Unicode is full of whitespaces. This is how you match them:&#10;a=&quot;    　&quot; #=&gt; &quot;    　&quot;&#10;a.scan(/\s/).size #=&gt; 1&#10;a.scan(/[[:space:]]/).size #=&gt; 5</p>&mdash; Ruby String Magic (@RubyStrings) <a href="https://twitter.com/RubyStrings/status/539440415498579969">December 1, 2014</a></blockquote>
+<blockquote class="twitter-tweet" lang="en"><p>Unicode is full of whitespaces. This is how you match them:<br/>a=&quot;    　&quot; #=&gt; &quot;    　&quot;<br/>a.scan(/\s/).size #=&gt; 1<br/>a.scan(/[[:space:]]/).size #=&gt; 5</p>&mdash; Ruby String Magic (@RubyStrings) <a href="https://twitter.com/RubyStrings/status/539440415498579969">December 1, 2014</a></blockquote>
 
 ## `String#succ`
 
-<blockquote class="twitter-tweet" lang="en"><p>Ruby&#39;s weird calculation of string successors:&#10;&quot;9z&quot;.succ #=&gt; &quot;10a&quot;&#10;&quot;z9&quot;.succ #=&gt; &quot;aa0&quot;</p>&mdash; Ruby String Magic (@RubyStrings) <a href="https://twitter.com/RubyStrings/status/520230545465548801">October 9, 2014</a></blockquote>
+<blockquote class="twitter-tweet" lang="en"><p>Ruby&#39;s weird calculation of string successors:<br/>&quot;9z&quot;.succ #=&gt; &quot;10a&quot;<br/>&quot;z9&quot;.succ #=&gt; &quot;aa0&quot;</p>&mdash; Ruby String Magic (@RubyStrings) <a href="https://twitter.com/RubyStrings/status/520230545465548801">October 9, 2014</a></blockquote>
 
 ## Stdlib String Compression
 
-<blockquote class="twitter-tweet" lang="en"><p>Simple stdlib string compression:&#10;require &#39;zlib&#39;&#10;s = &quot;Ruby&quot;*99&#10;s.size #=&gt; 396&#10;c = Zlib.deflate(s)&#10;c.size #=&gt; 17&#10;Zlib.inflate(c) == s #=&gt;true</p>&mdash; Ruby String Magic (@RubyStrings) <a href="https://twitter.com/RubyStrings/status/511902948805599233">September 16, 2014</a></blockquote>
+<blockquote class="twitter-tweet" lang="en"><p>Simple stdlib string compression:<br/>require &#39;zlib&#39;<br/>s = &quot;Ruby&quot;*99<br/>s.size #=&gt; 396<br/>c = Zlib.deflate(s)<br/>c.size #=&gt; 17<br/>Zlib.inflate(c) == s #=&gt;true</p>&mdash; Ruby String Magic (@RubyStrings) <a href="https://twitter.com/RubyStrings/status/511902948805599233">September 16, 2014</a></blockquote>
 
 ## Using Regex Groups in `String#[]`
 
@@ -50,11 +50,11 @@ What follows is a list of 10 lesser known things about strings: Some of them use
 
 ## Convert a String from *snake_case* to *CamelCase*
 
-<blockquote class="twitter-tweet" lang="en"><p>You can camelize a string (some_string =&gt; SomeString) with:&#10;&quot;some_string&quot;.gsub(/(?:^|_)([a-z])/) do $1.upcase end</p>&mdash; Ruby String Magic (@RubyStrings) <a href="https://twitter.com/RubyStrings/status/509330964246720512">September 9, 2014</a></blockquote>
+<blockquote class="twitter-tweet" lang="en"><p>You can camelize a string (some_string =&gt; SomeString) with:<br/>&quot;some_string&quot;.gsub(/(?:^|_)([a-z])/) do $1.upcase end</p>&mdash; Ruby String Magic (@RubyStrings) <a href="https://twitter.com/RubyStrings/status/509330964246720512">September 9, 2014</a></blockquote>
 
 ## Convert a String from *CamelCase* to *snake_case*
 
-<blockquote class="twitter-tweet" lang="en"><p>You can snakify a string (SomeString =&gt; some_string) with: &#10;&quot;SomeString&quot;.gsub(/(?&lt;!^)[A-Z]/) do &quot;_#$&amp;&quot; end.downcase</p>&mdash; Ruby String Magic (@RubyStrings) <a href="https://twitter.com/RubyStrings/status/508995693277904896">September 8, 2014</a></blockquote>
+<blockquote class="twitter-tweet" lang="en"><p>You can snakify a string (SomeString =&gt; some_string) with: <br/>&quot;SomeString&quot;.gsub(/(?&lt;!^)[A-Z]/) do &quot;_#$&amp;&quot; end.downcase</p>&mdash; Ruby String Magic (@RubyStrings) <a href="https://twitter.com/RubyStrings/status/508995693277904896">September 8, 2014</a></blockquote>
 
 ## Resources
 
