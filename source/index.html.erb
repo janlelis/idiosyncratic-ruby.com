@@ -2,7 +2,7 @@
 title: "Idiosyncratic Ruby: Documenting All Ruby Specialities"
 ---
 
-<% last_content_update = Date.parse(`git log -1 --format=%cd -- source/posts`).strftime("%Y-%m-%d") rescue nil %>
+<% last_content_update = Date.parse(`git log -1 --format=%cd -- source/posts`).strftime("%B %d, %Y") rescue nil %>
 
 <div class="hero">
   <div class="hero-inner">
@@ -63,7 +63,7 @@ title: "Idiosyncratic Ruby: Documenting All Ruby Specialities"
           <li>Episodes 63 to 66 in May 2018</li>
         </ul>
         <% if last_content_update %>
-        <p>Last update to an article: <%= last_content_update %> </p>
+        <p>Last update: <%= last_content_update %> </p>
         <% end %>
       </section>
       <section>
