@@ -2128,7 +2128,7 @@ end
 
 &lt;p&gt;&lt;/p&gt;
 
-&lt;p&gt;However, there is also a special string processing supported by the string replacement methods &lt;a href="ruby-doc.org/core/String.html#method-i-gsub"&gt;String#gsub&lt;/a&gt; and &lt;a href="ruby-doc.org/core/String.html#method-i-sub"&gt;String#sub&lt;/a&gt;. The replacement string (second parameter) can contain &lt;strong&gt;back references&lt;/strong&gt;, which behave similarly to their corresponding special variable:&lt;/p&gt;
+&lt;p&gt;However, there is also a special string processing supported by the string replacement methods &lt;a href="https://ruby-doc.org/core/String.html#method-i-gsub"&gt;String#gsub&lt;/a&gt; and &lt;a href="https://ruby-doc.org/core/String.html#method-i-sub"&gt;String#sub&lt;/a&gt;. The replacement string (second parameter) can contain &lt;strong&gt;back references&lt;/strong&gt;, which behave similarly to their corresponding special variable:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;"Idiosyncratic Ruby".sub(/(\w+) (\w+)/, '\2 \1') # =&amp;gt; "Ruby Idiosyncratic"
 &lt;/code&gt;&lt;/pre&gt;
@@ -9176,12 +9176,12 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/core/IOError.html"&gt;IOError&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Raised when an &lt;a href="ruby-doc.org/core/IO.html"&gt;IO&lt;/a&gt; operation fails, like opening a file&lt;/td&gt;
+      &lt;td&gt;Raised when an &lt;a href="https://ruby-doc.org/core/IO.html"&gt;IO&lt;/a&gt; operation fails, like opening a file&lt;/td&gt;
       &lt;td&gt;Pay attention that there are some failures will raise a &lt;code&gt;SystemCallError&lt;/code&gt;, which is not a sub-class of &lt;code&gt;IOError&lt;/code&gt;!&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/core/EOFError.html"&gt;IOError → EOFError&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Raised by many &lt;a href="ruby-doc.org/core/IO.html"&gt;IO&lt;/a&gt; operations when reaching the end of file&lt;/td&gt;
+      &lt;td&gt;Raised by many &lt;a href="https://ruby-doc.org/core/IO.html"&gt;IO&lt;/a&gt; operations when reaching the end of file&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -9191,12 +9191,12 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/core/KeyError.html"&gt;IndexError → KeyError&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Raised when an element cannot be retrieved (by a key), for example, when using &lt;a href="ruby-doc.org/core/Hash.html#method-i-fetch"&gt;Hash#fetch&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Raised when an element cannot be retrieved (by a key), for example, when using &lt;a href="https://ruby-doc.org/core/Hash.html#method-i-fetch"&gt;Hash#fetch&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Mainly used by hashes&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/core/StopIteration.html"&gt;IndexError → StopIteration&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Raised when an &lt;a href="ruby-doc.org/core/Enumerator.html"&gt;external iterator&lt;/a&gt; has &lt;a href="https://ruby-doc.org/core/StopIteration.html"&gt;reached its end&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Raised when an &lt;a href="https://ruby-doc.org/core/Enumerator.html"&gt;external iterator&lt;/a&gt; has &lt;a href="https://ruby-doc.org/core/StopIteration.html"&gt;reached its end&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;You can use the &lt;a href="https://ruby-doc.org/core/Kernel.html#method-i-loop"&gt;Kernel#loop&lt;/a&gt; method to automatically catch &lt;code&gt;StopIteration&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -13660,7 +13660,7 @@ ENV[42] = "oops" # not quite: TypeError
       &lt;td&gt;(read-only)&lt;/td&gt;
       &lt;td&gt;$ARGV&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;&lt;a href="/50-the-art-of-arguments.html"&gt;Explanation&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="/46-the-art-of-arguments.html"&gt;Explanation&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;$&amp;amp;&lt;/td&gt;
@@ -14949,7 +14949,7 @@ puts "#{`ps -o rss -p #{Process.pid}`.strip.split.last.to_i / 1024.0} MB"
 &lt;a href="#n--a-signed-integer-per-4-bytes-big-endian-similar-to-l"&gt;N&lt;/a&gt;
 &lt;a href="#p--pointer-to-null-terminated-string"&gt;p&lt;/a&gt;
 &lt;a href="#p--pointer-to-fixed-length-string"&gt;P&lt;/a&gt;
-&lt;a href="q--a-signed-integer-per-8-bytes"&gt;q&lt;/a&gt;
+&lt;a href="#q--a-signed-integer-per-8-bytes"&gt;q&lt;/a&gt;
 &lt;a href="#q--an-unsigned-integer-per-8-bytes"&gt;Q&lt;/a&gt;
 &lt;a href="#s--a-signed-integer-per-2-bytes"&gt;s&lt;/a&gt;
 &lt;a href="#s--an-unsigned-integer-per-2-bytes"&gt;S&lt;/a&gt;
@@ -15765,7 +15765,7 @@ end
 
 &lt;h2 id="named-format-strings"&gt;Named Format Strings&lt;/h2&gt;
 
-&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Btw, Ruby&amp;#39;s format strings can be used with hashes:&amp;#10;&amp;quot;%&amp;lt;language&amp;gt;s: %&amp;lt;author&amp;gt;s&amp;quot; % { language: &amp;quot;Ruby&amp;quot;, author: &amp;quot;matz&amp;quot; } #=&amp;gt; &amp;quot;Ruby: matz&amp;quot;&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/527152031782674432"&gt;October 28, 2014&lt;/a&gt;&lt;/blockquote&gt;
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Btw, Ruby&amp;#39;s format strings can be used with hashes:&lt;br /&gt;&amp;quot;%&amp;lt;language&amp;gt;s: %&amp;lt;author&amp;gt;s&amp;quot; % { language: &amp;quot;Ruby&amp;quot;, author: &amp;quot;matz&amp;quot; } #=&amp;gt; &amp;quot;Ruby: matz&amp;quot;&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/527152031782674432"&gt;October 28, 2014&lt;/a&gt;&lt;/blockquote&gt;
 
 &lt;h2 id="string-concatenation"&gt;String Concatenation&lt;/h2&gt;
 
@@ -15773,19 +15773,19 @@ end
 
 &lt;h2 id="strings--empty-ranges"&gt;Strings + Empty Ranges&lt;/h2&gt;
 
-&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Ruby is strange. How can an *empty* range have an effect when applied to a string?&amp;#10;r = 0..-3&amp;#10;r.to_a.empty? #=&amp;gt; true&amp;#10;&amp;quot;Ruby&amp;quot;[r] #=&amp;gt; &amp;quot;Ru&amp;quot;&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/519066888014659584"&gt;October 6, 2014&lt;/a&gt;&lt;/blockquote&gt;
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Ruby is strange. How can an *empty* range have an effect when applied to a string?&lt;br /&gt;r = 0..-3&lt;br /&gt;r.to_a.empty? #=&amp;gt; true&lt;br /&gt;&amp;quot;Ruby&amp;quot;[r] #=&amp;gt; &amp;quot;Ru&amp;quot;&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/519066888014659584"&gt;October 6, 2014&lt;/a&gt;&lt;/blockquote&gt;
 
 &lt;h2 id="whitespace-matching"&gt;Whitespace Matching&lt;/h2&gt;
 
-&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Unicode is full of whitespaces. This is how you match them:&amp;#10;a=&amp;quot;    　&amp;quot; #=&amp;gt; &amp;quot;    　&amp;quot;&amp;#10;a.scan(/\s/).size #=&amp;gt; 1&amp;#10;a.scan(/[[:space:]]/).size #=&amp;gt; 5&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/539440415498579969"&gt;December 1, 2014&lt;/a&gt;&lt;/blockquote&gt;
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Unicode is full of whitespaces. This is how you match them:&lt;br /&gt;a=&amp;quot;    　&amp;quot; #=&amp;gt; &amp;quot;    　&amp;quot;&lt;br /&gt;a.scan(/\s/).size #=&amp;gt; 1&lt;br /&gt;a.scan(/[[:space:]]/).size #=&amp;gt; 5&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/539440415498579969"&gt;December 1, 2014&lt;/a&gt;&lt;/blockquote&gt;
 
 &lt;h2 id="stringsucc"&gt;&lt;code&gt;String#succ&lt;/code&gt;&lt;/h2&gt;
 
-&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Ruby&amp;#39;s weird calculation of string successors:&amp;#10;&amp;quot;9z&amp;quot;.succ #=&amp;gt; &amp;quot;10a&amp;quot;&amp;#10;&amp;quot;z9&amp;quot;.succ #=&amp;gt; &amp;quot;aa0&amp;quot;&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/520230545465548801"&gt;October 9, 2014&lt;/a&gt;&lt;/blockquote&gt;
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Ruby&amp;#39;s weird calculation of string successors:&lt;br /&gt;&amp;quot;9z&amp;quot;.succ #=&amp;gt; &amp;quot;10a&amp;quot;&lt;br /&gt;&amp;quot;z9&amp;quot;.succ #=&amp;gt; &amp;quot;aa0&amp;quot;&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/520230545465548801"&gt;October 9, 2014&lt;/a&gt;&lt;/blockquote&gt;
 
 &lt;h2 id="stdlib-string-compression"&gt;Stdlib String Compression&lt;/h2&gt;
 
-&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Simple stdlib string compression:&amp;#10;require &amp;#39;zlib&amp;#39;&amp;#10;s = &amp;quot;Ruby&amp;quot;*99&amp;#10;s.size #=&amp;gt; 396&amp;#10;c = Zlib.deflate(s)&amp;#10;c.size #=&amp;gt; 17&amp;#10;Zlib.inflate(c) == s #=&amp;gt;true&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/511902948805599233"&gt;September 16, 2014&lt;/a&gt;&lt;/blockquote&gt;
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Simple stdlib string compression:&lt;br /&gt;require &amp;#39;zlib&amp;#39;&lt;br /&gt;s = &amp;quot;Ruby&amp;quot;*99&lt;br /&gt;s.size #=&amp;gt; 396&lt;br /&gt;c = Zlib.deflate(s)&lt;br /&gt;c.size #=&amp;gt; 17&lt;br /&gt;Zlib.inflate(c) == s #=&amp;gt;true&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/511902948805599233"&gt;September 16, 2014&lt;/a&gt;&lt;/blockquote&gt;
 
 &lt;h2 id="using-regex-groups-in-string"&gt;Using Regex Groups in &lt;code&gt;String#[]&lt;/code&gt;&lt;/h2&gt;
 
@@ -15797,11 +15797,11 @@ end
 
 &lt;h2 id="convert-a-string-from-snakecase-to-camelcase"&gt;Convert a String from &lt;em&gt;snake_case&lt;/em&gt; to &lt;em&gt;CamelCase&lt;/em&gt;&lt;/h2&gt;
 
-&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;You can camelize a string (some_string =&amp;gt; SomeString) with:&amp;#10;&amp;quot;some_string&amp;quot;.gsub(/(?:^|_)([a-z])/) do $1.upcase end&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/509330964246720512"&gt;September 9, 2014&lt;/a&gt;&lt;/blockquote&gt;
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;You can camelize a string (some_string =&amp;gt; SomeString) with:&lt;br /&gt;&amp;quot;some_string&amp;quot;.gsub(/(?:^|_)([a-z])/) do $1.upcase end&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/509330964246720512"&gt;September 9, 2014&lt;/a&gt;&lt;/blockquote&gt;
 
 &lt;h2 id="convert-a-string-from-camelcase-to-snakecase"&gt;Convert a String from &lt;em&gt;CamelCase&lt;/em&gt; to &lt;em&gt;snake_case&lt;/em&gt;&lt;/h2&gt;
 
-&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;You can snakify a string (SomeString =&amp;gt; some_string) with: &amp;#10;&amp;quot;SomeString&amp;quot;.gsub(/(?&amp;lt;!^)[A-Z]/) do &amp;quot;_#$&amp;amp;&amp;quot; end.downcase&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/508995693277904896"&gt;September 8, 2014&lt;/a&gt;&lt;/blockquote&gt;
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;You can snakify a string (SomeString =&amp;gt; some_string) with: &lt;br /&gt;&amp;quot;SomeString&amp;quot;.gsub(/(?&amp;lt;!^)[A-Z]/) do &amp;quot;_#$&amp;amp;&amp;quot; end.downcase&lt;/p&gt;&amp;mdash; Ruby String Magic (@RubyStrings) &lt;a href="https://twitter.com/RubyStrings/status/508995693277904896"&gt;September 8, 2014&lt;/a&gt;&lt;/blockquote&gt;
 
 &lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
 
