@@ -9,7 +9,7 @@ Ruby has more than one way to access additional information about the most recen
 
 ARTICLE
 
-However, there is also a special string processing supported by the string replacement methods [String#gsub](ruby-doc.org/core/String.html#method-i-gsub) and [String#sub](ruby-doc.org/core/String.html#method-i-sub). The replacement string (second parameter) can contain **back references**, which behave similarly to their corresponding special variable:
+However, there is also a special string processing supported by the string replacement methods [String#gsub](https://ruby-doc.org/core/String.html#method-i-gsub) and [String#sub](https://ruby-doc.org/core/String.html#method-i-sub). The replacement string (second parameter) can contain **back references**, which behave similarly to their corresponding special variable:
 
     "Idiosyncratic Ruby".sub(/(\w+) (\w+)/, '\2 \1') # => "Ruby Idiosyncratic"
 

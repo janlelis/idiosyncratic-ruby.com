@@ -29,7 +29,7 @@ commit: fea958eff6b85935ea3a8a4974c2548e08abca2e
 [N](#n--a-signed-integer-per-4-bytes-big-endian-similar-to-l)
 [p](#p--pointer-to-null-terminated-string)
 [P](#p--pointer-to-fixed-length-string)
-[q](q--a-signed-integer-per-8-bytes)
+[q](#q--a-signed-integer-per-8-bytes)
 [Q](#q--an-unsigned-integer-per-8-bytes)
 [s](#s--a-signed-integer-per-2-bytes)
 [S](#s--an-unsigned-integer-per-2-bytes)
