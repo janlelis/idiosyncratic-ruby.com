@@ -2303,7 +2303,7 @@ big data
 &lt;p&gt;Big &lt;code&gt;DATA&lt;/code&gt; is a &lt;a href="https://ruby-doc.org/core/File.html"&gt;File&lt;/a&gt; object, which you can &lt;code&gt;read&lt;/code&gt;. The example will output &lt;code&gt;"big data"&lt;/code&gt;. An example of real-world usage is &lt;a href="http://www.sinatrarb.com/intro.html#Inline%20Templates"&gt;inline templating within the sinatra web framework&lt;/a&gt;.³&lt;/p&gt;
 
 &lt;p&gt;¹ Do not confuse with the small &lt;code&gt;Data&lt;/code&gt; class, which is a &lt;a href="https://ruby-doc.org/core/Data.html"&gt;CRuby implementation detail&lt;/a&gt;&lt;br /&gt;
-² Big &lt;code&gt;DATA&lt;/code&gt; &lt;a href="constant tree"&gt;is not defined&lt;/a&gt;, if you have no &lt;code&gt;__END__&lt;/code&gt;. Furthermore, it is not available if you did not execute the script directly, but loaded or required it.&lt;br /&gt;
+² Big &lt;code&gt;DATA&lt;/code&gt; &lt;a href="/53-the-constant-tree.html"&gt;is not defined&lt;/a&gt;, if you have no &lt;code&gt;__END__&lt;/code&gt;. Furthermore, it is not available if you did not execute the script directly, but loaded or required it.&lt;br /&gt;
 ³ &lt;a href="http://blog.honeybadger.io/data-and-end-in-ruby/#a-work-around-for-multiple-files"&gt;Actually, not really&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id="is-the-data-section-enough"&gt;Is the Data Section Enough?&lt;/h2&gt;

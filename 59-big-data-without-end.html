@@ -36,7 +36,7 @@ big data
 <p>Big <code>DATA</code> is a <a href="https://ruby-doc.org/core/File.html">File</a> object, which you can <code>read</code>. The example will output <code>"big data"</code>. An example of real-world usage is <a href="http://www.sinatrarb.com/intro.html#Inline%20Templates">inline templating within the sinatra web framework</a>.³</p>
 
 <p>¹ Do not confuse with the small <code>Data</code> class, which is a <a href="https://ruby-doc.org/core/Data.html">CRuby implementation detail</a><br />
-² Big <code>DATA</code> <a href="constant tree">is not defined</a>, if you have no <code>__END__</code>. Furthermore, it is not available if you did not execute the script directly, but loaded or required it.<br />
+² Big <code>DATA</code> <a href="/53-the-constant-tree.html">is not defined</a>, if you have no <code>__END__</code>. Furthermore, it is not available if you did not execute the script directly, but loaded or required it.<br />
 ³ <a href="http://blog.honeybadger.io/data-and-end-in-ruby/#a-work-around-for-multiple-files">Actually, not really</a></p>
 
 <h2 id="is-the-data-section-enough">Is the Data Section Enough?</h2>
@@ -86,7 +86,7 @@ puts DATA.gets("\n__END__")[0..-9]
           <a href="https://janlelis.com/data-protection.html">Data Protection</a>
         </div>
         About Core, Syntax, Keywords<br>
-        Last Update: July 09, 2018
+        Last Update: August 22, 2018
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
