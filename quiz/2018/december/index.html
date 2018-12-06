@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Idiosyncratic Ruby</title>
+
+    <meta name="description" content="Idiosyncratic Ruby">
+    <meta name="author" content="Jan Lelis">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+    <link rel="stylesheet" href="lib/css/github.css">
+
+    <script>
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <style>
+      .reveal section img {
+        box-shadow: none;
+        border: 0px;
+      }
+      .reveal section img.no-shadow {
+        /*box-shadow: none;*/
+        background: #f3f3f3;
+      }
+      .reveal pre code {
+        font-size: 20pt;
+        line-height: 23pt;
+        /*margin: 0px -200px;*/
+        margin-top: 2em;
+        /*border: 1px solid #ccc !important;*/
+        margin-bottom: 2em;
+      }
+      pre{
+        /*box-shadow: none !important;*/
+      }
+      /*.reveal pre .xml .ruby {
+        opacity: 1;
+        color: #fff;
+      }*/
+
+      .reveal p {
+        font-size: 33pt;
+      }
+
+      .action {
+        color: rgba(119, 0, 0, 0.7);
+      }
+
+      /* latin-ext */
+      @font-face {
+        font-family: 'Lato';
+        font-style: normal;
+        font-weight: 300;
+        src: local('Lato Light'), local('Lato-Light'), url(/stylesheets/lato1.woff2) format('woff2');
+        unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      /* latin */
+      @font-face {
+        font-family: 'Lato';
+        font-style: normal;
+        font-weight: 300;
+        src: local('Lato Light'), local('Lato-Light'), url(/stylesheets/lato2.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+          <section>
+            <img src="images/idiosyncratic.png"/>
+            <h2>Idiosyncratic Ruby</h2>
+            <h1>Quiz</h1>
+            <br/>
+
+            <p><a href="https://twitter.com/JanLelis">@JanLelis</a> — <a href="https://twitter.com/JanLelis">December 2018</a> — <a href="https://rug-b.de">𝕽𝖀𝕲::𝕭</a></p>
+          </section>
+
+          <section>
+            <img src="images/idiosyncratic.png"/>
+            <h2><a href="https://idiosyncratic-ruby.com">idiosyncratic-ruby.com</a></h2>
+            <p>Documenting lesser-known features in Ruby</p>
+            <br>
+            <h3 class="fragment">Ruby 2.6's Around the Corner</h3>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Section A</h3>
+            <br/>
+            <code style="font-size: 200%">??..</code><br/>
+            <p class="fragment"><br/><br/><br/><br/>(endless..ranges)</p>
+          </section>
+
+          <section>
+            <p>Endless Range Examples</p><br/>
+
+            <code>(9..).take(3)<br/># => [9, 10, 11]</code>
+
+            <div class="fragment">
+              <br/>
+              <br/>
+              <code>(?a..?z).zip(?a.ord..)<br/># =>  [["a", 97], ["b", 98], ["c", 99], …</code>
+            </div>
+          </section>
+
+          <section>
+            <p>Poking around with ranges (1)</p>
+
+            <br/>
+            <div>
+              <code>(nil..)</code><br/># => <br/><code class="fragment">nil..</code>
+            </div>
+
+            <br/>
+            <div class="fragment">
+              <code>(nil..).cover?(nil)</code><br/># => <br/><code class="fragment">true</code>
+            </div>
+
+            <br/>
+            <div class="fragment">
+              <code>(nil..).include?(nil)</code><br/># => <br/><code class="fragment">TypeError (can't iterate from NilClass)</code>
+            </div>
+          </section>
+
+          <section>
+            <p>Poking around with ranges (2)</p>
+
+            <br/>
+            <div>
+              <code>(9..).cover?(1/0.0)</code><br/># => <br/><code class="fragment">true</code>
+            </div>
+
+            <br/>
+            <div class="fragment">
+              <code>(9...).cover?(1/0.0)</code><br/># => <br/><code class="fragment">true</code>
+            </div>
+
+            <br/>
+            <div class="fragment">
+              <code>(9..) == (9...)</code><br/># => <br/><code class="fragment">false</code>
+            </div>
+          </section>
+
+          <section>
+            <p>Poking around with ranges (3)</p>
+
+            <br/>
+            <div>
+              <code>"Rails vs Hanami"[9..]</code>
+              <br/>and<br/>
+              <code>"Rails vs Hanami"[9..-1]</code><br/># => <br/><code class="fragment">"Hanami"</code>
+            </div>
+
+            <br/>
+            <div class="fragment">
+              <code>(9..).size</code><br/># => <br/><code class="fragment">Infinity</code>
+            </div>
+
+            <br/>
+            <div class="fragment">
+              <code>(9..-1).size</code><br/># => <br/><code class="fragment">0</code>
+            </div>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Section B</h3>
+            <p>The Ruby standard library is currently<br/>getting divided into individual gems</p>
+          </section>
+
+          <section>
+            <p>As of the current Ruby version,<br/>how many standard gems do we have?</p>
+            <strong class="fragment" style="font-size: 300%; line-height: 150%;">30</strong>
+            <p class="fragment">23 default gems<br/>7 bundled gems</p>
+            <p class="fragment"><br/>json, openssl, bigdecimal, fileutils, …</p>
+          </section>
+
+          <section>
+            <p>How many will be added in 2.6?</p>
+            <strong class="fragment" style="font-size: 300%; line-height: 150%;">15</strong>
+            <p class="fragment"><br/>logger, irb, matrix, fileutils, …<span class="fragment">and <em class="action">bundler</em></span></p>
+          </section>
+
+          <section>
+            <p>How many libraries does the stdlib contain altogether?</p>
+            <strong class="fragment" style="font-size: 300%; line-height: 150%;">107</strong>
+            <div class="fragment">
+              <br/>
+              <p>With Ruby 2.6 we will be at 43% gemification</p>
+              <p>Info & tables at <a href="https://stdgems.org">stdgems.org</a></p>
+            </div>
+          </section>
+        </section>
+
+
+        <section>
+          <section>
+            <h3>Section C</h3>
+            <p>Misc fun stuff</p>
+          </section>
+
+          <section>
+            <p>How to produce this output? (1)</p><br/>
+
+            <code style="text-align: left;font-size: 130%; line-height: 150%">[1,2].<strong class="action">____</strong> { |x| [x, x**2] }<br/># => {1 => 1, 2 => 4}</code>
+            <br/>
+            <br/>
+          </section>
+
+          <section>
+            <p>How to produce this output? (1)</p><br/>
+
+            <code style="text-align: left;font-size: 130%; line-height: 150%">[1,2].<strong class="action">to_h</strong> { |x| [x, x**2] }<br/># => {1 => 1, 2 => 4}</code>
+
+            <p class="fragment"><br/>Before, we had to use <code>Hash[]</code></p>
+          </section>
+
+          <section>
+            <p>How to produce this output? (2)</p><br/>
+
+            <code style="text-align: left;font-size: 130%; line-height: 150%">[*(1..20)<strong class="action">_</strong>3]<br/>#=> [1, 4, 7, 10, 13, 16, 19]</code>
+            <br/>
+            <br/>
+          </section>
+
+          <section>
+            <p>How to produce this output? (2)</p><br/>
+
+            <code style="text-align: left;font-size: 130%; line-height: 150%">[*(1..20)<strong class="action">%</strong>3]<br/>#=> [1, 4, 7, 10, 13, 16, 19]</code>
+
+            <p class="fragment"><br/>The new <code>Range#%</code> is an alias to <code>Range#step</code></p>
+          </section>
+
+          <section>
+            <p>How to produce this output? (3)</p><br/>
+            <code style="text-align: left;font-size: 130%; line-height: 150%">a = (7..9).each<br/>b = Prime.each<br/> a.<strong class="action">_____</strong>(b).take(7)<br/>#=> [7, 8, 9, 2, 3, 5, 7]</code>
+            <br/>
+            <br/>
+          </section>
+
+          <section>
+            <p>How to produce this output? (3)</p><br/>
+            <code style="text-align: left;font-size: 130%; line-height: 150%">a = (7..9).each<br/>b = Prime.each<br/> a.<strong class="action">chain</strong>(b).take(7)<br/>#=> [7, 8, 9, 2, 3, 5, 7]</code>
+
+            <p class="fragment"><br/>Merge multiple enumerators with <code>Enumerable#chain / +</code></p>
+          </section>
+
+          <section>
+            <p>How to charge your Ruby with superpowers?</p><br/>
+            <code style="text-align: left;font-size: 130%; line-height: 150%">$ ruby -S rails server<br/># Rails is slow…</code>
+            <br/>
+            <br/>
+          </section>
+
+          <section>
+            <p>How to charge your Ruby with superpowers?</p><br/>
+            <code style="text-align: left;font-size: 130%; line-height: 150%">$ ruby <strong class="action">--jit</strong> -S rails server <br/># Rails is around 2.6x faster! <span class="fragment" style="font-size: 50%; transform: translate(14vw, -12vh);
+    display: inline-block; "><br/>(optimistic guess)</span></code>
+
+            <p class="fragment"><br/>Powered by the new <em>Just-In-Time</em> compiler</p>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Final Section</h3>
+            <br/>
+            <p>
+              Ruby 2.6 allows constants to begin with all uppercased letters!
+            </p>
+          </section>
+
+          <section>
+            <p>WHICH ONE OF THE CLASS NAMES IS VALID? (1)</p>
+
+            <div class="fragment" style="margin: 0; white-space: nowrap;">
+              <pre style="width: 30vw; display: inline-block; margin-right: 10vw;"><code data-trim contenteditable class="ruby" style="font-size: 200%; line-height: 140%; padding: 1em; margin: 0; ">class ℻
+end</code></pre>
+              <pre class="fragment" style="width: 30vw; display: inline-block;"><code data-trim contenteditable class="ruby" style="font-size: 200%; line-height: 140%; padding: 1em; margin: 0; ">class Ätsch
+end</code></pre>
+            </div>
+
+            <div class="fragment">
+              <strong style="text-align: right; display: block; padding-right: 10vw;">Syntax OK</strong>
+            </div>
+
+            <div class="fragment" style="margin: 0; text-align: left; font-size: 60%"><br/><br/><code>$ uniscribe "℻"<br/>
+213B ├─ ℻    ├─ FACSIMILE SIGN</code></div>
+          </section>
+
+          <section>
+            <p>WHICH ONE OF THE CLASS NAMES IS VALID? (2)</p>
+
+            <div class="fragment" style="margin: 0; white-space: nowrap;">
+              <pre style="width: 30vw; display: inline-block; margin-right: 10vw;"><code data-trim contenteditable class="ruby" style="font-size: 200%; line-height: 140%; padding: 1em; margin: 0; ">class Ŀogger
+end</code></pre>
+              <pre class="fragment" style="width: 30vw; display: inline-block;"><code data-trim contenteditable class="ruby" style="font-size: 200%; line-height: 140%; padding: 1em; margin: 0; ">class ꓡogger
+end</code></pre>
+            </div>
+
+            <div class="fragment">
+              <strong style="text-align: left; display: block; padding-left: 10vw;">Syntax OK</strong>
+            </div>
+
+
+            <div class="fragment" style="margin: 0; text-align: left; font-size: 60%"><br/><br/><code>$ uniscribe "Ŀꓡ"<br/>
+013F ├─ Ŀ   ├─ LATIN CAPITAL LETTER L WITH MIDDLE DOT<br/>
+A4E1 ├─ ꓡ   ├─ LISU LETTER LA</code></div>
+          </section>
+
+          <section>
+            <p>WHICH ONE OF THE CLASS NAMES IS VALID? (3)</p>
+
+            <div class="fragment" style="margin: 0; white-space: nowrap;">
+              <pre style="width: 30vw; display: inline-block; margin-right: 10vw;"><code data-trim contenteditable class="ruby" style="font-size: 200%; line-height: 140%; padding: 1em; margin: 0; ">class Δ
+end</code></pre>
+              <pre class="fragment" style="width: 30vw; display: inline-block;"><code data-trim contenteditable class="ruby" style="font-size: 200%; line-height: 140%; padding: 1em; margin: 0; ">class 🜂
+end</code></pre>
+            </div>
+
+            <div class="fragment">
+              <strong style="text-align: left; display: block; padding-left: 10vw;">Syntax OK</strong>
+            </div>
+
+            <div class="fragment" style="margin: 0; text-align: left; font-size: 60%"><br/><br/><code>$ uniscribe "Δ🜂"<br/>
+&nbsp;0394 ├─ Δ    ├─ GREEK CAPITAL LETTER DELTA<br/>
+1F702 ├─ 🜂    ├─ ALCHEMICAL SYMBOL FOR FIRE</code></div>
+          </section>
+
+          <section>
+            <p>WHICH ONE OF THE CLASS NAMES IS VALID? (4)</p>
+
+            <div class="fragment" style="margin: 0; white-space: nowrap;">
+              <pre style="width: 30vw; display: inline-block; margin-right: 10vw;"><code data-trim contenteditable class="ruby" style="font-size: 200%; line-height: 140%; padding: 1em; margin: 0; ">class 🅆
+end</code></pre>
+              <pre class="fragment" style="width: 30vw; display: inline-block;"><code data-trim contenteditable class="ruby" style="font-size: 200%; line-height: 140%; padding: 1em; margin: 0; ">class 🅏
+end</code></pre>
+            </div>
+
+            <div class="fragment">
+              <strong style="text-align: left; display: block; padding-left: 10vw;">Syntax OK</strong>
+            </div>
+
+          <div class="fragment" style="margin: 0; text-align: left; font-size: 60%"><br/><br/><code>$ uniscribe "🅆🅏"<br/>
+1F146 ├─ 🅆    ├─ SQUARED LATIN CAPITAL LETTER W<br/>
+1F14F ├─ 🅏    ├─ SQUARED WC</code></div>
+          </section>
+
+          <section>
+            <p>WHICH ONE OF THE CLASS NAMES IS VALID? (5)</p>
+
+            <div class="fragment" style="margin: 0; white-space: nowrap;">
+              <pre style="width: 30vw; display: inline-block; margin-right: 10vw;"><code data-trim contenteditable class="ruby" style="font-size: 200%; line-height: 140%; padding: 1em; margin: 0; ">class 🡓
+end</code></pre>
+              <pre class="fragment" style="width: 30vw; display: inline-block;"><code data-trim contenteditable class="ruby" style="font-size: 200%; line-height: 140%; padding: 1em; margin: 0; ">class 𐲄
+end</code></pre>
+            </div>
+
+            <div class="fragment">
+              <strong style="text-align: right; display: block; padding-right: 10vw;">Syntax OK</strong>
+            </div>
+
+            <div class="fragment" style="margin: 0; text-align: left; font-size: 60%"><br/><br/><code>$ uniscribe "🡓𐲄"<br/>
+1F853 ├─ 🡓    ├─ DOWNWARDS SANS-SERIF ARROW<br/>
+10C84 ├─ 𐲄    ├─ OLD HUNGARIAN CAPITAL LETTER EC</code></div>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2><span style="white-space: pre">That was: Recreational Ruby</span></h2>
+            <p><a href="https://idiosyncratic-ruby.com/quiz">idiosyncratic-ruby.com/quiz</a></p>
+            <p><a href="https://twitter.com/JanLelis">@JanLelis</a></p>
+          </section>
+        </section>
+
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        slideNumber: true,
+
+        theme: Reveal.getQueryHash().theme || 'default', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'concave', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+    </script>
+  </body>
+</html>
