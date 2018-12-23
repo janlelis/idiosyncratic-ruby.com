@@ -57,7 +57,9 @@ Method                                                                          
 
 ## Method Defined? Checks
 
-Instead of listing all methods and checking if the resulting array contains a specific method, you can also directly check if a method is defined:
+Instead of listing all methods and checking if the resulting array contains a specific method, you can also directly check if a method is defined.
+
+Since Ruby 2.6, you can also pass in a boolean as second argument which will ignore the inheritance chain (similar like it is with the method listings above).
 
 Method                                                                                                              | From  | Target   | Visibility
 --------------------------------------------------------------------------------------------------------------------|-------|----------|-----------
