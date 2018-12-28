@@ -109,27 +109,27 @@ While `\p{Any}` will just match any representable codepoint, `\p{Assigned}` will
 
 ### Derived Core Properties
 
-These can be found in [DerivedCoreProperties.txt](https://www.unicode.org/Public/UCD/latest/ucd/DerivedCoreProperties.txt) ([explanation](ftp://unicode.org/Public/3.2-Update/DerivedProperties-3.2.0.html)), along with a comment how the property gets constructed. Possible values are:
+These can be found in [DerivedCoreProperties.txt](https://www.unicode.org/Public/UCD/latest/ucd/DerivedCoreProperties.txt) ([explanation](ftp://unicode.org/Public/3.2-Update/DerivedProperties-3.2.0.html)), along with a comment how the property gets constructed. Possible values are (short form in parenthesis):
 
 - Math
-- Alphabetic
-- Lowercase
-- Uppercase
+- Alphabetic (Alpha)
+- Lowercase (Lower)
+- Uppercase (Upper)
 - Cased
 - Case Ignorable
-- Changes When Lowercased
-- Changes When Uppercased
-- Changes When Titlecased
-- Changes When Casefolded
-- Changes When Casemapped
-- ID Start
-- ID Continue
-- XID Start
-- XID Continue
-- Default Ignorable Code Point
-- Grapheme Extend
-- Grapheme Base
-- Grapheme Link
+- Changes When Lowercased (CWL)
+- Changes When Uppercased (CWU)
+- Changes When Titlecased (CWT)
+- Changes When Casefolded (CWCF)
+- Changes When Casemapped (CWCF)
+- ID Start (IDS)
+- ID Continue (IDC)
+- XID Start (XIDS)
+- XID Continue (XIDC)
+- Default Ignorable Code Point (DI)
+- Grapheme Extend (Gr Ext)
+- Grapheme Base (Gr Base)
+- Grapheme Link (Gr Link)
 
 ### Grapheme Related
 
@@ -153,40 +153,40 @@ Ruby's regex engine supports [matching for grapheme clusters](/66-ruby-has-chara
 
 Other [matchable character properties](https://en.wikipedia.org/wiki/Unicode_character_property) are:
 
-- White Space
-- Bidi Control
-- Join Control
+- White Space (W Space)
+- Bidi Control (Bidi C)
+- Join Control (Join C)
 - Dash
 - Hyphen
-- Quotation Mark
-- Terminal Punctuation
-- Other Math
-- Hex Digit
-- ASCII Hex Digit
-- Other Alphabetic
-- Ideographic
-- Diacritic
-- Extender
-- Other Lowercase
-- Other Uppercase
-- Noncharacter Code Point
-- Other Grapheme Extend
-- IDS Binary Operator
-- IDS Trinary Operator
+- Quotation Mark (Q Mark)
+- Terminal Punctuation (Term)
+- Other Math (O Math)
+- Hex Digit (Hex)
+- ASCII Hex Digit (A Hex)
+- Other Alphabetic (O Alpha)
+- Ideographic (Ideo)
+- Diacritic (Dia)
+- Extender (Ext)
+- Other Lowercase (O Lower)
+- Other Uppercase (O Upper)
+- Noncharacter Code Point (N Char)
+- Other Grapheme Extend (O Gr Ext)
+- IDS Binary Operator (IDSB)
+- IDS Trinary Operator (IDST)
 - Radical
-- Unified Ideograph
-- Other Default Ignorable Code Point
-- Deprecated
-- Soft Dotted
-- Logical Order Exception
-- Other ID Start
-- Other ID Continue
-- Sentence Terminal
-- Variation Selector
-- Pattern White Space
-- Pattern Syntax
-- Prepended Concatenation Mark
-- Regional Indicator
+- Unified Ideograph (U Ideo)
+- Other Default Ignorable Code Point (ODI)
+- Deprecated (Dep)
+- Soft Dotted (SD)
+- Logical Order Exception (LOE)
+- Other ID Start (OIDS)
+- Other ID Continue (OIDC)
+- Sentence Terminal (S Term)
+- Variation Selector (VS)
+- Pattern White Space (Pat WS)
+- Pattern Syntax (Pat Syn)
+- Prepended Concatenation Mark (PCM)
+- Regional Indicator (RI)
 
 ## Emoji Properties
 
