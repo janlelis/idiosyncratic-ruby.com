@@ -11,7 +11,7 @@ ARTICLE
 
 However, it does not directly support rendering data from a [Hash](https://ruby-doc.org/core/Hash.html), but only from a [Binding](https://ruby-doc.org/core/Binding.html) object:¹
 
-¹ **Update:** [It is now possible with Ruby 2.5](#how-to-render-an-erb-template-post-25)
+¹ **Update:** [It is now possible with Ruby 2.5 -- click here to see the best best practice](#how-to-render-an-erb-template-post-25)
 
 ## How to Render an ERB Template² (Pre 2.1)
 
