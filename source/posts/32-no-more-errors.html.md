@@ -64,7 +64,7 @@ Exception | Thrown by core Ruby when | Remarks
 
 ### SystemCallError
 
-These errors are thrown by the operating system under certain circumstances. The exact list depends on your platform and can be found in [a file called `errno.h`](http://www.gnu.org/software/libc/manual/html_node/Error-Codes.html). You get such errors when working with processes, [sockets](https://ruby-doc.org/stdlib/libdoc/socket/rdoc/Socket.html#method-i-connect-label-Unix-based+Exceptions), files, and other functionality that relies on low level system operations.
+These errors are thrown by the operating system under certain circumstances. The exact list depends on your platform and can be found in [a file called `errno.h`](https://www.gnu.org/software/libc/manual/html_node/Error-Codes.html). You get such errors when working with processes, [sockets](https://ruby-doc.org/stdlib/libdoc/socket/rdoc/Socket.html#method-i-connect-label-Unix-based+Exceptions), files, and other functionality that relies on low level system operations.
 
 What follows is the list of errors that are known by Ruby. The error numbers and messages were generated on a recent ubuntu Linux machine. All system call errors are namespaced under `Errno::` and can be dynamically created using `SystemCallError.new(number)`.
 
@@ -211,7 +211,7 @@ Errno::EXFULL            | 54  | Exchange full | -
 Errno::NOERROR           | 0   | Success | -
 {:.table-30-8-36-X}
 
-¹ Feel free to [suggest more one-liners](https://github.com/janlelis/idiosyncratic-ruby.com/issues/new)! I will also add some more over time.<br/>
+¹ Feel free to [suggest more one-liners](https://github.com/janlelis/idiosyncratic-ruby.com/issues/new)<br/>
 ² These include `IO::WaitReadable`/`IO::WaitWritable`. See [IO#read_nonblock](https://ruby-doc.org/core/IO.html#method-i-read_nonblock).<br/>
 ³ EAGAIN == EWOULDBLOCK [on most systems](https://stackoverflow.com/questions/7003234/which-systems-define-eagain-and-ewouldblock-as-different-values)
 
