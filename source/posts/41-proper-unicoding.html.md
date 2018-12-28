@@ -40,13 +40,14 @@ Ruby will strip all spaces, dashes, underscores from the given property and conv
 
 Ruby Version | Unicode Version
 -------------|----------------
+**2.6**      | **11.0.0**
 **2.5**      | **10.0.0**
 **2.4**      | **9.0.0**
 **2.3**      | **8.0.0**
 **2.2**      | **7.0.0**
 **2.1**      | **6.1.0**
 
-## List of Properties as of Ruby 2.5 / Unicode 10.0
+## List of Properties as of Ruby 2.6 / Unicode 11.0
 
 ### General Category
 
@@ -104,6 +105,8 @@ All properties of the [POSIX brackets syntax](http://www.regular-expressions.inf
 - Any
 - Assigned
 
+While `\p{Any}` will just match any representable codepoint, `\p{Assigned}` will ignore [*Reserved* codepoints and *Non-Characters*](/66-ruby-has-character.html#types-of-unstandardized-codepoints)
+
 ### Derived Core Properties
 
 These can be found in [DerivedCoreProperties.txt](https://www.unicode.org/Public/UCD/latest/ucd/DerivedCoreProperties.txt) ([explanation](ftp://unicode.org/Public/3.2-Update/DerivedProperties-3.2.0.html)), along with a comment how the property gets constructed. Possible values are:
@@ -144,10 +147,7 @@ Ruby's regex engine supports [matching for grapheme clusters](/66-ruby-has-chara
 - Grapheme Cluster Break = T
 - Grapheme Cluster Break = LV
 - Grapheme Cluster Break = LVT
-- Grapheme Cluster Break = E Base
-- Grapheme Cluster Break = E Modifier
 - Grapheme Cluster Break = ZWJ
-- Grapheme Cluster Break = Glue After Zwj
 
 ### Binary Properties
 
@@ -157,7 +157,7 @@ Other [matchable character properties](https://en.wikipedia.org/wiki/Unicode_cha
 - Bidi Control
 - Join Control
 - Dash
-- Hypen
+- Hyphen
 - Quotation Mark
 - Terminal Punctuation
 - Other Math
@@ -182,7 +182,6 @@ Other [matchable character properties](https://en.wikipedia.org/wiki/Unicode_cha
 - Other ID Start
 - Other ID Continue
 - Sentence Terminal
-- STerm
 - Variation Selector
 - Pattern White Space
 - Pattern Syntax
@@ -191,11 +190,14 @@ Other [matchable character properties](https://en.wikipedia.org/wiki/Unicode_cha
 
 ## Emoji Properties
 
+Also see: [unicode-emoji](https://github.com/janlelis/unicode-emoji)
+
 - Emoji
-- Emoji_Presentation
-- Emoji_Modifier
-- Emoji_Modifier_Base
-- Emoji_Component
+- Emoji Presentation
+- Emoji Modifier
+- Emoji Modifier_Base
+- Emoji Component
+- Extended Pictographic
 
 ## Resources
 
