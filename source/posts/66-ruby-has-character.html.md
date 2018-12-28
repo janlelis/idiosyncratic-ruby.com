@@ -408,8 +408,8 @@ Another group of codepoints that require extra care are the unstandardized ones.
 Type           | Count    | Codepoints   | Ruby Regex
 ---------------|----------|--------------|-----------
 Private-Use    | 137 468¹ | **U+E000..U+F8FF**, **U+F0000..U+FFFFD**, **U+100000..U+10FFFD**                       | `/\p{private use}`
-Non-Characters | 66       | **U+FDD0..U+FDEF** and the last two codepoints of each plane: **U+XFFFE**, **U+XFFFF** | `/\p{non character codepoint}/`
-Reserved       | 837 775  | (not yet assigned) | `/\p{unassigned}(?<!\p{non character codepoint})/`
+Non-Characters | 66       | **U+FDD0..U+FDEF** and the last two codepoints of each plane: **U+XFFFE**, **U+XFFFF** | `/\p{nchar}/`
+Reserved       | 837 775  | (not yet assigned) | `/\p{unassigned}(?<!\p{nchar})/`
 {:.table-15-15-30-X}
 
 ¹ Two additional private-use codepoints are **U+0091** and **U+0092**, but they are counted as control characters (see next section)
@@ -516,7 +516,7 @@ The **characteristics** gem lets you check if a codepoint belongs to a specific 
 
 My last example of special codepoints are the so called ignorable codepoints. Their meaning varies, but most of them are invisible and they are often not treated as a whitespace by Unicode. They are ignorable in the sense that if your Unicode rendering engine does not know how to display it, it should *just display nothing*. The ignorable property is even given to some ranges of *unassigned* codepoints¹ (which is usually not done).
 
-You can check for ignorable codepoints using the `/\p{default ignorable code point}/` regex.
+You can check for ignorable codepoints using the `/\p{default ignorable code point}/` (or its shorthand `\p{di}`) regex.
 
 For example, the following piece of code is made out of [tag characters](https://en.wikipedia.org/wiki/Tags_(Unicode_block)), which resemble all [ASCII characters](/56-us-ascii-8bit.html), but as ignorable characters:
 
