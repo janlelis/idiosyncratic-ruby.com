@@ -3,14 +3,9 @@ title: Ruby String Magic
 date: 2015-05-02
 tags: strings, regex, syntax, stdlib
 commit: cee4bd8f81fa108aecc5b01734572fd3e69dcff4
-meta:
-- name: "twitter:dnt"
-  content: "on"
-- name: "twitter:widgets:link-color"
-  content: "#770000"
 ---
 
-Ruby strings are powerful. You could say, Ruby is build around manipulating strings. There are tons of ways how to work with strings and as of Ruby 2.2.2, `String` offers 116 instance methods. Knowing them well can save you a lot of time.
+Ruby strings are powerful. You could say, Ruby is build around manipulating strings. There are tons of ways how to work with strings and as of Ruby 2.6.0 `String` offers 119 instance methods. Knowing them well can save you a lot of time.
 
 ARTICLE
 
