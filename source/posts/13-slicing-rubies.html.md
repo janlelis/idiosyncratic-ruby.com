@@ -13,17 +13,17 @@ ARTICLE
 
 Slicing lets you divide a collection into sub-collections. Take this array:
 
-    a = %w[Ruby in the back-end, AngularJS in the front-end]
+    a = %w[Ruby in the back-end, React in the front-end]
 
 Let's say you want to divide it into smaller arrays. The simplest option would be passing a regex to `slice_before` describing where to slice:
 
     a.slice_before(/,/).to_a
-    # => [["Ruby", "in", "the"], ["back-end,", "AngularJS", "in", "the", "front-end"]]
+    # => [["Ruby", "in", "the"], ["back-end,", "React", "in", "the", "front-end"]]
 
 A variation of this is method is `slice_after`, which puts the separating element into the earlier sub-collection, which makes more sense in this case:
 
     a.slice_after(/,/).to_a
-    # => [["Ruby", "in", "the", "back-end,"], ["AngularJS", "in", "the", "front-end"]]
+    # => [["Ruby", "in", "the", "back-end,"], ["React", "in", "the", "front-end"]]
 
 Slicing uses [===](https://ruby-doc.org/core/Object.html#method-i-3D-3D-3D) to compare each element with the given separator, so you can pass in a class as well:
 
