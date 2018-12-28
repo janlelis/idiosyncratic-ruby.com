@@ -605,13 +605,13 @@ Unicode::DisplayWidth.of("·", 2) # =&gt; 2
       <td>Non-Characters</td>
       <td>66</td>
       <td><strong>U+FDD0..U+FDEF</strong> and the last two codepoints of each plane: <strong>U+XFFFE</strong>, <strong>U+XFFFF</strong></td>
-      <td><code>/\p{non character codepoint}/</code></td>
+      <td><code>/\p{nchar}/</code></td>
     </tr>
     <tr>
       <td>Reserved</td>
       <td>837 775</td>
       <td>(not yet assigned)</td>
-      <td><code>/\p{unassigned}(?&lt;!\p{non character codepoint})/</code></td>
+      <td><code>/\p{unassigned}(?&lt;!\p{nchar})/</code></td>
     </tr>
   </tbody>
 </table>
@@ -1063,7 +1063,7 @@ Characteristics.create("\u{80}").c1? # =&gt; true
 
 <p>My last example of special codepoints are the so called ignorable codepoints. Their meaning varies, but most of them are invisible and they are often not treated as a whitespace by Unicode. They are ignorable in the sense that if your Unicode rendering engine does not know how to display it, it should <em>just display nothing</em>. The ignorable property is even given to some ranges of <em>unassigned</em> codepoints¹ (which is usually not done).</p>
 
-<p>You can check for ignorable codepoints using the <code>/\p{default ignorable code point}/</code> regex.</p>
+<p>You can check for ignorable codepoints using the <code>/\p{default ignorable code point}/</code> (or its shorthand <code>\p{di}</code>) regex.</p>
 
 <p>For example, the following piece of code is made out of <a href="https://en.wikipedia.org/wiki/Tags_(Unicode_block)">tag characters</a>, which resemble all <a href="/56-us-ascii-8bit.html">ASCII characters</a>, but as ignorable characters:</p>
 
@@ -1099,7 +1099,7 @@ Characteristics.create("\u{80}").c1? # =&gt; true
           <a href="https://janlelis.com/data-protection.html">Data Protection</a>
         </div>
         About Strings, Unicode, Stdlib, Regex<br>
-        Last Update: July 09, 2018
+        Last Update: December 28, 2018
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

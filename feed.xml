@@ -601,13 +601,13 @@ Unicode::DisplayWidth.of("·", 2) # =&amp;gt; 2
       &lt;td&gt;Non-Characters&lt;/td&gt;
       &lt;td&gt;66&lt;/td&gt;
       &lt;td&gt;&lt;strong&gt;U+FDD0..U+FDEF&lt;/strong&gt; and the last two codepoints of each plane: &lt;strong&gt;U+XFFFE&lt;/strong&gt;, &lt;strong&gt;U+XFFFF&lt;/strong&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;code&gt;/\p{non character codepoint}/&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;/\p{nchar}/&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Reserved&lt;/td&gt;
       &lt;td&gt;837 775&lt;/td&gt;
       &lt;td&gt;(not yet assigned)&lt;/td&gt;
-      &lt;td&gt;&lt;code&gt;/\p{unassigned}(?&amp;lt;!\p{non character codepoint})/&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;/\p{unassigned}(?&amp;lt;!\p{nchar})/&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
@@ -1059,7 +1059,7 @@ Characteristics.create("\u{80}").c1? # =&amp;gt; true
 
 &lt;p&gt;My last example of special codepoints are the so called ignorable codepoints. Their meaning varies, but most of them are invisible and they are often not treated as a whitespace by Unicode. They are ignorable in the sense that if your Unicode rendering engine does not know how to display it, it should &lt;em&gt;just display nothing&lt;/em&gt;. The ignorable property is even given to some ranges of &lt;em&gt;unassigned&lt;/em&gt; codepoints¹ (which is usually not done).&lt;/p&gt;
 
-&lt;p&gt;You can check for ignorable codepoints using the &lt;code&gt;/\p{default ignorable code point}/&lt;/code&gt; regex.&lt;/p&gt;
+&lt;p&gt;You can check for ignorable codepoints using the &lt;code&gt;/\p{default ignorable code point}/&lt;/code&gt; (or its shorthand &lt;code&gt;\p{di}&lt;/code&gt;) regex.&lt;/p&gt;
 
 &lt;p&gt;For example, the following piece of code is made out of &lt;a href="https://en.wikipedia.org/wiki/Tags_(Unicode_block)"&gt;tag characters&lt;/a&gt;, which resemble all &lt;a href="/56-us-ascii-8bit.html"&gt;ASCII characters&lt;/a&gt;, but as ignorable characters:&lt;/p&gt;
 
