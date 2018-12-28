@@ -84,6 +84,7 @@ These libraries come as **default** Ruby gems, so that they can be updated indep
 Gem | Sources | Description | Alternatives
 ----|---------|-------------|-------------
 [bigdecimal](https://ruby-doc.org/stdlib/libdoc/bigdecimal/rdoc/BigDecimal.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/bigdecimal)<br>[gem](https://github.com/ruby/bigdecimal) | Support for arbitrary-precision floating point decimal arithmetic | -
+[bundler](https://www.rubydoc.info/gems/bundler) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/bundler)<br>[gem](https://github.com/bundler/bundler) | [Bundler](https://bundler.io) is the local package manager for Ruby applications | -
 [cmath](https://ruby-doc.org/stdlib/libdoc/cmath/rdoc/CMath.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/cmath.rb)<br>[gem](https://github.com/ruby/cmath) | Trigonometric and transcendental functions for complex numbers | -
 [csv](https://ruby-doc.org/stdlib/libdoc/csv/rdoc/CSV.html) | [mri](https://github.com/ruby/ruby/tree/trunk/lib/csv.rb)<br>[gem](https://github.com/ruby/csv) | Support for CSV ([Comma-separated Values](https://en.wikipedia.org/wiki/Comma-separated_values)) | [smarter_csv](https://github.com/tilo/smarter_csv)
 [date](https://ruby-doc.org/stdlib/libdoc/date/rdoc/index.html) **c** | [mri](https://github.com/ruby/ruby/tree/trunk/ext/date)<br>[gem](https://github.com/ruby/date) | The [Date](https://ruby-doc.org/stdlib/libdoc/date/rdoc/Date.html) and [DateTime](https://ruby-doc.org/stdlib/libdoc/date/rdoc/DateTime.html) classes | -
