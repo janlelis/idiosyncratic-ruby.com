@@ -78,3 +78,7 @@ You can also freeze string literals using the `--enable-frozen` command line opt
     # warning: mismatched indentations at 'end' with 'def' at 2
 
 This warning also appears when running Ruby with the [`-w` command-line option](/3-ruby-can-you-speak-louder.html#command-line-options-for-debug-modes), but the magic comment will always overwrite the behavior of the source file in question.
+
+## Also See
+
+- [List of magic comments defined in Ruby's grammar](https://github.com/ruby/ruby/blob/v2_6_0/parse.y#L6687-L6690)

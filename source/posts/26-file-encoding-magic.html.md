@@ -33,7 +33,6 @@ You might come across a situation, where you want to read in a source file using
     >> IRB::MagicFile.open('file_with_magic_comment.rb').read.encoding
     # => #<Encoding:Windows-1252>
 
-## Resources
+## Also See
 
 - [Source: irb/magic-file](https://github.com/ruby/ruby/blob/trunk/lib/irb/magic-file.rb)
-- [Grammar: parser_magic_comment](https://github.com/ruby/ruby/blob/ruby_2_2/parse.y#L6980)
