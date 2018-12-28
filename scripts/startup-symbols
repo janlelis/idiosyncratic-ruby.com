@@ -1,3 +1,3 @@
 #!ruby --disable-all
 
-puts Symbol.all_symbols.sort.map{ |s| "`#{s.inspect.sub("`", "\\`")}`" }.join(", ")
+puts Symbol.all_symbols.sort.map{ |s| s.inspect.sub("`", "\\`").gsub(/'/,"\\'") }.join(" ")
