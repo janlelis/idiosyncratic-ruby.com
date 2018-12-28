@@ -124,10 +124,11 @@ Array.try_convert(o) # =&gt; [42]
   <li>If there is a <strong>special conversion</strong>, apply it. See the table below for details and the exact application order (e.g. <code>Array()</code> does its special conversion <em>after</em> it tried the two steps below).</li>
   <li>Unless special conversion gets applied, try to convert via the <strong>implicit conversion</strong> method</li>
   <li>If it does not exist, try to convert via the <strong>explicit conversion</strong> method</li>
-  <li>Raise a <a href="https://ruby-doc.org/core/TypeError.html">TypeError</a> if everything of the above has failed</li>
+  <li>Raise a <a href="https://ruby-doc.org/core/TypeError.html">TypeError</a>² if everything of the above has failed</li>
 </ul>
 
-<p>¹ Although defining uppercased methods for your custom classes to create instances of it looks like an interesting idea at first glance, it is rather confusing. Consider defining class<code>.[]</code> instead, which enables a very similar syntax, but uses the real constant it belongs to. An example of such usage is <a href="https://ruby-doc.org/stdlib/libdoc/set/rdoc/Set.html#method-c-5B-5D">Set</a>.</p>
+<p>¹ Although defining uppercased methods for your custom classes to create instances of it looks like an interesting idea at first glance, it is rather confusing. Consider defining class<code>.[]</code> instead, which enables a very similar syntax, but uses the real constant it belongs to. An example of such usage is <a href="https://ruby-doc.org/stdlib/libdoc/set/rdoc/Set.html#method-c-5B-5D">Set</a>.<br />
+² Since Ruby 2.6, you can pass in a <code>exception: false</code> keyword argument to return <code>nil</code> instead of raising an error</p>
 
 <h2 id="core-classes-conversion-table">Core Classes Conversion Table</h2>
 
@@ -237,7 +238,7 @@ Array.try_convert(o) # =&gt; [42]
           <a href="https://janlelis.com/data-protection.html">Data Protection</a>
         </div>
         About Core, Types<br>
-        Last Update: July 09, 2018
+        Last Update: December 28, 2018
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

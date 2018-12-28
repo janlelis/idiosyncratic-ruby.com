@@ -253,7 +253,7 @@
 
 <h3 id="systemcallerror">SystemCallError</h3>
 
-<p>These errors are thrown by the operating system under certain circumstances. The exact list depends on your platform and can be found in <a href="http://www.gnu.org/software/libc/manual/html_node/Error-Codes.html">a file called <code>errno.h</code></a>. You get such errors when working with processes, <a href="https://ruby-doc.org/stdlib/libdoc/socket/rdoc/Socket.html#method-i-connect-label-Unix-based+Exceptions">sockets</a>, files, and other functionality that relies on low level system operations.</p>
+<p>These errors are thrown by the operating system under certain circumstances. The exact list depends on your platform and can be found in <a href="https://www.gnu.org/software/libc/manual/html_node/Error-Codes.html">a file called <code>errno.h</code></a>. You get such errors when working with processes, <a href="https://ruby-doc.org/stdlib/libdoc/socket/rdoc/Socket.html#method-i-connect-label-Unix-based+Exceptions">sockets</a>, files, and other functionality that relies on low level system operations.</p>
 
 <p>What follows is the list of errors that are known by Ruby. The error numbers and messages were generated on a recent ubuntu Linux machine. All system call errors are namespaced under <code>Errno::</code> and can be dynamically created using <code>SystemCallError.new(number)</code>.</p>
 
@@ -1104,7 +1104,7 @@
   </tbody>
 </table>
 
-<p>¹ Feel free to <a href="https://github.com/janlelis/idiosyncratic-ruby.com/issues/new">suggest more one-liners</a>! I will also add some more over time.<br />
+<p>¹ Feel free to <a href="https://github.com/janlelis/idiosyncratic-ruby.com/issues/new">suggest more one-liners</a><br />
 ² These include <code>IO::WaitReadable</code>/<code>IO::WaitWritable</code>. See <a href="https://ruby-doc.org/core/IO.html#method-i-read_nonblock">IO#read_nonblock</a>.<br />
 ³ EAGAIN == EWOULDBLOCK <a href="https://stackoverflow.com/questions/7003234/which-systems-define-eagain-and-ewouldblock-as-different-values">on most systems</a></p>
 
@@ -1132,7 +1132,7 @@
           <a href="https://janlelis.com/data-protection.html">Data Protection</a>
         </div>
         About Core, Errors, Cheatsheet<br>
-        Last Update: July 30, 2018
+        Last Update: December 28, 2018
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

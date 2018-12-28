@@ -30,19 +30,19 @@
 
 <p>Slicing lets you divide a collection into sub-collections. Take this array:</p>
 
-<pre><code>a = %w[Ruby in the back-end, AngularJS in the front-end]
+<pre><code>a = %w[Ruby in the back-end, React in the front-end]
 </code></pre>
 
 <p>Let's say you want to divide it into smaller arrays. The simplest option would be passing a regex to <code>slice_before</code> describing where to slice:</p>
 
 <pre><code>a.slice_before(/,/).to_a
-# =&gt; [["Ruby", "in", "the"], ["back-end,", "AngularJS", "in", "the", "front-end"]]
+# =&gt; [["Ruby", "in", "the"], ["back-end,", "React", "in", "the", "front-end"]]
 </code></pre>
 
 <p>A variation of this is method is <code>slice_after</code>, which puts the separating element into the earlier sub-collection, which makes more sense in this case:</p>
 
 <pre><code>a.slice_after(/,/).to_a
-# =&gt; [["Ruby", "in", "the", "back-end,"], ["AngularJS", "in", "the", "front-end"]]
+# =&gt; [["Ruby", "in", "the", "back-end,"], ["React", "in", "the", "front-end"]]
 </code></pre>
 
 <p>Slicing uses <a href="https://ruby-doc.org/core/Object.html#method-i-3D-3D-3D">===</a> to compare each element with the given separator, so you can pass in a class as well:</p>
@@ -92,7 +92,7 @@
           <a href="https://janlelis.com/data-protection.html">Data Protection</a>
         </div>
         About Core, Enumerable<br>
-        Last Update: July 09, 2018
+        Last Update: December 28, 2018
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

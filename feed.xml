@@ -2430,6 +2430,12 @@ def method_name
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;This warning also appears when running Ruby with the &lt;a href="/3-ruby-can-you-speak-louder.html#command-line-options-for-debug-modes"&gt;&lt;code&gt;-w&lt;/code&gt; command-line option&lt;/a&gt;, but the magic comment will always overwrite the behavior of the source file in question.&lt;/p&gt;
+
+&lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://github.com/ruby/ruby/blob/v2_6_0/parse.y#L6687-L6690"&gt;List of magic comments defined in Ruby's grammar&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </content>
   </entry>
   <entry>
@@ -3596,10 +3602,11 @@ Array.try_convert(o) # =&amp;gt; [42]
   &lt;li&gt;If there is a &lt;strong&gt;special conversion&lt;/strong&gt;, apply it. See the table below for details and the exact application order (e.g. &lt;code&gt;Array()&lt;/code&gt; does its special conversion &lt;em&gt;after&lt;/em&gt; it tried the two steps below).&lt;/li&gt;
   &lt;li&gt;Unless special conversion gets applied, try to convert via the &lt;strong&gt;implicit conversion&lt;/strong&gt; method&lt;/li&gt;
   &lt;li&gt;If it does not exist, try to convert via the &lt;strong&gt;explicit conversion&lt;/strong&gt; method&lt;/li&gt;
-  &lt;li&gt;Raise a &lt;a href="https://ruby-doc.org/core/TypeError.html"&gt;TypeError&lt;/a&gt; if everything of the above has failed&lt;/li&gt;
+  &lt;li&gt;Raise a &lt;a href="https://ruby-doc.org/core/TypeError.html"&gt;TypeError&lt;/a&gt;² if everything of the above has failed&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;¹ Although defining uppercased methods for your custom classes to create instances of it looks like an interesting idea at first glance, it is rather confusing. Consider defining class&lt;code&gt;.[]&lt;/code&gt; instead, which enables a very similar syntax, but uses the real constant it belongs to. An example of such usage is &lt;a href="https://ruby-doc.org/stdlib/libdoc/set/rdoc/Set.html#method-c-5B-5D"&gt;Set&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;¹ Although defining uppercased methods for your custom classes to create instances of it looks like an interesting idea at first glance, it is rather confusing. Consider defining class&lt;code&gt;.[]&lt;/code&gt; instead, which enables a very similar syntax, but uses the real constant it belongs to. An example of such usage is &lt;a href="https://ruby-doc.org/stdlib/libdoc/set/rdoc/Set.html#method-c-5B-5D"&gt;Set&lt;/a&gt;.&lt;br /&gt;
+² Since Ruby 2.6, you can pass in a &lt;code&gt;exception: false&lt;/code&gt; keyword argument to return &lt;code&gt;nil&lt;/code&gt; instead of raising an error&lt;/p&gt;
 
 &lt;h2 id="core-classes-conversion-table"&gt;Core Classes Conversion Table&lt;/h2&gt;
 
@@ -3703,7 +3710,7 @@ Array.try_convert(o) # =&amp;gt; [42]
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;Generated with Ruby 2.5.0, including RubyGems and &lt;a href="https://stdgems.org/did_you_mean/"&gt;DidYouMean&lt;/a&gt;:&lt;/p&gt;
+    <content type="html">&lt;p&gt;Generated with Ruby 2.6.0, including RubyGems and &lt;a href="https://stdgems.org/did_you_mean/"&gt;DidYouMean&lt;/a&gt;:&lt;/p&gt;
 
 &lt;pre id="constant-tree"&gt;Object (Class)
 ├─ARGF (ARGF.class)
@@ -3723,7 +3730,28 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ └─I (Complex)
 ├─ConditionVariable (Class)
 ├─Data (Class)
+├─Delegator (Class)
 ├─DidYouMean (Module)
+│ ├─ClassNameChecker (Class)
+│ ├─Correctable (Module)
+│ ├─Jaro (Module)
+│ ├─JaroWinkler (Module)
+│ │ ├─THRESHOLD (Float)
+│ │ └─WEIGHT (Float)
+│ ├─KeyErrorChecker (Class)
+│ ├─Levenshtein (Module)
+│ ├─MethodNameChecker (Class)
+│ │ ├─NAMES_TO_EXCLUDE (Hash)
+│ │ └─RB_RESERVED_WORDS (Array)
+│ ├─NameErrorCheckers (Object)
+│ ├─NullChecker (Class)
+│ ├─PlainFormatter (Class)
+│ ├─SPELL_CHECKERS (Hash)
+│ ├─SpellChecker (Class)
+│ ├─VERSION (String)
+│ └─VariableNameChecker (Class)
+│   ├─NAMES_TO_EXCLUDE (Hash)
+│   └─RB_RESERVED_WORDS (Array)
 ├─Dir (Class)
 ├─ENV (Object)
 ├─EOFError (Class)
@@ -3957,6 +3985,8 @@ Array.try_convert(o) # =&amp;gt; [42]
 ├─EncodingError (Class)
 ├─Enumerable (Module)
 ├─Enumerator (Class)
+│ ├─ArithmeticSequence (Class)
+│ ├─Chain (Class)
 │ ├─Generator (Class)
 │ ├─Lazy (Class)
 │ └─Yielder (Class)
@@ -3979,11 +4009,17 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ │ └─Errno (Integer)
 │ ├─EAUTH (Class)
 │ │ └─Errno (Integer)
+│ ├─EBADARCH (Class)
+│ │ └─Errno (Integer)
 │ ├─EBADE (Class)
+│ │ └─Errno (Integer)
+│ ├─EBADEXEC (Class)
 │ │ └─Errno (Integer)
 │ ├─EBADF (Class)
 │ │ └─Errno (Integer)
 │ ├─EBADFD (Class)
+│ │ └─Errno (Integer)
+│ ├─EBADMACHO (Class)
 │ │ └─Errno (Integer)
 │ ├─EBADMSG (Class)
 │ │ └─Errno (Integer)
@@ -4020,6 +4056,8 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ ├─EDEADLOCK (Class)
 │ │ └─Errno (Integer)
 │ ├─EDESTADDRREQ (Class)
+│ │ └─Errno (Integer)
+│ ├─EDEVERR (Class)
 │ │ └─Errno (Integer)
 │ ├─EDOM (Class)
 │ │ └─Errno (Integer)
@@ -4076,6 +4114,8 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ ├─EL3HLT (Class)
 │ │ └─Errno (Integer)
 │ ├─EL3RST (Class)
+│ │ └─Errno (Integer)
+│ ├─ELAST (Class)
 │ │ └─Errno (Integer)
 │ ├─ELIBACC (Class)
 │ │ └─Errno (Integer)
@@ -4147,6 +4187,8 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ │ └─Errno (Integer)
 │ ├─ENOPKG (Class)
 │ │ └─Errno (Integer)
+│ ├─ENOPOLICY (Class)
+│ │ └─Errno (Integer)
 │ ├─ENOPROTOOPT (Class)
 │ │ └─Errno (Integer)
 │ ├─ENOSPC (Class)
@@ -4207,6 +4249,10 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ │ └─Errno (Integer)
 │ ├─EPROTOTYPE (Class)
 │ │ └─Errno (Integer)
+│ ├─EPWROFF (Class)
+│ │ └─Errno (Integer)
+│ ├─EQFULL (Class)
+│ │ └─Errno (Integer)
 │ ├─ERANGE (Class)
 │ │ └─Errno (Integer)
 │ ├─EREMCHG (Class)
@@ -4222,6 +4268,8 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ ├─EROFS (Class)
 │ │ └─Errno (Integer)
 │ ├─ERPCMISMATCH (Class)
+│ │ └─Errno (Integer)
+│ ├─ESHLIBVERS (Class)
 │ │ └─Errno (Integer)
 │ ├─ESHUTDOWN (Class)
 │ │ └─Errno (Integer)
@@ -4331,6 +4379,8 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ ├─ConfigFile (Class)
 │ │ ├─DEFAULT_BACKTRACE (FalseClass)
 │ │ ├─DEFAULT_BULK_THRESHOLD (Integer)
+│ │ ├─DEFAULT_CERT_EXPIRATION_LENGTH_DAYS (Integer)
+│ │ ├─DEFAULT_CONCURRENT_DOWNLOADS (Integer)
 │ │ ├─DEFAULT_UPDATE_SOURCES (TrueClass)
 │ │ ├─DEFAULT_VERBOSITY (TrueClass)
 │ │ ├─OPERATING_SYSTEM_DEFAULTS (Hash)
@@ -4346,63 +4396,6 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ ├─DependencyList (Class)
 │ ├─DependencyRemovalException (Class)
 │ ├─DependencyResolutionError (Class)
-│ ├─DependencyResolver (Class)
-│ │ ├─APISet (Class)
-│ │ ├─APISpecification (Class)
-│ │ ├─ActivationRequest (Class)
-│ │ ├─BestSet (Class)
-│ │ ├─ComposedSet (Class)
-│ │ ├─Conflict (Class)
-│ │ ├─CurrentSet (Class)
-│ │ ├─DEBUG_RESOLVER (FalseClass)
-│ │ ├─DependencyConflict (Class)
-│ │ ├─DependencyRequest (Class)
-│ │ ├─GitSet (Class)
-│ │ ├─GitSpecification (Class)
-│ │ ├─IndexSet (Class)
-│ │ ├─IndexSpecification (Class)
-│ │ ├─InstalledSpecification (Class)
-│ │ ├─InstallerSet (Class)
-│ │ ├─LocalSpecification (Class)
-│ │ ├─LockSet (Class)
-│ │ ├─LockSpecification (Class)
-│ │ ├─Molinillo (Module)
-│ │ │ ├─CircularDependencyError (Class)
-│ │ │ ├─Delegates (Module)
-│ │ │ │ ├─ResolutionState (Module)
-│ │ │ │ └─SpecificationProvider (Module)
-│ │ │ ├─DependencyGraph (Class)
-│ │ │ │ ├─Action (Class)
-│ │ │ │ ├─AddEdgeNoCircular (Class)
-│ │ │ │ ├─AddVertex (Class)
-│ │ │ │ ├─DeleteEdge (Class)
-│ │ │ │ ├─DetachVertexNamed (Class)
-│ │ │ │ ├─Edge (Class)
-│ │ │ │ ├─Log (Class)
-│ │ │ │ ├─SetPayload (Class)
-│ │ │ │ ├─Tag (Class)
-│ │ │ │ └─Vertex (Class)
-│ │ │ ├─DependencyState (Class)
-│ │ │ ├─NoSuchDependencyError (Class)
-│ │ │ ├─PossibilityState (Class)
-│ │ │ ├─ResolutionState (Class)
-│ │ │ ├─Resolver (Class)
-│ │ │ │ └─Resolution (Class)
-│ │ │ │   └─Conflict (Class)
-│ │ │ ├─ResolverError (Class)
-│ │ │ ├─SpecificationProvider (Module)
-│ │ │ ├─UI (Module)
-│ │ │ ├─VERSION (String)
-│ │ │ └─VersionConflict (Class)
-│ │ ├─RequirementList (Class)
-│ │ ├─Set (Class)
-│ │ ├─SourceSet (Class)
-│ │ ├─SpecSpecification (Class)
-│ │ ├─Specification (Class)
-│ │ ├─Stats (Class)
-│ │ │ └─PATTERN (String)
-│ │ ├─VendorSet (Class)
-│ │ └─VendorSpecification (Class)
 │ ├─Deprecate (Module)
 │ ├─DocumentError (Class)
 │ ├─EndOfYAMLException (Class)
@@ -4411,7 +4404,6 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ ├─FilePermissionError (Class)
 │ ├─FormatException (Class)
 │ ├─GEM_DEP_FILES (Array)
-│ ├─GEM_PRELUDE_SUCKAGE (NilClass)
 │ ├─GemNotFoundException (Class)
 │ ├─GemNotInHomeException (Class)
 │ ├─ImpossibleDependenciesError (Class)
@@ -4423,7 +4415,8 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ ├─InvalidSpecificationException (Class)
 │ ├─LOADED_SPECS_MUTEX (Thread::Mutex)
 │ ├─Licenses (Class)
-│ │ ├─IDENTIFIERS (Array)
+│ │ ├─EXCEPTION_IDENTIFIERS (Array)
+│ │ ├─LICENSE_IDENTIFIERS (Array)
 │ │ ├─NONSTANDARD (String)
 │ │ └─REGEXP (Regexp)
 │ ├─List (Class)
@@ -4447,11 +4440,6 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ ├─RemoteInstallationSkipped (Class)
 │ ├─RemoteSourceException (Class)
 │ ├─RequestSet (Class)
-│ │ ├─GemDepedencyAPI (Class)
-│ │ │ ├─ENGINE_MAP (Hash)
-│ │ │ ├─PLATFORM_MAP (Hash)
-│ │ │ ├─VERSION_MAP (Hash)
-│ │ │ └─WINDOWS (Hash)
 │ │ ├─GemDependencyAPI (Class)
 │ │ │ ├─ENGINE_MAP (Hash)
 │ │ │ ├─PLATFORM_MAP (Hash)
@@ -4555,6 +4543,14 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ │ ├─SPECIFICATION_VERSION_HISTORY (Hash)
 │ │ ├─TODAY (Time)
 │ │ └─VALID_NAME_PATTERN (Regexp)
+│ ├─SpecificationPolicy (Class)
+│ │ ├─HOMEPAGE_URI_PATTERN (Regexp)
+│ │ ├─LAZY (String)
+│ │ ├─LAZY_PATTERN (Regexp)
+│ │ ├─METADATA_LINK_KEYS (Array)
+│ │ ├─SPECIAL_CHARACTERS (Regexp)
+│ │ ├─VALID_NAME_PATTERN (Regexp)
+│ │ └─VALID_URI_PATTERN (Regexp)
 │ ├─StubSpecification (Class)
 │ │ ├─OPEN_MODE (String)
 │ │ ├─PREFIX (String)
@@ -4563,11 +4559,11 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ │   ├─REQUIRE_PATHS (Hash)
 │ │   └─REQUIRE_PATH_LIST (Hash)
 │ ├─SystemExitException (Class)
-│ ├─USE_BUNDLER_FOR_GEMDEPS (FalseClass)
+│ ├─USE_BUNDLER_FOR_GEMDEPS (TrueClass)
+│ ├─UninstallError (Class)
 │ ├─UnsatisfiableDepedencyError (Class)
 │ ├─UnsatisfiableDependencyError (Class)
 │ ├─Util (Module)
-│ │ └─NULL_DEVICE (String)
 │ ├─VERSION (String)
 │ ├─VerificationError (Class)
 │ ├─Version (Class)
@@ -4598,6 +4594,18 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ ├─WaitReadable (Module)
 │ └─WaitWritable (Module)
 ├─IOError (Class)
+├─IPAddr (Class)
+│ ├─AddressFamilyError (Class)
+│ ├─Error (Class)
+│ ├─IN4MASK (Integer)
+│ ├─IN6FORMAT (String)
+│ ├─IN6MASK (Integer)
+│ ├─InvalidAddressError (Class)
+│ ├─InvalidPrefixError (Class)
+│ ├─RE_IPV4ADDRLIKE (Regexp)
+│ ├─RE_IPV6ADDRLIKE_COMPRESSED (Regexp)
+│ └─RE_IPV6ADDRLIKE_FULL (Regexp)
+├─IPSocket (Class)
 ├─IndexError (Class)
 ├─Integer (Class)
 │ └─GMP_VERSION (String)
@@ -4703,9 +4711,12 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ └─NOENCODING (Integer)
 ├─RegexpError (Class)
 ├─RubyVM (Class)
+│ ├─AbstractSyntaxTree (Module)
+│ │ └─Node (Class)
 │ ├─DEFAULT_PARAMS (Hash)
 │ ├─INSTRUCTION_NAMES (Array)
 │ ├─InstructionSequence (Class)
+│ ├─MJIT (Module)
 │ └─OPTS (Array)
 ├─RuntimeError (Class)
 ├─STDERR (IO)
@@ -4715,6 +4726,7 @@ Array.try_convert(o) # =&amp;gt; [42]
 ├─SecurityError (Class)
 ├─Signal (Module)
 ├─SignalException (Class)
+├─SimpleDelegator (Class)
 ├─SizedQueue (Class)
 ├─StandardError (Class)
 ├─StopIteration (Class)
@@ -4747,6 +4759,145 @@ Array.try_convert(o) # =&amp;gt; [42]
 ├─TracePoint (Class)
 ├─TrueClass (Class)
 ├─TypeError (Class)
+├─URI (Module)
+│ ├─ABS_PATH (Regexp)
+│ ├─ABS_URI (Regexp)
+│ ├─ABS_URI_REF (Regexp)
+│ ├─BadURIError (Class)
+│ ├─DEFAULT_PARSER (URI::RFC2396_Parser)
+│ ├─ESCAPED (Regexp)
+│ ├─Error (Class)
+│ ├─Escape (Module)
+│ ├─FRAGMENT (Regexp)
+│ ├─FTP (Class)
+│ │ ├─COMPONENT (Array)
+│ │ ├─DEFAULT_PORT (Integer)
+│ │ ├─TYPECODE (Array)
+│ │ └─TYPECODE_PREFIX (String)
+│ ├─File (Class)
+│ │ ├─COMPONENT (Array)
+│ │ └─DEFAULT_PORT (NilClass)
+│ ├─Generic (Class)
+│ │ ├─COMPONENT (Array)
+│ │ ├─DEFAULT_PORT (NilClass)
+│ │ └─USE_REGISTRY (FalseClass)
+│ ├─HOST (Regexp)
+│ ├─HTTP (Class)
+│ │ ├─COMPONENT (Array)
+│ │ └─DEFAULT_PORT (Integer)
+│ ├─HTTPS (Class)
+│ │ └─DEFAULT_PORT (Integer)
+│ ├─InvalidComponentError (Class)
+│ ├─InvalidURIError (Class)
+│ ├─LDAP (Class)
+│ │ ├─COMPONENT (Array)
+│ │ ├─DEFAULT_PORT (Integer)
+│ │ ├─SCOPE (Array)
+│ │ ├─SCOPE_BASE (String)
+│ │ ├─SCOPE_ONE (String)
+│ │ └─SCOPE_SUB (String)
+│ ├─LDAPS (Class)
+│ │ └─DEFAULT_PORT (Integer)
+│ ├─MailTo (Class)
+│ │ ├─COMPONENT (Array)
+│ │ ├─DEFAULT_PORT (NilClass)
+│ │ ├─EMAIL_REGEXP (Regexp)
+│ │ └─HEADER_REGEXP (Regexp)
+│ ├─OPAQUE (Regexp)
+│ ├─PORT (Regexp)
+│ ├─Parser (Class)
+│ ├─QUERY (Regexp)
+│ ├─REGEXP (Module)
+│ │ └─PATTERN (Module)
+│ │   ├─ABS_PATH (String)
+│ │   ├─ABS_URI (String)
+│ │   ├─ALNUM (String)
+│ │   ├─ALPHA (String)
+│ │   ├─DOMLABEL (String)
+│ │   ├─ESCAPED (String)
+│ │   ├─FRAGMENT (String)
+│ │   ├─HEX (String)
+│ │   ├─HIER_PART (String)
+│ │   ├─HOST (String)
+│ │   ├─HOSTNAME (String)
+│ │   ├─HOSTPORT (String)
+│ │   ├─IPV4ADDR (String)
+│ │   ├─IPV6ADDR (String)
+│ │   ├─IPV6REF (String)
+│ │   ├─NET_PATH (String)
+│ │   ├─OPAQUE_PART (String)
+│ │   ├─PATH_SEGMENTS (String)
+│ │   ├─PORT (String)
+│ │   ├─QUERY (String)
+│ │   ├─REG_NAME (String)
+│ │   ├─REL_PATH (String)
+│ │   ├─REL_SEGMENT (String)
+│ │   ├─REL_URI (String)
+│ │   ├─RESERVED (String)
+│ │   ├─SCHEME (String)
+│ │   ├─TOPLABEL (String)
+│ │   ├─UNRESERVED (String)
+│ │   ├─URIC (String)
+│ │   ├─URIC_NO_SLASH (String)
+│ │   ├─URI_REF (String)
+│ │   ├─USERINFO (String)
+│ │   ├─X_ABS_URI (String)
+│ │   └─X_REL_URI (String)
+│ ├─REGISTRY (Regexp)
+│ ├─REL_PATH (Regexp)
+│ ├─REL_URI (Regexp)
+│ ├─REL_URI_REF (Regexp)
+│ ├─RFC2396_Parser (Class)
+│ ├─RFC2396_REGEXP (Module)
+│ │ └─PATTERN (Module)
+│ │   ├─ABS_PATH (String)
+│ │   ├─ABS_URI (String)
+│ │   ├─ALNUM (String)
+│ │   ├─ALPHA (String)
+│ │   ├─DOMLABEL (String)
+│ │   ├─ESCAPED (String)
+│ │   ├─FRAGMENT (String)
+│ │   ├─HEX (String)
+│ │   ├─HIER_PART (String)
+│ │   ├─HOST (String)
+│ │   ├─HOSTNAME (String)
+│ │   ├─HOSTPORT (String)
+│ │   ├─IPV4ADDR (String)
+│ │   ├─IPV6ADDR (String)
+│ │   ├─IPV6REF (String)
+│ │   ├─NET_PATH (String)
+│ │   ├─OPAQUE_PART (String)
+│ │   ├─PATH_SEGMENTS (String)
+│ │   ├─PORT (String)
+│ │   ├─QUERY (String)
+│ │   ├─REG_NAME (String)
+│ │   ├─REL_PATH (String)
+│ │   ├─REL_SEGMENT (String)
+│ │   ├─REL_URI (String)
+│ │   ├─RESERVED (String)
+│ │   ├─SCHEME (String)
+│ │   ├─TOPLABEL (String)
+│ │   ├─UNRESERVED (String)
+│ │   ├─URIC (String)
+│ │   ├─URIC_NO_SLASH (String)
+│ │   ├─URI_REF (String)
+│ │   ├─USERINFO (String)
+│ │   ├─X_ABS_URI (String)
+│ │   └─X_REL_URI (String)
+│ ├─RFC3986_PARSER (URI::RFC3986_Parser)
+│ ├─RFC3986_Parser (Class)
+│ │ ├─RFC3986_URI (Regexp)
+│ │ └─RFC3986_relative_ref (Regexp)
+│ ├─SCHEME (Regexp)
+│ ├─TBLDECWWWCOMP_ (Hash)
+│ ├─TBLENCWWWCOMP_ (Hash)
+│ ├─UNSAFE (Regexp)
+│ ├─URI_REF (Regexp)
+│ ├─USERINFO (Regexp)
+│ ├─Util (Module)
+│ ├─VERSION (String)
+│ ├─VERSION_CODE (String)
+│ └─WEB_ENCODINGS_ (Hash)
 ├─UnboundMethod (Class)
 ├─UncaughtThrowError (Class)
 ├─UnicodeNormalize (Module)
@@ -6347,14 +6498,14 @@ example_method
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;/usr/local/lib/ruby/site_ruby/2.5.0&lt;/li&gt;
-  &lt;li&gt;/usr/local/lib/ruby/site_ruby/2.5.0/x86_64-linux&lt;/li&gt;
-  &lt;li&gt;/usr/local/lib/ruby/site_ruby&lt;/li&gt;
-  &lt;li&gt;/usr/local/lib/ruby/vendor_ruby/2.5.0&lt;/li&gt;
-  &lt;li&gt;/usr/local/lib/ruby/vendor_ruby/2.5.0/x86_64-linux&lt;/li&gt;
-  &lt;li&gt;/usr/local/lib/ruby/vendor_ruby&lt;/li&gt;
-  &lt;li&gt;/usr/local/lib/ruby/2.5.0&lt;/li&gt;
-  &lt;li&gt;/usr/local/lib/ruby/2.5.0/x86_64-linux&lt;/li&gt;
+  &lt;li&gt;…/ruby-2.6.0/lib/ruby/site_ruby/2.6.0&lt;/li&gt;
+  &lt;li&gt;…/ruby-2.6.0/lib/ruby/site_ruby/2.6.0/x86_64-linux&lt;/li&gt;
+  &lt;li&gt;…/ruby-2.6.0/lib/ruby/site_ruby&lt;/li&gt;
+  &lt;li&gt;…/ruby-2.6.0/lib/ruby/vendor_ruby/2.6.0&lt;/li&gt;
+  &lt;li&gt;…/ruby-2.6.0/lib/ruby/vendor_ruby/2.6.0/x86_64-linux&lt;/li&gt;
+  &lt;li&gt;…/ruby-2.6.0/lib/ruby/vendor_ruby&lt;/li&gt;
+  &lt;li&gt;…/ruby-2.6.0/lib/ruby/2.6.0&lt;/li&gt;
+  &lt;li&gt;…/ruby-2.6.0/lib/ruby/2.6.0/x86_64-linux&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id="initial-loaded-features"&gt;Initial Loaded Features&lt;/h2&gt;
@@ -6369,8 +6520,8 @@ example_method
   &lt;li&gt;thread.rb ¹&lt;/li&gt;
   &lt;li&gt;rational.so ¹&lt;/li&gt;
   &lt;li&gt;complex.so ¹&lt;/li&gt;
-  &lt;li&gt;/usr/local/lib/ruby/2.5.0/x86_64-linux/enc/encdb.so&lt;/li&gt;
-  &lt;li&gt;/usr/local/lib/ruby/2.5.0/x86_64-linux/enc/trans/transdb.so&lt;/li&gt;
+  &lt;li&gt;…/ruby-2.6.0/lib/ruby/2.6.0/x86_64-linux/enc/encdb.so&lt;/li&gt;
+  &lt;li&gt;…/ruby-2.6.0/lib/ruby/2.6.0/x86_64-linux/enc/trans/transdb.so&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;¹ Not actual files. They show up here for backward compatibility because they were moved from the standard library (thus had to be loaded first) to the core.&lt;/p&gt;
@@ -6384,7 +6535,7 @@ example_method
 
 &lt;!--- It's $$, not $$$$, markdown seems to be buggy here --&gt;
 
-&lt;p&gt;&lt;strong&gt;6.05 MB&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;10.80 MB&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id="initial-ruby-objects"&gt;Initial Ruby Objects&lt;/h2&gt;
 
@@ -6408,11 +6559,11 @@ join("\n")'
   &lt;tbody&gt;
     &lt;tr&gt;
       &lt;td&gt;String&lt;/td&gt;
-      &lt;td&gt;4140&lt;/td&gt;
+      &lt;td&gt;4276&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Class&lt;/td&gt;
-      &lt;td&gt;255&lt;/td&gt;
+      &lt;td&gt;263&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Encoding&lt;/td&gt;
@@ -6420,15 +6571,15 @@ join("\n")'
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Array&lt;/td&gt;
-      &lt;td&gt;34&lt;/td&gt;
+      &lt;td&gt;36&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Module&lt;/td&gt;
-      &lt;td&gt;21&lt;/td&gt;
+      &lt;td&gt;23&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Hash&lt;/td&gt;
-      &lt;td&gt;12&lt;/td&gt;
+      &lt;td&gt;13&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Float&lt;/td&gt;
@@ -6443,15 +6594,19 @@ join("\n")'
       &lt;td&gt;3&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
+      &lt;td&gt;Object&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
       &lt;td&gt;fatal&lt;/td&gt;
       &lt;td&gt;2&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;Object&lt;/td&gt;
+      &lt;td&gt;Integer&lt;/td&gt;
       &lt;td&gt;2&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;Integer&lt;/td&gt;
+      &lt;td&gt;Proc&lt;/td&gt;
       &lt;td&gt;2&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -6499,6 +6654,10 @@ join("\n")'
       &lt;td&gt;1&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
+      &lt;td&gt;File&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
       &lt;td&gt;Enumerator&lt;/td&gt;
       &lt;td&gt;1&lt;/td&gt;
     &lt;/tr&gt;
@@ -6518,7 +6677,7 @@ map{ |n| "- #{n} (#{n.class})" }'
 &lt;ul&gt;
   &lt;li&gt;0+1i (Complex)&lt;/li&gt;
   &lt;li&gt;18446744073709551615 (Integer)&lt;/li&gt;
-  &lt;li&gt;100821148990209206030079450374361491137 (Integer)&lt;/li&gt;
+  &lt;li&gt;12117370834982808650948832055762367961 (Integer)&lt;/li&gt;
   &lt;li&gt;NaN (Float)&lt;/li&gt;
   &lt;li&gt;Infinity (Float)&lt;/li&gt;
   &lt;li&gt;1.7976931348623157e+308 (Float)&lt;/li&gt;
@@ -6547,59 +6706,59 @@ join("\n")'
   &lt;tbody&gt;
     &lt;tr&gt;
       &lt;td&gt;TOTAL&lt;/td&gt;
-      &lt;td&gt;9782&lt;/td&gt;
+      &lt;td&gt;9783&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;T_STRING&lt;/td&gt;
-      &lt;td&gt;4425&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;FREE&lt;/td&gt;
-      &lt;td&gt;2272&lt;/td&gt;
+      &lt;td&gt;4564&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;T_IMEMO&lt;/td&gt;
-      &lt;td&gt;2270&lt;/td&gt;
+      &lt;td&gt;2392&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;FREE&lt;/td&gt;
+      &lt;td&gt;1999&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;T_CLASS&lt;/td&gt;
-      &lt;td&gt;489&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;T_ARRAY&lt;/td&gt;
-      &lt;td&gt;125&lt;/td&gt;
+      &lt;td&gt;501&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;T_DATA&lt;/td&gt;
+      &lt;td&gt;120&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;T_ARRAY&lt;/td&gt;
       &lt;td&gt;116&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;T_ICLASS&lt;/td&gt;
-      &lt;td&gt;25&lt;/td&gt;
+      &lt;td&gt;26&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;T_MODULE&lt;/td&gt;
-      &lt;td&gt;21&lt;/td&gt;
+      &lt;td&gt;23&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;T_HASH&lt;/td&gt;
-      &lt;td&gt;18&lt;/td&gt;
+      &lt;td&gt;19&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;T_OBJECT&lt;/td&gt;
-      &lt;td&gt;7&lt;/td&gt;
+      &lt;td&gt;8&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;T_SYMBOL&lt;/td&gt;
       &lt;td&gt;4&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;T_FLOAT&lt;/td&gt;
+      &lt;td&gt;T_FILE&lt;/td&gt;
       &lt;td&gt;4&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;T_FILE&lt;/td&gt;
-      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;T_FLOAT&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;T_BIGNUM&lt;/td&gt;
@@ -6618,15 +6777,18 @@ join("\n")'
 
 &lt;p&gt;Related: &lt;a href="/40-symbolic-validations.html"&gt;Grammar rules for symbols&lt;/a&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;$ ruby --disable-all -e 'puts Symbol.all_symbols.sort.
-map{ |s| "`#{s.inspect.sub("`", "\\`")}`" }.join(", ")'
+&lt;pre&gt;&lt;code&gt;$ puts Symbol.all_symbols.sort.
+map{ |s| s.inspect.sub("`", "\\`").gsub(/'/,"\\'") }.join(" ")
+&lt;/code&gt;&lt;/pre&gt;
 
-`:""`, `:!`, `:!=`, `:!~`, `:"\""`, `:"#"`, `:"\#$!"`, `:"$"`, `:$!`, `:$"`, `:$$`, `:$&amp;amp;`, `:$'`, `:$*`, `:$+`, `:$,`, `:$-0`, `:$-F`, `:$-I`, `:$-K`, `:$-W`, `:$-a`, `:$-d`, `:$-i`, `:$-l`, `:$-p`, `:$-v`, `:$-w`, `:$.`, `:$/`, `:$0`, `:$:`, `:$;`, `:$&amp;lt;`, `:$=`, `:$&amp;gt;`, `:$?`, `:$@`, `:$DEBUG`, `:$FILENAME`, `:$KCODE`, `:$LOADED_FEATURES`, `:$LOAD_PATH`, `:$PROGRAM_NAME`, `:$SAFE`, `:$VERBOSE`, `:$\`, `:$_`, `:$:$`, `:$stderr`, `:$stdin`, `:$stdout`, `:$~`, `:%`, `:&amp;amp;`, `:"&amp;amp;&amp;amp;"`, `:"&amp;amp;."`, `:"'"`, `:"("`, `:")"`, `:*`, `:**`, `:+`, `:+@`, `:","`, `:-`, `:-@`, `:"."`, `:".."`, `:"..."`, `:/`, `:":"`, `:"::"`, `:";"`, `:&amp;lt;`, `:&amp;lt;&amp;lt;`, `:&amp;lt;=`, `:&amp;lt;=&amp;gt;`, `:"&amp;lt;CFUNC&amp;gt;"`, `:"&amp;lt;IFUNC&amp;gt;"`, `:"="`, `:==`, `:===`, `:=~`, `:&amp;gt;`, `:&amp;gt;=`, `:&amp;gt;&amp;gt;`, `:"?"`, `:"@"`, `:@denominator`, `:@gem_prelude_index`, `:@image`, `:@numerator`, `:@path`, `:@real`, `:AFTER_OUTPUT`, `:ALT_SEPARATOR`, `:ANSI_X3_4_1968`, `:APPEND`, `:ARGF`, `:ARGV`, `:ASCII`, `:ASCII_8BIT`, `:ArgumentError`, `:Array`, `:BIG5`, `:BIG5_HKSCS`, `:BIG5_HKSCS_2008`, `:BIG5_UAO`, `:BINARY`, `:Backtrace`, `:BasicObject`, `:Big5`, `:Big5_HKSCS`, `:Big5_HKSCS_2008`, `:Big5_UAO`, `:Bignum`, `:Binding`, `:CLOCK_BASED_CLOCK_PROCESS_CPUTIME_ID`, `:CLOCK_BOOTTIME`, `:CLOCK_BOOTTIME_ALARM`, `:CLOCK_MONOTONIC`, `:CLOCK_MONOTONIC_COARSE`, `:CLOCK_MONOTONIC_RAW`, `:CLOCK_PROCESS_CPUTIME_ID`, `:CLOCK_REALTIME`, `:CLOCK_REALTIME_ALARM`, `:CLOCK_REALTIME_COARSE`, `:CLOCK_THREAD_CPUTIME_ID`, `:CP1250`, `:CP1251`, `:CP1252`, `:CP1253`, `:CP1254`, `:CP1255`, `:CP1256`, `:CP1257`, `:CP1258`, `:CP437`, `:CP50220`, `:CP50221`, `:CP51932`, `:CP65000`, `:CP65001`, `:CP737`, `:CP775`, `:CP850`, `:CP852`, `:CP855`, `:CP857`, `:CP860`, `:CP861`, `:CP862`, `:CP863`, `:CP864`, `:CP865`, `:CP866`, `:CP869`, `:CP874`, `:CP878`, `:CP932`, `:CP936`, `:CP949`, `:CP950`, `:CP951`, `:CREAT`, `:CRLF_NEWLINE_DECORATOR`, `:CR_NEWLINE_DECORATOR`, `:CSWINDOWS31J`, `:CUR`, `:Class`, `:ClosedQueueError`, `:Comparable`, `:CompatibilityError`, `:Complex`, `:ConditionVariable`, `:Constants`, `:Converter`, `:ConverterNotFoundError`, `:CsWindows31J`, `:DATA`, `:DEFAULT`, `:DEFAULT_PARAMS`, `:DIG`, `:DIRECT`, `:DSYNC`, `:Data`, `:Default`, `:DidYouMean`, `:Dir`, `:DomainError`, `:E`, `:E2BIG`, `:EACCES`, `:EADDRINUSE`, `:EADDRNOTAVAIL`, `:EADV`, `:EAFNOSUPPORT`, `:EAGAIN`, `:EAGAINWaitReadable`, `:EAGAINWaitWritable`, `:EALREADY`, `:EAUTH`, `:EBADE`, `:EBADF`, `:EBADFD`, `:EBADMSG`, `:EBADR`, `:EBADRPC`, `:EBADRQC`, `:EBADSLT`, `:EBCDIC_CP_US`, `:EBFONT`, `:EBUSY`, `:ECANCELED`, `:ECAPMODE`, `:ECHILD`, `:ECHRNG`, `:ECOMM`, `:ECONNABORTED`, `:ECONNREFUSED`, `:ECONNRESET`, `:EDEADLK`, `:EDEADLOCK`, `:EDESTADDRREQ`, `:EDOM`, `:EDOOFUS`, `:EDOTDOT`, `:EDQUOT`, `:EEXIST`, `:EFAULT`, `:EFBIG`, `:EFTYPE`, `:EHOSTDOWN`, `:EHOSTUNREACH`, `:EHWPOISON`, `:EIDRM`, `:EILSEQ`, `:EINPROGRESS`, `:EINPROGRESSWaitReadable`, `:EINPROGRESSWaitWritable`, `:EINTR`, `:EINVAL`, `:EIO`, `:EIPSEC`, `:EISCONN`, `:EISDIR`, `:EISNAM`, `:EKEYEXPIRED`, `:EKEYREJECTED`, `:EKEYREVOKED`, `:EL2HLT`, `:EL2NSYNC`, `:EL3HLT`, `:EL3RST`, `:ELIBACC`, `:ELIBBAD`, `:ELIBEXEC`, `:ELIBMAX`, `:ELIBSCN`, `:ELNRNG`, `:ELOOP`, `:EMACS_MULE`, `:EMEDIUMTYPE`, `:EMFILE`, `:EMLINK`, `:EMSGSIZE`, `:EMULTIHOP`, `:ENAMETOOLONG`, `:ENAVAIL`, `:END`, `:ENEEDAUTH`, `:ENETDOWN`, `:ENETRESET`, `:ENETUNREACH`, `:ENFILE`, `:ENOANO`, `:ENOATTR`, `:ENOBUFS`, `:ENOCSI`, `:ENODATA`, `:ENODEV`, `:ENOENT`, `:ENOEXEC`, `:ENOKEY`, `:ENOLCK`, `:ENOLINK`, `:ENOMEDIUM`, `:ENOMEM`, `:ENOMSG`, `:ENONET`, `:ENOPKG`, `:ENOPROTOOPT`, `:ENOSPC`, `:ENOSR`, `:ENOSTR`, `:ENOSYS`, `:ENOTBLK`, `:ENOTCAPABLE`, `:ENOTCONN`, `:ENOTDIR`, `:ENOTEMPTY`, `:ENOTNAM`, `:ENOTRECOVERABLE`, `:ENOTSOCK`, `:ENOTSUP`, `:ENOTTY`, `:ENOTUNIQ`, `:ENV`, `:ENXIO`, `:EOFError`, `:EOPNOTSUPP`, `:EOVERFLOW`, `:EOWNERDEAD`, `:EPERM`, `:EPFNOSUPPORT`, `:EPIPE`, `:EPROCLIM`, `:EPROCUNAVAIL`, `:EPROGMISMATCH`, `:EPROGUNAVAIL`, `:EPROTO`, `:EPROTONOSUPPORT`, `:EPROTOTYPE`, `:EPSILON`, `:ERANGE`, `:EREMCHG`, `:EREMOTE`, `:EREMOTEIO`, `:ERESTART`, `:ERFKILL`, `:EROFS`, `:ERPCMISMATCH`, `:ESHUTDOWN`, `:ESOCKTNOSUPPORT`, `:ESPIPE`, `:ESRCH`, `:ESRMNT`, `:ESTALE`, `:ESTRPIPE`, `:ETIME`, `:ETIMEDOUT`, `:ETOOMANYREFS`, `:ETXTBSY`, `:EUCCN`, `:EUCJP`, `:EUCJP_MS`, `:EUCKR`, `:EUCLEAN`, `:EUCTW`, `:EUC_CN`, `:EUC_JISX0213`, `:EUC_JIS_2004`, `:EUC_JP`, `:EUC_JP_MS`, `:EUC_KR`, `:EUC_TW`, `:EUNATCH`, `:EUSERS`, `:EWOULDBLOCK`, `:EWOULDBLOCKWaitReadable`, `:EWOULDBLOCKWaitWritable`, `:EXCL`, `:EXDEV`, `:EXFULL`, `:EXTENDED`, `:Emacs_Mule`, `:Encoding`, `:EncodingError`, `:Enumerable`, `:Enumerator`, `:Errno`, `:EucCN`, `:EucJP`, `:EucJP_ms`, `:EucKR`, `:EucTW`, `:Exception`, `:FALSE`, `:FIXEDENCODING`, `:FNM_CASEFOLD`, `:FNM_DOTMATCH`, `:FNM_EXTGLOB`, `:FNM_NOESCAPE`, `:FNM_PATHNAME`, `:FNM_SHORTNAME`, `:FNM_SYSCASE`, `:FalseClass`, `:Fiber`, `:FiberError`, `:File`, `:FileTest`, `:Fixnum`, `:Float`, `:FloatDomainError`, `:Formatter`, `:FrozenError`, `:GB12345`, `:GB18030`, `:GB1988`, `:GB2312`, `:GBK`, `:GC`, `:GETRUSAGE_BASED_CLOCK_PROCESS_CPUTIME_ID`, `:GETTIMEOFDAY_BASED_CLOCK_REALTIME`, `:GID`, `:GMP_VERSION`, `:Gem`, `:Generator`, `:HEAP_PAGE_BITMAP_PLANES`, `:HEAP_PAGE_BITMAP_SIZE`, `:HEAP_PAGE_OBJ_LIMIT`, `:HOLE`, `:Hash`, `:I`, `:IBM037`, `:IBM437`, `:IBM737`, `:IBM775`, `:IBM850`, `:IBM852`, `:IBM855`, `:IBM857`, `:IBM860`, `:IBM861`, `:IBM862`, `:IBM863`, `:IBM864`, `:IBM865`, `:IBM866`, `:IBM869`, `:IGNORECASE`, `:INFINITY`, `:INSTRUCTION_NAMES`, `:INTERNAL_CONSTANTS`, `:INVALID_MASK`, `:INVALID_REPLACE`, `:IO`, `:IOError`, `:ISO2022_JP`, `:ISO2022_JP2`, `:ISO8859_1`, `:ISO8859_10`, `:ISO8859_11`, `:ISO8859_13`, `:ISO8859_14`, `:ISO8859_15`, `:ISO8859_16`, `:ISO8859_2`, `:ISO8859_3`, `:ISO8859_4`, `:ISO8859_5`, `:ISO8859_6`, `:ISO8859_7`, `:ISO8859_8`, `:ISO8859_9`, `:ISO_2022_JP`, `:ISO_2022_JP_2`, `:ISO_2022_JP_KDDI`, `:ISO_8859_1`, `:ISO_8859_10`, `:ISO_8859_11`, `:ISO_8859_13`, `:ISO_8859_14`, `:ISO_8859_15`, `:ISO_8859_16`, `:ISO_8859_2`, `:ISO_8859_3`, `:ISO_8859_4`, `:ISO_8859_5`, `:ISO_8859_6`, `:ISO_8859_7`, `:ISO_8859_8`, `:ISO_8859_9`, `:IndexError`, `:InstructionSequence`, `:Integer`, `:Interrupt`, `:InvalidByteSequenceError`, `:KOI8_R`, `:KOI8_U`, `:Kernel`, `:KeyError`, `:LOCK_EX`, `:LOCK_NB`, `:LOCK_SH`, `:LOCK_UN`, `:Lazy`, `:LoadError`, `:LocalJumpError`, `:Location`, `:MACCENTEURO`, `:MACCROATIAN`, `:MACCYRILLIC`, `:MACGREEK`, `:MACICELAND`, `:MACJAPAN`, `:MACJAPANESE`, `:MACROMAN`, `:MACROMANIA`, `:MACTHAI`, `:MACTURKISH`, `:MACUKRAINE`, `:MAJOR_VERSION`, `:MANT_DIG`, `:MAX`, `:MAX_10_EXP`, `:MAX_EXP`, `:MIN`, `:MINOR_VERSION`, `:MIN_10_EXP`, `:MIN_EXP`, `:MULTILINE`, `:MUTEX_FOR_THREAD_EXCLUSIVE`, `:MacCentEuro`, `:MacCroatian`, `:MacCyrillic`, `:MacGreek`, `:MacIceland`, `:MacJapan`, `:MacJapanese`, `:MacRoman`, `:MacRomania`, `:MacThai`, `:MacTurkish`, `:MacUkraine`, `:Marshal`, `:MatchData`, `:Math`, `:Method`, `:Module`, `:Mutex`, `:NAN`, `:NIL`, `:NOATIME`, `:NOCTTY`, `:NOENCODING`, `:NOERROR`, `:NOFOLLOW`, `:NONBLOCK`, `:NULL`, `:NameError`, `:NilClass`, `:NoMemoryError`, `:NoMethodError`, `:NotImplementedError`, `:Numeric`, `:OPTS`, `:Object`, `:ObjectSpace`, `:PARTIAL_INPUT`, `:PATH_SEPARATOR`, `:PCK`, `:PI`, `:PRIO_PGRP`, `:PRIO_PROCESS`, `:PRIO_USER`, `:Proc`, `:Process`, `:Profiler`, `:Queue`, `:RADIX`, `:RDONLY`, `:RDWR`, `:RLIMIT_AS`, `:RLIMIT_CORE`, `:RLIMIT_CPU`, `:RLIMIT_DATA`, `:RLIMIT_FSIZE`, `:RLIMIT_MEMLOCK`, `:RLIMIT_MSGQUEUE`, `:RLIMIT_NICE`, `:RLIMIT_NOFILE`, `:RLIMIT_NPROC`, `:RLIMIT_RSS`, `:RLIMIT_RTPRIO`, `:RLIMIT_RTTIME`, `:RLIMIT_SIGPENDING`, `:RLIMIT_STACK`, `:RLIM_INFINITY`, `:RLIM_SAVED_CUR`, `:RLIM_SAVED_MAX`, `:ROUNDS`, `:RSYNC`, `:RUBY_COPYRIGHT`, `:RUBY_DESCRIPTION`, `:RUBY_ENGINE`, `:RUBY_ENGINE_VERSION`, `:RUBY_PATCHLEVEL`, `:RUBY_PLATFORM`, `:RUBY_RELEASE_DATE`, `:RUBY_REVISION`, `:RUBY_VERSION`, `:RVALUE_SIZE`, `:Random`, `:Range`, `:RangeError`, `:Rational`, `:Regexp`, `:RegexpError`, `:RubyVM`, `:RuntimeError`, `:SCRIPT_LINES__`, `:SEEK_CUR`, `:SEEK_DATA`, `:SEEK_END`, `:SEEK_HOLE`, `:SEEK_SET`, `:SEPARATOR`, `:SET`, `:SHARE_DELETE`, `:SHIFT_JIS`, `:SJIS`, `:SJIS_DOCOMO`, `:SJIS_DoCoMo`, `:SJIS_KDDI`, `:SJIS_SOFTBANK`, `:SJIS_SoftBank`, `:STATELESS_ISO_2022_JP`, `:STATELESS_ISO_2022_JP_KDDI`, `:STDERR`, `:STDIN`, `:STDOUT`, `:SYNC`, `:ScriptError`, `:SecurityError`, `:Separator`, `:Shift_JIS`, `:Signal`, `:SignalException`, `:SizedQueue`, `:StandardError`, `:Stat`, `:Stateless_ISO_2022_JP`, `:Stateless_ISO_2022_JP_KDDI`, `:Status`, `:StopIteration`, `:String`, `:Struct`, `:Symbol`, `:SyntaxError`, `:Sys`, `:SystemCallError`, `:SystemExit`, `:SystemStackError`, `:TIMES_BASED_CLOCK_MONOTONIC`, `:TIMES_BASED_CLOCK_PROCESS_CPUTIME_ID`, `:TIME_BASED_CLOCK_REALTIME`, `:TIS_620`, `:TMPFILE`, `:TMP_RUBY_PREFIX`, `:TOPLEVEL_BINDING`, `:TRUE`, `:TRUNC`, `:Thread`, `:ThreadError`, `:ThreadGroup`, `:Time`, `:Tms`, `:TracePoint`, `:TrueClass`, `:TypeError`, `:UCS_2BE`, `:UCS_4BE`, `:UCS_4LE`, `:UID`, `:UNDEF_HEX_CHARREF`, `:UNDEF_MASK`, `:UNDEF_REPLACE`, `:UNIVERSAL_NEWLINE_DECORATOR`, `:US_ASCII`, `:UTF8_DOCOMO`, `:UTF8_DoCoMo`, `:UTF8_KDDI`, `:UTF8_MAC`, `:UTF8_SOFTBANK`, `:UTF8_SoftBank`, `:UTF_16`, `:UTF_16BE`, `:UTF_16LE`, `:UTF_32`, `:UTF_32BE`, `:UTF_32LE`, `:UTF_7`, `:UTF_8`, `:UTF_8_HFS`, `:UTF_8_MAC`, `:UnboundMethod`, `:UncaughtThrowError`, `:UndefinedConversionError`, `:UnicodeNormalize`, `:WINDOWS_1250`, `:WINDOWS_1251`, `:WINDOWS_1252`, `:WINDOWS_1253`, `:WINDOWS_1254`, `:WINDOWS_1255`, `:WINDOWS_1256`, `:WINDOWS_1257`, `:WINDOWS_1258`, `:WINDOWS_31J`, `:WINDOWS_874`, `:WNOHANG`, `:WRONLY`, `:WUNTRACED`, `:WaitReadable`, `:WaitWritable`, `:Waiter`, `:Warning`, `:WeakMap`, `:Windows_1250`, `:Windows_1251`, `:Windows_1252`, `:Windows_1253`, `:Windows_1254`, `:Windows_1255`, `:Windows_1256`, `:Windows_1257`, `:Windows_1258`, `:Windows_31J`, `:Windows_874`, `:XML_ATTR_CONTENT_DECORATOR`, `:XML_ATTR_QUOTE_DECORATOR`, `:XML_TEXT_DECORATOR`, `:Yielder`, `:ZeroDivisionError`, `:"["`, `:[]`, `:[]=`, `:"\\"`, `:"]"`, `:^`, `:_`, `:__attached__`, `:__autoload__`, `:__callee__`, `:__classid__`, `:__classpath__`, `:__dir__`, `:__id__`, `:__keyword_init__`, `:__members__`, `:__members_back__`, `:__method__`, `:__read_nonblock`, `:__recursive_key__`, `:__refined_class__`, `:__send__`, `:__tmp_classpath__`, `:__write_nonblock`, `:_alloc`, `:_dump`, `:_dump_data`, `:_id2ref`, `:_load`, `:_load_data`, `::`, `:abort`, `:abort_on_exception`, `:abort_on_exception=`, `:abs`, `:abs2`, `:absolute_path`, `:acos`, `:acosh`, `:add`, `:add_trace_func`, `:advise`, `:after_output`, `:alias_method`, `:aliases`, `:alive?`, `:all?`, `:all_symbols`, `:allbits?`, `:allocate`, `:ancestors`, `:and`, `:angle`, `:any?`, `:anybits?`, `:append`, `:append_features`, `:arg`, `:args`, `:arguments`, `:argv`, `:argv0`, `:arity`, `:ascii`, `:ascii_compatible?`, `:ascii_only?`, `:asciicompat_encoding`, `:asctime`, `:asin`, `:asinh`, `:assoc`, `:at`, `:at_exit`, `:atan`, `:atan2`, `:atanh`, `:atime`, `:attr`, `:attr_accessor`, `:attr_reader`, `:attr_writer`, `:autoclose`, `:autoclose=`, `:autoclose?`, `:autoload`, `:autoload?`, `:b`, `:backtrace`, `:backtrace_locations`, `:base_label`, `:basename`, `:begin`, `:between?`, `:bind`, `:binding`, `:binmode`, `:binmode?`, `:binread`, `:binwrite`, `:birthtime`, `:bit_length`, `:blksize`, `:block`, `:block_given?`, `:blockdev?`, `:blocks`, `:broadcast`, `:bsearch`, `:bsearch_index`, `:bt`, `:bt_locations`, `:buf`, `:buffer`, `:by`, `:bytes`, `:bytesize`, `:byteslice`, `:call`, `:callee_id`, `:caller`, `:caller_locations`, `:capitalize`, `:capitalize!`, `:captures`, `:casecmp`, `:casecmp?`, `:casefold?`, `:catch`, `:cause`, `:cbrt`, `:ceil`, `:center`, `:change_privilege`, `:chardev?`, `:chars`, `:chdir`, `:child`, `:children`, `:chmod`, `:chomp`, `:chomp!`, `:chop`, `:chop!`, `:chown`, `:chr`, `:chroot`, `:chunk`, `:chunk_while`, `:clamp`, `:class`, `:class_eval`, `:class_exec`, `:class_variable_defined?`, `:class_variable_get`, `:class_variable_set`, `:class_variables`, `:clear`, `:clock_getres`, `:clock_gettime`, `:clone`, `:close`, `:close_on_exec=`, `:close_on_exec?`, `:close_others`, `:close_read`, `:close_write`, `:closed?`, `:codepoints`, `:coerce`, `:collect`, `:collect!`, `:collect_concat`, `:combination`, `:compact`, `:compact!`, `:compare_by_identity`, `:compare_by_identity?`, `:compatible`, `:compatible?`, `:compile`, `:compile_file`, `:compile_option`, `:compile_option=`, `:concat`, `:conj`, `:conjugate`, `:const_defined?`, `:const_get`, `:const_missing`, `:const_set`, `:constants`, `:convert`, `:convpath`, `:copy_stream`, `:"core#define_method"`, `:"core#define_singleton_method"`, `:"core#hash_from_ary"`, `:"core#hash_merge_ary"`, `:"core#hash_merge_kwd"`, `:"core#hash_merge_ptr"`, `:"core#set_method_alias"`, `:"core#set_postexe"`, `:"core#set_variable_alias"`, `:"core#undef_method"`, `:coredump?`, `:cos`, `:cosh`, `:count`, `:count_objects`, `:cover?`, `:coverage_enabled`, `:cr`, `:cr_newline`, `:crlf`, `:crlf_newline`, `:crypt`, `:cstime`, `:cstime=`, `:ctime`, `:current`, `:curry`, `:cutime`, `:cutime=`, `:cycle`, `:daemon`, `:day`, `:debug_frozen_string_literal`, `:debug_level`, `:default`, `:default=`, `:default_external`, `:default_external=`, `:default_internal`, `:default_internal=`, `:default_proc`, `:default_proc=`, `:define_finalizer`, `:define_method`, `:define_singleton_method`, `:defined_class`, `:delete`, `:delete!`, `:delete_at`, `:delete_if`, `:delete_prefix`, `:delete_prefix!`, `:delete_suffix`, `:delete_suffix!`, `:denominator`, `:deprecate_constant`, `:deq`, `:destination_buffer_full`, `:destination_encoding`, `:destination_encoding_name`, `:detach`, `:detect`, `:dev`, `:dev_major`, `:dev_minor`, `:dig`, `:digits`, `:directory?`, `:dirname`, `:disable`, `:disasm`, `:disassemble`, `:display`, `:div`, `:divmod`, `:dontneed`, `:downcase`, `:downcase!`, `:downto`, `:drop`, `:drop_while`, `:dst?`, `:dummy?`, `:dump`, `:dup`, `:each`, `:each_byte`, `:each_char`, `:each_child`, `:each_codepoint`, `:each_cons`, `:each_entry`, `:each_grapheme_cluster`, `:each_index`, `:each_key`, `:each_line`, `:each_object`, `:each_pair`, `:each_slice`, `:each_value`, `:each_with_index`, `:each_with_object`, `:egid`, `:egid=`, `:eid`, `:eid=`, `:empty?`, `:enable`, `:enabled?`, `:enclose`, `:enclosed?`, `:encode`, `:encode!`, `:encoding`, `:end`, `:end_with?`, `:enq`, `:entries`, `:enum_for`, `:eof`, `:eof?`, `:eql?`, `:equal?`, `:erf`, `:erfc`, `:err`, `:errno`, `:error_bytes`, `:error_char`, `:escape`, `:euid`, `:euid=`, `:eval`, `:even?`, `:event`, `:exception`, `:excl`, `:exclude_end?`, `:exclusive`, `:exec`, `:executable?`, `:executable_real?`, `:exist?`, `:exists?`, `:exit`, `:exit!`, `:exit_value`, `:exited?`, `:exitstatus`, `:exp`, `:expand_path`, `:extend`, `:extend_object`, `:extended`, `:external_encoding`, `:extname`, `:fail`, `:fallback`, `:fatal`, `:fcntl`, `:fdatasync`, `:fdiv`, `:feed`, `:fetch`, `:fetch_values`, `:fiber_machine_stack_size`, `:fiber_vm_stack_size`, `:file`, `:file?`, `:filename`, `:fileno`, `:fill`, `:finalize`, `:find`, `:find_all`, `:find_index`, `:finish`, `:finished`, `:finite?`, `:first`, `:first_lineno`, `:fixed_encoding?`, `:flags`, `:flat_map`, `:flatten`, `:flatten!`, `:float_microsecond`, `:float_millisecond`, `:float_second`, `:flock`, `:floor`, `:flush`, `:fnmatch`, `:fnmatch?`, `:fold`, `:for_fd`, `:force`, `:force_encoding`, `:foreach`, `:fork`, `:format`, `:freeze`, `:frexp`, `:friday?`, `:from_name`, `:frozen?`, `:frozen_string_literal`, `:fsync`, `:ftype`, `:full_message`, `:gamma`, `:garbage_collect`, `:gcd`, `:gcdlcm`, `:gem`, `:getbyte`, `:getc`, `:getegid`, `:geteuid`, `:getgid`, `:getgm`, `:getlocal`, `:getpgid`, `:getpgrp`, `:getpriority`, `:getrlimit`, `:gets`, `:getsid`, `:getuid`, `:getutc`, `:getwd`, `:gid`, `:gid=`, `:glob`, `:global_variables`, `:gm`, `:gmt?`, `:gmt_offset`, `:gmtime`, `:gmtoff`, `:grant_privilege`, `:grapheme_clusters`, `:grep`, `:grep_v`, `:group`, `:group_by`, `:groups`, `:groups=`, `:grpowned?`, `:gsub`, `:gsub!`, `:handle_interrupt`, `:has_key?`, `:has_value?`, `:hash`, `:hertz`, `:hex`, `:home`, `:hour`, `:hypot`, `:i`, `:id2name`, `:identical?`, `:imag`, `:imaginary`, `:immediate`, `:in`, `:include`, `:include?`, `:included`, `:included_modules`, `:incomplete_input`, `:incomplete_input?`, `:index`, `:infinite?`, `:inherited`, `:initgroups`, `:initialize`, `:initialize_clone`, `:initialize_copy`, `:initialize_dup`, `:inject`, `:inline_const_cache`, `:ino`, `:inplace_mode`, `:inplace_mode=`, `:insert`, `:insert_output`, `:inspect`, `:instance_eval`, `:instance_exec`, `:instance_method`, `:instance_methods`, `:instance_of?`, `:instance_variable_defined?`, `:instance_variable_get`, `:instance_variable_set`, `:instance_variables`, `:instructions_unification`, `:integer?`, `:intern`, `:internal_encoding`, `:invalid`, `:invalid_byte_sequence`, `:invert`, `:ioctl`, `:irb`, `:is_a?`, `:isatty`, `:isdst`, `:issetugid`, `:iterator?`, `:itself`, `:join`, `:keep_if`, `:key`, `:key?`, `:keys`, `:kill`, `:kind_of?`, `:label`, `:lambda`, `:lambda?`, `:last`, `:last_error`, `:last_match`, `:last_status`, `:latest_gc_info`, `:lazy`, `:lchmod`, `:lchown`, `:lcm`, `:ldexp`, `:left`, `:len`, `:length`, `:lf`, `:lgamma`, `:lineno`, `:lineno=`, `:lines`, `:link`, `:list`, `:lithuanian`, `:ljust`, `:load`, `:load_from_binary`, `:load_from_binary_extra_data`, `:load_iseq`, `:local`, `:local_variable_defined?`, `:local_variable_get`, `:local_variable_set`, `:local_variables`, `:locale_charmap`, `:locals`, `:localtime`, `:lock`, `:locked?`, `:log`, `:log10`, `:log2`, `:loop`, `:lstat`, `:lstrip`, `:lstrip!`, `:lutime`, `:magnitude`, `:main`, `:map`, `:map!`, `:marshal_dump`, `:marshal_load`, `:match`, `:match?`, `:max`, `:max=`, `:max_by`, `:maxgroups`, `:maxgroups=`, `:mday`, `:member?`, `:members`, `:memo`, `:merge`, `:merge!`, `:mesg`, `:message`, `:method`, `:method_added`, `:method_defined?`, `:method_id`, `:method_missing`, `:method_removed`, `:method_undefined`, `:methods`, `:microsecond`, `:millisecond`, `:min`, `:min_by`, `:minmax`, `:minmax_by`, `:mkdir`, `:mkfifo`, `:mktime`, `:mode`, `:module_eval`, `:module_exec`, `:module_function`, `:modulo`, `:mon`, `:monday?`, `:month`, `:mtime`, `:name`, `:name=`, `:name_list`, `:named_captures`, `:names`, `:nan?`, `:nano_den`, `:nano_num`, `:nanosecond`, `:negative?`, `:nesting`, `:never`, `:new`, `:new_seed`, `:newline`, `:next`, `:next!`, `:next_float`, `:next_values`, `:nil?`, `:nlink`, `:nobits?`, `:none?`, `:nonzero?`, `:noreuse`, `:normal`, `:normalize`, `:normalized?`, `:not`, `:now`, `:nsec`, `:num_waiting`, `:numerator`, `:object_id`, `:objs`, `:oct`, `:odd?`, `:of`, `:offset`, `:on_blocking`, `:one?`, `:open`, `:open_args`, `:operands_unification`, `:options`, `:or`, `:ord`, `:original_name`, `:out`, `:owned?`, `:owner`, `:p`, `:pack`, `:parameters`, `:partial_input`, `:partition`, `:pass`, `:path`, `:peek`, `:peek_values`, `:peephole_optimization`, `:pending_interrupt?`, `:perm`, `:permutation`, `:pgroup`, `:phase`, `:pid`, `:pipe`, `:pipe?`, `:polar`, `:pop`, `:popen`, `:pos`, `:pos=`, `:positive?`, `:post_match`, `:pow`, `:pp`, `:ppid`, `:pre_match`, `:pread`, `:pred`, `:prepend`, `:prepend_features`, `:prepended`, `:prev_float`, `:primitive_convert`, `:primitive_errinfo`, `:print`, `:printf`, `:priority`, `:priority=`, `:private`, `:private_call?`, `:private_class_method`, `:private_constant`, `:private_instance_methods`, `:private_method_defined?`, `:private_methods`, `:proc`, `:product`, `:protected`, `:protected_instance_methods`, `:protected_method_defined?`, `:protected_methods`, `:public`, `:public_class_method`, `:public_constant`, `:public_instance_method`, `:public_instance_methods`, `:public_method`, `:public_method_defined?`, `:public_methods`, `:public_send`, `:push`, `:putback`, `:putc`, `:puts`, `:pwd`, `:pwrite`, `:quo`, `:quote`, `:raise`, `:raised_exception`, `:rand`, `:random`, `:random_number`, `:rassoc`, `:rationalize`, `:raw_data`, `:rdev`, `:rdev_major`, `:rdev_minor`, `:re_exchange`, `:re_exchangeable?`, `:read`, `:read_nonblock`, `:readable?`, `:readable_real?`, `:readagain_bytes`, `:readbyte`, `:readchar`, `:readline`, `:readlines`, `:readlink`, `:readpartial`, `:real`, `:real?`, `:realdirpath`, `:realpath`, `:reason`, `:receiver`, `:rect`, `:rectangular`, `:reduce`, `:refine`, `:regexp`, `:rehash`, `:reject`, `:reject!`, `:remainder`, `:remove_class_variable`, `:remove_const`, `:remove_instance_variable`, `:remove_method`, `:rename`, `:reopen`, `:repeated_combination`, `:repeated_permutation`, `:replace`, `:replacement`, `:replacement=`, `:replicate`, `:report`, `:report_on_exception`, `:report_on_exception=`, `:require`, `:require_relative`, `:resolving`, `:respond_to?`, `:respond_to_missing?`, `:restore`, `:result`, `:resume`, `:return_value`, `:reverse`, `:reverse!`, `:reverse_each`, `:rewind`, `:rid`, `:rindex`, `:rjust`, `:rmdir`, `:rotate`, `:rotate!`, `:round`, `:rpartition`, `:rstrip`, `:rstrip!`, `:run`, `:s`, `:safe_level`, `:sample`, `:saturday?`, `:scan`, `:scrub`, `:scrub!`, `:search_convpath`, `:sec`, `:second`, `:seed`, `:seek`, `:select`, `:select!`, `:self`, `:send`, `:sequential`, `:set_backtrace`, `:set_encoding`, `:set_trace_func`, `:setbyte`, `:setegid`, `:seteuid`, `:setgid`, `:setgid?`, `:setpgid`, `:setpgrp`, `:setpriority`, `:setproctitle`, `:setregid`, `:setresgid`, `:setresuid`, `:setreuid`, `:setrgid`, `:setrlimit`, `:setruid`, `:setsid`, `:setuid`, `:setuid?`, `:shift`, `:shuffle`, `:shuffle!`, `:sid_available?`, `:signal`, `:signaled?`, `:signame`, `:signm`, `:signo`, `:sin`, `:singleton_class`, `:singleton_class?`, `:singleton_method`, `:singleton_method_added`, `:singleton_method_removed`, `:singleton_method_undefined`, `:singleton_methods`, `:sinh`, `:size`, `:size?`, `:skip`, `:sleep`, `:slice`, `:slice!`, `:slice_after`, `:slice_before`, `:slice_when`, `:socket?`, `:sort`, `:sort!`, `:sort_by`, `:sort_by!`, `:source`, `:source_buffer_empty`, `:source_encoding`, `:source_encoding_name`, `:source_location`, `:spawn`, `:specialized_instruction`, `:split`, `:sprintf`, `:sqrt`, `:squeeze`, `:squeeze!`, `:srand`, `:stack_caching`, `:start`, `:start_with?`, `:stat`, `:state`, `:status`, `:step`, `:sticky?`, `:stime`, `:stime=`, `:stop`, `:stop?`, `:stopped?`, `:stopsig`, `:store`, `:stress`, `:stress=`, `:strftime`, `:string`, `:strip`, `:strip!`, `:sub`, `:sub!`, `:submicro`, `:subsec`, `:succ`, `:succ!`, `:success?`, `:sum`, `:sunday?`, `:super_method`, `:superclass`, `:swapcase`, `:swapcase!`, `:switch`, `:symlink`, `:symlink?`, `:sync`, `:sync=`, `:synchronize`, `:syscall`, `:sysopen`, `:sysread`, `:sysseek`, `:system`, `:syswrite`, `:tag`, `:tailcall_optimization`, `:taint`, `:tainted?`, `:take`, `:take_while`, `:tan`, `:tanh`, `:tap`, `:tell`, `:terminate`, `:termsig`, `:test`, `:text`, `:textmode`, `:thread_machine_stack_size`, `:thread_variable?`, `:thread_variable_get`, `:thread_variable_set`, `:thread_variables`, `:thread_vm_stack_size`, `:throw`, `:thursday?`, `:times`, `:to`, `:to_a`, `:to_ary`, `:to_binary`, `:to_c`, `:to_enum`, `:to_f`, `:to_h`, `:to_hash`, `:to_i`, `:to_int`, `:to_io`, `:to_path`, `:to_proc`, `:to_r`, `:to_s`, `:to_str`, `:to_sym`, `:to_write_io`, `:total_time`, `:tr`, `:tr!`, `:tr_s`, `:tr_s!`, `:trace`, `:trace_points`, `:trace_var`, `:transform_keys`, `:transform_keys!`, `:transform_values`, `:transform_values!`, `:translate`, `:transpose`, `:trap`, `:truncate`, `:trust`, `:try_convert`, `:try_lock`, `:tty?`, `:tuesday?`, `:turkic`, `:tv_nsec`, `:tv_sec`, `:tv_usec`, `:uid`, `:uid=`, `:umask`, `:unbind`, `:undef`, `:undef_method`, `:undefine_finalizer`, `:undefined_conversion`, `:undump`, `:ungetbyte`, `:ungetc`, `:unicode_normalize`, `:unicode_normalize!`, `:unicode_normalized?`, `:union`, `:uniq`, `:uniq!`, `:universal`, `:universal_newline`, `:unlink`, `:unlock`, `:unpack`, `:unpack1`, `:unsetenv_others`, `:unshift`, `:untaint`, `:untrace_var`, `:untrust`, `:untrusted?`, `:upcase`, `:upcase!`, `:update`, `:upto`, `:urandom`, `:usec`, `:used_modules`, `:using`, `:utc`, `:utc?`, `:utc_offset`, `:utime`, `:utime=`, `:valid_encoding?`, `:value`, `:value?`, `:values`, `:values_at`, `:verify_internal_consistency`, `:wait`, `:wait2`, `:wait_readable`, `:wait_writable`, `:waitall`, `:waitpid`, `:waitpid2`, `:wakeup`, `:warn`, `:wday`, `:wednesday?`, `:willneed`, `:with_index`, `:with_object`, `:world_readable?`, `:world_writable?`, `:writable?`, `:writable_real?`, `:write`, `:write_nonblock`, `:xml`, `:yday`, `:year`, `:yield`, `:yield_self`, `:zero?`, `:zip`, `:zone`, `:"{"`, `:|`, `:"||"`, `:"}"`, `:~`
+&lt;p&gt;All symbols:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:"" :! :!= :!~ :"\"" :"#" :"\#$!" :"$" :$! :$" :$$ :$&amp;amp; :$ :$* :$+ :$, :$-0 :$-F :$-I :$-K :$-W :$-a :$-d :$-i :$-l :$-p :$-v :$-w :$. :$/ :$0 :$: :$; :$&amp;lt; :$= :$&amp;gt; :$? :$@ :$DEBUG :$FILENAME :$KCODE :$LOADED_FEATURES :$LOAD_PATH :$PROGRAM_NAME :$SAFE :$VERBOSE :$\ :$_ :$:$ :$stderr :$stdin :$stdout :$~ :% :&amp;amp; :"&amp;amp;&amp;amp;" :"&amp;amp;." :""" :"(" :")" :* :** :+ :+@ :"," :- :-@ :"." :".." :"..." :/ :":" :"::" :";" :&amp;lt; :&amp;lt;&amp;lt; :&amp;lt;= :&amp;lt;=&amp;gt; :"&amp;lt;CFUNC&amp;gt;" :"&amp;lt;IFUNC&amp;gt;" :"=" :== :=== :=~ :&amp;gt; :&amp;gt;= :&amp;gt;&amp;gt; :"?" :"@" :@denominator :@gem_prelude_index :@image :@numerator :@path :@real :AFTER_OUTPUT :ALT_SEPARATOR :ANSI_X3_4_1968 :APPEND :ARGF :ARGV :ASCII :ASCII_8BIT :ArgumentError :Array :BIG5 :BIG5_HKSCS :BIG5_HKSCS_2008 :BIG5_UAO :BINARY :Backtrace :BasicObject :Big5 :Big5_HKSCS :Big5_HKSCS_2008 :Big5_UAO :Bignum :Binding :CLOCK_BASED_CLOCK_PROCESS_CPUTIME_ID :CLOCK_BOOTTIME :CLOCK_BOOTTIME_ALARM :CLOCK_MONOTONIC :CLOCK_MONOTONIC_COARSE :CLOCK_MONOTONIC_RAW :CLOCK_PROCESS_CPUTIME_ID :CLOCK_REALTIME :CLOCK_REALTIME_ALARM :CLOCK_REALTIME_COARSE :CLOCK_THREAD_CPUTIME_ID :CP1250 :CP1251 :CP1252 :CP1253 :CP1254 :CP1255 :CP1256 :CP1257 :CP1258 :CP437 :CP50220 :CP50221 :CP51932 :CP65000 :CP65001 :CP737 :CP775 :CP850 :CP852 :CP855 :CP857 :CP860 :CP861 :CP862 :CP863 :CP864 :CP865 :CP866 :CP869 :CP874 :CP878 :CP932 :CP936 :CP949 :CP950 :CP951 :CREAT :CRLF_NEWLINE_DECORATOR :CR_NEWLINE_DECORATOR :CSWINDOWS31J :CUR :Class :ClosedQueueError :Comparable :CompatibilityError :Complex :ConditionVariable :Constants :Converter :ConverterNotFoundError :CsWindows31J :DATA :DEFAULT :DEFAULT_PARAMS :DIG :DIRECT :DSYNC :Data :Default :DidYouMean :Dir :DomainError :E :E2BIG :EACCES :EADDRINUSE :EADDRNOTAVAIL :EADV :EAFNOSUPPORT :EAGAIN :EAGAINWaitReadable :EAGAINWaitWritable :EALREADY :EAUTH :EBADE :EBADF :EBADFD :EBADMSG :EBADR :EBADRPC :EBADRQC :EBADSLT :EBCDIC_CP_US :EBFONT :EBUSY :ECANCELED :ECAPMODE :ECHILD :ECHRNG :ECOMM :ECONNABORTED :ECONNREFUSED :ECONNRESET :EDEADLK :EDEADLOCK :EDESTADDRREQ :EDOM :EDOOFUS :EDOTDOT :EDQUOT :EEXIST :EFAULT :EFBIG :EFTYPE :EHOSTDOWN :EHOSTUNREACH :EHWPOISON :EIDRM :EILSEQ :EINPROGRESS :EINPROGRESSWaitReadable :EINPROGRESSWaitWritable :EINTR :EINVAL :EIO :EIPSEC :EISCONN :EISDIR :EISNAM :EKEYEXPIRED :EKEYREJECTED :EKEYREVOKED :EL2HLT :EL2NSYNC :EL3HLT :EL3RST :ELIBACC :ELIBBAD :ELIBEXEC :ELIBMAX :ELIBSCN :ELNRNG :ELOOP :EMACS_MULE :EMEDIUMTYPE :EMFILE :EMLINK :EMSGSIZE :EMULTIHOP :ENAMETOOLONG :ENAVAIL :END :ENEEDAUTH :ENETDOWN :ENETRESET :ENETUNREACH :ENFILE :ENOANO :ENOATTR :ENOBUFS :ENOCSI :ENODATA :ENODEV :ENOENT :ENOEXEC :ENOKEY :ENOLCK :ENOLINK :ENOMEDIUM :ENOMEM :ENOMSG :ENONET :ENOPKG :ENOPROTOOPT :ENOSPC :ENOSR :ENOSTR :ENOSYS :ENOTBLK :ENOTCAPABLE :ENOTCONN :ENOTDIR :ENOTEMPTY :ENOTNAM :ENOTRECOVERABLE :ENOTSOCK :ENOTSUP :ENOTTY :ENOTUNIQ :ENV :ENXIO :EOFError :EOPNOTSUPP :EOVERFLOW :EOWNERDEAD :EPERM :EPFNOSUPPORT :EPIPE :EPROCLIM :EPROCUNAVAIL :EPROGMISMATCH :EPROGUNAVAIL :EPROTO :EPROTONOSUPPORT :EPROTOTYPE :EPSILON :ERANGE :EREMCHG :EREMOTE :EREMOTEIO :ERESTART :ERFKILL :EROFS :ERPCMISMATCH :ESHUTDOWN :ESOCKTNOSUPPORT :ESPIPE :ESRCH :ESRMNT :ESTALE :ESTRPIPE :ETIME :ETIMEDOUT :ETOOMANYREFS :ETXTBSY :EUCCN :EUCJP :EUCJP_MS :EUCKR :EUCLEAN :EUCTW :EUC_CN :EUC_JISX0213 :EUC_JIS_2004 :EUC_JP :EUC_JP_MS :EUC_KR :EUC_TW :EUNATCH :EUSERS :EWOULDBLOCK :EWOULDBLOCKWaitReadable :EWOULDBLOCKWaitWritable :EXCL :EXDEV :EXFULL :EXTENDED :Emacs_Mule :Encoding :EncodingError :Enumerable :Enumerator :Errno :EucCN :EucJP :EucJP_ms :EucKR :EucTW :Exception :FALSE :FIXEDENCODING :FNM_CASEFOLD :FNM_DOTMATCH :FNM_EXTGLOB :FNM_NOESCAPE :FNM_PATHNAME :FNM_SHORTNAME :FNM_SYSCASE :FalseClass :Fiber :FiberError :File :FileTest :Fixnum :Float :FloatDomainError :Formatter :FrozenError :GB12345 :GB18030 :GB1988 :GB2312 :GBK :GC :GETRUSAGE_BASED_CLOCK_PROCESS_CPUTIME_ID :GETTIMEOFDAY_BASED_CLOCK_REALTIME :GID :GMP_VERSION :Gem :Generator :HEAP_PAGE_BITMAP_PLANES :HEAP_PAGE_BITMAP_SIZE :HEAP_PAGE_OBJ_LIMIT :HOLE :Hash :I :IBM037 :IBM437 :IBM737 :IBM775 :IBM850 :IBM852 :IBM855 :IBM857 :IBM860 :IBM861 :IBM862 :IBM863 :IBM864 :IBM865 :IBM866 :IBM869 :IGNORECASE :INFINITY :INSTRUCTION_NAMES :INTERNAL_CONSTANTS :INVALID_MASK :INVALID_REPLACE :IO :IOError :ISO2022_JP :ISO2022_JP2 :ISO8859_1 :ISO8859_10 :ISO8859_11 :ISO8859_13 :ISO8859_14 :ISO8859_15 :ISO8859_16 :ISO8859_2 :ISO8859_3 :ISO8859_4 :ISO8859_5 :ISO8859_6 :ISO8859_7 :ISO8859_8 :ISO8859_9 :ISO_2022_JP :ISO_2022_JP_2 :ISO_2022_JP_KDDI :ISO_8859_1 :ISO_8859_10 :ISO_8859_11 :ISO_8859_13 :ISO_8859_14 :ISO_8859_15 :ISO_8859_16 :ISO_8859_2 :ISO_8859_3 :ISO_8859_4 :ISO_8859_5 :ISO_8859_6 :ISO_8859_7 :ISO_8859_8 :ISO_8859_9 :IndexError :InstructionSequence :Integer :Interrupt :InvalidByteSequenceError :KOI8_R :KOI8_U :Kernel :KeyError :LOCK_EX :LOCK_NB :LOCK_SH :LOCK_UN :Lazy :LoadError :LocalJumpError :Location :MACCENTEURO :MACCROATIAN :MACCYRILLIC :MACGREEK :MACICELAND :MACJAPAN :MACJAPANESE :MACROMAN :MACROMANIA :MACTHAI :MACTURKISH :MACUKRAINE :MAJOR_VERSION :MANT_DIG :MAX :MAX_10_EXP :MAX_EXP :MIN :MINOR_VERSION :MIN_10_EXP :MIN_EXP :MULTILINE :MUTEX_FOR_THREAD_EXCLUSIVE :MacCentEuro :MacCroatian :MacCyrillic :MacGreek :MacIceland :MacJapan :MacJapanese :MacRoman :MacRomania :MacThai :MacTurkish :MacUkraine :Marshal :MatchData :Math :Method :Module :Mutex :NAN :NIL :NOATIME :NOCTTY :NOENCODING :NOERROR :NOFOLLOW :NONBLOCK :NULL :NameError :NilClass :NoMemoryError :NoMethodError :NotImplementedError :Numeric :OPTS :Object :ObjectSpace :PARTIAL_INPUT :PATH_SEPARATOR :PCK :PI :PRIO_PGRP :PRIO_PROCESS :PRIO_USER :Proc :Process :Profiler :Queue :RADIX :RDONLY :RDWR :RLIMIT_AS :RLIMIT_CORE :RLIMIT_CPU :RLIMIT_DATA :RLIMIT_FSIZE :RLIMIT_MEMLOCK :RLIMIT_MSGQUEUE :RLIMIT_NICE :RLIMIT_NOFILE :RLIMIT_NPROC :RLIMIT_RSS :RLIMIT_RTPRIO :RLIMIT_RTTIME :RLIMIT_SIGPENDING :RLIMIT_STACK :RLIM_INFINITY :RLIM_SAVED_CUR :RLIM_SAVED_MAX :ROUNDS :RSYNC :RUBY_COPYRIGHT :RUBY_DESCRIPTION :RUBY_ENGINE :RUBY_ENGINE_VERSION :RUBY_PATCHLEVEL :RUBY_PLATFORM :RUBY_RELEASE_DATE :RUBY_REVISION :RUBY_VERSION :RVALUE_SIZE :Random :Range :RangeError :Rational :Regexp :RegexpError :RubyVM :RuntimeError :SCRIPT_LINES__ :SEEK_CUR :SEEK_DATA :SEEK_END :SEEK_HOLE :SEEK_SET :SEPARATOR :SET :SHARE_DELETE :SHIFT_JIS :SJIS :SJIS_DOCOMO :SJIS_DoCoMo :SJIS_KDDI :SJIS_SOFTBANK :SJIS_SoftBank :STATELESS_ISO_2022_JP :STATELESS_ISO_2022_JP_KDDI :STDERR :STDIN :STDOUT :SYNC :ScriptError :SecurityError :Separator :Shift_JIS :Signal :SignalException :SizedQueue :StandardError :Stat :Stateless_ISO_2022_JP :Stateless_ISO_2022_JP_KDDI :Status :StopIteration :String :Struct :Symbol :SyntaxError :Sys :SystemCallError :SystemExit :SystemStackError :TIMES_BASED_CLOCK_MONOTONIC :TIMES_BASED_CLOCK_PROCESS_CPUTIME_ID :TIME_BASED_CLOCK_REALTIME :TIS_620 :TMPFILE :TMP_RUBY_PREFIX :TOPLEVEL_BINDING :TRUE :TRUNC :Thread :ThreadError :ThreadGroup :Time :Tms :TracePoint :TrueClass :TypeError :UCS_2BE :UCS_4BE :UCS_4LE :UID :UNDEF_HEX_CHARREF :UNDEF_MASK :UNDEF_REPLACE :UNIVERSAL_NEWLINE_DECORATOR :US_ASCII :UTF8_DOCOMO :UTF8_DoCoMo :UTF8_KDDI :UTF8_MAC :UTF8_SOFTBANK :UTF8_SoftBank :UTF_16 :UTF_16BE :UTF_16LE :UTF_32 :UTF_32BE :UTF_32LE :UTF_7 :UTF_8 :UTF_8_HFS :UTF_8_MAC :UnboundMethod :UncaughtThrowError :UndefinedConversionError :UnicodeNormalize :WINDOWS_1250 :WINDOWS_1251 :WINDOWS_1252 :WINDOWS_1253 :WINDOWS_1254 :WINDOWS_1255 :WINDOWS_1256 :WINDOWS_1257 :WINDOWS_1258 :WINDOWS_31J :WINDOWS_874 :WNOHANG :WRONLY :WUNTRACED :WaitReadable :WaitWritable :Waiter :Warning :WeakMap :Windows_1250 :Windows_1251 :Windows_1252 :Windows_1253 :Windows_1254 :Windows_1255 :Windows_1256 :Windows_1257 :Windows_1258 :Windows_31J :Windows_874 :XML_ATTR_CONTENT_DECORATOR :XML_ATTR_QUOTE_DECORATOR :XML_TEXT_DECORATOR :Yielder :ZeroDivisionError :"[" :[] :[]= :"\\" :"]" :^ :_ :__attached__ :__autoload__ :__callee__ :__classid__ :__classpath__ :__dir__ :__id__ :__keyword_init__ :__members__ :__members_back__ :__method__ :__read_nonblock :__recursive_key__ :__refined_class__ :__send__ :__tmp_classpath__ :__write_nonblock :_alloc :_dump :_dump_data :_id2ref :_load :_load_data :: :abort :abort_on_exception :abort_on_exception= :abs :abs2 :absolute_path :acos :acosh :add :add_trace_func :advise :after_output :alias_method :aliases :alive? :all? :all_symbols :allbits? :allocate :ancestors :and :angle :any? :anybits? :append :append_features :arg :args :arguments :argv :argv0 :arity :ascii :ascii_compatible? :ascii_only? :asciicompat_encoding :asctime :asin :asinh :assoc :at :at_exit :atan :atan2 :atanh :atime :attr :attr_accessor :attr_reader :attr_writer :autoclose :autoclose= :autoclose? :autoload :autoload? :b :backtrace :backtrace_locations :base_label :basename :begin :between? :bind :binding :binmode :binmode? :binread :binwrite :birthtime :bit_length :blksize :block :block_given? :blockdev? :blocks :bottom :broadcast :bsearch :bsearch_index :bt :bt_locations :buf :buffer :by :bytes :bytesize :byteslice :call :callee_id :caller :caller_locations :capitalize :capitalize! :captures :casecmp :casecmp? :casefold? :catch :cause :cbrt :ceil :center :change_privilege :chardev? :chars :chdir :child :children :chmod :chomp :chomp! :chop :chop! :chown :chr :chroot :chunk :chunk_while :clamp :class :class_eval :class_exec :class_variable_defined? :class_variable_get :class_variable_set :class_variables :clear :clock_getres :clock_gettime :clone :close :close_on_exec= :close_on_exec? :close_others :close_read :close_write :closed? :codepoints :coerce :collect :collect! :collect_concat :combination :compact :compact! :compare_by_identity :compare_by_identity? :compatible :compatible? :compile :compile_file :compile_option :compile_option= :concat :conj :conjugate :const_defined? :const_get :const_missing :const_set :constants :convert :convpath :copy_stream :"core#define_method" :"core#define_singleton_method" :"core#hash_from_ary" :"core#hash_merge_ary" :"core#hash_merge_kwd" :"core#hash_merge_ptr" :"core#set_method_alias" :"core#set_postexe" :"core#set_variable_alias" :"core#undef_method" :coredump? :cos :cosh :count :count_objects :cover? :coverage_enabled :cr :cr_newline :crlf :crlf_newline :crypt :cstime :cstime= :ctime :current :curry :cutime :cutime= :cycle :daemon :day :debug_frozen_string_literal :debug_level :default :default= :default_external :default_external= :default_internal :default_internal= :default_proc :default_proc= :define_finalizer :define_method :define_singleton_method :defined_class :delete :delete! :delete_at :delete_if :delete_prefix :delete_prefix! :delete_suffix :delete_suffix! :denominator :deprecate_constant :deq :destination_buffer_full :destination_encoding :destination_encoding_name :detach :detect :dev :dev_major :dev_minor :dig :digits :directory? :dirname :disable :disasm :disassemble :display :div :divmod :dontneed :downcase :downcase! :downto :drop :drop_while :dst? :dummy? :dump :dup :each :each_byte :each_char :each_child :each_codepoint :each_cons :each_entry :each_grapheme_cluster :each_index :each_key :each_line :each_object :each_pair :each_slice :each_value :each_with_index :each_with_object :egid :egid= :eid :eid= :empty? :enable :enabled? :enclose :enclosed? :encode :encode! :encoding :end :end_with? :enq :entries :enum_for :eof :eof? :eql? :equal? :erf :erfc :err :errno :error_bytes :error_char :escape :euid :euid= :eval :even? :event :exception :excl :exclude_end? :exclusive :exec :executable? :executable_real? :exist? :exists? :exit :exit! :exit_value :exited? :exitstatus :exp :expand_path :extend :extend_object :extended :external_encoding :extname :fail :fallback :fatal :fcntl :fdatasync :fdiv :feed :fetch :fetch_values :fiber_machine_stack_size :fiber_vm_stack_size :file :file? :filename :fileno :fill :finalize :find :find_all :find_index :finish :finished :finite? :first :first_lineno :fixed_encoding? :flags :flat_map :flatten :flatten! :float_microsecond :float_millisecond :float_second :flock :floor :flush :fnmatch :fnmatch? :fold :for_fd :force :force_encoding :foreach :fork :format :freeze :frexp :friday? :from_name :frozen? :frozen_string_literal :fsync :ftype :full_message :gamma :garbage_collect :gcd :gcdlcm :gem :getbyte :getc :getegid :geteuid :getgid :getgm :getlocal :getpgid :getpgrp :getpriority :getrlimit :gets :getsid :getuid :getutc :getwd :gid :gid= :glob :global_variables :gm :gmt? :gmt_offset :gmtime :gmtoff :grant_privilege :grapheme_clusters :grep :grep_v :group :group_by :groups :groups= :grpowned? :gsub :gsub! :handle_interrupt :has_key? :has_value? :hash :hertz :hex :home :hour :hypot :i :id2name :identical? :imag :imaginary :immediate :in :include :include? :included :included_modules :incomplete_input :incomplete_input? :index :infinite? :inherited :initgroups :initialize :initialize_clone :initialize_copy :initialize_dup :inject :inline_const_cache :ino :inplace_mode :inplace_mode= :insert :insert_output :inspect :instance_eval :instance_exec :instance_method :instance_methods :instance_of? :instance_variable_defined? :instance_variable_get :instance_variable_set :instance_variables :instructions_unification :integer? :intern :internal_encoding :invalid :invalid_byte_sequence :invert :ioctl :irb :is_a? :isatty :isdst :issetugid :iterator? :itself :join :keep_if :key :key? :keys :kill :kind_of? :label :lambda :lambda? :last :last_error :last_match :last_status :latest_gc_info :lazy :lchmod :lchown :lcm :ldexp :left :len :length :lf :lgamma :lineno :lineno= :lines :link :list :lithuanian :ljust :load :load_from_binary :load_from_binary_extra_data :load_iseq :local :local_variable_defined? :local_variable_get :local_variable_set :local_variables :locale_charmap :locals :localtime :lock :locked? :log :log10 :log2 :loop :lstat :lstrip :lstrip! :lutime :magnitude :main :map :map! :marshal_dump :marshal_load :match :match? :max :max= :max_by :maxgroups :maxgroups= :mday :member? :members :memo :merge :merge! :mesg :message :method :method_added :method_defined? :method_id :method_missing :method_removed :method_undefined :methods :microsecond :millisecond :min :min_by :minmax :minmax_by :mkdir :mkfifo :mktime :mode :module_eval :module_exec :module_function :modulo :mon :monday? :month :mtime :name :name= :name_list :named_captures :names :nan? :nano_den :nano_num :nanosecond :negative? :nesting :never :new :new_seed :newline :next :next! :next_float :next_values :nil? :nlink :nobits? :none? :nonzero? :noreuse :normal :normalize :normalized? :not :now :nsec :num_waiting :numerator :object_id :objs :oct :odd? :of :offset :on_blocking :one? :open :open_args :operands_unification :options :or :ord :original_name :out :owned? :owner :p :pack :parameters :partial_input :partition :pass :path :peek :peek_values :peephole_optimization :pending_interrupt? :perm :permutation :pgroup :phase :pid :pipe :pipe? :polar :pop :popen :pos :pos= :positive? :post_match :pow :pp :ppid :pre_match :pread :pred :prepend :prepend_features :prepended :prev_float :primitive_convert :primitive_errinfo :print :printf :priority :priority= :private :private_call? :private_class_method :private_constant :private_instance_methods :private_method_defined? :private_methods :proc :product :protected :protected_instance_methods :protected_method_defined? :protected_methods :public :public_class_method :public_constant :public_instance_method :public_instance_methods :public_method :public_method_defined? :public_methods :public_send :push :putback :putc :puts :pwd :pwrite :quo :quote :raise :raised_exception :rand :random :random_number :rassoc :rationalize :raw_data :rdev :rdev_major :rdev_minor :re_exchange :re_exchangeable? :read :read_nonblock :readable? :readable_real? :readagain_bytes :readbyte :readchar :readline :readlines :readlink :readpartial :real :real? :realdirpath :realpath :reason :receiver :rect :rectangular :reduce :refine :regexp :rehash :reject :reject! :remainder :remove_class_variable :remove_const :remove_instance_variable :remove_method :rename :reopen :repeated_combination :repeated_permutation :replace :replacement :replacement= :replicate :report :report_on_exception :report_on_exception= :require :require_relative :resolving :respond_to? :respond_to_missing? :restore :result :resume :return_value :reverse :reverse! :reverse_each :rewind :rid :rindex :rjust :rmdir :rotate :rotate! :round :rpartition :rstrip :rstrip! :run :s :safe_level :sample :saturday? :scan :scrub :scrub! :search_convpath :sec :second :seed :seek :select :select! :self :send :sequential :set_backtrace :set_encoding :set_trace_func :setbyte :setegid :seteuid :setgid :setgid? :setpgid :setpgrp :setpriority :setproctitle :setregid :setresgid :setresuid :setreuid :setrgid :setrlimit :setruid :setsid :setuid :setuid? :shift :shuffle :shuffle! :sid_available? :signal :signaled? :signame :signm :signo :sin :singleton_class :singleton_class? :singleton_method :singleton_method_added :singleton_method_removed :singleton_method_undefined :singleton_methods :sinh :size :size? :skip :sleep :slice :slice! :slice_after :slice_before :slice_when :socket? :sort :sort! :sort_by :sort_by! :source :source_buffer_empty :source_encoding :source_encoding_name :source_location :spawn :specialized_instruction :split :sprintf :sqrt :squeeze :squeeze! :srand :stack_caching :start :start_with? :stat :state :status :step :sticky? :stime :stime= :stop :stop? :stopped? :stopsig :store :stress :stress= :strftime :string :strip :strip! :sub :sub! :submicro :subsec :succ :succ! :success? :sum :sunday? :super_method :superclass :swapcase :swapcase! :switch :symlink :symlink? :sync :sync= :synchronize :syscall :sysopen :sysread :sysseek :system :syswrite :tag :tailcall_optimization :taint :tainted? :take :take_while :tan :tanh :tap :tell :terminate :termsig :test :text :textmode :thread_machine_stack_size :thread_variable? :thread_variable_get :thread_variable_set :thread_variables :thread_vm_stack_size :throw :thursday? :times :to :to_a :to_ary :to_binary :to_c :to_enum :to_f :to_h :to_hash :to_i :to_int :to_io :to_path :to_proc :to_r :to_s :to_str :to_sym :to_tty? :to_write_io :top :total_time :tr :tr! :tr_s :tr_s! :trace :trace_points :trace_var :transform_keys :transform_keys! :transform_values :transform_values! :translate :transpose :trap :truncate :trust :try_convert :try_lock :tty? :tuesday? :turkic :tv_nsec :tv_sec :tv_usec :uid :uid= :umask :unbind :undef :undef_method :undefine_finalizer :undefined_conversion :undump :ungetbyte :ungetc :unicode_normalize :unicode_normalize! :unicode_normalized? :union :uniq :uniq! :universal :universal_newline :unlink :unlock :unpack :unpack1 :unsetenv_others :unshift :untaint :untrace_var :untrust :untrusted? :upcase :upcase! :update :upto :urandom :usec :used_modules :using :utc :utc? :utc_offset :utime :utime= :valid_encoding? :value :value? :values :values_at :verify_internal_consistency :wait :wait2 :wait_readable :wait_writable :waitall :waitpid :waitpid2 :wakeup :warn :wday :wednesday? :willneed :with_index :with_object :world_readable? :world_writable? :writable? :writable_real? :write :write_nonblock :xml :yday :year :yield :yield_self :zero? :zip :zone :"{" :| :"||" :"}" :~
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id="initial-globalspecial-variables"&gt;Initial Global/Special Variables&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href="https://idiosyncratic-ruby.com/9-globalization.html"&gt;More info&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="/9-globalization.html"&gt;More info&lt;/a&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ ruby --disable-all -e 'puts global_variables.sort.
 map{ |g| "`#{g.to_s.sub("`", "\\`")}`" }.join(", ")'
@@ -8066,6 +8228,10 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;2.6&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;11.0.0&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
       &lt;td&gt;&lt;strong&gt;2.5&lt;/strong&gt;&lt;/td&gt;
       &lt;td&gt;&lt;strong&gt;10.0.0&lt;/strong&gt;&lt;/td&gt;
     &lt;/tr&gt;
@@ -8088,7 +8254,7 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h2 id="list-of-properties-as-of-ruby-25--unicode-100"&gt;List of Properties as of Ruby 2.5 / Unicode 10.0&lt;/h2&gt;
+&lt;h2 id="list-of-properties-as-of-ruby-26--unicode-110"&gt;List of Properties as of Ruby 2.6 / Unicode 11.0&lt;/h2&gt;
 
 &lt;h3 id="general-category"&gt;General Category&lt;/h3&gt;
 
@@ -8155,30 +8321,32 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
   &lt;li&gt;Assigned&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;While &lt;code&gt;\p{Any}&lt;/code&gt; will just match any representable codepoint, &lt;code&gt;\p{Assigned}&lt;/code&gt; will ignore &lt;a href="/66-ruby-has-character.html#types-of-unstandardized-codepoints"&gt;&lt;em&gt;Reserved&lt;/em&gt; codepoints and &lt;em&gt;Non-Characters&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;
+
 &lt;h3 id="derived-core-properties"&gt;Derived Core Properties&lt;/h3&gt;
 
-&lt;p&gt;These can be found in &lt;a href="https://www.unicode.org/Public/UCD/latest/ucd/DerivedCoreProperties.txt"&gt;DerivedCoreProperties.txt&lt;/a&gt; (&lt;a href="ftp://unicode.org/Public/3.2-Update/DerivedProperties-3.2.0.html"&gt;explanation&lt;/a&gt;), along with a comment how the property gets constructed. Possible values are:&lt;/p&gt;
+&lt;p&gt;These can be found in &lt;a href="https://www.unicode.org/Public/UCD/latest/ucd/DerivedCoreProperties.txt"&gt;DerivedCoreProperties.txt&lt;/a&gt; (&lt;a href="ftp://unicode.org/Public/3.2-Update/DerivedProperties-3.2.0.html"&gt;explanation&lt;/a&gt;), along with a comment how the property gets constructed. Possible values are (short form in parenthesis):&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Math&lt;/li&gt;
-  &lt;li&gt;Alphabetic&lt;/li&gt;
-  &lt;li&gt;Lowercase&lt;/li&gt;
-  &lt;li&gt;Uppercase&lt;/li&gt;
+  &lt;li&gt;Alphabetic (Alpha)&lt;/li&gt;
+  &lt;li&gt;Lowercase (Lower)&lt;/li&gt;
+  &lt;li&gt;Uppercase (Upper)&lt;/li&gt;
   &lt;li&gt;Cased&lt;/li&gt;
   &lt;li&gt;Case Ignorable&lt;/li&gt;
-  &lt;li&gt;Changes When Lowercased&lt;/li&gt;
-  &lt;li&gt;Changes When Uppercased&lt;/li&gt;
-  &lt;li&gt;Changes When Titlecased&lt;/li&gt;
-  &lt;li&gt;Changes When Casefolded&lt;/li&gt;
-  &lt;li&gt;Changes When Casemapped&lt;/li&gt;
-  &lt;li&gt;ID Start&lt;/li&gt;
-  &lt;li&gt;ID Continue&lt;/li&gt;
-  &lt;li&gt;XID Start&lt;/li&gt;
-  &lt;li&gt;XID Continue&lt;/li&gt;
-  &lt;li&gt;Default Ignorable Code Point&lt;/li&gt;
-  &lt;li&gt;Grapheme Extend&lt;/li&gt;
-  &lt;li&gt;Grapheme Base&lt;/li&gt;
-  &lt;li&gt;Grapheme Link&lt;/li&gt;
+  &lt;li&gt;Changes When Lowercased (CWL)&lt;/li&gt;
+  &lt;li&gt;Changes When Uppercased (CWU)&lt;/li&gt;
+  &lt;li&gt;Changes When Titlecased (CWT)&lt;/li&gt;
+  &lt;li&gt;Changes When Casefolded (CWCF)&lt;/li&gt;
+  &lt;li&gt;Changes When Casemapped (CWCF)&lt;/li&gt;
+  &lt;li&gt;ID Start (IDS)&lt;/li&gt;
+  &lt;li&gt;ID Continue (IDC)&lt;/li&gt;
+  &lt;li&gt;XID Start (XIDS)&lt;/li&gt;
+  &lt;li&gt;XID Continue (XIDC)&lt;/li&gt;
+  &lt;li&gt;Default Ignorable Code Point (DI)&lt;/li&gt;
+  &lt;li&gt;Grapheme Extend (Gr Ext)&lt;/li&gt;
+  &lt;li&gt;Grapheme Base (Gr Base)&lt;/li&gt;
+  &lt;li&gt;Grapheme Link (Gr Link)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id="grapheme-related"&gt;Grapheme Related&lt;/h3&gt;
@@ -8198,10 +8366,7 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
   &lt;li&gt;Grapheme Cluster Break = T&lt;/li&gt;
   &lt;li&gt;Grapheme Cluster Break = LV&lt;/li&gt;
   &lt;li&gt;Grapheme Cluster Break = LVT&lt;/li&gt;
-  &lt;li&gt;Grapheme Cluster Break = E Base&lt;/li&gt;
-  &lt;li&gt;Grapheme Cluster Break = E Modifier&lt;/li&gt;
   &lt;li&gt;Grapheme Cluster Break = ZWJ&lt;/li&gt;
-  &lt;li&gt;Grapheme Cluster Break = Glue After Zwj&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id="binary-properties"&gt;Binary Properties&lt;/h3&gt;
@@ -8209,51 +8374,53 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
 &lt;p&gt;Other &lt;a href="https://en.wikipedia.org/wiki/Unicode_character_property"&gt;matchable character properties&lt;/a&gt; are:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;White Space&lt;/li&gt;
-  &lt;li&gt;Bidi Control&lt;/li&gt;
-  &lt;li&gt;Join Control&lt;/li&gt;
+  &lt;li&gt;White Space (W Space)&lt;/li&gt;
+  &lt;li&gt;Bidi Control (Bidi C)&lt;/li&gt;
+  &lt;li&gt;Join Control (Join C)&lt;/li&gt;
   &lt;li&gt;Dash&lt;/li&gt;
-  &lt;li&gt;Hypen&lt;/li&gt;
-  &lt;li&gt;Quotation Mark&lt;/li&gt;
-  &lt;li&gt;Terminal Punctuation&lt;/li&gt;
-  &lt;li&gt;Other Math&lt;/li&gt;
-  &lt;li&gt;Hex Digit&lt;/li&gt;
-  &lt;li&gt;ASCII Hex Digit&lt;/li&gt;
-  &lt;li&gt;Other Alphabetic&lt;/li&gt;
-  &lt;li&gt;Ideographic&lt;/li&gt;
-  &lt;li&gt;Diacritic&lt;/li&gt;
-  &lt;li&gt;Extender&lt;/li&gt;
-  &lt;li&gt;Other Lowercase&lt;/li&gt;
-  &lt;li&gt;Other Uppercase&lt;/li&gt;
-  &lt;li&gt;Noncharacter Code Point&lt;/li&gt;
-  &lt;li&gt;Other Grapheme Extend&lt;/li&gt;
-  &lt;li&gt;IDS Binary Operator&lt;/li&gt;
-  &lt;li&gt;IDS Trinary Operator&lt;/li&gt;
+  &lt;li&gt;Hyphen&lt;/li&gt;
+  &lt;li&gt;Quotation Mark (Q Mark)&lt;/li&gt;
+  &lt;li&gt;Terminal Punctuation (Term)&lt;/li&gt;
+  &lt;li&gt;Other Math (O Math)&lt;/li&gt;
+  &lt;li&gt;Hex Digit (Hex)&lt;/li&gt;
+  &lt;li&gt;ASCII Hex Digit (A Hex)&lt;/li&gt;
+  &lt;li&gt;Other Alphabetic (O Alpha)&lt;/li&gt;
+  &lt;li&gt;Ideographic (Ideo)&lt;/li&gt;
+  &lt;li&gt;Diacritic (Dia)&lt;/li&gt;
+  &lt;li&gt;Extender (Ext)&lt;/li&gt;
+  &lt;li&gt;Other Lowercase (O Lower)&lt;/li&gt;
+  &lt;li&gt;Other Uppercase (O Upper)&lt;/li&gt;
+  &lt;li&gt;Noncharacter Code Point (N Char)&lt;/li&gt;
+  &lt;li&gt;Other Grapheme Extend (O Gr Ext)&lt;/li&gt;
+  &lt;li&gt;IDS Binary Operator (IDSB)&lt;/li&gt;
+  &lt;li&gt;IDS Trinary Operator (IDST)&lt;/li&gt;
   &lt;li&gt;Radical&lt;/li&gt;
-  &lt;li&gt;Unified Ideograph&lt;/li&gt;
-  &lt;li&gt;Other Default Ignorable Code Point&lt;/li&gt;
-  &lt;li&gt;Deprecated&lt;/li&gt;
-  &lt;li&gt;Soft Dotted&lt;/li&gt;
-  &lt;li&gt;Logical Order Exception&lt;/li&gt;
-  &lt;li&gt;Other ID Start&lt;/li&gt;
-  &lt;li&gt;Other ID Continue&lt;/li&gt;
-  &lt;li&gt;Sentence Terminal&lt;/li&gt;
-  &lt;li&gt;STerm&lt;/li&gt;
-  &lt;li&gt;Variation Selector&lt;/li&gt;
-  &lt;li&gt;Pattern White Space&lt;/li&gt;
-  &lt;li&gt;Pattern Syntax&lt;/li&gt;
-  &lt;li&gt;Prepended Concatenation Mark&lt;/li&gt;
-  &lt;li&gt;Regional Indicator&lt;/li&gt;
+  &lt;li&gt;Unified Ideograph (U Ideo)&lt;/li&gt;
+  &lt;li&gt;Other Default Ignorable Code Point (ODI)&lt;/li&gt;
+  &lt;li&gt;Deprecated (Dep)&lt;/li&gt;
+  &lt;li&gt;Soft Dotted (SD)&lt;/li&gt;
+  &lt;li&gt;Logical Order Exception (LOE)&lt;/li&gt;
+  &lt;li&gt;Other ID Start (OIDS)&lt;/li&gt;
+  &lt;li&gt;Other ID Continue (OIDC)&lt;/li&gt;
+  &lt;li&gt;Sentence Terminal (S Term)&lt;/li&gt;
+  &lt;li&gt;Variation Selector (VS)&lt;/li&gt;
+  &lt;li&gt;Pattern White Space (Pat WS)&lt;/li&gt;
+  &lt;li&gt;Pattern Syntax (Pat Syn)&lt;/li&gt;
+  &lt;li&gt;Prepended Concatenation Mark (PCM)&lt;/li&gt;
+  &lt;li&gt;Regional Indicator (RI)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id="emoji-properties"&gt;Emoji Properties&lt;/h2&gt;
 
+&lt;p&gt;Also see: &lt;a href="https://github.com/janlelis/unicode-emoji"&gt;unicode-emoji&lt;/a&gt;&lt;/p&gt;
+
 &lt;ul&gt;
   &lt;li&gt;Emoji&lt;/li&gt;
-  &lt;li&gt;Emoji_Presentation&lt;/li&gt;
-  &lt;li&gt;Emoji_Modifier&lt;/li&gt;
-  &lt;li&gt;Emoji_Modifier_Base&lt;/li&gt;
-  &lt;li&gt;Emoji_Component&lt;/li&gt;
+  &lt;li&gt;Emoji Presentation&lt;/li&gt;
+  &lt;li&gt;Emoji Modifier&lt;/li&gt;
+  &lt;li&gt;Emoji Modifier_Base&lt;/li&gt;
+  &lt;li&gt;Emoji Component&lt;/li&gt;
+  &lt;li&gt;Extended Pictographic&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
@@ -8558,7 +8725,7 @@ B.rev 42
 
 &lt;p&gt;However, it does not directly support rendering data from a &lt;a href="https://ruby-doc.org/core/Hash.html"&gt;Hash&lt;/a&gt;, but only from a &lt;a href="https://ruby-doc.org/core/Binding.html"&gt;Binding&lt;/a&gt; object:¹&lt;/p&gt;
 
-&lt;p&gt;¹ &lt;strong&gt;Update:&lt;/strong&gt; &lt;a href="#how-to-render-an-erb-template-post-25"&gt;It is now possible with Ruby 2.5&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;¹ &lt;strong&gt;Update:&lt;/strong&gt; &lt;a href="#how-to-render-an-erb-template-post-25"&gt;It is now possible with Ruby 2.5 – click here to see the best best practice&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id="how-to-render-an-erb-template-pre-21"&gt;How to Render an ERB Template² (Pre 2.1)&lt;/h2&gt;
 
@@ -8733,7 +8900,7 @@ Gem::Platform.local.cpu # =&amp;gt; "x86_64"
 
 &lt;p&gt;The value is derived from &lt;a href="/42-ruby-config.html"&gt;RbConfig&lt;/a&gt;. Also see the &lt;a href="https://github.com/rdp/os"&gt;OS&lt;/a&gt; gem, which provides similar functionality.&lt;/p&gt;
 
-&lt;h2 id="gemgzip-and-gemgunzip"&gt;2) &lt;code&gt;Gem.gzip&lt;/code&gt; and &lt;code&gt;Gem.gunzip&lt;/code&gt;&lt;/h2&gt;
+&lt;h2 id="gemutilgzip-and-gemutilgunzip"&gt;2) &lt;code&gt;Gem::Util.gzip&lt;/code&gt; and &lt;code&gt;Gem::Util.gunzip&lt;/code&gt;&lt;/h2&gt;
 
 &lt;p&gt;Super simple access to text compression functionality:&lt;/p&gt;
 
@@ -8781,8 +8948,8 @@ selected = ui.choose_from_list "How to move on?", [
 
 &lt;p&gt;RubyGems includes some &lt;a href="http://spdx.org/spdx-license-list"&gt;common license identifiers&lt;/a&gt;:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;Gem::Licenses::IDENTIFIERS # =&amp;gt;
-["0BSD", "AAL", "ADSL", "AFL-1.1", "AFL-1.2", "AFL-2.0", "AFL-2.1", "AFL-3.0", "AGPL-1.0", "AGPL-3.0", "AMDPLPA", "AML", "AMPAS", "ANTLR-PD", "APAFML", "APL-1.0", "APSL-1.0", "APSL-1.1", "APSL-1.2", "APSL-2.0", "Abstyles", "Adobe-2006", "Adobe-Glyph", "Afmparse", "Aladdin", "Apache-1.0", "Apache-1.1", "Apache-2.0", "Artistic-1.0", "Artistic-1.0-Perl", "Artistic-1.0-cl8", "Artistic-2.0", "BSD-2-Clause", "BSD-2-Clause-FreeBSD", "BSD-2-Clause-NetBSD", "BSD-3-Clause", "BSD-3-Clause-Attribution", "BSD-3-Clause-Clear", "BSD-3-Clause-LBNL", "BSD-4-Clause", "BSD-4-Clause-UC", "BSD-Protection", "BSL-1.0", "Bahyph", "Barr", "Beerware", "BitTorrent-1.0", "BitTorrent-1.1", "Borceux", "CATOSL-1.1", "CC-BY-1.0", "CC-BY-2.0", "CC-BY-2.5", "CC-BY-3.0", "CC-BY-4.0", "CC-BY-NC-1.0", "CC-BY-NC-2.0", "CC-BY-NC-2.5", "CC-BY-NC-3.0", "CC-BY-NC-4.0", "CC-BY-NC-ND-1.0", "CC-BY-NC-ND-2.0", "CC-BY-NC-ND-2.5", "CC-BY-NC-ND-3.0", "CC-BY-NC-ND-4.0", "CC-BY-NC-SA-1.0", "CC-BY-NC-SA-2.0", "CC-BY-NC-SA-2.5", "CC-BY-NC-SA-3.0", "CC-BY-NC-SA-4.0", "CC-BY-ND-1.0", "CC-BY-ND-2.0", "CC-BY-ND-2.5", "CC-BY-ND-3.0", "CC-BY-ND-4.0", "CC-BY-SA-1.0", "CC-BY-SA-2.0", "CC-BY-SA-2.5", "CC-BY-SA-3.0", "CC-BY-SA-4.0", "CC0-1.0", "CDDL-1.0", "CDDL-1.1", "CECILL-1.0", "CECILL-1.1", "CECILL-2.0", "CECILL-2.1", "CECILL-B", "CECILL-C", "CNRI-Jython", "CNRI-Python", "CNRI-Python-GPL-Compatible", "CPAL-1.0", "CPL-1.0", "CPOL-1.02", "CUA-OPL-1.0", "Caldera", "ClArtistic", "Condor-1.1", "Crossword", "CrystalStacker", "Cube", "D-FSL-1.0", "DOC", "DSDP", "Dotseqn", "ECL-1.0", "ECL-2.0", "EFL-1.0", "EFL-2.0", "EPL-1.0", "EUDatagrid", "EUPL-1.0", "EUPL-1.1", "Entessa", "ErlPL-1.1", "Eurosym", "FSFUL", "FSFULLR", "FTL", "Fair", "Frameworx-1.0", "FreeImage", "GFDL-1.1", "GFDL-1.2", "GFDL-1.3", "GL2PS", "GPL-1.0", "GPL-2.0", "GPL-3.0", "Giftware", "Glide", "Glulxe", "HPND", "HaskellReport", "IBM-pibs", "ICU", "IJG", "IPA", "IPL-1.0", "ISC", "ImageMagick", "Imlib2", "Intel", "Intel-ACPI", "Interbase-1.0", "JSON", "JasPer-2.0", "LGPL-2.0", "LGPL-2.1", "LGPL-3.0", "LGPLLR", "LPL-1.0", "LPL-1.02", "LPPL-1.0", "LPPL-1.1", "LPPL-1.2", "LPPL-1.3a", "LPPL-1.3c", "Latex2e", "Leptonica", "Libpng", "MIT", "MIT-CMU", "MIT-advertising", "MIT-enna", "MIT-feh", "MITNFA", "MPL-1.0", "MPL-1.1", "MPL-2.0", "MPL-2.0-no-copyleft-exception", "MS-PL", "MS-RL", "MTLL", "MakeIndex", "MirOS", "Motosoto", "Multics", "Mup", "NASA-1.3", "NBPL-1.0", "NCSA", "NGPL", "NLPL", "NOSL", "NPL-1.0", "NPL-1.1", "NPOSL-3.0", "NRL", "NTP", "Naumen", "NetCDF", "Newsletr", "Nokia", "Noweb", "Nunit", "OCLC-2.0", "ODbL-1.0", "OFL-1.0", "OFL-1.1", "OGTSL", "OLDAP-1.1", "OLDAP-1.2", "OLDAP-1.3", "OLDAP-1.4", "OLDAP-2.0", "OLDAP-2.0.1", "OLDAP-2.1", "OLDAP-2.2", "OLDAP-2.2.1", "OLDAP-2.2.2", "OLDAP-2.3", "OLDAP-2.4", "OLDAP-2.5", "OLDAP-2.6", "OLDAP-2.7", "OLDAP-2.8", "OML", "OPL-1.0", "OSL-1.0", "OSL-1.1", "OSL-2.0", "OSL-2.1", "OSL-3.0", "OpenSSL", "PDDL-1.0", "PHP-3.0", "PHP-3.01", "Plexus", "PostgreSQL", "Python-2.0", "QPL-1.0", "Qhull", "RHeCos-1.1", "RPL-1.1", "RPL-1.5", "RPSL-1.0", "RSA-MD", "RSCPL", "Rdisc", "Ruby", "SAX-PD", "SCEA", "SGI-B-1.0", "SGI-B-1.1", "SGI-B-2.0", "SISSL", "SISSL-1.2", "SMLNJ", "SNIA", "SPL-1.0", "SWL", "Saxpath", "Sendmail", "SimPL-2.0", "Sleepycat", "Spencer-86", "Spencer-94", "Spencer-99", "SugarCRM-1.1.3", "TCL", "TMate", "TORQUE-1.1", "TOSL", "UPL-1.0", "Unicode-TOU", "Unlicense", "VOSTROM", "VSL-1.0", "Vim", "W3C", "W3C-19980720", "WTFPL", "Watcom-1.0", "Wsuipa", "X11", "XFree86-1.1", "XSkat", "Xerox", "Xnet", "YPL-1.0", "YPL-1.1", "ZPL-1.1", "ZPL-2.0", "ZPL-2.1", "Zed", "Zend-2.0", "Zimbra-1.3", "Zimbra-1.4", "Zlib", "bzip2-1.0.5", "bzip2-1.0.6", "diffmark", "dvipdfm", "eGenix", "gSOAP-1.3b", "gnuplot", "iMatix", "libtiff", "mpich2", "psfrag", "psutils", "xinetd", "xpp", "zlib-acknowledgement"]
+&lt;pre&gt;&lt;code&gt;Gem::Licenses::LICENSE_IDENTIFIERS # =&amp;gt;
+["0BSD", "AAL", "ADSL", "AFL-1.1", "AFL-1.2", "AFL-2.0", "AFL-2.1", "AFL-3.0", "AGPL-1.0", "AGPL-3.0", "AGPL-3.0-only", "AGPL-3.0-or-later", "AMDPLPA", "AML", "AMPAS", "ANTLR-PD", "APAFML", "APL-1.0", "APSL-1.0", "APSL-1.1", "APSL-1.2", "APSL-2.0", "Abstyles", "Adobe-2006", "Adobe-Glyph", "Afmparse", "Aladdin", "Apache-1.0", "Apache-1.1", "Apache-2.0", "Artistic-1.0", "Artistic-1.0-Perl", "Artistic-1.0-cl8", "Artistic-2.0", "BSD-1-Clause", "BSD-2-Clause", "BSD-2-Clause-FreeBSD", "BSD-2-Clause-NetBSD", "BSD-2-Clause-Patent", "BSD-3-Clause", "BSD-3-Clause-Attribution", "BSD-3-Clause-Clear", "BSD-3-Clause-LBNL", "BSD-3-Clause-No-Nuclear-License", "BSD-3-Clause-No-Nuclear-License-2014", "BSD-3-Clause-No-Nuclear-Warranty", "BSD-4-Clause", "BSD-4-Clause-UC", "BSD-Protection", "BSD-Source-Code", "BSL-1.0", "Bahyph", "Barr", "Beerware", "BitTorrent-1.0", "BitTorrent-1.1", "Borceux", "CATOSL-1.1", "CC-BY-1.0", "CC-BY-2.0", "CC-BY-2.5", "CC-BY-3.0", "CC-BY-4.0", "CC-BY-NC-1.0", "CC-BY-NC-2.0", "CC-BY-NC-2.5", "CC-BY-NC-3.0", "CC-BY-NC-4.0", "CC-BY-NC-ND-1.0", "CC-BY-NC-ND-2.0", "CC-BY-NC-ND-2.5", "CC-BY-NC-ND-3.0", "CC-BY-NC-ND-4.0", "CC-BY-NC-SA-1.0", "CC-BY-NC-SA-2.0", "CC-BY-NC-SA-2.5", "CC-BY-NC-SA-3.0", "CC-BY-NC-SA-4.0", "CC-BY-ND-1.0", "CC-BY-ND-2.0", "CC-BY-ND-2.5", "CC-BY-ND-3.0", "CC-BY-ND-4.0", "CC-BY-SA-1.0", "CC-BY-SA-2.0", "CC-BY-SA-2.5", "CC-BY-SA-3.0", "CC-BY-SA-4.0", "CC0-1.0", "CDDL-1.0", "CDDL-1.1", "CDLA-Permissive-1.0", "CDLA-Sharing-1.0", "CECILL-1.0", "CECILL-1.1", "CECILL-2.0", "CECILL-2.1", "CECILL-B", "CECILL-C", "CNRI-Jython", "CNRI-Python", "CNRI-Python-GPL-Compatible", "CPAL-1.0", "CPL-1.0", "CPOL-1.02", "CUA-OPL-1.0", "Caldera", "ClArtistic", "Condor-1.1", "Crossword", "CrystalStacker", "Cube", "D-FSL-1.0", "DOC", "DSDP", "Dotseqn", "ECL-1.0", "ECL-2.0", "EFL-1.0", "EFL-2.0", "EPL-1.0", "EPL-2.0", "EUDatagrid", "EUPL-1.0", "EUPL-1.1", "EUPL-1.2", "Entessa", "ErlPL-1.1", "Eurosym", "FSFAP", "FSFUL", "FSFULLR", "FTL", "Fair", "Frameworx-1.0", "FreeImage", "GFDL-1.1", "GFDL-1.1-only", "GFDL-1.1-or-later", "GFDL-1.2", "GFDL-1.2-only", "GFDL-1.2-or-later", "GFDL-1.3", "GFDL-1.3-only", "GFDL-1.3-or-later", "GL2PS", "GPL-1.0", "GPL-1.0+", "GPL-1.0-only", "GPL-1.0-or-later", "GPL-2.0", "GPL-2.0+", "GPL-2.0-only", "GPL-2.0-or-later", "GPL-2.0-with-GCC-exception", "GPL-2.0-with-autoconf-exception", "GPL-2.0-with-bison-exception", "GPL-2.0-with-classpath-exception", "GPL-2.0-with-font-exception", "GPL-3.0", "GPL-3.0+", "GPL-3.0-only", "GPL-3.0-or-later", "GPL-3.0-with-GCC-exception", "GPL-3.0-with-autoconf-exception", "Giftware", "Glide", "Glulxe", "HPND", "HaskellReport", "IBM-pibs", "ICU", "IJG", "IPA", "IPL-1.0", "ISC", "ImageMagick", "Imlib2", "Info-ZIP", "Intel", "Intel-ACPI", "Interbase-1.0", "JSON", "JasPer-2.0", "LAL-1.2", "LAL-1.3", "LGPL-2.0", "LGPL-2.0+", "LGPL-2.0-only", "LGPL-2.0-or-later", "LGPL-2.1", "LGPL-2.1+", "LGPL-2.1-only", "LGPL-2.1-or-later", "LGPL-3.0", "LGPL-3.0+", "LGPL-3.0-only", "LGPL-3.0-or-later", "LGPLLR", "LPL-1.0", "LPL-1.02", "LPPL-1.0", "LPPL-1.1", "LPPL-1.2", "LPPL-1.3a", "LPPL-1.3c", "Latex2e", "Leptonica", "LiLiQ-P-1.1", "LiLiQ-R-1.1", "LiLiQ-Rplus-1.1", "Libpng", "MIT", "MIT-CMU", "MIT-advertising", "MIT-enna", "MIT-feh", "MITNFA", "MPL-1.0", "MPL-1.1", "MPL-2.0", "MPL-2.0-no-copyleft-exception", "MS-PL", "MS-RL", "MTLL", "MakeIndex", "MirOS", "Motosoto", "Multics", "Mup", "NASA-1.3", "NBPL-1.0", "NCSA", "NGPL", "NLOD-1.0", "NLPL", "NOSL", "NPL-1.0", "NPL-1.1", "NPOSL-3.0", "NRL", "NTP", "Naumen", "Net-SNMP", "NetCDF", "Newsletr", "Nokia", "Noweb", "Nunit", "OCCT-PL", "OCLC-2.0", "ODbL-1.0", "OFL-1.0", "OFL-1.1", "OGTSL", "OLDAP-1.1", "OLDAP-1.2", "OLDAP-1.3", "OLDAP-1.4", "OLDAP-2.0", "OLDAP-2.0.1", "OLDAP-2.1", "OLDAP-2.2", "OLDAP-2.2.1", "OLDAP-2.2.2", "OLDAP-2.3", "OLDAP-2.4", "OLDAP-2.5", "OLDAP-2.6", "OLDAP-2.7", "OLDAP-2.8", "OML", "OPL-1.0", "OSET-PL-2.1", "OSL-1.0", "OSL-1.1", "OSL-2.0", "OSL-2.1", "OSL-3.0", "OpenSSL", "PDDL-1.0", "PHP-3.0", "PHP-3.01", "Plexus", "PostgreSQL", "Python-2.0", "QPL-1.0", "Qhull", "RHeCos-1.1", "RPL-1.1", "RPL-1.5", "RPSL-1.0", "RSA-MD", "RSCPL", "Rdisc", "Ruby", "SAX-PD", "SCEA", "SGI-B-1.0", "SGI-B-1.1", "SGI-B-2.0", "SISSL", "SISSL-1.2", "SMLNJ", "SMPPL", "SNIA", "SPL-1.0", "SWL", "Saxpath", "Sendmail", "SimPL-2.0", "Sleepycat", "Spencer-86", "Spencer-94", "Spencer-99", "StandardML-NJ", "SugarCRM-1.1.3", "TCL", "TCP-wrappers", "TMate", "TORQUE-1.1", "TOSL", "UPL-1.0", "Unicode-DFS-2015", "Unicode-DFS-2016", "Unicode-TOU", "Unlicense", "VOSTROM", "VSL-1.0", "Vim", "W3C", "W3C-19980720", "W3C-20150513", "WTFPL", "Watcom-1.0", "Wsuipa", "X11", "XFree86-1.1", "XSkat", "Xerox", "Xnet", "YPL-1.0", "YPL-1.1", "ZPL-1.1", "ZPL-2.0", "ZPL-2.1", "Zed", "Zend-2.0", "Zimbra-1.3", "Zimbra-1.4", "Zlib", "bzip2-1.0.5", "bzip2-1.0.6", "curl", "diffmark", "dvipdfm", "eCos-2.0", "eGenix", "gSOAP-1.3b", "gnuplot", "iMatix", "libtiff", "mpich2", "psfrag", "psutils", "wxWindows", "xinetd", "xpp", "zlib-acknowledgement"]
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;The data is also accessible via a special regex:&lt;/p&gt;
@@ -9274,7 +9441,7 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
 
 &lt;h3 id="systemcallerror"&gt;SystemCallError&lt;/h3&gt;
 
-&lt;p&gt;These errors are thrown by the operating system under certain circumstances. The exact list depends on your platform and can be found in &lt;a href="http://www.gnu.org/software/libc/manual/html_node/Error-Codes.html"&gt;a file called &lt;code&gt;errno.h&lt;/code&gt;&lt;/a&gt;. You get such errors when working with processes, &lt;a href="https://ruby-doc.org/stdlib/libdoc/socket/rdoc/Socket.html#method-i-connect-label-Unix-based+Exceptions"&gt;sockets&lt;/a&gt;, files, and other functionality that relies on low level system operations.&lt;/p&gt;
+&lt;p&gt;These errors are thrown by the operating system under certain circumstances. The exact list depends on your platform and can be found in &lt;a href="https://www.gnu.org/software/libc/manual/html_node/Error-Codes.html"&gt;a file called &lt;code&gt;errno.h&lt;/code&gt;&lt;/a&gt;. You get such errors when working with processes, &lt;a href="https://ruby-doc.org/stdlib/libdoc/socket/rdoc/Socket.html#method-i-connect-label-Unix-based+Exceptions"&gt;sockets&lt;/a&gt;, files, and other functionality that relies on low level system operations.&lt;/p&gt;
 
 &lt;p&gt;What follows is the list of errors that are known by Ruby. The error numbers and messages were generated on a recent ubuntu Linux machine. All system call errors are namespaced under &lt;code&gt;Errno::&lt;/code&gt; and can be dynamically created using &lt;code&gt;SystemCallError.new(number)&lt;/code&gt;.&lt;/p&gt;
 
@@ -10125,7 +10292,7 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;¹ Feel free to &lt;a href="https://github.com/janlelis/idiosyncratic-ruby.com/issues/new"&gt;suggest more one-liners&lt;/a&gt;! I will also add some more over time.&lt;br /&gt;
+&lt;p&gt;¹ Feel free to &lt;a href="https://github.com/janlelis/idiosyncratic-ruby.com/issues/new"&gt;suggest more one-liners&lt;/a&gt;&lt;br /&gt;
 ² These include &lt;code&gt;IO::WaitReadable&lt;/code&gt;/&lt;code&gt;IO::WaitWritable&lt;/code&gt;. See &lt;a href="https://ruby-doc.org/core/IO.html#method-i-read_nonblock"&gt;IO#read_nonblock&lt;/a&gt;.&lt;br /&gt;
 ³ EAGAIN == EWOULDBLOCK &lt;a href="https://stackoverflow.com/questions/7003234/which-systems-define-eagain-and-ewouldblock-as-different-values"&gt;on most systems&lt;/a&gt;&lt;/p&gt;
 
@@ -10838,11 +11005,10 @@ p "".encoding #=&amp;gt; #&amp;lt;Encoding:Windows-1252&amp;gt;
 # =&amp;gt; #&amp;lt;Encoding:Windows-1252&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
+&lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href="https://github.com/ruby/ruby/blob/trunk/lib/irb/magic-file.rb"&gt;Source: irb/magic-file&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href="https://github.com/ruby/ruby/blob/ruby_2_2/parse.y#L6980"&gt;Grammar: parser_magic_comment&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
   </entry>
@@ -10966,7 +11132,9 @@ Class.private_instance_methods.grep /method/
 
 &lt;h2 id="method-defined-checks"&gt;Method Defined? Checks&lt;/h2&gt;
 
-&lt;p&gt;Instead of listing all methods and checking if the resulting array contains a specific method, you can also directly check if a method is defined:&lt;/p&gt;
+&lt;p&gt;Instead of listing all methods and checking if the resulting array contains a specific method, you can also directly check if a method is defined.&lt;/p&gt;
+
+&lt;p&gt;Since Ruby 2.6, you can also pass in a boolean as second argument which will ignore the inheritance chain (similar like it is with the method listings above).&lt;/p&gt;
 
 &lt;table class="table-38-15-20-X"&gt;
   &lt;thead&gt;
@@ -11550,12 +11718,6 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/e2mmap/rdoc/Exception2MessageMapper.html"&gt;e2mmap&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/e2mmap.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Abstraction around exception handling&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/English/rdoc/English.html"&gt;English&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/English.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://idiosyncratic-ruby.com/9-globalization.html"&gt;Readable aliases for special global variables&lt;/a&gt;&lt;/td&gt;
@@ -11586,12 +11748,6 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;code style="white-space: nowrap"&gt;`find .`.split($/)&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="[forwardable](https://ruby-doc.org/stdlib/libdoc/forwardable/rdoc/Forwardable.html)"&gt;forwardable&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/forwardable.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Provides a way to &lt;a href="https://en.wikipedia.org/wiki/Delegation_pattern"&gt;delegate&lt;/a&gt; method calls. Also see &lt;a href="http://radar.oreilly.com/2014/02/delegation-patterns-in-ruby.html"&gt;this overview of delegation in Ruby&lt;/a&gt;, which contains an example&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/getoptlong/rdoc/GetoptLong.html"&gt;getoptlong&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/getoptlong.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="http://linux.die.net/man/3/getopt_long"&gt;GNU getopt_long()&lt;/a&gt; style command-line option parsing&lt;/td&gt;
@@ -11610,24 +11766,6 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/irb/rdoc/IRB.html"&gt;irb&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/irb.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Interactive Ruby Console (&lt;a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop"&gt;REPL&lt;/a&gt;)&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/cldwalker/ripl"&gt;ripl&lt;/a&gt;, &lt;a href="http://pryrepl.org/"&gt;pry&lt;/a&gt;, &lt;a href="https://github.com/godfat/rib"&gt;rib&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/logger/rdoc/Logger.html"&gt;logger&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/logger.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://ruby.janlelis.de/50-exploring-the-stdlib-logger"&gt;Logging utility&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/colbygk/log4r"&gt;log4r&lt;/a&gt;, &lt;a href="https://github.com/bdurand/lumberjack"&gt;lumberjack&lt;/a&gt;, &lt;a href="https://github.com/rudionrails/yell"&gt;yell&lt;/a&gt;, &lt;a href="https://github.com/TwP/logging"&gt;logging&lt;/a&gt;, &lt;a href="https://github.com/janlelis/micrologger"&gt;micrologger&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/matrix/rdoc/index.html"&gt;matrix&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/matrix.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Support for &lt;a href="https://en.wikipedia.org/wiki/Matrix_%28mathematics%29"&gt;matrices&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/SciRuby/nmatrix"&gt;nmatrix&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/mkmf/rdoc/MakeMakefile.html"&gt;mkmf&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/mkmf.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Generates &lt;a href="https://en.wikipedia.org/wiki/Makefile"&gt;Makefiles&lt;/a&gt; for native &lt;a href="https://github.com/ruby/ruby/blob/trunk/doc/extension.rdoc"&gt;C extensions&lt;/a&gt;&lt;/td&gt;
@@ -11637,12 +11775,6 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/monitor/rdoc/Monitor.html"&gt;monitor&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/monitor.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://en.wikipedia.org/wiki/Monitor_%28synchronization%29"&gt;Monitors&lt;/a&gt; for multi-threaded code&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/mutex_m/rdoc/Mutex_m.html"&gt;mutex_m&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/mutex_m.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;A mixin that makes any object behave like a &lt;a href="https://ruby-doc.org/core/Mutex.html"&gt;mutex&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -11712,12 +11844,6 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="https://github.com/leejarvis/slop"&gt;slop&lt;/a&gt;, &lt;a href="https://github.com/ManageIq/trollop"&gt;trollop&lt;/a&gt;, &lt;a href="https://github.com/soveran/clap"&gt;clap&lt;/a&gt;, &lt;a href="https://github.com/janlelis/rationalist"&gt;rationalist&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/ostruct/rdoc/OpenStruct.html"&gt;ostruct&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/ostruct.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Wrapper around Hash that lets you read and set attributes with a method API&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://ruby-doc.org/core/Hash.html"&gt;Hash&lt;/a&gt;, &lt;a href="https://github.com/rubyworks/ostruct2"&gt;ostruct2&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/pathname/rdoc/Pathname.html"&gt;pathname&lt;/a&gt; &lt;strong&gt;c&lt;/strong&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/ext/pathname"&gt;mri&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Wraps &lt;code&gt;File&lt;/code&gt;, &lt;code&gt;FileTest&lt;/code&gt;, &lt;code&gt;Dir&lt;/code&gt;, and &lt;code&gt;FileUtils&lt;/code&gt; to ease working with file system paths&lt;/td&gt;
@@ -11728,12 +11854,6 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/prettyprint.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Better object formatting and inspection. Comes with the &lt;code&gt;pp&lt;/code&gt; print debugging helper via &lt;code&gt;require 'pp'&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/janlelis/wirb"&gt;wirb&lt;/a&gt;, &lt;a href="https://github.com/cldwalker/hirb"&gt;hirb&lt;/a&gt;, &lt;a href="https://github.com/michaeldv/awesome_print/"&gt;awesome_print&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/prime/rdoc/Prime.html"&gt;prime&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/prime.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Access to prime numbers and prime factorization&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/profiler/rdoc/Profiler__.html"&gt;profiler&lt;/a&gt;&lt;/td&gt;
@@ -11778,12 +11898,6 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="https://github.com/ioquatix/rubydns"&gt;rubydns&lt;/a&gt;, &lt;a href="https://github.com/bluemonk/net-dns"&gt;net-dns&lt;/a&gt;, &lt;a href="https://github.com/mperham/em-resolv-replace"&gt;em-resolve-replace&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/rexml/rdoc/REXML.html"&gt;rexml&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/rexml.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Support for XML (&lt;a href="https://en.wikipedia.org/wiki/XML"&gt;Extensible Markup Language&lt;/a&gt;)&lt;/td&gt;
-      &lt;td&gt;&lt;a href="http://www.nokogiri.org/"&gt;nokogiri&lt;/a&gt;, &lt;a href="https://github.com/YorickPeterse/oga"&gt;oga&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/rinda/rdoc/Rinda.html"&gt;rinda&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/rinda.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Support fot the &lt;a href="https://en.wikipedia.org/wiki/Linda_%28coordination_language%29"&gt;Linda distributed computing paradigm&lt;/a&gt; in &lt;a href=""&gt;drb&lt;/a&gt;&lt;/td&gt;
@@ -11796,12 +11910,6 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="https://github.com/seattlerb/ruby_parser"&gt;ruby_parser&lt;/a&gt;, &lt;a href="https://github.com/whitequark/parser"&gt;parser&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/rss/rdoc/RSS.html"&gt;rss&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/rss.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Support for RSS (&lt;a href="https://en.wikipedia.org/wiki/RSS"&gt;Rich Site Summary&lt;/a&gt;) and &lt;a href="https://en.wikipedia.org/wiki/Atom_%28standard%29"&gt;Atom&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/securerandom/rdoc/SecureRandom.html"&gt;securerandom&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/securerandom.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Provides crpytographical randomness from openssl or the OS&lt;/td&gt;
@@ -11812,12 +11920,6 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/set.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Data structure for unordered collections without duplicates. Implemented on top of Hash. Also comes with &lt;a href="https://ruby-doc.org/stdlib/libdoc/set/rdoc/SortedSet.html"&gt;SortedSet&lt;/a&gt; for ordered collections.&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/shell/rdoc/Shell.html"&gt;shell&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/shell.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Provides a Ruby interface for interacting with the &lt;a href="https://en.wikipedia.org/wiki/Bourne_shell"&gt;shell&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/ahoward/session"&gt;session&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/shellwords/rdoc/Shellwords.html"&gt;shellwords&lt;/a&gt;&lt;/td&gt;
@@ -11838,12 +11940,6 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/sync/rdoc/Sync_m.html"&gt;sync&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/sync.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://en.wikipedia.org/wiki/Two-phase_locking"&gt;Two-phase lock&lt;/a&gt; with a counter for multi-threaded code&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/syslog/rdoc/Syslog.html"&gt;syslog&lt;/a&gt; &lt;strong&gt;c&lt;/strong&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/ext/syslog"&gt;mri&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Interface to the low-level &lt;a href="https://en.wikipedia.org/wiki/Syslog"&gt;syslog&lt;/a&gt; logger&lt;/td&gt;
@@ -11854,12 +11950,6 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/tempfile.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Simplifies OS independent creation of temporary files&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/thwait/rdoc/ThWait.html"&gt;thwait&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/thwait.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Waits for threads to finish&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/meh/ruby-thread"&gt;thread&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/time/rdoc/Time.html"&gt;time&lt;/a&gt;&lt;/td&gt;
@@ -11878,12 +11968,6 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/tmpdir.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Adds a &lt;code&gt;Dir.mktmpdir&lt;/code&gt; method for creating temporary directories OS independently&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/tracer/rdoc/Tracer.html"&gt;tracer&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/tracer.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;Outputs the &lt;a href="https://en.wikipedia.org/wiki/Tracing_%28software%29"&gt;code execution trace&lt;/a&gt; via &lt;a href="https://ruby-doc.org/core/Kernel.html#method-i-set_trace_func"&gt;Kernel#set_trace_func&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://ruby-doc.org/core/TracePoint.html"&gt;TracePoint&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/tsort/rdoc/TSort.html"&gt;tsort&lt;/a&gt;&lt;/td&gt;
@@ -11957,6 +12041,12 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://www.rubydoc.info/gems/bundler"&gt;bundler&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/bundler"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/bundler/bundler"&gt;gem&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://bundler.io"&gt;Bundler&lt;/a&gt; is the local package manager for Ruby applications&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/cmath/rdoc/CMath.html"&gt;cmath&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/cmath.rb"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/ruby/cmath"&gt;gem&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Trigonometric and transcendental functions for complex numbers&lt;/td&gt;
@@ -11978,6 +12068,12 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/dbm/rdoc/DBM.html"&gt;dbm&lt;/a&gt; &lt;strong&gt;c&lt;/strong&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/ext/dbm"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/ruby/dbm"&gt;gem&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Support for &lt;a href="https://en.wikipedia.org/wiki/Dbm"&gt;DBM databases&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/e2mmap/rdoc/Exception2MessageMapper.html"&gt;e2mmap&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/e2mmap.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Abstraction around exception handling&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -12005,6 +12101,12 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
+      &lt;td&gt;&lt;a href="[forwardable](https://ruby-doc.org/stdlib/libdoc/forwardable/rdoc/Forwardable.html)"&gt;forwardable&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/forwardable.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Provides a way to &lt;a href="https://en.wikipedia.org/wiki/Delegation_pattern"&gt;delegate&lt;/a&gt; method calls. Also see &lt;a href="http://radar.oreilly.com/2014/02/delegation-patterns-in-ruby.html"&gt;this overview of delegation in Ruby&lt;/a&gt;, which contains an example&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/gdbm/rdoc/GDBM.html"&gt;gdbm&lt;/a&gt; &lt;strong&gt;c&lt;/strong&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/ext/gdbm"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/ruby/gdbm"&gt;gem&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Support for &lt;a href="http://www.gnu.org.ua/software/gdbm/"&gt;GNU dbm databases&lt;/a&gt;&lt;/td&gt;
@@ -12023,15 +12125,51 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="https://github.com/bluemonk/ipaddress"&gt;ipaddress&lt;/a&gt;, &lt;a href="https://github.com/deploy2/ruby-ip"&gt;ruby-ip&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/irb/rdoc/IRB.html"&gt;irb&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/irb.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Interactive Ruby Console (&lt;a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop"&gt;REPL&lt;/a&gt;)&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/cldwalker/ripl"&gt;ripl&lt;/a&gt;, &lt;a href="http://pryrepl.org/"&gt;pry&lt;/a&gt;, &lt;a href="https://github.com/godfat/rib"&gt;rib&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/json/rdoc/JSON.html"&gt;json&lt;/a&gt; &lt;strong&gt;c&lt;/strong&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/ext/json"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/flori/json"&gt;gem&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Support for JSON (&lt;a href="https://en.wikipedia.org/wiki/JSON"&gt;JavaScript Object Notation&lt;/a&gt;)&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ohler55/oj"&gt;oj&lt;/a&gt;, &lt;a href="https://github.com/brianmario/yajl-ruby"&gt;yajl-ruby&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/logger/rdoc/Logger.html"&gt;logger&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/logger.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://ruby.janlelis.de/50-exploring-the-stdlib-logger"&gt;Logging utility&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/colbygk/log4r"&gt;log4r&lt;/a&gt;, &lt;a href="https://github.com/bdurand/lumberjack"&gt;lumberjack&lt;/a&gt;, &lt;a href="https://github.com/rudionrails/yell"&gt;yell&lt;/a&gt;, &lt;a href="https://github.com/TwP/logging"&gt;logging&lt;/a&gt;, &lt;a href="https://github.com/janlelis/micrologger"&gt;micrologger&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/matrix/rdoc/index.html"&gt;matrix&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/matrix.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Support for &lt;a href="https://en.wikipedia.org/wiki/Matrix_%28mathematics%29"&gt;matrices&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/SciRuby/nmatrix"&gt;nmatrix&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/mutex_m/rdoc/Mutex_m.html"&gt;mutex_m&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/mutex_m.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;A mixin that makes any object behave like a &lt;a href="https://ruby-doc.org/core/Mutex.html"&gt;mutex&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/openssl/rdoc/OpenSSL.html"&gt;openssl&lt;/a&gt; &lt;strong&gt;c&lt;/strong&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/ext/openssl"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/ruby/openssl"&gt;gem&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Wraps &lt;a href="http://www.openssl.org/"&gt;OpenSSL&lt;/a&gt; for cryptographic functionality&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/ostruct/rdoc/OpenStruct.html"&gt;ostruct&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/ostruct.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Wrapper around Hash that lets you read and set attributes with a method API&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://ruby-doc.org/core/Hash.html"&gt;Hash&lt;/a&gt;, &lt;a href="https://github.com/rubyworks/ostruct2"&gt;ostruct2&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/prime/rdoc/Prime.html"&gt;prime&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/prime.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Access to prime numbers and prime factorization&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -12045,6 +12183,18 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/blob/trunk/lib/rdoc.rb"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/rdoc/rdoc"&gt;gem&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Ruby documentation generator&lt;/td&gt;
       &lt;td&gt;&lt;a href="http://yardoc.org/"&gt;yard&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/rexml/rdoc/REXML.html"&gt;rexml&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/rexml.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Support for XML (&lt;a href="https://en.wikipedia.org/wiki/XML"&gt;Extensible Markup Language&lt;/a&gt;)&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://www.nokogiri.org/"&gt;nokogiri&lt;/a&gt;, &lt;a href="https://github.com/YorickPeterse/oga"&gt;oga&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/rss/rdoc/RSS.html"&gt;rss&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/rss.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Support for RSS (&lt;a href="https://en.wikipedia.org/wiki/RSS"&gt;Rich Site Summary&lt;/a&gt;) and &lt;a href="https://en.wikipedia.org/wiki/Atom_%28standard%29"&gt;Atom&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/rubygems/rdoc/Gem.html"&gt;rubygems&lt;/a&gt;&lt;br /&gt;(auto-require)&lt;/td&gt;
@@ -12065,6 +12215,12 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/shell/rdoc/Shell.html"&gt;shell&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/shell.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Provides a Ruby interface for interacting with the &lt;a href="https://en.wikipedia.org/wiki/Bourne_shell"&gt;shell&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/ahoward/session"&gt;session&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/stringio/rdoc/StringIO.html"&gt;stringio&lt;/a&gt; &lt;strong&gt;c&lt;/strong&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/ext/stringio"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/ruby/stringio"&gt;gem&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Makes strings behave like IO objects&lt;/td&gt;
@@ -12075,6 +12231,24 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/ext/strscan"&gt;mri&lt;/a&gt;&lt;br /&gt;&lt;a href="https://github.com/ruby/strscan"&gt;gem&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Lexical string scanning&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/sync/rdoc/Sync_m.html"&gt;sync&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/sync.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://en.wikipedia.org/wiki/Two-phase_locking"&gt;Two-phase lock&lt;/a&gt; with a counter for multi-threaded code&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/thwait/rdoc/ThWait.html"&gt;thwait&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/thwait.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Waits for threads to finish&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/meh/ruby-thread"&gt;thread&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/tracer/rdoc/Tracer.html"&gt;tracer&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/tracer.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;Outputs the &lt;a href="https://en.wikipedia.org/wiki/Tracing_%28software%29"&gt;code execution trace&lt;/a&gt; via &lt;a href="https://ruby-doc.org/core/Kernel.html#method-i-set_trace_func"&gt;Kernel#set_trace_func&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://ruby-doc.org/core/TracePoint.html"&gt;TracePoint&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/webrick/rdoc/WEBrick.html"&gt;webrick&lt;/a&gt;&lt;/td&gt;
@@ -13190,19 +13364,19 @@ b # NameError: ...
 
 &lt;p&gt;Slicing lets you divide a collection into sub-collections. Take this array:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;a = %w[Ruby in the back-end, AngularJS in the front-end]
+&lt;pre&gt;&lt;code&gt;a = %w[Ruby in the back-end, React in the front-end]
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Let's say you want to divide it into smaller arrays. The simplest option would be passing a regex to &lt;code&gt;slice_before&lt;/code&gt; describing where to slice:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;a.slice_before(/,/).to_a
-# =&amp;gt; [["Ruby", "in", "the"], ["back-end,", "AngularJS", "in", "the", "front-end"]]
+# =&amp;gt; [["Ruby", "in", "the"], ["back-end,", "React", "in", "the", "front-end"]]
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;A variation of this is method is &lt;code&gt;slice_after&lt;/code&gt;, which puts the separating element into the earlier sub-collection, which makes more sense in this case:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;a.slice_after(/,/).to_a
-# =&amp;gt; [["Ruby", "in", "the", "back-end,"], ["AngularJS", "in", "the", "front-end"]]
+# =&amp;gt; [["Ruby", "in", "the", "back-end,"], ["React", "in", "the", "front-end"]]
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Slicing uses &lt;a href="https://ruby-doc.org/core/Object.html#method-i-3D-3D-3D"&gt;===&lt;/a&gt; to compare each element with the given separator, so you can pass in a class as well:&lt;/p&gt;
@@ -13246,7 +13420,7 @@ b # NameError: ...
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;Some of IRB's command-line options can be called idiosyncratic as well. Take &lt;em&gt;math mode&lt;/em&gt; as an example: It will require the infamous &lt;a href="https://github.com/ruby/ruby/blob/trunk/lib/mathn.rb"&gt;mathn&lt;/a&gt; library on start up:&lt;/p&gt;
+    <content type="html">&lt;p&gt;Some of IRB's command-line options can be called idiosyncratic as well. Take &lt;em&gt;math mode&lt;/em&gt;¹ as an example: It will require the infamous &lt;a href="https://github.com/ruby/ruby/blob/trunk/lib/mathn.rb"&gt;mathn&lt;/a&gt; library on start up:&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
@@ -13255,6 +13429,8 @@ b # NameError: ...
 &amp;gt;&amp;gt; 3/2 #=&amp;gt; (3/2)
 &amp;gt;&amp;gt; !!defined?(Vector) #=&amp;gt; true
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;¹ Math mode actually has been removed in Ruby version 2.5&lt;/p&gt;
 
 &lt;p&gt;And another one surprised me: You can pass custom &lt;a href="https://github.com/ruby/ruby/blob/trunk/lib/irb/inspector.rb"&gt;inspectors&lt;/a&gt; to IRB, for example, &lt;em&gt;yaml&lt;/em&gt;:&lt;/p&gt;
 
@@ -15757,7 +15933,7 @@ end
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;Ruby strings are powerful. You could say, Ruby is build around manipulating strings. There are tons of ways how to work with strings and as of Ruby 2.2.2, &lt;code&gt;String&lt;/code&gt; offers 116 instance methods. Knowing them well can save you a lot of time.&lt;/p&gt;
+    <content type="html">&lt;p&gt;Ruby strings are powerful. You could say, Ruby is build around manipulating strings. There are tons of ways how to work with strings and as of Ruby 2.6.0 &lt;code&gt;String&lt;/code&gt; offers 119 instance methods. Knowing them well can save you a lot of time.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
