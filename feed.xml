@@ -11673,7 +11673,7 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/benchmark/rdoc/Benchmark.html"&gt;benchmark&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/blob/trunk/lib/benchmark.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Benchmarking library&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/evanphx/benchmark-ips"&gt;benchmark-ips&lt;/a&gt;, &lt;a href="https://github.com/bwbuchanan/absolute_time/"&gt;absolute_time&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/evanphx/benchmark-ips"&gt;benchmark-ips&lt;/a&gt;, &lt;a href="https://github.com/benchmark-driver/benchmark-driver"&gt;benchmark-driver&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/cgi/rdoc/CGI.html"&gt;cgi&lt;/a&gt;&lt;/td&gt;
