@@ -11751,7 +11751,7 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/getoptlong/rdoc/GetoptLong.html"&gt;getoptlong&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/getoptlong.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="http://linux.die.net/man/3/getopt_long"&gt;GNU getopt_long()&lt;/a&gt; style command-line option parsing&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/optparse/rdoc/OptParse.html"&gt;OptParse&lt;/a&gt;, &lt;a href="https://github.com/leejarvis/slop"&gt;slop&lt;/a&gt;, &lt;a href="https://github.com/ManageIq/trollop"&gt;trollop&lt;/a&gt;, &lt;a href="https://github.com/soveran/clap"&gt;clap&lt;/a&gt;, &lt;a href="https://github.com/janlelis/rationalist"&gt;rationalist&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/optparse/rdoc/OptParse.html"&gt;OptParse&lt;/a&gt;, &lt;a href="https://github.com/leejarvis/slop"&gt;slop&lt;/a&gt;, &lt;a href="https://github.com/ManageIQ/optimist"&gt;optimist&lt;/a&gt;, &lt;a href="https://github.com/soveran/clap"&gt;clap&lt;/a&gt;, &lt;a href="https://github.com/janlelis/rationalist"&gt;rationalist&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/io/nonblock/rdoc/IO.html"&gt;io/nonblock&lt;/a&gt; &lt;strong&gt;c&lt;/strong&gt;&lt;/td&gt;
@@ -11841,7 +11841,7 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/optparse/rdoc/OptParse.html"&gt;optparse&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/optparse.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Command-line option parser&lt;/td&gt;
-      &lt;td&gt;&lt;a href="https://github.com/leejarvis/slop"&gt;slop&lt;/a&gt;, &lt;a href="https://github.com/ManageIq/trollop"&gt;trollop&lt;/a&gt;, &lt;a href="https://github.com/soveran/clap"&gt;clap&lt;/a&gt;, &lt;a href="https://github.com/janlelis/rationalist"&gt;rationalist&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://github.com/leejarvis/slop"&gt;slop&lt;/a&gt;, &lt;a href="https://github.com/ManageIQ/optimist"&gt;optimist&lt;/a&gt;, &lt;a href="https://github.com/soveran/clap"&gt;clap&lt;/a&gt;, &lt;a href="https://github.com/janlelis/rationalist"&gt;rationalist&lt;/a&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/pathname/rdoc/Pathname.html"&gt;pathname&lt;/a&gt; &lt;strong&gt;c&lt;/strong&gt;&lt;/td&gt;
@@ -12101,7 +12101,7 @@ $ ruby -r uri -e 'p URI.regexp'
       &lt;td&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;a href="[forwardable](https://ruby-doc.org/stdlib/libdoc/forwardable/rdoc/Forwardable.html)"&gt;forwardable&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="https://ruby-doc.org/stdlib/libdoc/forwardable/rdoc/Forwardable.html"&gt;forwardable&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href="https://github.com/ruby/ruby/tree/trunk/lib/forwardable.rb"&gt;mri&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;Provides a way to &lt;a href="https://en.wikipedia.org/wiki/Delegation_pattern"&gt;delegate&lt;/a&gt; method calls. Also see &lt;a href="http://radar.oreilly.com/2014/02/delegation-patterns-in-ruby.html"&gt;this overview of delegation in Ruby&lt;/a&gt;, which contains an example&lt;/td&gt;
       &lt;td&gt;-&lt;/td&gt;
