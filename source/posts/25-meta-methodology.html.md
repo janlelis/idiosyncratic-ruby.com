@@ -49,7 +49,7 @@ Method                                                                          
 [Object#private_methods](https://ruby-doc.org/core/Object.html#method-i-private_methods)                     | instance  | instance + singleton | private
 [Module#instance_methods](https://ruby-doc.org/core/Module.html#method-i-instance_methods)                   | class     | instance             | public + protected
 [Module#public_instance_methods](https://ruby-doc.org/core/Module.html#method-i-public_instance_methods)     | class     | instance             | public
-[Module#proected_instance_methods](https://ruby-doc.org/core/Module.html#method-i-proected_instance_methods) | class     | instance             | proected
+[Module#protected_instance_methods](https://ruby-doc.org/core/Module.html#method-i-protected_instance_methods) | class     | instance             | protected
 [Module#private_instance_methods](https://ruby-doc.org/core/Module.html#method-i-private_instance_methods)   | class     | instance             | private
 {:.table-38-15-20-X}
 
