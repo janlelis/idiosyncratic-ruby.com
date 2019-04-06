@@ -38,7 +38,7 @@ Let's put everything in some order:
 
 ## Method Lists
 
-Methods returning method lists always take a boolean argument, which will prevent inheritance if set to `false`
+Methods returning method lists always take a boolean argument, which will prevent inheritance if set to `false`¹
 
 Method                                                                                                            | From      | Target               | Visibility
 ------------------------------------------------------------------------------------------------------------------|-----------|----------------------|-------------------
@@ -54,6 +54,7 @@ Method                                                                          
 {:.table-38-15-20-X}
 
 - There is no API for getting a list of private singleton methods
+- ¹ A special case is the `methods` method: If `false` is given as argument, it will switch target to *singleton* only
 
 ## Method Defined? Checks
 
