@@ -146,4 +146,4 @@ Method                                                                          
 
 ## A Better API for Metaprogramming Methods?
 
-Metaprogramming in Ruby has evolved over time, but it might be a good idea to clean it up a little - A good example of how to clean up one of Ruby's other metaprogramming APIs is the [instance gem](https://github.com/rubyworks/instance/). It gives you a neat API for working with an object's state, like setting instance variables. Someone feels like building a similar gem for Ruby's Method APIs?
+Metaprogramming in Ruby has evolved over time, but it might be a good idea to clean it up a little - A good example of how to clean up one of Ruby's other metaprogramming APIs is the [instance gem](https://github.com/rubyworks/instance/). It gives you a neat API for working with an object's state, like setting instance variables. Someone feels like building a similar gem for Ruby's Method APIs? **2019 Update:** I gave it a try! You can see the results here: [object_shadow](https://github.com/janlelis/object_shadow)
