@@ -30,7 +30,7 @@ ARTICLE
 It's so many methods, because working with methods is a multi-dimensional problem:
 
 - Where are the modules, in the current instance or if a class/module, in its instances?
-- Or in its [singleton class](http://www.devalot.com/articles/2008/09/ruby-singleton)?
+- Or in its [singleton class](https://www.devalot.com/articles/2008/09/ruby-singleton)?
 - What about the method visibility?
 - Should the inheritance chain be considered?
 
