@@ -49,7 +49,7 @@ Class.private_instance_methods.grep /method/
 
 <ul>
   <li>Where are the modules, in the current instance or if a class/module, in its instances?</li>
-  <li>Or in its <a href="http://www.devalot.com/articles/2008/09/ruby-singleton">singleton class</a>?</li>
+  <li>Or in its <a href="https://www.devalot.com/articles/2008/09/ruby-singleton">singleton class</a>?</li>
   <li>What about the method visibility?</li>
   <li>Should the inheritance chain be considered?</li>
 </ul>
@@ -58,7 +58,7 @@ Class.private_instance_methods.grep /method/
 
 <h2 id="method-lists">Method Lists</h2>
 
-<p>Methods returning method lists always take a boolean argument, which will prevent inheritance if set to <code>false</code></p>
+<p>Methods returning method lists always take a boolean argument, which will prevent inheritance if set to <code>false</code>¹</p>
 
 <table class="table-38-15-20-X">
   <thead>
@@ -72,56 +72,56 @@ Class.private_instance_methods.grep /method/
   <tbody>
     <tr>
       <td><a href="https://ruby-doc.org/core/Object.html#method-i-singleton_methods">Object#singleton_methods</a></td>
-      <td>instance</td>
+      <td>any</td>
       <td>singleton</td>
       <td>public + protected</td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/Object.html#method-i-methods">Object#methods</a></td>
-      <td>instance</td>
-      <td>instance + singleton</td>
+      <td>any</td>
+      <td>self + singleton</td>
       <td>public + protected</td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/Object.html#method-i-public_methods">Object#public_methods</a></td>
-      <td>instance</td>
-      <td>instance + singleton</td>
+      <td>any</td>
+      <td>self + singleton</td>
       <td>public</td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/Object.html#method-i-protected_methods">Object#protected_methods</a></td>
-      <td>instance</td>
-      <td>instance + singleton</td>
+      <td>any</td>
+      <td>self + singleton</td>
       <td>protected</td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/Object.html#method-i-private_methods">Object#private_methods</a></td>
-      <td>instance</td>
-      <td>instance + singleton</td>
+      <td>any</td>
+      <td>self + singleton</td>
       <td>private</td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/Module.html#method-i-instance_methods">Module#instance_methods</a></td>
       <td>class</td>
-      <td>instance</td>
+      <td>instances</td>
       <td>public + protected</td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/Module.html#method-i-public_instance_methods">Module#public_instance_methods</a></td>
       <td>class</td>
-      <td>instance</td>
+      <td>instances</td>
       <td>public</td>
     </tr>
     <tr>
-      <td><a href="https://ruby-doc.org/core/Module.html#method-i-proected_instance_methods">Module#proected_instance_methods</a></td>
+      <td><a href="https://ruby-doc.org/core/Module.html#method-i-protected_instance_methods">Module#protected_instance_methods</a></td>
       <td>class</td>
-      <td>instance</td>
-      <td>proected</td>
+      <td>instances</td>
+      <td>protected</td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/Module.html#method-i-private_instance_methods">Module#private_instance_methods</a></td>
       <td>class</td>
-      <td>instance</td>
+      <td>instances</td>
       <td>private</td>
     </tr>
   </tbody>
@@ -129,6 +129,7 @@ Class.private_instance_methods.grep /method/
 
 <ul>
   <li>There is no API for getting a list of private singleton methods</li>
+  <li>¹ A special case is the <code>methods</code> method: If <code>false</code> is given as argument, it will switch target to <em>singleton</em> only</li>
 </ul>
 
 <h2 id="method-defined-checks">Method Defined? Checks</h2>
@@ -150,25 +151,25 @@ Class.private_instance_methods.grep /method/
     <tr>
       <td><a href="https://ruby-doc.org/core/Module.html#method-i-method_defined-3F">Module#method_defined?</a></td>
       <td>class</td>
-      <td>instance</td>
+      <td>instances</td>
       <td>all</td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/Module.html#method-i-public_method_defined-3F">Module#public_method_defined?</a></td>
       <td>class</td>
-      <td>instance</td>
+      <td>instances</td>
       <td>public</td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/Module.html#method-i-protected_method_defined-3F">Module#protected_method_defined?</a></td>
       <td>class</td>
-      <td>instance</td>
+      <td>instances</td>
       <td>protected</td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/Module.html#method-i-private_method_defined-3F">Module#private_method_defined?</a></td>
       <td>class</td>
-      <td>instance</td>
+      <td>instances</td>
       <td>private</td>
     </tr>
   </tbody>
@@ -196,36 +197,36 @@ Class.private_instance_methods.grep /method/
   <tbody>
     <tr>
       <td><a href="https://ruby-doc.org/core/Object.html#method-i-singleton_method">Object#singleton_method</a></td>
-      <td>instance</td>
+      <td>any</td>
       <td>singleton</td>
       <td>all</td>
       <td><a href="https://ruby-doc.org/core/Method.html">Method</a></td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/Object.html#method-i-method">Object#method</a></td>
-      <td>instance</td>
-      <td>instance + singleton</td>
+      <td>any</td>
+      <td>self + singleton</td>
       <td>all</td>
       <td><a href="https://ruby-doc.org/core/Method.html">Method</a></td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/Object.html#method-i-public_method">Object#public_method</a></td>
-      <td>instance</td>
-      <td>instance + singleton</td>
+      <td>any</td>
+      <td>self + singleton</td>
       <td>public</td>
       <td><a href="https://ruby-doc.org/core/Method.html">Method</a></td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/Module.html#method-i-instance_method">Module#instance_method</a></td>
       <td>class</td>
-      <td>instance</td>
+      <td>instances</td>
       <td>all</td>
       <td><a href="https://ruby-doc.org/core/UnboundMethod.html">UnboundMethod</a></td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/Module.html#method-i-public_instance_method">Module#public_instance_method</a></td>
       <td>class</td>
-      <td>instance</td>
+      <td>instances</td>
       <td>public</td>
       <td><a href="https://ruby-doc.org/core/UnboundMethod.html">UnboundMethod</a></td>
     </tr>
@@ -252,32 +253,32 @@ Class.private_instance_methods.grep /method/
   <tbody>
     <tr>
       <td><a href="https://ruby-doc.org/core/Object.html#method-i-define_singleton_method">Object#define_singleton_method</a></td>
-      <td>instance</td>
+      <td>any</td>
       <td>singleton</td>
       <td>public</td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/Module.html#method-i-define_method">Module#define_method</a> (private)</td>
       <td>class</td>
-      <td>instance</td>
+      <td>instances</td>
       <td>public (see notes)</td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/Module.html#method-i-remove_method">Module#remove_method</a> (private)</td>
       <td>class</td>
-      <td>instance</td>
+      <td>instances</td>
       <td>-</td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/Module.html#method-i-undef_method">Module#undef_method</a> (private)</td>
       <td>class</td>
-      <td>instance</td>
+      <td>instances</td>
       <td>-</td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/Module.html#method-i-alias_method">Module#alias_method</a> (private)</td>
       <td>class</td>
-      <td>instance</td>
+      <td>instances</td>
       <td>same</td>
     </tr>
   </tbody>
@@ -304,38 +305,38 @@ Class.private_instance_methods.grep /method/
   <tbody>
     <tr>
       <td><a href="https://ruby-doc.org/core/BasicObject.html#method-i-singleton_method_added">BasicObject#singleton_method_added</a></td>
-      <td>instance</td>
+      <td>any</td>
       <td>singleton</td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/BasicObject.html#method-i-singleton_method_undefined">BasicObject#singleton_method_undefined</a></td>
-      <td>instance</td>
+      <td>any</td>
       <td>singleton</td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/BasicObject.html#method-i-singleton_method_removed">BasicObject#singleton_method_removed</a></td>
-      <td>instance</td>
+      <td>any</td>
       <td>singleton</td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/Module.html#method-i-method_added">Module#method_added</a></td>
       <td>class</td>
-      <td>instance</td>
+      <td>instances</td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/Module.html#method-i-method_undefined">Module#method_undefined</a></td>
       <td>class</td>
-      <td>instance</td>
+      <td>instances</td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/Module.html#method-i-method_removed">Module#method_removed</a></td>
       <td>class</td>
-      <td>instance</td>
+      <td>instances</td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/BasicObject.html#method-i-method_missing">BasicObject#method_missing</a></td>
       <td>class</td>
-      <td>instance</td>
+      <td>instances</td>
     </tr>
   </tbody>
 </table>
@@ -388,12 +389,12 @@ Class.private_instance_methods.grep /method/
   <tbody>
     <tr>
       <td><a href="https://ruby-doc.org/core/Kernel.html#method-i-__method__">Kernel#__method__</a> (private)</td>
-      <td>anywhere</td>
+      <td>any</td>
       <td>Original method name</td>
     </tr>
     <tr>
       <td><a href="https://ruby-doc.org/core/Kernel.html#method-i-__callee__">Kernel#__callee__</a> (private)</td>
-      <td>anywhere</td>
+      <td>any</td>
       <td>Aliased method name</td>
     </tr>
   </tbody>
@@ -405,7 +406,7 @@ Class.private_instance_methods.grep /method/
 
 <h2 id="a-better-api-for-metaprogramming-methods">A Better API for Metaprogramming Methods?</h2>
 
-<p>Metaprogramming in Ruby has evolved over time, but it might be a good idea to clean it up a little - A good example of how to clean up one of Ruby's other metaprogramming APIs is the <a href="https://github.com/rubyworks/instance/">instance gem</a>. It gives you a neat API for working with an object's state, like setting instance variables. Someone feels like building a similar gem for Ruby's Method APIs?</p>
+<p>Metaprogramming in Ruby has evolved over time, but it might be a good idea to clean it up a little - A good example of how to clean up one of Ruby's other metaprogramming APIs is the <a href="https://github.com/rubyworks/instance/">instance gem</a>. It gives you a neat API for working with an object's state, like setting instance variables. Someone feels like building a similar gem for Ruby's Method APIs? <strong>2019 Update:</strong> I gave it a try! You can see the results here: <a href="https://github.com/janlelis/object_shadow">object_shadow</a></p>
 
 
         <h2>More Idiosyncratic Ruby</h2>
@@ -423,7 +424,7 @@ Class.private_instance_methods.grep /method/
           <a href="https://janlelis.com/data-protection.html">Data Protection</a>
         </div>
         About Core, Meta<br>
-        Last Update: December 23, 2018
+        Last Update: April 06, 2019
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
