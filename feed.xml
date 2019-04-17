@@ -8228,7 +8228,15 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;2.6&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;2.6.3+&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;12.1.0&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;2.6.2&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;12.0.0&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;2.6.1-&lt;/strong&gt;&lt;/td&gt;
       &lt;td&gt;&lt;strong&gt;11.0.0&lt;/strong&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
