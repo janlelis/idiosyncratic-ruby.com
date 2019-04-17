@@ -40,7 +40,9 @@ Ruby will strip all spaces, dashes, underscores from the given property and conv
 
 Ruby Version | Unicode Version
 -------------|----------------
-**2.6**      | **11.0.0**
+**2.6.3+**   | **12.1.0**
+**2.6.2**    | **12.0.0**
+**2.6.1-**   | **11.0.0**
 **2.5**      | **10.0.0**
 **2.4**      | **9.0.0**
 **2.3**      | **8.0.0**
