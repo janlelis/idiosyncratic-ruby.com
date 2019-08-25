@@ -341,3 +341,16 @@ a {
 .action-color {
   color: $action-color;
 }
+
+#map {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 140px;
+  height: 100%;
+  z-index: 100;
+  @media(min-width: 1400px) {
+    display: block;
+  }
+}
