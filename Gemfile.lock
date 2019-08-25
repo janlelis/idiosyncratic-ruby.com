@@ -101,7 +101,7 @@ GEM
       celluloid (~> 0.16.0)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
-    looksee (4.0.0)
+    looksee (4.1.0)
     method_locator (0.0.4)
     method_source (0.8.2)
     methodfinder (2.0.0)
@@ -209,4 +209,4 @@ DEPENDENCIES
   nokogiri
 
 BUNDLED WITH
-   1.14.6
+   1.17.2
