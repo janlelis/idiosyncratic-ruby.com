@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",function(){pagemap(document.querySelector("#map"),{viewport:null,styles:{"h1, h2":"rgba(0,0,0,0.20)","h3, h4":"rgba(0,0,0,0.12)","p, ul":"rgba(0,0,0,0.04)","table, pre, img":"rgba(119,0,0,0.10)"},back:"rgba(0,0,0,0.02)",view:"rgba(0,0,0,0.05)",drag:"rgba(0,0,0,0.10)",interval:null})});
