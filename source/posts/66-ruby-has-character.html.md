@@ -98,7 +98,7 @@ ARTICLE
 
 ## Characters in Unicode
 
-Unicode has come a long way and is now available in version 10.0 ([core specification](https://www.unicode.org/versions/Unicode10.0.0/UnicodeStandard-10.0.pdf)), with version 11.0 being released within the next days. The standard defines a lot of things related to characters, however, it is not always easy to grasp what a *character* actually is. Is *Ǆ* a single character or not? What about non-Latin languages?
+Unicode has come a long way and is now available in version 12.1 ([core specification](https://www.unicode.org/versions/Unicode12.1.0/UnicodeStandard-12.1.pdf)). The standard defines a lot of things related to characters, however, it is not always easy to grasp what a *character* actually is. Is *Ǆ* a single character or not? What about non-Latin languages?
 
 We will need some more fine-grained concepts to distinguish and talk about characters in Unicode:
 
