@@ -110,7 +110,7 @@ We will need some more fine-grained concepts to distinguish and talk about chara
 
 Codepoints are the base unit of Unicode: It is a number mapped to some meaning. Often this resolves to a single character:
 
-    "\u{65}" # => "A"
+    "\u{41}" # => "A"
     "\u{ABCD}" # => "ꯍ"
     "\u{1F6A1}" # => "🚡"
 
@@ -118,7 +118,7 @@ There are 1114112 (in hexadecimal: 0x110000) different codepoints. On byte-level
 
 Codepoint   | Decimal | Glyph | Bytes UTF-8 | Bytes UTF-16LE | Bytes UTF-32LE
 ------------|---------|-------|-------------|----------------|---------------
-**U+0065**  | 101     | `A`   | 41          | 41 00          | 41 00 00 00
+**U+0041**  | 65      | `A`   | 41          | 41 00          | 41 00 00 00
 **U+ABCD**  | 43981   | `ꯍ`   | EA AF 8D    | CD AB          | CD AB 00 00
 **U+1F6A1** | 128673  | `🚡`   | F0 9F 9A A1 | 3D D8 A1 DE    | A1 F6 01 00
 {:.table-15-15-10-20-20-X}
