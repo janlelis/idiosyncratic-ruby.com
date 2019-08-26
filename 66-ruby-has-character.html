@@ -135,7 +135,7 @@
 
 <h2 id="characters-in-unicode">Characters in Unicode</h2>
 
-<p>Unicode has come a long way and is now available in version 10.0 (<a href="https://www.unicode.org/versions/Unicode10.0.0/UnicodeStandard-10.0.pdf">core specification</a>), with version 11.0 being released within the next days. The standard defines a lot of things related to characters, however, it is not always easy to grasp what a <em>character</em> actually is. Is <em>Ǆ</em> a single character or not? What about non-Latin languages?</p>
+<p>Unicode has come a long way and is now available in version 12.1 (<a href="https://www.unicode.org/versions/Unicode12.1.0/UnicodeStandard-12.1.pdf">core specification</a>). The standard defines a lot of things related to characters, however, it is not always easy to grasp what a <em>character</em> actually is. Is <em>Ǆ</em> a single character or not? What about non-Latin languages?</p>
 
 <p>We will need some more fine-grained concepts to distinguish and talk about characters in Unicode:</p>
 
@@ -149,7 +149,7 @@
 
 <p>Codepoints are the base unit of Unicode: It is a number mapped to some meaning. Often this resolves to a single character:</p>
 
-<pre><code>"\u{65}" # =&gt; "A"
+<pre><code>"\u{41}" # =&gt; "A"
 "\u{ABCD}" # =&gt; "ꯍ"
 "\u{1F6A1}" # =&gt; "🚡"
 </code></pre>
@@ -169,8 +169,8 @@
   </thead>
   <tbody>
     <tr>
-      <td><strong>U+0065</strong></td>
-      <td>101</td>
+      <td><strong>U+0041</strong></td>
+      <td>65</td>
       <td><code>A</code></td>
       <td>41</td>
       <td>41 00</td>
@@ -1101,7 +1101,7 @@ Characteristics.create("\u{80}").c1? # =&gt; true
           <a href="https://janlelis.com/data-protection.html">Data Protection</a>
         </div>
         About Strings, Unicode, Stdlib, Regex<br>
-        Last Update: December 28, 2018
+        Last Update: August 26, 2019
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

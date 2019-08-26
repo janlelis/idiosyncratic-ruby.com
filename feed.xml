@@ -129,7 +129,7 @@
 
 &lt;h2 id="characters-in-unicode"&gt;Characters in Unicode&lt;/h2&gt;
 
-&lt;p&gt;Unicode has come a long way and is now available in version 10.0 (&lt;a href="https://www.unicode.org/versions/Unicode10.0.0/UnicodeStandard-10.0.pdf"&gt;core specification&lt;/a&gt;), with version 11.0 being released within the next days. The standard defines a lot of things related to characters, however, it is not always easy to grasp what a &lt;em&gt;character&lt;/em&gt; actually is. Is &lt;em&gt;Ǆ&lt;/em&gt; a single character or not? What about non-Latin languages?&lt;/p&gt;
+&lt;p&gt;Unicode has come a long way and is now available in version 12.1 (&lt;a href="https://www.unicode.org/versions/Unicode12.1.0/UnicodeStandard-12.1.pdf"&gt;core specification&lt;/a&gt;). The standard defines a lot of things related to characters, however, it is not always easy to grasp what a &lt;em&gt;character&lt;/em&gt; actually is. Is &lt;em&gt;Ǆ&lt;/em&gt; a single character or not? What about non-Latin languages?&lt;/p&gt;
 
 &lt;p&gt;We will need some more fine-grained concepts to distinguish and talk about characters in Unicode:&lt;/p&gt;
 
@@ -143,7 +143,7 @@
 
 &lt;p&gt;Codepoints are the base unit of Unicode: It is a number mapped to some meaning. Often this resolves to a single character:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;"\u{65}" # =&amp;gt; "A"
+&lt;pre&gt;&lt;code&gt;"\u{41}" # =&amp;gt; "A"
 "\u{ABCD}" # =&amp;gt; "ꯍ"
 "\u{1F6A1}" # =&amp;gt; "🚡"
 &lt;/code&gt;&lt;/pre&gt;
@@ -163,8 +163,8 @@
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;U+0065&lt;/strong&gt;&lt;/td&gt;
-      &lt;td&gt;101&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;U+0041&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;65&lt;/td&gt;
       &lt;td&gt;&lt;code&gt;A&lt;/code&gt;&lt;/td&gt;
       &lt;td&gt;41&lt;/td&gt;
       &lt;td&gt;41 00&lt;/td&gt;
