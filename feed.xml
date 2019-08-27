@@ -129,7 +129,7 @@
 
 &lt;h2 id="characters-in-unicode"&gt;Characters in Unicode&lt;/h2&gt;
 
-&lt;p&gt;Unicode has come a long way and is now available in version 12.1 (&lt;a href="https://www.unicode.org/versions/Unicode12.1.0/UnicodeStandard-12.1.pdf"&gt;core specification&lt;/a&gt;). The standard defines a lot of things related to characters, however, it is not always easy to grasp what a &lt;em&gt;character&lt;/em&gt; actually is. Is &lt;em&gt;Ǆ&lt;/em&gt; a single character or not? What about non-Latin languages?&lt;/p&gt;
+&lt;p&gt;Unicode has come a long way and is now available in version 12.1 (&lt;a href="https://www.unicode.org/versions/Unicode12.0.0/UnicodeStandard-12.0.pdf"&gt;core specification&lt;/a&gt;). The standard defines a lot of things related to characters, however, it is not always easy to grasp what a &lt;em&gt;character&lt;/em&gt; actually is. Is &lt;em&gt;Ǆ&lt;/em&gt; a single character or not? What about non-Latin languages?&lt;/p&gt;
 
 &lt;p&gt;We will need some more fine-grained concepts to distinguish and talk about characters in Unicode:&lt;/p&gt;
 
