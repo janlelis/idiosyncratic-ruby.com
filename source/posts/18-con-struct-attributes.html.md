@@ -5,7 +5,7 @@ tags: core
 commit: 8c3a41f41422042fb36a66a7d157b5e0cc02ae00
 ---
 
-Ruby's [Struct](https://ruby-doc.org/core/Struct.html) class is a convenient way to create Ruby classes, which already have some attributes defined. If you are not familiar with structs, you should watch [Avdi Grimm's introduction to structs](http://www.rubytapas.com/episodes/20-Struct)!
+Ruby's [Struct](https://ruby-doc.org/core/Struct.html) class is a convenient way to create Ruby classes, which already have some attributes defined. If you are not familiar with structs, you should watch [Avdi Grimm's introduction to structs](https://www.rubytapas.com/episodes/20-Struct)!
 
 But in many cases there is something better than structs:
 
@@ -163,6 +163,25 @@ At the bottom, there are also some tips, [when to use structs and what to bear i
 
     Person.new(name: "Jan", age: 26)
     # => #<Person:0x00000002602988 @name="Jan", @age=26>
+
+### dry-struct
+
+[dry-struct](https://github.com/dry-rb/dry-struct): *dry-struct is a gem built on top of dry-types which provides virtus-like DSL for defining typed struct classes.*
+
+    require "dry-struct"
+
+    module Types
+      include Dry::Types()
+    end
+
+    class Person < Dry::Struct
+      attribute :name, Types::Strict::String.optional
+      attribute :age, Types::Coercible::Integer
+    end
+
+    Person.new(name: "Jan", age: 26)
+    # => #<Person name="Jan" age=26>
+
 
 ## Structs are Still Useful… as Value Objects
 
