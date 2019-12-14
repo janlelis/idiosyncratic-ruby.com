@@ -63,8 +63,7 @@ ARTICLE
 
 ## Unary or Binary Plus, Part 2
 
-    >> p = 21
-    >> p 21
+    >> p +21
     # => 21
 
     >> p = 21
