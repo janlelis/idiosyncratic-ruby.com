@@ -32,7 +32,7 @@ The question mark is a sure way to [confuse your syntax highlighter](https://idi
     system "ls"
     $? #=> #<Process::Status: pid 5223 exit 0>
 
-## Underscore (4 Syntactical Meanings)
+## Underscore (5 Syntactical Meanings)
 
 Underscores serve as a good example of having multiple uses: No purpose interferes with another.
 
@@ -58,13 +58,16 @@ Underscores serve as a good example of having multiple uses: No purpose interfer
     method_name(42, 23)
     # -> 42
 
+### 2.7: Numbered Parameter
+
+    def method_name(param)
+      p _1
+    end
+
+    method_name(42)
+    # -> 42
+
 ## Ampersand (6 Syntactical Meanings)
-
-Ruby 2.3 introduced the "safe navigation operator" which uses `&`:
-
-### `&.` Safe Navigation Operator
-
-    nil&.blank? # => nil
 
 ### `&&` Method/Operator
 
@@ -104,6 +107,10 @@ Ruby 2.3 introduced the "safe navigation operator" which uses `&`:
 
     /sync/ =~ "Idiosyncratic"
     $& # => "sync"
+
+### 2.3: `&.` Safe Navigation Operator
+
+    nil&.blank? # => nil
 
 ## Star (7 Syntactical Meanings)
 
