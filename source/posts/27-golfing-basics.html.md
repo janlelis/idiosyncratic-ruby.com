@@ -5,11 +5,11 @@ tags: syntax, golf, strings
 commit: 23e16d087f6c9718a977efa41b6651a684c403e6
 ---
 
-**Code Golf** is the art of writing the shortest program possible. The less bytes the better. And the competition is just ridiculously strong! Head over to [Anarchy Golf](http://golf.shinh.org/) if you want to see more!
+**Code Golf** is the art of writing the shortest program possible. The less bytes the better. And the competition is just ridiculously strong! Head over to [Anarchy Golf](https://golf.shinh.org/) if you want to see more!
 
 ARTICLE
 
-A good beginner's problem is printing out [Pascal's Triangle](http://golf.shinh.org/p.rb?pascal+triangle): Spend a few days to get to **45** bytes. Spend a few *months* to get to **43** bytes!
+A good beginner's problem is printing out [Pascal's Triangle](https://golf.shinh.org/p.rb?pascal+triangle): Spend a few days to get to **45** bytes. Spend a few *months* to get to **43** bytes!
 
 ## 10 Ruby Tricks You'll Learn by Playing Code Golf
 
