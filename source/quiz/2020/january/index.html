@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Idiosyncratic Ruby</title>
+
+    <meta name="description" content="Idiosyncratic Ruby">
+    <meta name="author" content="Jan Lelis">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+    <link rel="stylesheet" href="lib/css/github.css">
+
+    <script>
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <style>
+      .reveal section img {
+        box-shadow: none;
+        border: 0px;
+      }
+      .reveal section img.no-shadow {
+        /*box-shadow: none;*/
+        background: #f3f3f3;
+      }
+      .reveal pre code {
+        font-size: 20pt;
+        line-height: 23pt;
+        /*margin: 0px -200px;*/
+        margin-top: 2em;
+        /*border: 1px solid #ccc !important;*/
+        margin-bottom: 2em;
+      }
+      pre{
+        /*box-shadow: none !important;*/
+      }
+      /*.reveal pre .xml .ruby {
+        opacity: 1;
+        color: #fff;
+      }*/
+
+      .reveal p {
+        font-size: 33pt;
+      }
+
+      .action {
+        color: rgba(119, 0, 0, 0.7);
+      }
+
+      /* latin-ext */
+      @font-face {
+        font-family: 'Lato';
+        font-style: normal;
+        font-weight: 300;
+        src: local('Lato Light'), local('Lato-Light'), url(/stylesheets/lato1.woff2) format('woff2');
+        unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      /* latin */
+      @font-face {
+        font-family: 'Lato';
+        font-style: normal;
+        font-weight: 300;
+        src: local('Lato Light'), local('Lato-Light'), url(/stylesheets/lato2.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+          <section>
+            <img src="images/idiosyncratic.png"/>
+            <h2>Idiosyncratic Ruby</h2>
+            <h1>Quiz</h1>
+            <br/>
+
+            <p><a href="https://twitter.com/JanLelis">@JanLelis</a> — <a href="https://twitter.com/JanLelis">January 2020</a> — <a href="https://rug-b.de">𝕽𝖀𝕲::𝕭</a></p>
+          </section>
+
+          <section>
+            <img src="images/idiosyncratic.png"/>
+            <h2><a href="https://idiosyncratic-ruby.com">idiosyncratic-ruby.com</a></h2>
+            <p>Documenting lesser-known features in Ruby</p>
+            <br>
+            <h3 class="fragment">We've got a match!</h3>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Pattern Matching</h3>
+            <p class="fragment">= super fancy <strong>case</strong> statements</p>
+            <p class="fragment"><br/>…implemented by Kazuki Tsujimoto (k-tsj)</p>
+            <p class="fragment"><br/>…in the makes since 2012 (<em>pattern-match</em> gem)</p>
+          </section>
+
+          <section>
+            <h3>Warning</h3>
+            <p class="action">Pattern matching is experimental, and the behavior may change in future versions of Ruby!</p>
+            <p class="fragment"><br/>Deactivate with<br/><code>Warning[:experimental] = false</code></p>
+            <p class="fragment"><br/>Or on CLI<br/><code>$ ruby -W:no-experimental</code></p>
+          </section>
+
+          <section>
+            <p>Old <em>case</em> Statement</p>
+
+            <pre><code class="ruby">case forty_two
+when 42
+  puts "found number 42"
+when /42/
+  puts "matched 42"
+else
+  puts "no 42"
+end</code></pre>
+          </section>
+
+          <section>
+            <p>New <em>case</em> Statement</p>
+
+            <pre><code class="ruby">case forty_two
+in 42
+  puts "found number 42"
+in /42/
+  puts "matched 42"
+else
+  puts "no 42"
+end</code></pre>
+            <p class="fragment">THE SAME!!!</p>
+            <p class="fragment"><code>case</code> ⇒ <code>in</code></p>
+          </section>
+
+          <section>
+            <h3><code>in</code> is no stranger to us…</h3>
+
+            <p>Warm-up question:<br/>Where else is it used in the Ruby language</p>
+
+            <p class="fragment"><br/><code>for n in [2,3,4] do puts n end</code></p>
+          </section>
+
+          <section>
+            <h3><em>in</em>style case statement observations</h3>
+            <br/>
+            <p>uses <code>===</code> method for checking a condition</p>
+            <p>no mix and match between <code>in</code> and <code>when</code></p>
+            <p>"empty" case statements don't work with <code>in</code></p>
+            <p>without <code>else</code> clause, one condition must match or <em>NoMatchingPatternError</em></p>
+          </section>
+
+          <section>
+            <h3>Is this code valid syntax?</h3>
+
+            <pre><code class="ruby">case forty_two
+in 42 if false
+  puts "found number 42"
+in /42/ unless forty_two.length <3
+  puts "matched 42"
+else
+  puts "no answer"
+end</code></pre>
+
+            <p class="fragment"><em>Syntax OK</em></p>
+          </section>
+
+          <section>
+            <h3>Is this Ruby code?</h3>
+
+            <pre><code class="ruby">def ask
+  0b101010 in answer
+  answer
+end</code></pre>
+
+            <div class="fragment">
+              <p><em>ask #=> 42</em></p>
+
+              <p class="fragment"><strong>Matching assign variables!</strong></p>
+
+              <p class="fragment">Even without a surrounding case-statement!</p>
+            </div>
+          </section>
+
+          <section>
+            <h3>Is this Ruby or pseudo-code?</h3>
+
+            <pre><code class="ruby">[1, 2, 3, 4] in [first, second, *other]</code></pre>
+
+            <p class="fragment"><em>Syntax OK</em></p>
+
+            <p class="fragment"><br/><em>Think:</em> Put [1, 2, 3, 4] into [first, second, *other]</p>
+            <pre class="fragment"><code class="ruby">{
+  verb: "CREATE",
+  endpoint: "/feierabend",
+  authed: true,
+} in { verb:, endpoint: }
+
+verb #=> "CREATE"
+endpoint #=> "/feierabend"
+</code></pre>
+          </section>
+
+          <section>
+            <h3>What will happen here?</h3>
+
+            <pre><code class="ruby">[[1, 2, 3, 4], [:a, :b]] in [[n1, n2], symbols]</code></pre>
+
+            <p class="fragment"><em>NoMatchingPatternError</em></p>
+
+            <pre class="fragment"><code class="ruby">[[1, 2, 3, 4], [:a, :b]] in [[n1, n2, *other], symbols]</code></pre>
+          </section>
+
+          <section>
+            <h3>What will happen here?</h3>
+
+            <pre><code class="ruby">case [1, 2, 2, 3, 4]
+in [1, 2, 2, a, 4] if false
+  p :first
+in [1, b, b, Integer, Integer]
+  p :second
+else
+  p :third
+end</code></pre>
+
+            <p class="fragment"><em>SyntaxError (duplicated variable name)</em><br/><br/><code>_</code> instead of <code>b</code> will work</p>
+          </section>
+
+          <section>
+            <h3>What will happen here?</h3>
+
+            <pre><code class="ruby">case [1, 2, 2, 3, 4]
+in [1, 2, 2, a, 4] if false
+  p :first
+in [1, b, c, Integer, Integer]
+  p [:second, b]
+else
+  p :third
+end</code></pre>
+
+            <p class="fragment"><code># => [:second, 2]</code></p>
+            <p class="fragment"><br/>…and what's the value of <code>a</code>?</p>
+            <p class="fragment"><br/><code>a #=> 4</code></p>
+          </section>
+
+          <section>
+            <h3>What's going on here?</h3>
+
+            <pre class="fragment"><code class="ruby">home = /Berlin|Potsdam/
+case {
+  cities: ["Berlin", "Porto", "Tokio"],
+  groups: [["Andrea", "Kim"], ["Chris", "Sascha"]],
+  reasons: ["Unknown", "Meaningfulness"],
+}
+in { cities: [^home, *other_cities],
+     groups: [[a, b] => first, *],
+     reasons: [important] }
+  p [:lets_go_to?, other_cities, first]
+in { cities: }
+  p [:listing_all, cities]
+end</code></pre>
+
+          <p class="fragment">[:listing_all, ["Berlin", "Porto", "Tokio"]]</p>
+          </section>
+
+          <section>
+            <h3>What's going on here?</h3>
+
+            <pre><code class="ruby">→ ??? ←
+
+case [1,2,3]
+in Array(a,b,c)
+  p [:first, a, b, c]
+in Array[a,b,c]
+  p [:second, a, b, c]
+in [a,b,c]
+  p [:third, a, b, c]
+end
+
+#=> [?, 3, 2, 1]</code></pre>
+
+            <pre class="fragment"><code class="ruby">class Array
+  def deconstruct
+    reverse
+  end
+end</code></pre>
+          </section>
+
+          <section>
+            <h3>More about pattern matching</h3>
+            <p><a href="https://speakerdeck.com/k_tsj/pattern-matching-new-feature-in-ruby-2-dot-7">speakerdeck.com/k_tsj/pattern-matching-new-feature-in-ruby-2-dot-7</a></p>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>RANDOM 2.7 NEWS</h3>
+            <div class="fragment"><p>How to produce this output?</p><br/>
+
+            <code style="text-align: left;font-size: 130%; line-height: 150%; display: block; white-space: pre">[1, 2, 3, 4].<strong class="action">__________</strong> { |n|
+  n.even? ? n/2 : nil
+} #=> [1, 2]</code>
+            <br/>
+            <br/>
+            </div>
+          </section>
+
+          <section>
+            <h3>RANDOM 2.7 NEWS</h3>
+            <p>How to produce this output?</p><br/>
+
+            <code style="text-align: left;font-size: 130%; line-height: 150%; display: block; white-space: pre">[1, 2, 3, 4].<strong class="action">filter_map</strong> { |n|
+  n.even? ? n/2 : nil
+} #=> [1, 2]</code>
+            <br/>
+            <br/>
+            <p class="fragment">How to code golf this?<br/></p>
+            <code class="fragment" style="text-align: left;font-size: 130%; line-height: 150%; display: block; white-space: pre">[1, 2, 3, 4].<strong class="action">filter_map</strong> { _1.even? ? _1/2 : nil }</code>
+            <code class="fragment" style="text-align: left;font-size: 130%; line-height: 150%; display: block; white-space: pre">[1,2,3,4].<strong class="action">filter_map</strong>{_1%2<1&&_1/2}</code>
+          </section>
+
+          <section>
+            <h3>RANDOM 2.7 NEWS</h3>
+            <p>What will happen?</p><br/>
+
+            <code style="text-align: left;font-size: 130%; line-height: 150%">send def no ** nil; end, nil: :no</code>
+
+            <p class="fragment action"><br/><em>ArgumentError (no keywords accepted)</em></p>
+          </section>
+
+          <section>
+            <h3>MORE 2.7 NEWS</h3>
+            <p>Commentary by Koichi Sasada and Yusuke Endoh <a href="https://sourcediving.com/ruby-2-7-news-commentary-by-cookpads-full-time-ruby-comitters-bdbaacb36d0c">sourcediving.com/ruby-2-7-news-commentary-by-cookpads-full-time-ruby-comitters-bdbaacb36d0c</a></p>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Hyperexpressivism</h3>
+            <p class="fragment">You see <code>.</code> (a dot) in some Ruby code</p>
+            <p class="fragment">How many different <em>meanings</em> can it have?</p>
+          </section>
+
+          <section>
+            <h3>What's the meaning of <code>.</code>? (1)</h3>
+            <br/>
+
+            <code style="text-align: left;font-size: 130%; line-height: 150%">1<strong class="action">.</strong>42</code>
+
+            <p><br/>(floating point number)</p>
+          </section>
+
+          <section>
+            <h3>What's the meaning of <code>.</code>? (2)</h3>
+            <br/>
+
+            <code style="text-align: left;font-size: 130%; line-height: 150%">object<strong class="action">.</strong>method</code>
+
+            <p><br/>(method call)</p>
+          </section>
+
+          <section>
+            <h3>What's the meaning of <code>.</code>? (2-3)</h3>
+            <br/>
+
+            <code style="text-align: left;font-size: 130%; line-height: 150%">object<strong class="action">.</strong>()</code>
+
+            <p><br/>(method call to a method named "call")</p>
+          </section>
+
+          <section>
+            <h3>What's the meaning of <code>.</code>? (2-4)</h3>
+            <br/>
+
+            <code style="text-align: left;font-size: 130%; line-height: 150%">def object<strong class="action">.</strong>method() end</code>
+
+            <p><br/>(method definition)</p>
+          </section>
+
+          <section>
+            <h3>What's the meaning of <code>.</code>? (3-5)</h3>
+            <br/>
+
+            <code style="text-align: left;font-size: 130%; line-height: 150%">"<strong class="action">.</strong>"</code>
+
+            <p><br/>(part of string literal)</p>
+          </section>
+
+          <section>
+            <h3>What's the meaning of <code>.</code>? (4-6)</h3>
+            <br/>
+
+            <code style="text-align: left;font-size: 130%; line-height: 150%">%<strong class="action">.</strong>string<strong class="action">.</strong></code>
+
+            <p><br/>(string delimiter)</p>
+          </section>
+
+          <section>
+            <h3>What's the meaning of <code>.</code>? (5-7)</h3>
+            <br/>
+
+            <code style="text-align: left;font-size: 130%; line-height: 150%">:"<strong class="action">.</strong>"</code>
+
+            <p><br/>(part of symbol name)</p>
+          </section>
+
+          <section>
+            <h3>What's the meaning of <code>.</code>? (6-8)</h3>
+            <br/>
+
+            <code style="text-align: left;font-size: 130%; line-height: 150%">/<strong class="action">.</strong>/</code>
+
+            <p><br/>(regex literal, match-any)</p>
+          </section>
+
+          <section>
+            <h3>What's the meaning of <code>.</code>? (6-9)</h3>
+            <br/>
+
+            <code style="text-align: left;font-size: 130%; line-height: 150%">/<strong class="action">\.</strong>/</code>
+
+            <p><br/>(regex literal, escaped)</p>
+          </section>
+
+          <section>
+            <h3>What's the meaning of <code>.</code>? (6-10)</h3>
+            <br/>
+
+            <code style="text-align: left;font-size: 130%; line-height: 150%">#<strong class="action">.</strong></code>
+
+            <p><br/>(part of comment)</p>
+          </section>
+
+          <section>
+            <h3>What's the meaning of <code>.</code>? (7-11)</h3>
+            <br/>
+
+            <code style="text-align: left;font-size: 130%; line-height: 150%">1<strong class="action">..</strong>42</code>
+
+            <p><br/>(range, inclusive)</p>
+          </section>
+
+          <section>
+            <h3>What's the meaning of <code>.</code>? (7-12)</h3>
+            <br/>
+
+            <code style="text-align: left;font-size: 130%; line-height: 150%">1<strong class="action">...</strong>42</code>
+
+            <p><br/>(range, exclusive)</p>
+          </section>
+
+          <section>
+            <h3>What's the meaning of <code>.</code>? (7-14)</h3>
+            <br/>
+
+            <code style="text-align: left;font-size: 130%; line-height: 150%">1<strong class="action">..</strong><br/>
+              1<strong class="action">...</strong>
+            </code>
+
+            <p><br/>(endless range, inclusive + exclusive, <em>new in 2.6</em>)</p>
+          </section>
+
+          <section>
+            <h3>What's the meaning of <code>.</code>? (7-16)</h3>
+            <br/>
+
+            <code style="text-align: left;font-size: 130%; line-height: 150%"><strong class="action">..</strong>42<br/>
+              <strong class="action">...</strong>42
+            </code>
+
+            <p><br/>("beginless" range, inclusive + exclusive, <em>new in 2.7</em>)</p>
+          </section>
+
+          <section>
+            <h3>What's the meaning of <code>.</code>? (7-18)</h3>
+            <br/>
+
+            <code style="text-align: left;font-size: 130%; line-height: 150%">p<strong class="action">...</strong>;<br/>
+              <span class="fragment">p<strong class="action">..</strong>;</span>
+            </code>
+
+            <p class="fragment"><br/>(nilistic range, inclusive + exclusive, <em>new in 2.7</em>)</p>
+          </section>
+
+          <section>
+            <h3>What's the meaning of <code>.</code>? (8-19)</h3>
+            <br/>
+
+            <code style="text-align: left; display: block; white-space:pre;">def puts!(...)
+  puts(...)
+  puts "!!!"
+end
+
+putz "hey" #=>
+hey
+!!!</code>
+
+            <p><br/>(argument forwarding, <em>new in 2.7</em>)</p>
+          </section>
+
+          <section>
+            <h3>What's the meaning of <code>.</code>? (9-20)</h3>
+            <p><strong>BONUS ROUND</strong></p>
+
+            <br/>
+
+            <code class="fragment" style="text-align: left;font-size: 130%; line-height: 150%">$<strong class="action">.</strong></code>
+
+            <p class="fragment"><br/>(part of this special variable name, which returns line number of input read from <em>$STDIN</em>)</p>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2><span style="white-space: pre">Thank you!</span></h2>
+            <p><a href="https://idiosyncratic-ruby.com/quiz">idiosyncratic-ruby.com/quiz</a></p>
+            <p><a href="https://twitter.com/JanLelis">@JanLelis</a></p>
+          </section>
+        </section>
+
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        slideNumber: true,
+
+        theme: Reveal.getQueryHash().theme || 'default', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'concave', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+    </script>
+  </body>
+</html>
