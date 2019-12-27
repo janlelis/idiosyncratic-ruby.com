@@ -3710,7 +3710,7 @@ Array.try_convert(o) # =&amp;gt; [42]
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;Generated with Ruby 2.6.0, including RubyGems and &lt;a href="https://stdgems.org/did_you_mean/"&gt;DidYouMean&lt;/a&gt;:&lt;/p&gt;
+    <content type="html">&lt;p&gt;Generated with Ruby 2.7.0, including RubyGems and &lt;a href="https://stdgems.org/did_you_mean/"&gt;DidYouMean&lt;/a&gt;:&lt;/p&gt;
 
 &lt;pre id="constant-tree"&gt;Object (Class)
 ├─ARGF (ARGF.class)
@@ -3720,7 +3720,6 @@ Array.try_convert(o) # =&amp;gt; [42]
 ├─BasicObject (Class)
 │ └─BasicObject → BasicObject
 ├─Bignum (Class)
-│ └─GMP_VERSION (String)
 ├─Binding (Class)
 ├─CROSS_COMPILING (NilClass)
 ├─Class (Class)
@@ -3730,9 +3729,9 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ └─I (Complex)
 ├─ConditionVariable (Class)
 ├─Data (Class)
-├─Delegator (Class)
 ├─DidYouMean (Module)
 │ ├─ClassNameChecker (Class)
+│ ├─CorrectElement (Class)
 │ ├─Correctable (Module)
 │ ├─Jaro (Module)
 │ ├─JaroWinkler (Module)
@@ -3745,9 +3744,11 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ │ └─RB_RESERVED_WORDS (Array)
 │ ├─NameErrorCheckers (Object)
 │ ├─NullChecker (Class)
+│ ├─ParseDimensions (Class)
 │ ├─PlainFormatter (Class)
 │ ├─SPELL_CHECKERS (Hash)
 │ ├─SpellChecker (Class)
+│ ├─TreeSpellChecker (Class)
 │ ├─VERSION (String)
 │ └─VariableNameChecker (Class)
 │   ├─NAMES_TO_EXCLUDE (Hash)
@@ -3768,6 +3769,7 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ ├─Big5_HKSCS (Encoding)
 │ ├─Big5_HKSCS_2008 (Encoding)
 │ ├─Big5_UAO (Encoding)
+│ ├─CESU_8 (Encoding)
 │ ├─CP1250 (Encoding)
 │ ├─CP1251 (Encoding)
 │ ├─CP1252 (Encoding)
@@ -3989,6 +3991,7 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ ├─Chain (Class)
 │ ├─Generator (Class)
 │ ├─Lazy (Class)
+│ ├─Producer (Class)
 │ └─Yielder (Class)
 ├─Errno (Module)
 │ ├─E2BIG (Class)
@@ -4351,7 +4354,6 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ └─Stat (Class)
 ├─FileTest (Module)
 ├─Fixnum (Class)
-│ └─GMP_VERSION (String)
 ├─Float (Class)
 │ ├─DIG (Integer)
 │ ├─EPSILON (Float)
@@ -4389,7 +4391,9 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ │ └─SYSTEM_WIDE_CONFIG_FILE (String)
 │ ├─ConfigMap (Hash)
 │ ├─ConflictError (Class)
+│ ├─ConsoleUI (Class)
 │ ├─DEFAULT_HOST (String)
+│ ├─DefaultUserInteraction (Module)
 │ ├─Dependency (Class)
 │ │ └─TYPES (Array)
 │ ├─DependencyError (Class)
@@ -4453,11 +4457,12 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ │     └─Token (Class)
 │ ├─Requirement (Class)
 │ │ ├─BadRequirementError (Class)
+│ │ ├─DefaultPrereleaseRequirement (Array)
 │ │ ├─DefaultRequirement (Array)
 │ │ ├─OPS (Hash)
 │ │ ├─PATTERN (Regexp)
 │ │ ├─PATTERN_RAW (String)
-│ │ └─SOURCE_SET_REQUIREMENT (#&amp;lt;Class:0x0000562f119ac860&amp;gt;)
+│ │ └─SOURCE_SET_REQUIREMENT (#&amp;lt;Class:0x0000563f196c7b00&amp;gt;)
 │ ├─Resolver (Class)
 │ │ ├─APISet (Class)
 │ │ ├─APISpecification (Class)
@@ -4467,7 +4472,6 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ │ ├─Conflict (Class)
 │ │ ├─CurrentSet (Class)
 │ │ ├─DEBUG_RESOLVER (FalseClass)
-│ │ ├─DependencyConflict (Class)
 │ │ ├─DependencyRequest (Class)
 │ │ ├─GitSet (Class)
 │ │ ├─GitSpecification (Class)
@@ -4515,10 +4519,10 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ │ │ └─PATTERN (String)
 │ │ ├─VendorSet (Class)
 │ │ └─VendorSpecification (Class)
-│ ├─RubyGemsPackageVersion (String)
 │ ├─RubyGemsVersion (String)
 │ ├─RubyVersionMismatch (Class)
 │ ├─RuntimeRequirementNotMetError (Class)
+│ ├─SilentUI (Class)
 │ ├─Source (Class)
 │ │ ├─FILES (Hash)
 │ │ ├─Git (Class)
@@ -4537,9 +4541,10 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ │ ├─DateTimeFormat (Regexp)
 │ │ ├─EMPTY (Array)
 │ │ ├─INITIALIZE_CODE_FOR_DEFAULTS (Hash)
+│ │ ├─LOAD_CACHE_MUTEX (Thread::Mutex)
 │ │ ├─MARSHAL_FIELDS (Hash)
 │ │ ├─NONEXISTENT_SPECIFICATION_VERSION (Integer)
-│ │ ├─NOT_FOUND (#&amp;lt;Class:0x0000562f117d3f70&amp;gt;)
+│ │ ├─NOT_FOUND (#&amp;lt;Class:0x0000563f194aade0&amp;gt;)
 │ │ ├─SPECIFICATION_VERSION_HISTORY (Hash)
 │ │ ├─TODAY (Time)
 │ │ └─VALID_NAME_PATTERN (Regexp)
@@ -4551,6 +4556,13 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ │ ├─SPECIAL_CHARACTERS (Regexp)
 │ │ ├─VALID_NAME_PATTERN (Regexp)
 │ │ └─VALID_URI_PATTERN (Regexp)
+│ ├─StreamUI (Class)
+│ │ ├─SilentDownloadReporter (Class)
+│ │ ├─SilentProgressReporter (Class)
+│ │ ├─SimpleProgressReporter (Class)
+│ │ ├─ThreadedDownloadReporter (Class)
+│ │ │ └─MUTEX (Thread::Mutex)
+│ │ └─VerboseProgressReporter (Class)
 │ ├─StubSpecification (Class)
 │ │ ├─OPEN_MODE (String)
 │ │ ├─PREFIX (String)
@@ -4559,10 +4571,12 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ │   ├─REQUIRE_PATHS (Hash)
 │ │   └─REQUIRE_PATH_LIST (Hash)
 │ ├─SystemExitException (Class)
-│ ├─USE_BUNDLER_FOR_GEMDEPS (TrueClass)
+│ ├─Text (Module)
+│ ├─UNTAINT (Proc)
 │ ├─UninstallError (Class)
 │ ├─UnsatisfiableDepedencyError (Class)
 │ ├─UnsatisfiableDependencyError (Class)
+│ ├─UserInteraction (Module)
 │ ├─Util (Module)
 │ ├─VERSION (String)
 │ ├─VerificationError (Class)
@@ -4570,11 +4584,12 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ │ ├─ANCHORED_VERSION_PATTERN (Regexp)
 │ │ ├─Requirement (Class)
 │ │ │ ├─BadRequirementError (Class)
+│ │ │ ├─DefaultPrereleaseRequirement (Array)
 │ │ │ ├─DefaultRequirement (Array)
 │ │ │ ├─OPS (Hash)
 │ │ │ ├─PATTERN (Regexp)
 │ │ │ ├─PATTERN_RAW (String)
-│ │ │ └─SOURCE_SET_REQUIREMENT (#&amp;lt;Class:0x0000562f119ac860&amp;gt;)
+│ │ │ └─SOURCE_SET_REQUIREMENT (#&amp;lt;Class:0x0000563f196c7b00&amp;gt;)
 │ │ └─VERSION_PATTERN (String)
 │ ├─WIN_PATTERNS (Array)
 │ └─WRITE_BINARY_ERRORS (Array)
@@ -4594,21 +4609,8 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ ├─WaitReadable (Module)
 │ └─WaitWritable (Module)
 ├─IOError (Class)
-├─IPAddr (Class)
-│ ├─AddressFamilyError (Class)
-│ ├─Error (Class)
-│ ├─IN4MASK (Integer)
-│ ├─IN6FORMAT (String)
-│ ├─IN6MASK (Integer)
-│ ├─InvalidAddressError (Class)
-│ ├─InvalidPrefixError (Class)
-│ ├─RE_IPV4ADDRLIKE (Regexp)
-│ ├─RE_IPV6ADDRLIKE_COMPRESSED (Regexp)
-│ └─RE_IPV6ADDRLIKE_FULL (Regexp)
-├─IPSocket (Class)
 ├─IndexError (Class)
 ├─Integer (Class)
-│ └─GMP_VERSION (String)
 ├─Interrupt (Class)
 ├─Kernel (Module)
 │ └─RUBYGEMS_ACTIVATION_MONITOR (Monitor)
@@ -4628,11 +4630,11 @@ Array.try_convert(o) # =&amp;gt; [42]
 ├─Monitor (Class)
 ├─MonitorMixin (Module)
 │ └─ConditionVariable (Class)
-│   └─Timeout (Class)
 ├─Mutex (Class)
 ├─NIL (NilClass)
 ├─NameError (Class)
 ├─NilClass (Class)
+├─NoMatchingPatternError (Class)
 ├─NoMemoryError (Class)
 ├─NoMethodError (Class)
 ├─NotImplementedError (Class)
@@ -4651,6 +4653,7 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ ├─CLOCK_REALTIME (Integer)
 │ ├─CLOCK_REALTIME_ALARM (Integer)
 │ ├─CLOCK_REALTIME_COARSE (Integer)
+│ ├─CLOCK_TAI (Integer)
 │ ├─CLOCK_THREAD_CPUTIME_ID (Integer)
 │ ├─GID (Module)
 │ ├─PRIO_PGRP (Integer)
@@ -4689,7 +4692,7 @@ Array.try_convert(o) # =&amp;gt; [42]
 ├─RUBY_PATCHLEVEL (Integer)
 ├─RUBY_PLATFORM (String)
 ├─RUBY_RELEASE_DATE (String)
-├─RUBY_REVISION (Integer)
+├─RUBY_REVISION (String)
 ├─RUBY_VERSION (String)
 ├─Random (Class)
 │ ├─DEFAULT (Random)
@@ -4726,12 +4729,10 @@ Array.try_convert(o) # =&amp;gt; [42]
 ├─SecurityError (Class)
 ├─Signal (Module)
 ├─SignalException (Class)
-├─SimpleDelegator (Class)
 ├─SizedQueue (Class)
 ├─StandardError (Class)
 ├─StopIteration (Class)
 ├─String (Class)
-├─StringIO (Class)
 ├─Struct (Class)
 │ ├─Group (Class)
 │ ├─Passwd (Class)
@@ -4759,145 +4760,6 @@ Array.try_convert(o) # =&amp;gt; [42]
 ├─TracePoint (Class)
 ├─TrueClass (Class)
 ├─TypeError (Class)
-├─URI (Module)
-│ ├─ABS_PATH (Regexp)
-│ ├─ABS_URI (Regexp)
-│ ├─ABS_URI_REF (Regexp)
-│ ├─BadURIError (Class)
-│ ├─DEFAULT_PARSER (URI::RFC2396_Parser)
-│ ├─ESCAPED (Regexp)
-│ ├─Error (Class)
-│ ├─Escape (Module)
-│ ├─FRAGMENT (Regexp)
-│ ├─FTP (Class)
-│ │ ├─COMPONENT (Array)
-│ │ ├─DEFAULT_PORT (Integer)
-│ │ ├─TYPECODE (Array)
-│ │ └─TYPECODE_PREFIX (String)
-│ ├─File (Class)
-│ │ ├─COMPONENT (Array)
-│ │ └─DEFAULT_PORT (NilClass)
-│ ├─Generic (Class)
-│ │ ├─COMPONENT (Array)
-│ │ ├─DEFAULT_PORT (NilClass)
-│ │ └─USE_REGISTRY (FalseClass)
-│ ├─HOST (Regexp)
-│ ├─HTTP (Class)
-│ │ ├─COMPONENT (Array)
-│ │ └─DEFAULT_PORT (Integer)
-│ ├─HTTPS (Class)
-│ │ └─DEFAULT_PORT (Integer)
-│ ├─InvalidComponentError (Class)
-│ ├─InvalidURIError (Class)
-│ ├─LDAP (Class)
-│ │ ├─COMPONENT (Array)
-│ │ ├─DEFAULT_PORT (Integer)
-│ │ ├─SCOPE (Array)
-│ │ ├─SCOPE_BASE (String)
-│ │ ├─SCOPE_ONE (String)
-│ │ └─SCOPE_SUB (String)
-│ ├─LDAPS (Class)
-│ │ └─DEFAULT_PORT (Integer)
-│ ├─MailTo (Class)
-│ │ ├─COMPONENT (Array)
-│ │ ├─DEFAULT_PORT (NilClass)
-│ │ ├─EMAIL_REGEXP (Regexp)
-│ │ └─HEADER_REGEXP (Regexp)
-│ ├─OPAQUE (Regexp)
-│ ├─PORT (Regexp)
-│ ├─Parser (Class)
-│ ├─QUERY (Regexp)
-│ ├─REGEXP (Module)
-│ │ └─PATTERN (Module)
-│ │   ├─ABS_PATH (String)
-│ │   ├─ABS_URI (String)
-│ │   ├─ALNUM (String)
-│ │   ├─ALPHA (String)
-│ │   ├─DOMLABEL (String)
-│ │   ├─ESCAPED (String)
-│ │   ├─FRAGMENT (String)
-│ │   ├─HEX (String)
-│ │   ├─HIER_PART (String)
-│ │   ├─HOST (String)
-│ │   ├─HOSTNAME (String)
-│ │   ├─HOSTPORT (String)
-│ │   ├─IPV4ADDR (String)
-│ │   ├─IPV6ADDR (String)
-│ │   ├─IPV6REF (String)
-│ │   ├─NET_PATH (String)
-│ │   ├─OPAQUE_PART (String)
-│ │   ├─PATH_SEGMENTS (String)
-│ │   ├─PORT (String)
-│ │   ├─QUERY (String)
-│ │   ├─REG_NAME (String)
-│ │   ├─REL_PATH (String)
-│ │   ├─REL_SEGMENT (String)
-│ │   ├─REL_URI (String)
-│ │   ├─RESERVED (String)
-│ │   ├─SCHEME (String)
-│ │   ├─TOPLABEL (String)
-│ │   ├─UNRESERVED (String)
-│ │   ├─URIC (String)
-│ │   ├─URIC_NO_SLASH (String)
-│ │   ├─URI_REF (String)
-│ │   ├─USERINFO (String)
-│ │   ├─X_ABS_URI (String)
-│ │   └─X_REL_URI (String)
-│ ├─REGISTRY (Regexp)
-│ ├─REL_PATH (Regexp)
-│ ├─REL_URI (Regexp)
-│ ├─REL_URI_REF (Regexp)
-│ ├─RFC2396_Parser (Class)
-│ ├─RFC2396_REGEXP (Module)
-│ │ └─PATTERN (Module)
-│ │   ├─ABS_PATH (String)
-│ │   ├─ABS_URI (String)
-│ │   ├─ALNUM (String)
-│ │   ├─ALPHA (String)
-│ │   ├─DOMLABEL (String)
-│ │   ├─ESCAPED (String)
-│ │   ├─FRAGMENT (String)
-│ │   ├─HEX (String)
-│ │   ├─HIER_PART (String)
-│ │   ├─HOST (String)
-│ │   ├─HOSTNAME (String)
-│ │   ├─HOSTPORT (String)
-│ │   ├─IPV4ADDR (String)
-│ │   ├─IPV6ADDR (String)
-│ │   ├─IPV6REF (String)
-│ │   ├─NET_PATH (String)
-│ │   ├─OPAQUE_PART (String)
-│ │   ├─PATH_SEGMENTS (String)
-│ │   ├─PORT (String)
-│ │   ├─QUERY (String)
-│ │   ├─REG_NAME (String)
-│ │   ├─REL_PATH (String)
-│ │   ├─REL_SEGMENT (String)
-│ │   ├─REL_URI (String)
-│ │   ├─RESERVED (String)
-│ │   ├─SCHEME (String)
-│ │   ├─TOPLABEL (String)
-│ │   ├─UNRESERVED (String)
-│ │   ├─URIC (String)
-│ │   ├─URIC_NO_SLASH (String)
-│ │   ├─URI_REF (String)
-│ │   ├─USERINFO (String)
-│ │   ├─X_ABS_URI (String)
-│ │   └─X_REL_URI (String)
-│ ├─RFC3986_PARSER (URI::RFC3986_Parser)
-│ ├─RFC3986_Parser (Class)
-│ │ ├─RFC3986_URI (Regexp)
-│ │ └─RFC3986_relative_ref (Regexp)
-│ ├─SCHEME (Regexp)
-│ ├─TBLDECWWWCOMP_ (Hash)
-│ ├─TBLENCWWWCOMP_ (Hash)
-│ ├─UNSAFE (Regexp)
-│ ├─URI_REF (Regexp)
-│ ├─USERINFO (Regexp)
-│ ├─Util (Module)
-│ ├─VERSION (String)
-│ ├─VERSION_CODE (String)
-│ └─WEB_ENCODINGS_ (Hash)
 ├─UnboundMethod (Class)
 ├─UncaughtThrowError (Class)
 ├─UnicodeNormalize (Module)
@@ -6498,14 +6360,14 @@ example_method
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;…/ruby-2.6.0/lib/ruby/site_ruby/2.6.0&lt;/li&gt;
-  &lt;li&gt;…/ruby-2.6.0/lib/ruby/site_ruby/2.6.0/x86_64-linux&lt;/li&gt;
-  &lt;li&gt;…/ruby-2.6.0/lib/ruby/site_ruby&lt;/li&gt;
-  &lt;li&gt;…/ruby-2.6.0/lib/ruby/vendor_ruby/2.6.0&lt;/li&gt;
-  &lt;li&gt;…/ruby-2.6.0/lib/ruby/vendor_ruby/2.6.0/x86_64-linux&lt;/li&gt;
-  &lt;li&gt;…/ruby-2.6.0/lib/ruby/vendor_ruby&lt;/li&gt;
-  &lt;li&gt;…/ruby-2.6.0/lib/ruby/2.6.0&lt;/li&gt;
-  &lt;li&gt;…/ruby-2.6.0/lib/ruby/2.6.0/x86_64-linux&lt;/li&gt;
+  &lt;li&gt;…/ruby-2.7.0/lib/ruby/site_ruby/2.7.0&lt;/li&gt;
+  &lt;li&gt;…/ruby-2.7.0/lib/ruby/site_ruby/2.7.0/x86_64-linux&lt;/li&gt;
+  &lt;li&gt;…/ruby-2.7.0/lib/ruby/site_ruby&lt;/li&gt;
+  &lt;li&gt;…/ruby-2.7.0/lib/ruby/vendor_ruby/2.7.0&lt;/li&gt;
+  &lt;li&gt;…/ruby-2.7.0/lib/ruby/vendor_ruby/2.7.0/x86_64-linux&lt;/li&gt;
+  &lt;li&gt;…/ruby-2.7.0/lib/ruby/vendor_ruby&lt;/li&gt;
+  &lt;li&gt;…/ruby-2.7.0/lib/ruby/2.7.0&lt;/li&gt;
+  &lt;li&gt;…/ruby-2.7.0/lib/ruby/2.7.0/x86_64-linux&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id="initial-loaded-features"&gt;Initial Loaded Features&lt;/h2&gt;
@@ -6520,22 +6382,23 @@ example_method
   &lt;li&gt;thread.rb ¹&lt;/li&gt;
   &lt;li&gt;rational.so ¹&lt;/li&gt;
   &lt;li&gt;complex.so ¹&lt;/li&gt;
-  &lt;li&gt;…/ruby-2.6.0/lib/ruby/2.6.0/x86_64-linux/enc/encdb.so&lt;/li&gt;
-  &lt;li&gt;…/ruby-2.6.0/lib/ruby/2.6.0/x86_64-linux/enc/trans/transdb.so&lt;/li&gt;
+  &lt;li&gt;ruby2_keywords.rb&lt;/li&gt;
+  &lt;li&gt;…/ruby-2.7.0/lib/ruby/2.7.0/x86_64-linux/enc/encdb.so&lt;/li&gt;
+  &lt;li&gt;…/ruby-2.7.0/lib/ruby/2.7.0/x86_64-linux/enc/trans/transdb.so&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;¹ Not actual files. They show up here for backward compatibility because they were moved from the standard library (thus had to be loaded first) to the core.&lt;/p&gt;
 
 &lt;h2 id="initial-memory-consumption"&gt;Initial Memory Consumption&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href="https://stackoverflow.com/questions/7220896/get-current-ruby-process-memory-usage"&gt;Measured with Ruby 2.4.0 on an ubuntu machine:&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://stackoverflow.com/questions/7220896/get-current-ruby-process-memory-usage"&gt;Measured with Ruby 2.7.0 on an ubuntu machine:&lt;/a&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ ruby --disable-all -e'puts"%.2f MB".%`ps -o rss -p#$$$$`.strip.split.last.to_f/1024'
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;!--- It's $$, not $$$$, markdown seems to be buggy here --&gt;
 
-&lt;p&gt;&lt;strong&gt;10.80 MB&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;11.06 MB&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id="initial-ruby-objects"&gt;Initial Ruby Objects&lt;/h2&gt;
 
@@ -6559,19 +6422,19 @@ join("\n")'
   &lt;tbody&gt;
     &lt;tr&gt;
       &lt;td&gt;String&lt;/td&gt;
-      &lt;td&gt;4276&lt;/td&gt;
+      &lt;td&gt;4170&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Class&lt;/td&gt;
-      &lt;td&gt;263&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Encoding&lt;/td&gt;
-      &lt;td&gt;101&lt;/td&gt;
+      &lt;td&gt;267&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Array&lt;/td&gt;
-      &lt;td&gt;36&lt;/td&gt;
+      &lt;td&gt;163&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Encoding&lt;/td&gt;
+      &lt;td&gt;102&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Module&lt;/td&gt;
@@ -6579,14 +6442,10 @@ join("\n")'
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Hash&lt;/td&gt;
-      &lt;td&gt;13&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Float&lt;/td&gt;
-      &lt;td&gt;4&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Symbol&lt;/td&gt;
       &lt;td&gt;4&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -6595,6 +6454,10 @@ join("\n")'
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Object&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Symbol&lt;/td&gt;
       &lt;td&gt;3&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -6622,10 +6485,6 @@ join("\n")'
       &lt;td&gt;1&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;NoMemoryError&lt;/td&gt;
-      &lt;td&gt;1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
       &lt;td&gt;RubyVM&lt;/td&gt;
       &lt;td&gt;1&lt;/td&gt;
     &lt;/tr&gt;
@@ -6647,6 +6506,10 @@ join("\n")'
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Complex&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;NoMemoryError&lt;/td&gt;
       &lt;td&gt;1&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -6677,7 +6540,7 @@ map{ |n| "- #{n} (#{n.class})" }'
 &lt;ul&gt;
   &lt;li&gt;0+1i (Complex)&lt;/li&gt;
   &lt;li&gt;18446744073709551615 (Integer)&lt;/li&gt;
-  &lt;li&gt;12117370834982808650948832055762367961 (Integer)&lt;/li&gt;
+  &lt;li&gt;223009237793046572879911805581635955449 (Integer)&lt;/li&gt;
   &lt;li&gt;NaN (Float)&lt;/li&gt;
   &lt;li&gt;Infinity (Float)&lt;/li&gt;
   &lt;li&gt;1.7976931348623157e+308 (Float)&lt;/li&gt;
@@ -6710,27 +6573,27 @@ join("\n")'
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;T_STRING&lt;/td&gt;
-      &lt;td&gt;4564&lt;/td&gt;
+      &lt;td&gt;4472&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;T_IMEMO&lt;/td&gt;
-      &lt;td&gt;2392&lt;/td&gt;
+      &lt;td&gt;2499&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;FREE&lt;/td&gt;
-      &lt;td&gt;1999&lt;/td&gt;
+      &lt;td&gt;1900&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;T_CLASS&lt;/td&gt;
-      &lt;td&gt;501&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;T_DATA&lt;/td&gt;
-      &lt;td&gt;120&lt;/td&gt;
+      &lt;td&gt;507&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;T_ARRAY&lt;/td&gt;
-      &lt;td&gt;116&lt;/td&gt;
+      &lt;td&gt;201&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;T_DATA&lt;/td&gt;
+      &lt;td&gt;125&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;T_ICLASS&lt;/td&gt;
@@ -6742,15 +6605,11 @@ join("\n")'
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;T_HASH&lt;/td&gt;
-      &lt;td&gt;19&lt;/td&gt;
+      &lt;td&gt;8&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;T_OBJECT&lt;/td&gt;
       &lt;td&gt;8&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;T_SYMBOL&lt;/td&gt;
-      &lt;td&gt;4&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;T_FILE&lt;/td&gt;
@@ -6759,6 +6618,10 @@ join("\n")'
     &lt;tr&gt;
       &lt;td&gt;T_FLOAT&lt;/td&gt;
       &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;T_SYMBOL&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;T_BIGNUM&lt;/td&gt;
@@ -6783,7 +6646,7 @@ map{ |s| s.inspect.sub("`", "\\`").gsub(/'/,"\\'") }.join(" ")
 
 &lt;p&gt;All symbols:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;:"" :! :!= :!~ :"\"" :"#" :"\#$!" :"$" :$! :$" :$$ :$&amp;amp; :$ :$* :$+ :$, :$-0 :$-F :$-I :$-K :$-W :$-a :$-d :$-i :$-l :$-p :$-v :$-w :$. :$/ :$0 :$: :$; :$&amp;lt; :$= :$&amp;gt; :$? :$@ :$DEBUG :$FILENAME :$KCODE :$LOADED_FEATURES :$LOAD_PATH :$PROGRAM_NAME :$SAFE :$VERBOSE :$\ :$_ :$:$ :$stderr :$stdin :$stdout :$~ :% :&amp;amp; :"&amp;amp;&amp;amp;" :"&amp;amp;." :""" :"(" :")" :* :** :+ :+@ :"," :- :-@ :"." :".." :"..." :/ :":" :"::" :";" :&amp;lt; :&amp;lt;&amp;lt; :&amp;lt;= :&amp;lt;=&amp;gt; :"&amp;lt;CFUNC&amp;gt;" :"&amp;lt;IFUNC&amp;gt;" :"=" :== :=== :=~ :&amp;gt; :&amp;gt;= :&amp;gt;&amp;gt; :"?" :"@" :@denominator :@gem_prelude_index :@image :@numerator :@path :@real :AFTER_OUTPUT :ALT_SEPARATOR :ANSI_X3_4_1968 :APPEND :ARGF :ARGV :ASCII :ASCII_8BIT :ArgumentError :Array :BIG5 :BIG5_HKSCS :BIG5_HKSCS_2008 :BIG5_UAO :BINARY :Backtrace :BasicObject :Big5 :Big5_HKSCS :Big5_HKSCS_2008 :Big5_UAO :Bignum :Binding :CLOCK_BASED_CLOCK_PROCESS_CPUTIME_ID :CLOCK_BOOTTIME :CLOCK_BOOTTIME_ALARM :CLOCK_MONOTONIC :CLOCK_MONOTONIC_COARSE :CLOCK_MONOTONIC_RAW :CLOCK_PROCESS_CPUTIME_ID :CLOCK_REALTIME :CLOCK_REALTIME_ALARM :CLOCK_REALTIME_COARSE :CLOCK_THREAD_CPUTIME_ID :CP1250 :CP1251 :CP1252 :CP1253 :CP1254 :CP1255 :CP1256 :CP1257 :CP1258 :CP437 :CP50220 :CP50221 :CP51932 :CP65000 :CP65001 :CP737 :CP775 :CP850 :CP852 :CP855 :CP857 :CP860 :CP861 :CP862 :CP863 :CP864 :CP865 :CP866 :CP869 :CP874 :CP878 :CP932 :CP936 :CP949 :CP950 :CP951 :CREAT :CRLF_NEWLINE_DECORATOR :CR_NEWLINE_DECORATOR :CSWINDOWS31J :CUR :Class :ClosedQueueError :Comparable :CompatibilityError :Complex :ConditionVariable :Constants :Converter :ConverterNotFoundError :CsWindows31J :DATA :DEFAULT :DEFAULT_PARAMS :DIG :DIRECT :DSYNC :Data :Default :DidYouMean :Dir :DomainError :E :E2BIG :EACCES :EADDRINUSE :EADDRNOTAVAIL :EADV :EAFNOSUPPORT :EAGAIN :EAGAINWaitReadable :EAGAINWaitWritable :EALREADY :EAUTH :EBADE :EBADF :EBADFD :EBADMSG :EBADR :EBADRPC :EBADRQC :EBADSLT :EBCDIC_CP_US :EBFONT :EBUSY :ECANCELED :ECAPMODE :ECHILD :ECHRNG :ECOMM :ECONNABORTED :ECONNREFUSED :ECONNRESET :EDEADLK :EDEADLOCK :EDESTADDRREQ :EDOM :EDOOFUS :EDOTDOT :EDQUOT :EEXIST :EFAULT :EFBIG :EFTYPE :EHOSTDOWN :EHOSTUNREACH :EHWPOISON :EIDRM :EILSEQ :EINPROGRESS :EINPROGRESSWaitReadable :EINPROGRESSWaitWritable :EINTR :EINVAL :EIO :EIPSEC :EISCONN :EISDIR :EISNAM :EKEYEXPIRED :EKEYREJECTED :EKEYREVOKED :EL2HLT :EL2NSYNC :EL3HLT :EL3RST :ELIBACC :ELIBBAD :ELIBEXEC :ELIBMAX :ELIBSCN :ELNRNG :ELOOP :EMACS_MULE :EMEDIUMTYPE :EMFILE :EMLINK :EMSGSIZE :EMULTIHOP :ENAMETOOLONG :ENAVAIL :END :ENEEDAUTH :ENETDOWN :ENETRESET :ENETUNREACH :ENFILE :ENOANO :ENOATTR :ENOBUFS :ENOCSI :ENODATA :ENODEV :ENOENT :ENOEXEC :ENOKEY :ENOLCK :ENOLINK :ENOMEDIUM :ENOMEM :ENOMSG :ENONET :ENOPKG :ENOPROTOOPT :ENOSPC :ENOSR :ENOSTR :ENOSYS :ENOTBLK :ENOTCAPABLE :ENOTCONN :ENOTDIR :ENOTEMPTY :ENOTNAM :ENOTRECOVERABLE :ENOTSOCK :ENOTSUP :ENOTTY :ENOTUNIQ :ENV :ENXIO :EOFError :EOPNOTSUPP :EOVERFLOW :EOWNERDEAD :EPERM :EPFNOSUPPORT :EPIPE :EPROCLIM :EPROCUNAVAIL :EPROGMISMATCH :EPROGUNAVAIL :EPROTO :EPROTONOSUPPORT :EPROTOTYPE :EPSILON :ERANGE :EREMCHG :EREMOTE :EREMOTEIO :ERESTART :ERFKILL :EROFS :ERPCMISMATCH :ESHUTDOWN :ESOCKTNOSUPPORT :ESPIPE :ESRCH :ESRMNT :ESTALE :ESTRPIPE :ETIME :ETIMEDOUT :ETOOMANYREFS :ETXTBSY :EUCCN :EUCJP :EUCJP_MS :EUCKR :EUCLEAN :EUCTW :EUC_CN :EUC_JISX0213 :EUC_JIS_2004 :EUC_JP :EUC_JP_MS :EUC_KR :EUC_TW :EUNATCH :EUSERS :EWOULDBLOCK :EWOULDBLOCKWaitReadable :EWOULDBLOCKWaitWritable :EXCL :EXDEV :EXFULL :EXTENDED :Emacs_Mule :Encoding :EncodingError :Enumerable :Enumerator :Errno :EucCN :EucJP :EucJP_ms :EucKR :EucTW :Exception :FALSE :FIXEDENCODING :FNM_CASEFOLD :FNM_DOTMATCH :FNM_EXTGLOB :FNM_NOESCAPE :FNM_PATHNAME :FNM_SHORTNAME :FNM_SYSCASE :FalseClass :Fiber :FiberError :File :FileTest :Fixnum :Float :FloatDomainError :Formatter :FrozenError :GB12345 :GB18030 :GB1988 :GB2312 :GBK :GC :GETRUSAGE_BASED_CLOCK_PROCESS_CPUTIME_ID :GETTIMEOFDAY_BASED_CLOCK_REALTIME :GID :GMP_VERSION :Gem :Generator :HEAP_PAGE_BITMAP_PLANES :HEAP_PAGE_BITMAP_SIZE :HEAP_PAGE_OBJ_LIMIT :HOLE :Hash :I :IBM037 :IBM437 :IBM737 :IBM775 :IBM850 :IBM852 :IBM855 :IBM857 :IBM860 :IBM861 :IBM862 :IBM863 :IBM864 :IBM865 :IBM866 :IBM869 :IGNORECASE :INFINITY :INSTRUCTION_NAMES :INTERNAL_CONSTANTS :INVALID_MASK :INVALID_REPLACE :IO :IOError :ISO2022_JP :ISO2022_JP2 :ISO8859_1 :ISO8859_10 :ISO8859_11 :ISO8859_13 :ISO8859_14 :ISO8859_15 :ISO8859_16 :ISO8859_2 :ISO8859_3 :ISO8859_4 :ISO8859_5 :ISO8859_6 :ISO8859_7 :ISO8859_8 :ISO8859_9 :ISO_2022_JP :ISO_2022_JP_2 :ISO_2022_JP_KDDI :ISO_8859_1 :ISO_8859_10 :ISO_8859_11 :ISO_8859_13 :ISO_8859_14 :ISO_8859_15 :ISO_8859_16 :ISO_8859_2 :ISO_8859_3 :ISO_8859_4 :ISO_8859_5 :ISO_8859_6 :ISO_8859_7 :ISO_8859_8 :ISO_8859_9 :IndexError :InstructionSequence :Integer :Interrupt :InvalidByteSequenceError :KOI8_R :KOI8_U :Kernel :KeyError :LOCK_EX :LOCK_NB :LOCK_SH :LOCK_UN :Lazy :LoadError :LocalJumpError :Location :MACCENTEURO :MACCROATIAN :MACCYRILLIC :MACGREEK :MACICELAND :MACJAPAN :MACJAPANESE :MACROMAN :MACROMANIA :MACTHAI :MACTURKISH :MACUKRAINE :MAJOR_VERSION :MANT_DIG :MAX :MAX_10_EXP :MAX_EXP :MIN :MINOR_VERSION :MIN_10_EXP :MIN_EXP :MULTILINE :MUTEX_FOR_THREAD_EXCLUSIVE :MacCentEuro :MacCroatian :MacCyrillic :MacGreek :MacIceland :MacJapan :MacJapanese :MacRoman :MacRomania :MacThai :MacTurkish :MacUkraine :Marshal :MatchData :Math :Method :Module :Mutex :NAN :NIL :NOATIME :NOCTTY :NOENCODING :NOERROR :NOFOLLOW :NONBLOCK :NULL :NameError :NilClass :NoMemoryError :NoMethodError :NotImplementedError :Numeric :OPTS :Object :ObjectSpace :PARTIAL_INPUT :PATH_SEPARATOR :PCK :PI :PRIO_PGRP :PRIO_PROCESS :PRIO_USER :Proc :Process :Profiler :Queue :RADIX :RDONLY :RDWR :RLIMIT_AS :RLIMIT_CORE :RLIMIT_CPU :RLIMIT_DATA :RLIMIT_FSIZE :RLIMIT_MEMLOCK :RLIMIT_MSGQUEUE :RLIMIT_NICE :RLIMIT_NOFILE :RLIMIT_NPROC :RLIMIT_RSS :RLIMIT_RTPRIO :RLIMIT_RTTIME :RLIMIT_SIGPENDING :RLIMIT_STACK :RLIM_INFINITY :RLIM_SAVED_CUR :RLIM_SAVED_MAX :ROUNDS :RSYNC :RUBY_COPYRIGHT :RUBY_DESCRIPTION :RUBY_ENGINE :RUBY_ENGINE_VERSION :RUBY_PATCHLEVEL :RUBY_PLATFORM :RUBY_RELEASE_DATE :RUBY_REVISION :RUBY_VERSION :RVALUE_SIZE :Random :Range :RangeError :Rational :Regexp :RegexpError :RubyVM :RuntimeError :SCRIPT_LINES__ :SEEK_CUR :SEEK_DATA :SEEK_END :SEEK_HOLE :SEEK_SET :SEPARATOR :SET :SHARE_DELETE :SHIFT_JIS :SJIS :SJIS_DOCOMO :SJIS_DoCoMo :SJIS_KDDI :SJIS_SOFTBANK :SJIS_SoftBank :STATELESS_ISO_2022_JP :STATELESS_ISO_2022_JP_KDDI :STDERR :STDIN :STDOUT :SYNC :ScriptError :SecurityError :Separator :Shift_JIS :Signal :SignalException :SizedQueue :StandardError :Stat :Stateless_ISO_2022_JP :Stateless_ISO_2022_JP_KDDI :Status :StopIteration :String :Struct :Symbol :SyntaxError :Sys :SystemCallError :SystemExit :SystemStackError :TIMES_BASED_CLOCK_MONOTONIC :TIMES_BASED_CLOCK_PROCESS_CPUTIME_ID :TIME_BASED_CLOCK_REALTIME :TIS_620 :TMPFILE :TMP_RUBY_PREFIX :TOPLEVEL_BINDING :TRUE :TRUNC :Thread :ThreadError :ThreadGroup :Time :Tms :TracePoint :TrueClass :TypeError :UCS_2BE :UCS_4BE :UCS_4LE :UID :UNDEF_HEX_CHARREF :UNDEF_MASK :UNDEF_REPLACE :UNIVERSAL_NEWLINE_DECORATOR :US_ASCII :UTF8_DOCOMO :UTF8_DoCoMo :UTF8_KDDI :UTF8_MAC :UTF8_SOFTBANK :UTF8_SoftBank :UTF_16 :UTF_16BE :UTF_16LE :UTF_32 :UTF_32BE :UTF_32LE :UTF_7 :UTF_8 :UTF_8_HFS :UTF_8_MAC :UnboundMethod :UncaughtThrowError :UndefinedConversionError :UnicodeNormalize :WINDOWS_1250 :WINDOWS_1251 :WINDOWS_1252 :WINDOWS_1253 :WINDOWS_1254 :WINDOWS_1255 :WINDOWS_1256 :WINDOWS_1257 :WINDOWS_1258 :WINDOWS_31J :WINDOWS_874 :WNOHANG :WRONLY :WUNTRACED :WaitReadable :WaitWritable :Waiter :Warning :WeakMap :Windows_1250 :Windows_1251 :Windows_1252 :Windows_1253 :Windows_1254 :Windows_1255 :Windows_1256 :Windows_1257 :Windows_1258 :Windows_31J :Windows_874 :XML_ATTR_CONTENT_DECORATOR :XML_ATTR_QUOTE_DECORATOR :XML_TEXT_DECORATOR :Yielder :ZeroDivisionError :"[" :[] :[]= :"\\" :"]" :^ :_ :__attached__ :__autoload__ :__callee__ :__classid__ :__classpath__ :__dir__ :__id__ :__keyword_init__ :__members__ :__members_back__ :__method__ :__read_nonblock :__recursive_key__ :__refined_class__ :__send__ :__tmp_classpath__ :__write_nonblock :_alloc :_dump :_dump_data :_id2ref :_load :_load_data :: :abort :abort_on_exception :abort_on_exception= :abs :abs2 :absolute_path :acos :acosh :add :add_trace_func :advise :after_output :alias_method :aliases :alive? :all? :all_symbols :allbits? :allocate :ancestors :and :angle :any? :anybits? :append :append_features :arg :args :arguments :argv :argv0 :arity :ascii :ascii_compatible? :ascii_only? :asciicompat_encoding :asctime :asin :asinh :assoc :at :at_exit :atan :atan2 :atanh :atime :attr :attr_accessor :attr_reader :attr_writer :autoclose :autoclose= :autoclose? :autoload :autoload? :b :backtrace :backtrace_locations :base_label :basename :begin :between? :bind :binding :binmode :binmode? :binread :binwrite :birthtime :bit_length :blksize :block :block_given? :blockdev? :blocks :bottom :broadcast :bsearch :bsearch_index :bt :bt_locations :buf :buffer :by :bytes :bytesize :byteslice :call :callee_id :caller :caller_locations :capitalize :capitalize! :captures :casecmp :casecmp? :casefold? :catch :cause :cbrt :ceil :center :change_privilege :chardev? :chars :chdir :child :children :chmod :chomp :chomp! :chop :chop! :chown :chr :chroot :chunk :chunk_while :clamp :class :class_eval :class_exec :class_variable_defined? :class_variable_get :class_variable_set :class_variables :clear :clock_getres :clock_gettime :clone :close :close_on_exec= :close_on_exec? :close_others :close_read :close_write :closed? :codepoints :coerce :collect :collect! :collect_concat :combination :compact :compact! :compare_by_identity :compare_by_identity? :compatible :compatible? :compile :compile_file :compile_option :compile_option= :concat :conj :conjugate :const_defined? :const_get :const_missing :const_set :constants :convert :convpath :copy_stream :"core#define_method" :"core#define_singleton_method" :"core#hash_from_ary" :"core#hash_merge_ary" :"core#hash_merge_kwd" :"core#hash_merge_ptr" :"core#set_method_alias" :"core#set_postexe" :"core#set_variable_alias" :"core#undef_method" :coredump? :cos :cosh :count :count_objects :cover? :coverage_enabled :cr :cr_newline :crlf :crlf_newline :crypt :cstime :cstime= :ctime :current :curry :cutime :cutime= :cycle :daemon :day :debug_frozen_string_literal :debug_level :default :default= :default_external :default_external= :default_internal :default_internal= :default_proc :default_proc= :define_finalizer :define_method :define_singleton_method :defined_class :delete :delete! :delete_at :delete_if :delete_prefix :delete_prefix! :delete_suffix :delete_suffix! :denominator :deprecate_constant :deq :destination_buffer_full :destination_encoding :destination_encoding_name :detach :detect :dev :dev_major :dev_minor :dig :digits :directory? :dirname :disable :disasm :disassemble :display :div :divmod :dontneed :downcase :downcase! :downto :drop :drop_while :dst? :dummy? :dump :dup :each :each_byte :each_char :each_child :each_codepoint :each_cons :each_entry :each_grapheme_cluster :each_index :each_key :each_line :each_object :each_pair :each_slice :each_value :each_with_index :each_with_object :egid :egid= :eid :eid= :empty? :enable :enabled? :enclose :enclosed? :encode :encode! :encoding :end :end_with? :enq :entries :enum_for :eof :eof? :eql? :equal? :erf :erfc :err :errno :error_bytes :error_char :escape :euid :euid= :eval :even? :event :exception :excl :exclude_end? :exclusive :exec :executable? :executable_real? :exist? :exists? :exit :exit! :exit_value :exited? :exitstatus :exp :expand_path :extend :extend_object :extended :external_encoding :extname :fail :fallback :fatal :fcntl :fdatasync :fdiv :feed :fetch :fetch_values :fiber_machine_stack_size :fiber_vm_stack_size :file :file? :filename :fileno :fill :finalize :find :find_all :find_index :finish :finished :finite? :first :first_lineno :fixed_encoding? :flags :flat_map :flatten :flatten! :float_microsecond :float_millisecond :float_second :flock :floor :flush :fnmatch :fnmatch? :fold :for_fd :force :force_encoding :foreach :fork :format :freeze :frexp :friday? :from_name :frozen? :frozen_string_literal :fsync :ftype :full_message :gamma :garbage_collect :gcd :gcdlcm :gem :getbyte :getc :getegid :geteuid :getgid :getgm :getlocal :getpgid :getpgrp :getpriority :getrlimit :gets :getsid :getuid :getutc :getwd :gid :gid= :glob :global_variables :gm :gmt? :gmt_offset :gmtime :gmtoff :grant_privilege :grapheme_clusters :grep :grep_v :group :group_by :groups :groups= :grpowned? :gsub :gsub! :handle_interrupt :has_key? :has_value? :hash :hertz :hex :home :hour :hypot :i :id2name :identical? :imag :imaginary :immediate :in :include :include? :included :included_modules :incomplete_input :incomplete_input? :index :infinite? :inherited :initgroups :initialize :initialize_clone :initialize_copy :initialize_dup :inject :inline_const_cache :ino :inplace_mode :inplace_mode= :insert :insert_output :inspect :instance_eval :instance_exec :instance_method :instance_methods :instance_of? :instance_variable_defined? :instance_variable_get :instance_variable_set :instance_variables :instructions_unification :integer? :intern :internal_encoding :invalid :invalid_byte_sequence :invert :ioctl :irb :is_a? :isatty :isdst :issetugid :iterator? :itself :join :keep_if :key :key? :keys :kill :kind_of? :label :lambda :lambda? :last :last_error :last_match :last_status :latest_gc_info :lazy :lchmod :lchown :lcm :ldexp :left :len :length :lf :lgamma :lineno :lineno= :lines :link :list :lithuanian :ljust :load :load_from_binary :load_from_binary_extra_data :load_iseq :local :local_variable_defined? :local_variable_get :local_variable_set :local_variables :locale_charmap :locals :localtime :lock :locked? :log :log10 :log2 :loop :lstat :lstrip :lstrip! :lutime :magnitude :main :map :map! :marshal_dump :marshal_load :match :match? :max :max= :max_by :maxgroups :maxgroups= :mday :member? :members :memo :merge :merge! :mesg :message :method :method_added :method_defined? :method_id :method_missing :method_removed :method_undefined :methods :microsecond :millisecond :min :min_by :minmax :minmax_by :mkdir :mkfifo :mktime :mode :module_eval :module_exec :module_function :modulo :mon :monday? :month :mtime :name :name= :name_list :named_captures :names :nan? :nano_den :nano_num :nanosecond :negative? :nesting :never :new :new_seed :newline :next :next! :next_float :next_values :nil? :nlink :nobits? :none? :nonzero? :noreuse :normal :normalize :normalized? :not :now :nsec :num_waiting :numerator :object_id :objs :oct :odd? :of :offset :on_blocking :one? :open :open_args :operands_unification :options :or :ord :original_name :out :owned? :owner :p :pack :parameters :partial_input :partition :pass :path :peek :peek_values :peephole_optimization :pending_interrupt? :perm :permutation :pgroup :phase :pid :pipe :pipe? :polar :pop :popen :pos :pos= :positive? :post_match :pow :pp :ppid :pre_match :pread :pred :prepend :prepend_features :prepended :prev_float :primitive_convert :primitive_errinfo :print :printf :priority :priority= :private :private_call? :private_class_method :private_constant :private_instance_methods :private_method_defined? :private_methods :proc :product :protected :protected_instance_methods :protected_method_defined? :protected_methods :public :public_class_method :public_constant :public_instance_method :public_instance_methods :public_method :public_method_defined? :public_methods :public_send :push :putback :putc :puts :pwd :pwrite :quo :quote :raise :raised_exception :rand :random :random_number :rassoc :rationalize :raw_data :rdev :rdev_major :rdev_minor :re_exchange :re_exchangeable? :read :read_nonblock :readable? :readable_real? :readagain_bytes :readbyte :readchar :readline :readlines :readlink :readpartial :real :real? :realdirpath :realpath :reason :receiver :rect :rectangular :reduce :refine :regexp :rehash :reject :reject! :remainder :remove_class_variable :remove_const :remove_instance_variable :remove_method :rename :reopen :repeated_combination :repeated_permutation :replace :replacement :replacement= :replicate :report :report_on_exception :report_on_exception= :require :require_relative :resolving :respond_to? :respond_to_missing? :restore :result :resume :return_value :reverse :reverse! :reverse_each :rewind :rid :rindex :rjust :rmdir :rotate :rotate! :round :rpartition :rstrip :rstrip! :run :s :safe_level :sample :saturday? :scan :scrub :scrub! :search_convpath :sec :second :seed :seek :select :select! :self :send :sequential :set_backtrace :set_encoding :set_trace_func :setbyte :setegid :seteuid :setgid :setgid? :setpgid :setpgrp :setpriority :setproctitle :setregid :setresgid :setresuid :setreuid :setrgid :setrlimit :setruid :setsid :setuid :setuid? :shift :shuffle :shuffle! :sid_available? :signal :signaled? :signame :signm :signo :sin :singleton_class :singleton_class? :singleton_method :singleton_method_added :singleton_method_removed :singleton_method_undefined :singleton_methods :sinh :size :size? :skip :sleep :slice :slice! :slice_after :slice_before :slice_when :socket? :sort :sort! :sort_by :sort_by! :source :source_buffer_empty :source_encoding :source_encoding_name :source_location :spawn :specialized_instruction :split :sprintf :sqrt :squeeze :squeeze! :srand :stack_caching :start :start_with? :stat :state :status :step :sticky? :stime :stime= :stop :stop? :stopped? :stopsig :store :stress :stress= :strftime :string :strip :strip! :sub :sub! :submicro :subsec :succ :succ! :success? :sum :sunday? :super_method :superclass :swapcase :swapcase! :switch :symlink :symlink? :sync :sync= :synchronize :syscall :sysopen :sysread :sysseek :system :syswrite :tag :tailcall_optimization :taint :tainted? :take :take_while :tan :tanh :tap :tell :terminate :termsig :test :text :textmode :thread_machine_stack_size :thread_variable? :thread_variable_get :thread_variable_set :thread_variables :thread_vm_stack_size :throw :thursday? :times :to :to_a :to_ary :to_binary :to_c :to_enum :to_f :to_h :to_hash :to_i :to_int :to_io :to_path :to_proc :to_r :to_s :to_str :to_sym :to_tty? :to_write_io :top :total_time :tr :tr! :tr_s :tr_s! :trace :trace_points :trace_var :transform_keys :transform_keys! :transform_values :transform_values! :translate :transpose :trap :truncate :trust :try_convert :try_lock :tty? :tuesday? :turkic :tv_nsec :tv_sec :tv_usec :uid :uid= :umask :unbind :undef :undef_method :undefine_finalizer :undefined_conversion :undump :ungetbyte :ungetc :unicode_normalize :unicode_normalize! :unicode_normalized? :union :uniq :uniq! :universal :universal_newline :unlink :unlock :unpack :unpack1 :unsetenv_others :unshift :untaint :untrace_var :untrust :untrusted? :upcase :upcase! :update :upto :urandom :usec :used_modules :using :utc :utc? :utc_offset :utime :utime= :valid_encoding? :value :value? :values :values_at :verify_internal_consistency :wait :wait2 :wait_readable :wait_writable :waitall :waitpid :waitpid2 :wakeup :warn :wday :wednesday? :willneed :with_index :with_object :world_readable? :world_writable? :writable? :writable_real? :write :write_nonblock :xml :yday :year :yield :yield_self :zero? :zip :zone :"{" :| :"||" :"}" :~
+&lt;pre&gt;&lt;code&gt;:"" :! :!= :!~ :"\"" :"#" :"$" :$! :$" :$$ :$&amp;amp; :$ :$* :$+ :$, :$-0 :$-F :$-I :$-K :$-W :$-a :$-d :$-i :$-l :$-p :$-v :$-w :$. :$/ :$0 :$: :$; :$&amp;lt; :$= :$&amp;gt; :$? :$@ :$DEBUG :$FILENAME :$KCODE :$LOADED_FEATURES :$LOAD_PATH :$PROGRAM_NAME :$SAFE :$VERBOSE :$\ :$_ :$:$ :$stderr :$stdin :$stdout :$~ :% :&amp;amp; :"&amp;amp;&amp;amp;" :"&amp;amp;." :""" :"(" :")" :* :** :+ :+@ :"," :- :-@ :"." :".." :"..." :/ :":" :"::" :";" :&amp;lt; :&amp;lt;&amp;lt; :&amp;lt;= :&amp;lt;=&amp;gt; :"&amp;lt;CFUNC&amp;gt;" :"&amp;lt;IFUNC&amp;gt;" :"=" :== :=== :=~ :&amp;gt; :&amp;gt;= :&amp;gt;&amp;gt; :"?" :"@" :@denominator :@gem_prelude_index :@image :@numerator :@path :@real :AFTER_OUTPUT :ALT_SEPARATOR :ANSI_X3_4_1968 :APPEND :ARGF :ARGV :ASCII :ASCII_8BIT :AbstractSyntaxTree :ArgumentError :ArithmeticSequence :Array :BIG5 :BIG5_HKSCS :BIG5_HKSCS_2008 :BIG5_UAO :BINARY :Backtrace :BasicObject :Big5 :Big5_HKSCS :Big5_HKSCS_2008 :Big5_UAO :Bignum :Binding :CESU_8 :CLOCK_BASED_CLOCK_PROCESS_CPUTIME_ID :CLOCK_BOOTTIME :CLOCK_BOOTTIME_ALARM :CLOCK_MONOTONIC :CLOCK_MONOTONIC_COARSE :CLOCK_MONOTONIC_RAW :CLOCK_PROCESS_CPUTIME_ID :CLOCK_REALTIME :CLOCK_REALTIME_ALARM :CLOCK_REALTIME_COARSE :CLOCK_TAI :CLOCK_THREAD_CPUTIME_ID :CP1250 :CP1251 :CP1252 :CP1253 :CP1254 :CP1255 :CP1256 :CP1257 :CP1258 :CP437 :CP50220 :CP50221 :CP51932 :CP65000 :CP65001 :CP737 :CP775 :CP850 :CP852 :CP855 :CP857 :CP860 :CP861 :CP862 :CP863 :CP864 :CP865 :CP866 :CP869 :CP874 :CP878 :CP932 :CP936 :CP949 :CP950 :CP951 :CREAT :CRLF_NEWLINE_DECORATOR :CR_NEWLINE_DECORATOR :CSWINDOWS31J :CUR :Chain :Class :ClosedQueueError :Comparable :CompatibilityError :Complex :ConditionVariable :Constants :Converter :ConverterNotFoundError :CsWindows31J :DATA :DEFAULT :DEFAULT_PARAMS :DIG :DIRECT :DSYNC :Data :Default :DidYouMean :Dir :DomainError :E :E2BIG :EACCES :EADDRINUSE :EADDRNOTAVAIL :EADV :EAFNOSUPPORT :EAGAIN :EAGAINWaitReadable :EAGAINWaitWritable :EALREADY :EAUTH :EBADARCH :EBADE :EBADEXEC :EBADF :EBADFD :EBADMACHO :EBADMSG :EBADR :EBADRPC :EBADRQC :EBADSLT :EBCDIC_CP_US :EBFONT :EBUSY :ECANCELED :ECAPMODE :ECHILD :ECHRNG :ECOMM :ECONNABORTED :ECONNREFUSED :ECONNRESET :EDEADLK :EDEADLOCK :EDESTADDRREQ :EDEVERR :EDOM :EDOOFUS :EDOTDOT :EDQUOT :EEXIST :EFAULT :EFBIG :EFTYPE :EHOSTDOWN :EHOSTUNREACH :EHWPOISON :EIDRM :EILSEQ :EINPROGRESS :EINPROGRESSWaitReadable :EINPROGRESSWaitWritable :EINTR :EINVAL :EIO :EIPSEC :EISCONN :EISDIR :EISNAM :EKEYEXPIRED :EKEYREJECTED :EKEYREVOKED :EL2HLT :EL2NSYNC :EL3HLT :EL3RST :ELAST :ELIBACC :ELIBBAD :ELIBEXEC :ELIBMAX :ELIBSCN :ELNRNG :ELOOP :EMACS_MULE :EMEDIUMTYPE :EMFILE :EMLINK :EMSGSIZE :EMULTIHOP :ENAMETOOLONG :ENAVAIL :END :ENEEDAUTH :ENETDOWN :ENETRESET :ENETUNREACH :ENFILE :ENOANO :ENOATTR :ENOBUFS :ENOCSI :ENODATA :ENODEV :ENOENT :ENOEXEC :ENOKEY :ENOLCK :ENOLINK :ENOMEDIUM :ENOMEM :ENOMSG :ENONET :ENOPKG :ENOPOLICY :ENOPROTOOPT :ENOSPC :ENOSR :ENOSTR :ENOSYS :ENOTBLK :ENOTCAPABLE :ENOTCONN :ENOTDIR :ENOTEMPTY :ENOTNAM :ENOTRECOVERABLE :ENOTSOCK :ENOTSUP :ENOTTY :ENOTUNIQ :ENV :ENXIO :EOFError :EOPNOTSUPP :EOVERFLOW :EOWNERDEAD :EPERM :EPFNOSUPPORT :EPIPE :EPROCLIM :EPROCUNAVAIL :EPROGMISMATCH :EPROGUNAVAIL :EPROTO :EPROTONOSUPPORT :EPROTOTYPE :EPSILON :EPWROFF :EQFULL :ERANGE :EREMCHG :EREMOTE :EREMOTEIO :ERESTART :ERFKILL :EROFS :ERPCMISMATCH :ESHLIBVERS :ESHUTDOWN :ESOCKTNOSUPPORT :ESPIPE :ESRCH :ESRMNT :ESTALE :ESTRPIPE :ETIME :ETIMEDOUT :ETOOMANYREFS :ETXTBSY :EUCCN :EUCJP :EUCJP_MS :EUCKR :EUCLEAN :EUCTW :EUC_CN :EUC_JISX0213 :EUC_JIS_2004 :EUC_JP :EUC_JP_MS :EUC_KR :EUC_TW :EUNATCH :EUSERS :EWOULDBLOCK :EWOULDBLOCKWaitReadable :EWOULDBLOCKWaitWritable :EXCL :EXDEV :EXFULL :EXTENDED :Emacs_Mule :Encoding :EncodingError :Enumerable :Enumerator :Errno :EucCN :EucJP :EucJP_ms :EucKR :EucTW :Exception :FALSE :FIXEDENCODING :FNM_CASEFOLD :FNM_DOTMATCH :FNM_EXTGLOB :FNM_NOESCAPE :FNM_PATHNAME :FNM_SHORTNAME :FNM_SYSCASE :FalseClass :Fiber :FiberError :File :FileTest :Fixnum :Float :FloatDomainError :Formatter :FrozenError :GB12345 :GB18030 :GB1988 :GB2312 :GBK :GC :GETRUSAGE_BASED_CLOCK_PROCESS_CPUTIME_ID :GETTIMEOFDAY_BASED_CLOCK_REALTIME :GID :Gem :Generator :HEAP_PAGE_BITMAP_PLANES :HEAP_PAGE_BITMAP_SIZE :HEAP_PAGE_OBJ_LIMIT :HOLE :Hash :I :IBM037 :IBM437 :IBM737 :IBM775 :IBM850 :IBM852 :IBM855 :IBM857 :IBM860 :IBM861 :IBM862 :IBM863 :IBM864 :IBM865 :IBM866 :IBM869 :IGNORECASE :INFINITY :INSTRUCTION_NAMES :INTERNAL_CONSTANTS :INVALID_MASK :INVALID_REPLACE :IO :IOError :ISO2022_JP :ISO2022_JP2 :ISO8859_1 :ISO8859_10 :ISO8859_11 :ISO8859_13 :ISO8859_14 :ISO8859_15 :ISO8859_16 :ISO8859_2 :ISO8859_3 :ISO8859_4 :ISO8859_5 :ISO8859_6 :ISO8859_7 :ISO8859_8 :ISO8859_9 :ISO_2022_JP :ISO_2022_JP_2 :ISO_2022_JP_KDDI :ISO_8859_1 :ISO_8859_10 :ISO_8859_11 :ISO_8859_13 :ISO_8859_14 :ISO_8859_15 :ISO_8859_16 :ISO_8859_2 :ISO_8859_3 :ISO_8859_4 :ISO_8859_5 :ISO_8859_6 :ISO_8859_7 :ISO_8859_8 :ISO_8859_9 :IndexError :InstructionSequence :Integer :Interrupt :InvalidByteSequenceError :KOI8_R :KOI8_U :Kernel :KeyError :LOCK_EX :LOCK_NB :LOCK_SH :LOCK_UN :Lazy :LoadError :LocalJumpError :Location :MACCENTEURO :MACCROATIAN :MACCYRILLIC :MACGREEK :MACICELAND :MACJAPAN :MACJAPANESE :MACROMAN :MACROMANIA :MACTHAI :MACTURKISH :MACUKRAINE :MAJOR_VERSION :MANT_DIG :MAX :MAX_10_EXP :MAX_EXP :MIN :MINOR_VERSION :MIN_10_EXP :MIN_EXP :MJIT :MULTILINE :MacCentEuro :MacCroatian :MacCyrillic :MacGreek :MacIceland :MacJapan :MacJapanese :MacRoman :MacRomania :MacThai :MacTurkish :MacUkraine :Marshal :MatchData :Math :Method :Module :Mutex :NAN :NIL :NOATIME :NOCTTY :NOENCODING :NOERROR :NOFOLLOW :NONBLOCK :NULL :NameError :NilClass :NoMatchingPatternError :NoMemoryError :NoMethodError :Node :NotImplementedError :Numeric :OPTS :Object :ObjectSpace :PARTIAL_INPUT :PATH_SEPARATOR :PCK :PI :PRIO_PGRP :PRIO_PROCESS :PRIO_USER :Proc :Process :Producer :Profiler :Queue :RADIX :RDONLY :RDWR :RLIMIT_AS :RLIMIT_CORE :RLIMIT_CPU :RLIMIT_DATA :RLIMIT_FSIZE :RLIMIT_MEMLOCK :RLIMIT_MSGQUEUE :RLIMIT_NICE :RLIMIT_NOFILE :RLIMIT_NPROC :RLIMIT_RSS :RLIMIT_RTPRIO :RLIMIT_RTTIME :RLIMIT_SIGPENDING :RLIMIT_STACK :RLIM_INFINITY :RLIM_SAVED_CUR :RLIM_SAVED_MAX :ROUNDS :RSYNC :RUBY_COPYRIGHT :RUBY_DESCRIPTION :RUBY_ENGINE :RUBY_ENGINE_VERSION :RUBY_PATCHLEVEL :RUBY_PLATFORM :RUBY_RELEASE_DATE :RUBY_REVISION :RUBY_VERSION :RVALUE_SIZE :Random :Range :RangeError :Rational :Regexp :RegexpError :RubyVM :RuntimeError :SCRIPT_LINES__ :SEEK_CUR :SEEK_DATA :SEEK_END :SEEK_HOLE :SEEK_SET :SEPARATOR :SET :SHARE_DELETE :SHIFT_JIS :SJIS :SJIS_DOCOMO :SJIS_DoCoMo :SJIS_KDDI :SJIS_SOFTBANK :SJIS_SoftBank :STATELESS_ISO_2022_JP :STATELESS_ISO_2022_JP_KDDI :STDERR :STDIN :STDOUT :SYNC :ScriptError :SecurityError :Separator :Shift_JIS :Signal :SignalException :SizedQueue :StandardError :Stat :Stateless_ISO_2022_JP :Stateless_ISO_2022_JP_KDDI :Status :StopIteration :String :Struct :Symbol :SyntaxError :Sys :SystemCallError :SystemExit :SystemStackError :TIMES_BASED_CLOCK_MONOTONIC :TIMES_BASED_CLOCK_PROCESS_CPUTIME_ID :TIME_BASED_CLOCK_REALTIME :TIS_620 :TMPFILE :TMP_RUBY_PREFIX :TOPLEVEL_BINDING :TRUE :TRUNC :Thread :ThreadError :ThreadGroup :Time :Tms :TracePoint :TrueClass :TypeError :UCS_2BE :UCS_4BE :UCS_4LE :UID :UNDEF_HEX_CHARREF :UNDEF_MASK :UNDEF_REPLACE :UNIVERSAL_NEWLINE_DECORATOR :US_ASCII :UTF8_DOCOMO :UTF8_DoCoMo :UTF8_KDDI :UTF8_MAC :UTF8_SOFTBANK :UTF8_SoftBank :UTF_16 :UTF_16BE :UTF_16LE :UTF_32 :UTF_32BE :UTF_32LE :UTF_7 :UTF_8 :UTF_8_HFS :UTF_8_MAC :UnboundMethod :UncaughtThrowError :UndefinedConversionError :UnicodeNormalize :WINDOWS_1250 :WINDOWS_1251 :WINDOWS_1252 :WINDOWS_1253 :WINDOWS_1254 :WINDOWS_1255 :WINDOWS_1256 :WINDOWS_1257 :WINDOWS_1258 :WINDOWS_31J :WINDOWS_874 :WNOHANG :WRONLY :WUNTRACED :WaitReadable :WaitWritable :Waiter :Warning :WeakMap :Windows_1250 :Windows_1251 :Windows_1252 :Windows_1253 :Windows_1254 :Windows_1255 :Windows_1256 :Windows_1257 :Windows_1258 :Windows_31J :Windows_874 :XML_ATTR_CONTENT_DECORATOR :XML_ATTR_QUOTE_DECORATOR :XML_TEXT_DECORATOR :Yielder :ZeroDivisionError :"[" :[] :[]= :"\\" :"]" :^ :_ :_1 :_2 :_3 :_4 :_5 :_6 :_7 :_8 :_9 :__attached__ :__autoload__ :__callee__ :__classpath__ :__dir__ :__id__ :__keyword_init__ :__members__ :__members_back__ :__method__ :__recursive_key__ :__refined_class__ :__send__ :__tmp_classpath__ :_alloc :_dump :_dump_data :_enumerable_collect :_enumerable_collect_concat :_enumerable_drop :_enumerable_drop_while :_enumerable_filter :_enumerable_filter_map :_enumerable_find_all :_enumerable_flat_map :_enumerable_grep :_enumerable_grep_v :_enumerable_map :_enumerable_reject :_enumerable_select :_enumerable_take :_enumerable_take_while :_enumerable_uniq :_enumerable_with_index :_enumerable_zip :_id2ref :_load :_load_data :: :abort :abort_on_exception :abort_on_exception= :abs :abs2 :absolute_path :absolute_path? :acos :acosh :add :add_trace_func :advise :after_output :alias_method :aliases :alive? :all? :all_symbols :allbits? :allocate :ancestors :and :angle :any? :anybits? :append :append_features :arg :args :arguments :argv :argv0 :arity :ascii :ascii_compatible? :ascii_only? :asciicompat_encoding :asctime :asin :asinh :assoc :at :at_exit :atan :atan2 :atanh :atime :attr :attr_accessor :attr_reader :attr_writer :autoclose :autoclose= :autoclose? :autoload :autoload? :b :backtrace :backtrace_locations :base_label :basename :begin :between? :bind :bind_call :binding :binmode :binmode? :binread :binwrite :birthtime :bit_length :blksize :block :block_given? :blockdev? :blocks :body :bottom :broadcast :bsearch :bsearch_index :bt :bt_locations :buf :buffer :by :bytes :bytesize :byteslice :call :callee_id :caller :caller_locations :capitalize :capitalize! :captures :casecmp :casecmp? :casefold? :catch :cause :cbrt :ceil :center :chain :change_privilege :chardev? :chars :chdir :child :children :chmod :chomp :chomp! :chop :chop! :chown :chr :chroot :chunk :chunk_while :clamp :class :class_eval :class_exec :class_variable_defined? :class_variable_get :class_variable_set :class_variables :clear :clock_getres :clock_gettime :clone :close :close_on_exec= :close_on_exec? :close_others :close_read :close_write :closed? :codepoints :coerce :collect :collect! :collect_concat :combination :compact :compact! :compare_by_identity :compare_by_identity? :compatible :compatible? :compile :compile_file :compile_option :compile_option= :concat :conj :conjugate :const_defined? :const_get :const_missing :const_set :const_source_location :constants :convert :convpath :copy_stream :"core#define_method" :"core#define_singleton_method" :"core#hash_merge_kwd" :"core#hash_merge_ptr" :"core#raise" :"core#set_method_alias" :"core#set_postexe" :"core#set_variable_alias" :"core#undef_method" :coredump? :cos :cosh :count :count_objects :cover? :coverage_enabled :cr :cr_newline :crlf :crlf_newline :crypt :cstime :cstime= :ctime :current :curry :cutime :cutime= :cycle :daemon :day :debug_frozen_string_literal :debug_level :deconstruct :deconstruct_keys :default :default= :default_external :default_external= :default_internal :default_internal= :default_proc :default_proc= :define_finalizer :define_method :define_singleton_method :defined_class :delete :delete! :delete_at :delete_if :delete_prefix :delete_prefix! :delete_suffix :delete_suffix! :denominator :deprecate_constant :deq :destination_buffer_full :destination_encoding :destination_encoding_name :detach :detect :dev :dev_major :dev_minor :difference :dig :digits :directory? :dirname :disable :disasm :disassemble :display :div :divmod :dontneed :downcase :downcase! :downto :drop :drop_while :dst? :dummy? :dump :dup :each :each_byte :each_char :each_child :each_codepoint :each_cons :each_entry :each_grapheme_cluster :each_index :each_key :each_line :each_object :each_pair :each_slice :each_value :each_with_index :each_with_object :eager :egid :egid= :eid :eid= :empty? :enable :enabled? :enclose :enclosed? :encode :encode! :encoding :end :end_with? :enq :entries :enum_for :eof :eof? :eql? :equal? :erf :erfc :err :errno :error_bytes :error_char :escape :euid :euid= :eval :eval_script :even? :event :events :exception :excl :exclude_end :exclude_end? :exclusive :exec :executable? :executable_real? :exist? :exists? :exit :exit! :exit_value :exited? :exitstatus :exp :expand_path :extend :extend_object :extended :external_encoding :extname :fail :fallback :fatal :fcntl :fdatasync :fdiv :feed :fetch :fetch_values :fiber_machine_stack_size :fiber_vm_stack_size :file :file? :filename :fileno :fill :filter :filter! :filter_map :find :find_all :find_index :find_timezone :finish :finished :finite? :first :first_column :first_lineno :fixed_encoding? :flag :flags :flat_map :flatten :flatten! :float_microsecond :float_millisecond :float_second :flock :floor :flush :fmt :fnmatch :fnmatch? :fold :for_fd :force :force_encoding :foreach :fork :format :freeze :frexp :friday? :from_name :from_time :frozen? :frozen_string_literal :fsync :ftype :full_mark :full_message :gamma :garbage_collect :gcd :gcdlcm :getbyte :getc :getegid :geteuid :getgid :getgm :getlocal :getpgid :getpgrp :getpriority :getrlimit :gets :getsid :getuid :getutc :getwd :gid :gid= :glob :global_variables :gm :gmt? :gmt_offset :gmtime :gmtoff :grant_privilege :grapheme_clusters :grep :grep_v :group :group_by :groups :groups= :grpowned? :gsub :gsub! :handle_interrupt :has_key? :has_value? :hash :hash_or_key :hertz :hex :home :hour :hypot :i :id2name :identical? :imag :imaginary :immediate :immediate_mark :immediate_sweep :in :include :include? :included :included_modules :incomplete_input :incomplete_input? :index :infinite? :inherited :initgroups :initialize :initialize_clone :initialize_copy :initialize_dup :inject :inline_const_cache :ino :inplace_mode :inplace_mode= :insert :insert_output :inspect :instance_eval :instance_exec :instance_method :instance_methods :instance_of? :instance_variable_defined? :instance_variable_get :instance_variable_set :instance_variables :instruction_sequence :instructions_unification :integer? :intern :internal_encoding :intersection :invalid :invalid_byte_sequence :invert :ioctl :irb :is_a? :isatty :isdst :issetugid :iterator? :itself :join :keep_if :key :key? :keys :kill :kind_of? :label :lambda :lambda? :last :last_column :last_error :last_lineno :last_match :last_status :latest_gc_info :lazy :lchmod :lchown :lcm :ldexp :left :len :length :lf :lgamma :lineno :lineno= :lines :link :list :lithuanian :ljust :load :load_from_binary :load_from_binary_extra_data :load_iseq :local :local_to_utc :local_variable_defined? :local_variable_get :local_variable_set :local_variables :locale_charmap :locals :localtime :lock :locked? :log :log10 :log2 :loop :lstat :lstrip :lstrip! :lutime :magnitude :main :map :map! :marshal_dump :marshal_load :match :match? :max :max= :max_by :maxgroups :maxgroups= :mday :member? :members :memo :merge :merge! :mesg :message :method :method_added :method_defined? :method_id :method_missing :method_removed :method_undefined :methods :microsecond :millisecond :min :min_by :minmax :minmax_by :mkdir :mkfifo :mktime :mode :module_eval :module_exec :module_function :modulo :mon :monday? :month :msgs :mtime :mutex :name :name= :name_list :named_captures :names :nan? :nano_den :nano_num :nanosecond :negative? :nesting :never :new :new_seed :newline :next :next! :next_float :next_values :nil :nil? :nlink :nobits? :none? :nonzero? :noreuse :normal :normalize :normalized? :not :now :nsec :num_waiting :numerator :object_id :objs :oct :odd? :of :offset :on_blocking :one? :open :open_args :operands_unification :options :or :ord :original_name :out :owned? :owner :p :pack :parameters :parse :parse_file :partial_input :partition :pass :path :pathname :pause :peek :peek_values :peephole_optimization :pending_interrupt? :perm :permutation :pgroup :phase :pid :pipe :pipe? :polar :pop :popen :pos :pos= :positive? :post_match :pow :pp :ppid :pre_match :pread :pred :prepend :prepend_features :prepended :prev_float :primitive_convert :primitive_errinfo :print :printf :priority :priority= :private :private_call? :private_class_method :private_constant :private_instance_methods :private_method_defined? :private_methods :proc :produce :product :protected :protected_instance_methods :protected_method_defined? :protected_methods :public :public_class_method :public_constant :public_instance_method :public_instance_methods :public_method :public_method_defined? :public_methods :public_send :push :putback :putc :puts :pwd :pwrite :quo :quote :raise :raised_exception :rand :random :random_number :rassoc :rationalize :raw_data :rdev :rdev_major :rdev_minor :re_exchange :re_exchangeable? :read :read_nonblock :readable? :readable_real? :readagain_bytes :readbyte :readchar :readline :readlines :readlink :readpartial :real :real? :realdirpath :realpath :reason :receiver :rect :rectangular :reduce :refine :regexp :rehash :reject :reject! :remainder :remove_class_variable :remove_const :remove_instance_variable :remove_method :rename :reopen :repeated_combination :repeated_permutation :replace :replacement :replacement= :replicate :report :report_on_exception :report_on_exception= :require :require_relative :resolve_feature_path :respond_to? :respond_to_missing? :restore :result :resume :return_value :reverse :reverse! :reverse_each :rewind :rid :rindex :rjust :rmdir :rotate :rotate! :round :rpartition :rstrip :rstrip! :ruby2_keywords :run :s :safe_level :sample :saturday? :scan :scrub :scrub! :search_convpath :sec :second :seed :seek :select :select! :self :send :sequential :set_backtrace :set_encoding :set_encoding_by_bom :set_trace_func :setbyte :setegid :seteuid :setgid :setgid? :setpgid :setpgrp :setpriority :setproctitle :setregid :setresgid :setresuid :setreuid :setrgid :setrlimit :setruid :setsid :setuid :setuid? :shift :shuffle :shuffle! :sid_available? :signal :signaled? :signame :signm :signo :sin :singleton_class :singleton_class? :singleton_method :singleton_method_added :singleton_method_removed :singleton_method_undefined :singleton_methods :singletonclass :sinh :size :size? :skip :sleep :slice :slice! :slice_after :slice_before :slice_when :socket? :sort :sort! :sort_by :sort_by! :source :source_buffer_empty :source_encoding :source_encoding_name :source_location :spawn :specialized_instruction :split :sprintf :sqrt :squeeze :squeeze! :srand :stack_caching :start :start_with? :stat :state :status :step :sticky? :stime :stime= :stop :stop? :stopped? :stopsig :store :stress :stress= :strftime :string :strip :strip! :sub :sub! :submicro :subsec :succ :succ! :success? :sum :sunday? :super_method :superclass :swapcase :swapcase! :switch :symlink :symlink? :sync :sync= :synchronize :syscall :sysopen :sysread :sysseek :system :syswrite :tag :tailcall_optimization :taint :tainted? :take :take_while :tally :tan :tanh :tap :target :target_line :target_thread :tell :terminate :termsig :test :text :textmode :then :thread_machine_stack_size :thread_variable? :thread_variable_get :thread_variable_set :thread_variables :thread_vm_stack_size :throw :thursday? :times :tm :to :to_a :to_ary :to_binary :to_c :to_enum :to_f :to_h :to_hash :to_i :to_int :to_io :to_path :to_proc :to_r :to_s :to_str :to_sym :to_time :to_tty? :to_write_io :top :total_time :tr :tr! :tr_s :tr_s! :trace :trace_points :trace_var :transform_keys :transform_keys! :transform_values :transform_values! :translate :transpose :trap :truncate :trust :try_convert :try_lock :tty? :tuesday? :turkic :tv_nsec :tv_sec :tv_usec :type :uid :uid= :umask :unbind :undef :undef_method :undefine_finalizer :undefined_conversion :undump :ungetbyte :ungetc :unicode_normalize :unicode_normalize! :unicode_normalized? :union :uniq :uniq! :universal :universal_newline :unlink :unlock :unpack :unpack1 :unsetenv_others :unshift :untaint :untrace_var :untrust :untrusted? :upcase :upcase! :update :uplevel :upto :urandom :usec :used_modules :using :utc :utc? :utc_offset :utc_to_local :utime :utime= :valid_encoding? :value :value? :values :values_at :verify_compaction_references :verify_internal_consistency :verify_transient_heap_internal_consistency :wait :wait2 :wait_readable :wait_writable :waitall :waitpid :waitpid2 :wakeup :warn :wday :wednesday? :willneed :with_index :with_object :world_readable? :world_writable? :writable? :writable_real? :write :write_nonblock :xml :yday :year :yield :yield_self :zero? :zip :zone :"{" :| :"||" :"}" :~
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id="initial-globalspecial-variables"&gt;Initial Global/Special Variables&lt;/h2&gt;
@@ -9065,7 +8928,7 @@ format "%.2f", 1
 $? #=&amp;gt; #&amp;lt;Process::Status: pid 5223 exit 0&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id="underscore-4-syntactical-meanings"&gt;Underscore (4 Syntactical Meanings)&lt;/h2&gt;
+&lt;h2 id="underscore-5-syntactical-meanings"&gt;Underscore (5 Syntactical Meanings)&lt;/h2&gt;
 
 &lt;p&gt;Underscores serve as a good example of having multiple uses: No purpose interferes with another.&lt;/p&gt;
 
@@ -9095,14 +8958,17 @@ method_name(42, 23)
 # -&amp;gt; 42
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id="ampersand-6-syntactical-meanings"&gt;Ampersand (6 Syntactical Meanings)&lt;/h2&gt;
+&lt;h3 id="numbered-parameter"&gt;2.7: Numbered Parameter&lt;/h3&gt;
 
-&lt;p&gt;Ruby 2.3 introduced the "safe navigation operator" which uses &lt;code&gt;&amp;amp;&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def method_name(param)
+  p _1
+end
 
-&lt;h3 id="safe-navigation-operator"&gt;&lt;code&gt;&amp;amp;.&lt;/code&gt; Safe Navigation Operator&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;nil&amp;amp;.blank? # =&amp;gt; nil
+method_name(42)
+# -&amp;gt; 42
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="ampersand-6-syntactical-meanings"&gt;Ampersand (6 Syntactical Meanings)&lt;/h2&gt;
 
 &lt;h3 id="methodoperator"&gt;&lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt; Method/Operator&lt;/h3&gt;
 
@@ -9146,6 +9012,11 @@ end
 
 &lt;pre&gt;&lt;code&gt;/sync/ =~ "Idiosyncratic"
 $&amp;amp; # =&amp;gt; "sync"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="safe-navigation-operator"&gt;2.3: &lt;code&gt;&amp;amp;.&lt;/code&gt; Safe Navigation Operator&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;nil&amp;amp;.blank? # =&amp;gt; nil
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id="star-7-syntactical-meanings"&gt;Star (7 Syntactical Meanings)&lt;/h2&gt;
@@ -10592,21 +10463,6 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
 # expecting tASSOC
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id="different-rules-for-modules-and-classes"&gt;Different Rules for Modules and Classes&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt; module Eurucamp end
-# =&amp;gt; nil
-
-&amp;gt;&amp;gt; class Eurucamp end
-# syntax error, unexpected $end
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; Since Ruby 2.3 this is no longer invalid syntax:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt; class Eurucamp end
-# =&amp;gt; nil
-&lt;/code&gt;&lt;/pre&gt;
-
 &lt;h2 id="ambiguous-if-to-parse--unary-or-as-part-of-binary-match-operator"&gt;Ambiguous if to Parse &lt;code&gt;~&lt;/code&gt; Unary or as Part of Binary Match Operator&lt;/h2&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt; $_="Eurucamp X"
@@ -10633,8 +10489,7 @@ hash2 = { c: 3, **hash1 } # =&amp;gt; { a: 1, b: 2, c: 3 }
 
 &lt;h2 id="unary-or-binary-plus-part-2"&gt;Unary or Binary Plus, Part 2&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt; p = 21
-&amp;gt;&amp;gt; p 21
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt; p +21
 # =&amp;gt; 21
 
 &amp;gt;&amp;gt; p = 21
@@ -10861,11 +10716,11 @@ end
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;&lt;strong&gt;Code Golf&lt;/strong&gt; is the art of writing the shortest program possible. The less bytes the better. And the competition is just ridiculously strong! Head over to &lt;a href="http://golf.shinh.org/"&gt;Anarchy Golf&lt;/a&gt; if you want to see more!&lt;/p&gt;
+    <content type="html">&lt;p&gt;&lt;strong&gt;Code Golf&lt;/strong&gt; is the art of writing the shortest program possible. The less bytes the better. And the competition is just ridiculously strong! Head over to &lt;a href="https://golf.shinh.org/"&gt;Anarchy Golf&lt;/a&gt; if you want to see more!&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
-&lt;p&gt;A good beginner's problem is printing out &lt;a href="http://golf.shinh.org/p.rb?pascal+triangle"&gt;Pascal's Triangle&lt;/a&gt;: Spend a few days to get to &lt;strong&gt;45&lt;/strong&gt; bytes. Spend a few &lt;em&gt;months&lt;/em&gt; to get to &lt;strong&gt;43&lt;/strong&gt; bytes!&lt;/p&gt;
+&lt;p&gt;A good beginner's problem is printing out &lt;a href="https://golf.shinh.org/p.rb?pascal+triangle"&gt;Pascal's Triangle&lt;/a&gt;: Spend a few days to get to &lt;strong&gt;45&lt;/strong&gt; bytes. Spend a few &lt;em&gt;months&lt;/em&gt; to get to &lt;strong&gt;43&lt;/strong&gt; bytes!&lt;/p&gt;
 
 &lt;h2 id="ruby-tricks-youll-learn-by-playing-code-golf"&gt;10 Ruby Tricks You'll Learn by Playing Code Golf&lt;/h2&gt;
 
@@ -11551,7 +11406,7 @@ Failed
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;Ruby has a built-in feature that is much like &lt;a href="http://coffeescript.org/#literate"&gt;Literate CoffeeScript&lt;/a&gt;. In contrast to it, this Ruby option will not ignore literature, but garbage:&lt;/p&gt;
+    <content type="html">&lt;p&gt;Ruby has a built-in feature that is much like &lt;a href="https://coffeescript.org/#literate"&gt;Literate CoffeeScript&lt;/a&gt;. In contrast to it, this Ruby option will not ignore literature, but garbage:&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 
@@ -12450,7 +12305,7 @@ puts a.map(&amp;amp;:inspect)
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;Ruby's &lt;a href="https://ruby-doc.org/core/Struct.html"&gt;Struct&lt;/a&gt; class is a convenient way to create Ruby classes, which already have some attributes defined. If you are not familiar with structs, you should watch &lt;a href="http://www.rubytapas.com/episodes/20-Struct"&gt;Avdi Grimm's introduction to structs&lt;/a&gt;!&lt;/p&gt;
+    <content type="html">&lt;p&gt;Ruby's &lt;a href="https://ruby-doc.org/core/Struct.html"&gt;Struct&lt;/a&gt; class is a convenient way to create Ruby classes, which already have some attributes defined. If you are not familiar with structs, you should watch &lt;a href="https://www.rubytapas.com/episodes/20-Struct"&gt;Avdi Grimm's introduction to structs&lt;/a&gt;!&lt;/p&gt;
 
 &lt;p&gt;But in many cases there is something better than structs:&lt;/p&gt;
 
@@ -12615,6 +12470,25 @@ end
 
 Person.new(name: "Jan", age: 26)
 # =&amp;gt; #&amp;lt;Person:0x00000002602988 @name="Jan", @age=26&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="dry-struct"&gt;dry-struct&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href="https://github.com/dry-rb/dry-struct"&gt;dry-struct&lt;/a&gt;: &lt;em&gt;dry-struct is a gem built on top of dry-types which provides virtus-like DSL for defining typed struct classes.&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;require "dry-struct"
+
+module Types
+  include Dry::Types()
+end
+
+class Person &amp;lt; Dry::Struct
+  attribute :name, Types::Strict::String.optional
+  attribute :age, Types::Coercible::Integer
+end
+
+Person.new(name: "Jan", age: 26)
+# =&amp;gt; #&amp;lt;Person name="Jan" age=26&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id="structs-are-still-useful-as-value-objects"&gt;Structs are Still Useful… as Value Objects&lt;/h2&gt;

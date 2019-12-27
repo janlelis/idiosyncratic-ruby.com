@@ -55,7 +55,7 @@
 $? #=&gt; #&lt;Process::Status: pid 5223 exit 0&gt;
 </code></pre>
 
-<h2 id="underscore-4-syntactical-meanings">Underscore (4 Syntactical Meanings)</h2>
+<h2 id="underscore-5-syntactical-meanings">Underscore (5 Syntactical Meanings)</h2>
 
 <p>Underscores serve as a good example of having multiple uses: No purpose interferes with another.</p>
 
@@ -85,14 +85,17 @@ method_name(42, 23)
 # -&gt; 42
 </code></pre>
 
-<h2 id="ampersand-6-syntactical-meanings">Ampersand (6 Syntactical Meanings)</h2>
+<h3 id="numbered-parameter">2.7: Numbered Parameter</h3>
 
-<p>Ruby 2.3 introduced the "safe navigation operator" which uses <code>&amp;</code>:</p>
+<pre><code>def method_name(param)
+  p _1
+end
 
-<h3 id="safe-navigation-operator"><code>&amp;.</code> Safe Navigation Operator</h3>
-
-<pre><code>nil&amp;.blank? # =&gt; nil
+method_name(42)
+# -&gt; 42
 </code></pre>
+
+<h2 id="ampersand-6-syntactical-meanings">Ampersand (6 Syntactical Meanings)</h2>
 
 <h3 id="methodoperator"><code>&amp;&amp;</code> Method/Operator</h3>
 
@@ -136,6 +139,11 @@ end
 
 <pre><code>/sync/ =~ "Idiosyncratic"
 $&amp; # =&gt; "sync"
+</code></pre>
+
+<h3 id="safe-navigation-operator">2.3: <code>&amp;.</code> Safe Navigation Operator</h3>
+
+<pre><code>nil&amp;.blank? # =&gt; nil
 </code></pre>
 
 <h2 id="star-7-syntactical-meanings">Star (7 Syntactical Meanings)</h2>
@@ -214,7 +222,7 @@ hash2 = { c: 3, **hash1 } # =&gt; { a: 1, b: 2, c: 3 }
           <a href="https://janlelis.com/data-protection.html">Data Protection</a>
         </div>
         About Core, Syntax<br>
-        Last Update: July 08, 2018
+        Last Update: December 14, 2019
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

@@ -24,7 +24,7 @@
       </section>
 
       <article class="post">
-        <p>Ruby's <a href="https://ruby-doc.org/core/Struct.html">Struct</a> class is a convenient way to create Ruby classes, which already have some attributes defined. If you are not familiar with structs, you should watch <a href="http://www.rubytapas.com/episodes/20-Struct">Avdi Grimm's introduction to structs</a>!</p>
+        <p>Ruby's <a href="https://ruby-doc.org/core/Struct.html">Struct</a> class is a convenient way to create Ruby classes, which already have some attributes defined. If you are not familiar with structs, you should watch <a href="https://www.rubytapas.com/episodes/20-Struct">Avdi Grimm's introduction to structs</a>!</p>
 
 <p>But in many cases there is something better than structs:</p>
 
@@ -191,6 +191,25 @@ Person.new(name: "Jan", age: 26)
 # =&gt; #&lt;Person:0x00000002602988 @name="Jan", @age=26&gt;
 </code></pre>
 
+<h3 id="dry-struct">dry-struct</h3>
+
+<p><a href="https://github.com/dry-rb/dry-struct">dry-struct</a>: <em>dry-struct is a gem built on top of dry-types which provides virtus-like DSL for defining typed struct classes.</em></p>
+
+<pre><code>require "dry-struct"
+
+module Types
+  include Dry::Types()
+end
+
+class Person &lt; Dry::Struct
+  attribute :name, Types::Strict::String.optional
+  attribute :age, Types::Coercible::Integer
+end
+
+Person.new(name: "Jan", age: 26)
+# =&gt; #&lt;Person name="Jan" age=26&gt;
+</code></pre>
+
 <h2 id="structs-are-still-useful-as-value-objects">Structs are Still Useful… as Value Objects</h2>
 
 <p>Structs are different from normal Ruby classes, but they are still very useful for creating <a href="https://en.wikipedia.org/wiki/Value_object">value objects</a>. Value objects should be immutable and the following gems assist you in creating read-only objects with a Struct-like API:</p>
@@ -311,7 +330,7 @@ end
           <a href="https://janlelis.com/data-protection.html">Data Protection</a>
         </div>
         About Core<br>
-        Last Update: July 09, 2018
+        Last Update: September 13, 2019
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
