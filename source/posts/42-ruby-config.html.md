@@ -18,7 +18,7 @@ The majority of its data can be found in a hash called `RbConfig::CONFIG` and yo
 Returns the absolute pathname of the `ruby` command, constructed from *bindir*, *ruby_install_name*, and *EXEEXT* (see table below):
 
     require "rbconfig"
-    RbConfig.ruby "/home/jan/.rvm/rubies/ruby-2.3.0/bin/ruby"
+    RbConfig.ruby #=> "/home/jan/.rvm/rubies/ruby-2.3.0/bin/ruby"
 
 ## `RbConfig.expand(val)`
 
