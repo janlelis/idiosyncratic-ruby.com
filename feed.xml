@@ -6689,7 +6689,7 @@ map{ |g| "`#{g.to_s.sub("`", "\\`")}`" }.join(", ")'
 &lt;p&gt;Returns the absolute pathname of the &lt;code&gt;ruby&lt;/code&gt; command, constructed from &lt;em&gt;bindir&lt;/em&gt;, &lt;em&gt;ruby_install_name&lt;/em&gt;, and &lt;em&gt;EXEEXT&lt;/em&gt; (see table below):&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;require "rbconfig"
-RbConfig.ruby "/home/jan/.rvm/rubies/ruby-2.3.0/bin/ruby"
+RbConfig.ruby #=&amp;gt; "/home/jan/.rvm/rubies/ruby-2.3.0/bin/ruby"
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id="rbconfigexpandval"&gt;&lt;code&gt;RbConfig.expand(val)&lt;/code&gt;&lt;/h2&gt;
