@@ -15232,6 +15232,8 @@ puts "#{`ps -o rss -p #{Process.pid}`.strip.split.last.to_i / 1024.0} MB"
 
 &lt;h3 id="n--an-unsigned-integer-per-2-bytes-big-endian-similar-to-s"&gt;n | An Unsigned &lt;code&gt;Integer&lt;/code&gt; per 2 Bytes, Big-Endian (Similar to &lt;code&gt;S&amp;gt;&lt;/code&gt;)&lt;/h3&gt;
 
+&lt;p&gt;Range: 0 to 65535&lt;/p&gt;
+
 &lt;pre&gt;&lt;code&gt;"Idiosyncrätic".unpack("n*")
 # =&amp;gt; [18788, 26991, 29561, 28259, 29379, 42100, 26979]
 
@@ -15239,7 +15241,9 @@ puts "#{`ps -o rss -p #{Process.pid}`.strip.split.last.to_i / 1024.0} MB"
 # =&amp;gt; "Idiosyncr\xC3\xA4tic"
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id="n--a-signed-integer-per-4-bytes-big-endian-similar-to-l"&gt;N | A Signed &lt;code&gt;Integer&lt;/code&gt; per 4 Bytes, Big-Endian (Similar to &lt;code&gt;L&amp;gt;&lt;/code&gt;)&lt;/h3&gt;
+&lt;h3 id="n--an-unsigned-integer-per-4-bytes-big-endian-similar-to-l"&gt;N | An Unsigned &lt;code&gt;Integer&lt;/code&gt; per 4 Bytes, Big-Endian (Similar to &lt;code&gt;L&amp;gt;&lt;/code&gt;)&lt;/h3&gt;
+
+&lt;p&gt;Range: 0 to 4294967296&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;"Idiosyncrätic".unpack("N*")
 # =&amp;gt; [1231317359, 1937337955, 1925424244]
@@ -15250,6 +15254,8 @@ puts "#{`ps -o rss -p #{Process.pid}`.strip.split.last.to_i / 1024.0} MB"
 
 &lt;h3 id="v--an-unsigned-integer-per-2-bytes-little-endian-similar-to-s"&gt;v | An Unsigned &lt;code&gt;Integer&lt;/code&gt; per 2 Bytes, Little-Endian (Similar to &lt;code&gt;S&amp;lt;&lt;/code&gt;)&lt;/h3&gt;
 
+&lt;p&gt;Range: 0 to 65535&lt;/p&gt;
+
 &lt;pre&gt;&lt;code&gt;"Idiosyncrätic".unpack("v*")
 # =&amp;gt; [25673, 28521, 31091, 25454, 50034, 29860, 25449]
 
@@ -15257,7 +15263,9 @@ puts "#{`ps -o rss -p #{Process.pid}`.strip.split.last.to_i / 1024.0} MB"
 # =&amp;gt; "Idiosyncr\xC3\xA4tic"
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id="v--a-signed-integer-per-4-bytes-little-endian-similar-to-l"&gt;V | A Signed &lt;code&gt;Integer&lt;/code&gt; per 4 Bytes, Little-Endian (Similar to &lt;code&gt;L&amp;lt;&lt;/code&gt;)&lt;/h3&gt;
+&lt;h3 id="v--an-unsigned-integer-per-4-bytes-little-endian-similar-to-l"&gt;V | An Unsigned &lt;code&gt;Integer&lt;/code&gt; per 4 Bytes, Little-Endian (Similar to &lt;code&gt;L&amp;lt;&lt;/code&gt;)&lt;/h3&gt;
+
+&lt;p&gt;Range: 0 to 4294967296&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;"Idiosyncrätic".unpack("V*")
 # =&amp;gt; [1869177929, 1668184435, 1956954994]
