@@ -210,13 +210,17 @@ If you don't want to rely on your operating system to define byte order, you can
 
 ### n | An Unsigned `Integer` per 2 Bytes, Big-Endian (Similar to `S>`)
 
+Range: 0 to 65535
+
     "Idiosyncrätic".unpack("n*")
     # => [18788, 26991, 29561, 28259, 29379, 42100, 26979]
 
     [18788, 26991, 29561, 28259, 29379, 42100, 26979].pack("n*")
     # => "Idiosyncr\xC3\xA4tic"
 
-### N | A Signed `Integer` per 4 Bytes, Big-Endian (Similar to `L>`)
+### N | An Unsigned `Integer` per 4 Bytes, Big-Endian (Similar to `L>`)
+
+Range: 0 to 4294967296
 
     "Idiosyncrätic".unpack("N*")
     # => [1231317359, 1937337955, 1925424244]
@@ -226,13 +230,17 @@ If you don't want to rely on your operating system to define byte order, you can
 
 ### v | An Unsigned `Integer` per 2 Bytes, Little-Endian (Similar to `S<`)
 
+Range: 0 to 65535
+
     "Idiosyncrätic".unpack("v*")
     # => [25673, 28521, 31091, 25454, 50034, 29860, 25449]
 
     [25673, 28521, 31091, 25454, 50034, 29860, 25449].pack("v*")
     # => "Idiosyncr\xC3\xA4tic"
 
-### V | A Signed `Integer` per 4 Bytes, Little-Endian (Similar to `L<`)
+### V | An Unsigned `Integer` per 4 Bytes, Little-Endian (Similar to `L<`)
+
+Range: 0 to 4294967296
 
     "Idiosyncrätic".unpack("V*")
     # => [1869177929, 1668184435, 1956954994]
