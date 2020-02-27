@@ -56,7 +56,7 @@ Which is very similar to writing this:
 
 Two things to take away from this:
 
-- The method will be copied to class' singleton class
+- The method will be copied to the class' singleton class
 - The instance method's visibility will become private
 
 
@@ -94,10 +94,10 @@ The differences to `module_function` are:
 
 - No method copying: If you want to modify a method's behavior via meta-programming, you only need to do this in one place
 - No side effects, like changing the method's visibility
-- It is no extra language feature
+- It is not an extra language feature
 
 ### Advantages of `module_function`
 
-- The method name "module_function" describes what it does, so it might be better readable
+- The method name "module_function" describes what it does, so it might be more readable
 - Making included methods private [might be desired](https://github.com/janlelis/idiosyncratic-ruby.com/commit/7923275d6bfce595c3f0a0f1d9eceaa6dae43800#commitcomment-11553416)
 
