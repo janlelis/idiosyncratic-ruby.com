@@ -2,6 +2,7 @@
 title: "Warning: The Experiment"
 date: 2020-08-03
 tags: core, debug, cli
+commit: 8e88e9738e96aecbd18d05ccb5d92f0f6fb3cf30
 ---
 
 Ruby's [**Warning** module](https://ruby-doc.org/core/Warning.html) learned some new tricks in Ruby 2.7:
