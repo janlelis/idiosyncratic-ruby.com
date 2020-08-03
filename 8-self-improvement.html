@@ -79,7 +79,7 @@ Mathematics.method(:calc).owner.singleton_class? #=&gt; true
 <p>Two things to take away from this:</p>
 
 <ul>
-  <li>The method will be copied to class' singleton class</li>
+  <li>The method will be copied to the class' singleton class</li>
   <li>The instance method's visibility will become private</li>
 </ul>
 
@@ -122,13 +122,13 @@ Mathematics.method(:calc).owner.singleton_class? #=&gt; false
 <ul>
   <li>No method copying: If you want to modify a method's behavior via meta-programming, you only need to do this in one place</li>
   <li>No side effects, like changing the method's visibility</li>
-  <li>It is no extra language feature</li>
+  <li>It is not an extra language feature</li>
 </ul>
 
 <h3 id="advantages-of-modulefunction">Advantages of <code>module_function</code></h3>
 
 <ul>
-  <li>The method name "module_function" describes what it does, so it might be better readable</li>
+  <li>The method name "module_function" describes what it does, so it might be more readable</li>
   <li>Making included methods private <a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/7923275d6bfce595c3f0a0f1d9eceaa6dae43800#commitcomment-11553416">might be desired</a></li>
 </ul>
 
@@ -149,7 +149,7 @@ Mathematics.method(:calc).owner.singleton_class? #=&gt; false
           <a href="https://janlelis.com/data-protection.html">Data Protection</a>
         </div>
         About Core, Inheritance<br>
-        Last Update: June 22, 2018
+        Last Update: February 27, 2020
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

@@ -5,10 +5,54 @@
   <id>https://idiosyncratic-ruby.com/index/</id>
   <link href="https://idiosyncratic-ruby.com/index/"/>
   <link href="https://idiosyncratic-ruby.com/feed.xml" rel="self"/>
-  <updated>2018-05-31T00:00:00Z</updated>
+  <updated>2020-08-03T00:00:00Z</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Warning: The Experiment</title>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/67-warning-the-experiment.html"/>
+    <id>https://idiosyncratic-ruby.com/67-warning-the-experiment.html</id>
+    <published>2020-08-03T00:00:00Z</published>
+    <updated>2020-08-03T00:00:00Z</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Ruby's &lt;a href="https://ruby-doc.org/core/Warning.html"&gt;&lt;strong&gt;Warning&lt;/strong&gt; module&lt;/a&gt; learned some new tricks in Ruby 2.7:&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Support for muting different categories of compile warnings has been introduced. This is a mechanism on top of the warning level reflected by the &lt;a href="/3-ruby-can-you-speak-louder#command-line-options-for-debug-modes"&gt;&lt;strong&gt;$VERBOSE&lt;/strong&gt; variable&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can now silence &lt;strong&gt;deprecation warnings:&lt;/strong&gt; These are aspects of the language which will be removed or changed in a future version of Ruby. One example is the infamous: &lt;code&gt;warning: Using the last argument as keyword parameters is deprecated; maybe ** should be added to the call&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;It is also possible to mute &lt;strong&gt;experimental features warnings:&lt;/strong&gt; These are new features of Ruby, which might not have a stable API yet, like the new pattern matching (see next episode!)&lt;/p&gt;
+
+&lt;h2 id="per-ruby"&gt;Per Ruby&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;Warning[:experimental] = false
+Warning[:deprecated] = false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="per-cli"&gt;Per CLI&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ruby -W:no-deprecated
+$ ruby -W:no-experimental
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="per-env-variable"&gt;Per ENV Variable&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;$ RUBYOPT="-W:no-deprecated" ruby
+$ RUBYOPT="-W:no-experimental" ruby
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="/65-warning-the-module.html"&gt;Warning: The Module&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Ruby has Character</title>
     <link rel="alternate" href="https://idiosyncratic-ruby.com/66-ruby-has-character.html"/>
@@ -13931,7 +13975,7 @@ Mathematics.method(:calc).owner.singleton_class? #=&amp;gt; true
 &lt;p&gt;Two things to take away from this:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;The method will be copied to class' singleton class&lt;/li&gt;
+  &lt;li&gt;The method will be copied to the class' singleton class&lt;/li&gt;
   &lt;li&gt;The instance method's visibility will become private&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -13974,13 +14018,13 @@ Mathematics.method(:calc).owner.singleton_class? #=&amp;gt; false
 &lt;ul&gt;
   &lt;li&gt;No method copying: If you want to modify a method's behavior via meta-programming, you only need to do this in one place&lt;/li&gt;
   &lt;li&gt;No side effects, like changing the method's visibility&lt;/li&gt;
-  &lt;li&gt;It is no extra language feature&lt;/li&gt;
+  &lt;li&gt;It is not an extra language feature&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id="advantages-of-modulefunction"&gt;Advantages of &lt;code&gt;module_function&lt;/code&gt;&lt;/h3&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;The method name "module_function" describes what it does, so it might be better readable&lt;/li&gt;
+  &lt;li&gt;The method name "module_function" describes what it does, so it might be more readable&lt;/li&gt;
   &lt;li&gt;Making included methods private &lt;a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/7923275d6bfce595c3f0a0f1d9eceaa6dae43800#commitcomment-11553416"&gt;might be desired&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
