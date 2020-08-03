@@ -11,7 +11,7 @@ title: "Idiosyncratic Ruby: Documenting All Ruby Specialities"
       <h1>Idiosyncratic Ruby</h1>
       <p>Documenting All<br/>Ruby Specialities</p>
     </div>
-    <form action="/categories/">
+    <form action="/index/">
       <button>Read</button>
     </form>
   </div>
@@ -29,13 +29,13 @@ title: "Idiosyncratic Ruby: Documenting All Ruby Specialities"
       <section>
         <h3 id="about">About Idiosyncratic Ruby</h3>
         <p>
-          Ruby is not only optimized for <a href="/31-roots-of-rubyism.html">developer happiness</a>, but also for writing <a href="/27-golfing-basics.html">concise</a> <a href="/17-stream-editing.html">one-liners</a>. The language is extremely expressive, but this comes at a price: Ruby's grammar definition is <a href="https://raw.githubusercontent.com/ruby/ruby/trunk/parse.y">more than 10000 lines long</a>, the language is <a href="/29-limitations-of-language.html">at its limits</a>, and there is not one editor or syntax highlighter <a href="/1-test-highlights.html">that actually highlights Ruby correctly</a>.
+          Ruby is not only optimized for <a href="/31-roots-of-rubyism.html">developer happiness</a>, but also for writing <a href="/27-golfing-basics.html">concise</a> <a href="/17-stream-editing.html">one-liners</a>. The language is extremely expressive, but this comes at a price: Ruby's grammar definition is <a href="https://github.com/ruby/ruby/blame/master/parse.y">more than 13 000 lines long</a>, the language is <a href="/29-limitations-of-language.html">at its limits</a>, and there is not a single editor or syntax highlighter <a href="/1-test-highlights.html">which actually highlights Ruby correctly</a>.
         </p>
       </section>
       <section>
         <h3 id="idiosyncratic-does-not-mean-bad">Idiosyncratic != Bad</h3>
         <p>
-          Ruby is a great tool (<a href="https://imagery.pragprog.com/products/355/ruby4.jpg">a pickaxe?</a>) and it is better to know your tools well. You should know <a href="/25-meta-methodology.html">Ruby's meta programming API for methods</a>, although it is not optimal. It is also good to know about <a href="/14-meeting-some-locals.html">unusual ways of creating local variables</a>. Having a good understanding of Ruby's low level and its edge cases helps you to concentrate on solving the real problems. It also helps <a href="/18-con-struct-attributes.html">shaping new best practices</a>. And it is <a href="/48-ruby-tricks-of-2015.html">fun</a>.
+          Ruby is still a great tool, but it is advisable to know your tools well. You should be able to work with <a href="/25-meta-methodology.html">Ruby's meta programming API for methods</a>, although it is not optimal. It is also good to know about <a href="/14-meeting-some-locals.html">unusual ways of creating local variables</a>. Having a good understanding of Ruby's low level and its edge cases can help you to concentrate on solving the real problems. It also helps <a href="/18-con-struct-attributes.html">shaping new best practices</a>. And last but not least, <a href="/48-ruby-tricks-of-2015.html">can also be great fun</a>.
         </p>
       </section>
       <section>
@@ -44,7 +44,7 @@ title: "Idiosyncratic Ruby: Documenting All Ruby Specialities"
           <li>Learn how to impress your co-workers with obscure Ruby tricks<br>
           For example: <a href="/11-regular-extremism.html">Advanced regex magic</a></li>
           <li>Get a lot of tables comparing things and telling you what to use<br>
-          For example: <a href="/20-better-standards.html">A comprehensive overview of Ruby's standard library</a></li>
+          For example: <a href="/32-no-more-errors.html">A comprehensive overview of Ruby's errors</a></li>
           <li>Learn about lesser-known Ruby command-line options<br>
           For example: <a href="/22-literate-ruby.html">An option to remove garbage</a></li>
           <li>Master Ruby's less common grammar features<br>
@@ -56,20 +56,15 @@ title: "Idiosyncratic Ruby: Documenting All Ruby Specialities"
         <p>
           The aim of <em>Idiosyncratic Ruby</em> is to document lesser-known features of Ruby as a series of blog posts. All the content is on <a href="https://github.com/janlelis/idiosyncratic-ruby.com">GitHub</a>, enabling it to live beyond its publish date.
         </p>
-        <p>The articles were published in three batches:</p>
-        <ul>
-          <li>Episodes  1 to 31 in May 2015</li>
-          <li>Episodes 32 to 62 in May 2016</li>
-          <li>Episodes 63 to 66 in May 2018</li>
-        </ul>
+
         <% if last_content_update %>
-        <p>Last update: <%= last_content_update %> </p>
+        <p>Last update to an article: <%= last_content_update %> </p>
         <% end %>
       </section>
       <section>
         <h3 id="related-projects">Related Projects</h3>
         <ul>
-          <li><a href="/quiz">Idiosyncratic Ruby Quiz</a>: The fun quiz that takes place every so often at Ruby User Group Berlin</li>
+          <li><a href="/quiz">Idiosyncratic Ruby Quiz</a>: The fun quiz that takes place every so often at <a href="https://www.rug-b.de/">RUG::B</a></li>
           <li><a href="https://stdgems.org">stdgems.org</a>: Documentation of standard library gem versions</li>
           <li><a href="https://relaxed.ruby.style">relaxed.ruby.style</a>: A ruby style guide patch for RuboCop</li>
           <li><a href="https://character.construction">character.construction</a>: More about Unicode</li>
