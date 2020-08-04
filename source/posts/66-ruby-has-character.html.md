@@ -98,7 +98,7 @@ ARTICLE
 
 ## Characters in Unicode
 
-Unicode has come a long way and is now available in version 12.1 ([core specification](https://www.unicode.org/versions/Unicode12.0.0/UnicodeStandard-12.0.pdf)). The standard defines a lot of things related to characters, however, it is not always easy to grasp what a *character* actually is. Is *Ǆ* a single character or not? What about non-Latin languages?
+Unicode has come a long way and is now available in version 13.0 ([core specification](https://www.unicode.org/versions/Unicode13.0.0/UnicodeStandard-13.0.pdf)). The standard defines a lot of things related to characters, however, it is not always easy to grasp what a *character* actually is. Is *Ǆ* a single character or not? What about non-Latin languages?
 
 We will need some more fine-grained concepts to distinguish and talk about characters in Unicode:
 
@@ -533,3 +533,7 @@ I hope that you are now ready to closely inspect your own Unicode data! To help 
 - [uniscribe](https://github.com/janlelis/uniscribe) for codepoint analysis
 - [unibits](https://github.com/janlelis/unibits) for encoding analysis, also supports a lot of non-Unicode encodings
 - [unicopy](https://github.com/janlelis/unicopy) for converting & copying codepoints
+
+## Also See
+
+[character.construction](https://character.construction)
