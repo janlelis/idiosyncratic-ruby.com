@@ -34,7 +34,7 @@ By the way, this will not work, if you swap operands:
     "$€" =~ /(?<a>.)(?<b>.)/
     a # NameError: ...
 
-## One More Option
+## One More Option (Almost!)
 
 In actuality, there is also a third way to set local variables: binding's `local_variable_set`, but it does not really count, since you cannot introduce new variables this way:
 
@@ -43,6 +43,16 @@ In actuality, there is also a third way to set local variables: binding's `local
     binding.local_variable_set :b, "€"
     a # => "$"
     b # NameError: ...
+
+## Ruby 2.7 Update: Pattern Assignment
+
+Whoa!
+
+    %w[$ €] in [a, b]
+    a # => "$"
+    b # => "€"
+
+Read more in [Episode 68: Assignments In-Style](/68-assignments-in-style.html)
 
 ## Resources
 - [RDoc: Regexp#=~](https://ruby-doc.org/core/Regexp.html#method-i-3D-7E)
