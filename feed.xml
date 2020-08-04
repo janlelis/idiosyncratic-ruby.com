@@ -5,10 +5,90 @@
   <id>https://idiosyncratic-ruby.com/index/</id>
   <link href="https://idiosyncratic-ruby.com/index/"/>
   <link href="https://idiosyncratic-ruby.com/feed.xml" rel="self"/>
-  <updated>2020-08-03T00:00:00Z</updated>
+  <updated>2020-08-04T00:00:00Z</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Assignments In-Style</title>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/68-assignments-in-style.html"/>
+    <id>https://idiosyncratic-ruby.com/68-assignments-in-style.html</id>
+    <published>2020-08-04T00:00:00Z</published>
+    <updated>2020-08-04T00:00:00Z</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;The introduction of &lt;em&gt;pattern matching&lt;/em&gt; in Ruby 2.7 brought us a new style of multi-assigning local variables: The &lt;strong&gt;pattern assignment&lt;/strong&gt;, or, how you could also call it, the &lt;strong&gt;assignment in-style&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;After you have &lt;a href="/67-warning-the-experiment.html"&gt;deactivated the warnings for experimental features&lt;/a&gt;, try the following piece of code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[1, 2, 3, 4] in [first, second, *other]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Think:&lt;/strong&gt; Put &lt;code&gt;[1, 2, 3, 4]&lt;/code&gt; into &lt;code&gt;[first, second, *other]&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;first # =&amp;gt; 1
+second # =&amp;gt; 2
+other # =&amp;gt; [3,4]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is a great addition to the &lt;a href="/14-meeting-some-locals.html"&gt;previous two and a half ways of assigning local variables&lt;/a&gt;. Let's see some more examples, starting with the most basic one:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;0 in a # =&amp;gt; nil
+a # =&amp;gt; 0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When assigning multiple values, be sure to supply exactly the number of expected values:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cities = %w[Berlin Potsdam Magdeburg]
+cities in [a,b] # NoMatchingPatternError
+cities in [x,y,z]
+x #=&amp;gt; Berlin
+y #=&amp;gt; Potsdam
+z #=&amp;gt; Magdeburg
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If your array is of unknown length, use an asterisk, like in the introductory example.&lt;/p&gt;
+
+&lt;p&gt;Pattern assignments also have type checks built in:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cities = %w[Berlin Potsdam Magdeburg]
+cities in [Integer =&amp;gt; c_1, *c_other] # NoMatchingPatternError
+cities in [String =&amp;gt; c_1, *c_other]
+c_other # =&amp;gt; ["Potsdam", "Magdeburg"]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Which, of course, also work for single assignments:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;0 in Float =&amp;gt; a # NoMatchingPatternError
+0 in Integer =&amp;gt; a
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Since hashes are also supported, we can finally have JavaScript-like object destructuring¹:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  verb: "CREATE",
+  endpoint: "/syntax",
+  authed: true,
+} in { verb:, endpoint: }
+
+verb #=&amp;gt; "CREATE"
+endpoint #=&amp;gt; "/syntax"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;¹ Differently from arrays, there is no need to specify all hash keys of the given hash object&lt;/p&gt;
+
+&lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="/quiz/2020/january/#/1"&gt;More examples and info at the Idiosyncratic Ruby Quiz 2020&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://speakerdeck.com/k_tsj/pattern-matching-new-feature-in-ruby-2-dot-7"&gt;Pattern matching explained by its author&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://rubyreferences.github.io/rubyref/language/pattern-matching.html"&gt;Pattern matching documented at the Ruby Reference&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Warning: The Experiment</title>
     <link rel="alternate" href="https://idiosyncratic-ruby.com/67-warning-the-experiment.html"/>
@@ -22,11 +102,11 @@
 
 &lt;p&gt;&lt;/p&gt;
 
-&lt;p&gt;Support for muting different categories of compile warnings has been introduced. This is a mechanism on top of the warning level reflected by the &lt;a href="/3-ruby-can-you-speak-louder#command-line-options-for-debug-modes"&gt;&lt;strong&gt;$VERBOSE&lt;/strong&gt; variable&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Support for muting different categories of compile warnings has been introduced. This is a mechanism on top of the warning level reflected by the &lt;a href="/3-ruby-can-you-speak-louder.html#command-line-options-for-debug-modes"&gt;&lt;strong&gt;$VERBOSE&lt;/strong&gt; variable&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;You can now silence &lt;strong&gt;deprecation warnings:&lt;/strong&gt; These are aspects of the language which will be removed or changed in a future version of Ruby. One example is the infamous: &lt;code&gt;warning: Using the last argument as keyword parameters is deprecated; maybe ** should be added to the call&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;It is also possible to mute &lt;strong&gt;experimental features warnings:&lt;/strong&gt; These are new features of Ruby, which might not have a stable API yet, like the new pattern matching (see next episode!)&lt;/p&gt;
+&lt;p&gt;It is also possible to mute &lt;strong&gt;experimental features warnings:&lt;/strong&gt; These are new features of Ruby, which might not have a stable API yet, like the &lt;a href="/68-assignments-in-style.html"&gt;new pattern matching&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id="per-ruby"&gt;Per Ruby&lt;/h2&gt;
 
