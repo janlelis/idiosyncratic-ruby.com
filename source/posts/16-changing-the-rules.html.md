@@ -54,7 +54,7 @@ You could argue that this is much cleaner than the normal semantics, but you won
 
 ## Manipulate Global Randomness
 
-Don't use `Kernel#rand`, `Array#shuffle` or `Array#sample`. [Always use](https://coderwall.com/p/oijyja/array-sample-and-array-shuffle-using-securerandom) [SecureRandom!](http://ruby.janlelis.de/67-ruby-and-random)
+Don't use `Kernel#rand`, `Array#shuffle` or `Array#sample`. [Always use](https://coderwall.com/p/oijyja/array-sample-and-array-shuffle-using-securerandom) [SecureRandom!](http://rbjl.janlelis.com/67-ruby-and-random)
 
     srand 84 # => (something)
     rand 100 # => 42
