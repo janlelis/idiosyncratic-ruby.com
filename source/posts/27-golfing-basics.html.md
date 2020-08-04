@@ -11,6 +11,8 @@ ARTICLE
 
 A good beginner's problem is printing out [Pascal's Triangle](https://golf.shinh.org/p.rb?pascal+triangle): Spend a few days to get to **45** bytes. Spend a few *months* to get to **43** bytes!
 
+**Attention:** A new golf course has opened at [code.golf](https://code.golf). Why not give it a try 😉?
+
 ## 10 Ruby Tricks You'll Learn by Playing Code Golf
 
 While code golfing does not necessarily make you a better programmer, you can learn a lot about the programming language you are using. Here are some things that were new to me:
