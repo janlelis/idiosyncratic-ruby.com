@@ -2,6 +2,7 @@
 title: Assignments In-Style
 date: 2020-08-04
 tags: core, syntax
+commit: 2bc0ab6325415a4bad09caeea2c6398f09c95150
 ---
 
 The introduction of *pattern matching* in Ruby 2.7 brought us a new style of multi-assigning local variables: The **pattern assignment**, or, how you could also call it, the **assignment in-style**.
