@@ -5,7 +5,7 @@ tags: strings, regex, syntax, stdlib
 commit: cee4bd8f81fa108aecc5b01734572fd3e69dcff4
 ---
 
-Ruby strings are powerful. You could say Ruby is built around manipulating strings. There are tons of ways how to work with strings and as of Ruby 2.6.0 `String` offers 119 instance methods. Knowing them well can save you a lot of time.
+Ruby strings are powerful. You could say Ruby is built around manipulating strings. There are tons of ways how to work with strings and as of Ruby 2.7.1 `String` offers 130 instance methods. Knowing them well can save you a lot of time.
 
 ARTICLE
 
