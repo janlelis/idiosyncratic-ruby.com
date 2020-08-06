@@ -2,6 +2,7 @@
 title: Nothing to Compare
 date: 2020-08-06
 tags: core, equal, types
+commit: 0cba8fd4d2394bb20c111d66fd1413e8a1a0044b
 ---
 
 How does nothing (as in *nil*, *null*, or *nan*) compare to nothing?
