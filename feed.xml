@@ -5,10 +5,345 @@
   <id>https://idiosyncratic-ruby.com/index/</id>
   <link href="https://idiosyncratic-ruby.com/index/"/>
   <link href="https://idiosyncratic-ruby.com/feed.xml" rel="self"/>
-  <updated>2020-08-04T00:00:00Z</updated>
+  <updated>2020-08-06T00:00:00Z</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Nothing to Compare</title>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/69-nothing-to-compare.html"/>
+    <id>https://idiosyncratic-ruby.com/69-nothing-to-compare.html</id>
+    <published>2020-08-06T00:00:00Z</published>
+    <updated>2020-08-06T00:00:00Z</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;How does nothing (as in &lt;em&gt;nil&lt;/em&gt;, &lt;em&gt;null&lt;/em&gt;, or &lt;em&gt;nan&lt;/em&gt;) compare to nothing?&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id="equality-equality"&gt;Equality Equality&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;&lt;strong&gt;==&lt;/strong&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;nil&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;0&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;0.0&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;0i&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;0r&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;NaN&lt;/code&gt;¹&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;nil&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;0&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;0.0&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;0i&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;0r&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;NaN&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;¹ Get a reference to &lt;code&gt;NaN&lt;/code&gt; via &lt;code&gt;Float::NAN&lt;/code&gt; or by executing &lt;code&gt;0.0/0&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id="take-aways"&gt;Take Aways&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;0&lt;/code&gt; == &lt;code&gt;0.0&lt;/code&gt; == &lt;code&gt;0i&lt;/code&gt; == &lt;code&gt;0r&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;NaN&lt;/code&gt; != &lt;code&gt;NaN&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="fancy-equality"&gt;Fancy Equality&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;&lt;strong&gt;===&lt;/strong&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;nil&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;0&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;0.0&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;0i&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;0r&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;NaN&lt;/code&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;nil&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;0&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;0.0&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;0i&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;0r&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;NaN&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id="take-away"&gt;Take Away&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Same as &lt;code&gt;==&lt;/code&gt; for null values&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="hash-key-equality"&gt;Hash Key Equality&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;&lt;strong&gt;.eql?&lt;/strong&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;nil&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;0&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;0.0&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;0i&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;0r&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;NaN&lt;/code&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;nil&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;0&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;0.0&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;0i&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;0r&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;NaN&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id="take-away-1"&gt;Take Away&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Different types of &lt;code&gt;0&lt;/code&gt;s do not &lt;code&gt;.eql?&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="object-identity"&gt;Object Identity&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;&lt;strong&gt;.equal?&lt;/strong&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;nil&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;0&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;0.0&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;0i&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;0r&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code&gt;NaN&lt;/code&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;nil&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;0&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;0.0&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;0i&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;0r&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;NaN&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;true&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id="take-away-2"&gt;Take Away&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;NaN&lt;/code&gt; is the same Object as &lt;code&gt;NaN&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="/55-struggling-four-equality.html"&gt;Episode 55: Struggling Four Equality&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Assignments In-Style</title>
     <link rel="alternate" href="https://idiosyncratic-ruby.com/68-assignments-in-style.html"/>
@@ -253,7 +588,7 @@ $ RUBYOPT="-W:no-experimental" ruby
 
 &lt;h2 id="characters-in-unicode"&gt;Characters in Unicode&lt;/h2&gt;
 
-&lt;p&gt;Unicode has come a long way and is now available in version 12.1 (&lt;a href="https://www.unicode.org/versions/Unicode12.0.0/UnicodeStandard-12.0.pdf"&gt;core specification&lt;/a&gt;). The standard defines a lot of things related to characters, however, it is not always easy to grasp what a &lt;em&gt;character&lt;/em&gt; actually is. Is &lt;em&gt;Ǆ&lt;/em&gt; a single character or not? What about non-Latin languages?&lt;/p&gt;
+&lt;p&gt;Unicode has come a long way and is now available in version 13.0 (&lt;a href="https://www.unicode.org/versions/Unicode13.0.0/UnicodeStandard-13.0.pdf"&gt;core specification&lt;/a&gt;). The standard defines a lot of things related to characters, however, it is not always easy to grasp what a &lt;em&gt;character&lt;/em&gt; actually is. Is &lt;em&gt;Ǆ&lt;/em&gt; a single character or not? What about non-Latin languages?&lt;/p&gt;
 
 &lt;p&gt;We will need some more fine-grained concepts to distinguish and talk about characters in Unicode:&lt;/p&gt;
 
@@ -1203,6 +1538,10 @@ Characteristics.create("\u{80}").c1? # =&amp;gt; true
   &lt;li&gt;&lt;a href="https://github.com/janlelis/unibits"&gt;unibits&lt;/a&gt; for encoding analysis, also supports a lot of non-Unicode encodings&lt;/li&gt;
   &lt;li&gt;&lt;a href="https://github.com/janlelis/unicopy"&gt;unicopy&lt;/a&gt; for converting &amp;amp; copying codepoints&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="https://character.construction"&gt;character.construction&lt;/a&gt;&lt;/p&gt;
 </content>
   </entry>
   <entry>
@@ -10846,6 +11185,8 @@ end
 
 &lt;p&gt;A good beginner's problem is printing out &lt;a href="https://golf.shinh.org/p.rb?pascal+triangle"&gt;Pascal's Triangle&lt;/a&gt;: Spend a few days to get to &lt;strong&gt;45&lt;/strong&gt; bytes. Spend a few &lt;em&gt;months&lt;/em&gt; to get to &lt;strong&gt;43&lt;/strong&gt; bytes!&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;Attention:&lt;/strong&gt; A new golf course has opened at &lt;a href="https://code.golf"&gt;code.golf&lt;/a&gt;. Why not give it a try 😉?&lt;/p&gt;
+
 &lt;h2 id="ruby-tricks-youll-learn-by-playing-code-golf"&gt;10 Ruby Tricks You'll Learn by Playing Code Golf&lt;/h2&gt;
 
 &lt;p&gt;While code golfing does not necessarily make you a better programmer, you can learn a lot about the programming language you are using. Here are some things that were new to me:&lt;/p&gt;
@@ -12948,7 +13289,7 @@ end
 
 &lt;h2 id="manipulate-global-randomness"&gt;Manipulate Global Randomness&lt;/h2&gt;
 
-&lt;p&gt;Don't use &lt;code&gt;Kernel#rand&lt;/code&gt;, &lt;code&gt;Array#shuffle&lt;/code&gt; or &lt;code&gt;Array#sample&lt;/code&gt;. &lt;a href="https://coderwall.com/p/oijyja/array-sample-and-array-shuffle-using-securerandom"&gt;Always use&lt;/a&gt; &lt;a href="http://ruby.janlelis.de/67-ruby-and-random"&gt;SecureRandom!&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Don't use &lt;code&gt;Kernel#rand&lt;/code&gt;, &lt;code&gt;Array#shuffle&lt;/code&gt; or &lt;code&gt;Array#sample&lt;/code&gt;. &lt;a href="https://coderwall.com/p/oijyja/array-sample-and-array-shuffle-using-securerandom"&gt;Always use&lt;/a&gt; &lt;a href="http://rbjl.janlelis.com/67-ruby-and-random"&gt;SecureRandom!&lt;/a&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;srand 84 # =&amp;gt; (something)
 rand 100 # =&amp;gt; 42
@@ -13336,7 +13677,7 @@ b # =&amp;gt; "€"
 a # NameError: ...
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id="one-more-option"&gt;One More Option&lt;/h2&gt;
+&lt;h2 id="one-more-option-almost"&gt;One More Option (Almost!)&lt;/h2&gt;
 
 &lt;p&gt;In actuality, there is also a third way to set local variables: binding's &lt;code&gt;local_variable_set&lt;/code&gt;, but it does not really count, since you cannot introduce new variables this way:&lt;/p&gt;
 
@@ -13346,6 +13687,17 @@ binding.local_variable_set :b, "€"
 a # =&amp;gt; "$"
 b # NameError: ...
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="ruby-27-update-pattern-assignment"&gt;Ruby 2.7 Update: Pattern Assignment&lt;/h2&gt;
+
+&lt;p&gt;Whoa!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;%w[$ €] in [a, b]
+a # =&amp;gt; "$"
+b # =&amp;gt; "€"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Read more in &lt;a href="/68-assignments-in-style.html"&gt;Episode 68: Assignments In-Style&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id="resources"&gt;Resources&lt;/h2&gt;
 &lt;ul&gt;
@@ -15948,7 +16300,7 @@ end
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;Ruby strings are powerful. You could say Ruby is built around manipulating strings. There are tons of ways how to work with strings and as of Ruby 2.6.0 &lt;code&gt;String&lt;/code&gt; offers 119 instance methods. Knowing them well can save you a lot of time.&lt;/p&gt;
+    <content type="html">&lt;p&gt;Ruby strings are powerful. You could say Ruby is built around manipulating strings. There are tons of ways how to work with strings and as of Ruby 2.7.1 &lt;code&gt;String&lt;/code&gt; offers 130 instance methods. Knowing them well can save you a lot of time.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
 

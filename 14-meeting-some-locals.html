@@ -57,7 +57,7 @@ b # =&gt; "€"
 a # NameError: ...
 </code></pre>
 
-<h2 id="one-more-option">One More Option</h2>
+<h2 id="one-more-option-almost">One More Option (Almost!)</h2>
 
 <p>In actuality, there is also a third way to set local variables: binding's <code>local_variable_set</code>, but it does not really count, since you cannot introduce new variables this way:</p>
 
@@ -67,6 +67,17 @@ binding.local_variable_set :b, "€"
 a # =&gt; "$"
 b # NameError: ...
 </code></pre>
+
+<h2 id="ruby-27-update-pattern-assignment">Ruby 2.7 Update: Pattern Assignment</h2>
+
+<p>Whoa!</p>
+
+<pre><code>%w[$ €] in [a, b]
+a # =&gt; "$"
+b # =&gt; "€"
+</code></pre>
+
+<p>Read more in <a href="/68-assignments-in-style.html">Episode 68: Assignments In-Style</a></p>
 
 <h2 id="resources">Resources</h2>
 <ul>
@@ -90,7 +101,7 @@ b # NameError: ...
           <a href="https://janlelis.com/data-protection.html">Data Protection</a>
         </div>
         About Syntax, Regex<br>
-        Last Update: December 25, 2017
+        Last Update: August 04, 2020
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
