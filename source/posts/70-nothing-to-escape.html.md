@@ -2,6 +2,7 @@
 title: Nothing to Escape
 date: 2020-08-10
 tags: strings, syntax, escape
+commit: 0698caf6b5b0c67404d664eed10f68e58002bcf8
 ---
 
 What is your wild guess: How many different ways does Ruby provide for inserting a **NULL** byte into a double-quoted string?
