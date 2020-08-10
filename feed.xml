@@ -5,10 +5,210 @@
   <id>https://idiosyncratic-ruby.com/index/</id>
   <link href="https://idiosyncratic-ruby.com/index/"/>
   <link href="https://idiosyncratic-ruby.com/feed.xml" rel="self"/>
-  <updated>2020-08-06T00:00:00Z</updated>
+  <updated>2020-08-10T00:00:00Z</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Nothing to Escape</title>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/70-nothing-to-escape.html"/>
+    <id>https://idiosyncratic-ruby.com/70-nothing-to-escape.html</id>
+    <published>2020-08-10T00:00:00Z</published>
+    <updated>2020-08-10T00:00:00Z</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;What is your wild guess: How many different ways does Ruby provide for inserting a &lt;strong&gt;NULL&lt;/strong&gt; byte into a double-quoted string?&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;There are exactly &lt;strong&gt;43&lt;/strong&gt; options! Here is the list, put together with some ideas from &lt;a href="/61-meta-escape-control.html"&gt;Episode 61: Meta Escape Control&lt;/a&gt;:&lt;/p&gt;
+
+&lt;table class="table-huge-font"&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Directly embedded NULL byte&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\0"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\x00"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\x0"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\u0000"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\u{0000}"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\u{000}"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\u{00}"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\u{0}"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\u{00000}"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\u{000000}"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\000"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\00"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\C-\0"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\C-\x00"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\C-\x0"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\C-\000"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\C-\00"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\C-@"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\C-\x40"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\C-\100"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\C-`"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\C-\x60"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\C-\140"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\C- "&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\C-\s"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\C-\x20"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\C-\40"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\c\0"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\c\x00"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\c\x0"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\c\000"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\c\00"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\c@"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\c\x40"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\c\100"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\c`"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\c\x60"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\c\140"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\c "&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\c\s"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\c\x20"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;"\c\40"&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;# =&amp;gt; "\u0000"&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="/61-meta-escape-control.html"&gt;Meta Escape Control&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="/15-207-ways-to-rome.html"&gt;210 Ways to Rome&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Nothing to Compare</title>
     <link rel="alternate" href="https://idiosyncratic-ruby.com/69-nothing-to-compare.html"/>
