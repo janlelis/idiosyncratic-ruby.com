@@ -2,6 +2,7 @@
 title: Nothing to Disable
 date: 2020-08-11
 tags: core, cli, stdlib
+commit: 61e201150a37e3037c7efe1925aed558b47640ba
 ---
 
 Ruby's mode of operation can be altered with some `--enable-*` / `--disable-*` command-line switches.
