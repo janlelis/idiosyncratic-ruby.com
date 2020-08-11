@@ -9,7 +9,7 @@ What is your wild guess: How many different ways does Ruby provide for inserting
 
 ARTICLE
 
-There are exactly **43** options! Here is the list, put together with some ideas from [Episode 61: Meta Escape Control](/61-meta-escape-control.html):
+There are exactly **43** options¹! Here is the list, put together with some ideas from [Episode 61: Meta Escape Control](/61-meta-escape-control.html):
 
 -------------------|---------------------------
  Directly embedded NULL byte |  # => "\u0000"
@@ -56,6 +56,8 @@ There are exactly **43** options! Here is the list, put together with some ideas
  **"\c\x20"**      |            # => "\u0000"
  **"\c\40"**       |            # => "\u0000"
 {:.table-huge-font}
+
+¹ And this is just in the context of double-width strings without interpolation: Another fun NULL byte is `0.chr`, [as noted by @cremno](https://github.com/janlelis/idiosyncratic-ruby.com/commit/0698caf6b5b0c67404d664eed10f68e58002bcf8#commitcomment-41344279)
 
 ## Also See
 
