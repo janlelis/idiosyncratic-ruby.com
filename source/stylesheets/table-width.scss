@@ -8,6 +8,11 @@
   th:nth-child(2) { width: 20%; }
 }
 
+.table-20-35-X {
+  th:nth-child(1) { width: 20%; }
+  th:nth-child(2) { width: 35%; }
+}
+
 .table-15-15-30-X {
   th:nth-child(1) { width: 15%; }
   th:nth-child(2) { width: 15%; }
@@ -173,4 +178,13 @@
   th:nth-child(1) { width: 20%; }
   th:nth-child(2) { width: 15%; }
   th:nth-child(3) { width: 15%; }
+}
+
+.table-10-15-X {
+  th:nth-child(1) { width: 10%; }
+  th:nth-child(2) { width: 15%; }
+}
+
+.table-huge-font {
+  font-size: 120%;
 }
