@@ -2,6 +2,7 @@
 title: Clear Case of Unclear Casing
 date: 2020-08-12
 tags: core, syntax, unicode
+commit: 4e5de6caf45872b89b0fcb33817b0c2cec092b7f
 ---
 
 Recent Ruby versions allow you to choose from a wide-range of uppercase letters - beyond just ASCII - to start a constant / class name:
