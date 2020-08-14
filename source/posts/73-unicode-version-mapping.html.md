@@ -2,6 +2,7 @@
 title: Unicode Version Mapping
 date: 2020-08-14
 tags: regex, unicode
+commit: 62a61f5ddd7f886b0a5713d7d791ddc8039accf3
 ---
 
 The Ruby core team cares a lot about Unicode, and this is why we have [pretty good Unicode support](/66-ruby-has-character.html) in the language.
