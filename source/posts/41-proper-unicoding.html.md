@@ -38,16 +38,7 @@ Ruby will strip all spaces, dashes, underscores from the given property and conv
 
 ## Supported Unicode Versions
 
-Ruby Version | Unicode Version
--------------|----------------
-**2.6.3+**   | **12.1.0**
-**2.6.2**    | **12.0.0**
-**2.6.1-**   | **11.0.0**
-**2.5**      | **10.0.0**
-**2.4**      | **9.0.0**
-**2.3**      | **8.0.0**
-**2.2**      | **7.0.0**
-**2.1**      | **6.1.0**
+See table at [Episode 73: Unicode Version Mapping](/73-unicode-version-mapping.html)
 
 ## List of Properties as of Ruby 2.6 / Unicode 11.0
 
