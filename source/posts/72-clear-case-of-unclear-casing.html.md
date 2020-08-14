@@ -21,7 +21,7 @@ However, it is not possible to use just any Unicode character:
     end
     # SyntaxError
 
-Only characters of the categories *Uppercase_Letter* or *Titlecase_Letter* of your current Ruby's Unicode version are allowed. This can be trickier that you might think at first, as illustrated here:
+Only characters of the categories *Uppercase_Letter* or *Titlecase_Letter* of your [current Ruby's Unicode version](/73-unicode-version-mapping.html) are allowed. This can be trickier that you might think at first, as illustrated here:
 
     class 🅆
       # 1F146 ├─ 🅆    ├─ SQUARED LATIN CAPITAL LETTER W
