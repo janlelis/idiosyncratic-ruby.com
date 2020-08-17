@@ -2,6 +2,7 @@
 title: Super Snakes
 date: 2020-08-17
 tags: core
+commit: a5268be57200ea7caba0f182de25e4d954df6887
 ---
 
 Have you ever been confused by the __\_\_underscores\_\___ required by some of __\_\_RUBY\_\___'s features? You can get it right with this overview of all of "super snake" keywords and methods.
