@@ -5,10 +5,149 @@
   <id>https://idiosyncratic-ruby.com/index/</id>
   <link href="https://idiosyncratic-ruby.com/index/"/>
   <link href="https://idiosyncratic-ruby.com/feed.xml" rel="self"/>
-  <updated>2020-08-14T00:00:00Z</updated>
+  <updated>2020-08-17T00:00:00Z</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Super Snakes</title>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/74-super-snakes.html"/>
+    <id>https://idiosyncratic-ruby.com/74-super-snakes.html</id>
+    <published>2020-08-17T00:00:00Z</published>
+    <updated>2020-08-17T00:00:00Z</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Have you ever been confused by the &lt;strong&gt;__underscores__&lt;/strong&gt; required by some of &lt;strong&gt;__RUBY__&lt;/strong&gt;'s features? You can get it right with this overview of all of "super snake" keywords and methods.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;There are three different types of underscore-wrapped syntaxes in the Ruby core language:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;keywords&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Object&lt;/strong&gt; methods and&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Kernel&lt;/strong&gt; methods.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Let us take a look at each of them, and understand the motivations behind. Or directly jump to:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="#file"&gt;__FILE__&lt;/a&gt;&lt;a href="#line"&gt;__LINE__&lt;/a&gt;&lt;a href="#encoding"&gt;__ENCODING__&lt;/a&gt;&lt;a href="#end"&gt;__END__&lt;/a&gt;&lt;a href="#method-and-callee"&gt;__method__&lt;/a&gt;&lt;a href="#method-and-callee"&gt;__callee__&lt;/a&gt;&lt;a href="#dir"&gt;__dir__&lt;/a&gt;&lt;a href="#id"&gt;__id__&lt;/a&gt;&lt;a href="#send"&gt;__send__&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id="keywords-built-into-ruby-syntax"&gt;Keywords (Built into Ruby Syntax)&lt;/h2&gt;
+
+&lt;p&gt;These are directly translated by the Ruby interpreter: You cannot use meta-programming with these, since they will always return the corresponding value directly:&lt;/p&gt;
+
+&lt;h3 id="file"&gt;__FILE__&lt;/h3&gt;
+
+&lt;p&gt;Returns the current source file's name. Might be special value for unusual invocations:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Context&lt;/th&gt;
+      &lt;th&gt;Value&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;File, directly executed&lt;/td&gt;
+      &lt;td&gt;path name, can be relative&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;File, required / loaded&lt;/td&gt;
+      &lt;td&gt;absolute path&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;IRB&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;"(irb)"&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href="https://ruby-doc.org/core/Kernel.html#method-i-eval"&gt;eval&lt;/a&gt;'d&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;"(eval)"&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;$ ruby -e&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;"-e"&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Standard Input&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;"-"&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id="line"&gt;__LINE__&lt;/h3&gt;
+
+&lt;p&gt;Returns the line number in the current source file. Also works in IRB and with code executed with &lt;code&gt;$ ruby -e&lt;/code&gt;, &lt;strong&gt;STDIN&lt;/strong&gt; or &lt;code&gt;eval&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id="encoding"&gt;__ENCODING__&lt;/h3&gt;
+
+&lt;p&gt;Returns the source file's &lt;a href="https://ruby-doc.org/core/Encoding.html"&gt;encoding&lt;/a&gt;, as specified per &lt;a href="/58-magic-instructions.html"&gt;magic comment&lt;/a&gt;. The default source file encoding is UTF-8. The important thing to understand is that this value should correspond to the actual encoding of the source file, so to change the source encoding, it is not enough to just change the magic comment, you will also need to convert the source file.&lt;/p&gt;
+
+&lt;p&gt;You should also note that this is unrelated to some other global encoding configurations, which serve different purposes:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://ruby-doc.org/core/Encoding.html#class-Encoding-label-External+encoding"&gt;Encoding.default_external&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://ruby-doc.org/core/Encoding.html#class-Encoding-label-Internal+encoding"&gt;Encoding.default_internal&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id="end-at-beginning-of-line"&gt;__END__ (at beginning of line)&lt;/h3&gt;
+
+&lt;p&gt;A special syntax which will end the source file earlier and create &lt;a href="/59-big-data-without-end.html"&gt;big data&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id="underscore-wrapped-kernel-methods"&gt;Underscore-Wrapped &lt;code&gt;Kernel&lt;/code&gt; Methods&lt;/h2&gt;
+
+&lt;p&gt;These special Kernel methods are lowercased to highlight the fact that they are actually just methods and no built-in keywords.&lt;/p&gt;
+
+&lt;h3 id="method-and-callee"&gt;__method__ and __callee__&lt;/h3&gt;
+
+&lt;p&gt;Both return the current method's name, but they differ in a detail: When using a method alias, &lt;code&gt;__callee__&lt;/code&gt; will return the aliased method name, while &lt;code&gt;__method__&lt;/code&gt; would return the original name:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def example!
+  p [__method__, __callee__]
+end
+alias test! example!
+
+example! # =&amp;gt; [:example!, :example!]
+test! # =&amp;gt; [:example!, :test!]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Two similar and useful methods are &lt;a href="https://ruby-doc.org/core/Kernel.html#method-i-caller"&gt;Kernel#caller&lt;/a&gt; and &lt;a href="https://ruby-doc.org/core/Kernel.html#method-i-caller_locations"&gt;Kernel#caller_locations&lt;/a&gt;, which provide some more context.&lt;/p&gt;
+
+&lt;h3 id="dir"&gt;__dir__&lt;/h3&gt;
+
+&lt;p&gt;Returns &lt;code&gt;File.dirname(File.realpath(__FILE__))&lt;/code&gt;, which is the absolute path of the directory of the current source file.&lt;/p&gt;
+
+&lt;p&gt;While it also works in IRB, it will return &lt;code&gt;nil&lt;/code&gt; in eval, &lt;code&gt;$ ruby -e&lt;/code&gt;, and &lt;strong&gt;STDIN&lt;/strong&gt; contexts.&lt;/p&gt;
+
+&lt;h2 id="underscore-wrapped-basicobject-methods"&gt;Underscore-Wrapped &lt;code&gt;BasicObject&lt;/code&gt; Methods&lt;/h2&gt;
+
+&lt;p&gt;Both of the following methods are so important that every object (even those that inherit from &lt;a href="https://ruby-doc.org/core/BasicObject.html"&gt;BasicObject&lt;/a&gt; directly) should have. This is why they got some underscore companions.&lt;/p&gt;
+
+&lt;h3 id="id"&gt;__id__&lt;/h3&gt;
+
+&lt;p&gt;Returns the object id, just like &lt;a href="https://ruby-doc.org/core/Object.html#method-i-object_id"&gt;Object#object_id&lt;/a&gt;. It mainly exists for historical reasons, most people use &lt;code&gt;object_id&lt;/code&gt; nowadays.&lt;/p&gt;
+
+&lt;h3 id="send"&gt;__send__&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code&gt;__send__&lt;/code&gt; method is an alias of the &lt;a href="https://ruby-doc.org/core/Object.html#method-i-send"&gt;Object#send&lt;/a&gt;, which dynamically calls the method given as a symbol argument. Its purpose is that you should still be able to use the &lt;em&gt;send functionality&lt;/em&gt; in case someone redefines the &lt;code&gt;send&lt;/code&gt; method. The interpreter will issue a warning¹ should you try to redefine or remove it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;warning: redefining `__send__' may cause serious problems
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Nevertheless, it is probably not a good idea either to redefine non-underscore-wrapped &lt;code&gt;send&lt;/code&gt;, since a lot of meta-programming relies on it…&lt;/p&gt;
+
+&lt;p&gt;¹ This is not true for &lt;code&gt;__id__&lt;/code&gt; - Ruby will not complain if you choose to redefine it. It will complain for &lt;code&gt;object_id&lt;/code&gt; though.&lt;/p&gt;
+
+&lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="/5-constant-shadows.html"&gt;Episode 5: Constant Shadows&lt;/a&gt; (even another way Ruby uses underscores)&lt;/li&gt;
+  &lt;li&gt;&lt;a href="/19-semantic-symbols.html"&gt;Episode 19: Symbolic Reservations&lt;/a&gt; (in certain cases, symbols with underscores can be special)&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Unicode Version Mapping</title>
     <link rel="alternate" href="https://idiosyncratic-ruby.com/73-unicode-version-mapping.html"/>
