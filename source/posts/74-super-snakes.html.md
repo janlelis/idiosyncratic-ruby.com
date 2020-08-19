@@ -99,3 +99,5 @@ Nevertheless, it is probably not a good idea either to redefine non-underscore-w
 
 - [Episode 5: Constant Shadows](/5-constant-shadows.html) (even another way Ruby uses underscores)
 - [Episode 19: Symbolic Reservations](/19-semantic-symbols.html) (in certain cases, symbols with underscores can be special)
+
+Many thanks to [Shannon Skipper for pointing out](https://github.com/janlelis/idiosyncratic-ruby.com/commit/a5268be57200ea7caba0f182de25e4d954df6887#commitcomment-41542806) that [the mysterious `SUPPORT_JOKE` compiler option's `__goto__` and `__label__` also make use of underscores](/24-goto-fail.html)
