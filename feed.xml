@@ -146,6 +146,8 @@ test! # =&amp;gt; [:example!, :test!]
   &lt;li&gt;&lt;a href="/5-constant-shadows.html"&gt;Episode 5: Constant Shadows&lt;/a&gt; (even another way Ruby uses underscores)&lt;/li&gt;
   &lt;li&gt;&lt;a href="/19-semantic-symbols.html"&gt;Episode 19: Symbolic Reservations&lt;/a&gt; (in certain cases, symbols with underscores can be special)&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;Many thanks to &lt;a href="https://github.com/janlelis/idiosyncratic-ruby.com/commit/a5268be57200ea7caba0f182de25e4d954df6887#commitcomment-41542806"&gt;Shannon Skipper for pointing out&lt;/a&gt; that &lt;a href="/24-goto-fail.html"&gt;the mysterious &lt;code&gt;SUPPORT_JOKE&lt;/code&gt; compiler option's &lt;code&gt;__goto__&lt;/code&gt; and &lt;code&gt;__label__&lt;/code&gt; also make use of underscores&lt;/a&gt;&lt;/p&gt;
 </content>
   </entry>
   <entry>
