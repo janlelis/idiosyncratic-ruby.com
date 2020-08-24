@@ -5,10 +5,722 @@
   <id>https://idiosyncratic-ruby.com/index/</id>
   <link href="https://idiosyncratic-ruby.com/index/"/>
   <link href="https://idiosyncratic-ruby.com/feed.xml" rel="self"/>
-  <updated>2020-08-17T00:00:00Z</updated>
+  <updated>2020-08-24T00:00:00Z</updated>
   <author>
     <name>Jan Lelis</name>
   </author>
+  <entry>
+    <title>Ruby TRICKS of 2018</title>
+    <link rel="alternate" href="https://idiosyncratic-ruby.com/75-ruby-tricks-of-2018.html"/>
+    <id>https://idiosyncratic-ruby.com/75-ruby-tricks-of-2018.html</id>
+    <published>2020-08-24T00:00:00Z</published>
+    <updated>2020-08-24T00:00:00Z</updated>
+    <author>
+      <name>Jan Lelis</name>
+    </author>
+    <content type="html">&lt;p&gt;Ruby was initially designed to be a successor of the Perl programming language, which also means that it inherited a lot of Perl's expressiveness. To celebrate this, the &lt;a href="https://github.com/tric/trick2018"&gt;TRIC¹ contest&lt;/a&gt; was invented:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Write the most Transcendental, Imbroglio Ruby program!&lt;/li&gt;
+  &lt;li&gt;Illustrate some of the subtleties (and design issues) of Ruby!&lt;/li&gt;
+  &lt;li&gt;Show the robustness and portability of Ruby interpreters!&lt;/li&gt;
+  &lt;li&gt;Stabilize the spec of Ruby by the presence of valuable but unmaintainable code!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The best submissions were awarded at the Japanese &lt;strong&gt;Ruby Kaigi&lt;/strong&gt; conference and also &lt;a href="https://github.com/ruby/ruby/tree/master/sample/trick2018"&gt;included in the Ruby source&lt;/a&gt;, for educational purpose. The winning submissions² of 2018 were:&lt;/p&gt;
+
+&lt;p&gt;¹ &lt;em&gt;Transcendental Ruby Imbroglio Contest&lt;/em&gt;&lt;br /&gt;
+² &lt;em&gt;All code is MIT licensed, Copyright (c) 2018, TRICK Winners and Judges&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id="st-place-gold-most-reserved"&gt;1st Place (Gold): "Most reserved"&lt;/h2&gt;
+
+&lt;p&gt;By kinaba (&lt;a href="https://github.com/tric/trick2018/blob/master/01-kinaba/remarks.markdown"&gt;remarks&lt;/a&gt;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;alias    BEGIN    for      unless   def      class
+super    true     or       return   defined? next
+break    while    begin    undef    do       end
+rescue   then     retry    else     undef    module
+nil      ensure   case     if       yield    __LINE__
+self     and      redo     elsif    not      __FILE__
+alias    END      in       end      when     __ENCODING__
+end      until    false    end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above Ruby program does not output anything, but it is 100% valid code. What is noteworthy: It only consists of &lt;a href="https://ruby-doc.org/core-2.5.0/doc/keywords_rdoc.html"&gt;reserved keywords&lt;/a&gt; and makes use of all of them!&lt;/p&gt;
+
+&lt;h2 id="nd-place-silver-best-spiral"&gt;2nd Place (Silver): "Best spiral"&lt;/h2&gt;
+
+&lt;p&gt;By Yusuke Endoh (&lt;a href="https://github.com/tric/trick2018/blob/master/02-mame/remarks.markdown"&gt;remarks&lt;/a&gt;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;'';eval(r=%q(-&amp;gt;z{r="'';eval(r=\
+%q(#{r}))[%q`#{z}`]";i=-040;30.
+times{|n|(15+n%2*15-n/2).times{
+r&amp;lt;&amp;lt;r[i+=(1.-n&amp;amp;2)*(32-n%2*31)]}}
+i=r[524,0]=?\0;eval(r[479..-1])
+c['"']}))[%q`GFEDCBA"+"[e\"'"'t
+kE*;;\";"  TRICK2018  ";tb,;{{r
+2E0$ob[us@*0)[90,336])_#i\n}s#i
+0H}&amp;gt;["t]];};o[1,?\n*8];ex"-}eac
+1Hl&amp;lt;1[-1]*2*t=n%2];o[14-n,0)mvk
+8M$&amp;lt;4,?\n];15.times{|n|;o[35ie2
+!Pss.slice!(0,1)+x;sleep(0.0t;0
+'W=%q"&amp;lt;&amp;lt;95&amp;lt;&amp;lt;$s&amp;lt;&amp;lt;95;o=-&amp;gt;n,x{n.'1
+;@[2]}|\e../,%@s="'%trick2018!8
+eval$s=%q_eval($s.gsub!(/#{%@`]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Running the above code returns itself, &lt;a href="https://en.wikipedia.org/wiki/Quine_(computing)"&gt;it is a quine.&lt;/a&gt; And on top of that, instead of returning the result line by line, it prints itself using a &lt;a href="https://showterm.io/75d9ca6ccbda2f65945c4"&gt;spiral animation!&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id="rd-place-bronze-best-png-viewer"&gt;3rd Place (Bronze): "Best png viewer"&lt;/h2&gt;
+
+&lt;p&gt;By Tomoya Ishida (&lt;a href="https://github.com/tric/trick2018/blob/master/03-tompng/remarks.markdown"&gt;remarks&lt;/a&gt;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;X=[];class String def-@;replace ?-+self end;def-a;X.reject!{|x|x.
+__id__==__id__};a.replace(self+?-+a) end end;at_exit{eval C=(Zlib
+.inflate((X*?-).tr(?-,'').tr('q-z','0-9').to_i(26).digits(0x100).
+pack'C*'))};def method_missing n;(X&amp;lt;&amp;lt;n.to_s)[-1]end;require'zlib'
+fzygtoxyzgntmdmuwvfoffbpmvzojpkhczvjvjdbtscnldwbdoprackddovivvmkz
+ponzmosvtjciwkgaslscxxxwudeesmmqpfhislxuxnnypulxstzgobyaekqqhbjcg
+mvko------------ddkeys----eivhnccaqyiw---bzyccmt-----------ymtnge
+jwhi--------------pjxf------mdarbtumnv---qasda--------------gmwdt
+wrtk---qtpzgnce----fsl-------fkgzgtbpp---gwnm----pxkpqkdiw---owga
+momz---yjjvpnvar---zeo---v-----duvalwu---nsqt---waofemwakivnyqkjd
+fzag---uhvusmkl----kzb---rhc----iutzjr---mqlh---ayijpwativpweaato
+xexs--------------rvgv---pjdz-----lkkg---uiaw---lovitupw-----fwmn
+kfru------------jvjpgv---jskycf----pal---gbuf---hfdnywog-----iuca
+pntn---apmkqroeuzwuwkw---gqnmgof-----b---hlpl---vkkyhfyrqfr--jwrl
+kmdb---dhspujhmtgrkccu---uonfummdt-------rqfw----bpiactehwp--fncq
+yzvz---gdaxebplhfndran---ytfmviryeh------hqwkl---------------nced
+bibu---fnkdthgldhkxxjg---rwnmpudhbqin----gucoyki------------hfura
+cqdgqpyzqfzknvdjoxxhpjulwwyebtocxdrvklbuviwwcatlmdosxfvwntzbijguy
+iglrvvzlxerflupxvsyujfacuwhrvmnecgtewtqkhtdggcltejiyqcluclkycwvzg
+vvxfysvttfbeglvrlngntdngzyhqrmltazwdydxrsvjploembhgxdvfmmhepbschm
+brn--iqrcdb--evv----tqp------lg--uein-wzut--mr------wkh------foqz
+zsf--srjnjp--ampb--pfio--hgtekx--rrr---fwd--jn--xqkezcz--vsb--nya
+khrc--evlr--oioxs--mqce--bqfmag--bwz---xda--qw--jnuzelr--qzi--itx
+mdxd--duso--wxbot--nmon--ugnbdpc--a--c--e--hlg--twxndre--tby--rhg
+evhbn--zb--dtxmiz--dpia------vie--h--i--t--shh------kfn------owna
+ealmt--kb--scxdjy--smvl--dqmgebk--t--s--t--gfd--updcbnc--rh--dwwp
+dvpnxb----wpljjdy--kolc--qflyleok---xkv---usbj--jhrawbn--ewx--bgf
+eaqwrw----ejwxhet--dice--eoczconm---urz---rqyp--hovvvfc--bskj--el
+aocjcts--jtumwxm----mgy------xpaoq-jtwqr-aipay------dhy--iync--hk
+sckddmvuvvuhhqstumaykvczaaujrumqbbqsdvdycplyrlkkojlxnkrhbbrmnjxyf
+cdtcmpfmjvthwkpzucbblttgumomlxnxwjeypfeagaukfzeokzxjebkpigcvlqnso
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Requires &lt;code&gt;gem install chunky_png&lt;/code&gt;. This program converts a PNG image into ASCII art! It will turn &lt;a href="https://raw.githubusercontent.com/tric/trick2018/master/03-tompng/trick.png"&gt;this image&lt;/a&gt; into the following text output:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;undef p;X=[];class String def-@;replace ?-+dup end;def-a;X.reject!{|x|x.__id__==__id__};a.replace(self+?-+a) end end;at_exit{eval C=
+(Zlib.inflate (X*?-).tr(?-,'').tr('q-z','0-9').to_i(26).digits(256).pack'C*')};def method_missing n;(X&amp;lt;&amp;lt;n.to_s)[-1]end;require'zlib'
+gmlztzdculbtzgtjfetuh---k--htf----d-----------------------------------------------------g-b-----s--t-g--------jmuwescmgchftikfjafccs
+ivchcveidpvxdabnvwyga-f--v-------xf----------------------------------------------------q-v---l-------q---------liiNeawriayymwooxgxqw
+rfosepqsmojseyezmwbhi--------------ew--------------------------------------------------m---k-r-----------vwu--hiotltdmczwyjmlvbyfqwq
+uvvykqdjednoqgtcmtfbzs---------f----o--------------------------------------------------t--a------m----x---f-----dldzsakyofetfozfpmrq
+geusutariiiNiulkjbwlm-----d------------------------------------------------------------j---------o---------x--j-uitzrgwpupwhvendhyno
+uubvnssiywkklwwdufhhi-rw----k---v-------------------------------------------------------sty-----yg---l---c-v----wkffpskpumolqmkeryzg
+zrxdaiposwybbzgxdnegh-----g-----ma--n---------------------------------------------------------j----n--b-n-------yqavmscswdogpcgopygt
+axiqfswlhzeamvymdnteo---q-q-w--------------------------fhrmj-----------------hkou-----------f-----d----u-o------evcuxxegekfgivzzujan
+nslioftsvqvtkeigvfgwr-------------lyco-----------------igyvg-----------------okuk---------m--b-u--d--y------s---dadjrlykfhtermzfyktu
+btoxzfpPicxxfligbivvf--------h----yrat---------------------------------------vjwd---------------------d-ki--o--tyqosehopkwttigwwfskp
+komzvnyrvkjcjwbmdwdkp----------vxphiNdtawn--xms-saketo--jnld----ezulntdaz----nzna-----vhjwt------h----x--x--o--saxxsrkgktqotaluylbkk
+sclegratyaarmgmepheml----------hwgglhlrfcx--znvmpfsgjx-onhju---gtxsmzqprlt---mjzy---frhdk-------------v---mj----dzjujmbgldfwoybgicwu
+tfhgnhlzxlwtdtkgzlaca-------------gmex------arlm--------rvmh-ajtgf-----pqal--wcux-zatyi-------------------------xnluwybcugjclmablshn
+tnjohqtqzivgmyutrssil-------------lcwq------jrf--------gcaii-maie------------vvnfjfqwo--------------------------filivosyhkxcvuwdibwj
+tyxjiopiFqypvwdzoatuq-------------tdln------cnx---------ffuf-ajvq------------tyyypglpzmj------------------------vtqzwewqdsijrbymvpwn
+niNffphoehukpvvmzvhyd-------------ahqd------nfr---------jeqk--toap-----mxhyg-tedv---otrwy-----------------------mjxnrktackwxwiajdnuc
+kkxhuwbvibpvgvcampadi-------------ebmencqz--obf--------wfprz---qmrotkijiqv---ggfp-----hlzw----------------------kastwdpxiyftmypuxbtu
+xetudmwzpomktgnjkcsyc---------------fwpdx---xb----j-----se-k------tllakc-----gjoo-------we------mic---lktk------ubtnrxvrjzuqlrfrsnmf
+okdvfvcdbdqkckjialskk---------------------------v---u-------l----------------------------------z--q--qfg--------aaliNbxbjjpxebboneye
+kcbkjmdclwnfawtfnwkeq----------------------------------j---y-------------------------------a---jmbyo-sgef--gf---extljbozuoofgyvsilct
+xzoqmsqgzjxxpjqwkjkdd------------------------o--------m-------f---------------------------------n--de-ajz-rzv---fhnpbkrwdxoozpxeaxaf
+mbcwxuiqdwcmadheiykaa-----------------------q-f------l---i---------------------------------r----zf---k--y---fi--dcnycheytylcgnioauee
+yekiNacriqoevtdjerqbp----------------------------w---yy-----my----------------------------ko--mnbpskr--c-----j--ozyqpbfovhbhyoprzgqr
+czwtuopxkdbphocfawvbk--------------------------q-s----j--b---------------------------------hd-xsb----bfiNp--w---fmwuvfambdqvxtzldwmh
+xysnyrseydlkjcwfbsjnr-------------------------d-d-------------------------------------------f-enpss---qllpwr----almsdidvjwoigvldfqoa
+lrpbixjpofxocxlflscpo------------------------------q-fyu--z-------------------------------------kfd-z---n-------bqxurujnxzurrdgcojks
+jetyfdkcekckxbyosbfws-------------wdfhgwuvejjmf-----sxjubpvgcsl-------tnmixpv---------eurabjsdvstfv-------------qcyiqhonwoyixqeonfvp
+mopPhywsozohitutgmmrb------------zxwtxe--riedeo---mspgpnv--pimlh------jhtzajk--------qqovvq---ldbrh-------------xtooxpayonpcvvtmvpra
+vvuyiunpoeagdzqjecsub------------klrw------snrc---rrct------aajom--------nsyk--------peea-------azq-------------iNjefdkfhnagjicqwmsm
+mbwwbfgehhbdmvvlflmee---------------------hkejn---jtbo-------jdtje-------jcei---------afyz-----smtc-------------kksvfjyuaqtohxiohhlz
+dvfmfrzcmnsfruhqgjuxz------------------dfxdnlk----kkra-------xmmtf-------jwkw----------rdoozxtcho---------------bbwwferxwnnmdzcniicv
+mfneisdlyeqwynldjgonj----------------jgrjvc-------uxga-------ghnpr-------sers--------scbknx----gmjo-------------moedtnlbflhtlkjibrqk
+gobwqshnpbdcpjmjaeczr--------------iscsxs---------zfpo-------hhfwy-------qbba-------vhlxc-------ntod------------ndwzdomaptumzejiwqbn
+snucynymvfpnadyqkzfcv-------------ggze------------kuvfs-----zuhod--------mylo-------jhwyp-----z-pywd------------dqfmpnevmtqcikbrilto
+aotyxkipebdkassogpcbl-----------wgackesmvvsrihhd---orzndjndlzpb----------eobf-------kkayixzyotqfafa-w-----------mjjxoomwdglwvccozzut
+rthesuszfwycsqqrtxlot-----------ejcqlhriilqbtrys------lwbkzmvp-----------zzwm-------l--qijwfllndzb-ik-----------mmokqomjepdcotnsiNig
+nloryyoswwdmefywnnuhph------------------------------------------------------r--r-nd-----h--x--------------------hlgzeqqslwxgtjgghquf
+nssngjtiudsrvfuxjzclhjhj----------------------------------------------------------t----------------k-f-mp-------obhyehqebtpjbkeepqzt
+ezogzsimfynqmkteaipejo-g-yser-----------------------------------------------e------h-------------i---y----------qpgcqnltivmmsximbbsy
+wtjjolwyoselcumgklqwpldkl-ulm-m---------------------------------------------------------------q---u-f--l--------buixfiitufktsqdtnrei
+tgrtitcewseetlpeuuujb-osdokjozc------------------------------------------n---d-----f--------g--------q--g-------jyyqtezuzmcxgpcwuwfx
+dpPayqmzxrwhbswwalygfurtkruw-u-k---------------------------------------------d---h------i----------c----i-------ulowcddvjbxthqlxjzbe
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Every piece of ASCII art generated also contains the full converter program and can be used to transform another PNG image into ASCII!&lt;/p&gt;
+
+&lt;h2 id="th-place-best-one-liner"&gt;4th Place: "Best one-liner"&lt;/h2&gt;
+
+&lt;p&gt;By Colin Fulton (&lt;a href="https://github.com/tric/trick2018/blob/master/04-colin/remarks.markdown"&gt;remarks&lt;/a&gt;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# (c) 2018 Colin Fulton. Available for use under the terms of the MIT License.
+$🚀=0;def 🤔 🏷,🤔=0,&amp;amp;b;puts ' '*$🚀+(🤔 ?"":"🚫 ")+🏷;$🚀+=4;b&amp;amp;.[];$🚀-=4;end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;What we have here is essentially a testing framework in 68 characters! It uses a method named &lt;code&gt;🤔&lt;/code&gt; as its API. To illustrate its usage, here is an example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$🚀=0;def 🤔 🏷,🤔=0,&amp;amp;b;puts ' '*$🚀+(🤔 ?"":"🚫 ")+🏷;$🚀+=4;b&amp;amp;.[];$🚀-=4;end
+
+🤔 "Math" do
+  🤔 "Addition" do
+    🤔 "One plus one equals two.",
+      1+1 == 2
+    🤔 "One plus one equals eleven. (This should fail.)",
+      1+1 == 11
+  end
+
+  🤔 "Subtraction" do
+    🤔 "One minus one equals zero.",
+      1-1 == 0
+    🤔 "Ten minus one equal nine.",
+      10-1 == 9
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Test output:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Math
+    Addition
+        One plus one equals two.
+        🚫 One plus one equals eleven. (This should fail.)
+    Subtraction
+        One minus one equals zero.
+        Ten minus one equal nine.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="th-place-most-three-dimensional"&gt;5th Place: "Most three-dimensional"&lt;/h2&gt;
+
+&lt;p&gt;By Tomoya Ishida (&lt;a href="https://github.com/tric/trick2018/blob/master/05-tompng/remarks.markdown"&gt;remarks&lt;/a&gt;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;                                                    X=[];def self.method_missing n;n.to_s.chars;end
+                                               l=[];def l.-a;X&amp;lt;&amp;lt;a=[nil,*a];a;end;def l.+a;self-a;end
+                                           class Array;def-@;[]-self;end;def-a;replace [*self,nil,*a
+                                 ]end;alias +@ -@;alias + -;end;def gen3d f;yield;b=['solid obj'];w,
+                 h=X[0].size,X.size;X&amp;lt;&amp;lt;[];a=-&amp;gt;r,z,dr,dz{;r-=w/2.0;z*=2;r2,z2=r+dr,z+dz*2;if r&amp;gt;0||r2&amp;gt;
+                 0;r=[0,r].max;r2=[0,r2].max;16.times{|i|m=Math;p=m::PI/8;;c,s=m.cos(t=i*p),m.sin(t)
+                 c2,s2=m.cos(t=(i+1)*p),m.sin(t);t-=p/2;[[0,1,2],[0,2,3]].map{|a|b.push [:facet,'n'+
+               +                 'ormal',dz*m.cos(t),dz*m.sin(t),-dr]*' ','outer loop',a.map{|i|'v'+
+              ++                           "ertex #{[[r*c,r*s,z],[r*c2,r*s2,z],[r2*c2,r2*s2,z2],[r2*
+              +c,                              r2*s,z2]][i]*' '}"},:endloop,:endfacet}}end};(0...h).
+             map{|                                  y|w.times{|x|[X[y-1][x]||a[x,y,1,0],X[y+1][x]||
+           a[x+1,y+
+          1,-1,0],X[
+         y][x-+1]||a[
+        x,y+1,0,-1],X[y
+       ][x++1]||a[x+1,y,
+       0,1]]if X[y][x]}}
+       s=[b,'end'+b[0]]*
+        $/;File.write(f,
+         s);X.replace(
+            []);end
+
+gen3d 'wine_glass.stl' do
+  l--ww------------------ww--l
+  l--ww------------------ww--l
+  l--ww++++++++++++++++++ww--l
+  l--ww++++++++++++++++++ww--l
+  l--ww++++++++++++++++++ww--l
+  l--ww++++++++++++++++++ww--l
+  l---ww++++++++++++++++ww---l
+  l----www++++++++++++www----l
+  l------www++++++++www------l
+  l--------wwwwwwwwww--------l
+  l-----------wwww-----------l
+  l------------ww------------l
+  l------------ww------------l
+  l------------ww------------l
+  l-----------wwww-----------l
+  l---------wwwwwwww---------l
+  l----wwwwwwwwwwwwwwwwww----l
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Running the above Ruby program will create an &lt;a href="https://en.wikipedia.org/wiki/STL_(file_format)"&gt;STL file&lt;/a&gt; with a 3D description of a wine glass, which you could actually print out using a 3D printer. &lt;a href="https://raw.githubusercontent.com/tric/trick2018/master/05-tompng/preview_of_output.png"&gt;You can find a preview of the result here.&lt;/a&gt; Changing the shape of the glass in the above code will also change the outputted 3D model!&lt;/p&gt;
+
+&lt;h2 id="th-place-most-reversible-eban-award"&gt;6th Place: "Most reversible" &lt;em&gt;eban award&lt;/em&gt;&lt;/h2&gt;
+
+&lt;p&gt;By Yusuke Endoh (&lt;a href="https://github.com/tric/trick2018/blob/master/06-mame/remarks.markdown"&gt;remarks&lt;/a&gt;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;a,b=:reverse,:itself;b=b
+a=b=:itself;b
+ r||=-&amp;gt;s,m=a{s.send(m)};a
+ puts r[$&amp;lt;.sort_by(&amp;amp;r),b]
+ ;r||=-&amp;gt;s,m=a{s.send(m)};
+  a=b=:reverse;0
+  b,a=:reverse,:itself#
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This program sorts the file given as an argument. The fun starts, when you apply it on the program itself, because it will generate the following, different program:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  a=b=:reverse;0
+  b,a=:reverse,:itself#
+ ;r||=-&amp;gt;s,m=a{s.send(m)};
+ puts r[$&amp;lt;.sort_by(&amp;amp;r),b]
+ r||=-&amp;gt;s,m=a{s.send(m)};a
+a,b=:reverse,:itself;b=b
+a=b=:itself;b
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This generated program is also a sorting-program, but it sorts the given file by &lt;em&gt;reverse order&lt;/em&gt;. The fun continues when you use the program to reverse-order itself! This is the result:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;a=b=:itself;b
+a,b=:reverse,:itself;b=b
+ r||=-&amp;gt;s,m=a{s.send(m)};a
+ puts r[$&amp;lt;.sort_by(&amp;amp;r),b]
+ ;r||=-&amp;gt;s,m=a{s.send(m)};
+  b,a=:reverse,:itself#
+  a=b=:reverse;0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It is even another sorting program, this time it will sort any given file by their last characters on each line. It is a reverse-line sorter! But what if we want to sort by reversed lines in reverse order? No problem, just go one level further and apply the reverse-line sorter program to itself:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  b,a=:reverse,:itself#
+  a=b=:reverse;0
+ ;r||=-&amp;gt;s,m=a{s.send(m)};
+ puts r[$&amp;lt;.sort_by(&amp;amp;r),b]
+ r||=-&amp;gt;s,m=a{s.send(m)};a
+a=b=:itself;b
+a,b=:reverse,:itself;b=b
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The fun ends, when you let this sorter sort itself (again!) which produces the original code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;a,b=:reverse,:itself;b=b
+a=b=:itself;b
+ r||=-&amp;gt;s,m=a{s.send(m)};a
+ puts r[$&amp;lt;.sort_by(&amp;amp;r),b]
+ ;r||=-&amp;gt;s,m=a{s.send(m)};
+  a=b=:reverse;0
+  b,a=:reverse,:itself#
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="th-place-best-compiler"&gt;7th Place: "Best compiler"&lt;/h2&gt;
+
+&lt;p&gt;By Colin Fulton (&lt;a href="https://github.com/tric/trick2018/blob/master/07-colin/remarks.markdown"&gt;remarks&lt;/a&gt;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$l||=__LINE__;eval q=%q[k =";eval q=%q";
+# (c) 2018 Colin Fulton  (MIT License) #
+;n=([1]);f=-&amp;gt;s{[0]*(s.size/40)};$c||=-17
+$r=[*$r]+[[]]*(($l-$c)/18);$c=$l;(s="");
+;;m=-&amp;gt;a,b{8+4*a[b]};$r[ -1]+=f[s]+n;s=%;
+;;s&amp;amp;&amp;amp;$r[-1]=f[s]+$r[-1]||(z=44);z=$l=s=z
+(y=-&amp;gt;{z=puts(z.map &amp;amp;:rstrip)})&amp;amp;&amp;amp;(s="")&amp;amp;&amp;amp;
+e=-&amp;gt;a,b,c{(a+a)[b+c]+a[b-c]};$r||=$r*42;
+;h=[1,*8..10];f=-&amp;gt;a,l{a+[0] *(l-a.size)}
+(r||=-&amp;gt;{f[$r.flat_map{|a|f[a,9]},81]})&amp;amp;&amp;amp;
+c=-&amp;gt;a,d{h.map{|p|e[a,d,p]}.sum};!nil.!||
+g=-&amp;gt;a{d=-1;a. map{(m[a,d+=1])[c[a,d]]}};
+;x=-&amp;gt;{"$l||=__LINE__"+k+91.chr+q+93.chr}
+b=-&amp;gt;{x[].split(?\n).map{|s|s[$t]}}||!$$;
+(v=-&amp;gt;i{g[r[]][i]&amp;gt;0?b[]: [" "*40]*18}) &amp;amp;&amp;amp;
+w=-&amp;gt;i{z ?z.zip(v[i]) .map(&amp;amp;:join):v[i]};
+;$t=/\S.{0,39}/;u=-&amp;gt;i{z=w[i];i%9&amp;gt;7&amp;amp;&amp;amp;y[]}
+;at_exit{b=b&amp;amp;&amp;amp;($z||81.times(&amp;amp;u)&amp;amp;&amp;amp;$z=1)}]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above code snippet is meant as a building block to build a pattern for a &lt;a href="https://github.com/tric/trick2018/blob/master/07-colin/demo.rb"&gt;Conway's Game of Life&lt;/a&gt; simulation! You have to take this literally and build up the pattern using the above &lt;strong&gt;code block&lt;/strong&gt;! Executing the pattern with Ruby will generate the next generation. &lt;a href="https://raw.githubusercontent.com/tric/trick2018/master/07-colin/demo.rb"&gt;Here is the "glider" start pattern&lt;/a&gt;. Repeat the script multiple times to &lt;a href="https://showterm.io/1a79b93909a07d1273dda"&gt;see it moving!&lt;/a&gt; (zoom out for the best viewing experience)&lt;/p&gt;
+
+&lt;h2 id="th-place-most-composable-shinh-award-leonid-award"&gt;8th Place: "Most composable" &lt;em&gt;shinh award&lt;/em&gt;, &lt;em&gt;leonid award&lt;/em&gt;&lt;/h2&gt;
+
+&lt;p&gt;By Tomoya Ishida (&lt;a href="https://github.com/tric/trick2018/blob/master/08-tompng/remarks.markdown"&gt;remarks&lt;/a&gt;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   (B||=[])&amp;lt;&amp;lt;6;C||=[];C&amp;lt;&amp;lt;%w@0 if@;
+             a=?;*2018;C&amp;lt;&amp;lt;%w@2 (e=ARGV[0]);e=File.read@;
+          t=-&amp;gt;(i,s){s&amp;amp;&amp;amp;a[i.to_i,s.size]=s};C&amp;lt;&amp;lt;%w@25 (e)if@;
+         u=-&amp;gt;{C.map{|i,s|t[i,s]};eval(a)};C&amp;lt;&amp;lt;%w@30 (/^\.+$@;
+        at_exit{_,u=u,-&amp;gt;{};_[]};C&amp;lt;&amp;lt;%w@37 /!~e&amp;amp;&amp;amp;File.exist?(@;
+       C&amp;lt;&amp;lt;%w@55 e));d='[&amp;gt;&amp;lt;+-,.]';i=32.chr;f=0..79;c=(0..7).m@;
+       C&amp;lt;&amp;lt;%w@99 ap{|c|b=['C||=[];','a=?;*2018;','t=-&amp;gt;(i,s){s@;
+      C&amp;lt;&amp;lt;%w@143 &amp;amp;&amp;amp;a[i.to_i,s.size]=s};','u=-&amp;gt;{C.map{|i,s|t[i,@;
+      C&amp;lt;&amp;lt;%w@188 s]};eval(a)};','at_exit{_,u=u,-&amp;gt;{};_[]};'];o=@;
+      C&amp;lt;&amp;lt;%w@233 0;f.map{|f|j=(0..67).map{|r|r-=34;s=f-34;m,n=@;
+      C&amp;lt;&amp;lt;%w@278 r.abs,s.abs;h=-&amp;gt;x{m&amp;lt;25&amp;amp;&amp;amp;n&amp;lt;34&amp;amp;&amp;amp;(x&amp;lt;0||n&amp;gt;17)};q=@;
+      C&amp;lt;&amp;lt;%w@323 -&amp;gt;x{n&amp;lt;x+34&amp;amp;&amp;amp;x&amp;lt;n&amp;amp;&amp;amp;n&amp;lt;34};[h[r],q[-r],q[r],n&amp;lt;11|@;
+      C&amp;lt;&amp;lt;%w@368 |(m&amp;lt;17&amp;amp;&amp;amp;n&amp;lt;34),n&amp;lt;12,r**4*1.6+16*(s-25)**4&amp;lt;8*17@;
+      C&amp;lt;&amp;lt;%w@413 **4||(s&amp;gt;37&amp;amp;&amp;amp;s&amp;gt;17-r&amp;amp;&amp;amp;4*s&amp;lt;173-r),r**4+16*(s-25)@;
+      C&amp;lt;&amp;lt;%w@458 **4&amp;lt;8*17**4,h[-r]][c]};r,p=j.index(!!0),j.cou@;
+      C&amp;lt;&amp;lt;%w@503 nt(!!0);next(i*68)if(!r);k=f==45?'(B||=[])&amp;lt;&amp;lt;'@;
+      C&amp;lt;&amp;lt;%w@548 +c.to_s+?;:'';g=b[0];(k+=b.shift)if(g&amp;amp;&amp;amp;g.size@;
+      C&amp;lt;&amp;lt;%w@593 &amp;lt;=p-k.size);l=p-k.size-o.to_s.size-9;s=64.chr@;
+      C&amp;lt;&amp;lt;%w@638 ;if(l&amp;gt;0);k+=['C&amp;lt;&amp;lt;%w',s,o,i,a[o,l],s,?;]*'';o+@;
+      C&amp;lt;&amp;lt;%w@683 =l;end;(i*r)+k+?;*([p-k.size,0].max)+i*(68-r-@;
+      C&amp;lt;&amp;lt;%w@728 p)}};(e.chars-(e.chars-d.chars)).each_slice(8@;
+      C&amp;lt;&amp;lt;%w@773 ){|l|puts(f.map{|y|l.map{|r|c[d.index(r)][y]}@;
+       C&amp;lt;&amp;lt;%w@818 .*(i*17).rstrip});4.times{puts};};else;x,i=@;
+       C&amp;lt;&amp;lt;%w@861 Hash.new{0},0;y=%(while(x[i]!=0);i+=1;i-=1;@;
+        C&amp;lt;&amp;lt;%w@904 x[i]+=1;x[i]-=1;x[i]=($&amp;lt;.binmode.getc||0)@;
+         C&amp;lt;&amp;lt;%w@945 .ord;$&amp;gt;&amp;lt;&amp;lt;(x[i]&amp;amp;0xff).chr;end).split(?;)@;
+          C&amp;lt;&amp;lt;%w@984 ;eval(B.map{|a|y[a]}*?;);end;;;;;;;;;@;
+             C&amp;lt;&amp;lt;%w@1021 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;@;
+                   C&amp;lt;&amp;lt;%w@1051 ;;;;;;;;;;;;;;;;;;@;
+
+
+
+
+
+
+
+
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is not just another &lt;a href="https://en.wikipedia.org/wiki/Brainfuck"&gt;brainfuck compiler&lt;/a&gt;. Not only does this piece of code convert a &lt;a href="https://raw.githubusercontent.com/tric/trick2018/master/08-tompng/sample.bf"&gt;bf source file&lt;/a&gt; into an equivalent Ruby source file. It also formats the resulting Ruby code into huge letters representing the original bf code. As a bonus, the compiler gets embedded into the generated Ruby file and is used when it receives another file as a command-line argument. A demo of all the described features in &lt;a href="https://raw.githubusercontent.com/tric/trick2018/master/08-tompng/sample.mp4"&gt;this short video by the author!&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id="th-place-most-unreadable"&gt;9th Place: "Most (un)readable"&lt;/h2&gt;
+
+&lt;p&gt;By Yutaka Hara&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def method_missing(n);$*&amp;lt;&amp;lt;n.to_s.bytesize
+n[-1]=="!" and eval$*.map(&amp;amp;:chr).join;end
+
+＊自己言及的なプログラム.
+これは「自己に言及」したQuineプログラムです.
+動かすには普通に無引数で実行してください.
+MRIの最新の安定版で動作確認を行っています.
+＊冒頭の2行が日本語プログラミングのDSLを提供します.
+Rubyはピリオドまでの部分がメソッド名であると解釈します.
+そのままではNoMethodErrorになります.
+それをmethod_missingを使って検知しメソッド名のbytesizeをASCIIコードとして文字にします.
+メソッド名が半角の！で終わる場合、記憶した文字たちをjoinしてevalします.
+これにより任意のRubyプログラムを日本語により記述することができます.
+このプログラムの場合はこのファイルをreadし出力するようになっています.
+＊Note：文の長さは注意が必要.
+UTF_8の日本語は1文字が3bytes.
+端数が丁度になるよう英語を入れる.
+以上、自己言及的programでした!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The first two lines of this Ruby script enable a "Japanese programming" style. The characters before each &lt;code&gt;.&lt;/code&gt; get converted to ASCII on the basis of their byte size. The embedded example program is &lt;code&gt;$&amp;gt;&amp;lt;&amp;lt;IO.read($0)&lt;/code&gt;: The code reads itself to then output itself.&lt;/p&gt;
+
+&lt;h2 id="th-place-best-double-meaning-matz-award"&gt;10th Place: "Best double meaning" &lt;em&gt;matz award&lt;/em&gt;&lt;/h2&gt;
+
+&lt;p&gt;By Tomoya Ishida (&lt;a href="https://github.com/tric/trick2018/blob/master/10-tompng/remarks.markdown"&gt;remarks&lt;/a&gt;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def self.method_missing name, *args
+  name.to_s
+end
+
+FizzMessage = Fizz()
+BuzzMessage = Buzz()
+
+def    fizzbuzz_loop n=100
+  n = n.to_i
+  return 0 if n == 0
+  (1..n).each do |i|
+    puts fizzbuzz(i)
+  end
+  error = get_error_message
+  puts error if error
+end
+
+def   fizzbuzz n
+  set_error 'wrong argument type' if n.nil?
+  if n &amp;lt;  0
+    n = -n
+    retval =  fizzbuzz n
+    return       retval
+  else
+    if mod3(n) == 0 &amp;amp;&amp;amp; mod5(n) == 0
+      FizzMessage + BuzzMessage
+    elsif mod3(n) == 0
+      FizzMessage
+    elsif mod5(n) == 0
+      BuzzMessage
+    else
+      int2string n
+    end
+  end
+end
+
+def        int2string n
+  if n &amp;lt;  0
+    n = -n
+    tmp =    int2string n
+    return  '-' + tmp
+  end
+  base =  10
+  charcode_offset =   0x30
+  n =     n.to_i unless n.is_a? Integer
+  chars = n.digits(      base   ).map do |n|
+    (n + charcode_offset).chr
+  end
+     chars.reverse.join
+end
+
+def       mod3 n
+  if n &amp;lt;  0
+    n = -n
+    tmp  = mod3 n
+    return  -tmp
+  end
+  return +0 if n % 3 == 0
+  return +2 if n % 3 == 2 || n % 3 == -1
+  return  +1
+end
+
+def   mod5 n
+  if n &amp;lt;  0
+    n = -n
+    tmp = mod5 n
+    flip =                  -1
+    tmp * flip
+  else
+    n.modulo 5
+  end
+end
+
+def     set_error msg
+  if  !msg
+    msg = 'UnknownError'
+    retval  = set_error msg
+    return  retval
+  end
+  $ERROR =
+           msg
+end
+
+def      get_error_message
+  $ERROR
+end
+
+
+
+
+
+eval     'n=100;fizzbuzz_loop(n)'
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The program printed above is not the original submission, but it looks very similar to the real entry! When run, it will print out the well-known FizzBuzz sequence:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;1
+2
+Fizz
+4
+Buzz
+Fizz
+7
+8
+Fizz
+Buzz
+11
+Fizz
+13
+14
+FizzBuzz
+…
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;However, the &lt;a href="https://raw.githubusercontent.com/tric/trick2018/master/10-tompng/entry.rb"&gt;actual competition entry&lt;/a&gt; will print out:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;1
+2
+Ruby
+4
+Trick
+Ruby
+7
+8
+Ruby
+Trick
+11
+Ruby
+13
+14
+RubyTrick
+…
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The difference: A bunch of &lt;a href="https://character.construction/blanks"&gt;invisible Unicode characters&lt;/a&gt; sprinkled throughout the code, namely &lt;strong&gt;U+00AB&lt;/strong&gt; (no-break space) and &lt;strong&gt;U+200B&lt;/strong&gt; (zero width space), which drastically change how the code gets interpreted!&lt;/p&gt;
+
+&lt;h2 id="th-place-most-attractive-eto-award"&gt;11th Place: "Most attractive" &lt;em&gt;eto award&lt;/em&gt;&lt;/h2&gt;
+
+&lt;p&gt;By Tomoya Ishida (&lt;a href="https://github.com/tric/trick2018/blob/master/11-tompng/remarks.markdown"&gt;remarks&lt;/a&gt;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;                           p,i,u,f,v,q    ,h,x=[],
+                         Math,-&amp;gt;x{i.sin x},-&amp;gt;x,y,z{
+                       x*=1.2;      r,a,m=(1   -y=y*1.4+0.15)/2+0.1,y+u[3*x+4*y+5*z*=1.2]  /12,x*
+                     x+z*z;         l,s,b=     m**0.5,i.atan2(z,x),u[6*a]**2/36+((x*x+z*z)**0.5-r)**
+                     2-(1-   a*      a)/2      /500;l-=   (1-y   )/8   *d=  (u[   2*s  +3*3*t   =1-y-
+                    l/2]*    u[       3*       s-3*2       *                            t])    **2/(
+                     1+i.  exp(       t        *10-   9-  5.5      ));e       =4*l /(   1+(    0.01+
+                     (1-a=y-d*    (       1    -y)       /8)**    2)**0.5    -a)*(1-a    *    a+((1-
+                      a*a)**2+   0.01   )**    0.5    )** 0.5    ;(i.atan(   (1-0.2*i.         asin(
+                      0.98*      u[+   +5.0    *           i.    atan2(y=   3*y-3.4,x         *=3)]
+                      ))*(       (0.01+x*x+     y*y      )**    0.5-0.1)    +4*(0.01+z        *z*4
+          )**0.5-1)* i.atan(     a*a+e*e-1-10/(1+(40*m)**10+((a+1)*10)**10))-0.01)*b},%w&amp;amp;    MMM##
+      TTTQQBKPTVVpQAk5Y7*pgw43v7*pgaor&amp;lt;*"ggau]/~"gau];-~'ga;,,,.'MerryChristmas!&amp;amp;*'',-&amp;gt;x    ,y,z,
+    s,m{if(m==    1);g=f   [x+=s/2,y+=s/2,z+=s/2];a,  b,c=f[x+d=0.01,y,z]-g,f[x,y+d,z]-    g,f[x,
+   y,z+d]           -g;   p&amp;lt;&amp;lt;[x,y,z,a/d=(a*a+b*b+c    *c)**0.5,b/d,c/d];else;(r=0        ...n=[m,4].min).map{|i|r.map{
+  |j|a,    b=[f[   x+k    =s*i/n,y+l=s*j/n,z+s],f   [x+k,y+l,z],f[    x,y+k,z+l],f[x+l,y,z+k],f[x+s,y+k,z+l],f[x+l,y++s,
+ z+k]].  minmax;return    8.   times    {     |     i|q[x      +          s     *    i     [0],y+s       *i[1]      ,z+s*
+i[2],    s,m/2]}if a*b          &amp;lt;0           &amp;amp;&amp;amp;     s/=    2  }}         ;                 end},         0,1    ..  j=128
+(0..7)   .each{|i|q[i[    0]    -z=      1.0,i[1    ]-z     ,i[2]    -z,z,64]         ;    $&amp;gt;&amp;lt;&amp;lt;   v[2   *i+64     ,2]};;;
+sleep    1;loop{  r,s    ,m,    l,d,    w=i.cos(   h+=0.02   ),u[   h],i.cos(  m=    u[    2.3    *h    ]/5),u     [++m],
+x.map    {[7]*j},  x.    map    {[7]    *j};;p.    each{|     x,y    ,z,a,b,   e|    x,    z=x    *r    +s*z,z     *r-s*
+x;y,z     =m*y+   l*z    ,m       *z    -l*y;x,      y=64*    (x+    1  ),64   *(    1-      y     )       ;x&amp;lt;j    &amp;amp;&amp;amp;y&amp;lt;
+ j&amp;amp;&amp;amp;z&amp;lt;            d[x    ][     y]&amp;amp;&amp;amp;   (d[x][y]     ,w       [x][      y]=z    ,(    8*     (1           +(      a*r+b+
+  e*s)/2)    /2).floor)};32.times{|i|4.times{|x|w[((u[i**3]+u[h/4+i]/4)*j+x[0])%j][(h/2+u[i*i])%1*j+x[1]]=5}};f=[1,1]
+      $&amp;gt;&amp;lt;&amp;lt;27.chr+   ?[+f*  ';'+?H+(0..63)     .map{|y|x.map{|x|  v[w[x-=1  ][2*y]*8+w[x][2*y+  1]]}.join}*$/}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Run the code next Christmas for &lt;a href="https://showterm.io/e23f90d1917ee2c0b991a"&gt;an animated terminal Christmas tree&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id="th-place-minimum-alternative-of-irb-mame-award"&gt;12th Place: "Minimum alternative of irb" &lt;em&gt;mame award&lt;/em&gt;&lt;/h2&gt;
+
+&lt;p&gt;By Jan Lelis (&lt;a href="https://github.com/tric/trick2018/blob/master/12-jan/remarks.markdown"&gt;remarks&lt;/a&gt;), &lt;strong&gt;wait, me on that list? Sure, it's no mistake? Unbelievable!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;eval      %w?_="";_       _=binding;l
+oop(      )do    $&amp;gt;&amp;lt;      &amp;lt;"&amp;gt;       &amp;gt;\s
+"if       $/&amp;gt;     _;p     uts        "=&amp;gt;
+\s%p      "%[   __.e      val       (_+
+=get      s||exit!)       ,_=""];rescu
+e(Ex      cep   tio       n);       put
+s""+      "\e    [31      m%p        \e[
+0m"%      [$!     ,_=     ""]       if/
+d\se      |ee      /!~    "#$!"end?*""
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Run the code above to get a fully functional &lt;a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop"&gt;REPL&lt;/a&gt; with multi-line support:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt; 21 + 21
+=&amp;gt; 42
+
+&amp;gt;&amp;gt; 42.succ
+=&amp;gt; 43
+
+&amp;gt;&amp;gt; def announce
+puts "TRICK 2018"
+end
+=&amp;gt; :announce
+
+&amp;gt;&amp;gt; announce
+TRICK 2018
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For a better usage experience, error messages get displayed in red:&lt;/p&gt;
+
+&lt;pre&gt;&amp;gt;&amp;gt; 1/0
+&lt;span style="color:red"&gt;#&amp;lt;ZeroDivisionError: divided by 0&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;
+
+&lt;h2 id="th-place-most-warned-yhara-award"&gt;13th Place: "Most warned" &lt;em&gt;yhara award&lt;/em&gt;&lt;/h2&gt;
+
+&lt;p&gt;By kinaba (&lt;a href="https://github.com/tric/trick2018/blob/master/13-kinaba/remarks.markdown"&gt;remarks&lt;/a&gt;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def STDOUT.write (s); syswrite s
+ end if def $&amp;gt;.write; end
+s = Array.new(){}.map{|s|}
+s &amp;lt;&amp;lt; (-"Trick").grapheme_clusters{}        [0] # frozen_string_literal: Trick
+s &amp;lt;&amp;lt; ("Ruby".unpack *"ao")                 [0]
+s &amp;lt;&amp;lt; "#{10**2018 + 1e2018}"                [0]
+s &amp;lt;&amp;lt; "#{1&amp;gt;2&amp;gt;3 rescue $!.class.trust.class}"[0]
+s &amp;lt;&amp;lt; "#{true; Kernel.public_class_method}" [0]
+s &amp;lt;&amp;lt; ($ruby.object_id.coerce +2018)        [0]
+result = puts s*""
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This program of 10 lines does not output anything special, but as soon you run it with warnings enabled (&lt;code&gt;ruby -w&lt;/code&gt;), each line generates two warnings (Ruby 2.5), one at compile-time, and another one at runtime!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kin.rb:1: warning: parentheses after method name is interpreted as an argument list, not a decomposed argument
+kin.rb:2: warning: mismatched indentations at 'end' with 'def' at 1
+kin.rb:3: warning: shadowing outer local variable - s
+kin.rb:4: warning: `frozen_string_literal' is ignored after any tokens
+kin.rb:5: warning: `*' interpreted as argument prefix
+kin.rb:6: warning: Float 1e2018 out of range
+kin.rb:7: warning: comparison '&amp;gt;' after comparison
+kin.rb:8: warning: unused literal ignored
+kin.rb:9: warning: ambiguous first argument; put parentheses or a space even after `+' operator
+kin.rb:10: warning: assigned but unused variable - result
+kin.rb:1: warning: method redefined; discarding old write
+kin.rb:2: warning: previous definition of write was here
+kin.rb:3: warning: given block not used
+kin.rb:4: warning: passing a block to String#grapheme_clusters is deprecated
+kin.rb:4: warning: character class has duplicated range: /\X/
+kin.rb:5: warning: unknown unpack directive 'o' in 'ao'
+kin.rb:6: warning: Bignum out of Float range
+kin.rb:7: warning: trust is deprecated and its behavior is same as untaint
+kin.rb:8: warning: public_class_method with no argument is just ignored
+kin.rb:9: warning: global variable `$ruby' not initialized
+kin.rb:10: warning: #&amp;lt;IO:&amp;lt;STDOUT&amp;gt;&amp;gt;.write is outdated interface which accepts just one argument
+TRICK2018
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="honorable-mentions"&gt;Honorable Mentions&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://raw.githubusercontent.com/tric/trick2018/master/honorable-mentions/tompng/entry.rb"&gt;"Best monkey"&lt;/a&gt; by Tomoya Ishida (&lt;a href="https://github.com/tric/trick2018/blob/master/honorable-mentions/tompng/remarks.markdown"&gt;remarks&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://raw.githubusercontent.com/tric/trick2018/master/honorable-mentions/shinh/entry.rb"&gt;"Best abuse of lambda"&lt;/a&gt; by Shinichiro Hamaji (&lt;a href="https://github.com/tric/trick2018/blob/master/honorable-mentions/shinh/remarks.markdown"&gt;remarks&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://raw.githubusercontent.com/tric/trick2018/master/honorable-mentions/yugui/entry.rb"&gt;"Best abuse of meta"&lt;/a&gt; by Yuki Yugui Sonoda (&lt;a href="https://github.com/tric/trick2018/blob/master/honorable-mentions/yugui/remarks.markdown"&gt;remarks&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://raw.githubusercontent.com/tric/trick2018/master/honorable-mentions/omoikane/entry.rb"&gt;"Most solvable"&lt;/a&gt; by Don Yang (&lt;a href="https://github.com/tric/trick2018/blob/master/honorable-mentions/omoikane/remarks.markdown"&gt;remarks&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://raw.githubusercontent.com/tric/trick2018/master/honorable-mentions/yhara/entry.rb"&gt;"Best layout"&lt;/a&gt; by Yutaka Hara (&lt;a href="https://github.com/tric/trick2018/blob/master/honorable-mentions/yhara/remarks.markdown"&gt;remarks&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://raw.githubusercontent.com/tric/trick2018/master/honorable-mentions/eregon/entry.rb"&gt;"Best abuse of regexp"&lt;/a&gt; by Benoit Daloze (&lt;a href="https://raw.githubusercontent.com/tric/trick2018/master/honorable-mentions/eregon/example.json"&gt;example.json&lt;/a&gt;, &lt;a href="https://github.com/tric/trick2018/blob/master/honorable-mentions/eregon/remarks.markdown"&gt;remarks&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://raw.githubusercontent.com/tric/trick2018/master/honorable-mentions/tamayose/entry.rb"&gt;"Most tolerant"&lt;/a&gt; by Shuichi Tamayose (&lt;a href="https://github.com/tric/trick2018/blob/master/honorable-mentions/tamayose/remarks.markdown"&gt;remarks&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://raw.githubusercontent.com/tric/trick2018/master/honorable-mentions/colin/entry.rb"&gt;"Best applause"&lt;/a&gt; by Colin Fulton (&lt;a href="https://github.com/tric/trick2018/blob/master/honorable-mentions/colin/remarks.markdown"&gt;remarks&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="/48-ruby-tricks-of-2015.html"&gt;TRIC 2015&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="/47-ruby-tricks-of-2013.html"&gt;TRIC 2013&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Super Snakes</title>
     <link rel="alternate" href="https://idiosyncratic-ruby.com/74-super-snakes.html"/>
@@ -16452,7 +17164,7 @@ end
   &lt;li&gt;Stabilize the spec of Ruby by the presence of valuable but unmaintainable code!&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;The best submissions were awarded at the Japanese &lt;strong&gt;Ruby Kaigi&lt;/strong&gt; conference and also &lt;a href="https://github.com/ruby/ruby/tree/trunk/sample/trick2015"&gt;included in the Ruby source&lt;/a&gt;, for educational purpose. The winning submissions² of 2015 were:&lt;/p&gt;
+&lt;p&gt;The best submissions were awarded at the Japanese &lt;strong&gt;Ruby Kaigi&lt;/strong&gt; conference and also &lt;a href="https://github.com/ruby/ruby/tree/master/sample/trick2015"&gt;included in the Ruby source&lt;/a&gt;, for educational purpose. The winning submissions² of 2015 were:&lt;/p&gt;
 
 &lt;p&gt;¹ &lt;em&gt;Transcendental Ruby Imbroglio Contest&lt;/em&gt;&lt;br /&gt;
 ² &lt;em&gt;All code is MIT licensed, Copyright (c) 2015, TRICK Winners and Judges&lt;/em&gt;&lt;/p&gt;
@@ -16750,6 +17462,7 @@ ume ? 1:-1]}";eval z.tr ?\n,''
 &lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
 
 &lt;ul&gt;
+  &lt;li&gt;&lt;a href="/75-ruby-tricks-of-2018.html"&gt;TRIC 2018&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="/47-ruby-tricks-of-2013.html"&gt;TRIC 2013&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
@@ -16772,7 +17485,7 @@ ume ? 1:-1]}";eval z.tr ?\n,''
   &lt;li&gt;Stabilize the spec of Ruby by the presence of valuable but unmaintainable code!&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;The best submissions were awarded at the Japanese &lt;strong&gt;Ruby Kaigi&lt;/strong&gt; conference and also &lt;a href="https://github.com/ruby/ruby/tree/trunk/sample/trick2013"&gt;included in the Ruby source&lt;/a&gt;, for educational purpose. The winning submissions² of 2013 were:&lt;/p&gt;
+&lt;p&gt;The best submissions were awarded at the Japanese &lt;strong&gt;Ruby Kaigi&lt;/strong&gt; conference and also &lt;a href="https://github.com/ruby/ruby/tree/master/sample/trick2013"&gt;included in the Ruby source&lt;/a&gt;, for educational purpose. The winning submissions² of 2013 were:&lt;/p&gt;
 
 &lt;p&gt;¹ &lt;em&gt;Transcendental Ruby Imbroglio Contest&lt;/em&gt;&lt;br /&gt;
 ² &lt;em&gt;All code is MIT licensed, Copyright (c) 2013, TRICK Winners and Judges&lt;/em&gt;&lt;/p&gt;
@@ -16835,7 +17548,7 @@ you != program
 .to_f*M.sin(y=                 40*(z+m)*2**
 (t/12E0)/463)+               y)*(v-z*d/n)};
 t+=1;v-d};m+=                n;g.flush&amp;lt;&amp;lt;(s.
-  pack"C*");                 puts(l)}}};M= 
+  pack"C*");                 puts(l)}}};M=
                                Math);S=%:
 
          Jesu, Joy of Man's Desiring
@@ -16928,6 +17641,7 @@ t+=1;v-d};m+=                n;g.flush&amp;lt;&amp;lt;(s.
 &lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
 
 &lt;ul&gt;
+  &lt;li&gt;&lt;a href="/75-ruby-tricks-of-2018.html"&gt;TRIC 2018&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="/48-ruby-tricks-of-2015.html"&gt;TRIC 2015&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
