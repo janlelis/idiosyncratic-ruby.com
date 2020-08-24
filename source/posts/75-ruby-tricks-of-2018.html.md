@@ -2,6 +2,7 @@
 title: Ruby TRICKS of 2018
 date: 2020-08-24
 tags: tricks, community, obfuscate, golf
+commit: 6ceb34acba227c987cfa0930e02adb086e438a27
 ---
 
 Ruby was initially designed to be a successor of the Perl programming language, which also means that it inherited a lot of Perl's expressiveness. To celebrate this, the [TRIC¹ contest](https://github.com/tric/trick2018) was invented:
