@@ -12,7 +12,7 @@ Ruby was initially designed to be a successor of the Perl programming language, 
 - Show the robustness and portability of Ruby interpreters!
 - Stabilize the spec of Ruby by the presence of valuable but unmaintainable code!
 
-The best submissions were awarded at the Japanese **Ruby Kaigi** conference and also [included in the Ruby source](https://github.com/ruby/ruby/tree/trunk/sample/trick2013), for educational purpose. The winning submissions² of 2013 were:
+The best submissions were awarded at the Japanese **Ruby Kaigi** conference and also [included in the Ruby source](https://github.com/ruby/ruby/tree/master/sample/trick2013), for educational purpose. The winning submissions² of 2013 were:
 
 ¹ *Transcendental Ruby Imbroglio Contest*<br/>
 ² *All code is MIT licensed, Copyright (c) 2013, TRICK Winners and Judges*
@@ -72,7 +72,7 @@ Guess what this one does:
     .to_f*M.sin(y=                 40*(z+m)*2**
     (t/12E0)/463)+               y)*(v-z*d/n)};
     t+=1;v-d};m+=                n;g.flush<<(s.
-      pack"C*");                 puts(l)}}};M= 
+      pack"C*");                 puts(l)}}};M=
                                    Math);S=%:
 
              Jesu, Joy of Man's Desiring
@@ -162,6 +162,7 @@ Right! It will play some lovely classical music! Run it with:³
 
 ## Also See
 
+- [TRIC 2018](/75-ruby-tricks-of-2018.html)
 - [TRIC 2015](/48-ruby-tricks-of-2015.html)
 
 ## Other Awarded Submissions
