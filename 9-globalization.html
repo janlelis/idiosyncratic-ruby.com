@@ -26,7 +26,7 @@
       <article class="post">
         <p>This is an overview of all the special, two-letter (and other) global variables in Ruby, which Ruby <a href="http://www.perlmonks.org/?node_id=353259">inherited from Perl</a>.</p>
 
-<p>For the purpose of improving code readability, Ruby comes with <a href="https://github.com/ruby/ruby/blob/trunk/lib/English.rb">English.rb</a> in its standard library (or <a href="https://github.com/janlelis/Deutsch.rb/blob/master/lib/Deutsch.rb">Deutsch.rb</a> as gem), which provides non-cryptic aliases and some documentation.</p>
+<p>For the purpose of improving code readability, Ruby comes with <a href="https://github.com/ruby/ruby/blob/trunk/lib/English.rb">English.rb</a> in its standard library (or <a href="https://github.com/janlelis/Deutsch.rb/blob/main/lib/Deutsch.rb">Deutsch.rb</a> as gem), which provides non-cryptic aliases and some documentation.</p>
 
 <p>Ruby also defines some three-letter global variables that mirror CLI options (<code>$-…</code>)</p>
 
@@ -284,19 +284,9 @@
       <td><a href="https://robots.thoughtbot.com/io-in-ruby">IO in Ruby</a></td>
     </tr>
     <tr>
-      <td>$SAFE</td>
-      <td>thread</td>
-      <td><a href="http://phrogz.net/programmingruby/taint.html#table_20.1">Level 1: Tainting</a> (other levels were removed)</td>
-    </tr>
-    <tr>
       <td>$FILENAME</td>
       <td>read-only</td>
       <td>The current file being read via ARGF. Same as <a href="http://www.rubydoc.info/stdlib/core/ARGF#filename-instance_method">ARGF.filename</a>.</td>
-    </tr>
-    <tr>
-      <td>$KCODE, $-K</td>
-      <td>defunct</td>
-      <td>-</td>
     </tr>
     <tr>
       <td>$DEBUG, $-d</td>
@@ -352,7 +342,7 @@
           <a href="https://janlelis.com/data-protection.html">Data Protection</a>
         </div>
         About Core, Globals, Stdlib<br>
-        Last Update: July 30, 2018
+        Last Update: January 02, 2021
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

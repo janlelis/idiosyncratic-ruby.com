@@ -116,6 +116,8 @@ end
 
 <p>There are keywords for <code>true</code>, <code>false</code>, and <code>nil</code>. They all have a predefined associated constant, <a href="/45-constant-shuffle.html">which can be redefined</a>: <code>TRUE, FALSE, NIL = nil, true, false</code>. There is no reason to keep them around.</p>
 
+<p><strong>Update:</strong> Removed in Ruby 3.0</p>
+
 <h3 id="implicit-creation-of-local-variables-via-regex-matching">6. Implicit Creation of Local Variables via Regex Matching</h3>
 
 <p>Accessing the last regex match: There is no need for <a href="/14-meeting-some-locals.html#implicit-local-variables-through-regex-matching"><code>=~</code> to be able to create local variables</a>, but only if both operands are in the right order. Using <a href="https://idiosyncratic-ruby.com/60-escape-back-referencing.html"><code>$~[:group_name]</code></a> instead is more explicit and still very concise.</p>
@@ -159,7 +161,7 @@ end
           <a href="https://janlelis.com/data-protection.html">Data Protection</a>
         </div>
         About Syntax, Grammar, Keywords<br>
-        Last Update: July 09, 2018
+        Last Update: January 02, 2021
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>
