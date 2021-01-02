@@ -44,11 +44,11 @@ In actuality, there is also a third way to set local variables: binding's `local
     a # => "$"
     b # NameError: ...
 
-## Ruby 2.7 Update: Pattern Assignment
+## Ruby 3.0 Update: Right Hand Assignment
 
 Whoa!
 
-    %w[$ €] in [a, b]
+    %w[$ €] => [a, b]
     a # => "$"
     b # => "€"
 
