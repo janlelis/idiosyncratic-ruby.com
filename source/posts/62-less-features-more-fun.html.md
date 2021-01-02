@@ -86,6 +86,8 @@ All in all: `then` is superfluous.
 
 There are keywords for `true`, `false`, and `nil`. They all have a predefined associated constant, [which can be redefined](/45-constant-shuffle.html): `TRUE, FALSE, NIL = nil, true, false`. There is no reason to keep them around.
 
+**Update:** Removed in Ruby 3.0
+
 ### 6. Implicit Creation of Local Variables via Regex Matching
 
 Accessing the last regex match: There is no need for [`=~` to be able to create local variables](/14-meeting-some-locals.html#implicit-local-variables-through-regex-matching), but only if both operands are in the right order. Using [`$~[:group_name]`](https://idiosyncratic-ruby.com/60-escape-back-referencing.html) instead is more explicit and still very concise.
