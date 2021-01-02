@@ -19,9 +19,11 @@ Rubyists generally do not want to rely on Python, so there is a Ruby equivalent:
 
     $ ruby -run -e httpd . -p 8080
 
-This will fire up a very simple server, written in Ruby, using [WEBrick](https://ruby-doc.org/stdlib/libdoc/webrick/rdoc/WEBrick.html) under the hood!
+This will fire up a very simple server, written in Ruby, using [WEBrick](https://stdgems.org/webrick/) under the hood!
 
 It also takes some more options, see at bottom of this post for a listing of available ones.
+
+**Please note:** WEBrick was removed from Ruby in version 3.0
 
 How does this work and what does it do exactly? First of all, what does `ruby -run` mean? The answer might be surprising: It could be rewritten as:
 
