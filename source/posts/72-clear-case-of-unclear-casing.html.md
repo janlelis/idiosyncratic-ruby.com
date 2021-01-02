@@ -47,7 +47,7 @@ Or consider this case:
 
 ## Start a Class
 
-For reference, this is the list of allowed characters to start a class/constant, as of Ruby 2.7:
+For reference, this is the list of allowed characters to start a class/constant, as of Ruby 3.0:
 
 Char | Codepoint | Name
 ----|-----------|-----

@@ -15,6 +15,7 @@ ARTICLE
 
 Ruby Version | Unicode Version
 -------------|----------------
+**3.0**      | **12.1.0**
 **2.7**      | **12.1.0**
 **2.6.3+**   | **12.1.0**¹
 **2.6.2**    | **12.0.0**
@@ -38,6 +39,7 @@ Starting with Ruby 2.4, you can find out your Ruby version's Unicode support wit
 
 Ruby Version | Emoji Version
 -------------|----------------
+**3.0**      | **12.1**
 **2.7**      | **12.1**
 **2.6.2+**   | **12.0**
 **2.6.1-**   | **11.0**
