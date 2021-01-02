@@ -157,7 +157,7 @@ All symbols:
     $ ruby --disable-all -e 'puts global_variables.sort.
     map{ |g| "`#{g.to_s.sub("`", "\\`")}`" }.join(", ")'
 
-`$!`, `$"`, `$$`, `$&`, `$'`, `$*`, `$+`, `$,`, `$-0`, `$-F`, `$-I`, `$-K`, `$-W`, `$-a`, `$-d`, `$-i`, `$-l`, `$-p`, `$-v`, `$-w`, `$.`, `$/`, `$0`, `$:`, `$;`, `$<`, `$=`, `$>`, `$?`, `$@`, `$DEBUG`, `$FILENAME`, `$KCODE`, `$LOADED_FEATURES`, `$LOAD_PATH`, `$PROGRAM_NAME`, `$SAFE`, `$VERBOSE`, `$\`, `$_`, `$$`, `$stderr`, `$stdin`, `$stdout`, `$~`
+`$!`, `$"`, `$$`, `$&`, `$'`, `$*`, `$+`, `$,`, `$-0`, `$-F`, `$-I`, `$-W`, `$-a`, `$-d`, `$-i`, `$-l`, `$-p`, `$-v`, `$-w`, `$.`, `$/`, `$0`, `$:`, `$;`, `$<`, `$=`, `$>`, `$?`, `$@`, `$DEBUG`, `$FILENAME`, `$LOADED_FEATURES`, `$LOAD_PATH`, `$PROGRAM_NAME`, `$VERBOSE`, `$\`, `$_`, `$$`, `$stderr`, `$stdin`, `$stdout`, `$~`
 
 ## Also See
 

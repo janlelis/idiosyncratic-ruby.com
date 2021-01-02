@@ -7,7 +7,7 @@ commit: b2bd19014880f6a065962abb63300bf5cabea233
 
 This is an overview of all the special, two-letter (and other) global variables in Ruby, which Ruby [inherited from Perl](http://www.perlmonks.org/?node_id=353259).
 
-For the purpose of improving code readability, Ruby comes with [English.rb](https://github.com/ruby/ruby/blob/trunk/lib/English.rb) in its standard library (or [Deutsch.rb](https://github.com/janlelis/Deutsch.rb/blob/master/lib/Deutsch.rb) as gem), which provides non-cryptic aliases and some documentation.
+For the purpose of improving code readability, Ruby comes with [English.rb](https://github.com/ruby/ruby/blob/trunk/lib/English.rb) in its standard library (or [Deutsch.rb](https://github.com/janlelis/Deutsch.rb/blob/main/lib/Deutsch.rb) as gem), which provides non-cryptic aliases and some documentation.
 
 Ruby also defines some three-letter global variables that mirror CLI options (`$-…`)
 
@@ -71,9 +71,7 @@ Name               | Type      | Info
 -------------------|-----------|------------------
 $stdin             | global    | [IO in Ruby](https://robots.thoughtbot.com/io-in-ruby)
 $stderr            | global    | [IO in Ruby](https://robots.thoughtbot.com/io-in-ruby)
-$SAFE              | thread    | [Level 1: Tainting](http://phrogz.net/programmingruby/taint.html#table_20.1) (other levels were removed)
 $FILENAME          | read-only | The current file being read via ARGF. Same as [ARGF.filename](http://www.rubydoc.info/stdlib/core/ARGF#filename-instance_method).
-$KCODE, $-K        | defunct   | -
 $DEBUG, $-d        | global    | [Global Debug States](https://idiosyncratic-ruby.com/3-ruby-can-you-speak-louder.html#global-debug-state)
 $VERBOSE, $-v, $-w | global    | [Global Debug States](https://idiosyncratic-ruby.com/3-ruby-can-you-speak-louder.html#global-debug-state)
 $-W                | global    | [Global Debug States](https://idiosyncratic-ruby.com/3-ruby-can-you-speak-louder.html#global-debug-state)
