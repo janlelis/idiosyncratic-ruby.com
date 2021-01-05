@@ -11467,26 +11467,26 @@ endpoint #=&amp;gt; "/syntax"
 
 &lt;p&gt;Support for muting different categories of compile warnings has been introduced. This is a mechanism on top of the warning level reflected by the &lt;a href="/3-ruby-can-you-speak-louder.html#command-line-options-for-debug-modes"&gt;&lt;strong&gt;$VERBOSE&lt;/strong&gt; variable&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;You can now silence &lt;strong&gt;deprecation warnings:&lt;/strong&gt; These are aspects of the language which will be removed or changed in a future version of Ruby. One example is the infamous: &lt;code&gt;warning: Using the last argument as keyword parameters is deprecated; maybe ** should be added to the call&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;You can now silence &lt;strong&gt;deprecation warnings:&lt;/strong&gt; These are aspects of the language which will be removed or changed in a future version of Ruby. One example is the infamous: &lt;code&gt;warning: Using the last argument as keyword parameters is deprecated; maybe ** should be added to the call&lt;/code&gt;. Since Ruby 3.0, deprecation warnings are &lt;em&gt;not shown&lt;/em&gt; by default, so you will need to explicitly turn them on.&lt;/p&gt;
 
 &lt;p&gt;It is also possible to mute &lt;strong&gt;experimental features warnings:&lt;/strong&gt; These are new features of Ruby, which might not have a stable API yet, like the &lt;a href="/68-assignments-in-style.html"&gt;new pattern matching&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id="per-ruby"&gt;Per Ruby&lt;/h2&gt;
 
 &lt;pre&gt;&lt;code&gt;Warning[:experimental] = false
-Warning[:deprecated] = false
+Warning[:deprecated] = true
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id="per-cli"&gt;Per CLI&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code&gt;$ ruby -W:no-deprecated
-$ ruby -W:no-experimental
+&lt;pre&gt;&lt;code&gt;$ ruby -W:no-experimental
+$ ruby -W:deprecated
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id="per-env-variable"&gt;Per ENV Variable&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code&gt;$ RUBYOPT="-W:no-deprecated" ruby
-$ RUBYOPT="-W:no-experimental" ruby
+&lt;pre&gt;&lt;code&gt;$ RUBYOPT="-W:no-experimental" ruby
+$ RUBYOPT="-W:deprecated" ruby
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
@@ -24661,11 +24661,11 @@ a # =&amp;gt; "$"
 b # NameError: ...
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id="ruby-27-update-pattern-assignment"&gt;Ruby 2.7 Update: Pattern Assignment&lt;/h2&gt;
+&lt;h2 id="ruby-30-update-right-hand-assignment"&gt;Ruby 3.0 Update: Right Hand Assignment&lt;/h2&gt;
 
 &lt;p&gt;Whoa!&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;%w[$ €] in [a, b]
+&lt;pre&gt;&lt;code&gt;%w[$ €] =&amp;gt; [a, b]
 a # =&amp;gt; "$"
 b # =&amp;gt; "€"
 &lt;/code&gt;&lt;/pre&gt;
