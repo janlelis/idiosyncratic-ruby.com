@@ -13891,7 +13891,7 @@ p "".encoding # =&amp;gt; #&amp;lt;Encoding:Windows-1250&amp;gt;
 
 &lt;p&gt;The encoding can be any you could pass to &lt;a href="https://ruby-doc.org/core/Encoding.html#method-c-find"&gt;Encoding.find&lt;/a&gt;:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;Encoding.name_list # =&amp;gt; ["ASCII-8BIT", "UTF-8", "US-ASCII", "UTF-16BE", "UTF-16LE", "UTF-32BE", "UTF-32LE", "UTF-16", "UTF-32", "UTF8-MAC", "EUC-JP", "Windows-31J", "Big5", "Big5-HKSCS", "Big5-UAO", "CP949", "Emacs-Mule", "EUC-KR", "EUC-TW", "GB2312", "GB18030", "GBK", "ISO-8859-1", "ISO-8859-2", "ISO-8859-3", "ISO-8859-4", "ISO-8859-5", "ISO-8859-6", "ISO-8859-7", "ISO-8859-8", "ISO-8859-9", "ISO-8859-10", "ISO-8859-11", "ISO-8859-13", "ISO-8859-14", "ISO-8859-15", "ISO-8859-16", "KOI8-R", "KOI8-U", "Shift_JIS", "Windows-1250", "Windows-1251", "Windows-1252", "BINARY", "IBM437", "CP437", "IBM737", "CP737", "IBM775", "CP775", "CP850", "IBM850", "IBM852", "CP852", "IBM855", "CP855", "IBM857", "CP857", "IBM860", "CP860", "IBM861", "CP861", "IBM862", "CP862", "IBM863", "CP863", "IBM864", "CP864", "IBM865", "CP865", "IBM866", "CP866", "IBM869", "CP869", "Windows-1258", "CP1258", "GB1988", "macCentEuro", "macCroatian", "macCyrillic", "macGreek", "macIceland", "macRoman", "macRomania", "macThai", "macTurkish", "macUkraine", "CP950", "Big5-HKSCS:2008", "CP951", "IBM037", "ebcdic-cp-us", "stateless-ISO-2022-JP", "eucJP", "eucJP-ms", "euc-jp-ms", "CP51932", "EUC-JIS-2004", "EUC-JISX0213", "eucKR", "eucTW", "EUC-CN", "eucCN", "GB12345", "CP936", "ISO-2022-JP", "ISO2022-JP", "ISO-2022-JP-2", "ISO2022-JP2", "CP50220", "CP50221", "ISO8859-1", "ISO8859-2", "ISO8859-3", "ISO8859-4", "ISO8859-5", "ISO8859-6", "Windows-1256", "CP1256", "ISO8859-7", "Windows-1253", "CP1253", "ISO8859-8", "Windows-1255", "CP1255", "ISO8859-9", "Windows-1254", "CP1254", "ISO8859-10", "ISO8859-11", "TIS-620", "Windows-874", "CP874", "ISO8859-13", "Windows-1257", "CP1257", "ISO8859-14", "ISO8859-15", "ISO8859-16", "CP878", "MacJapanese", "MacJapan", "ASCII", "ANSI_X3.4-1968", "646", "UTF-7", "CP65000", "CP65001", "UTF-8-MAC", "UTF-8-HFS", "UCS-2BE", "UCS-4BE", "UCS-4LE", "CP932", "csWindows31J", "SJIS", "PCK", "CP1250", "CP1251", "CP1252", "UTF8-DoCoMo", "SJIS-DoCoMo", "UTF8-KDDI", "SJIS-KDDI", "ISO-2022-JP-KDDI", "stateless-ISO-2022-JP-KDDI", "UTF8-SoftBank", "SJIS-SoftBank", "locale", "external", "filesystem", "internal"]
+&lt;pre&gt;&lt;code&gt;Encoding.name_list # =&amp;gt; ["ASCII-8BIT", "UTF-8", "US-ASCII", "UTF-16BE", "UTF-16LE", "UTF-32BE", "UTF-32LE", "UTF-16", "UTF-32", "UTF8-MAC", "EUC-JP", "Windows-31J", "Big5", "Big5-HKSCS", "Big5-UAO", "CESU-8", "CP949", "Emacs-Mule", "EUC-KR", "EUC-TW", "GB18030", "GBK", "ISO-8859-1", "ISO-8859-2", "ISO-8859-3", "ISO-8859-4", "ISO-8859-5", "ISO-8859-6", "ISO-8859-7", "ISO-8859-8", "ISO-8859-9", "ISO-8859-10", "ISO-8859-11", "ISO-8859-13", "ISO-8859-14", "ISO-8859-15", "ISO-8859-16", "KOI8-R", "KOI8-U", "Shift_JIS", "Windows-1250", "Windows-1251", "Windows-1252", "Windows-1253", "Windows-1254", "Windows-1257", "BINARY", "IBM437", "CP437", "IBM720", "CP720", "IBM737", "CP737", "IBM775", "CP775", "CP850", "IBM850", "IBM852", "CP852", "IBM855", "CP855", "IBM857", "CP857", "IBM860", "CP860", "IBM861", "CP861", "IBM862", "CP862", "IBM863", "CP863", "IBM864", "CP864", "IBM865", "CP865", "IBM866", "CP866", "IBM869", "CP869", "Windows-1258", "CP1258", "GB1988", "macCentEuro", "macCroatian", "macCyrillic", "macGreek", "macIceland", "macRoman", "macRomania", "macThai", "macTurkish", "macUkraine", "CP950", "Big5-HKSCS:2008", "CP951", "IBM037", "ebcdic-cp-us", "stateless-ISO-2022-JP", "eucJP", "eucJP-ms", "euc-jp-ms", "CP51932", "EUC-JIS-2004", "EUC-JISX0213", "eucKR", "eucTW", "GB2312", "EUC-CN", "eucCN", "GB12345", "CP936", "ISO-2022-JP", "ISO2022-JP", "ISO-2022-JP-2", "ISO2022-JP2", "CP50220", "CP50221", "ISO8859-1", "ISO8859-2", "ISO8859-3", "ISO8859-4", "ISO8859-5", "ISO8859-6", "Windows-1256", "CP1256", "ISO8859-7", "ISO8859-8", "Windows-1255", "CP1255", "ISO8859-9", "ISO8859-10", "ISO8859-11", "TIS-620", "Windows-874", "CP874", "ISO8859-13", "ISO8859-14", "ISO8859-15", "ISO8859-16", "CP878", "MacJapanese", "MacJapan", "ASCII", "ANSI_X3.4-1968", "646", "UTF-7", "CP65000", "CP65001", "UTF-8-MAC", "UTF-8-HFS", "UCS-2BE", "UCS-4BE", "UCS-4LE", "CP932", "csWindows31J", "SJIS", "PCK", "CP1250", "CP1251", "CP1252", "CP1253", "CP1254", "CP1257", "UTF8-DoCoMo", "SJIS-DoCoMo", "UTF8-KDDI", "SJIS-KDDI", "ISO-2022-JP-KDDI", "stateless-ISO-2022-JP-KDDI", "UTF8-SoftBank", "SJIS-SoftBank", "locale", "external", "filesystem", "internal"]
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;¹ See &lt;a href="/56-us-ascii-8bit.html"&gt;US-ASCII-8BIT&lt;/a&gt; for an explanation of the difference between the both ASCII encodings&lt;br /&gt;
@@ -13924,10 +13924,32 @@ def method_name
 
 &lt;p&gt;This warning also appears when running Ruby with the &lt;a href="/3-ruby-can-you-speak-louder.html#command-line-options-for-debug-modes"&gt;&lt;code&gt;-w&lt;/code&gt; command-line option&lt;/a&gt;, but the magic comment will always overwrite the behavior of the source file in question.&lt;/p&gt;
 
+&lt;h3 id="auto-freeze-constants"&gt;Auto-Freeze Constants&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Introduced in Ruby 3.0&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# sharable_constant_value: literal
+X = [{foo: []}]
+# =&amp;gt; same as [{foo: [].freeze}.freeze].freeze
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Part of &lt;a href="https://ruby-doc.org/core/Ractor.html"&gt;Ruby 3.0 Ractor&lt;/a&gt;, this magic comment helps you to create frozen, sharable objects. It can take one these four values:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;none&lt;/code&gt; - No special constant assignments&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;literal&lt;/code&gt; - Freezes literals assigned to constants&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;experimental_everywhere&lt;/code&gt; - Freezes everything assigned to constants&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;experimental_copy&lt;/code&gt; - Freezes everything assigned to constants, "dynamic" objects will be copied so the originally referenced object will not get frozen&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Differently from the other comments, it can be placed anywhere in the file. It will affect all subsequent statements within the same module scope.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://ruby-doc.org/core/doc/syntax/comments_rdoc.html#label-shareable_constant_value+Directive"&gt;Documentation&lt;/a&gt;.&lt;/p&gt;
+
 &lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href="https://github.com/ruby/ruby/blob/v2_6_0/parse.y#L6687-L6690"&gt;List of magic comments defined in Ruby's grammar&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://github.com/ruby/ruby/blob/v3_0_0/parse.y#L8085-L8094"&gt;List of magic comments defined in Ruby's grammar&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
   </entry>
@@ -19947,6 +19969,8 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
     </author>
     <content type="html">&lt;p&gt;Programming languages have been, and will always be categorized by their &lt;a href="https://en.wikipedia.org/wiki/Type_system"&gt;typing system&lt;/a&gt;. Naturally, large parts of the Ruby community (including myself) have some kind of aversion against static typing. But while Ruby goes down the route of being dynamically typed that does not mean that you are not allowed to use some form of types!&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;2020 update:&lt;/strong&gt; &lt;a href="https://rubyreferences.github.io/rubychanges/3.0.html#types"&gt;Ruby 3.0 introduced types&lt;/a&gt;&lt;/p&gt;
+
 &lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;Put differently, nothing is wrong with ensuring a specific behavior of arguments given to, or received from a method. You sometimes do it anyways, for example:&lt;/p&gt;
@@ -20029,14 +20053,15 @@ B.rev 42
   &lt;li&gt;Help us all writing better programs&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;&lt;strong&gt;2020 update:&lt;/strong&gt; &lt;a href="https://rubyreferences.github.io/rubychanges/3.0.html#types"&gt;Ruby 3.0 introduced types&lt;/a&gt;&lt;/p&gt;
+
 &lt;h2 id="further-reading"&gt;Further Reading&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href="https://bugs.ruby-lang.org/issues/9999"&gt;Ruby Issue Tracking System: Feature #9999&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href="https://www.omniref.com/blog/2014/11/17/matz-at-rubyconf-2014-will-ruby-3-dot-0-be-statically-typed/"&gt;Will Ruby 3.0 be Statically Typed?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href="https://tonyarcieri.com/an-open-letter-to-matz-on-ruby-type-systems"&gt;An open letter to Matz on Ruby type systems&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href="http://blog.codeclimate.com/blog/2014/05/06/gradual-type-checking-for-ruby/"&gt;Gradual Type Checking for Ruby&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href="http://crystal-lang.org/2016/05/05/crystal-0.16.0-released.html"&gt;Types in Crystal&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Official: &lt;a href="https://github.com/ruby/rbs"&gt;rbs&lt;/a&gt; and &lt;a href="https://github.com/ruby/typeprof"&gt;typeprof&lt;/a&gt; gems&lt;/li&gt;
+  &lt;li&gt;Alternative: &lt;a href="https://sorbet.org/"&gt;sorbet&lt;/a&gt; type checker&lt;/li&gt;
+  &lt;li&gt;Older approach: &lt;a href="http://blog.codeclimate.com/blog/2014/05/06/gradual-type-checking-for-ruby/"&gt;Gradual Type Checking for Ruby&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;How it is done in a close language: &lt;a href="http://crystal-lang.org/2016/05/05/crystal-0.16.0-released.html"&gt;Types in Crystal&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
   </entry>
