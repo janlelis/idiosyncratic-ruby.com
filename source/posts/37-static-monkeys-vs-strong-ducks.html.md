@@ -7,6 +7,8 @@ commit: cad922af6e336f347d193ad8cb22b92200265f27
 
 Programming languages have been, and will always be categorized by their [typing system](https://en.wikipedia.org/wiki/Type_system). Naturally, large parts of the Ruby community (including myself) have some kind of aversion against static typing. But while Ruby goes down the route of being dynamically typed that does not mean that you are not allowed to use some form of types!
 
+**2020 update:** [Ruby 3.0 introduced types](https://rubyreferences.github.io/rubychanges/3.0.html#types)
+
 ARTICLE
 
 Put differently, nothing is wrong with ensuring a specific behavior of arguments given to, or received from a method. You sometimes do it anyways, for example:
@@ -70,7 +72,7 @@ There is also some [academic work](http://www.cs.umd.edu/~jfoster/papers/oops13.
 
 ## Future
 
-But isn't the point of Ruby being a dynamic language and not having to care about types? 
+But isn't the point of Ruby being a dynamic language and not having to care about types?
 
 …which is true and false at the same time. We are still dealing with types, since we do type checks all the time. Type checking is not a binary question. As a matter of fact, some form of static typing will [perhaps be introduced in Ruby 3.0](http://confreaks.tv/videos/rubyconf2014-opening-keynote)!
 
@@ -84,10 +86,11 @@ Types are not evil, they are all around us. Ruby 3.0 may include a new typing sy
 - Perhaps use [gradual typing](https://en.wikipedia.org/wiki/Gradual_typing)
 - Help us all writing better programs
 
+**2020 update:** [Ruby 3.0 introduced types](https://rubyreferences.github.io/rubychanges/3.0.html#types)
+
 ## Further Reading
 
-- [Ruby Issue Tracking System: Feature #9999](https://bugs.ruby-lang.org/issues/9999)
-- [Will Ruby 3.0 be Statically Typed?](https://www.omniref.com/blog/2014/11/17/matz-at-rubyconf-2014-will-ruby-3-dot-0-be-statically-typed/)
-- [An open letter to Matz on Ruby type systems](https://tonyarcieri.com/an-open-letter-to-matz-on-ruby-type-systems)
-- [Gradual Type Checking for Ruby](http://blog.codeclimate.com/blog/2014/05/06/gradual-type-checking-for-ruby/)
-- [Types in Crystal](http://crystal-lang.org/2016/05/05/crystal-0.16.0-released.html)
+- Official: [rbs](https://github.com/ruby/rbs) and [typeprof](https://github.com/ruby/typeprof) gems
+- Alternative: [sorbet](https://sorbet.org/) type checker
+- Older approach: [Gradual Type Checking for Ruby](http://blog.codeclimate.com/blog/2014/05/06/gradual-type-checking-for-ruby/)
+- How it is done in a close language: [Types in Crystal](http://crystal-lang.org/2016/05/05/crystal-0.16.0-released.html)
