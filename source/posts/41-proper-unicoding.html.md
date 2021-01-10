@@ -40,7 +40,7 @@ Ruby will strip all spaces, dashes, underscores from the given property and conv
 
 See table at [Episode 73: Unicode Version Mapping](/73-unicode-version-mapping.html)
 
-## List of Properties as of Ruby 2.6 / Unicode 11.0
+## List of Properties as of Ruby 3.0 / Unicode 12.1
 
 ### General Category
 
@@ -91,7 +91,7 @@ The age property lets you find out the required Unicode version to display a str
 
 ### Combined/POSIX like Properties
 
-All properties of the [POSIX brackets syntax](http://www.regular-expressions.info/posixbrackets.html) are available with the `\p` syntax: For example, `[[:print:]]` simply becomes `\p{print}`. You can find the full list of properties in [Episode 30: Regex with Class](https://idiosyncratic-ruby.com/30-regex-with-class.html#posix-and--unicode-property-style).
+All properties of the [POSIX brackets syntax](https://www.regular-expressions.info/posixbrackets.html) are available with the `\p` syntax: For example, `[[:print:]]` simply becomes `\p{print}`. You can find the full list of properties in [Episode 30: Regex with Class](/30-regex-with-class.html#posix-and--unicode-property-style).
 
 ### Generic Properties
 
