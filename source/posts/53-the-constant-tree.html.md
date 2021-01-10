@@ -5,7 +5,7 @@ tags: core, constants
 commit: ff20753adf4e143c64cfc55bd2f71c7975b7956c
 ---
 
-Generated with Ruby 2.7.0, including RubyGems and [DidYouMean](https://stdgems.org/did_you_mean/):
+Generated with Ruby 3.0.0, including RubyGems and [DidYouMean](https://stdgems.org/did_you_mean/):
 
 <pre id="constant-tree">Object (Class)
 ├─ARGF (ARGF.class)
