@@ -113,7 +113,7 @@ RubyGems also provides a [`deprecate` method](http://docs.seattlerb.org/rubygems
     module Kernel
       extend Gem::Deprecate
       deprecate :puts, :none, 2020, 12
-      deprecate :format, :sprintf, 2016, 05
+      deprecate :format, :sprintf, 2016, 5
     end
 
     puts "test"
