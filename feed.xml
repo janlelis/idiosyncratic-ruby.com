@@ -15225,7 +15225,7 @@ Array.try_convert(o) # =&amp;gt; [42]
     <author>
       <name>Jan Lelis</name>
     </author>
-    <content type="html">&lt;p&gt;Generated with Ruby 2.7.0, including RubyGems and &lt;a href="https://stdgems.org/did_you_mean/"&gt;DidYouMean&lt;/a&gt;:&lt;/p&gt;
+    <content type="html">&lt;p&gt;Generated with Ruby 3.0.0, including RubyGems and &lt;a href="https://stdgems.org/did_you_mean/"&gt;DidYouMean&lt;/a&gt;:&lt;/p&gt;
 
 &lt;pre id="constant-tree"&gt;Object (Class)
 ├─ARGF (ARGF.class)
@@ -19606,7 +19606,7 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
 
 &lt;p&gt;See table at &lt;a href="/73-unicode-version-mapping.html"&gt;Episode 73: Unicode Version Mapping&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id="list-of-properties-as-of-ruby-26--unicode-110"&gt;List of Properties as of Ruby 2.6 / Unicode 11.0&lt;/h2&gt;
+&lt;h2 id="list-of-properties-as-of-ruby-30--unicode-121"&gt;List of Properties as of Ruby 3.0 / Unicode 12.1&lt;/h2&gt;
 
 &lt;h3 id="general-category"&gt;General Category&lt;/h3&gt;
 
@@ -19664,7 +19664,7 @@ RbConfig::SIZEOF # =&amp;gt; {"int"=&amp;gt;4, "short"=&amp;gt;2, "long"=&amp;gt
 
 &lt;h3 id="combinedposix-like-properties"&gt;Combined/POSIX like Properties&lt;/h3&gt;
 
-&lt;p&gt;All properties of the &lt;a href="http://www.regular-expressions.info/posixbrackets.html"&gt;POSIX brackets syntax&lt;/a&gt; are available with the &lt;code&gt;\p&lt;/code&gt; syntax: For example, &lt;code&gt;[[:print:]]&lt;/code&gt; simply becomes &lt;code&gt;\p{print}&lt;/code&gt;. You can find the full list of properties in &lt;a href="https://idiosyncratic-ruby.com/30-regex-with-class.html#posix-and--unicode-property-style"&gt;Episode 30: Regex with Class&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;All properties of the &lt;a href="https://www.regular-expressions.info/posixbrackets.html"&gt;POSIX brackets syntax&lt;/a&gt; are available with the &lt;code&gt;\p&lt;/code&gt; syntax: For example, &lt;code&gt;[[:print:]]&lt;/code&gt; simply becomes &lt;code&gt;\p{print}&lt;/code&gt;. You can find the full list of properties in &lt;a href="/30-regex-with-class.html#posix-and--unicode-property-style"&gt;Episode 30: Regex with Class&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h3 id="generic-properties"&gt;Generic Properties&lt;/h3&gt;
 
@@ -20358,7 +20358,7 @@ puts Gem::Util.traverse_parents('.').to_a
 module Kernel
   extend Gem::Deprecate
   deprecate :puts, :none, 2020, 12
-  deprecate :format, :sprintf, 2016, 05
+  deprecate :format, :sprintf, 2016, 5
 end
 
 puts "test"
