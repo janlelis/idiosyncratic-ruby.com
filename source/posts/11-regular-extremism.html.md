@@ -14,7 +14,7 @@ ARTICLE
 Regular expressions can have embedded conditionals (*if-then-else*) with `(?ref)then|else`. "ref" stands for a group reference (number or name of a capture group):
 
     # will match everything if string contains "ä", or only match first two chars
-    regex = /(?=(.*ä))?(?(1).*|..)/
+    regex = /(.*ä)?(?(1).*|..)/
 
     "Ruby"[regex] #=> "Ru"
     "Idiosyncrätic"[regex] #=> "Idiosyncrätic"
