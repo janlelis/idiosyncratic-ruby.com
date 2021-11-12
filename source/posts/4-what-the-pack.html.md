@@ -339,7 +339,7 @@ Fills with null bytes when packing:
 
 ### A | Arbitrary String (Clean Null Bytes)
 
-Like **a**, but removes spaces and null bytes when unpacking:
+Like **a**, but removes trailing spaces and null bytes when unpacking:
 
     "Idiosyncrätic    \0 ".unpack("A20")
     # => ["Idiosyncr\xC3\xA4tic"]
