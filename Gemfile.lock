@@ -161,7 +161,7 @@ GEM
     rack (1.6.13)
     rack-test (0.6.3)
       rack (>= 1.0)
-    rake (13.0.1)
+    rake (13.0.6)
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
@@ -211,4 +211,4 @@ DEPENDENCIES
   nokogiri
 
 BUNDLED WITH
-   1.17.2
+   1.17.3
