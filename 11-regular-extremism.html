@@ -33,7 +33,7 @@
 <p>Regular expressions can have embedded conditionals (<em>if-then-else</em>) with <code>(?ref)then|else</code>. "ref" stands for a group reference (number or name of a capture group):</p>
 
 <pre><code># will match everything if string contains "ä", or only match first two chars
-regex = /(?=(.*ä))?(?(1).*|..)/
+regex = /(.*ä)?(?(1).*|..)/
 
 "Ruby"[regex] #=&gt; "Ru"
 "Idiosyncrätic"[regex] #=&gt; "Idiosyncrätic"
@@ -178,7 +178,7 @@ string[/\X\X/] #=&gt; "R̊u"
           <a href="https://janlelis.com/data-protection.html">Data Protection</a>
         </div>
         About Strings, Rexex<br>
-        Last Update: December 25, 2017
+        Last Update: November 12, 2021
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

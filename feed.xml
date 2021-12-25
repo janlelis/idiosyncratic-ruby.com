@@ -888,6 +888,10 @@ test! # =&amp;gt; [:example!, :test!]
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;3.1&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;13.0.0&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
       &lt;td&gt;&lt;strong&gt;3.0&lt;/strong&gt;&lt;/td&gt;
       &lt;td&gt;&lt;strong&gt;12.1.0&lt;/strong&gt;&lt;/td&gt;
     &lt;/tr&gt;
@@ -955,6 +959,10 @@ test! # =&amp;gt; [:example!, :test!]
     &lt;/tr&gt;
   &lt;/thead&gt;
   &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;3.1&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;13.1&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;strong&gt;3.0&lt;/strong&gt;&lt;/td&gt;
       &lt;td&gt;&lt;strong&gt;12.1&lt;/strong&gt;&lt;/td&gt;
@@ -24842,7 +24850,7 @@ b # =&amp;gt; "€"
 &lt;p&gt;Regular expressions can have embedded conditionals (&lt;em&gt;if-then-else&lt;/em&gt;) with &lt;code&gt;(?ref)then|else&lt;/code&gt;. "ref" stands for a group reference (number or name of a capture group):&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;# will match everything if string contains "ä", or only match first two chars
-regex = /(?=(.*ä))?(?(1).*|..)/
+regex = /(.*ä)?(?(1).*|..)/
 
 "Ruby"[regex] #=&amp;gt; "Ru"
 "Idiosyncrätic"[regex] #=&amp;gt; "Idiosyncrätic"
@@ -26840,7 +26848,7 @@ puts "#{`ps -o rss -p #{Process.pid}`.strip.split.last.to_i / 1024.0} MB"
 
 &lt;h3 id="a--arbitrary-string-clean-null-bytes"&gt;A | Arbitrary String (Clean Null Bytes)&lt;/h3&gt;
 
-&lt;p&gt;Like &lt;strong&gt;a&lt;/strong&gt;, but removes spaces and null bytes when unpacking:&lt;/p&gt;
+&lt;p&gt;Like &lt;strong&gt;a&lt;/strong&gt;, but removes trailing spaces and null bytes when unpacking:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;"Idiosyncrätic    \0 ".unpack("A20")
 # =&amp;gt; ["Idiosyncr\xC3\xA4tic"]
