@@ -71,7 +71,7 @@ Idiosyncratically, there is a third way of converting values: *Uppercased Kernel
  Array | [Array.try_convert](https://ruby-doc.org/core/Array.html#method-c-try_convert) | [Array()](https://ruby-doc.org/core/Kernel.html#method-i-Array) | `Array(nil) # => []` | If `:to_ary` and `:to_a` did not return an array, it will create single-element array which contains the given value
  Hash | [Hash.try_convert](https://ruby-doc.org/core/Hash.html#method-c-try_convert) | [Hash()](https://ruby-doc.org/core/Kernel.html#method-i-Hash) | `Hash(nil) # => {}` | `Hash([]) # => {}`. Also remember that you can convert arrays to hashes with [Hash.[]](https://ruby-doc.org/core/Hash.html#method-c-5B-5D).
  String   | [String.try_convert](https://ruby-doc.org/core/String.html#method-c-try_convert) | [String()](https://ruby-doc.org/core/Kernel.html#method-i-String) | `String(nil) # => ""` | -
- Integer  | - | [Integer()](https://ruby-doc.org/core/Kernel.html#method-i-Integer) | `Integer(nil) # TypeError` | Special behavior for strings: Instead of calling [String#to_i](https://ruby-doc.org/core/String.html#method-i-to_i), it will be more rigid². Takes a second argument defining the [numerical base](https://en.wikipedia.org/wiki/Radix). Also see ³
+ Integer  | [Integer.try_convert](https://ruby-doc.org/core/Integer.html#method-c-try_convert)⁴ | [Integer()](https://ruby-doc.org/core/Kernel.html#method-i-Integer) | `Integer(nil) # TypeError` | Special behavior for strings: Instead of calling [String#to_i](https://ruby-doc.org/core/String.html#method-i-to_i), it will be more rigid². Takes a second argument defining the [numerical base](https://en.wikipedia.org/wiki/Radix). Also see ³
  Float    | - | [Float()](https://ruby-doc.org/core/Kernel.html#method-i-Float) | `Float(nil) # TypeError` | - ³
  Complex  | - | [Complex()](https://ruby-doc.org/core/Kernel.html#method-i-Complex) | `Complex(nil) # TypeError` | -
  Rational | - | [Rational()](https://ruby-doc.org/core/Kernel.html#method-i-Rational) | `Rational(nil) # TypeError` | -
@@ -82,7 +82,8 @@ Idiosyncratically, there is a third way of converting values: *Uppercased Kernel
 .
 
 ² It will only convert strings that contain exactly an integer. It would not accept "42A", which `String#to_i` would happily take. It also accepts [radix prefixes and numbers that contain underscores](https://idiosyncratic-ruby.com/39-fixed-numbers.html), so basically it accepts the same format that is valid for direct integer literals in Ruby. Will raise an `ArgumentError` if an invalid string is passed in.<br/>
-³ It will convert to other low-level numerical types (such as integers and floats) directly, so `Float(4)` will *not* call `4.to_f`
+³ It will convert to other low-level numerical types (such as integers and floats) directly, so `Float(4)` will *not* call `4.to_f`<br>
+⁴ Added in Ruby 3.1
 
 ## When to Use What?
 
