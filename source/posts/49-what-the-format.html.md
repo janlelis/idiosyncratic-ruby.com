@@ -85,7 +85,7 @@ Besides the two main styles, there exists a shorthand syntax for using format st
     "--> %{first} -- %{second} <--".% first: 1, second: 2
     # => --> 1 -- 2 <--
 
-Though you will use the ability to apply a formatting type (see below), it is concise and looks good. At its core, it is templating built into the language!
+Though you will lose the ability to apply a formatting type (see below), it is concise and looks good. At its core, it is templating built into the language!
 
 ### Referencing: Absolute Positioning
 
