@@ -16704,7 +16704,7 @@ end
 # =&amp;gt; --&amp;gt; 1 -- 2 &amp;lt;--
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Though you will use the ability to apply a formatting type (see below), it is concise and looks good. At its core, it is templating built into the language!&lt;/p&gt;
+&lt;p&gt;Though you will lose the ability to apply a formatting type (see below), it is concise and looks good. At its core, it is templating built into the language!&lt;/p&gt;
 
 &lt;h3 id="referencing-absolute-positioning"&gt;Referencing: Absolute Positioning&lt;/h3&gt;
 
@@ -23033,7 +23033,7 @@ $ ruby -r uri -e 'p URI.regexp'
     </author>
     <content type="html">&lt;p&gt;A guide to Ruby's stdlib and available alternatives.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Also see:&lt;/strong&gt; The standard library is being turned into gems: &lt;a href="https://stdgems.org"&gt;stdgems.org&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Please note:&lt;/strong&gt; The standard library was turned into gems, see &lt;a href="https://stdgems.org"&gt;stdgems.org&lt;/a&gt; for up-to-date information on all standard gems!&lt;/p&gt;
 
 &lt;h2 id="standard-library-overview"&gt;Standard Library Overview&lt;/h2&gt;
 
