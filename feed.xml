@@ -14809,6 +14809,7 @@ Time.local(2016, 5, 24).to_datetime.strftime("%Z") # =&amp;gt; "+02:00"
 &lt;h2 id="also-see"&gt;Also See&lt;/h2&gt;
 
 &lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://strftimeslikethese.com/"&gt;Interactive examples: "Strftimes Like These"&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="/4-what-the-pack.html"&gt;What the Pack?&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="/49-what-the-format.html"&gt;What the Format?&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href="/64-what-the-regex.html"&gt;What the Regex?&lt;/a&gt;&lt;/li&gt;
