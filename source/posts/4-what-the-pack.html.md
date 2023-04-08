@@ -534,8 +534,16 @@ This keyword argument for `Array#pack` lets you use an existing (already allocat
 ² You can manually create string buffers of a specific size with another new keyword option:<br/>[`String.new(..., capacity: ...)`](https://ruby-doc.org/core/String.html#method-c-new)<br/>
 ³ See the [RDoc](https://ruby-doc.org/core/Array.html#method-i-pack) for more info how the buffer argument is handled exactly
 
+## New Features in Ruby 3.2
+
+### `offset:` Option for `String#unpack` / `String#unpack1`
+
+"Idiosyncrätic".unpack1("C*", offset: 1) #=> 100 ("d")
+
+
 ## Resources
 
+- Ruby's own packing documentation has much improved: [Packed Data](https://ruby-doc.org/core/packed_data_rdoc.html)
 - [RDoc: String#unpack](https://ruby-doc.org/core/String.html#method-i-unpack)
 - [RDoc: Array#pack](https://ruby-doc.org/core/Array.html#method-i-pack)
 - [Source: pack.c](https://github.com/ruby/ruby/blob/trunk/pack.c)
