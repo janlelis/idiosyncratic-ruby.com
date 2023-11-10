@@ -22,6 +22,8 @@ See [Magic Instructions](/58-magic-instructions.html) for more information about
 
 ## Respecting the Encoding Comment when Reading a File
 
+**REMOVED IN RUBY 3.3!**
+
 You might come across a situation, where you want to read in a source file using Ruby's [File](https://ruby-doc.org/core/File.html) class, but also want to set the proper encoding from the magic comment. Fortunately, Ruby's standard library supports this. Unfortunately, it is not a stand-alone module, but a part of IRB:
 
     >> require 'irb/magic-file'
