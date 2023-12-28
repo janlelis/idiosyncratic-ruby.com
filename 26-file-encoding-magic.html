@@ -43,6 +43,8 @@ p "".encoding #=&gt; #&lt;Encoding:Windows-1252&gt;
 
 <h2 id="respecting-the-encoding-comment-when-reading-a-file">Respecting the Encoding Comment when Reading a File</h2>
 
+<p><strong>REMOVED IN RUBY 3.3!</strong></p>
+
 <p>You might come across a situation, where you want to read in a source file using Ruby's <a href="https://ruby-doc.org/core/File.html">File</a> class, but also want to set the proper encoding from the magic comment. Fortunately, Ruby's standard library supports this. Unfortunately, it is not a stand-alone module, but a part of IRB:</p>
 
 <pre><code>&gt;&gt; require 'irb/magic-file'
@@ -77,7 +79,7 @@ p "".encoding #=&gt; #&lt;Encoding:Windows-1252&gt;
           <a href="https://janlelis.com/data-protection.html">Data Protection</a>
         </div>
         About Core, Encoding, Stdlib<br>
-        Last Update: December 28, 2018
+        Last Update: November 10, 2023
       </footer>
     </div>
     <script src="/javascripts/rainbow-custom.min.js" type="text/javascript"></script>

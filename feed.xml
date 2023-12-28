@@ -888,6 +888,10 @@ test! # =&amp;gt; [:example!, :test!]
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;3.3&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;15.0.0&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
       &lt;td&gt;&lt;strong&gt;3.2&lt;/strong&gt;&lt;/td&gt;
       &lt;td&gt;&lt;strong&gt;15.0.0&lt;/strong&gt;&lt;/td&gt;
     &lt;/tr&gt;
@@ -963,6 +967,10 @@ test! # =&amp;gt; [:example!, :test!]
     &lt;/tr&gt;
   &lt;/thead&gt;
   &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;3.3&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;15.0&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;strong&gt;3.2&lt;/strong&gt;&lt;/td&gt;
       &lt;td&gt;&lt;strong&gt;15.0&lt;/strong&gt;&lt;/td&gt;
@@ -15913,7 +15921,19 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ ├─OPTS (Array)
 │ └─Profiler (Module)
 ├─Gem (Module)
+│ ├─BUNDLED_GEMS (Module)
+│ │ ├─ARCHDIR (String)
+│ │ ├─DLEXT (Regexp)
+│ │ ├─EXACT (Hash)
+│ │ ├─LIBDIR (String)
+│ │ ├─LIBEXT (Regexp)
+│ │ ├─PREFIXED (Hash)
+│ │ ├─SINCE (Hash)
+│ │ └─WARNED (Hash)
 │ ├─BasicSpecification (Class)
+│ ├─CIDetector (Module)
+│ │ ├─ENV_DESCRIPTORS (Hash)
+│ │ └─ENV_INDICATORS (Array)
 │ ├─CommandLineError (Class)
 │ ├─ConfigFile (Class)
 │ │ ├─DEFAULT_BACKTRACE (TrueClass)
@@ -15955,11 +15975,15 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ ├─InvalidSpecificationException (Class)
 │ ├─LOADED_SPECS_MUTEX (Thread::Mutex)
 │ ├─Licenses (Class)
+│ │ ├─DEPRECATED_EXCEPTION_IDENTIFIERS (Array)
+│ │ ├─DEPRECATED_EXCEPTION_REGEXP (Regexp)
+│ │ ├─DEPRECATED_LICENSE_IDENTIFIERS (Array)
+│ │ ├─DEPRECATED_LICENSE_REGEXP (Regexp)
 │ │ ├─EXCEPTION_IDENTIFIERS (Array)
 │ │ ├─LICENSE_IDENTIFIERS (Array)
 │ │ ├─LICENSE_REF (String)
 │ │ ├─NONSTANDARD (String)
-│ │ └─REGEXP (Regexp)
+│ │ └─VALID_REGEXP (Regexp)
 │ ├─List (Class)
 │ ├─LoadError (Class)
 │ ├─MARSHAL_SPEC_DIR (String)
@@ -15999,7 +16023,7 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ │ ├─OPS (Hash)
 │ │ ├─PATTERN (Regexp)
 │ │ ├─PATTERN_RAW (String)
-│ │ └─SOURCE_SET_REQUIREMENT (#&amp;lt;Class:0x00007fa3e591f330&amp;gt;)
+│ │ └─SOURCE_SET_REQUIREMENT (#&amp;lt;Class:0x00007fa4ce6f7a00&amp;gt;)
 │ ├─Resolver (Class)
 │ │ ├─APISet (Class)
 │ │ │ └─GemParser (Class)
@@ -16082,7 +16106,7 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ │ ├─LATEST_RUBY_WITHOUT_PATCH_VERSIONS (Gem::Version)
 │ │ ├─MARSHAL_FIELDS (Hash)
 │ │ ├─NONEXISTENT_SPECIFICATION_VERSION (Integer)
-│ │ ├─NOT_FOUND (#&amp;lt;Class:0x00007fa3e591ecf0&amp;gt;)
+│ │ ├─NOT_FOUND (#&amp;lt;Class:0x00007fa4ce6f6060&amp;gt;)
 │ │ ├─REMOVED_METHODS (Array)
 │ │ ├─SPECIFICATION_VERSION_HISTORY (Hash)
 │ │ ├─TODAY (Time)
@@ -16103,7 +16127,6 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ │   ├─REQUIRE_PATHS (Hash)
 │ │   └─REQUIRE_PATH_LIST (Hash)
 │ ├─SystemExitException (Class)
-│ ├─UNTAINT (Proc)
 │ ├─UninstallError (Class)
 │ ├─UnknownCommandError (Class)
 │ ├─UnknownCommandSpellChecker (Class)
@@ -16121,9 +16144,10 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ │ │ ├─OPS (Hash)
 │ │ │ ├─PATTERN (Regexp)
 │ │ │ ├─PATTERN_RAW (String)
-│ │ │ └─SOURCE_SET_REQUIREMENT (#&amp;lt;Class:0x00007fa3e591f330&amp;gt;)
+│ │ │ └─SOURCE_SET_REQUIREMENT (#&amp;lt;Class:0x00007fa4ce6f7a00&amp;gt;)
 │ │ └─VERSION_PATTERN (String)
-│ └─WIN_PATTERNS (Array)
+│ ├─WIN_PATTERNS (Array)
+│ └─WebauthnVerificationError (Class)
 ├─Hash (Class)
 ├─IO (Class)
 │ ├─Buffer (Class)
@@ -16196,6 +16220,7 @@ Array.try_convert(o) # =&amp;gt; [42]
 ├─Numeric (Class)
 ├─Object → Object
 ├─ObjectSpace (Module)
+│ ├─WeakKeyMap (Class)
 │ └─WeakMap (Class)
 ├─Proc (Class)
 ├─Process (Module)
@@ -16284,8 +16309,8 @@ Array.try_convert(o) # =&amp;gt; [42]
 │ ├─DEFAULT_PARAMS (Hash)
 │ ├─INSTRUCTION_NAMES (Array)
 │ ├─InstructionSequence (Class)
-│ ├─MJIT (Module)
-│ └─OPTS (Array)
+│ ├─OPTS (Array)
+│ └─RJIT (Module)
 ├─RuntimeError (Class)
 ├─STDERR (IO)
 ├─STDIN (IO)
@@ -16293,7 +16318,8 @@ Array.try_convert(o) # =&amp;gt; [42]
 ├─ScriptError (Class)
 ├─SecurityError (Class)
 ├─Set (Class)
-│ └─InspectKey (Symbol)
+│ ├─InspectKey (Symbol)
+│ └─VERSION (String)
 ├─Signal (Module)
 ├─SignalException (Class)
 ├─SizedQueue (Class)
@@ -22376,6 +22402,8 @@ p "".encoding #=&amp;gt; #&amp;lt;Encoding:Windows-1252&amp;gt;
 &lt;p&gt;See &lt;a href="/58-magic-instructions.html"&gt;Magic Instructions&lt;/a&gt; for more information about magic comments in general.&lt;/p&gt;
 
 &lt;h2 id="respecting-the-encoding-comment-when-reading-a-file"&gt;Respecting the Encoding Comment when Reading a File&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;REMOVED IN RUBY 3.3!&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;You might come across a situation, where you want to read in a source file using Ruby's &lt;a href="https://ruby-doc.org/core/File.html"&gt;File&lt;/a&gt; class, but also want to set the proper encoding from the magic comment. Fortunately, Ruby's standard library supports this. Unfortunately, it is not a stand-alone module, but a part of IRB:&lt;/p&gt;
 
