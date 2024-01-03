@@ -176,6 +176,7 @@ Note that you can get to the same result using [the special *pre-* and *post mat
 - [`re` method (part of irb.tools)](https://github.com/janlelis/debugging#restring-regex-groups--nil) - Displays first match (including capture groups) in the terminal
 - [Rubular](http://rubular.com/) - Online regex testing
 - [Onigmo](https://github.com/k-takata/Onigmo/blob/master/doc/RE) - Upstream repository of Ruby's regex engine
+- [Cyrilex](https://extendsclass.com/regex-tester.html#ruby) - Online regex tester and visualizer
 
 ## Also See
 
