@@ -1,5 +1,5 @@
 xml.instruct!
-xml.feed "xmlns" => "https://www.w3.org/2005/Atom" do
+xml.feed "xmlns" => "http://www.w3.org/2005/Atom" do
   site_url = "https://idiosyncratic-ruby.com/index/"
   xml.title "Idiosyncratic Ruby"
   xml.subtitle "Documenting All Ruby Specialities"
